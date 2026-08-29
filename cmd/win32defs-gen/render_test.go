@@ -1,0 +1,93 @@
+package main
+
+import (
+	"bytes"
+	"strings"
+	"testing"
+)
+
+func TestParseGUID(t *testing.T) {
+	t.Parallel()
+
+	parts, err := parseGUID("00000000-0000-0000-c000-000000000046")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if parts.Data4 != [8]byte{0xc0, 0, 0, 0, 0, 0, 0, 0x46} {
+		t.Fatalf("unexpected Data4: %#v", parts.Data4)
+	}
+}
+
+func TestParsePropertyKey(t *testing.T) {
+	t.Parallel()
+
+	parts, propertyID, err := parsePropertyKey("{3305783056, 43612, 16967, 184, 48, 214, 166, 248, 234, 163, 16}, 4")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if parts.Data1 != 3305783056 || propertyID != 4 {
+		t.Fatalf("unexpected property key: %#v, %d", parts, propertyID)
+	}
+}
+
+func TestWriteGeneratedComment(t *testing.T) {
+	t.Parallel()
+
+	var output bytes.Buffer
+
+	writeGeneratedComment(&output, "VALUE", `Uses <b>official</b> text &amp; preserves the meaning.`)
+
+	got := output.String()
+	if got != "\t// VALUE: Uses official text & preserves the meaning.\n" {
+		t.Fatalf("comment = %q", got)
+	}
+}
+
+func TestWrapComment(t *testing.T) {
+	t.Parallel()
+
+	lines := wrapComment("VALUE: one two three four", 16)
+	if strings.Join(lines, "|") != "VALUE: one two|three four" {
+		t.Fatalf("lines = %#v", lines)
+	}
+}
+
+func TestMeasureCoverage(t *testing.T) {
+	t.Parallel()
+
+	export := metadataExport{Constants: []metadataConstant{
+		{Name: "ERROR_TEST", Namespace: "Windows.Win32.Foundation", DeclaringType: "WIN32_ERROR"},
+		{Name: "UNCLASSIFIED_TEST", Namespace: "Windows.Win32.Test", DeclaringType: "Apis"},
+	}}
+
+	coverage := measureCoverage(export)
+	if coverage.TotalRows != 2 || coverage.MatchedRows != 1 || coverage.UnclassifiedRows != 1 {
+		t.Fatalf("unexpected coverage: %#v", coverage)
+	}
+
+	if coverage.UnclassifiedByNamespace["Windows.Win32.Test"] != 1 {
+		t.Fatalf("unexpected namespace coverage: %#v", coverage.UnclassifiedByNamespace)
+	}
+}
+
+func TestCollectConstantMethods(t *testing.T) {
+	t.Parallel()
+
+	methods, skipped := collectConstantMethods([]metadataConstantMethod{
+		{
+			Namespace:  "Windows.Win32.System.Threading",
+			Name:       "GetCurrentProcessToken",
+			ReturnType: "Windows.Win32.Foundation.HANDLE",
+			Value:      "-4",
+		},
+	})
+	if skipped != 0 || len(methods) != 1 {
+		t.Fatalf("methods = %#v, skipped = %d", methods, skipped)
+	}
+
+	if methods[0].Expression != "^uintptr(3)" {
+		t.Fatalf("expression = %q", methods[0].Expression)
+	}
+}

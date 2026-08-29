@@ -1,0 +1,62 @@
+name: Regenerate definitions
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/update.yml
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * 1"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: regenerate-definitions
+  cancel-in-progress: false
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Set up Go
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: go.mod
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Update from the latest Win32 metadata
+        run: go run ./cmd/win32defs-gen -latest
+
+      - name: Test
+        run: go test ./...
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Check generated diff
+        run: git diff --check
+
+      - name: Commit generated changes
+        shell: bash
+        run: |
+          if [[ -z "$(git status --porcelain)" ]]; then
+            echo "Generated definitions are already current."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --all
+          git commit -m "chore(data): regenerate Win32 definitions"
+          git push

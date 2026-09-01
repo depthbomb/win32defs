@@ -327,7 +327,8 @@ func renderGUIDs(items []generatedGUID, source sourceLock) ([]byte, error) {
 	output.WriteString("\tdefault:\n\t\treturn GUID{}, false\n\t}\n}\n\n")
 
 	output.WriteString("// Name returns a canonical generated symbolic name for value.\n")
-	output.WriteString("func Name(value GUID) (string, bool) {\n\tswitch value {\n")
+	output.WriteString("func Name(value GUID) (string, bool) {\n\tswitch value.Data1 {\n")
+	byData1 := make(map[uint32][]generatedGUID)
 	seen := make(map[string]struct{})
 	for _, item := range items {
 		if _, exists := seen[item.Value]; exists {
@@ -335,9 +336,25 @@ func renderGUIDs(items []generatedGUID, source sourceLock) ([]byte, error) {
 		}
 
 		seen[item.Value] = struct{}{}
-		fmt.Fprintf(&output, "\tcase %s:\n\t\treturn %q, true\n", item.Identifier, item.Identifier)
+		byData1[item.Parts.Data1] = append(byData1[item.Parts.Data1], item)
 	}
-	output.WriteString("\tdefault:\n\t\treturn \"\", false\n\t}\n}\n")
+
+	data1Values := make([]uint32, 0, len(byData1))
+	for data1 := range byData1 {
+		data1Values = append(data1Values, data1)
+	}
+	sort.Slice(data1Values, func(left int, right int) bool {
+		return data1Values[left] < data1Values[right]
+	})
+
+	for _, data1 := range data1Values {
+		fmt.Fprintf(&output, "\tcase 0x%08X:\n\t\tswitch value {\n", data1)
+		for _, item := range byData1[data1] {
+			fmt.Fprintf(&output, "\t\tcase %s:\n\t\t\treturn %q, true\n", item.Identifier, item.Identifier)
+		}
+		output.WriteString("\t\t}\n")
+	}
+	output.WriteString("\t}\n\n\treturn \"\", false\n}\n")
 
 	formatted, err := format.Source(output.Bytes())
 	if err != nil {
@@ -548,18 +565,45 @@ func renderCatalog(packages map[string][]generatedConstant, source sourceLock) (
 	fmt.Fprintf(&output, "// Source: %s %s (%s).\n", source.Metadata.Package, source.Metadata.Version, source.Metadata.SHA256)
 	fmt.Fprintf(&output, "// Documentation: %s %s (%s).\n\n", source.Documentation.Package, source.Documentation.Version, source.Documentation.SHA256)
 	output.WriteString("package catalog\n\nimport \"iter\"\n\n")
+	output.WriteString("var definitions = [...]Definition{\n")
+
+	for _, spec := range packageSpecs {
+		for _, constant := range packages[spec.Name] {
+			commentField := catalogCommentField(constant.Comment)
+
+			fmt.Fprintf(
+				&output,
+				"\t{Package: %q, Name: %q, Value: %q, Namespace: %q, DeclaringType: %q, Documentation: %q%s},\n",
+				spec.Name,
+				constant.Name,
+				constant.Expression,
+				constant.Namespace,
+				constant.DeclaringType,
+				constant.Documentation,
+				commentField,
+			)
+		}
+	}
+
+	output.WriteString("}\n\n")
 	output.WriteString("// Lookup returns provenance and documentation for an exact package and symbol name.\n")
 	output.WriteString("func Lookup(packageName string, name string) (Definition, bool) {\n")
-	output.WriteString("\tswitch packageName + \"\\x00\" + name {\n")
+	output.WriteString("\tswitch packageName {\n")
 
 	for _, spec := range packageSpecs {
-		for _, constant := range packages[spec.Name] {
+		constants := packages[spec.Name]
+		if len(constants) == 0 {
+			continue
+		}
+
+		fmt.Fprintf(&output, "\tcase %q:\n\t\tswitch name {\n", spec.Name)
+		for _, constant := range constants {
 			commentField := catalogCommentField(constant.Comment)
 
-			fmt.Fprintf(&output, "\tcase %q:\n", spec.Name+"\x00"+constant.Name)
+			fmt.Fprintf(&output, "\t\tcase %q:\n", constant.Name)
 			fmt.Fprintf(
 				&output,
-				"\t\treturn Definition{Package: %q, Name: %q, Value: %q, Namespace: %q, DeclaringType: %q, Documentation: %q%s}, true\n",
+				"\t\t\treturn Definition{Package: %q, Name: %q, Value: %q, Namespace: %q, DeclaringType: %q, Documentation: %q%s}, true\n",
 				spec.Name,
 				constant.Name,
 				constant.Expression,
@@ -569,31 +613,12 @@ func renderCatalog(packages map[string][]generatedConstant, source sourceLock) (
 				commentField,
 			)
 		}
+		output.WriteString("\t\t}\n")
 	}
 
-	output.WriteString("\tdefault:\n\t\treturn Definition{}, false\n\t}\n}\n\n")
+	output.WriteString("\t}\n\n\treturn Definition{}, false\n}\n\n")
 	output.WriteString("// Definitions iterates over every generated numeric and string definition.\n")
-	output.WriteString("func Definitions() iter.Seq[Definition] {\n\treturn func(yield func(Definition) bool) {\n")
-
-	for _, spec := range packageSpecs {
-		for _, constant := range packages[spec.Name] {
-			commentField := catalogCommentField(constant.Comment)
-
-			fmt.Fprintf(
-				&output,
-				"\t\tif !yield(Definition{Package: %q, Name: %q, Value: %q, Namespace: %q, DeclaringType: %q, Documentation: %q%s}) {\n\t\t\treturn\n\t\t}\n",
-				spec.Name,
-				constant.Name,
-				constant.Expression,
-				constant.Namespace,
-				constant.DeclaringType,
-				constant.Documentation,
-				commentField,
-			)
-		}
-	}
-
-	output.WriteString("\t}\n}\n")
+	output.WriteString("func Definitions() iter.Seq[Definition] {\n\treturn func(yield func(Definition) bool) {\n\t\tfor _, definition := range definitions {\n\t\t\tif !yield(definition) {\n\t\t\t\treturn\n\t\t\t}\n\t\t}\n\t}\n}\n")
 
 	formatted, err := format.Source(output.Bytes())
 	if err != nil {

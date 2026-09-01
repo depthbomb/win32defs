@@ -19,6 +19,63 @@ func TestParseGUID(t *testing.T) {
 	}
 }
 
+func TestRenderGUIDNameIndexesData1(t *testing.T) {
+	t.Parallel()
+
+	items := []generatedGUID{
+		{Identifier: "GUID_Alias", Value: "00000001-0000-0000-0000-000000000000", Parts: guidParts{Data1: 1}},
+		{Identifier: "GUID_First", Value: "00000001-0000-0000-0000-000000000000", Parts: guidParts{Data1: 1}},
+		{Identifier: "GUID_Second", Value: "00000002-0000-0000-0000-000000000000", Parts: guidParts{Data1: 2}},
+	}
+
+	contents, err := renderGUIDs(items, sourceLock{})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	text := string(contents)
+	if !strings.Contains(text, "switch value.Data1") || !strings.Contains(text, "case 0x00000001") {
+		t.Fatalf("generated Name lacks a Data1 index:\n%s", text)
+	}
+
+	if !strings.Contains(text, "return \"GUID_Alias\", true") || strings.Contains(text, "return \"GUID_First\", true") {
+		t.Fatalf("generated Name did not preserve the first canonical alias:\n%s", text)
+	}
+}
+
+func TestRenderCatalogUsesNestedLookup(t *testing.T) {
+	t.Parallel()
+
+	packages := map[string][]generatedConstant{
+		"hresult": {
+			{Name: "S_OK", Expression: "0", Namespace: "Windows.Win32.Foundation", DeclaringType: "Apis", Comment: "<b>Success.</b>"},
+		},
+	}
+
+	contents, err := renderCatalog(packages, sourceLock{})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	text := string(contents)
+	if !strings.Contains(text, "switch packageName") || !strings.Contains(text, "switch name") {
+		t.Fatalf("generated Lookup lacks nested switches:\n%s", text)
+	}
+
+	if strings.Contains(text, "packageName +") {
+		t.Fatalf("generated Lookup concatenates its inputs:\n%s", text)
+	}
+
+	wantDefinition := `{Package: "hresult", Name: "S_OK", Value: "0", Namespace: "Windows.Win32.Foundation", DeclaringType: "Apis", Documentation: "", Comment: "Success."}`
+	if !strings.Contains(text, "var definitions = [...]Definition{") || !strings.Contains(text, "range definitions") {
+		t.Fatalf("generated Definitions lacks a static table:\n%s", text)
+	}
+
+	if !strings.Contains(text, wantDefinition) {
+		t.Fatalf("generated Definitions did not preserve every field:\n%s", text)
+	}
+}
+
 func TestParsePropertyKey(t *testing.T) {
 	t.Parallel()
 

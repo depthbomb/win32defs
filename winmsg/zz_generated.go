@@ -9,6 +9,90 @@ package winmsg
 type Value int64
 
 const (
+	CS_BYTEALIGNCLIENT Value = 4096
+	CS_BYTEALIGNWINDOW Value = 8192
+	CS_CLASSDC         Value = 64
+	CS_DBLCLKS         Value = 8
+	CS_DROPSHADOW      Value = 131072
+	CS_GLOBALCLASS     Value = 16384
+	CS_HREDRAW         Value = 2
+	CS_IME             Value = 65536
+	CS_NOCLOSE         Value = 512
+	CS_OWNDC           Value = 32
+	CS_PARENTDC        Value = 128
+	CS_SAVEBITS        Value = 2048
+	CS_VREDRAW         Value = 1
+	CW_USEDEFAULT      Value = -2147483648
+	// GCLP_HBRBACKGROUND: Retrieves a handle to the background brush associated with the class.
+	GCLP_HBRBACKGROUND Value = -10
+	// GCLP_HCURSOR: Documentation varies per use. Refer to each: GetClassLongPtr , GetClassLongPtr , GetClassLongPtrA ,
+	// GetClassLongPtrA , GetClassLongPtrW , GetClassLongPtrW , SetClassLongPtr , SetClassLongPtr , SetClassLongPtrA ,
+	// SetClassLongPtrA , SetClassLongPtrW , SetClassLongPtrW .
+	GCLP_HCURSOR Value = -12
+	// GCLP_HICON: Documentation varies per use. Refer to each: GetClassLongPtr , GetClassLongPtr , GetClassLongPtrA ,
+	// GetClassLongPtrA , GetClassLongPtrW , GetClassLongPtrW , SetClassLongPtr , SetClassLongPtr , SetClassLongPtrA ,
+	// SetClassLongPtrA , SetClassLongPtrW , SetClassLongPtrW .
+	GCLP_HICON Value = -14
+	// GCLP_HICONSM: Retrieves a handle to the small icon associated with the class.
+	GCLP_HICONSM Value = -34
+	// GCLP_HMODULE: Documentation varies per use. Refer to each: GetClassLongPtr , GetClassLongPtr , GetClassLongPtrA ,
+	// GetClassLongPtrA , GetClassLongPtrW , GetClassLongPtrW , SetClassLongPtr , SetClassLongPtr , SetClassLongPtrA ,
+	// SetClassLongPtrA , SetClassLongPtrW , SetClassLongPtrW .
+	GCLP_HMODULE Value = -16
+	// GCLP_MENUNAME: Documentation varies per use. Refer to each: GetClassLongPtr , GetClassLongPtr , GetClassLongPtrA ,
+	// GetClassLongPtrA , GetClassLongPtrW , GetClassLongPtrW , SetClassLongPtr , SetClassLongPtr , SetClassLongPtrA ,
+	// SetClassLongPtrA , SetClassLongPtrW , SetClassLongPtrW .
+	GCLP_MENUNAME Value = -8
+	// GCLP_WNDPROC: Documentation varies per use. Refer to each: GetClassLongPtr , GetClassLongPtr , GetClassLongPtrA ,
+	// GetClassLongPtrA , GetClassLongPtrW , GetClassLongPtrW , SetClassLongPtr , SetClassLongPtr , SetClassLongPtrA ,
+	// SetClassLongPtrA , SetClassLongPtrW , SetClassLongPtrW .
+	GCLP_WNDPROC Value = -24
+	// GCL_CBCLSEXTRA: Documentation varies per use. Refer to each: GetClassLong , GetClassLong , GetClassLongA ,
+	// GetClassLongA , GetClassLongPtr , GetClassLongPtr , GetClassLongPtrA , GetClassLongPtrA , GetClassLongPtrW ,
+	// GetClassLongPtrW , GetClassLongW , GetClassLongW , SetClassLong , SetClassLong , SetClassLongA , SetClassLongA ,
+	// SetClassLongPtr , SetClassLongPtr , SetClassLongPtrA , SetClassLongPtrA , SetClassLongPtrW , SetClassLongPtrW ,
+	// SetClassLongW , SetClassLongW .
+	GCL_CBCLSEXTRA Value = -20
+	// GCL_CBWNDEXTRA: Documentation varies per use. Refer to each: GetClassLong , GetClassLong , GetClassLongA ,
+	// GetClassLongA , GetClassLongPtr , GetClassLongPtr , GetClassLongPtrA , GetClassLongPtrA , GetClassLongPtrW ,
+	// GetClassLongPtrW , GetClassLongW , GetClassLongW , SetClassLong , SetClassLong , SetClassLongA , SetClassLongA ,
+	// SetClassLongPtr , SetClassLongPtr , SetClassLongPtrA , SetClassLongPtrA , SetClassLongPtrW , SetClassLongPtrW ,
+	// SetClassLongW , SetClassLongW .
+	GCL_CBWNDEXTRA Value = -18
+	// GCL_HBRBACKGROUND: Documentation varies per use. Refer to each: GetClassLong , GetClassLong , GetClassLongA ,
+	// GetClassLongA , GetClassLongW , GetClassLongW , SetClassLong , SetClassLong , SetClassLongA , SetClassLongA ,
+	// SetClassLongW , SetClassLongW .
+	GCL_HBRBACKGROUND Value = -10
+	// GCL_HCURSOR: Documentation varies per use. Refer to each: GetClassLong , GetClassLong , GetClassLongA ,
+	// GetClassLongA , GetClassLongW , GetClassLongW , SetClassLong , SetClassLong , SetClassLongA , SetClassLongA ,
+	// SetClassLongW , SetClassLongW .
+	GCL_HCURSOR Value = -12
+	// GCL_HICON: Documentation varies per use. Refer to each: GetClassLong , GetClassLong , GetClassLongA , GetClassLongA
+	// , GetClassLongW , GetClassLongW , SetClassLong , SetClassLong , SetClassLongA , SetClassLongA , SetClassLongW ,
+	// SetClassLongW .
+	GCL_HICON Value = -14
+	// GCL_HICONSM: Documentation varies per use. Refer to each: GetClassLong , GetClassLong , GetClassLongA ,
+	// GetClassLongA , GetClassLongW , GetClassLongW , SetClassLong , SetClassLong , SetClassLongA , SetClassLongA ,
+	// SetClassLongW , SetClassLongW .
+	GCL_HICONSM Value = -34
+	// GCL_HMODULE: Documentation varies per use. Refer to each: GetClassLong , GetClassLong , GetClassLongA ,
+	// GetClassLongA , GetClassLongW , GetClassLongW , SetClassLong , SetClassLong , SetClassLongA , SetClassLongA ,
+	// SetClassLongW , SetClassLongW .
+	GCL_HMODULE Value = -16
+	// GCL_MENUNAME: Documentation varies per use. Refer to each: GetClassLong , GetClassLong , GetClassLongA ,
+	// GetClassLongA , GetClassLongW , GetClassLongW , SetClassLong , SetClassLong , SetClassLongA , SetClassLongA ,
+	// SetClassLongW , SetClassLongW .
+	GCL_MENUNAME Value = -8
+	// GCL_STYLE: Documentation varies per use. Refer to each: GetClassLong , GetClassLong , GetClassLongA , GetClassLongA
+	// , GetClassLongPtr , GetClassLongPtr , GetClassLongPtrA , GetClassLongPtrA , GetClassLongPtrW , GetClassLongPtrW ,
+	// GetClassLongW , GetClassLongW , SetClassLong , SetClassLong , SetClassLongA , SetClassLongA , SetClassLongPtr ,
+	// SetClassLongPtr , SetClassLongPtrA , SetClassLongPtrA , SetClassLongPtrW , SetClassLongPtrW , SetClassLongW ,
+	// SetClassLongW .
+	GCL_STYLE Value = -26
+	// GCL_WNDPROC: Documentation varies per use. Refer to each: GetClassLong , GetClassLong , GetClassLongA ,
+	// GetClassLongA , GetClassLongW , GetClassLongW , SetClassLong , SetClassLong , SetClassLongA , SetClassLongA ,
+	// SetClassLongW , SetClassLongW .
+	GCL_WNDPROC Value = -24
 	// GWLP_HINSTANCE: Documentation varies per use. Refer to each: GetWindowLongPtr , GetWindowLongPtr , GetWindowLongPtrA
 	// , GetWindowLongPtrA , GetWindowLongPtrW , GetWindowLongPtrW , SetWindowLongPtr , SetWindowLongPtr ,
 	// SetWindowLongPtrA , SetWindowLongPtrA , SetWindowLongPtrW , SetWindowLongPtrW .
@@ -57,6 +141,141 @@ const (
 	// GetWindowLongA , GetWindowLongW , GetWindowLongW , SetWindowLong , SetWindowLong , SetWindowLongA , SetWindowLongA ,
 	// SetWindowLongW , SetWindowLongW .
 	GWL_WNDPROC Value = -4
+	// HWND_BOTTOM: Places the window at the bottom of the Z order. If the hWnd parameter identifies a topmost window, the
+	// window loses its topmost status and is placed at the bottom of all other windows.
+	HWND_BOTTOM    Value = 1
+	HWND_BROADCAST Value = 65535
+	HWND_DESKTOP   Value = 0
+	HWND_MESSAGE   Value = -3
+	// HWND_NOTOPMOST: Places the window above all non-topmost windows (that is, behind all topmost windows). This flag has
+	// no effect if the window is already a non-topmost window.
+	HWND_NOTOPMOST Value = -2
+	// HWND_TOP: Places the window at the top of the Z order.
+	HWND_TOP Value = 0
+	// HWND_TOPMOST: Places the window above all non-topmost windows. The window maintains its topmost position even when
+	// it is deactivated.
+	HWND_TOPMOST Value = -1
+	// IDC_APPSTARTING: Standard arrow and small hourglass cursor.
+	IDC_APPSTARTING Value = 32650
+	// IDC_ARROW: Standard arrow cursor.
+	IDC_ARROW Value = 32512
+	// IDC_CROSS: Crosshair cursor.
+	IDC_CROSS Value = 32515
+	// IDC_HAND: Hand cursor.
+	IDC_HAND Value = 32649
+	// IDC_HELP: Arrow and question mark cursor.
+	IDC_HELP Value = 32651
+	// IDC_IBEAM: I-beam cursor.
+	IDC_IBEAM Value = 32513
+	IDC_ICON  Value = 32641
+	// IDC_NO: Slashed circle cursor.
+	IDC_NO     Value = 32648
+	IDC_PERSON Value = 32672
+	IDC_PIN    Value = 32671
+	IDC_SIZE   Value = 32640
+	// IDC_SIZEALL: Four-pointed arrow cursor pointing north, south, east, and west.
+	IDC_SIZEALL Value = 32646
+	// IDC_SIZENESW: Double-pointed arrow cursor pointing northeast and southwest.
+	IDC_SIZENESW Value = 32643
+	// IDC_SIZENS: Double-pointed arrow cursor pointing north and south.
+	IDC_SIZENS Value = 32645
+	// IDC_SIZENWSE: Double-pointed arrow cursor pointing northwest and southeast.
+	IDC_SIZENWSE Value = 32642
+	// IDC_SIZEWE: Double-pointed arrow cursor pointing west and east.
+	IDC_SIZEWE Value = 32644
+	IDC_STATIC Value = -1
+	// IDC_UPARROW: Vertical arrow cursor.
+	IDC_UPARROW Value = 32516
+	// IDC_WAIT: Hourglass cursor.
+	IDC_WAIT Value = 32514
+	// IDI_APPLICATION: Documentation varies per use. Refer to each: GetIconInfo , GetIconInfoEx , GetIconInfoEx ,
+	// GetIconInfoExA , GetIconInfoExA , GetIconInfoExW , GetIconInfoExW , LoadIcon , LoadIcon , LoadIconA , LoadIconA ,
+	// LoadIconW , LoadIconW .
+	IDI_APPLICATION Value = 32512
+	// IDI_ASTERISK: Documentation varies per use. Refer to each: GetIconInfo , GetIconInfoEx , GetIconInfoEx ,
+	// GetIconInfoExA , GetIconInfoExA , GetIconInfoExW , GetIconInfoExW , LoadIcon , LoadIcon , LoadIconA , LoadIconA ,
+	// LoadIconW , LoadIconW .
+	IDI_ASTERISK Value = 32516
+	// IDI_ERROR: Hand-shaped icon.
+	IDI_ERROR Value = 32513
+	// IDI_EXCLAMATION: Documentation varies per use. Refer to each: GetIconInfo , GetIconInfoEx , GetIconInfoEx ,
+	// GetIconInfoExA , GetIconInfoExA , GetIconInfoExW , GetIconInfoExW , LoadIcon , LoadIcon , LoadIconA , LoadIconA ,
+	// LoadIconW , LoadIconW .
+	IDI_EXCLAMATION Value = 32515
+	// IDI_HAND: Documentation varies per use. Refer to each: GetIconInfo , GetIconInfoEx , GetIconInfoEx , GetIconInfoExA
+	// , GetIconInfoExA , GetIconInfoExW , GetIconInfoExW , LoadIcon , LoadIcon , LoadIconA , LoadIconA , LoadIconW ,
+	// LoadIconW .
+	IDI_HAND Value = 32513
+	// IDI_INFORMATION: Asterisk icon.
+	IDI_INFORMATION Value = 32516
+	// IDI_QUESTION: Documentation varies per use. Refer to each: GetIconInfo , GetIconInfoEx , GetIconInfoEx ,
+	// GetIconInfoExA , GetIconInfoExA , GetIconInfoExW , GetIconInfoExW , LoadIcon , LoadIcon , LoadIconA , LoadIconA ,
+	// LoadIconW , LoadIconW .
+	IDI_QUESTION Value = 32514
+	// IDI_SHIELD: Security Shield icon.
+	IDI_SHIELD Value = 32518
+	// IDI_WARNING: Exclamation point icon.
+	IDI_WARNING Value = 32515
+	// IDI_WINLOGO: Documentation varies per use. Refer to each: GetIconInfo , GetIconInfoEx , GetIconInfoEx ,
+	// GetIconInfoExA , GetIconInfoExA , GetIconInfoExW , GetIconInfoExW , LoadIcon , LoadIcon , LoadIconA , LoadIconA ,
+	// LoadIconW , LoadIconW .
+	IDI_WINLOGO Value = 32517
+	// INPUT_HARDWARE: The event is a hardware event. Use the hi structure of the union.
+	INPUT_HARDWARE Value = 2
+	// INPUT_KEYBOARD: The event is a keyboard event. Use the ki structure of the union.
+	INPUT_KEYBOARD Value = 1
+	// INPUT_MOUSE: The event is a mouse event. Use the mi structure of the union.
+	INPUT_MOUSE Value = 0
+	// KEYEVENTF_EXTENDEDKEY: Documentation varies per use. Refer to each: keybd_event , KEYBDINPUT .
+	KEYEVENTF_EXTENDEDKEY Value = 1
+	// KEYEVENTF_KEYUP: Documentation varies per use. Refer to each: keybd_event , KEYBDINPUT .
+	KEYEVENTF_KEYUP Value = 2
+	// KEYEVENTF_SCANCODE: If specified, wScan identifies the key and wVk is ignored.
+	KEYEVENTF_SCANCODE Value = 8
+	// KEYEVENTF_UNICODE: If specified, the system synthesizes a VK_PACKET keystroke. The wVk parameter must be zero. This
+	// flag can only be combined with the KEYEVENTF_KEYUP flag. For more information, see the Remarks section.
+	KEYEVENTF_UNICODE Value = 4
+	// KLF_ACTIVATE: Prior to Windows 8: If the specified input locale identifier is not already loaded, the function loads
+	// and activates the input locale identifier for the current thread. Beginning in Windows 8: If the specified input
+	// locale identifier is not already loaded, the function loads and activates the input locale identifier for the
+	// system.
+	KLF_ACTIVATE Value = 1
+	// KLF_NOTELLSHELL: Prior to Windows 8: Prevents a ShellProc hook procedure from receiving an HSHELL_LANGUAGE hook code
+	// when the new input locale identifier is loaded. This value is typically used when an application loads multiple
+	// input locale identifiers one after another. Applying this value to all but the last input locale identifier delays
+	// the shell's processing until all input locale identifiers have been added. Beginning in Windows 8: In this scenario,
+	// the last input locale identifier is set for the entire system.
+	KLF_NOTELLSHELL Value = 128
+	// KLF_REORDER: Documentation varies per use. Refer to each: ActivateKeyboardLayout , LoadKeyboardLayout ,
+	// LoadKeyboardLayout , LoadKeyboardLayoutA , LoadKeyboardLayoutA , LoadKeyboardLayoutW , LoadKeyboardLayoutW .
+	KLF_REORDER Value = 8
+	// KLF_REPLACELANG: If the new input locale identifier has the same language identifier as a current input locale
+	// identifier, the new input locale identifier replaces the current one as the input locale identifier for that
+	// language. If this value is not provided and the input locale identifiers have the same language identifiers, the
+	// current input locale identifier is not replaced and the function returns NULL .
+	KLF_REPLACELANG Value = 16
+	// KLF_RESET: If set but KLF_SHIFTLOCK is not set, the Caps Lock state is turned off by pressing the Caps Lock key
+	// again. If set and KLF_SHIFTLOCK is also set, the Caps Lock state is turned off by pressing either SHIFT key. These
+	// two methods are mutually exclusive, and the setting persists as part of the User's profile in the registry.
+	KLF_RESET Value = 1073741824
+	// KLF_SETFORPROCESS: Documentation varies per use. Refer to each: ActivateKeyboardLayout , LoadKeyboardLayout ,
+	// LoadKeyboardLayout , LoadKeyboardLayoutA , LoadKeyboardLayoutA , LoadKeyboardLayoutW , LoadKeyboardLayoutW .
+	KLF_SETFORPROCESS Value = 256
+	// KLF_SHIFTLOCK: This is used with KLF_RESET . See KLF_RESET for an explanation.
+	KLF_SHIFTLOCK Value = 65536
+	// KLF_SUBSTITUTE_OK: Substitutes the specified input locale identifier with another locale preferred by the user. The
+	// system starts with this flag set, and it is recommended that your application always use this flag. The substitution
+	// occurs only if the registry key HKEY_CURRENT_USER\Keyboard Layout\Substitutes explicitly defines a substitution
+	// locale. For example, if the key includes the value name "00000409" with value "00010409", loading the US layout
+	// ("00000409") causes the United States-Dvorak layout ("00010409") to be loaded instead. The system uses
+	// KLF_SUBSTITUTE_OK when booting, and it is recommended that all applications use this value when loading input locale
+	// identifiers to ensure that the user's preference is selected.
+	KLF_SUBSTITUTE_OK  Value = 2
+	MAPVK_VK_TO_CHAR   Value = 2
+	MAPVK_VK_TO_VSC    Value = 0
+	MAPVK_VK_TO_VSC_EX Value = 4
+	MAPVK_VSC_TO_VK    Value = 1
+	MAPVK_VSC_TO_VK_EX Value = 3
 	// MB_ABORTRETRYIGNORE: Documentation varies per use. Refer to each: MessageBox , MessageBox , MessageBox , MessageBoxA
 	// , MessageBoxA , MessageBoxA , MessageBoxW , MessageBoxW , MessageBoxW , PWLX_MESSAGE_BOX .
 	MB_ABORTRETRYIGNORE Value = 2
@@ -141,6 +360,74 @@ const (
 	// MB_YESNOCANCEL: Documentation varies per use. Refer to each: MessageBox , MessageBox , MessageBox , MessageBoxA ,
 	// MessageBoxA , MessageBoxA , MessageBoxW , MessageBoxW , MessageBoxW , PWLX_MESSAGE_BOX .
 	MB_YESNOCANCEL Value = 3
+	MF_APPEND      Value = 256
+	// MF_BITMAP: Uses a bitmap as the menu item. The lpNewItem parameter contains a handle to the bitmap.
+	MF_BITMAP Value = 4
+	// MF_BYCOMMAND: Documentation varies per use. Refer to each: DeleteMenu , EnableMenuItem , GetMenuState ,
+	// GetMenuString , GetMenuString , GetMenuStringA , GetMenuStringA , GetMenuStringW , GetMenuStringW , RemoveMenu ,
+	// SetMenuItemBitmaps .
+	MF_BYCOMMAND Value = 0
+	// MF_BYPOSITION: Documentation varies per use. Refer to each: DeleteMenu , EnableMenuItem , GetMenuState ,
+	// GetMenuString , GetMenuString , GetMenuStringA , GetMenuStringA , GetMenuStringW , GetMenuStringW , RemoveMenu ,
+	// SetMenuItemBitmaps .
+	MF_BYPOSITION Value = 1024
+	MF_CHANGE     Value = 128
+	// MF_CHECKED: Documentation varies per use. Refer to each: AppendMenu , AppendMenu , AppendMenuA , AppendMenuA ,
+	// AppendMenuW , AppendMenuW , InsertMenu , InsertMenu , InsertMenuA , InsertMenuA , InsertMenuW , InsertMenuW ,
+	// ModifyMenu , ModifyMenu , ModifyMenuA , ModifyMenuA , ModifyMenuW , ModifyMenuW .
+	MF_CHECKED Value = 8
+	MF_DEFAULT Value = 4096
+	MF_DELETE  Value = 512
+	// MF_DISABLED: Documentation varies per use. Refer to each: AppendMenu , AppendMenu , AppendMenuA , AppendMenuA ,
+	// AppendMenuW , AppendMenuW , EnableMenuItem , InsertMenu , InsertMenu , InsertMenuA , InsertMenuA , InsertMenuW ,
+	// InsertMenuW , ModifyMenu , ModifyMenu , ModifyMenuA , ModifyMenuA , ModifyMenuW , ModifyMenuW .
+	MF_DISABLED Value = 2
+	// MF_ENABLED: Documentation varies per use. Refer to each: AppendMenu , AppendMenu , AppendMenuA , AppendMenuA ,
+	// AppendMenuW , AppendMenuW , EnableMenuItem , InsertMenu , InsertMenu , InsertMenuA , InsertMenuA , InsertMenuW ,
+	// InsertMenuW , ModifyMenu , ModifyMenu , ModifyMenuA , ModifyMenuA , ModifyMenuW , ModifyMenuW .
+	MF_ENABLED Value = 0
+	MF_END     Value = 128
+	// MF_GRAYED: Documentation varies per use. Refer to each: AppendMenu , AppendMenu , AppendMenuA , AppendMenuA ,
+	// AppendMenuW , AppendMenuW , EnableMenuItem , InsertMenu , InsertMenu , InsertMenuA , InsertMenuA , InsertMenuW ,
+	// InsertMenuW , ModifyMenu , ModifyMenu , ModifyMenuA , ModifyMenuA , ModifyMenuW , ModifyMenuW .
+	MF_GRAYED Value = 1
+	MF_HELP   Value = 16384
+	MF_HILITE Value = 128
+	MF_INSERT Value = 0
+	// MF_MENUBARBREAK: Functions the same as the MF_MENUBREAK flag for a menu bar. For a drop-down menu, submenu, or
+	// shortcut menu, the new column is separated from the old column by a vertical line.
+	MF_MENUBARBREAK Value = 32
+	// MF_MENUBREAK: Documentation varies per use. Refer to each: AppendMenu , AppendMenu , AppendMenuA , AppendMenuA ,
+	// AppendMenuW , AppendMenuW , InsertMenu , InsertMenu , InsertMenuA , InsertMenuA , InsertMenuW , InsertMenuW ,
+	// ModifyMenu , ModifyMenu , ModifyMenuA , ModifyMenuA , ModifyMenuW , ModifyMenuW .
+	MF_MENUBREAK   Value = 64
+	MF_MOUSESELECT Value = 32768
+	// MF_OWNERDRAW: Specifies that the item is an owner-drawn item. Before the menu is displayed for the first time, the
+	// window that owns the menu receives a WM_MEASUREITEM message to retrieve the width and height of the menu item. The
+	// WM_DRAWITEM message is then sent to the window procedure of the owner window whenever the appearance of the menu
+	// item must be updated.
+	MF_OWNERDRAW Value = 256
+	// MF_POPUP: Documentation varies per use. Refer to each: AppendMenu , AppendMenu , AppendMenuA , AppendMenuA ,
+	// AppendMenuW , AppendMenuW , InsertMenu , InsertMenu , InsertMenuA , InsertMenuA , InsertMenuW , InsertMenuW ,
+	// ModifyMenu , ModifyMenu , ModifyMenuA , ModifyMenuA , ModifyMenuW , ModifyMenuW .
+	MF_POPUP        Value = 16
+	MF_REMOVE       Value = 4096
+	MF_RIGHTJUSTIFY Value = 16384
+	// MF_SEPARATOR: Documentation varies per use. Refer to each: AppendMenu , AppendMenu , AppendMenuA , AppendMenuA ,
+	// AppendMenuW , AppendMenuW , InsertMenu , InsertMenu , InsertMenuA , InsertMenuA , InsertMenuW , InsertMenuW ,
+	// ModifyMenu , ModifyMenu , ModifyMenuA , ModifyMenuA , ModifyMenuW , ModifyMenuW .
+	MF_SEPARATOR Value = 2048
+	// MF_STRING: Documentation varies per use. Refer to each: AppendMenu , AppendMenu , AppendMenuA , AppendMenuA ,
+	// AppendMenuW , AppendMenuW , InsertMenu , InsertMenu , InsertMenuA , InsertMenuA , InsertMenuW , InsertMenuW ,
+	// ModifyMenu , ModifyMenu , ModifyMenuA , ModifyMenuA , ModifyMenuW , ModifyMenuW .
+	MF_STRING  Value = 0
+	MF_SYSMENU Value = 8192
+	// MF_UNCHECKED: Documentation varies per use. Refer to each: AppendMenu , AppendMenu , AppendMenuA , AppendMenuA ,
+	// AppendMenuW , AppendMenuW , InsertMenu , InsertMenu , InsertMenuA , InsertMenuA , InsertMenuW , InsertMenuW ,
+	// ModifyMenu , ModifyMenu , ModifyMenuA , ModifyMenuA , ModifyMenuW , ModifyMenuW .
+	MF_UNCHECKED       Value = 0
+	MF_UNHILITE        Value = 0
+	MF_USECHECKBITMAPS Value = 512
 	// MOD_ALT: Either ALT key must be held down.
 	MOD_ALT Value = 1
 	// MOD_CONTROL: Either CTRL key must be held down.
@@ -153,6 +440,661 @@ const (
 	// MOD_WIN: Either WINDOWS key was held down. These keys are labeled with the Windows logo. Keyboard shortcuts that
 	// involve the WINDOWS key are reserved for use by the operating system.
 	MOD_WIN Value = 8
+	// MOUSEEVENTF_ABSOLUTE: The dx and dy parameters contain normalized absolute coordinates. If not set, those parameters
+	// contain relative data: the change in position since the last reported position. This flag can be set, or not set,
+	// regardless of what kind of mouse or mouse-like device, if any, is connected to the system. For further information
+	// about relative mouse motion, see the following Remarks section.
+	MOUSEEVENTF_ABSOLUTE Value = 32768
+	// MOUSEEVENTF_HWHEEL: The wheel button is tilted.
+	MOUSEEVENTF_HWHEEL Value = 4096
+	// MOUSEEVENTF_LEFTDOWN: The left button is down.
+	MOUSEEVENTF_LEFTDOWN Value = 2
+	// MOUSEEVENTF_LEFTUP: The left button is up.
+	MOUSEEVENTF_LEFTUP Value = 4
+	// MOUSEEVENTF_MIDDLEDOWN: The middle button is down.
+	MOUSEEVENTF_MIDDLEDOWN Value = 32
+	// MOUSEEVENTF_MIDDLEUP: The middle button is up.
+	MOUSEEVENTF_MIDDLEUP Value = 64
+	// MOUSEEVENTF_MOVE: Movement occurred.
+	MOUSEEVENTF_MOVE            Value = 1
+	MOUSEEVENTF_MOVE_NOCOALESCE Value = 8192
+	// MOUSEEVENTF_RIGHTDOWN: The right button is down.
+	MOUSEEVENTF_RIGHTDOWN Value = 8
+	// MOUSEEVENTF_RIGHTUP: The right button is up.
+	MOUSEEVENTF_RIGHTUP     Value = 16
+	MOUSEEVENTF_VIRTUALDESK Value = 16384
+	// MOUSEEVENTF_WHEEL: The wheel has been moved, if the mouse has a wheel. The amount of movement is specified in dwData
+	MOUSEEVENTF_WHEEL Value = 2048
+	// MOUSEEVENTF_XDOWN: An X button was pressed.
+	MOUSEEVENTF_XDOWN Value = 128
+	// MOUSEEVENTF_XUP: An X button was released.
+	MOUSEEVENTF_XUP   Value = 256
+	OCR_APPSTARTING   Value = 32650
+	OCR_CROSS         Value = 32515
+	OCR_HAND          Value = 32649
+	OCR_HELP          Value = 32651
+	OCR_IBEAM         Value = 32513
+	OCR_ICOCUR        Value = 32647
+	OCR_ICON          Value = 32641
+	OCR_NO            Value = 32648
+	OCR_NORMAL        Value = 32512
+	OCR_SIZE          Value = 32640
+	OCR_SIZEALL       Value = 32646
+	OCR_SIZENESW      Value = 32643
+	OCR_SIZENS        Value = 32645
+	OCR_SIZENWSE      Value = 32642
+	OCR_SIZEWE        Value = 32644
+	OCR_UP            Value = 32516
+	OCR_WAIT          Value = 32514
+	QS_ALLEVENTS      Value = 1215
+	QS_ALLINPUT       Value = 1279
+	QS_ALLPOSTMESSAGE Value = 256
+	QS_HOTKEY         Value = 128
+	QS_INPUT          Value = 1031
+	QS_KEY            Value = 1
+	QS_MOUSE          Value = 6
+	QS_MOUSEBUTTON    Value = 4
+	QS_MOUSEMOVE      Value = 2
+	QS_PAINT          Value = 32
+	QS_POINTER        Value = 4096
+	QS_POSTMESSAGE    Value = 8
+	QS_RAWINPUT       Value = 1024
+	QS_SENDMESSAGE    Value = 64
+	QS_TIMER          Value = 16
+	QS_TOUCH          Value = 2048
+	// SB_BOTH: Documentation varies per use. Refer to each: EnableScrollBar , FlatSB_EnableScrollBar ,
+	// FlatSB_ShowScrollBar , ITextHost.TxEnableScrollBar , ShowScrollBar .
+	SB_BOTH   Value = 3
+	SB_BOTTOM Value = 7
+	// SB_CTL: Documentation varies per use. Refer to each: EnableScrollBar , GetScrollInfo , GetScrollPos , GetScrollRange
+	// , SetScrollInfo , SetScrollPos , SetScrollRange , ShowScrollBar .
+	SB_CTL       Value = 2
+	SB_ENDSCROLL Value = 8
+	// SB_HORZ: Documentation varies per use. Refer to each: EnableScrollBar , FlatSB_EnableScrollBar ,
+	// FlatSB_GetScrollInfo , FlatSB_GetScrollPos , FlatSB_GetScrollRange , FlatSB_SetScrollInfo , FlatSB_SetScrollPos ,
+	// FlatSB_SetScrollRange , FlatSB_ShowScrollBar , GetScrollInfo , GetScrollPos , GetScrollRange ,
+	// ITextHost.TxEnableScrollBar , SetScrollInfo , SetScrollPos , SetScrollRange , ShowScrollBar .
+	SB_HORZ          Value = 0
+	SB_LEFT          Value = 6
+	SB_LINEDOWN      Value = 1
+	SB_LINELEFT      Value = 0
+	SB_LINERIGHT     Value = 1
+	SB_LINEUP        Value = 0
+	SB_MIN           Value = 0
+	SB_PAGEDOWN      Value = 3
+	SB_PAGELEFT      Value = 2
+	SB_PAGERIGHT     Value = 3
+	SB_PAGEUP        Value = 2
+	SB_RIGHT         Value = 7
+	SB_THUMBPOSITION Value = 4
+	SB_THUMBTRACK    Value = 5
+	SB_TOP           Value = 6
+	// SB_VERT: Documentation varies per use. Refer to each: EnableScrollBar , FlatSB_EnableScrollBar ,
+	// FlatSB_GetScrollInfo , FlatSB_GetScrollPos , FlatSB_GetScrollRange , FlatSB_SetScrollInfo , FlatSB_SetScrollPos ,
+	// FlatSB_SetScrollRange , FlatSB_ShowScrollBar , GetScrollInfo , GetScrollPos , GetScrollRange ,
+	// ITextHost.TxEnableScrollBar , SetScrollInfo , SetScrollPos , SetScrollRange , ShowScrollBar .
+	SB_VERT Value = 1
+	// SM_ARRANGE: The flags that specify how the system arranged minimized windows. For more information, see the Remarks
+	// section in this topic.
+	SM_ARRANGE              Value = 56
+	SM_CARETBLINKINGENABLED Value = 8194
+	// SM_CLEANBOOT: The value that specifies how the system is started: 0 Normal boot 1 Fail-safe boot 2 Fail-safe with
+	// network boot A fail-safe boot (also called SafeBoot, Safe Mode, or Clean Boot) bypasses the user startup files.
+	SM_CLEANBOOT Value = 67
+	SM_CMETRICS  Value = 76
+	// SM_CMONITORS: The number of display monitors on a desktop. For more information, see the Remarks section in this
+	// topic.
+	SM_CMONITORS Value = 80
+	// SM_CMOUSEBUTTONS: The number of buttons on a mouse, or zero if no mouse is installed.
+	SM_CMOUSEBUTTONS Value = 43
+	// SM_CONVERTIBLESLATEMODE: Reflects the state of the laptop or slate mode, 0 for Slate Mode and non-zero otherwise.
+	// When this system metric changes, the system sends a broadcast message via WM_SETTINGCHANGE with
+	// "ConvertibleSlateMode" in the LPARAM. Note that this system metric doesn't apply to desktop PCs. In that case, use
+	// GetAutoRotationState .
+	SM_CONVERTIBLESLATEMODE Value = 8195
+	// SM_CXBORDER: The width of a window border, in pixels. This is equivalent to the SM_CXEDGE value for windows with the
+	// 3-D look.
+	SM_CXBORDER Value = 5
+	// SM_CXCURSOR: The nominal width of a cursor, in pixels.
+	SM_CXCURSOR Value = 13
+	// SM_CXDLGFRAME: This value is the same as SM_CXFIXEDFRAME.
+	SM_CXDLGFRAME Value = 7
+	// SM_CXDOUBLECLK: The width of the rectangle around the location of a first click in a double-click sequence, in
+	// pixels. The second click must occur within the rectangle that is defined by SM_CXDOUBLECLK and SM_CYDOUBLECLK for
+	// the system to consider the two clicks a double-click. The two clicks must also occur within a specified time. To set
+	// the width of the double-click rectangle, call SystemParametersInfo with SPI_SETDOUBLECLKWIDTH.
+	SM_CXDOUBLECLK Value = 36
+	// SM_CXDRAG: The number of pixels on either side of a mouse-down point that the mouse pointer can move before a drag
+	// operation begins. This allows the user to click and release the mouse button easily without unintentionally starting
+	// a drag operation. If this value is negative, it is subtracted from the left of the mouse-down point and added to the
+	// right of it.
+	SM_CXDRAG Value = 68
+	// SM_CXEDGE: The width of a 3-D border, in pixels. This metric is the 3-D counterpart of SM_CXBORDER.
+	SM_CXEDGE Value = 45
+	// SM_CXFIXEDFRAME: The thickness of the frame around the perimeter of a window that has a caption but is not sizable,
+	// in pixels. SM_CXFIXEDFRAME is the height of the horizontal border, and SM_CYFIXEDFRAME is the width of the vertical
+	// border. This value is the same as SM_CXDLGFRAME.
+	SM_CXFIXEDFRAME Value = 7
+	// SM_CXFOCUSBORDER: The width of the left and right edges of the focus rectangle that the DrawFocusRect draws. This
+	// value is in pixels. Windows 2000: This value is not supported.
+	SM_CXFOCUSBORDER Value = 83
+	// SM_CXFRAME: This value is the same as SM_CXSIZEFRAME.
+	SM_CXFRAME Value = 32
+	// SM_CXFULLSCREEN: The width of the client area for a full-screen window on the primary display monitor, in pixels. To
+	// get the coordinates of the portion of the screen that is not obscured by the system taskbar or by application
+	// desktop toolbars, call the SystemParametersInfo function with the SPI_GETWORKAREA value.
+	SM_CXFULLSCREEN Value = 16
+	// SM_CXHSCROLL: The width of the arrow bitmap on a horizontal scroll bar, in pixels.
+	SM_CXHSCROLL Value = 21
+	// SM_CXHTHUMB: The width of the thumb box in a horizontal scroll bar, in pixels.
+	SM_CXHTHUMB Value = 10
+	// SM_CXICON: The default width of an icon, in pixels. The LoadIcon function can load only icons with the dimensions
+	// that SM_CXICON and SM_CYICON specifies.
+	SM_CXICON Value = 11
+	// SM_CXICONSPACING: The width of a grid cell for items in large icon view, in pixels. Each item fits into a rectangle
+	// of size SM_CXICONSPACING by SM_CYICONSPACING when arranged. This value is always greater than or equal to SM_CXICON.
+	SM_CXICONSPACING Value = 38
+	// SM_CXMAXIMIZED: The default width, in pixels, of a maximized top-level window on the primary display monitor.
+	SM_CXMAXIMIZED Value = 61
+	// SM_CXMAXTRACK: The default maximum width of a window that has a caption and sizing borders, in pixels. This metric
+	// refers to the entire desktop. The user cannot drag the window frame to a size larger than these dimensions. A window
+	// can override this value by processing the WM_GETMINMAXINFO message.
+	SM_CXMAXTRACK Value = 59
+	// SM_CXMENUCHECK: The width of the default menu check-mark bitmap, in pixels.
+	SM_CXMENUCHECK Value = 71
+	// SM_CXMENUSIZE: The width of menu bar buttons, such as the child window close button that is used in the multiple
+	// document interface, in pixels.
+	SM_CXMENUSIZE Value = 54
+	// SM_CXMIN: The minimum width of a window, in pixels.
+	SM_CXMIN Value = 28
+	// SM_CXMINIMIZED: The width of a minimized window, in pixels.
+	SM_CXMINIMIZED Value = 57
+	// SM_CXMINSPACING: The width of a grid cell for a minimized window, in pixels. Each minimized window fits into a
+	// rectangle this size when arranged. This value is always greater than or equal to SM_CXMINIMIZED.
+	SM_CXMINSPACING Value = 47
+	// SM_CXMINTRACK: The minimum tracking width of a window, in pixels. The user cannot drag the window frame to a size
+	// smaller than these dimensions. A window can override this value by processing the WM_GETMINMAXINFO message.
+	SM_CXMINTRACK Value = 34
+	// SM_CXPADDEDBORDER: The amount of border padding for captioned windows, in pixels. Windows XP/2000: This value is not
+	// supported.
+	SM_CXPADDEDBORDER Value = 92
+	// SM_CXSCREEN: The width of the screen of the primary display monitor, in pixels. This is the same value obtained by
+	// calling GetDeviceCaps as follows: GetDeviceCaps( hdcPrimaryMonitor, HORZRES) .
+	SM_CXSCREEN Value = 0
+	// SM_CXSIZE: The width of a button in a window caption or title bar, in pixels.
+	SM_CXSIZE Value = 30
+	// SM_CXSIZEFRAME: The thickness of the sizing border around the perimeter of a window that can be resized, in pixels.
+	// SM_CXSIZEFRAME is the width of the horizontal border, and SM_CYSIZEFRAME is the height of the vertical border. This
+	// value is the same as SM_CXFRAME.
+	SM_CXSIZEFRAME Value = 32
+	// SM_CXSMICON: The recommended width of a small icon, in pixels. Small icons typically appear in window captions and
+	// in small icon view.
+	SM_CXSMICON Value = 49
+	// SM_CXSMSIZE: The width of small caption buttons, in pixels.
+	SM_CXSMSIZE Value = 52
+	// SM_CXVIRTUALSCREEN: The width of the virtual screen, in pixels. The virtual screen is the bounding rectangle of all
+	// display monitors. The SM_XVIRTUALSCREEN metric is the coordinates for the left side of the virtual screen.
+	SM_CXVIRTUALSCREEN Value = 78
+	// SM_CXVSCROLL: The width of a vertical scroll bar, in pixels.
+	SM_CXVSCROLL Value = 2
+	// SM_CYBORDER: The height of a window border, in pixels. This is equivalent to the SM_CYEDGE value for windows with
+	// the 3-D look.
+	SM_CYBORDER Value = 6
+	// SM_CYCAPTION: The height of a caption area, in pixels.
+	SM_CYCAPTION Value = 4
+	// SM_CYCURSOR: The nominal height of a cursor, in pixels.
+	SM_CYCURSOR Value = 14
+	// SM_CYDLGFRAME: This value is the same as SM_CYFIXEDFRAME.
+	SM_CYDLGFRAME Value = 8
+	// SM_CYDOUBLECLK: The height of the rectangle around the location of a first click in a double-click sequence, in
+	// pixels. The second click must occur within the rectangle defined by SM_CXDOUBLECLK and SM_CYDOUBLECLK for the system
+	// to consider the two clicks a double-click. The two clicks must also occur within a specified time. To set the height
+	// of the double-click rectangle, call SystemParametersInfo with SPI_SETDOUBLECLKHEIGHT.
+	SM_CYDOUBLECLK Value = 37
+	// SM_CYDRAG: The number of pixels above and below a mouse-down point that the mouse pointer can move before a drag
+	// operation begins. This allows the user to click and release the mouse button easily without unintentionally starting
+	// a drag operation. If this value is negative, it is subtracted from above the mouse-down point and added below it.
+	SM_CYDRAG Value = 69
+	// SM_CYEDGE: The height of a 3-D border, in pixels. This is the 3-D counterpart of SM_CYBORDER.
+	SM_CYEDGE Value = 46
+	// SM_CYFIXEDFRAME: The thickness of the frame around the perimeter of a window that has a caption but is not sizable,
+	// in pixels. SM_CXFIXEDFRAME is the height of the horizontal border, and SM_CYFIXEDFRAME is the width of the vertical
+	// border. This value is the same as SM_CYDLGFRAME.
+	SM_CYFIXEDFRAME Value = 8
+	// SM_CYFOCUSBORDER: The height of the top and bottom edges of the focus rectangle drawn by DrawFocusRect . This value
+	// is in pixels. Windows 2000: This value is not supported.
+	SM_CYFOCUSBORDER Value = 84
+	// SM_CYFRAME: This value is the same as SM_CYSIZEFRAME.
+	SM_CYFRAME Value = 33
+	// SM_CYFULLSCREEN: The height of the client area for a full-screen window on the primary display monitor, in pixels.
+	// To get the coordinates of the portion of the screen not obscured by the system taskbar or by application desktop
+	// toolbars, call the SystemParametersInfo function with the SPI_GETWORKAREA value.
+	SM_CYFULLSCREEN Value = 17
+	// SM_CYHSCROLL: The height of a horizontal scroll bar, in pixels.
+	SM_CYHSCROLL Value = 3
+	// SM_CYICON: The default height of an icon, in pixels. The LoadIcon function can load only icons with the dimensions
+	// SM_CXICON and SM_CYICON.
+	SM_CYICON Value = 12
+	// SM_CYICONSPACING: The height of a grid cell for items in large icon view, in pixels. Each item fits into a rectangle
+	// of size SM_CXICONSPACING by SM_CYICONSPACING when arranged. This value is always greater than or equal to SM_CYICON.
+	SM_CYICONSPACING Value = 39
+	// SM_CYKANJIWINDOW: For double byte character set versions of the system, this is the height of the Kanji window at
+	// the bottom of the screen, in pixels.
+	SM_CYKANJIWINDOW Value = 18
+	// SM_CYMAXIMIZED: The default height, in pixels, of a maximized top-level window on the primary display monitor.
+	SM_CYMAXIMIZED Value = 62
+	// SM_CYMAXTRACK: The default maximum height of a window that has a caption and sizing borders, in pixels. This metric
+	// refers to the entire desktop. The user cannot drag the window frame to a size larger than these dimensions. A window
+	// can override this value by processing the WM_GETMINMAXINFO message.
+	SM_CYMAXTRACK Value = 60
+	// SM_CYMENU: The height of a single-line menu bar, in pixels.
+	SM_CYMENU Value = 15
+	// SM_CYMENUCHECK: The height of the default menu check-mark bitmap, in pixels.
+	SM_CYMENUCHECK Value = 72
+	// SM_CYMENUSIZE: The height of menu bar buttons, such as the child window close button that is used in the multiple
+	// document interface, in pixels.
+	SM_CYMENUSIZE Value = 55
+	// SM_CYMIN: The minimum height of a window, in pixels.
+	SM_CYMIN Value = 29
+	// SM_CYMINIMIZED: The height of a minimized window, in pixels.
+	SM_CYMINIMIZED Value = 58
+	// SM_CYMINSPACING: The height of a grid cell for a minimized window, in pixels. Each minimized window fits into a
+	// rectangle this size when arranged. This value is always greater than or equal to SM_CYMINIMIZED.
+	SM_CYMINSPACING Value = 48
+	// SM_CYMINTRACK: The minimum tracking height of a window, in pixels. The user cannot drag the window frame to a size
+	// smaller than these dimensions. A window can override this value by processing the WM_GETMINMAXINFO message.
+	SM_CYMINTRACK Value = 35
+	// SM_CYSCREEN: The height of the screen of the primary display monitor, in pixels. This is the same value obtained by
+	// calling GetDeviceCaps as follows: GetDeviceCaps( hdcPrimaryMonitor, VERTRES) .
+	SM_CYSCREEN Value = 1
+	// SM_CYSIZE: The height of a button in a window caption or title bar, in pixels.
+	SM_CYSIZE Value = 31
+	// SM_CYSIZEFRAME: The thickness of the sizing border around the perimeter of a window that can be resized, in pixels.
+	// SM_CXSIZEFRAME is the width of the horizontal border, and SM_CYSIZEFRAME is the height of the vertical border. This
+	// value is the same as SM_CYFRAME.
+	SM_CYSIZEFRAME Value = 33
+	// SM_CYSMCAPTION: The height of a small caption, in pixels.
+	SM_CYSMCAPTION Value = 51
+	// SM_CYSMICON: The recommended height of a small icon, in pixels. Small icons typically appear in window captions and
+	// in small icon view.
+	SM_CYSMICON Value = 50
+	// SM_CYSMSIZE: The height of small caption buttons, in pixels.
+	SM_CYSMSIZE Value = 53
+	// SM_CYVIRTUALSCREEN: The height of the virtual screen, in pixels. The virtual screen is the bounding rectangle of all
+	// display monitors. The SM_YVIRTUALSCREEN metric is the coordinates for the top of the virtual screen.
+	SM_CYVIRTUALSCREEN Value = 79
+	// SM_CYVSCROLL: The height of the arrow bitmap on a vertical scroll bar, in pixels.
+	SM_CYVSCROLL Value = 20
+	// SM_CYVTHUMB: The height of the thumb box in a vertical scroll bar, in pixels.
+	SM_CYVTHUMB Value = 9
+	// SM_DBCSENABLED: Nonzero if User32.dll supports DBCS; otherwise, 0.
+	SM_DBCSENABLED Value = 42
+	// SM_DEBUG: Nonzero if the debug version of User.exe is installed; otherwise, 0.
+	SM_DEBUG Value = 22
+	// SM_DIGITIZER: Nonzero if the current operating system is Windows 7 or Windows Server 2008 R2 and the Tablet PC Input
+	// service is started; otherwise, 0. The return value is a bitmask that specifies the type of digitizer input supported
+	// by the device. For more information, see Remarks. Windows Server 2008, Windows Vista and Windows XP/2000: This value
+	// is not supported.
+	SM_DIGITIZER Value = 94
+	// SM_IMMENABLED: Nonzero if Input Method Manager/Input Method Editor features are enabled; otherwise, 0. SM_IMMENABLED
+	// indicates whether the system is ready to use a Unicode-based IME on a Unicode application. To ensure that a
+	// language-dependent IME works, check SM_DBCSENABLED and the system ANSI code page. Otherwise the ANSI-to-Unicode
+	// conversion may not be performed correctly, or some components like fonts or registry settings may not be present.
+	SM_IMMENABLED Value = 82
+	// SM_MAXIMUMTOUCHES: Nonzero if there are digitizers in the system; otherwise, 0. SM_MAXIMUMTOUCHES returns the
+	// aggregate maximum of the maximum number of contacts supported by every digitizer in the system. If the system has
+	// only single-touch digitizers, the return value is 1. If the system has multi-touch digitizers, the return value is
+	// the number of simultaneous contacts the hardware can provide. Windows Server 2008, Windows Vista and Windows
+	// XP/2000: This value is not supported.
+	SM_MAXIMUMTOUCHES Value = 95
+	// SM_MEDIACENTER: Nonzero if the current operating system is the Windows XP, Media Center Edition, 0 if not.
+	SM_MEDIACENTER Value = 87
+	// SM_MENUDROPALIGNMENT: Nonzero if drop-down menus are right-aligned with the corresponding menu-bar item; 0 if the
+	// menus are left-aligned.
+	SM_MENUDROPALIGNMENT Value = 40
+	// SM_MIDEASTENABLED: Nonzero if the system is enabled for Hebrew and Arabic languages, 0 if not.
+	SM_MIDEASTENABLED Value = 74
+	// SM_MOUSEHORIZONTALWHEELPRESENT: Nonzero if a mouse with a horizontal scroll wheel is installed; otherwise 0.
+	SM_MOUSEHORIZONTALWHEELPRESENT Value = 91
+	// SM_MOUSEPRESENT: Nonzero if a mouse is installed; otherwise, 0. This value is rarely zero, because of support for
+	// virtual mice and because some systems detect the presence of the port instead of the presence of a mouse.
+	SM_MOUSEPRESENT Value = 19
+	// SM_MOUSEWHEELPRESENT: Nonzero if a mouse with a vertical scroll wheel is installed; otherwise 0.
+	SM_MOUSEWHEELPRESENT Value = 75
+	// SM_NETWORK: The least significant bit is set if a network is present; otherwise, it is cleared. The other bits are
+	// reserved for future use.
+	SM_NETWORK Value = 63
+	// SM_PENWINDOWS: Nonzero if the Microsoft Windows for Pen computing extensions are installed; zero otherwise.
+	SM_PENWINDOWS Value = 41
+	// SM_REMOTECONTROL: This system metric is used in a Terminal Services environment to determine if the current Terminal
+	// Server session is being remotely controlled. Its value is nonzero if the current session is remotely controlled;
+	// otherwise, 0. You can use terminal services management tools such as Terminal Services Manager (tsadmin.msc) and
+	// shadow.exe to control a remote session. When a session is being remotely controlled, another user can view the
+	// contents of that session and potentially interact with it.
+	SM_REMOTECONTROL Value = 8193
+	// SM_REMOTESESSION: This system metric is used in a Terminal Services environment. If the calling process is
+	// associated with a Terminal Services client session, the return value is nonzero. If the calling process is
+	// associated with the Terminal Services console session, the return value is 0. Windows Server 2003 and Windows XP:
+	// The console session is not necessarily the physical console. For more information, see WTSGetActiveConsoleSessionId
+	// .
+	SM_REMOTESESSION Value = 4096
+	SM_RESERVED1     Value = 24
+	SM_RESERVED2     Value = 25
+	SM_RESERVED3     Value = 26
+	SM_RESERVED4     Value = 27
+	// SM_SAMEDISPLAYFORMAT: Nonzero if all the display monitors have the same color format, otherwise, 0. Two displays can
+	// have the same bit depth, but different color formats. For example, the red, green, and blue pixels can be encoded
+	// with different numbers of bits, or those bits can be located in different places in a pixel color value.
+	SM_SAMEDISPLAYFORMAT Value = 81
+	// SM_SECURE: This system metric should be ignored; it always returns 0.
+	SM_SECURE Value = 44
+	// SM_SERVERR2: The build number if the system is Windows Server 2003 R2; otherwise, 0.
+	SM_SERVERR2 Value = 89
+	// SM_SHOWSOUNDS: Nonzero if the user requires an application to present information visually in situations where it
+	// would otherwise present the information only in audible form; otherwise, 0.
+	SM_SHOWSOUNDS Value = 70
+	// SM_SHUTTINGDOWN: Nonzero if the current session is shutting down; otherwise, 0. Windows 2000: This value is not
+	// supported.
+	SM_SHUTTINGDOWN Value = 8192
+	// SM_SLOWMACHINE: Nonzero if the computer has a low-end (slow) processor; otherwise, 0.
+	SM_SLOWMACHINE Value = 73
+	// SM_STARTER: Nonzero if the current operating system is Windows 7 Starter Edition, Windows Vista Starter, or Windows
+	// XP Starter Edition; otherwise, 0.
+	SM_STARTER Value = 88
+	// SM_SWAPBUTTON: Nonzero if the meanings of the left and right mouse buttons are swapped; otherwise, 0.
+	SM_SWAPBUTTON   Value = 23
+	SM_SYSTEMDOCKED Value = 8196
+	// SM_TABLETPC: Nonzero if the current operating system is the Windows XP Tablet PC edition or if the current operating
+	// system is Windows Vista or Windows 7 and the Tablet PC Input service is started; otherwise, 0. The SM_DIGITIZER
+	// setting indicates the type of digitizer input supported by a device running Windows 7 or Windows Server 2008 R2. For
+	// more information, see Remarks.
+	SM_TABLETPC Value = 86
+	// SM_XVIRTUALSCREEN: The coordinates for the left side of the virtual screen. The virtual screen is the bounding
+	// rectangle of all display monitors. The SM_CXVIRTUALSCREEN metric is the width of the virtual screen.
+	SM_XVIRTUALSCREEN Value = 76
+	// SM_YVIRTUALSCREEN: The coordinates for the top of the virtual screen. The virtual screen is the bounding rectangle
+	// of all display monitors. The SM_CYVIRTUALSCREEN metric is the height of the virtual screen.
+	SM_YVIRTUALSCREEN                Value = 77
+	SPI_GETACCESSTIMEOUT             Value = 60
+	SPI_GETACTIVEWINDOWTRACKING      Value = 4096
+	SPI_GETACTIVEWNDTRKTIMEOUT       Value = 8194
+	SPI_GETACTIVEWNDTRKZORDER        Value = 4108
+	SPI_GETANIMATION                 Value = 72
+	SPI_GETAUDIODESCRIPTION          Value = 116
+	SPI_GETBEEP                      Value = 1
+	SPI_GETBLOCKSENDINPUTRESETS      Value = 4134
+	SPI_GETBORDER                    Value = 5
+	SPI_GETCARETBROWSING             Value = 4172
+	SPI_GETCARETTIMEOUT              Value = 8226
+	SPI_GETCARETWIDTH                Value = 8198
+	SPI_GETCLEARTYPE                 Value = 4168
+	SPI_GETCLIENTAREAANIMATION       Value = 4162
+	SPI_GETCOMBOBOXANIMATION         Value = 4100
+	SPI_GETCONTACTVISUALIZATION      Value = 8216
+	SPI_GETCURSORSHADOW              Value = 4122
+	SPI_GETDEFAULTINPUTLANG          Value = 89
+	SPI_GETDESKWALLPAPER             Value = 115
+	SPI_GETDISABLEOVERLAPPEDCONTENT  Value = 4160
+	SPI_GETDOCKMOVING                Value = 144
+	SPI_GETDRAGFROMMAXIMIZE          Value = 140
+	SPI_GETDRAGFULLWINDOWS           Value = 38
+	SPI_GETDROPSHADOW                Value = 4132
+	SPI_GETFASTTASKSWITCH            Value = 35
+	SPI_GETFILTERKEYS                Value = 50
+	SPI_GETFLATMENU                  Value = 4130
+	SPI_GETFOCUSBORDERHEIGHT         Value = 8208
+	SPI_GETFOCUSBORDERWIDTH          Value = 8206
+	SPI_GETFONTSMOOTHING             Value = 74
+	SPI_GETFONTSMOOTHINGCONTRAST     Value = 8204
+	SPI_GETFONTSMOOTHINGORIENTATION  Value = 8210
+	SPI_GETFONTSMOOTHINGTYPE         Value = 8202
+	SPI_GETFOREGROUNDFLASHCOUNT      Value = 8196
+	SPI_GETFOREGROUNDLOCKTIMEOUT     Value = 8192
+	SPI_GETGESTUREVISUALIZATION      Value = 8218
+	SPI_GETGRADIENTCAPTIONS          Value = 4104
+	SPI_GETGRIDGRANULARITY           Value = 18
+	SPI_GETHANDEDNESS                Value = 8228
+	SPI_GETHIGHCONTRAST              Value = 66
+	SPI_GETHOTTRACKING               Value = 4110
+	SPI_GETHUNGAPPTIMEOUT            Value = 120
+	SPI_GETICONMETRICS               Value = 45
+	SPI_GETICONTITLELOGFONT          Value = 31
+	SPI_GETICONTITLEWRAP             Value = 25
+	SPI_GETKEYBOARDCUES              Value = 4106
+	SPI_GETKEYBOARDDELAY             Value = 22
+	SPI_GETKEYBOARDPREF              Value = 68
+	SPI_GETKEYBOARDSPEED             Value = 10
+	SPI_GETLISTBOXSMOOTHSCROLLING    Value = 4102
+	SPI_GETLOGICALDPIOVERRIDE        Value = 158
+	SPI_GETLOWPOWERACTIVE            Value = 83
+	SPI_GETLOWPOWERTIMEOUT           Value = 79
+	SPI_GETMENUANIMATION             Value = 4098
+	SPI_GETMENUDROPALIGNMENT         Value = 27
+	SPI_GETMENUFADE                  Value = 4114
+	SPI_GETMENURECT                  Value = 162
+	SPI_GETMENUSHOWDELAY             Value = 106
+	SPI_GETMENUUNDERLINES            Value = 4106
+	SPI_GETMESSAGEDURATION           Value = 8214
+	SPI_GETMINIMIZEDMETRICS          Value = 43
+	SPI_GETMINIMUMHITRADIUS          Value = 8212
+	SPI_GETMOUSE                     Value = 3
+	SPI_GETMOUSECLICKLOCK            Value = 4126
+	SPI_GETMOUSECLICKLOCKTIME        Value = 8200
+	SPI_GETMOUSEDOCKTHRESHOLD        Value = 126
+	SPI_GETMOUSEDRAGOUTTHRESHOLD     Value = 132
+	SPI_GETMOUSEHOVERHEIGHT          Value = 100
+	SPI_GETMOUSEHOVERTIME            Value = 102
+	SPI_GETMOUSEHOVERWIDTH           Value = 98
+	SPI_GETMOUSEKEYS                 Value = 54
+	SPI_GETMOUSESIDEMOVETHRESHOLD    Value = 136
+	SPI_GETMOUSESONAR                Value = 4124
+	SPI_GETMOUSESPEED                Value = 112
+	SPI_GETMOUSETRAILS               Value = 94
+	SPI_GETMOUSEVANISH               Value = 4128
+	SPI_GETMOUSEWHEELROUTING         Value = 8220
+	SPI_GETNONCLIENTMETRICS          Value = 41
+	SPI_GETPENARBITRATIONTYPE        Value = 8224
+	SPI_GETPENDOCKTHRESHOLD          Value = 128
+	SPI_GETPENDRAGOUTTHRESHOLD       Value = 134
+	SPI_GETPENSIDEMOVETHRESHOLD      Value = 138
+	SPI_GETPENVISUALIZATION          Value = 8222
+	SPI_GETPOWEROFFACTIVE            Value = 84
+	SPI_GETPOWEROFFTIMEOUT           Value = 80
+	SPI_GETSCREENREADER              Value = 70
+	SPI_GETSCREENSAVEACTIVE          Value = 16
+	SPI_GETSCREENSAVERRUNNING        Value = 114
+	SPI_GETSCREENSAVESECURE          Value = 118
+	SPI_GETSCREENSAVETIMEOUT         Value = 14
+	SPI_GETSELECTIONFADE             Value = 4116
+	SPI_GETSERIALKEYS                Value = 62
+	SPI_GETSHOWIMEUI                 Value = 110
+	SPI_GETSHOWSOUNDS                Value = 56
+	SPI_GETSNAPSIZING                Value = 142
+	SPI_GETSNAPTODEFBUTTON           Value = 95
+	SPI_GETSOUNDSENTRY               Value = 64
+	SPI_GETSPEECHRECOGNITION         Value = 4170
+	SPI_GETSTICKYKEYS                Value = 58
+	SPI_GETSYSTEMLANGUAGEBAR         Value = 4176
+	SPI_GETTHREADLOCALINPUTSETTINGS  Value = 4174
+	SPI_GETTOGGLEKEYS                Value = 52
+	SPI_GETTOOLTIPANIMATION          Value = 4118
+	SPI_GETTOOLTIPFADE               Value = 4120
+	SPI_GETTOUCHPADPARAMETERS        Value = 174
+	SPI_GETTOUCHPREDICTIONPARAMETERS Value = 156
+	SPI_GETUIEFFECTS                 Value = 4158
+	SPI_GETWAITTOKILLSERVICETIMEOUT  Value = 124
+	SPI_GETWAITTOKILLTIMEOUT         Value = 122
+	SPI_GETWHEELSCROLLCHARS          Value = 108
+	SPI_GETWHEELSCROLLLINES          Value = 104
+	SPI_GETWINARRANGING              Value = 130
+	SPI_GETWINDOWSEXTENSION          Value = 92
+	SPI_GETWORKAREA                  Value = 48
+	SPI_ICONHORIZONTALSPACING        Value = 13
+	SPI_ICONVERTICALSPACING          Value = 24
+	SPI_LANGDRIVER                   Value = 12
+	SPI_SCREENSAVERRUNNING           Value = 97
+	SPI_SETACCESSTIMEOUT             Value = 61
+	SPI_SETACTIVEWINDOWTRACKING      Value = 4097
+	SPI_SETACTIVEWNDTRKTIMEOUT       Value = 8195
+	SPI_SETACTIVEWNDTRKZORDER        Value = 4109
+	SPI_SETANIMATION                 Value = 73
+	SPI_SETAUDIODESCRIPTION          Value = 117
+	SPI_SETBEEP                      Value = 2
+	SPI_SETBLOCKSENDINPUTRESETS      Value = 4135
+	SPI_SETBORDER                    Value = 6
+	SPI_SETCARETBROWSING             Value = 4173
+	SPI_SETCARETTIMEOUT              Value = 8227
+	SPI_SETCARETWIDTH                Value = 8199
+	SPI_SETCLEARTYPE                 Value = 4169
+	SPI_SETCLIENTAREAANIMATION       Value = 4163
+	SPI_SETCOMBOBOXANIMATION         Value = 4101
+	SPI_SETCONTACTVISUALIZATION      Value = 8217
+	SPI_SETCURSORS                   Value = 87
+	SPI_SETCURSORSHADOW              Value = 4123
+	SPI_SETDEFAULTINPUTLANG          Value = 90
+	SPI_SETDESKPATTERN               Value = 21
+	SPI_SETDESKWALLPAPER             Value = 20
+	SPI_SETDISABLEOVERLAPPEDCONTENT  Value = 4161
+	SPI_SETDOCKMOVING                Value = 145
+	SPI_SETDOUBLECLICKTIME           Value = 32
+	SPI_SETDOUBLECLKHEIGHT           Value = 30
+	SPI_SETDOUBLECLKWIDTH            Value = 29
+	SPI_SETDRAGFROMMAXIMIZE          Value = 141
+	SPI_SETDRAGFULLWINDOWS           Value = 37
+	SPI_SETDRAGHEIGHT                Value = 77
+	SPI_SETDRAGWIDTH                 Value = 76
+	SPI_SETDROPSHADOW                Value = 4133
+	SPI_SETFASTTASKSWITCH            Value = 36
+	SPI_SETFILTERKEYS                Value = 51
+	SPI_SETFLATMENU                  Value = 4131
+	SPI_SETFOCUSBORDERHEIGHT         Value = 8209
+	SPI_SETFOCUSBORDERWIDTH          Value = 8207
+	SPI_SETFONTSMOOTHING             Value = 75
+	SPI_SETFONTSMOOTHINGCONTRAST     Value = 8205
+	SPI_SETFONTSMOOTHINGORIENTATION  Value = 8211
+	SPI_SETFONTSMOOTHINGTYPE         Value = 8203
+	SPI_SETFOREGROUNDFLASHCOUNT      Value = 8197
+	SPI_SETFOREGROUNDLOCKTIMEOUT     Value = 8193
+	SPI_SETGESTUREVISUALIZATION      Value = 8219
+	SPI_SETGRADIENTCAPTIONS          Value = 4105
+	SPI_SETGRIDGRANULARITY           Value = 19
+	SPI_SETHANDEDNESS                Value = 8229
+	SPI_SETHANDHELD                  Value = 78
+	SPI_SETHIGHCONTRAST              Value = 67
+	SPI_SETHOTTRACKING               Value = 4111
+	SPI_SETHUNGAPPTIMEOUT            Value = 121
+	SPI_SETICONMETRICS               Value = 46
+	SPI_SETICONS                     Value = 88
+	SPI_SETICONTITLELOGFONT          Value = 34
+	SPI_SETICONTITLEWRAP             Value = 26
+	SPI_SETKEYBOARDCUES              Value = 4107
+	SPI_SETKEYBOARDDELAY             Value = 23
+	SPI_SETKEYBOARDPREF              Value = 69
+	SPI_SETKEYBOARDSPEED             Value = 11
+	SPI_SETLANGTOGGLE                Value = 91
+	SPI_SETLISTBOXSMOOTHSCROLLING    Value = 4103
+	SPI_SETLOGICALDPIOVERRIDE        Value = 159
+	SPI_SETLOWPOWERACTIVE            Value = 85
+	SPI_SETLOWPOWERTIMEOUT           Value = 81
+	SPI_SETMENUANIMATION             Value = 4099
+	SPI_SETMENUDROPALIGNMENT         Value = 28
+	SPI_SETMENUFADE                  Value = 4115
+	SPI_SETMENURECT                  Value = 163
+	SPI_SETMENUSHOWDELAY             Value = 107
+	SPI_SETMENUUNDERLINES            Value = 4107
+	SPI_SETMESSAGEDURATION           Value = 8215
+	SPI_SETMINIMIZEDMETRICS          Value = 44
+	SPI_SETMINIMUMHITRADIUS          Value = 8213
+	SPI_SETMOUSE                     Value = 4
+	SPI_SETMOUSEBUTTONSWAP           Value = 33
+	SPI_SETMOUSECLICKLOCK            Value = 4127
+	SPI_SETMOUSECLICKLOCKTIME        Value = 8201
+	SPI_SETMOUSEDOCKTHRESHOLD        Value = 127
+	SPI_SETMOUSEDRAGOUTTHRESHOLD     Value = 133
+	SPI_SETMOUSEHOVERHEIGHT          Value = 101
+	SPI_SETMOUSEHOVERTIME            Value = 103
+	SPI_SETMOUSEHOVERWIDTH           Value = 99
+	SPI_SETMOUSEKEYS                 Value = 55
+	SPI_SETMOUSESIDEMOVETHRESHOLD    Value = 137
+	SPI_SETMOUSESONAR                Value = 4125
+	SPI_SETMOUSESPEED                Value = 113
+	SPI_SETMOUSETRAILS               Value = 93
+	SPI_SETMOUSEVANISH               Value = 4129
+	SPI_SETMOUSEWHEELROUTING         Value = 8221
+	SPI_SETNONCLIENTMETRICS          Value = 42
+	SPI_SETPENARBITRATIONTYPE        Value = 8225
+	SPI_SETPENDOCKTHRESHOLD          Value = 129
+	SPI_SETPENDRAGOUTTHRESHOLD       Value = 135
+	SPI_SETPENSIDEMOVETHRESHOLD      Value = 139
+	SPI_SETPENVISUALIZATION          Value = 8223
+	SPI_SETPENWINDOWS                Value = 49
+	SPI_SETPOWEROFFACTIVE            Value = 86
+	SPI_SETPOWEROFFTIMEOUT           Value = 82
+	SPI_SETSCREENREADER              Value = 71
+	SPI_SETSCREENSAVEACTIVE          Value = 17
+	SPI_SETSCREENSAVERRUNNING        Value = 97
+	SPI_SETSCREENSAVESECURE          Value = 119
+	SPI_SETSCREENSAVETIMEOUT         Value = 15
+	SPI_SETSELECTIONFADE             Value = 4117
+	SPI_SETSERIALKEYS                Value = 63
+	SPI_SETSHOWIMEUI                 Value = 111
+	SPI_SETSHOWSOUNDS                Value = 57
+	SPI_SETSNAPSIZING                Value = 143
+	SPI_SETSNAPTODEFBUTTON           Value = 96
+	SPI_SETSOUNDSENTRY               Value = 65
+	SPI_SETSPEECHRECOGNITION         Value = 4171
+	SPI_SETSTICKYKEYS                Value = 59
+	SPI_SETSYSTEMLANGUAGEBAR         Value = 4177
+	SPI_SETTHREADLOCALINPUTSETTINGS  Value = 4175
+	SPI_SETTOGGLEKEYS                Value = 53
+	SPI_SETTOOLTIPANIMATION          Value = 4119
+	SPI_SETTOOLTIPFADE               Value = 4121
+	SPI_SETTOUCHPADPARAMETERS        Value = 175
+	SPI_SETTOUCHPREDICTIONPARAMETERS Value = 157
+	SPI_SETUIEFFECTS                 Value = 4159
+	SPI_SETWAITTOKILLSERVICETIMEOUT  Value = 125
+	SPI_SETWAITTOKILLTIMEOUT         Value = 123
+	SPI_SETWHEELSCROLLCHARS          Value = 109
+	SPI_SETWHEELSCROLLLINES          Value = 105
+	SPI_SETWINARRANGING              Value = 131
+	SPI_SETWORKAREA                  Value = 47
+	// SWP_ASYNCWINDOWPOS: If the calling thread and the thread that owns the window are attached to different input
+	// queues, the system posts the request to the thread that owns the window. This prevents the calling thread from
+	// blocking its execution while other threads process the request.
+	SWP_ASYNCWINDOWPOS Value = 16384
+	// SWP_DEFERERASE: Prevents generation of the WM_SYNCPAINT message.
+	SWP_DEFERERASE Value = 8192
+	// SWP_DRAWFRAME: Documentation varies per use. Refer to each: DeferWindowPos , SetWindowPos , WINDOWPOS .
+	SWP_DRAWFRAME Value = 32
+	// SWP_FRAMECHANGED: Documentation varies per use. Refer to each: DeferWindowPos , SetWindowPos , WINDOWPOS .
+	SWP_FRAMECHANGED Value = 32
+	// SWP_HIDEWINDOW: Hides the window.
+	SWP_HIDEWINDOW Value = 128
+	// SWP_NOACTIVATE: Documentation varies per use. Refer to each: DeferWindowPos , SetWindowPos , WINDOWPOS .
+	SWP_NOACTIVATE Value = 16
+	// SWP_NOCOPYBITS: Discards the entire contents of the client area. If this flag is not specified, the valid contents
+	// of the client area are saved and copied back into the client area after the window is sized or repositioned.
+	SWP_NOCOPYBITS Value = 256
+	// SWP_NOMOVE: Documentation varies per use. Refer to each: DeferWindowPos , SetWindowPos , WINDOWPOS .
+	SWP_NOMOVE Value = 2
+	SWP_NONE   Value = 0
+	// SWP_NOOWNERZORDER: Does not change the owner window's position in the Z order.
+	SWP_NOOWNERZORDER Value = 512
+	// SWP_NOREDRAW: Does not redraw changes. If this flag is set, no repainting of any kind occurs. This applies to the
+	// client area, the nonclient area (including the title bar and scroll bars), and any part of the parent window
+	// uncovered as a result of the window being moved. When this flag is set, the application must explicitly invalidate
+	// or redraw any parts of the window and parent window that need redrawing.
+	SWP_NOREDRAW Value = 8
+	// SWP_NOREPOSITION: Documentation varies per use. Refer to each: DeferWindowPos , SetWindowPos , WINDOWPOS .
+	SWP_NOREPOSITION Value = 512
+	// SWP_NOSENDCHANGING: Documentation varies per use. Refer to each: DeferWindowPos , SetWindowPos , WINDOWPOS .
+	SWP_NOSENDCHANGING Value = 1024
+	// SWP_NOSIZE: Documentation varies per use. Refer to each: DeferWindowPos , SetWindowPos , WINDOWPOS .
+	SWP_NOSIZE Value = 1
+	// SWP_NOZORDER: Documentation varies per use. Refer to each: DeferWindowPos , SetWindowPos , WINDOWPOS .
+	SWP_NOZORDER Value = 4
+	// SWP_SHOWWINDOW: Displays the window.
+	SWP_SHOWWINDOW Value = 64
 	// SW_ERASE: Documentation varies per use. Refer to each: ITextHost.TxScrollWindowEx , ScrollWindowEx .
 	SW_ERASE         Value = 4
 	SW_FORCEMINIMIZE Value = 11
@@ -179,7 +1121,47 @@ const (
 	SW_SHOWNOACTIVATE  Value = 4
 	SW_SHOWNORMAL      Value = 1
 	// SW_SMOOTHSCROLL: Documentation varies per use. Refer to each: ITextHost.TxScrollWindowEx , ScrollWindowEx .
-	SW_SMOOTHSCROLL                    Value = 16
+	SW_SMOOTHSCROLL Value = 16
+	// TME_CANCEL: The caller wants to cancel a prior tracking request. The caller should also specify the type of tracking
+	// that it wants to cancel. For example, to cancel hover tracking, the caller must pass the TME_CANCEL and TME_HOVER
+	// flags.
+	TME_CANCEL Value = 2147483648
+	// TME_HOVER: The caller wants hover notification. Notification is delivered as a WM_MOUSEHOVER message. If the caller
+	// requests hover tracking while hover tracking is already active, the hover timer will be reset. This flag is ignored
+	// if the mouse pointer is not over the specified window or area.
+	TME_HOVER Value = 1
+	// TME_LEAVE: The caller wants leave notification. Notification is delivered as a WM_MOUSELEAVE message. If the mouse
+	// is not over the specified window or area, a leave notification is generated immediately and no further tracking is
+	// performed.
+	TME_LEAVE Value = 2
+	// TME_NONCLIENT: The caller wants hover and leave notification for the nonclient areas. Notification is delivered as
+	// WM_NCMOUSEHOVER and WM_NCMOUSELEAVE messages.
+	TME_NONCLIENT Value = 16
+	// TME_QUERY: The function fills in the structure instead of treating it as a tracking request. The structure is filled
+	// such that had that structure been passed to TrackMouseEvent , it would generate the current tracking. The only
+	// anomaly is that the hover time-out returned is always the actual time-out and not HOVER_DEFAULT , if HOVER_DEFAULT
+	// was specified during the original TrackMouseEvent request.
+	TME_QUERY                          Value = 1073741824
+	TPM_BOTTOMALIGN                    Value = 32
+	TPM_CENTERALIGN                    Value = 4
+	TPM_HORIZONTAL                     Value = 0
+	TPM_HORNEGANIMATION                Value = 2048
+	TPM_HORPOSANIMATION                Value = 1024
+	TPM_LAYOUTRTL                      Value = 32768
+	TPM_LEFTALIGN                      Value = 0
+	TPM_LEFTBUTTON                     Value = 0
+	TPM_NOANIMATION                    Value = 16384
+	TPM_NONOTIFY                       Value = 128
+	TPM_RECURSE                        Value = 1
+	TPM_RETURNCMD                      Value = 256
+	TPM_RIGHTALIGN                     Value = 8
+	TPM_RIGHTBUTTON                    Value = 2
+	TPM_TOPALIGN                       Value = 0
+	TPM_VCENTERALIGN                   Value = 16
+	TPM_VERNEGANIMATION                Value = 8192
+	TPM_VERPOSANIMATION                Value = 4096
+	TPM_VERTICAL                       Value = 64
+	TPM_WORKAREA                       Value = 65536
 	VK_0                               Value = 48
 	VK_1                               Value = 49
 	VK_2                               Value = 50
@@ -427,6 +1409,65 @@ const (
 	VK_Z                               Value = 90
 	VK_ZOOM                            Value = 251
 	VK__none_                          Value = 255
+	WHEEL_DELTA                        Value = 120
+	// WH_CALLWNDPROC: Installs a hook procedure that monitors messages before the system sends them to the destination
+	// window procedure. For more information, see the CallWndProc hook procedure.
+	WH_CALLWNDPROC Value = 4
+	// WH_CALLWNDPROCRET: Installs a hook procedure that monitors messages after they have been processed by the
+	// destination window procedure. For more information, see the CallWndRetProc hook procedure.
+	WH_CALLWNDPROCRET Value = 12
+	// WH_CBT: Installs a hook procedure that receives notifications useful to a CBT application. For more information, see
+	// the CBTProc hook procedure.
+	WH_CBT Value = 5
+	// WH_DEBUG: Installs a hook procedure useful for debugging other hook procedures. For more information, see the
+	// DebugProc hook procedure.
+	WH_DEBUG Value = 9
+	// WH_FOREGROUNDIDLE: Installs a hook procedure that will be called when the application's foreground thread is about
+	// to become idle. This hook is useful for performing low priority tasks during idle time. For more information, see
+	// the ForegroundIdleProc hook procedure.
+	WH_FOREGROUNDIDLE Value = 11
+	// WH_GETMESSAGE: Installs a hook procedure that monitors messages posted to a message queue. For more information, see
+	// the GetMsgProc hook procedure.
+	WH_GETMESSAGE Value = 3
+	WH_HARDWARE   Value = 8
+	// WH_JOURNALPLAYBACK: [!WARNING] Journaling Hooks APIs are unsupported starting in Windows 11 and will be removed in a
+	// future release. Because of this, we highly recommend calling the
+	// [**SendInput**](/windows/win32/api/winuser/nf-winuser-sendinput) TextInput API instead. Installs a hook procedure
+	// that posts messages previously recorded by a WH_JOURNALRECORD hook procedure. For more information, see the
+	// JournalPlaybackProc hook procedure.
+	WH_JOURNALPLAYBACK Value = 1
+	// WH_JOURNALRECORD: [!WARNING] Journaling Hooks APIs are unsupported starting in Windows 11 and will be removed in a
+	// future release. Because of this, we highly recommend calling the
+	// [**SendInput**](/windows/win32/api/winuser/nf-winuser-sendinput) TextInput API instead. Installs a hook procedure
+	// that records input messages posted to the system message queue. This hook is useful for recording macros. For more
+	// information, see the JournalRecordProc hook procedure.
+	WH_JOURNALRECORD Value = 0
+	// WH_KEYBOARD: Installs a hook procedure that monitors keystroke messages. For more information, see the KeyboardProc
+	// hook procedure.
+	WH_KEYBOARD Value = 2
+	// WH_KEYBOARD_LL: Installs a hook procedure that monitors low-level keyboard input events. For more information, see
+	// the LowLevelKeyboardProc hook procedure.
+	WH_KEYBOARD_LL Value = 13
+	WH_MAX         Value = 14
+	WH_MAXHOOK     Value = 14
+	WH_MIN         Value = -1
+	WH_MINHOOK     Value = -1
+	// WH_MOUSE: Installs a hook procedure that monitors mouse messages. For more information, see the MouseProc hook
+	// procedure.
+	WH_MOUSE Value = 7
+	// WH_MOUSE_LL: Installs a hook procedure that monitors low-level mouse input events. For more information, see the
+	// LowLevelMouseProc hook procedure.
+	WH_MOUSE_LL Value = 14
+	// WH_MSGFILTER: Installs a hook procedure that monitors messages generated as a result of an input event in a dialog
+	// box, message box, menu, or scroll bar. For more information, see the MessageProc hook procedure.
+	WH_MSGFILTER Value = -1
+	// WH_SHELL: Installs a hook procedure that receives notifications useful to shell applications. For more information,
+	// see the ShellProc hook procedure.
+	WH_SHELL Value = 10
+	// WH_SYSMSGFILTER: Installs a hook procedure that monitors messages generated as a result of an input event in a
+	// dialog box, message box, menu, or scroll bar. The hook procedure monitors these messages for all applications in the
+	// same desktop as the calling thread. For more information, see the SysMsgProc hook procedure.
+	WH_SYSMSGFILTER Value = 6
 	// WM_ACTIVATE: Sent to both the window being activated and the window being deactivated.
 	WM_ACTIVATE Value = 6
 	// WM_ACTIVATEAPP: Sent when a window belonging to a different application than the active window is about to be
@@ -1181,14 +2222,34 @@ const (
 // Name returns the canonical symbolic name for value.
 func Name(value Value) (string, bool) {
 	switch value {
+	case Value(-1):
+		return "HWND_TOPMOST", true
+	case Value(-10):
+		return "GCLP_HBRBACKGROUND", true
 	case Value(-12):
 		return "GWLP_ID", true
+	case Value(-14):
+		return "GCLP_HICON", true
 	case Value(-16):
 		return "GWL_STYLE", true
+	case Value(-18):
+		return "GCL_CBWNDEXTRA", true
+	case Value(-2):
+		return "HWND_NOTOPMOST", true
 	case Value(-20):
 		return "GWL_EXSTYLE", true
 	case Value(-21):
 		return "GWLP_USERDATA", true
+	case Value(-2147483648):
+		return "CW_USEDEFAULT", true
+	case Value(-24):
+		return "GCLP_WNDPROC", true
+	case Value(-26):
+		return "GCL_STYLE", true
+	case Value(-3):
+		return "HWND_MESSAGE", true
+	case Value(-34):
+		return "GCLP_HICONSM", true
 	case Value(-4):
 		return "GWLP_WNDPROC", true
 	case Value(-6):
@@ -1211,6 +2272,8 @@ func Name(value Value) (string, bool) {
 		return "WM_USER", true
 	case Value(103):
 		return "VK_NUMPAD7", true
+	case Value(1031):
+		return "QS_INPUT", true
 	case Value(104):
 		return "VK_NUMPAD8", true
 	case Value(1048576):
@@ -1255,6 +2318,8 @@ func Name(value Value) (string, bool) {
 		return "VK_F9", true
 	case Value(121):
 		return "VK_F10", true
+	case Value(1215):
+		return "QS_ALLEVENTS", true
 	case Value(122):
 		return "VK_F11", true
 	case Value(12288):
@@ -1271,6 +2336,8 @@ func Name(value Value) (string, bool) {
 		return "VK_F15", true
 	case Value(127):
 		return "VK_F16", true
+	case Value(1279):
+		return "QS_ALLINPUT", true
 	case Value(128):
 		return "MB_USERICON", true
 	case Value(129):
@@ -1329,6 +2396,14 @@ func Name(value Value) (string, bool) {
 		return "MB_TYPEMASK", true
 	case Value(150):
 		return "VK_OEM_FJ_ROYA", true
+	case Value(156):
+		return "SPI_GETTOUCHPREDICTIONPARAMETERS", true
+	case Value(157):
+		return "SPI_SETTOUCHPREDICTIONPARAMETERS", true
+	case Value(158):
+		return "SPI_GETLOGICALDPIOVERRIDE", true
+	case Value(159):
+		return "SPI_SETLOGICALDPIOVERRIDE", true
 	case Value(16):
 		return "MB_ICONERROR", true
 	case Value(160):
@@ -1431,6 +2506,8 @@ func Name(value Value) (string, bool) {
 		return "VK_GAMEPAD_DPAD_UP", true
 	case Value(204):
 		return "VK_GAMEPAD_DPAD_DOWN", true
+	case Value(2048):
+		return "CS_SAVEBITS", true
 	case Value(205):
 		return "VK_GAMEPAD_DPAD_LEFT", true
 	case Value(206):
@@ -1645,6 +2722,48 @@ func Name(value Value) (string, bool) {
 		return "WM_CTLCOLORSTATIC", true
 	case Value(32):
 		return "MB_ICONQUESTION", true
+	case Value(32512):
+		return "IDC_ARROW", true
+	case Value(32513):
+		return "IDC_IBEAM", true
+	case Value(32514):
+		return "IDC_WAIT", true
+	case Value(32515):
+		return "IDC_CROSS", true
+	case Value(32516):
+		return "IDC_UPARROW", true
+	case Value(32517):
+		return "IDI_WINLOGO", true
+	case Value(32518):
+		return "IDI_SHIELD", true
+	case Value(32640):
+		return "IDC_SIZE", true
+	case Value(32641):
+		return "IDC_ICON", true
+	case Value(32642):
+		return "IDC_SIZENWSE", true
+	case Value(32643):
+		return "IDC_SIZENESW", true
+	case Value(32644):
+		return "IDC_SIZEWE", true
+	case Value(32645):
+		return "IDC_SIZENS", true
+	case Value(32646):
+		return "IDC_SIZEALL", true
+	case Value(32647):
+		return "OCR_ICOCUR", true
+	case Value(32648):
+		return "IDC_NO", true
+	case Value(32649):
+		return "IDC_HAND", true
+	case Value(32650):
+		return "IDC_APPSTARTING", true
+	case Value(32651):
+		return "IDC_HELP", true
+	case Value(32671):
+		return "IDC_PIN", true
+	case Value(32672):
+		return "IDC_PERSON", true
 	case Value(32768):
 		return "MB_NOFOCUS", true
 	case Value(33):
@@ -1673,8 +2792,114 @@ func Name(value Value) (string, bool) {
 		return "VK_DOWN", true
 	case Value(4096):
 		return "MB_SYSTEMMODAL", true
+	case Value(4097):
+		return "SPI_SETACTIVEWINDOWTRACKING", true
+	case Value(4098):
+		return "SPI_GETMENUANIMATION", true
+	case Value(4099):
+		return "SPI_SETMENUANIMATION", true
 	case Value(41):
 		return "VK_SELECT", true
+	case Value(4100):
+		return "SPI_GETCOMBOBOXANIMATION", true
+	case Value(4101):
+		return "SPI_SETCOMBOBOXANIMATION", true
+	case Value(4102):
+		return "SPI_GETLISTBOXSMOOTHSCROLLING", true
+	case Value(4103):
+		return "SPI_SETLISTBOXSMOOTHSCROLLING", true
+	case Value(4104):
+		return "SPI_GETGRADIENTCAPTIONS", true
+	case Value(4105):
+		return "SPI_SETGRADIENTCAPTIONS", true
+	case Value(4106):
+		return "SPI_GETKEYBOARDCUES", true
+	case Value(4107):
+		return "SPI_SETKEYBOARDCUES", true
+	case Value(4108):
+		return "SPI_GETACTIVEWNDTRKZORDER", true
+	case Value(4109):
+		return "SPI_SETACTIVEWNDTRKZORDER", true
+	case Value(4110):
+		return "SPI_GETHOTTRACKING", true
+	case Value(4111):
+		return "SPI_SETHOTTRACKING", true
+	case Value(4114):
+		return "SPI_GETMENUFADE", true
+	case Value(4115):
+		return "SPI_SETMENUFADE", true
+	case Value(4116):
+		return "SPI_GETSELECTIONFADE", true
+	case Value(4117):
+		return "SPI_SETSELECTIONFADE", true
+	case Value(4118):
+		return "SPI_GETTOOLTIPANIMATION", true
+	case Value(4119):
+		return "SPI_SETTOOLTIPANIMATION", true
+	case Value(4120):
+		return "SPI_GETTOOLTIPFADE", true
+	case Value(4121):
+		return "SPI_SETTOOLTIPFADE", true
+	case Value(4122):
+		return "SPI_GETCURSORSHADOW", true
+	case Value(4123):
+		return "SPI_SETCURSORSHADOW", true
+	case Value(4124):
+		return "SPI_GETMOUSESONAR", true
+	case Value(4125):
+		return "SPI_SETMOUSESONAR", true
+	case Value(4126):
+		return "SPI_GETMOUSECLICKLOCK", true
+	case Value(4127):
+		return "SPI_SETMOUSECLICKLOCK", true
+	case Value(4128):
+		return "SPI_GETMOUSEVANISH", true
+	case Value(4129):
+		return "SPI_SETMOUSEVANISH", true
+	case Value(4130):
+		return "SPI_GETFLATMENU", true
+	case Value(4131):
+		return "SPI_SETFLATMENU", true
+	case Value(4132):
+		return "SPI_GETDROPSHADOW", true
+	case Value(4133):
+		return "SPI_SETDROPSHADOW", true
+	case Value(4134):
+		return "SPI_GETBLOCKSENDINPUTRESETS", true
+	case Value(4135):
+		return "SPI_SETBLOCKSENDINPUTRESETS", true
+	case Value(4158):
+		return "SPI_GETUIEFFECTS", true
+	case Value(4159):
+		return "SPI_SETUIEFFECTS", true
+	case Value(4160):
+		return "SPI_GETDISABLEOVERLAPPEDCONTENT", true
+	case Value(4161):
+		return "SPI_SETDISABLEOVERLAPPEDCONTENT", true
+	case Value(4162):
+		return "SPI_GETCLIENTAREAANIMATION", true
+	case Value(4163):
+		return "SPI_SETCLIENTAREAANIMATION", true
+	case Value(4168):
+		return "SPI_GETCLEARTYPE", true
+	case Value(4169):
+		return "SPI_SETCLEARTYPE", true
+	case Value(4170):
+		return "SPI_GETSPEECHRECOGNITION", true
+	case Value(4171):
+		return "SPI_SETSPEECHRECOGNITION", true
+	case Value(4172):
+		return "SPI_GETCARETBROWSING", true
+	case Value(4173):
+		return "SPI_SETCARETBROWSING", true
+	case Value(4174):
+		return "SPI_GETTHREADLOCALINPUTSETTINGS", true
+	case Value(4175):
+		return "SPI_SETTHREADLOCALINPUTSETTINGS", true
+	case Value(4176):
+		return "SPI_GETSYSTEMLANGUAGEBAR", true
+	case Value(4177):
+		return "SPI_SETSYSTEMLANGUAGEBAR", true
 	case Value(4194304):
 		return "WS_DLGFRAME", true
 	case Value(42):
@@ -1809,6 +3034,8 @@ func Name(value Value) (string, bool) {
 		return "WM_NCPOINTERDOWN", true
 	case Value(579):
 		return "WM_NCPOINTERUP", true
+	case Value(58):
+		return "SM_CYMINIMIZED", true
 	case Value(581):
 		return "WM_POINTERUPDATE", true
 	case Value(582):
@@ -1825,6 +3052,8 @@ func Name(value Value) (string, bool) {
 		return "WM_POINTERCAPTURECHANGED", true
 	case Value(589):
 		return "WM_TOUCHHITTESTING", true
+	case Value(59):
+		return "SM_CXMAXTRACK", true
 	case Value(590):
 		return "WM_POINTERWHEEL", true
 	case Value(591):
@@ -1837,8 +3066,14 @@ func Name(value Value) (string, bool) {
 		return "WM_POINTERROUTEDRELEASED", true
 	case Value(6):
 		return "MB_CANCELTRYCONTINUE", true
+	case Value(60):
+		return "SM_CYMAXTRACK", true
 	case Value(61):
 		return "WM_GETOBJECT", true
+	case Value(62):
+		return "SM_CYMAXIMIZED", true
+	case Value(63):
+		return "SM_NETWORK", true
 	case Value(64):
 		return "MB_ICONASTERISK", true
 	case Value(641):
@@ -1857,6 +3092,8 @@ func Name(value Value) (string, bool) {
 		return "WM_IME_REQUEST", true
 	case Value(65):
 		return "VK_A", true
+	case Value(65535):
+		return "HWND_BROADCAST", true
 	case Value(65536):
 		return "MB_SETFOREGROUND", true
 	case Value(656):
@@ -1981,8 +3218,82 @@ func Name(value Value) (string, bool) {
 		return "VK_Q", true
 	case Value(8192):
 		return "MB_TASKMODAL", true
+	case Value(8193):
+		return "SM_REMOTECONTROL", true
+	case Value(8194):
+		return "SM_CARETBLINKINGENABLED", true
+	case Value(8195):
+		return "SM_CONVERTIBLESLATEMODE", true
+	case Value(8196):
+		return "SM_SYSTEMDOCKED", true
+	case Value(8197):
+		return "SPI_SETFOREGROUNDFLASHCOUNT", true
+	case Value(8198):
+		return "SPI_GETCARETWIDTH", true
+	case Value(8199):
+		return "SPI_SETCARETWIDTH", true
 	case Value(82):
 		return "VK_R", true
+	case Value(8200):
+		return "SPI_GETMOUSECLICKLOCKTIME", true
+	case Value(8201):
+		return "SPI_SETMOUSECLICKLOCKTIME", true
+	case Value(8202):
+		return "SPI_GETFONTSMOOTHINGTYPE", true
+	case Value(8203):
+		return "SPI_SETFONTSMOOTHINGTYPE", true
+	case Value(8204):
+		return "SPI_GETFONTSMOOTHINGCONTRAST", true
+	case Value(8205):
+		return "SPI_SETFONTSMOOTHINGCONTRAST", true
+	case Value(8206):
+		return "SPI_GETFOCUSBORDERWIDTH", true
+	case Value(8207):
+		return "SPI_SETFOCUSBORDERWIDTH", true
+	case Value(8208):
+		return "SPI_GETFOCUSBORDERHEIGHT", true
+	case Value(8209):
+		return "SPI_SETFOCUSBORDERHEIGHT", true
+	case Value(8210):
+		return "SPI_GETFONTSMOOTHINGORIENTATION", true
+	case Value(8211):
+		return "SPI_SETFONTSMOOTHINGORIENTATION", true
+	case Value(8212):
+		return "SPI_GETMINIMUMHITRADIUS", true
+	case Value(8213):
+		return "SPI_SETMINIMUMHITRADIUS", true
+	case Value(8214):
+		return "SPI_GETMESSAGEDURATION", true
+	case Value(8215):
+		return "SPI_SETMESSAGEDURATION", true
+	case Value(8216):
+		return "SPI_GETCONTACTVISUALIZATION", true
+	case Value(8217):
+		return "SPI_SETCONTACTVISUALIZATION", true
+	case Value(8218):
+		return "SPI_GETGESTUREVISUALIZATION", true
+	case Value(8219):
+		return "SPI_SETGESTUREVISUALIZATION", true
+	case Value(8220):
+		return "SPI_GETMOUSEWHEELROUTING", true
+	case Value(8221):
+		return "SPI_SETMOUSEWHEELROUTING", true
+	case Value(8222):
+		return "SPI_GETPENVISUALIZATION", true
+	case Value(8223):
+		return "SPI_SETPENVISUALIZATION", true
+	case Value(8224):
+		return "SPI_GETPENARBITRATIONTYPE", true
+	case Value(8225):
+		return "SPI_SETPENARBITRATIONTYPE", true
+	case Value(8226):
+		return "SPI_GETCARETTIMEOUT", true
+	case Value(8227):
+		return "SPI_SETCARETTIMEOUT", true
+	case Value(8228):
+		return "SPI_GETHANDEDNESS", true
+	case Value(8229):
+		return "SPI_SETHANDEDNESS", true
 	case Value(83):
 		return "VK_S", true
 	case Value(831):
@@ -2029,6 +3340,8 @@ func Name(value Value) (string, bool) {
 		return "VK_RWIN", true
 	case Value(93):
 		return "VK_APPS", true
+	case Value(94):
+		return "SM_DIGITIZER", true
 	case Value(95):
 		return "VK_SLEEP", true
 	case Value(96):
@@ -2047,142 +3360,168 @@ func Name(value Value) (string, bool) {
 // Names returns every symbolic alias for value in lexical order.
 func Names(value Value) []string {
 	switch value {
+	case Value(-1):
+		return []string{"HWND_TOPMOST", "IDC_STATIC", "WH_MIN", "WH_MINHOOK", "WH_MSGFILTER"}
+	case Value(-10):
+		return []string{"GCLP_HBRBACKGROUND", "GCL_HBRBACKGROUND"}
 	case Value(-12):
-		return []string{"GWLP_ID", "GWL_ID"}
+		return []string{"GCLP_HCURSOR", "GCL_HCURSOR", "GWLP_ID", "GWL_ID"}
+	case Value(-14):
+		return []string{"GCLP_HICON", "GCL_HICON"}
 	case Value(-16):
-		return []string{"GWL_STYLE"}
+		return []string{"GCLP_HMODULE", "GCL_HMODULE", "GWL_STYLE"}
+	case Value(-18):
+		return []string{"GCL_CBWNDEXTRA"}
+	case Value(-2):
+		return []string{"HWND_NOTOPMOST"}
 	case Value(-20):
-		return []string{"GWL_EXSTYLE"}
+		return []string{"GCL_CBCLSEXTRA", "GWL_EXSTYLE"}
 	case Value(-21):
 		return []string{"GWLP_USERDATA", "GWL_USERDATA"}
+	case Value(-2147483648):
+		return []string{"CW_USEDEFAULT"}
+	case Value(-24):
+		return []string{"GCLP_WNDPROC", "GCL_WNDPROC"}
+	case Value(-26):
+		return []string{"GCL_STYLE"}
+	case Value(-3):
+		return []string{"HWND_MESSAGE"}
+	case Value(-34):
+		return []string{"GCLP_HICONSM", "GCL_HICONSM"}
 	case Value(-4):
 		return []string{"GWLP_WNDPROC", "GWL_WNDPROC"}
 	case Value(-6):
 		return []string{"GWLP_HINSTANCE", "GWL_HINSTANCE"}
 	case Value(-8):
-		return []string{"GWLP_HWNDPARENT", "GWL_HWNDPARENT"}
+		return []string{"GCLP_MENUNAME", "GCL_MENUNAME", "GWLP_HWNDPARENT", "GWL_HWNDPARENT"}
 	case Value(0):
-		return []string{"MB_APPLMODAL", "MB_DEFBUTTON1", "MB_OK", "SW_HIDE", "WM_NULL", "WS_EX_LEFT", "WS_EX_LTRREADING", "WS_EX_RIGHTSCROLLBAR", "WS_OVERLAPPED", "WS_TILED"}
+		return []string{"HWND_DESKTOP", "HWND_TOP", "INPUT_MOUSE", "MAPVK_VK_TO_VSC", "MB_APPLMODAL", "MB_DEFBUTTON1", "MB_OK", "MF_BYCOMMAND", "MF_ENABLED", "MF_INSERT", "MF_STRING", "MF_UNCHECKED", "MF_UNHILITE", "SB_HORZ", "SB_LINELEFT", "SB_LINEUP", "SB_MIN", "SM_CXSCREEN", "SWP_NONE", "SW_HIDE", "TPM_HORIZONTAL", "TPM_LEFTALIGN", "TPM_LEFTBUTTON", "TPM_TOPALIGN", "WH_JOURNALRECORD", "WM_NULL", "WS_EX_LEFT", "WS_EX_LTRREADING", "WS_EX_RIGHTSCROLLBAR", "WS_OVERLAPPED", "WS_TILED"}
 	case Value(1):
-		return []string{"MB_OKCANCEL", "MOD_ALT", "SW_NORMAL", "SW_PARENTCLOSING", "SW_SCROLLCHILDREN", "SW_SHOWNORMAL", "VK_LBUTTON", "WM_CREATE", "WS_ACTIVECAPTION", "WS_EX_DLGMODALFRAME"}
+		return []string{"CS_VREDRAW", "HWND_BOTTOM", "INPUT_KEYBOARD", "KEYEVENTF_EXTENDEDKEY", "KLF_ACTIVATE", "MAPVK_VSC_TO_VK", "MB_OKCANCEL", "MF_GRAYED", "MOD_ALT", "MOUSEEVENTF_MOVE", "QS_KEY", "SB_LINEDOWN", "SB_LINERIGHT", "SB_VERT", "SM_CYSCREEN", "SPI_GETBEEP", "SWP_NOSIZE", "SW_NORMAL", "SW_PARENTCLOSING", "SW_SCROLLCHILDREN", "SW_SHOWNORMAL", "TME_HOVER", "TPM_RECURSE", "VK_LBUTTON", "WH_JOURNALPLAYBACK", "WM_CREATE", "WS_ACTIVECAPTION", "WS_EX_DLGMODALFRAME"}
 	case Value(10):
-		return []string{"SW_SHOWDEFAULT", "WM_ENABLE"}
+		return []string{"SM_CXHTHUMB", "SPI_GETKEYBOARDSPEED", "SW_SHOWDEFAULT", "WH_SHELL", "WM_ENABLE"}
 	case Value(100):
-		return []string{"VK_NUMPAD4"}
+		return []string{"SPI_GETMOUSEHOVERHEIGHT", "VK_NUMPAD4"}
 	case Value(101):
-		return []string{"VK_NUMPAD5"}
+		return []string{"SPI_SETMOUSEHOVERHEIGHT", "VK_NUMPAD5"}
 	case Value(102):
-		return []string{"VK_NUMPAD6"}
+		return []string{"SPI_GETMOUSEHOVERTIME", "VK_NUMPAD6"}
 	case Value(1024):
-		return []string{"WM_USER", "WS_EX_CONTEXTHELP"}
+		return []string{"MF_BYPOSITION", "QS_RAWINPUT", "SWP_NOSENDCHANGING", "TPM_HORPOSANIMATION", "WM_USER", "WS_EX_CONTEXTHELP"}
 	case Value(103):
-		return []string{"VK_NUMPAD7"}
+		return []string{"SPI_SETMOUSEHOVERTIME", "VK_NUMPAD7"}
+	case Value(1031):
+		return []string{"QS_INPUT"}
 	case Value(104):
-		return []string{"VK_NUMPAD8"}
+		return []string{"SPI_GETWHEELSCROLLLINES", "VK_NUMPAD8"}
 	case Value(1048576):
 		return []string{"MB_RTLREADING", "WS_EX_NOINHERITLAYOUT", "WS_HSCROLL"}
 	case Value(105):
-		return []string{"VK_NUMPAD9"}
+		return []string{"SPI_SETWHEELSCROLLLINES", "VK_NUMPAD9"}
 	case Value(106):
-		return []string{"VK_MULTIPLY"}
+		return []string{"SPI_GETMENUSHOWDELAY", "VK_MULTIPLY"}
 	case Value(107):
-		return []string{"VK_ADD"}
+		return []string{"SPI_SETMENUSHOWDELAY", "VK_ADD"}
 	case Value(1073741824):
-		return []string{"WS_CHILD", "WS_CHILDWINDOW"}
+		return []string{"KLF_RESET", "TME_QUERY", "WS_CHILD", "WS_CHILDWINDOW"}
 	case Value(108):
-		return []string{"VK_SEPARATOR"}
+		return []string{"SPI_GETWHEELSCROLLCHARS", "VK_SEPARATOR"}
 	case Value(109):
-		return []string{"VK_SUBTRACT"}
+		return []string{"SPI_SETWHEELSCROLLCHARS", "VK_SUBTRACT"}
 	case Value(11):
-		return []string{"SW_FORCEMINIMIZE", "SW_MAX", "WM_SETREDRAW"}
+		return []string{"SM_CXICON", "SPI_SETKEYBOARDSPEED", "SW_FORCEMINIMIZE", "SW_MAX", "WH_FOREGROUNDIDLE", "WM_SETREDRAW"}
 	case Value(110):
-		return []string{"VK_DECIMAL"}
+		return []string{"SPI_GETSHOWIMEUI", "VK_DECIMAL"}
 	case Value(111):
-		return []string{"VK_DIVIDE"}
+		return []string{"SPI_SETSHOWIMEUI", "VK_DIVIDE"}
 	case Value(112):
-		return []string{"VK_F1"}
+		return []string{"SPI_GETMOUSESPEED", "VK_F1"}
 	case Value(113):
-		return []string{"VK_F2"}
+		return []string{"SPI_SETMOUSESPEED", "VK_F2"}
 	case Value(114):
-		return []string{"VK_F3"}
+		return []string{"SPI_GETSCREENSAVERRUNNING", "VK_F3"}
 	case Value(115):
-		return []string{"VK_F4"}
+		return []string{"SPI_GETDESKWALLPAPER", "VK_F4"}
 	case Value(116):
-		return []string{"VK_F5"}
+		return []string{"SPI_GETAUDIODESCRIPTION", "VK_F5"}
 	case Value(117):
-		return []string{"VK_F6"}
+		return []string{"SPI_SETAUDIODESCRIPTION", "VK_F6"}
 	case Value(118):
-		return []string{"VK_F7"}
+		return []string{"SPI_GETSCREENSAVESECURE", "VK_F7"}
 	case Value(119):
-		return []string{"VK_F8"}
+		return []string{"SPI_SETSCREENSAVESECURE", "VK_F8"}
 	case Value(12):
-		return []string{"VK_CLEAR", "WM_SETTEXT"}
+		return []string{"SM_CYICON", "SPI_LANGDRIVER", "VK_CLEAR", "WH_CALLWNDPROCRET", "WM_SETTEXT"}
 	case Value(120):
-		return []string{"VK_F9"}
+		return []string{"SPI_GETHUNGAPPTIMEOUT", "VK_F9", "WHEEL_DELTA"}
 	case Value(121):
-		return []string{"VK_F10"}
+		return []string{"SPI_SETHUNGAPPTIMEOUT", "VK_F10"}
+	case Value(1215):
+		return []string{"QS_ALLEVENTS"}
 	case Value(122):
-		return []string{"VK_F11"}
+		return []string{"SPI_GETWAITTOKILLTIMEOUT", "VK_F11"}
 	case Value(12288):
 		return []string{"MB_MODEMASK"}
 	case Value(123):
-		return []string{"VK_F12", "WM_CONTEXTMENU"}
+		return []string{"SPI_SETWAITTOKILLTIMEOUT", "VK_F12", "WM_CONTEXTMENU"}
 	case Value(124):
-		return []string{"VK_F13", "WM_STYLECHANGING"}
+		return []string{"SPI_GETWAITTOKILLSERVICETIMEOUT", "VK_F13", "WM_STYLECHANGING"}
 	case Value(125):
-		return []string{"VK_F14", "WM_STYLECHANGED"}
+		return []string{"SPI_SETWAITTOKILLSERVICETIMEOUT", "VK_F14", "WM_STYLECHANGED"}
 	case Value(12582912):
 		return []string{"WS_CAPTION"}
 	case Value(126):
-		return []string{"VK_F15", "WM_DISPLAYCHANGE"}
+		return []string{"SPI_GETMOUSEDOCKTHRESHOLD", "VK_F15", "WM_DISPLAYCHANGE"}
 	case Value(127):
-		return []string{"VK_F16", "WM_GETICON"}
+		return []string{"SPI_SETMOUSEDOCKTHRESHOLD", "VK_F16", "WM_GETICON"}
+	case Value(1279):
+		return []string{"QS_ALLINPUT"}
 	case Value(128):
-		return []string{"MB_USERICON", "VK_F17", "WM_SETICON", "WS_EX_TOOLWINDOW"}
+		return []string{"CS_PARENTDC", "KLF_NOTELLSHELL", "MB_USERICON", "MF_CHANGE", "MF_END", "MF_HILITE", "MOUSEEVENTF_XDOWN", "QS_HOTKEY", "SPI_GETPENDOCKTHRESHOLD", "SWP_HIDEWINDOW", "TPM_NONOTIFY", "VK_F17", "WM_SETICON", "WS_EX_TOOLWINDOW"}
 	case Value(129):
-		return []string{"VK_F18", "WM_NCCREATE"}
+		return []string{"SPI_SETPENDOCKTHRESHOLD", "VK_F18", "WM_NCCREATE"}
 	case Value(13):
-		return []string{"VK_RETURN", "WM_GETTEXT"}
+		return []string{"SM_CXCURSOR", "SPI_ICONHORIZONTALSPACING", "VK_RETURN", "WH_KEYBOARD_LL", "WM_GETTEXT"}
 	case Value(130):
-		return []string{"VK_F19", "WM_NCDESTROY"}
+		return []string{"SPI_GETWINARRANGING", "VK_F19", "WM_NCDESTROY"}
 	case Value(131):
-		return []string{"VK_F20", "WM_NCCALCSIZE"}
+		return []string{"SPI_SETWINARRANGING", "VK_F20", "WM_NCCALCSIZE"}
 	case Value(131072):
-		return []string{"MB_DEFAULT_DESKTOP_ONLY", "WS_EX_STATICEDGE", "WS_GROUP", "WS_MINIMIZEBOX"}
+		return []string{"CS_DROPSHADOW", "MB_DEFAULT_DESKTOP_ONLY", "WS_EX_STATICEDGE", "WS_GROUP", "WS_MINIMIZEBOX"}
 	case Value(132):
-		return []string{"VK_F21", "WM_NCHITTEST"}
+		return []string{"SPI_GETMOUSEDRAGOUTTHRESHOLD", "VK_F21", "WM_NCHITTEST"}
 	case Value(133):
-		return []string{"VK_F22", "WM_NCPAINT"}
+		return []string{"SPI_SETMOUSEDRAGOUTTHRESHOLD", "VK_F22", "WM_NCPAINT"}
 	case Value(134):
-		return []string{"VK_F23", "WM_NCACTIVATE"}
+		return []string{"SPI_GETPENDRAGOUTTHRESHOLD", "VK_F23", "WM_NCACTIVATE"}
 	case Value(134217728):
 		return []string{"WS_DISABLED", "WS_EX_NOACTIVATE"}
 	case Value(135):
-		return []string{"VK_F24", "WM_GETDLGCODE"}
+		return []string{"SPI_SETPENDRAGOUTTHRESHOLD", "VK_F24", "WM_GETDLGCODE"}
 	case Value(13565952):
 		return []string{"WS_OVERLAPPEDWINDOW", "WS_TILEDWINDOW"}
 	case Value(136):
-		return []string{"VK_NAVIGATION_VIEW", "WM_SYNCPAINT"}
+		return []string{"SPI_GETMOUSESIDEMOVETHRESHOLD", "VK_NAVIGATION_VIEW", "WM_SYNCPAINT"}
 	case Value(137):
-		return []string{"VK_NAVIGATION_MENU"}
+		return []string{"SPI_SETMOUSESIDEMOVETHRESHOLD", "VK_NAVIGATION_MENU"}
 	case Value(138):
-		return []string{"VK_NAVIGATION_UP"}
+		return []string{"SPI_GETPENSIDEMOVETHRESHOLD", "VK_NAVIGATION_UP"}
 	case Value(139):
-		return []string{"VK_NAVIGATION_DOWN"}
+		return []string{"SPI_SETPENSIDEMOVETHRESHOLD", "VK_NAVIGATION_DOWN"}
 	case Value(14):
-		return []string{"WM_GETTEXTLENGTH"}
+		return []string{"SM_CYCURSOR", "SPI_GETSCREENSAVETIMEOUT", "WH_MAX", "WH_MAXHOOK", "WH_MOUSE_LL", "WM_GETTEXTLENGTH"}
 	case Value(140):
-		return []string{"VK_NAVIGATION_LEFT"}
+		return []string{"SPI_GETDRAGFROMMAXIMIZE", "VK_NAVIGATION_LEFT"}
 	case Value(141):
-		return []string{"VK_NAVIGATION_RIGHT"}
+		return []string{"SPI_SETDRAGFROMMAXIMIZE", "VK_NAVIGATION_RIGHT"}
 	case Value(142):
-		return []string{"VK_NAVIGATION_ACCEPT"}
+		return []string{"SPI_GETSNAPSIZING", "VK_NAVIGATION_ACCEPT"}
 	case Value(143):
-		return []string{"VK_NAVIGATION_CANCEL"}
+		return []string{"SPI_SETSNAPSIZING", "VK_NAVIGATION_CANCEL"}
 	case Value(144):
-		return []string{"VK_NUMLOCK"}
+		return []string{"SPI_GETDOCKMOVING", "VK_NUMLOCK"}
 	case Value(145):
-		return []string{"VK_SCROLL"}
+		return []string{"SPI_SETDOCKMOVING", "VK_SCROLL"}
 	case Value(146):
 		return []string{"VK_OEM_FJ_JISHO", "VK_OEM_NEC_EQUAL"}
 	case Value(147):
@@ -2192,21 +3531,29 @@ func Names(value Value) []string {
 	case Value(149):
 		return []string{"VK_OEM_FJ_LOYA"}
 	case Value(15):
-		return []string{"MB_TYPEMASK", "WM_PAINT"}
+		return []string{"MB_TYPEMASK", "SM_CYMENU", "SPI_SETSCREENSAVETIMEOUT", "WM_PAINT"}
 	case Value(150):
 		return []string{"VK_OEM_FJ_ROYA"}
+	case Value(156):
+		return []string{"SPI_GETTOUCHPREDICTIONPARAMETERS"}
+	case Value(157):
+		return []string{"SPI_SETTOUCHPREDICTIONPARAMETERS"}
+	case Value(158):
+		return []string{"SPI_GETLOGICALDPIOVERRIDE"}
+	case Value(159):
+		return []string{"SPI_SETLOGICALDPIOVERRIDE"}
 	case Value(16):
-		return []string{"MB_ICONERROR", "MB_ICONHAND", "MB_ICONSTOP", "SW_SMOOTHSCROLL", "VK_SHIFT", "WM_CLOSE", "WS_EX_ACCEPTFILES"}
+		return []string{"KLF_REPLACELANG", "MB_ICONERROR", "MB_ICONHAND", "MB_ICONSTOP", "MF_POPUP", "MOUSEEVENTF_RIGHTUP", "QS_TIMER", "SM_CXFULLSCREEN", "SPI_GETSCREENSAVEACTIVE", "SWP_NOACTIVATE", "SW_SMOOTHSCROLL", "TME_NONCLIENT", "TPM_VCENTERALIGN", "VK_SHIFT", "WM_CLOSE", "WS_EX_ACCEPTFILES"}
 	case Value(160):
 		return []string{"VK_LSHIFT", "WM_NCMOUSEMOVE"}
 	case Value(161):
 		return []string{"VK_RSHIFT", "WM_NCLBUTTONDOWN"}
 	case Value(162):
-		return []string{"VK_LCONTROL", "WM_NCLBUTTONUP"}
+		return []string{"SPI_GETMENURECT", "VK_LCONTROL", "WM_NCLBUTTONUP"}
 	case Value(163):
-		return []string{"VK_RCONTROL", "WM_NCLBUTTONDBLCLK"}
+		return []string{"SPI_SETMENURECT", "VK_RCONTROL", "WM_NCLBUTTONDBLCLK"}
 	case Value(16384):
-		return []string{"MB_HELP", "MOD_NOREPEAT", "WS_EX_LEFTSCROLLBAR"}
+		return []string{"CS_GLOBALCLASS", "MB_HELP", "MF_HELP", "MF_RIGHTJUSTIFY", "MOD_NOREPEAT", "MOUSEEVENTF_VIRTUALDESK", "SWP_ASYNCWINDOWPOS", "TPM_NOANIMATION", "WS_EX_LEFTSCROLLBAR"}
 	case Value(164):
 		return []string{"VK_LMENU", "WM_NCRBUTTONDOWN"}
 	case Value(165):
@@ -2222,7 +3569,7 @@ func Names(value Value) []string {
 	case Value(169):
 		return []string{"VK_BROWSER_STOP", "WM_NCMBUTTONDBLCLK"}
 	case Value(17):
-		return []string{"VK_CONTROL", "WM_QUERYENDSESSION"}
+		return []string{"SM_CYFULLSCREEN", "SPI_SETSCREENSAVEACTIVE", "VK_CONTROL", "WM_QUERYENDSESSION"}
 	case Value(170):
 		return []string{"VK_BROWSER_SEARCH"}
 	case Value(171):
@@ -2232,9 +3579,9 @@ func Names(value Value) []string {
 	case Value(173):
 		return []string{"VK_VOLUME_MUTE", "WM_NCXBUTTONDBLCLK"}
 	case Value(174):
-		return []string{"VK_VOLUME_DOWN"}
+		return []string{"SPI_GETTOUCHPADPARAMETERS", "VK_VOLUME_DOWN"}
 	case Value(175):
-		return []string{"VK_VOLUME_UP"}
+		return []string{"SPI_SETTOUCHPADPARAMETERS", "VK_VOLUME_UP"}
 	case Value(176):
 		return []string{"VK_MEDIA_NEXT_TRACK"}
 	case Value(177):
@@ -2244,7 +3591,7 @@ func Names(value Value) []string {
 	case Value(179):
 		return []string{"VK_MEDIA_PLAY_PAUSE"}
 	case Value(18):
-		return []string{"VK_MENU", "WM_QUIT"}
+		return []string{"SM_CYKANJIWINDOW", "SPI_GETGRIDGRANULARITY", "VK_MENU", "WM_QUIT"}
 	case Value(180):
 		return []string{"VK_LAUNCH_MAIL"}
 	case Value(181):
@@ -2262,7 +3609,7 @@ func Names(value Value) []string {
 	case Value(189):
 		return []string{"VK_OEM_MINUS"}
 	case Value(19):
-		return []string{"VK_PAUSE", "WM_QUERYOPEN"}
+		return []string{"SM_MOUSEPRESENT", "SPI_SETGRIDGRANULARITY", "VK_PAUSE", "WM_QUERYOPEN"}
 	case Value(190):
 		return []string{"VK_OEM_PERIOD"}
 	case Value(191):
@@ -2284,9 +3631,9 @@ func Names(value Value) []string {
 	case Value(199):
 		return []string{"VK_GAMEPAD_RIGHT_SHOULDER"}
 	case Value(2):
-		return []string{"MB_ABORTRETRYIGNORE", "MOD_CONTROL", "SW_INVALIDATE", "SW_OTHERZOOM", "SW_SHOWMINIMIZED", "VK_RBUTTON", "WM_DESTROY"}
+		return []string{"CS_HREDRAW", "INPUT_HARDWARE", "KEYEVENTF_KEYUP", "KLF_SUBSTITUTE_OK", "MAPVK_VK_TO_CHAR", "MB_ABORTRETRYIGNORE", "MF_DISABLED", "MOD_CONTROL", "MOUSEEVENTF_LEFTDOWN", "QS_MOUSEMOVE", "SB_CTL", "SB_PAGELEFT", "SB_PAGEUP", "SM_CXVSCROLL", "SPI_SETBEEP", "SWP_NOMOVE", "SW_INVALIDATE", "SW_OTHERZOOM", "SW_SHOWMINIMIZED", "TME_LEAVE", "TPM_RIGHTBUTTON", "VK_RBUTTON", "WH_KEYBOARD", "WM_DESTROY"}
 	case Value(20):
-		return []string{"VK_CAPITAL", "WM_ERASEBKGND"}
+		return []string{"SM_CYVSCROLL", "SPI_SETDESKWALLPAPER", "VK_CAPITAL", "WM_ERASEBKGND"}
 	case Value(200):
 		return []string{"VK_GAMEPAD_LEFT_SHOULDER"}
 	case Value(201):
@@ -2297,6 +3644,8 @@ func Names(value Value) []string {
 		return []string{"VK_GAMEPAD_DPAD_UP"}
 	case Value(204):
 		return []string{"VK_GAMEPAD_DPAD_DOWN"}
+	case Value(2048):
+		return []string{"CS_SAVEBITS", "MF_SEPARATOR", "MOUSEEVENTF_WHEEL", "QS_TOUCH", "TPM_HORNEGANIMATION"}
 	case Value(205):
 		return []string{"VK_GAMEPAD_DPAD_LEFT"}
 	case Value(206):
@@ -2310,7 +3659,7 @@ func Names(value Value) []string {
 	case Value(2097152):
 		return []string{"MB_SERVICE_NOTIFICATION", "WS_EX_NOREDIRECTIONBITMAP", "WS_VSCROLL"}
 	case Value(21):
-		return []string{"VK_HANGEUL", "VK_HANGUL", "VK_KANA", "WM_SYSCOLORCHANGE"}
+		return []string{"SM_CXHSCROLL", "SPI_SETDESKPATTERN", "VK_HANGEUL", "VK_HANGUL", "VK_KANA", "WM_SYSCOLORCHANGE"}
 	case Value(210):
 		return []string{"VK_GAMEPAD_RIGHT_THUMBSTICK_BUTTON"}
 	case Value(211):
@@ -2322,7 +3671,7 @@ func Names(value Value) []string {
 	case Value(214):
 		return []string{"VK_GAMEPAD_LEFT_THUMBSTICK_LEFT"}
 	case Value(2147483648):
-		return []string{"WS_POPUP"}
+		return []string{"TME_CANCEL", "WS_POPUP"}
 	case Value(215):
 		return []string{"VK_GAMEPAD_RIGHT_THUMBSTICK_UP"}
 	case Value(2156396544):
@@ -2336,7 +3685,7 @@ func Names(value Value) []string {
 	case Value(219):
 		return []string{"VK_OEM_4"}
 	case Value(22):
-		return []string{"VK_IME_ON", "WM_ENDSESSION"}
+		return []string{"SM_DEBUG", "SPI_GETKEYBOARDDELAY", "VK_IME_ON", "WM_ENDSESSION"}
 	case Value(220):
 		return []string{"VK_OEM_5"}
 	case Value(221):
@@ -2356,7 +3705,7 @@ func Names(value Value) []string {
 	case Value(229):
 		return []string{"VK_PROCESSKEY"}
 	case Value(23):
-		return []string{"VK_JUNJA"}
+		return []string{"SM_SWAPBUTTON", "SPI_SETKEYBOARDDELAY", "VK_JUNJA"}
 	case Value(230):
 		return []string{"VK_ICO_CLEAR"}
 	case Value(231):
@@ -2376,7 +3725,7 @@ func Names(value Value) []string {
 	case Value(239):
 		return []string{"VK_OEM_CUSEL"}
 	case Value(24):
-		return []string{"VK_FINAL", "WM_SHOWWINDOW"}
+		return []string{"SM_RESERVED1", "SPI_ICONVERTICALSPACING", "VK_FINAL", "WM_SHOWWINDOW"}
 	case Value(240):
 		return []string{"MB_ICONMASK", "VK_DBE_ALPHANUMERIC", "VK_OEM_ATTN"}
 	case Value(241):
@@ -2398,7 +3747,7 @@ func Names(value Value) []string {
 	case Value(249):
 		return []string{"VK_DBE_FLUSHSTRING", "VK_EREOF"}
 	case Value(25):
-		return []string{"VK_HANJA", "VK_KANJI"}
+		return []string{"SM_RESERVED2", "SPI_GETICONTITLEWRAP", "VK_HANJA", "VK_KANJI"}
 	case Value(250):
 		return []string{"VK_DBE_CODEINPUT", "VK_PLAY"}
 	case Value(251):
@@ -2412,7 +3761,7 @@ func Names(value Value) []string {
 	case Value(255):
 		return []string{"VK__none_", "WM_INPUT"}
 	case Value(256):
-		return []string{"MB_DEFBUTTON2", "WM_KEYDOWN", "WM_KEYFIRST", "WS_EX_WINDOWEDGE"}
+		return []string{"KLF_SETFORPROCESS", "MB_DEFBUTTON2", "MF_APPEND", "MF_OWNERDRAW", "MOUSEEVENTF_XUP", "QS_ALLPOSTMESSAGE", "SWP_NOCOPYBITS", "TPM_RETURNCMD", "WM_KEYDOWN", "WM_KEYFIRST", "WS_EX_WINDOWEDGE"}
 	case Value(257):
 		return []string{"WM_KEYUP"}
 	case Value(258):
@@ -2420,7 +3769,7 @@ func Names(value Value) []string {
 	case Value(259):
 		return []string{"WM_DEADCHAR"}
 	case Value(26):
-		return []string{"VK_IME_OFF", "WM_SETTINGCHANGE", "WM_WININICHANGE"}
+		return []string{"SM_RESERVED3", "SPI_SETICONTITLEWRAP", "VK_IME_OFF", "WM_SETTINGCHANGE", "WM_WININICHANGE"}
 	case Value(260):
 		return []string{"WM_SYSKEYDOWN"}
 	case Value(261):
@@ -2438,7 +3787,7 @@ func Names(value Value) []string {
 	case Value(269):
 		return []string{"WM_IME_STARTCOMPOSITION"}
 	case Value(27):
-		return []string{"VK_ESCAPE", "WM_DEVMODECHANGE"}
+		return []string{"SM_RESERVED4", "SPI_GETMENUDROPALIGNMENT", "VK_ESCAPE", "WM_DEVMODECHANGE"}
 	case Value(270):
 		return []string{"WM_IME_ENDCOMPOSITION"}
 	case Value(271):
@@ -2460,7 +3809,7 @@ func Names(value Value) []string {
 	case Value(279):
 		return []string{"WM_INITMENUPOPUP"}
 	case Value(28):
-		return []string{"VK_CONVERT", "WM_ACTIVATEAPP"}
+		return []string{"SM_CXMIN", "SPI_SETMENUDROPALIGNMENT", "VK_CONVERT", "WM_ACTIVATEAPP"}
 	case Value(281):
 		return []string{"WM_GESTURE"}
 	case Value(282):
@@ -2472,7 +3821,7 @@ func Names(value Value) []string {
 	case Value(289):
 		return []string{"WM_ENTERIDLE"}
 	case Value(29):
-		return []string{"VK_NONCONVERT", "WM_FONTCHANGE"}
+		return []string{"SM_CYMIN", "SPI_SETDOUBLECLKWIDTH", "VK_NONCONVERT", "WM_FONTCHANGE"}
 	case Value(290):
 		return []string{"WM_MENURBUTTONUP"}
 	case Value(291):
@@ -2490,9 +3839,9 @@ func Names(value Value) []string {
 	case Value(297):
 		return []string{"WM_QUERYUISTATE"}
 	case Value(3):
-		return []string{"MB_YESNOCANCEL", "SW_MAXIMIZE", "SW_PARENTOPENING", "SW_SHOWMAXIMIZED", "VK_CANCEL", "WM_MOVE"}
+		return []string{"MAPVK_VSC_TO_VK_EX", "MB_YESNOCANCEL", "SB_BOTH", "SB_PAGEDOWN", "SB_PAGERIGHT", "SM_CYHSCROLL", "SPI_GETMOUSE", "SW_MAXIMIZE", "SW_PARENTOPENING", "SW_SHOWMAXIMIZED", "VK_CANCEL", "WH_GETMESSAGE", "WM_MOVE"}
 	case Value(30):
-		return []string{"VK_ACCEPT", "WM_TIMECHANGE"}
+		return []string{"SM_CXSIZE", "SPI_SETDOUBLECLKHEIGHT", "VK_ACCEPT", "WM_TIMECHANGE"}
 	case Value(306):
 		return []string{"WM_CTLCOLORMSGBOX"}
 	case Value(307):
@@ -2502,7 +3851,7 @@ func Names(value Value) []string {
 	case Value(309):
 		return []string{"WM_CTLCOLORBTN"}
 	case Value(31):
-		return []string{"VK_MODECHANGE", "WM_CANCELMODE"}
+		return []string{"SM_CYSIZE", "SPI_GETICONTITLELOGFONT", "VK_MODECHANGE", "WM_CANCELMODE"}
 	case Value(310):
 		return []string{"WM_CTLCOLORDLG"}
 	case Value(311):
@@ -2510,65 +3859,213 @@ func Names(value Value) []string {
 	case Value(312):
 		return []string{"WM_CTLCOLORSTATIC"}
 	case Value(32):
-		return []string{"MB_ICONQUESTION", "VK_SPACE", "WM_SETCURSOR", "WS_EX_TRANSPARENT"}
+		return []string{"CS_OWNDC", "MB_ICONQUESTION", "MF_MENUBARBREAK", "MOUSEEVENTF_MIDDLEDOWN", "QS_PAINT", "SM_CXFRAME", "SM_CXSIZEFRAME", "SPI_SETDOUBLECLICKTIME", "SWP_DRAWFRAME", "SWP_FRAMECHANGED", "TPM_BOTTOMALIGN", "VK_SPACE", "WM_SETCURSOR", "WS_EX_TRANSPARENT"}
+	case Value(32512):
+		return []string{"IDC_ARROW", "IDI_APPLICATION", "OCR_NORMAL"}
+	case Value(32513):
+		return []string{"IDC_IBEAM", "IDI_ERROR", "IDI_HAND", "OCR_IBEAM"}
+	case Value(32514):
+		return []string{"IDC_WAIT", "IDI_QUESTION", "OCR_WAIT"}
+	case Value(32515):
+		return []string{"IDC_CROSS", "IDI_EXCLAMATION", "IDI_WARNING", "OCR_CROSS"}
+	case Value(32516):
+		return []string{"IDC_UPARROW", "IDI_ASTERISK", "IDI_INFORMATION", "OCR_UP"}
+	case Value(32517):
+		return []string{"IDI_WINLOGO"}
+	case Value(32518):
+		return []string{"IDI_SHIELD"}
+	case Value(32640):
+		return []string{"IDC_SIZE", "OCR_SIZE"}
+	case Value(32641):
+		return []string{"IDC_ICON", "OCR_ICON"}
+	case Value(32642):
+		return []string{"IDC_SIZENWSE", "OCR_SIZENWSE"}
+	case Value(32643):
+		return []string{"IDC_SIZENESW", "OCR_SIZENESW"}
+	case Value(32644):
+		return []string{"IDC_SIZEWE", "OCR_SIZEWE"}
+	case Value(32645):
+		return []string{"IDC_SIZENS", "OCR_SIZENS"}
+	case Value(32646):
+		return []string{"IDC_SIZEALL", "OCR_SIZEALL"}
+	case Value(32647):
+		return []string{"OCR_ICOCUR"}
+	case Value(32648):
+		return []string{"IDC_NO", "OCR_NO"}
+	case Value(32649):
+		return []string{"IDC_HAND", "OCR_HAND"}
+	case Value(32650):
+		return []string{"IDC_APPSTARTING", "OCR_APPSTARTING"}
+	case Value(32651):
+		return []string{"IDC_HELP", "OCR_HELP"}
+	case Value(32671):
+		return []string{"IDC_PIN"}
+	case Value(32672):
+		return []string{"IDC_PERSON"}
 	case Value(32768):
-		return []string{"MB_NOFOCUS", "WM_APP"}
+		return []string{"MB_NOFOCUS", "MF_MOUSESELECT", "MOUSEEVENTF_ABSOLUTE", "TPM_LAYOUTRTL", "WM_APP"}
 	case Value(33):
-		return []string{"VK_PRIOR", "WM_MOUSEACTIVATE"}
+		return []string{"SM_CYFRAME", "SM_CYSIZEFRAME", "SPI_SETMOUSEBUTTONSWAP", "VK_PRIOR", "WM_MOUSEACTIVATE"}
 	case Value(33554432):
 		return []string{"WS_CLIPCHILDREN", "WS_EX_COMPOSITED"}
 	case Value(34):
-		return []string{"VK_NEXT", "WM_CHILDACTIVATE"}
+		return []string{"SM_CXMINTRACK", "SPI_SETICONTITLELOGFONT", "VK_NEXT", "WM_CHILDACTIVATE"}
 	case Value(35):
-		return []string{"VK_END", "WM_QUEUESYNC"}
+		return []string{"SM_CYMINTRACK", "SPI_GETFASTTASKSWITCH", "VK_END", "WM_QUEUESYNC"}
 	case Value(36):
-		return []string{"VK_HOME", "WM_GETMINMAXINFO"}
+		return []string{"SM_CXDOUBLECLK", "SPI_SETFASTTASKSWITCH", "VK_HOME", "WM_GETMINMAXINFO"}
 	case Value(37):
-		return []string{"VK_LEFT"}
+		return []string{"SM_CYDOUBLECLK", "SPI_SETDRAGFULLWINDOWS", "VK_LEFT"}
 	case Value(38):
-		return []string{"VK_UP", "WM_PAINTICON"}
+		return []string{"SM_CXICONSPACING", "SPI_GETDRAGFULLWINDOWS", "VK_UP", "WM_PAINTICON"}
 	case Value(3840):
 		return []string{"MB_DEFMASK"}
 	case Value(39):
-		return []string{"VK_RIGHT", "WM_ICONERASEBKGND"}
+		return []string{"SM_CYICONSPACING", "VK_RIGHT", "WM_ICONERASEBKGND"}
 	case Value(392):
 		return []string{"WS_EX_PALETTEWINDOW"}
 	case Value(4):
-		return []string{"MB_YESNO", "MOD_SHIFT", "SW_ERASE", "SW_OTHERUNZOOM", "SW_SHOWNOACTIVATE", "VK_MBUTTON", "WS_EX_NOPARENTNOTIFY"}
+		return []string{"KEYEVENTF_UNICODE", "MAPVK_VK_TO_VSC_EX", "MB_YESNO", "MF_BITMAP", "MOD_SHIFT", "MOUSEEVENTF_LEFTUP", "QS_MOUSEBUTTON", "SB_THUMBPOSITION", "SM_CYCAPTION", "SPI_SETMOUSE", "SWP_NOZORDER", "SW_ERASE", "SW_OTHERUNZOOM", "SW_SHOWNOACTIVATE", "TPM_CENTERALIGN", "VK_MBUTTON", "WH_CALLWNDPROC", "WS_EX_NOPARENTNOTIFY"}
 	case Value(40):
-		return []string{"VK_DOWN", "WM_NEXTDLGCTL"}
+		return []string{"SM_MENUDROPALIGNMENT", "VK_DOWN", "WM_NEXTDLGCTL"}
 	case Value(4096):
-		return []string{"MB_SYSTEMMODAL", "WS_EX_RIGHT"}
+		return []string{"CS_BYTEALIGNCLIENT", "MB_SYSTEMMODAL", "MF_DEFAULT", "MF_REMOVE", "MOUSEEVENTF_HWHEEL", "QS_POINTER", "SM_REMOTESESSION", "SPI_GETACTIVEWINDOWTRACKING", "TPM_VERPOSANIMATION", "WS_EX_RIGHT"}
+	case Value(4097):
+		return []string{"SPI_SETACTIVEWINDOWTRACKING"}
+	case Value(4098):
+		return []string{"SPI_GETMENUANIMATION"}
+	case Value(4099):
+		return []string{"SPI_SETMENUANIMATION"}
 	case Value(41):
-		return []string{"VK_SELECT"}
+		return []string{"SM_PENWINDOWS", "SPI_GETNONCLIENTMETRICS", "VK_SELECT"}
+	case Value(4100):
+		return []string{"SPI_GETCOMBOBOXANIMATION"}
+	case Value(4101):
+		return []string{"SPI_SETCOMBOBOXANIMATION"}
+	case Value(4102):
+		return []string{"SPI_GETLISTBOXSMOOTHSCROLLING"}
+	case Value(4103):
+		return []string{"SPI_SETLISTBOXSMOOTHSCROLLING"}
+	case Value(4104):
+		return []string{"SPI_GETGRADIENTCAPTIONS"}
+	case Value(4105):
+		return []string{"SPI_SETGRADIENTCAPTIONS"}
+	case Value(4106):
+		return []string{"SPI_GETKEYBOARDCUES", "SPI_GETMENUUNDERLINES"}
+	case Value(4107):
+		return []string{"SPI_SETKEYBOARDCUES", "SPI_SETMENUUNDERLINES"}
+	case Value(4108):
+		return []string{"SPI_GETACTIVEWNDTRKZORDER"}
+	case Value(4109):
+		return []string{"SPI_SETACTIVEWNDTRKZORDER"}
+	case Value(4110):
+		return []string{"SPI_GETHOTTRACKING"}
+	case Value(4111):
+		return []string{"SPI_SETHOTTRACKING"}
+	case Value(4114):
+		return []string{"SPI_GETMENUFADE"}
+	case Value(4115):
+		return []string{"SPI_SETMENUFADE"}
+	case Value(4116):
+		return []string{"SPI_GETSELECTIONFADE"}
+	case Value(4117):
+		return []string{"SPI_SETSELECTIONFADE"}
+	case Value(4118):
+		return []string{"SPI_GETTOOLTIPANIMATION"}
+	case Value(4119):
+		return []string{"SPI_SETTOOLTIPANIMATION"}
+	case Value(4120):
+		return []string{"SPI_GETTOOLTIPFADE"}
+	case Value(4121):
+		return []string{"SPI_SETTOOLTIPFADE"}
+	case Value(4122):
+		return []string{"SPI_GETCURSORSHADOW"}
+	case Value(4123):
+		return []string{"SPI_SETCURSORSHADOW"}
+	case Value(4124):
+		return []string{"SPI_GETMOUSESONAR"}
+	case Value(4125):
+		return []string{"SPI_SETMOUSESONAR"}
+	case Value(4126):
+		return []string{"SPI_GETMOUSECLICKLOCK"}
+	case Value(4127):
+		return []string{"SPI_SETMOUSECLICKLOCK"}
+	case Value(4128):
+		return []string{"SPI_GETMOUSEVANISH"}
+	case Value(4129):
+		return []string{"SPI_SETMOUSEVANISH"}
+	case Value(4130):
+		return []string{"SPI_GETFLATMENU"}
+	case Value(4131):
+		return []string{"SPI_SETFLATMENU"}
+	case Value(4132):
+		return []string{"SPI_GETDROPSHADOW"}
+	case Value(4133):
+		return []string{"SPI_SETDROPSHADOW"}
+	case Value(4134):
+		return []string{"SPI_GETBLOCKSENDINPUTRESETS"}
+	case Value(4135):
+		return []string{"SPI_SETBLOCKSENDINPUTRESETS"}
+	case Value(4158):
+		return []string{"SPI_GETUIEFFECTS"}
+	case Value(4159):
+		return []string{"SPI_SETUIEFFECTS"}
+	case Value(4160):
+		return []string{"SPI_GETDISABLEOVERLAPPEDCONTENT"}
+	case Value(4161):
+		return []string{"SPI_SETDISABLEOVERLAPPEDCONTENT"}
+	case Value(4162):
+		return []string{"SPI_GETCLIENTAREAANIMATION"}
+	case Value(4163):
+		return []string{"SPI_SETCLIENTAREAANIMATION"}
+	case Value(4168):
+		return []string{"SPI_GETCLEARTYPE"}
+	case Value(4169):
+		return []string{"SPI_SETCLEARTYPE"}
+	case Value(4170):
+		return []string{"SPI_GETSPEECHRECOGNITION"}
+	case Value(4171):
+		return []string{"SPI_SETSPEECHRECOGNITION"}
+	case Value(4172):
+		return []string{"SPI_GETCARETBROWSING"}
+	case Value(4173):
+		return []string{"SPI_SETCARETBROWSING"}
+	case Value(4174):
+		return []string{"SPI_GETTHREADLOCALINPUTSETTINGS"}
+	case Value(4175):
+		return []string{"SPI_SETTHREADLOCALINPUTSETTINGS"}
+	case Value(4176):
+		return []string{"SPI_GETSYSTEMLANGUAGEBAR"}
+	case Value(4177):
+		return []string{"SPI_SETSYSTEMLANGUAGEBAR"}
 	case Value(4194304):
 		return []string{"WS_DLGFRAME", "WS_EX_LAYOUTRTL"}
 	case Value(42):
-		return []string{"VK_PRINT", "WM_SPOOLERSTATUS"}
+		return []string{"SM_DBCSENABLED", "SPI_SETNONCLIENTMETRICS", "VK_PRINT", "WM_SPOOLERSTATUS"}
 	case Value(43):
-		return []string{"VK_EXECUTE", "WM_DRAWITEM"}
+		return []string{"SM_CMOUSEBUTTONS", "SPI_GETMINIMIZEDMETRICS", "VK_EXECUTE", "WM_DRAWITEM"}
 	case Value(44):
-		return []string{"VK_SNAPSHOT", "WM_MEASUREITEM"}
+		return []string{"SM_SECURE", "SPI_SETMINIMIZEDMETRICS", "VK_SNAPSHOT", "WM_MEASUREITEM"}
 	case Value(45):
-		return []string{"VK_INSERT", "WM_DELETEITEM"}
+		return []string{"SM_CXEDGE", "SPI_GETICONMETRICS", "VK_INSERT", "WM_DELETEITEM"}
 	case Value(46):
-		return []string{"VK_DELETE", "WM_VKEYTOITEM"}
+		return []string{"SM_CYEDGE", "SPI_SETICONMETRICS", "VK_DELETE", "WM_VKEYTOITEM"}
 	case Value(47):
-		return []string{"VK_HELP", "WM_CHARTOITEM"}
+		return []string{"SM_CXMINSPACING", "SPI_SETWORKAREA", "VK_HELP", "WM_CHARTOITEM"}
 	case Value(48):
-		return []string{"MB_ICONEXCLAMATION", "MB_ICONWARNING", "VK_0", "WM_SETFONT"}
+		return []string{"MB_ICONEXCLAMATION", "MB_ICONWARNING", "SM_CYMINSPACING", "SPI_GETWORKAREA", "VK_0", "WM_SETFONT"}
 	case Value(49):
-		return []string{"VK_1", "WM_GETFONT"}
+		return []string{"SM_CXSMICON", "SPI_SETPENWINDOWS", "VK_1", "WM_GETFONT"}
 	case Value(49152):
 		return []string{"MB_MISCMASK"}
 	case Value(5):
-		return []string{"MB_RETRYCANCEL", "SW_SHOW", "VK_XBUTTON1", "WM_SIZE"}
+		return []string{"MB_RETRYCANCEL", "SB_THUMBTRACK", "SM_CXBORDER", "SPI_GETBORDER", "SW_SHOW", "VK_XBUTTON1", "WH_CBT", "WM_SIZE"}
 	case Value(50):
-		return []string{"VK_2", "WM_SETHOTKEY"}
+		return []string{"SM_CYSMICON", "SPI_GETFILTERKEYS", "VK_2", "WM_SETHOTKEY"}
 	case Value(51):
-		return []string{"VK_3", "WM_GETHOTKEY"}
+		return []string{"SM_CYSMCAPTION", "SPI_SETFILTERKEYS", "VK_3", "WM_GETHOTKEY"}
 	case Value(512):
-		return []string{"MB_DEFBUTTON3", "WM_MOUSEFIRST", "WM_MOUSEMOVE", "WS_EX_CLIENTEDGE"}
+		return []string{"CS_NOCLOSE", "MB_DEFBUTTON3", "MF_DELETE", "MF_USECHECKBITMAPS", "SWP_NOOWNERZORDER", "SWP_NOREPOSITION", "WM_MOUSEFIRST", "WM_MOUSEMOVE", "WS_EX_CLIENTEDGE"}
 	case Value(513):
 		return []string{"WM_LBUTTONDOWN"}
 	case Value(514):
@@ -2584,7 +4081,7 @@ func Names(value Value) []string {
 	case Value(519):
 		return []string{"WM_MBUTTONDOWN"}
 	case Value(52):
-		return []string{"VK_4"}
+		return []string{"SM_CXSMSIZE", "SPI_GETTOGGLEKEYS", "VK_4"}
 	case Value(520):
 		return []string{"WM_MBUTTONUP"}
 	case Value(521):
@@ -2606,7 +4103,7 @@ func Names(value Value) []string {
 	case Value(529):
 		return []string{"WM_ENTERMENULOOP"}
 	case Value(53):
-		return []string{"VK_5"}
+		return []string{"SM_CYSMSIZE", "SPI_SETTOGGLEKEYS", "VK_5"}
 	case Value(530):
 		return []string{"WM_EXITMENULOOP"}
 	case Value(531):
@@ -2624,7 +4121,7 @@ func Names(value Value) []string {
 	case Value(537):
 		return []string{"WM_DEVICECHANGE"}
 	case Value(54):
-		return []string{"VK_6"}
+		return []string{"SM_CXMENUSIZE", "SPI_GETMOUSEKEYS", "VK_6"}
 	case Value(544):
 		return []string{"WM_MDICREATE"}
 	case Value(545):
@@ -2638,7 +4135,7 @@ func Names(value Value) []string {
 	case Value(549):
 		return []string{"WM_MDIMAXIMIZE"}
 	case Value(55):
-		return []string{"VK_7", "WM_QUERYDRAGICON"}
+		return []string{"SM_CYMENUSIZE", "SPI_SETMOUSEKEYS", "VK_7", "WM_QUERYDRAGICON"}
 	case Value(550):
 		return []string{"WM_MDITILE"}
 	case Value(551):
@@ -2648,7 +4145,7 @@ func Names(value Value) []string {
 	case Value(553):
 		return []string{"WM_MDIGETACTIVE"}
 	case Value(56):
-		return []string{"VK_8"}
+		return []string{"SM_ARRANGE", "SPI_GETSHOWSOUNDS", "VK_8"}
 	case Value(560):
 		return []string{"WM_MDISETMENU"}
 	case Value(561):
@@ -2664,7 +4161,7 @@ func Names(value Value) []string {
 	case Value(569):
 		return []string{"WM_POINTERDEVICEINRANGE"}
 	case Value(57):
-		return []string{"VK_9", "WM_COMPAREITEM"}
+		return []string{"SM_CXMINIMIZED", "SPI_SETSHOWSOUNDS", "VK_9", "WM_COMPAREITEM"}
 	case Value(570):
 		return []string{"WM_POINTERDEVICEOUTOFRANGE"}
 	case Value(576):
@@ -2675,6 +4172,8 @@ func Names(value Value) []string {
 		return []string{"WM_NCPOINTERDOWN"}
 	case Value(579):
 		return []string{"WM_NCPOINTERUP"}
+	case Value(58):
+		return []string{"SM_CYMINIMIZED", "SPI_GETSTICKYKEYS"}
 	case Value(581):
 		return []string{"WM_POINTERUPDATE"}
 	case Value(582):
@@ -2691,6 +4190,8 @@ func Names(value Value) []string {
 		return []string{"WM_POINTERCAPTURECHANGED"}
 	case Value(589):
 		return []string{"WM_TOUCHHITTESTING"}
+	case Value(59):
+		return []string{"SM_CXMAXTRACK", "SPI_SETSTICKYKEYS"}
 	case Value(590):
 		return []string{"WM_POINTERWHEEL"}
 	case Value(591):
@@ -2702,11 +4203,17 @@ func Names(value Value) []string {
 	case Value(595):
 		return []string{"WM_POINTERROUTEDRELEASED"}
 	case Value(6):
-		return []string{"MB_CANCELTRYCONTINUE", "SW_MINIMIZE", "VK_XBUTTON2", "WM_ACTIVATE"}
+		return []string{"MB_CANCELTRYCONTINUE", "QS_MOUSE", "SB_LEFT", "SB_TOP", "SM_CYBORDER", "SPI_SETBORDER", "SW_MINIMIZE", "VK_XBUTTON2", "WH_SYSMSGFILTER", "WM_ACTIVATE"}
+	case Value(60):
+		return []string{"SM_CYMAXTRACK", "SPI_GETACCESSTIMEOUT"}
 	case Value(61):
-		return []string{"WM_GETOBJECT"}
+		return []string{"SM_CXMAXIMIZED", "SPI_SETACCESSTIMEOUT", "WM_GETOBJECT"}
+	case Value(62):
+		return []string{"SM_CYMAXIMIZED", "SPI_GETSERIALKEYS"}
+	case Value(63):
+		return []string{"SM_NETWORK", "SPI_SETSERIALKEYS"}
 	case Value(64):
-		return []string{"MB_ICONASTERISK", "MB_ICONINFORMATION", "WS_EX_MDICHILD"}
+		return []string{"CS_CLASSDC", "MB_ICONASTERISK", "MB_ICONINFORMATION", "MF_MENUBREAK", "MOUSEEVENTF_MIDDLEUP", "QS_SENDMESSAGE", "SPI_GETSOUNDSENTRY", "SWP_SHOWWINDOW", "TPM_VERTICAL", "WS_EX_MDICHILD"}
 	case Value(641):
 		return []string{"WM_IME_SETCONTEXT"}
 	case Value(642):
@@ -2722,17 +4229,19 @@ func Names(value Value) []string {
 	case Value(648):
 		return []string{"WM_IME_REQUEST"}
 	case Value(65):
-		return []string{"VK_A", "WM_COMPACTING"}
+		return []string{"SPI_SETSOUNDSENTRY", "VK_A", "WM_COMPACTING"}
+	case Value(65535):
+		return []string{"HWND_BROADCAST"}
 	case Value(65536):
-		return []string{"MB_SETFOREGROUND", "WS_EX_CONTROLPARENT", "WS_MAXIMIZEBOX", "WS_TABSTOP"}
+		return []string{"CS_IME", "KLF_SHIFTLOCK", "MB_SETFOREGROUND", "TPM_WORKAREA", "WS_EX_CONTROLPARENT", "WS_MAXIMIZEBOX", "WS_TABSTOP"}
 	case Value(656):
 		return []string{"WM_IME_KEYDOWN"}
 	case Value(657):
 		return []string{"WM_IME_KEYUP"}
 	case Value(66):
-		return []string{"VK_B"}
+		return []string{"SPI_GETHIGHCONTRAST", "VK_B"}
 	case Value(67):
-		return []string{"VK_C"}
+		return []string{"SM_CLEANBOOT", "SPI_SETHIGHCONTRAST", "VK_C"}
 	case Value(67108864):
 		return []string{"WS_CLIPSIBLINGS"}
 	case Value(672):
@@ -2740,23 +4249,23 @@ func Names(value Value) []string {
 	case Value(674):
 		return []string{"WM_NCMOUSELEAVE"}
 	case Value(68):
-		return []string{"VK_D", "WM_COMMNOTIFY"}
+		return []string{"SM_CXDRAG", "SPI_GETKEYBOARDPREF", "VK_D", "WM_COMMNOTIFY"}
 	case Value(689):
 		return []string{"WM_WTSSESSION_CHANGE"}
 	case Value(69):
-		return []string{"VK_E"}
+		return []string{"SM_CYDRAG", "SPI_SETKEYBOARDPREF", "VK_E"}
 	case Value(7):
-		return []string{"SW_SHOWMINNOACTIVE", "WM_SETFOCUS"}
+		return []string{"SB_BOTTOM", "SB_RIGHT", "SM_CXDLGFRAME", "SM_CXFIXEDFRAME", "SW_SHOWMINNOACTIVE", "WH_MOUSE", "WM_SETFOCUS"}
 	case Value(70):
-		return []string{"VK_F", "WM_WINDOWPOSCHANGING"}
+		return []string{"SM_SHOWSOUNDS", "SPI_GETSCREENREADER", "VK_F", "WM_WINDOWPOSCHANGING"}
 	case Value(704):
 		return []string{"WM_TABLET_FIRST"}
 	case Value(71):
-		return []string{"VK_G", "WM_WINDOWPOSCHANGED"}
+		return []string{"SM_CXMENUCHECK", "SPI_SETSCREENREADER", "VK_G", "WM_WINDOWPOSCHANGED"}
 	case Value(72):
-		return []string{"VK_H", "WM_POWER"}
+		return []string{"SM_CYMENUCHECK", "SPI_GETANIMATION", "VK_H", "WM_POWER"}
 	case Value(73):
-		return []string{"VK_I"}
+		return []string{"SM_SLOWMACHINE", "SPI_SETANIMATION", "VK_I"}
 	case Value(735):
 		return []string{"WM_TABLET_LAST"}
 	case Value(736):
@@ -2766,19 +4275,19 @@ func Names(value Value) []string {
 	case Value(739):
 		return []string{"WM_DPICHANGED_AFTERPARENT"}
 	case Value(74):
-		return []string{"VK_J", "WM_COPYDATA"}
+		return []string{"SM_MIDEASTENABLED", "SPI_GETFONTSMOOTHING", "VK_J", "WM_COPYDATA"}
 	case Value(740):
 		return []string{"WM_GETDPISCALEDSIZE"}
 	case Value(75):
-		return []string{"VK_K", "WM_CANCELJOURNAL"}
+		return []string{"SM_MOUSEWHEELPRESENT", "SPI_SETFONTSMOOTHING", "VK_K", "WM_CANCELJOURNAL"}
 	case Value(76):
-		return []string{"VK_L"}
+		return []string{"SM_CMETRICS", "SM_XVIRTUALSCREEN", "SPI_SETDRAGWIDTH", "VK_L"}
 	case Value(768):
 		return []string{"MB_DEFBUTTON4", "WM_CUT", "WS_EX_OVERLAPPEDWINDOW"}
 	case Value(769):
 		return []string{"WM_COPY"}
 	case Value(77):
-		return []string{"VK_M"}
+		return []string{"SM_YVIRTUALSCREEN", "SPI_SETDRAGHEIGHT", "VK_M"}
 	case Value(770):
 		return []string{"WM_PASTE"}
 	case Value(771):
@@ -2800,7 +4309,7 @@ func Names(value Value) []string {
 	case Value(779):
 		return []string{"WM_SIZECLIPBOARD"}
 	case Value(78):
-		return []string{"VK_N", "WM_NOTIFY"}
+		return []string{"SM_CXVIRTUALSCREEN", "SPI_SETHANDHELD", "VK_N", "WM_NOTIFY"}
 	case Value(780):
 		return []string{"WM_ASKCBFORMATNAME"}
 	case Value(781):
@@ -2816,7 +4325,7 @@ func Names(value Value) []string {
 	case Value(786):
 		return []string{"WM_HOTKEY"}
 	case Value(79):
-		return []string{"VK_O"}
+		return []string{"SM_CYVIRTUALSCREEN", "SPI_GETLOWPOWERTIMEOUT", "VK_O"}
 	case Value(791):
 		return []string{"WM_PRINT"}
 	case Value(792):
@@ -2832,9 +4341,9 @@ func Names(value Value) []string {
 	case Value(799):
 		return []string{"WM_DWMNCRENDERINGCHANGED"}
 	case Value(8):
-		return []string{"MOD_WIN", "SW_SHOWNA", "VK_BACK", "WM_KILLFOCUS", "WS_EX_TOPMOST"}
+		return []string{"CS_DBLCLKS", "KEYEVENTF_SCANCODE", "KLF_REORDER", "MF_CHECKED", "MOD_WIN", "MOUSEEVENTF_RIGHTDOWN", "QS_POSTMESSAGE", "SB_ENDSCROLL", "SM_CYDLGFRAME", "SM_CYFIXEDFRAME", "SWP_NOREDRAW", "SW_SHOWNA", "TPM_RIGHTALIGN", "VK_BACK", "WH_HARDWARE", "WM_KILLFOCUS", "WS_EX_TOPMOST"}
 	case Value(80):
-		return []string{"VK_P", "WM_INPUTLANGCHANGEREQUEST"}
+		return []string{"SM_CMONITORS", "SPI_GETPOWEROFFTIMEOUT", "VK_P", "WM_INPUTLANGCHANGEREQUEST"}
 	case Value(800):
 		return []string{"WM_DWMCOLORIZATIONCOLORCHANGED"}
 	case Value(801):
@@ -2844,13 +4353,87 @@ func Names(value Value) []string {
 	case Value(806):
 		return []string{"WM_DWMSENDICONICLIVEPREVIEWBITMAP"}
 	case Value(81):
-		return []string{"VK_Q", "WM_INPUTLANGCHANGE"}
+		return []string{"SM_SAMEDISPLAYFORMAT", "SPI_SETLOWPOWERTIMEOUT", "VK_Q", "WM_INPUTLANGCHANGE"}
 	case Value(8192):
-		return []string{"MB_TASKMODAL", "WS_EX_RTLREADING"}
+		return []string{"CS_BYTEALIGNWINDOW", "MB_TASKMODAL", "MF_SYSMENU", "MOUSEEVENTF_MOVE_NOCOALESCE", "SM_SHUTTINGDOWN", "SPI_GETFOREGROUNDLOCKTIMEOUT", "SWP_DEFERERASE", "TPM_VERNEGANIMATION", "WS_EX_RTLREADING"}
+	case Value(8193):
+		return []string{"SM_REMOTECONTROL", "SPI_SETFOREGROUNDLOCKTIMEOUT"}
+	case Value(8194):
+		return []string{"SM_CARETBLINKINGENABLED", "SPI_GETACTIVEWNDTRKTIMEOUT"}
+	case Value(8195):
+		return []string{"SM_CONVERTIBLESLATEMODE", "SPI_SETACTIVEWNDTRKTIMEOUT"}
+	case Value(8196):
+		return []string{"SM_SYSTEMDOCKED", "SPI_GETFOREGROUNDFLASHCOUNT"}
+	case Value(8197):
+		return []string{"SPI_SETFOREGROUNDFLASHCOUNT"}
+	case Value(8198):
+		return []string{"SPI_GETCARETWIDTH"}
+	case Value(8199):
+		return []string{"SPI_SETCARETWIDTH"}
 	case Value(82):
-		return []string{"VK_R", "WM_TCARD"}
+		return []string{"SM_IMMENABLED", "SPI_SETPOWEROFFTIMEOUT", "VK_R", "WM_TCARD"}
+	case Value(8200):
+		return []string{"SPI_GETMOUSECLICKLOCKTIME"}
+	case Value(8201):
+		return []string{"SPI_SETMOUSECLICKLOCKTIME"}
+	case Value(8202):
+		return []string{"SPI_GETFONTSMOOTHINGTYPE"}
+	case Value(8203):
+		return []string{"SPI_SETFONTSMOOTHINGTYPE"}
+	case Value(8204):
+		return []string{"SPI_GETFONTSMOOTHINGCONTRAST"}
+	case Value(8205):
+		return []string{"SPI_SETFONTSMOOTHINGCONTRAST"}
+	case Value(8206):
+		return []string{"SPI_GETFOCUSBORDERWIDTH"}
+	case Value(8207):
+		return []string{"SPI_SETFOCUSBORDERWIDTH"}
+	case Value(8208):
+		return []string{"SPI_GETFOCUSBORDERHEIGHT"}
+	case Value(8209):
+		return []string{"SPI_SETFOCUSBORDERHEIGHT"}
+	case Value(8210):
+		return []string{"SPI_GETFONTSMOOTHINGORIENTATION"}
+	case Value(8211):
+		return []string{"SPI_SETFONTSMOOTHINGORIENTATION"}
+	case Value(8212):
+		return []string{"SPI_GETMINIMUMHITRADIUS"}
+	case Value(8213):
+		return []string{"SPI_SETMINIMUMHITRADIUS"}
+	case Value(8214):
+		return []string{"SPI_GETMESSAGEDURATION"}
+	case Value(8215):
+		return []string{"SPI_SETMESSAGEDURATION"}
+	case Value(8216):
+		return []string{"SPI_GETCONTACTVISUALIZATION"}
+	case Value(8217):
+		return []string{"SPI_SETCONTACTVISUALIZATION"}
+	case Value(8218):
+		return []string{"SPI_GETGESTUREVISUALIZATION"}
+	case Value(8219):
+		return []string{"SPI_SETGESTUREVISUALIZATION"}
+	case Value(8220):
+		return []string{"SPI_GETMOUSEWHEELROUTING"}
+	case Value(8221):
+		return []string{"SPI_SETMOUSEWHEELROUTING"}
+	case Value(8222):
+		return []string{"SPI_GETPENVISUALIZATION"}
+	case Value(8223):
+		return []string{"SPI_SETPENVISUALIZATION"}
+	case Value(8224):
+		return []string{"SPI_GETPENARBITRATIONTYPE"}
+	case Value(8225):
+		return []string{"SPI_SETPENARBITRATIONTYPE"}
+	case Value(8226):
+		return []string{"SPI_GETCARETTIMEOUT"}
+	case Value(8227):
+		return []string{"SPI_SETCARETTIMEOUT"}
+	case Value(8228):
+		return []string{"SPI_GETHANDEDNESS"}
+	case Value(8229):
+		return []string{"SPI_SETHANDEDNESS"}
 	case Value(83):
-		return []string{"VK_S", "WM_HELP"}
+		return []string{"SM_CXFOCUSBORDER", "SPI_GETLOWPOWERACTIVE", "VK_S", "WM_HELP"}
 	case Value(831):
 		return []string{"WM_GETTITLEBARINFOEX"}
 	case Value(837):
@@ -2862,49 +4445,51 @@ func Names(value Value) []string {
 	case Value(839):
 		return []string{"WM_CLOAKED_STATE_CHANGED"}
 	case Value(84):
-		return []string{"VK_T", "WM_USERCHANGED"}
+		return []string{"SM_CYFOCUSBORDER", "SPI_GETPOWEROFFACTIVE", "VK_T", "WM_USERCHANGED"}
 	case Value(85):
-		return []string{"VK_U", "WM_NOTIFYFORMAT"}
+		return []string{"SPI_SETLOWPOWERACTIVE", "VK_U", "WM_NOTIFYFORMAT"}
 	case Value(856):
 		return []string{"WM_HANDHELDFIRST"}
 	case Value(86):
-		return []string{"VK_V"}
+		return []string{"SM_TABLETPC", "SPI_SETPOWEROFFACTIVE", "VK_V"}
 	case Value(863):
 		return []string{"WM_HANDHELDLAST"}
 	case Value(864):
 		return []string{"WM_AFXFIRST"}
 	case Value(87):
-		return []string{"VK_W"}
+		return []string{"SM_MEDIACENTER", "SPI_SETCURSORS", "VK_W"}
 	case Value(88):
-		return []string{"VK_X"}
+		return []string{"SM_STARTER", "SPI_SETICONS", "VK_X"}
 	case Value(89):
-		return []string{"VK_Y"}
+		return []string{"SM_SERVERR2", "SPI_GETDEFAULTINPUTLANG", "VK_Y"}
 	case Value(895):
 		return []string{"WM_AFXLAST"}
 	case Value(896):
 		return []string{"WM_PENWINFIRST"}
 	case Value(9):
-		return []string{"SW_RESTORE", "VK_TAB"}
+		return []string{"SM_CYVTHUMB", "SW_RESTORE", "VK_TAB", "WH_DEBUG"}
 	case Value(90):
-		return []string{"VK_Z"}
+		return []string{"SPI_SETDEFAULTINPUTLANG", "VK_Z"}
 	case Value(91):
-		return []string{"VK_LWIN"}
+		return []string{"SM_MOUSEHORIZONTALWHEELPRESENT", "SPI_SETLANGTOGGLE", "VK_LWIN"}
 	case Value(911):
 		return []string{"WM_PENWINLAST"}
 	case Value(92):
-		return []string{"VK_RWIN"}
+		return []string{"SM_CXPADDEDBORDER", "SPI_GETWINDOWSEXTENSION", "VK_RWIN"}
 	case Value(93):
-		return []string{"VK_APPS"}
+		return []string{"SPI_SETMOUSETRAILS", "VK_APPS"}
+	case Value(94):
+		return []string{"SM_DIGITIZER", "SPI_GETMOUSETRAILS"}
 	case Value(95):
-		return []string{"VK_SLEEP"}
+		return []string{"SM_MAXIMUMTOUCHES", "SPI_GETSNAPTODEFBUTTON", "VK_SLEEP"}
 	case Value(96):
-		return []string{"VK_NUMPAD0"}
+		return []string{"SPI_SETSNAPTODEFBUTTON", "VK_NUMPAD0"}
 	case Value(97):
-		return []string{"VK_NUMPAD1"}
+		return []string{"SPI_SCREENSAVERRUNNING", "SPI_SETSCREENSAVERRUNNING", "VK_NUMPAD1"}
 	case Value(98):
-		return []string{"VK_NUMPAD2"}
+		return []string{"SPI_GETMOUSEHOVERWIDTH", "VK_NUMPAD2"}
 	case Value(99):
-		return []string{"VK_NUMPAD3"}
+		return []string{"SPI_SETMOUSEHOVERWIDTH", "VK_NUMPAD3"}
 	default:
 		return nil
 	}
@@ -2913,6 +4498,68 @@ func Names(value Value) []string {
 // Parse returns the numeric value associated with an exact symbolic name.
 func Parse(name string) (Value, bool) {
 	switch name {
+	case "CS_BYTEALIGNCLIENT":
+		return CS_BYTEALIGNCLIENT, true
+	case "CS_BYTEALIGNWINDOW":
+		return CS_BYTEALIGNWINDOW, true
+	case "CS_CLASSDC":
+		return CS_CLASSDC, true
+	case "CS_DBLCLKS":
+		return CS_DBLCLKS, true
+	case "CS_DROPSHADOW":
+		return CS_DROPSHADOW, true
+	case "CS_GLOBALCLASS":
+		return CS_GLOBALCLASS, true
+	case "CS_HREDRAW":
+		return CS_HREDRAW, true
+	case "CS_IME":
+		return CS_IME, true
+	case "CS_NOCLOSE":
+		return CS_NOCLOSE, true
+	case "CS_OWNDC":
+		return CS_OWNDC, true
+	case "CS_PARENTDC":
+		return CS_PARENTDC, true
+	case "CS_SAVEBITS":
+		return CS_SAVEBITS, true
+	case "CS_VREDRAW":
+		return CS_VREDRAW, true
+	case "CW_USEDEFAULT":
+		return CW_USEDEFAULT, true
+	case "GCLP_HBRBACKGROUND":
+		return GCLP_HBRBACKGROUND, true
+	case "GCLP_HCURSOR":
+		return GCLP_HCURSOR, true
+	case "GCLP_HICON":
+		return GCLP_HICON, true
+	case "GCLP_HICONSM":
+		return GCLP_HICONSM, true
+	case "GCLP_HMODULE":
+		return GCLP_HMODULE, true
+	case "GCLP_MENUNAME":
+		return GCLP_MENUNAME, true
+	case "GCLP_WNDPROC":
+		return GCLP_WNDPROC, true
+	case "GCL_CBCLSEXTRA":
+		return GCL_CBCLSEXTRA, true
+	case "GCL_CBWNDEXTRA":
+		return GCL_CBWNDEXTRA, true
+	case "GCL_HBRBACKGROUND":
+		return GCL_HBRBACKGROUND, true
+	case "GCL_HCURSOR":
+		return GCL_HCURSOR, true
+	case "GCL_HICON":
+		return GCL_HICON, true
+	case "GCL_HICONSM":
+		return GCL_HICONSM, true
+	case "GCL_HMODULE":
+		return GCL_HMODULE, true
+	case "GCL_MENUNAME":
+		return GCL_MENUNAME, true
+	case "GCL_STYLE":
+		return GCL_STYLE, true
+	case "GCL_WNDPROC":
+		return GCL_WNDPROC, true
 	case "GWLP_HINSTANCE":
 		return GWLP_HINSTANCE, true
 	case "GWLP_HWNDPARENT":
@@ -2937,6 +4584,118 @@ func Parse(name string) (Value, bool) {
 		return GWL_USERDATA, true
 	case "GWL_WNDPROC":
 		return GWL_WNDPROC, true
+	case "HWND_BOTTOM":
+		return HWND_BOTTOM, true
+	case "HWND_BROADCAST":
+		return HWND_BROADCAST, true
+	case "HWND_DESKTOP":
+		return HWND_DESKTOP, true
+	case "HWND_MESSAGE":
+		return HWND_MESSAGE, true
+	case "HWND_NOTOPMOST":
+		return HWND_NOTOPMOST, true
+	case "HWND_TOP":
+		return HWND_TOP, true
+	case "HWND_TOPMOST":
+		return HWND_TOPMOST, true
+	case "IDC_APPSTARTING":
+		return IDC_APPSTARTING, true
+	case "IDC_ARROW":
+		return IDC_ARROW, true
+	case "IDC_CROSS":
+		return IDC_CROSS, true
+	case "IDC_HAND":
+		return IDC_HAND, true
+	case "IDC_HELP":
+		return IDC_HELP, true
+	case "IDC_IBEAM":
+		return IDC_IBEAM, true
+	case "IDC_ICON":
+		return IDC_ICON, true
+	case "IDC_NO":
+		return IDC_NO, true
+	case "IDC_PERSON":
+		return IDC_PERSON, true
+	case "IDC_PIN":
+		return IDC_PIN, true
+	case "IDC_SIZE":
+		return IDC_SIZE, true
+	case "IDC_SIZEALL":
+		return IDC_SIZEALL, true
+	case "IDC_SIZENESW":
+		return IDC_SIZENESW, true
+	case "IDC_SIZENS":
+		return IDC_SIZENS, true
+	case "IDC_SIZENWSE":
+		return IDC_SIZENWSE, true
+	case "IDC_SIZEWE":
+		return IDC_SIZEWE, true
+	case "IDC_STATIC":
+		return IDC_STATIC, true
+	case "IDC_UPARROW":
+		return IDC_UPARROW, true
+	case "IDC_WAIT":
+		return IDC_WAIT, true
+	case "IDI_APPLICATION":
+		return IDI_APPLICATION, true
+	case "IDI_ASTERISK":
+		return IDI_ASTERISK, true
+	case "IDI_ERROR":
+		return IDI_ERROR, true
+	case "IDI_EXCLAMATION":
+		return IDI_EXCLAMATION, true
+	case "IDI_HAND":
+		return IDI_HAND, true
+	case "IDI_INFORMATION":
+		return IDI_INFORMATION, true
+	case "IDI_QUESTION":
+		return IDI_QUESTION, true
+	case "IDI_SHIELD":
+		return IDI_SHIELD, true
+	case "IDI_WARNING":
+		return IDI_WARNING, true
+	case "IDI_WINLOGO":
+		return IDI_WINLOGO, true
+	case "INPUT_HARDWARE":
+		return INPUT_HARDWARE, true
+	case "INPUT_KEYBOARD":
+		return INPUT_KEYBOARD, true
+	case "INPUT_MOUSE":
+		return INPUT_MOUSE, true
+	case "KEYEVENTF_EXTENDEDKEY":
+		return KEYEVENTF_EXTENDEDKEY, true
+	case "KEYEVENTF_KEYUP":
+		return KEYEVENTF_KEYUP, true
+	case "KEYEVENTF_SCANCODE":
+		return KEYEVENTF_SCANCODE, true
+	case "KEYEVENTF_UNICODE":
+		return KEYEVENTF_UNICODE, true
+	case "KLF_ACTIVATE":
+		return KLF_ACTIVATE, true
+	case "KLF_NOTELLSHELL":
+		return KLF_NOTELLSHELL, true
+	case "KLF_REORDER":
+		return KLF_REORDER, true
+	case "KLF_REPLACELANG":
+		return KLF_REPLACELANG, true
+	case "KLF_RESET":
+		return KLF_RESET, true
+	case "KLF_SETFORPROCESS":
+		return KLF_SETFORPROCESS, true
+	case "KLF_SHIFTLOCK":
+		return KLF_SHIFTLOCK, true
+	case "KLF_SUBSTITUTE_OK":
+		return KLF_SUBSTITUTE_OK, true
+	case "MAPVK_VK_TO_CHAR":
+		return MAPVK_VK_TO_CHAR, true
+	case "MAPVK_VK_TO_VSC":
+		return MAPVK_VK_TO_VSC, true
+	case "MAPVK_VK_TO_VSC_EX":
+		return MAPVK_VK_TO_VSC_EX, true
+	case "MAPVK_VSC_TO_VK":
+		return MAPVK_VSC_TO_VK, true
+	case "MAPVK_VSC_TO_VK_EX":
+		return MAPVK_VSC_TO_VK_EX, true
 	case "MB_ABORTRETRYIGNORE":
 		return MB_ABORTRETRYIGNORE, true
 	case "MB_APPLMODAL":
@@ -3011,6 +4770,62 @@ func Parse(name string) (Value, bool) {
 		return MB_YESNO, true
 	case "MB_YESNOCANCEL":
 		return MB_YESNOCANCEL, true
+	case "MF_APPEND":
+		return MF_APPEND, true
+	case "MF_BITMAP":
+		return MF_BITMAP, true
+	case "MF_BYCOMMAND":
+		return MF_BYCOMMAND, true
+	case "MF_BYPOSITION":
+		return MF_BYPOSITION, true
+	case "MF_CHANGE":
+		return MF_CHANGE, true
+	case "MF_CHECKED":
+		return MF_CHECKED, true
+	case "MF_DEFAULT":
+		return MF_DEFAULT, true
+	case "MF_DELETE":
+		return MF_DELETE, true
+	case "MF_DISABLED":
+		return MF_DISABLED, true
+	case "MF_ENABLED":
+		return MF_ENABLED, true
+	case "MF_END":
+		return MF_END, true
+	case "MF_GRAYED":
+		return MF_GRAYED, true
+	case "MF_HELP":
+		return MF_HELP, true
+	case "MF_HILITE":
+		return MF_HILITE, true
+	case "MF_INSERT":
+		return MF_INSERT, true
+	case "MF_MENUBARBREAK":
+		return MF_MENUBARBREAK, true
+	case "MF_MENUBREAK":
+		return MF_MENUBREAK, true
+	case "MF_MOUSESELECT":
+		return MF_MOUSESELECT, true
+	case "MF_OWNERDRAW":
+		return MF_OWNERDRAW, true
+	case "MF_POPUP":
+		return MF_POPUP, true
+	case "MF_REMOVE":
+		return MF_REMOVE, true
+	case "MF_RIGHTJUSTIFY":
+		return MF_RIGHTJUSTIFY, true
+	case "MF_SEPARATOR":
+		return MF_SEPARATOR, true
+	case "MF_STRING":
+		return MF_STRING, true
+	case "MF_SYSMENU":
+		return MF_SYSMENU, true
+	case "MF_UNCHECKED":
+		return MF_UNCHECKED, true
+	case "MF_UNHILITE":
+		return MF_UNHILITE, true
+	case "MF_USECHECKBITMAPS":
+		return MF_USECHECKBITMAPS, true
 	case "MOD_ALT":
 		return MOD_ALT, true
 	case "MOD_CONTROL":
@@ -3021,6 +4836,860 @@ func Parse(name string) (Value, bool) {
 		return MOD_SHIFT, true
 	case "MOD_WIN":
 		return MOD_WIN, true
+	case "MOUSEEVENTF_ABSOLUTE":
+		return MOUSEEVENTF_ABSOLUTE, true
+	case "MOUSEEVENTF_HWHEEL":
+		return MOUSEEVENTF_HWHEEL, true
+	case "MOUSEEVENTF_LEFTDOWN":
+		return MOUSEEVENTF_LEFTDOWN, true
+	case "MOUSEEVENTF_LEFTUP":
+		return MOUSEEVENTF_LEFTUP, true
+	case "MOUSEEVENTF_MIDDLEDOWN":
+		return MOUSEEVENTF_MIDDLEDOWN, true
+	case "MOUSEEVENTF_MIDDLEUP":
+		return MOUSEEVENTF_MIDDLEUP, true
+	case "MOUSEEVENTF_MOVE":
+		return MOUSEEVENTF_MOVE, true
+	case "MOUSEEVENTF_MOVE_NOCOALESCE":
+		return MOUSEEVENTF_MOVE_NOCOALESCE, true
+	case "MOUSEEVENTF_RIGHTDOWN":
+		return MOUSEEVENTF_RIGHTDOWN, true
+	case "MOUSEEVENTF_RIGHTUP":
+		return MOUSEEVENTF_RIGHTUP, true
+	case "MOUSEEVENTF_VIRTUALDESK":
+		return MOUSEEVENTF_VIRTUALDESK, true
+	case "MOUSEEVENTF_WHEEL":
+		return MOUSEEVENTF_WHEEL, true
+	case "MOUSEEVENTF_XDOWN":
+		return MOUSEEVENTF_XDOWN, true
+	case "MOUSEEVENTF_XUP":
+		return MOUSEEVENTF_XUP, true
+	case "OCR_APPSTARTING":
+		return OCR_APPSTARTING, true
+	case "OCR_CROSS":
+		return OCR_CROSS, true
+	case "OCR_HAND":
+		return OCR_HAND, true
+	case "OCR_HELP":
+		return OCR_HELP, true
+	case "OCR_IBEAM":
+		return OCR_IBEAM, true
+	case "OCR_ICOCUR":
+		return OCR_ICOCUR, true
+	case "OCR_ICON":
+		return OCR_ICON, true
+	case "OCR_NO":
+		return OCR_NO, true
+	case "OCR_NORMAL":
+		return OCR_NORMAL, true
+	case "OCR_SIZE":
+		return OCR_SIZE, true
+	case "OCR_SIZEALL":
+		return OCR_SIZEALL, true
+	case "OCR_SIZENESW":
+		return OCR_SIZENESW, true
+	case "OCR_SIZENS":
+		return OCR_SIZENS, true
+	case "OCR_SIZENWSE":
+		return OCR_SIZENWSE, true
+	case "OCR_SIZEWE":
+		return OCR_SIZEWE, true
+	case "OCR_UP":
+		return OCR_UP, true
+	case "OCR_WAIT":
+		return OCR_WAIT, true
+	case "QS_ALLEVENTS":
+		return QS_ALLEVENTS, true
+	case "QS_ALLINPUT":
+		return QS_ALLINPUT, true
+	case "QS_ALLPOSTMESSAGE":
+		return QS_ALLPOSTMESSAGE, true
+	case "QS_HOTKEY":
+		return QS_HOTKEY, true
+	case "QS_INPUT":
+		return QS_INPUT, true
+	case "QS_KEY":
+		return QS_KEY, true
+	case "QS_MOUSE":
+		return QS_MOUSE, true
+	case "QS_MOUSEBUTTON":
+		return QS_MOUSEBUTTON, true
+	case "QS_MOUSEMOVE":
+		return QS_MOUSEMOVE, true
+	case "QS_PAINT":
+		return QS_PAINT, true
+	case "QS_POINTER":
+		return QS_POINTER, true
+	case "QS_POSTMESSAGE":
+		return QS_POSTMESSAGE, true
+	case "QS_RAWINPUT":
+		return QS_RAWINPUT, true
+	case "QS_SENDMESSAGE":
+		return QS_SENDMESSAGE, true
+	case "QS_TIMER":
+		return QS_TIMER, true
+	case "QS_TOUCH":
+		return QS_TOUCH, true
+	case "SB_BOTH":
+		return SB_BOTH, true
+	case "SB_BOTTOM":
+		return SB_BOTTOM, true
+	case "SB_CTL":
+		return SB_CTL, true
+	case "SB_ENDSCROLL":
+		return SB_ENDSCROLL, true
+	case "SB_HORZ":
+		return SB_HORZ, true
+	case "SB_LEFT":
+		return SB_LEFT, true
+	case "SB_LINEDOWN":
+		return SB_LINEDOWN, true
+	case "SB_LINELEFT":
+		return SB_LINELEFT, true
+	case "SB_LINERIGHT":
+		return SB_LINERIGHT, true
+	case "SB_LINEUP":
+		return SB_LINEUP, true
+	case "SB_MIN":
+		return SB_MIN, true
+	case "SB_PAGEDOWN":
+		return SB_PAGEDOWN, true
+	case "SB_PAGELEFT":
+		return SB_PAGELEFT, true
+	case "SB_PAGERIGHT":
+		return SB_PAGERIGHT, true
+	case "SB_PAGEUP":
+		return SB_PAGEUP, true
+	case "SB_RIGHT":
+		return SB_RIGHT, true
+	case "SB_THUMBPOSITION":
+		return SB_THUMBPOSITION, true
+	case "SB_THUMBTRACK":
+		return SB_THUMBTRACK, true
+	case "SB_TOP":
+		return SB_TOP, true
+	case "SB_VERT":
+		return SB_VERT, true
+	case "SM_ARRANGE":
+		return SM_ARRANGE, true
+	case "SM_CARETBLINKINGENABLED":
+		return SM_CARETBLINKINGENABLED, true
+	case "SM_CLEANBOOT":
+		return SM_CLEANBOOT, true
+	case "SM_CMETRICS":
+		return SM_CMETRICS, true
+	case "SM_CMONITORS":
+		return SM_CMONITORS, true
+	case "SM_CMOUSEBUTTONS":
+		return SM_CMOUSEBUTTONS, true
+	case "SM_CONVERTIBLESLATEMODE":
+		return SM_CONVERTIBLESLATEMODE, true
+	case "SM_CXBORDER":
+		return SM_CXBORDER, true
+	case "SM_CXCURSOR":
+		return SM_CXCURSOR, true
+	case "SM_CXDLGFRAME":
+		return SM_CXDLGFRAME, true
+	case "SM_CXDOUBLECLK":
+		return SM_CXDOUBLECLK, true
+	case "SM_CXDRAG":
+		return SM_CXDRAG, true
+	case "SM_CXEDGE":
+		return SM_CXEDGE, true
+	case "SM_CXFIXEDFRAME":
+		return SM_CXFIXEDFRAME, true
+	case "SM_CXFOCUSBORDER":
+		return SM_CXFOCUSBORDER, true
+	case "SM_CXFRAME":
+		return SM_CXFRAME, true
+	case "SM_CXFULLSCREEN":
+		return SM_CXFULLSCREEN, true
+	case "SM_CXHSCROLL":
+		return SM_CXHSCROLL, true
+	case "SM_CXHTHUMB":
+		return SM_CXHTHUMB, true
+	case "SM_CXICON":
+		return SM_CXICON, true
+	case "SM_CXICONSPACING":
+		return SM_CXICONSPACING, true
+	case "SM_CXMAXIMIZED":
+		return SM_CXMAXIMIZED, true
+	case "SM_CXMAXTRACK":
+		return SM_CXMAXTRACK, true
+	case "SM_CXMENUCHECK":
+		return SM_CXMENUCHECK, true
+	case "SM_CXMENUSIZE":
+		return SM_CXMENUSIZE, true
+	case "SM_CXMIN":
+		return SM_CXMIN, true
+	case "SM_CXMINIMIZED":
+		return SM_CXMINIMIZED, true
+	case "SM_CXMINSPACING":
+		return SM_CXMINSPACING, true
+	case "SM_CXMINTRACK":
+		return SM_CXMINTRACK, true
+	case "SM_CXPADDEDBORDER":
+		return SM_CXPADDEDBORDER, true
+	case "SM_CXSCREEN":
+		return SM_CXSCREEN, true
+	case "SM_CXSIZE":
+		return SM_CXSIZE, true
+	case "SM_CXSIZEFRAME":
+		return SM_CXSIZEFRAME, true
+	case "SM_CXSMICON":
+		return SM_CXSMICON, true
+	case "SM_CXSMSIZE":
+		return SM_CXSMSIZE, true
+	case "SM_CXVIRTUALSCREEN":
+		return SM_CXVIRTUALSCREEN, true
+	case "SM_CXVSCROLL":
+		return SM_CXVSCROLL, true
+	case "SM_CYBORDER":
+		return SM_CYBORDER, true
+	case "SM_CYCAPTION":
+		return SM_CYCAPTION, true
+	case "SM_CYCURSOR":
+		return SM_CYCURSOR, true
+	case "SM_CYDLGFRAME":
+		return SM_CYDLGFRAME, true
+	case "SM_CYDOUBLECLK":
+		return SM_CYDOUBLECLK, true
+	case "SM_CYDRAG":
+		return SM_CYDRAG, true
+	case "SM_CYEDGE":
+		return SM_CYEDGE, true
+	case "SM_CYFIXEDFRAME":
+		return SM_CYFIXEDFRAME, true
+	case "SM_CYFOCUSBORDER":
+		return SM_CYFOCUSBORDER, true
+	case "SM_CYFRAME":
+		return SM_CYFRAME, true
+	case "SM_CYFULLSCREEN":
+		return SM_CYFULLSCREEN, true
+	case "SM_CYHSCROLL":
+		return SM_CYHSCROLL, true
+	case "SM_CYICON":
+		return SM_CYICON, true
+	case "SM_CYICONSPACING":
+		return SM_CYICONSPACING, true
+	case "SM_CYKANJIWINDOW":
+		return SM_CYKANJIWINDOW, true
+	case "SM_CYMAXIMIZED":
+		return SM_CYMAXIMIZED, true
+	case "SM_CYMAXTRACK":
+		return SM_CYMAXTRACK, true
+	case "SM_CYMENU":
+		return SM_CYMENU, true
+	case "SM_CYMENUCHECK":
+		return SM_CYMENUCHECK, true
+	case "SM_CYMENUSIZE":
+		return SM_CYMENUSIZE, true
+	case "SM_CYMIN":
+		return SM_CYMIN, true
+	case "SM_CYMINIMIZED":
+		return SM_CYMINIMIZED, true
+	case "SM_CYMINSPACING":
+		return SM_CYMINSPACING, true
+	case "SM_CYMINTRACK":
+		return SM_CYMINTRACK, true
+	case "SM_CYSCREEN":
+		return SM_CYSCREEN, true
+	case "SM_CYSIZE":
+		return SM_CYSIZE, true
+	case "SM_CYSIZEFRAME":
+		return SM_CYSIZEFRAME, true
+	case "SM_CYSMCAPTION":
+		return SM_CYSMCAPTION, true
+	case "SM_CYSMICON":
+		return SM_CYSMICON, true
+	case "SM_CYSMSIZE":
+		return SM_CYSMSIZE, true
+	case "SM_CYVIRTUALSCREEN":
+		return SM_CYVIRTUALSCREEN, true
+	case "SM_CYVSCROLL":
+		return SM_CYVSCROLL, true
+	case "SM_CYVTHUMB":
+		return SM_CYVTHUMB, true
+	case "SM_DBCSENABLED":
+		return SM_DBCSENABLED, true
+	case "SM_DEBUG":
+		return SM_DEBUG, true
+	case "SM_DIGITIZER":
+		return SM_DIGITIZER, true
+	case "SM_IMMENABLED":
+		return SM_IMMENABLED, true
+	case "SM_MAXIMUMTOUCHES":
+		return SM_MAXIMUMTOUCHES, true
+	case "SM_MEDIACENTER":
+		return SM_MEDIACENTER, true
+	case "SM_MENUDROPALIGNMENT":
+		return SM_MENUDROPALIGNMENT, true
+	case "SM_MIDEASTENABLED":
+		return SM_MIDEASTENABLED, true
+	case "SM_MOUSEHORIZONTALWHEELPRESENT":
+		return SM_MOUSEHORIZONTALWHEELPRESENT, true
+	case "SM_MOUSEPRESENT":
+		return SM_MOUSEPRESENT, true
+	case "SM_MOUSEWHEELPRESENT":
+		return SM_MOUSEWHEELPRESENT, true
+	case "SM_NETWORK":
+		return SM_NETWORK, true
+	case "SM_PENWINDOWS":
+		return SM_PENWINDOWS, true
+	case "SM_REMOTECONTROL":
+		return SM_REMOTECONTROL, true
+	case "SM_REMOTESESSION":
+		return SM_REMOTESESSION, true
+	case "SM_RESERVED1":
+		return SM_RESERVED1, true
+	case "SM_RESERVED2":
+		return SM_RESERVED2, true
+	case "SM_RESERVED3":
+		return SM_RESERVED3, true
+	case "SM_RESERVED4":
+		return SM_RESERVED4, true
+	case "SM_SAMEDISPLAYFORMAT":
+		return SM_SAMEDISPLAYFORMAT, true
+	case "SM_SECURE":
+		return SM_SECURE, true
+	case "SM_SERVERR2":
+		return SM_SERVERR2, true
+	case "SM_SHOWSOUNDS":
+		return SM_SHOWSOUNDS, true
+	case "SM_SHUTTINGDOWN":
+		return SM_SHUTTINGDOWN, true
+	case "SM_SLOWMACHINE":
+		return SM_SLOWMACHINE, true
+	case "SM_STARTER":
+		return SM_STARTER, true
+	case "SM_SWAPBUTTON":
+		return SM_SWAPBUTTON, true
+	case "SM_SYSTEMDOCKED":
+		return SM_SYSTEMDOCKED, true
+	case "SM_TABLETPC":
+		return SM_TABLETPC, true
+	case "SM_XVIRTUALSCREEN":
+		return SM_XVIRTUALSCREEN, true
+	case "SM_YVIRTUALSCREEN":
+		return SM_YVIRTUALSCREEN, true
+	case "SPI_GETACCESSTIMEOUT":
+		return SPI_GETACCESSTIMEOUT, true
+	case "SPI_GETACTIVEWINDOWTRACKING":
+		return SPI_GETACTIVEWINDOWTRACKING, true
+	case "SPI_GETACTIVEWNDTRKTIMEOUT":
+		return SPI_GETACTIVEWNDTRKTIMEOUT, true
+	case "SPI_GETACTIVEWNDTRKZORDER":
+		return SPI_GETACTIVEWNDTRKZORDER, true
+	case "SPI_GETANIMATION":
+		return SPI_GETANIMATION, true
+	case "SPI_GETAUDIODESCRIPTION":
+		return SPI_GETAUDIODESCRIPTION, true
+	case "SPI_GETBEEP":
+		return SPI_GETBEEP, true
+	case "SPI_GETBLOCKSENDINPUTRESETS":
+		return SPI_GETBLOCKSENDINPUTRESETS, true
+	case "SPI_GETBORDER":
+		return SPI_GETBORDER, true
+	case "SPI_GETCARETBROWSING":
+		return SPI_GETCARETBROWSING, true
+	case "SPI_GETCARETTIMEOUT":
+		return SPI_GETCARETTIMEOUT, true
+	case "SPI_GETCARETWIDTH":
+		return SPI_GETCARETWIDTH, true
+	case "SPI_GETCLEARTYPE":
+		return SPI_GETCLEARTYPE, true
+	case "SPI_GETCLIENTAREAANIMATION":
+		return SPI_GETCLIENTAREAANIMATION, true
+	case "SPI_GETCOMBOBOXANIMATION":
+		return SPI_GETCOMBOBOXANIMATION, true
+	case "SPI_GETCONTACTVISUALIZATION":
+		return SPI_GETCONTACTVISUALIZATION, true
+	case "SPI_GETCURSORSHADOW":
+		return SPI_GETCURSORSHADOW, true
+	case "SPI_GETDEFAULTINPUTLANG":
+		return SPI_GETDEFAULTINPUTLANG, true
+	case "SPI_GETDESKWALLPAPER":
+		return SPI_GETDESKWALLPAPER, true
+	case "SPI_GETDISABLEOVERLAPPEDCONTENT":
+		return SPI_GETDISABLEOVERLAPPEDCONTENT, true
+	case "SPI_GETDOCKMOVING":
+		return SPI_GETDOCKMOVING, true
+	case "SPI_GETDRAGFROMMAXIMIZE":
+		return SPI_GETDRAGFROMMAXIMIZE, true
+	case "SPI_GETDRAGFULLWINDOWS":
+		return SPI_GETDRAGFULLWINDOWS, true
+	case "SPI_GETDROPSHADOW":
+		return SPI_GETDROPSHADOW, true
+	case "SPI_GETFASTTASKSWITCH":
+		return SPI_GETFASTTASKSWITCH, true
+	case "SPI_GETFILTERKEYS":
+		return SPI_GETFILTERKEYS, true
+	case "SPI_GETFLATMENU":
+		return SPI_GETFLATMENU, true
+	case "SPI_GETFOCUSBORDERHEIGHT":
+		return SPI_GETFOCUSBORDERHEIGHT, true
+	case "SPI_GETFOCUSBORDERWIDTH":
+		return SPI_GETFOCUSBORDERWIDTH, true
+	case "SPI_GETFONTSMOOTHING":
+		return SPI_GETFONTSMOOTHING, true
+	case "SPI_GETFONTSMOOTHINGCONTRAST":
+		return SPI_GETFONTSMOOTHINGCONTRAST, true
+	case "SPI_GETFONTSMOOTHINGORIENTATION":
+		return SPI_GETFONTSMOOTHINGORIENTATION, true
+	case "SPI_GETFONTSMOOTHINGTYPE":
+		return SPI_GETFONTSMOOTHINGTYPE, true
+	case "SPI_GETFOREGROUNDFLASHCOUNT":
+		return SPI_GETFOREGROUNDFLASHCOUNT, true
+	case "SPI_GETFOREGROUNDLOCKTIMEOUT":
+		return SPI_GETFOREGROUNDLOCKTIMEOUT, true
+	case "SPI_GETGESTUREVISUALIZATION":
+		return SPI_GETGESTUREVISUALIZATION, true
+	case "SPI_GETGRADIENTCAPTIONS":
+		return SPI_GETGRADIENTCAPTIONS, true
+	case "SPI_GETGRIDGRANULARITY":
+		return SPI_GETGRIDGRANULARITY, true
+	case "SPI_GETHANDEDNESS":
+		return SPI_GETHANDEDNESS, true
+	case "SPI_GETHIGHCONTRAST":
+		return SPI_GETHIGHCONTRAST, true
+	case "SPI_GETHOTTRACKING":
+		return SPI_GETHOTTRACKING, true
+	case "SPI_GETHUNGAPPTIMEOUT":
+		return SPI_GETHUNGAPPTIMEOUT, true
+	case "SPI_GETICONMETRICS":
+		return SPI_GETICONMETRICS, true
+	case "SPI_GETICONTITLELOGFONT":
+		return SPI_GETICONTITLELOGFONT, true
+	case "SPI_GETICONTITLEWRAP":
+		return SPI_GETICONTITLEWRAP, true
+	case "SPI_GETKEYBOARDCUES":
+		return SPI_GETKEYBOARDCUES, true
+	case "SPI_GETKEYBOARDDELAY":
+		return SPI_GETKEYBOARDDELAY, true
+	case "SPI_GETKEYBOARDPREF":
+		return SPI_GETKEYBOARDPREF, true
+	case "SPI_GETKEYBOARDSPEED":
+		return SPI_GETKEYBOARDSPEED, true
+	case "SPI_GETLISTBOXSMOOTHSCROLLING":
+		return SPI_GETLISTBOXSMOOTHSCROLLING, true
+	case "SPI_GETLOGICALDPIOVERRIDE":
+		return SPI_GETLOGICALDPIOVERRIDE, true
+	case "SPI_GETLOWPOWERACTIVE":
+		return SPI_GETLOWPOWERACTIVE, true
+	case "SPI_GETLOWPOWERTIMEOUT":
+		return SPI_GETLOWPOWERTIMEOUT, true
+	case "SPI_GETMENUANIMATION":
+		return SPI_GETMENUANIMATION, true
+	case "SPI_GETMENUDROPALIGNMENT":
+		return SPI_GETMENUDROPALIGNMENT, true
+	case "SPI_GETMENUFADE":
+		return SPI_GETMENUFADE, true
+	case "SPI_GETMENURECT":
+		return SPI_GETMENURECT, true
+	case "SPI_GETMENUSHOWDELAY":
+		return SPI_GETMENUSHOWDELAY, true
+	case "SPI_GETMENUUNDERLINES":
+		return SPI_GETMENUUNDERLINES, true
+	case "SPI_GETMESSAGEDURATION":
+		return SPI_GETMESSAGEDURATION, true
+	case "SPI_GETMINIMIZEDMETRICS":
+		return SPI_GETMINIMIZEDMETRICS, true
+	case "SPI_GETMINIMUMHITRADIUS":
+		return SPI_GETMINIMUMHITRADIUS, true
+	case "SPI_GETMOUSE":
+		return SPI_GETMOUSE, true
+	case "SPI_GETMOUSECLICKLOCK":
+		return SPI_GETMOUSECLICKLOCK, true
+	case "SPI_GETMOUSECLICKLOCKTIME":
+		return SPI_GETMOUSECLICKLOCKTIME, true
+	case "SPI_GETMOUSEDOCKTHRESHOLD":
+		return SPI_GETMOUSEDOCKTHRESHOLD, true
+	case "SPI_GETMOUSEDRAGOUTTHRESHOLD":
+		return SPI_GETMOUSEDRAGOUTTHRESHOLD, true
+	case "SPI_GETMOUSEHOVERHEIGHT":
+		return SPI_GETMOUSEHOVERHEIGHT, true
+	case "SPI_GETMOUSEHOVERTIME":
+		return SPI_GETMOUSEHOVERTIME, true
+	case "SPI_GETMOUSEHOVERWIDTH":
+		return SPI_GETMOUSEHOVERWIDTH, true
+	case "SPI_GETMOUSEKEYS":
+		return SPI_GETMOUSEKEYS, true
+	case "SPI_GETMOUSESIDEMOVETHRESHOLD":
+		return SPI_GETMOUSESIDEMOVETHRESHOLD, true
+	case "SPI_GETMOUSESONAR":
+		return SPI_GETMOUSESONAR, true
+	case "SPI_GETMOUSESPEED":
+		return SPI_GETMOUSESPEED, true
+	case "SPI_GETMOUSETRAILS":
+		return SPI_GETMOUSETRAILS, true
+	case "SPI_GETMOUSEVANISH":
+		return SPI_GETMOUSEVANISH, true
+	case "SPI_GETMOUSEWHEELROUTING":
+		return SPI_GETMOUSEWHEELROUTING, true
+	case "SPI_GETNONCLIENTMETRICS":
+		return SPI_GETNONCLIENTMETRICS, true
+	case "SPI_GETPENARBITRATIONTYPE":
+		return SPI_GETPENARBITRATIONTYPE, true
+	case "SPI_GETPENDOCKTHRESHOLD":
+		return SPI_GETPENDOCKTHRESHOLD, true
+	case "SPI_GETPENDRAGOUTTHRESHOLD":
+		return SPI_GETPENDRAGOUTTHRESHOLD, true
+	case "SPI_GETPENSIDEMOVETHRESHOLD":
+		return SPI_GETPENSIDEMOVETHRESHOLD, true
+	case "SPI_GETPENVISUALIZATION":
+		return SPI_GETPENVISUALIZATION, true
+	case "SPI_GETPOWEROFFACTIVE":
+		return SPI_GETPOWEROFFACTIVE, true
+	case "SPI_GETPOWEROFFTIMEOUT":
+		return SPI_GETPOWEROFFTIMEOUT, true
+	case "SPI_GETSCREENREADER":
+		return SPI_GETSCREENREADER, true
+	case "SPI_GETSCREENSAVEACTIVE":
+		return SPI_GETSCREENSAVEACTIVE, true
+	case "SPI_GETSCREENSAVERRUNNING":
+		return SPI_GETSCREENSAVERRUNNING, true
+	case "SPI_GETSCREENSAVESECURE":
+		return SPI_GETSCREENSAVESECURE, true
+	case "SPI_GETSCREENSAVETIMEOUT":
+		return SPI_GETSCREENSAVETIMEOUT, true
+	case "SPI_GETSELECTIONFADE":
+		return SPI_GETSELECTIONFADE, true
+	case "SPI_GETSERIALKEYS":
+		return SPI_GETSERIALKEYS, true
+	case "SPI_GETSHOWIMEUI":
+		return SPI_GETSHOWIMEUI, true
+	case "SPI_GETSHOWSOUNDS":
+		return SPI_GETSHOWSOUNDS, true
+	case "SPI_GETSNAPSIZING":
+		return SPI_GETSNAPSIZING, true
+	case "SPI_GETSNAPTODEFBUTTON":
+		return SPI_GETSNAPTODEFBUTTON, true
+	case "SPI_GETSOUNDSENTRY":
+		return SPI_GETSOUNDSENTRY, true
+	case "SPI_GETSPEECHRECOGNITION":
+		return SPI_GETSPEECHRECOGNITION, true
+	case "SPI_GETSTICKYKEYS":
+		return SPI_GETSTICKYKEYS, true
+	case "SPI_GETSYSTEMLANGUAGEBAR":
+		return SPI_GETSYSTEMLANGUAGEBAR, true
+	case "SPI_GETTHREADLOCALINPUTSETTINGS":
+		return SPI_GETTHREADLOCALINPUTSETTINGS, true
+	case "SPI_GETTOGGLEKEYS":
+		return SPI_GETTOGGLEKEYS, true
+	case "SPI_GETTOOLTIPANIMATION":
+		return SPI_GETTOOLTIPANIMATION, true
+	case "SPI_GETTOOLTIPFADE":
+		return SPI_GETTOOLTIPFADE, true
+	case "SPI_GETTOUCHPADPARAMETERS":
+		return SPI_GETTOUCHPADPARAMETERS, true
+	case "SPI_GETTOUCHPREDICTIONPARAMETERS":
+		return SPI_GETTOUCHPREDICTIONPARAMETERS, true
+	case "SPI_GETUIEFFECTS":
+		return SPI_GETUIEFFECTS, true
+	case "SPI_GETWAITTOKILLSERVICETIMEOUT":
+		return SPI_GETWAITTOKILLSERVICETIMEOUT, true
+	case "SPI_GETWAITTOKILLTIMEOUT":
+		return SPI_GETWAITTOKILLTIMEOUT, true
+	case "SPI_GETWHEELSCROLLCHARS":
+		return SPI_GETWHEELSCROLLCHARS, true
+	case "SPI_GETWHEELSCROLLLINES":
+		return SPI_GETWHEELSCROLLLINES, true
+	case "SPI_GETWINARRANGING":
+		return SPI_GETWINARRANGING, true
+	case "SPI_GETWINDOWSEXTENSION":
+		return SPI_GETWINDOWSEXTENSION, true
+	case "SPI_GETWORKAREA":
+		return SPI_GETWORKAREA, true
+	case "SPI_ICONHORIZONTALSPACING":
+		return SPI_ICONHORIZONTALSPACING, true
+	case "SPI_ICONVERTICALSPACING":
+		return SPI_ICONVERTICALSPACING, true
+	case "SPI_LANGDRIVER":
+		return SPI_LANGDRIVER, true
+	case "SPI_SCREENSAVERRUNNING":
+		return SPI_SCREENSAVERRUNNING, true
+	case "SPI_SETACCESSTIMEOUT":
+		return SPI_SETACCESSTIMEOUT, true
+	case "SPI_SETACTIVEWINDOWTRACKING":
+		return SPI_SETACTIVEWINDOWTRACKING, true
+	case "SPI_SETACTIVEWNDTRKTIMEOUT":
+		return SPI_SETACTIVEWNDTRKTIMEOUT, true
+	case "SPI_SETACTIVEWNDTRKZORDER":
+		return SPI_SETACTIVEWNDTRKZORDER, true
+	case "SPI_SETANIMATION":
+		return SPI_SETANIMATION, true
+	case "SPI_SETAUDIODESCRIPTION":
+		return SPI_SETAUDIODESCRIPTION, true
+	case "SPI_SETBEEP":
+		return SPI_SETBEEP, true
+	case "SPI_SETBLOCKSENDINPUTRESETS":
+		return SPI_SETBLOCKSENDINPUTRESETS, true
+	case "SPI_SETBORDER":
+		return SPI_SETBORDER, true
+	case "SPI_SETCARETBROWSING":
+		return SPI_SETCARETBROWSING, true
+	case "SPI_SETCARETTIMEOUT":
+		return SPI_SETCARETTIMEOUT, true
+	case "SPI_SETCARETWIDTH":
+		return SPI_SETCARETWIDTH, true
+	case "SPI_SETCLEARTYPE":
+		return SPI_SETCLEARTYPE, true
+	case "SPI_SETCLIENTAREAANIMATION":
+		return SPI_SETCLIENTAREAANIMATION, true
+	case "SPI_SETCOMBOBOXANIMATION":
+		return SPI_SETCOMBOBOXANIMATION, true
+	case "SPI_SETCONTACTVISUALIZATION":
+		return SPI_SETCONTACTVISUALIZATION, true
+	case "SPI_SETCURSORS":
+		return SPI_SETCURSORS, true
+	case "SPI_SETCURSORSHADOW":
+		return SPI_SETCURSORSHADOW, true
+	case "SPI_SETDEFAULTINPUTLANG":
+		return SPI_SETDEFAULTINPUTLANG, true
+	case "SPI_SETDESKPATTERN":
+		return SPI_SETDESKPATTERN, true
+	case "SPI_SETDESKWALLPAPER":
+		return SPI_SETDESKWALLPAPER, true
+	case "SPI_SETDISABLEOVERLAPPEDCONTENT":
+		return SPI_SETDISABLEOVERLAPPEDCONTENT, true
+	case "SPI_SETDOCKMOVING":
+		return SPI_SETDOCKMOVING, true
+	case "SPI_SETDOUBLECLICKTIME":
+		return SPI_SETDOUBLECLICKTIME, true
+	case "SPI_SETDOUBLECLKHEIGHT":
+		return SPI_SETDOUBLECLKHEIGHT, true
+	case "SPI_SETDOUBLECLKWIDTH":
+		return SPI_SETDOUBLECLKWIDTH, true
+	case "SPI_SETDRAGFROMMAXIMIZE":
+		return SPI_SETDRAGFROMMAXIMIZE, true
+	case "SPI_SETDRAGFULLWINDOWS":
+		return SPI_SETDRAGFULLWINDOWS, true
+	case "SPI_SETDRAGHEIGHT":
+		return SPI_SETDRAGHEIGHT, true
+	case "SPI_SETDRAGWIDTH":
+		return SPI_SETDRAGWIDTH, true
+	case "SPI_SETDROPSHADOW":
+		return SPI_SETDROPSHADOW, true
+	case "SPI_SETFASTTASKSWITCH":
+		return SPI_SETFASTTASKSWITCH, true
+	case "SPI_SETFILTERKEYS":
+		return SPI_SETFILTERKEYS, true
+	case "SPI_SETFLATMENU":
+		return SPI_SETFLATMENU, true
+	case "SPI_SETFOCUSBORDERHEIGHT":
+		return SPI_SETFOCUSBORDERHEIGHT, true
+	case "SPI_SETFOCUSBORDERWIDTH":
+		return SPI_SETFOCUSBORDERWIDTH, true
+	case "SPI_SETFONTSMOOTHING":
+		return SPI_SETFONTSMOOTHING, true
+	case "SPI_SETFONTSMOOTHINGCONTRAST":
+		return SPI_SETFONTSMOOTHINGCONTRAST, true
+	case "SPI_SETFONTSMOOTHINGORIENTATION":
+		return SPI_SETFONTSMOOTHINGORIENTATION, true
+	case "SPI_SETFONTSMOOTHINGTYPE":
+		return SPI_SETFONTSMOOTHINGTYPE, true
+	case "SPI_SETFOREGROUNDFLASHCOUNT":
+		return SPI_SETFOREGROUNDFLASHCOUNT, true
+	case "SPI_SETFOREGROUNDLOCKTIMEOUT":
+		return SPI_SETFOREGROUNDLOCKTIMEOUT, true
+	case "SPI_SETGESTUREVISUALIZATION":
+		return SPI_SETGESTUREVISUALIZATION, true
+	case "SPI_SETGRADIENTCAPTIONS":
+		return SPI_SETGRADIENTCAPTIONS, true
+	case "SPI_SETGRIDGRANULARITY":
+		return SPI_SETGRIDGRANULARITY, true
+	case "SPI_SETHANDEDNESS":
+		return SPI_SETHANDEDNESS, true
+	case "SPI_SETHANDHELD":
+		return SPI_SETHANDHELD, true
+	case "SPI_SETHIGHCONTRAST":
+		return SPI_SETHIGHCONTRAST, true
+	case "SPI_SETHOTTRACKING":
+		return SPI_SETHOTTRACKING, true
+	case "SPI_SETHUNGAPPTIMEOUT":
+		return SPI_SETHUNGAPPTIMEOUT, true
+	case "SPI_SETICONMETRICS":
+		return SPI_SETICONMETRICS, true
+	case "SPI_SETICONS":
+		return SPI_SETICONS, true
+	case "SPI_SETICONTITLELOGFONT":
+		return SPI_SETICONTITLELOGFONT, true
+	case "SPI_SETICONTITLEWRAP":
+		return SPI_SETICONTITLEWRAP, true
+	case "SPI_SETKEYBOARDCUES":
+		return SPI_SETKEYBOARDCUES, true
+	case "SPI_SETKEYBOARDDELAY":
+		return SPI_SETKEYBOARDDELAY, true
+	case "SPI_SETKEYBOARDPREF":
+		return SPI_SETKEYBOARDPREF, true
+	case "SPI_SETKEYBOARDSPEED":
+		return SPI_SETKEYBOARDSPEED, true
+	case "SPI_SETLANGTOGGLE":
+		return SPI_SETLANGTOGGLE, true
+	case "SPI_SETLISTBOXSMOOTHSCROLLING":
+		return SPI_SETLISTBOXSMOOTHSCROLLING, true
+	case "SPI_SETLOGICALDPIOVERRIDE":
+		return SPI_SETLOGICALDPIOVERRIDE, true
+	case "SPI_SETLOWPOWERACTIVE":
+		return SPI_SETLOWPOWERACTIVE, true
+	case "SPI_SETLOWPOWERTIMEOUT":
+		return SPI_SETLOWPOWERTIMEOUT, true
+	case "SPI_SETMENUANIMATION":
+		return SPI_SETMENUANIMATION, true
+	case "SPI_SETMENUDROPALIGNMENT":
+		return SPI_SETMENUDROPALIGNMENT, true
+	case "SPI_SETMENUFADE":
+		return SPI_SETMENUFADE, true
+	case "SPI_SETMENURECT":
+		return SPI_SETMENURECT, true
+	case "SPI_SETMENUSHOWDELAY":
+		return SPI_SETMENUSHOWDELAY, true
+	case "SPI_SETMENUUNDERLINES":
+		return SPI_SETMENUUNDERLINES, true
+	case "SPI_SETMESSAGEDURATION":
+		return SPI_SETMESSAGEDURATION, true
+	case "SPI_SETMINIMIZEDMETRICS":
+		return SPI_SETMINIMIZEDMETRICS, true
+	case "SPI_SETMINIMUMHITRADIUS":
+		return SPI_SETMINIMUMHITRADIUS, true
+	case "SPI_SETMOUSE":
+		return SPI_SETMOUSE, true
+	case "SPI_SETMOUSEBUTTONSWAP":
+		return SPI_SETMOUSEBUTTONSWAP, true
+	case "SPI_SETMOUSECLICKLOCK":
+		return SPI_SETMOUSECLICKLOCK, true
+	case "SPI_SETMOUSECLICKLOCKTIME":
+		return SPI_SETMOUSECLICKLOCKTIME, true
+	case "SPI_SETMOUSEDOCKTHRESHOLD":
+		return SPI_SETMOUSEDOCKTHRESHOLD, true
+	case "SPI_SETMOUSEDRAGOUTTHRESHOLD":
+		return SPI_SETMOUSEDRAGOUTTHRESHOLD, true
+	case "SPI_SETMOUSEHOVERHEIGHT":
+		return SPI_SETMOUSEHOVERHEIGHT, true
+	case "SPI_SETMOUSEHOVERTIME":
+		return SPI_SETMOUSEHOVERTIME, true
+	case "SPI_SETMOUSEHOVERWIDTH":
+		return SPI_SETMOUSEHOVERWIDTH, true
+	case "SPI_SETMOUSEKEYS":
+		return SPI_SETMOUSEKEYS, true
+	case "SPI_SETMOUSESIDEMOVETHRESHOLD":
+		return SPI_SETMOUSESIDEMOVETHRESHOLD, true
+	case "SPI_SETMOUSESONAR":
+		return SPI_SETMOUSESONAR, true
+	case "SPI_SETMOUSESPEED":
+		return SPI_SETMOUSESPEED, true
+	case "SPI_SETMOUSETRAILS":
+		return SPI_SETMOUSETRAILS, true
+	case "SPI_SETMOUSEVANISH":
+		return SPI_SETMOUSEVANISH, true
+	case "SPI_SETMOUSEWHEELROUTING":
+		return SPI_SETMOUSEWHEELROUTING, true
+	case "SPI_SETNONCLIENTMETRICS":
+		return SPI_SETNONCLIENTMETRICS, true
+	case "SPI_SETPENARBITRATIONTYPE":
+		return SPI_SETPENARBITRATIONTYPE, true
+	case "SPI_SETPENDOCKTHRESHOLD":
+		return SPI_SETPENDOCKTHRESHOLD, true
+	case "SPI_SETPENDRAGOUTTHRESHOLD":
+		return SPI_SETPENDRAGOUTTHRESHOLD, true
+	case "SPI_SETPENSIDEMOVETHRESHOLD":
+		return SPI_SETPENSIDEMOVETHRESHOLD, true
+	case "SPI_SETPENVISUALIZATION":
+		return SPI_SETPENVISUALIZATION, true
+	case "SPI_SETPENWINDOWS":
+		return SPI_SETPENWINDOWS, true
+	case "SPI_SETPOWEROFFACTIVE":
+		return SPI_SETPOWEROFFACTIVE, true
+	case "SPI_SETPOWEROFFTIMEOUT":
+		return SPI_SETPOWEROFFTIMEOUT, true
+	case "SPI_SETSCREENREADER":
+		return SPI_SETSCREENREADER, true
+	case "SPI_SETSCREENSAVEACTIVE":
+		return SPI_SETSCREENSAVEACTIVE, true
+	case "SPI_SETSCREENSAVERRUNNING":
+		return SPI_SETSCREENSAVERRUNNING, true
+	case "SPI_SETSCREENSAVESECURE":
+		return SPI_SETSCREENSAVESECURE, true
+	case "SPI_SETSCREENSAVETIMEOUT":
+		return SPI_SETSCREENSAVETIMEOUT, true
+	case "SPI_SETSELECTIONFADE":
+		return SPI_SETSELECTIONFADE, true
+	case "SPI_SETSERIALKEYS":
+		return SPI_SETSERIALKEYS, true
+	case "SPI_SETSHOWIMEUI":
+		return SPI_SETSHOWIMEUI, true
+	case "SPI_SETSHOWSOUNDS":
+		return SPI_SETSHOWSOUNDS, true
+	case "SPI_SETSNAPSIZING":
+		return SPI_SETSNAPSIZING, true
+	case "SPI_SETSNAPTODEFBUTTON":
+		return SPI_SETSNAPTODEFBUTTON, true
+	case "SPI_SETSOUNDSENTRY":
+		return SPI_SETSOUNDSENTRY, true
+	case "SPI_SETSPEECHRECOGNITION":
+		return SPI_SETSPEECHRECOGNITION, true
+	case "SPI_SETSTICKYKEYS":
+		return SPI_SETSTICKYKEYS, true
+	case "SPI_SETSYSTEMLANGUAGEBAR":
+		return SPI_SETSYSTEMLANGUAGEBAR, true
+	case "SPI_SETTHREADLOCALINPUTSETTINGS":
+		return SPI_SETTHREADLOCALINPUTSETTINGS, true
+	case "SPI_SETTOGGLEKEYS":
+		return SPI_SETTOGGLEKEYS, true
+	case "SPI_SETTOOLTIPANIMATION":
+		return SPI_SETTOOLTIPANIMATION, true
+	case "SPI_SETTOOLTIPFADE":
+		return SPI_SETTOOLTIPFADE, true
+	case "SPI_SETTOUCHPADPARAMETERS":
+		return SPI_SETTOUCHPADPARAMETERS, true
+	case "SPI_SETTOUCHPREDICTIONPARAMETERS":
+		return SPI_SETTOUCHPREDICTIONPARAMETERS, true
+	case "SPI_SETUIEFFECTS":
+		return SPI_SETUIEFFECTS, true
+	case "SPI_SETWAITTOKILLSERVICETIMEOUT":
+		return SPI_SETWAITTOKILLSERVICETIMEOUT, true
+	case "SPI_SETWAITTOKILLTIMEOUT":
+		return SPI_SETWAITTOKILLTIMEOUT, true
+	case "SPI_SETWHEELSCROLLCHARS":
+		return SPI_SETWHEELSCROLLCHARS, true
+	case "SPI_SETWHEELSCROLLLINES":
+		return SPI_SETWHEELSCROLLLINES, true
+	case "SPI_SETWINARRANGING":
+		return SPI_SETWINARRANGING, true
+	case "SPI_SETWORKAREA":
+		return SPI_SETWORKAREA, true
+	case "SWP_ASYNCWINDOWPOS":
+		return SWP_ASYNCWINDOWPOS, true
+	case "SWP_DEFERERASE":
+		return SWP_DEFERERASE, true
+	case "SWP_DRAWFRAME":
+		return SWP_DRAWFRAME, true
+	case "SWP_FRAMECHANGED":
+		return SWP_FRAMECHANGED, true
+	case "SWP_HIDEWINDOW":
+		return SWP_HIDEWINDOW, true
+	case "SWP_NOACTIVATE":
+		return SWP_NOACTIVATE, true
+	case "SWP_NOCOPYBITS":
+		return SWP_NOCOPYBITS, true
+	case "SWP_NOMOVE":
+		return SWP_NOMOVE, true
+	case "SWP_NONE":
+		return SWP_NONE, true
+	case "SWP_NOOWNERZORDER":
+		return SWP_NOOWNERZORDER, true
+	case "SWP_NOREDRAW":
+		return SWP_NOREDRAW, true
+	case "SWP_NOREPOSITION":
+		return SWP_NOREPOSITION, true
+	case "SWP_NOSENDCHANGING":
+		return SWP_NOSENDCHANGING, true
+	case "SWP_NOSIZE":
+		return SWP_NOSIZE, true
+	case "SWP_NOZORDER":
+		return SWP_NOZORDER, true
+	case "SWP_SHOWWINDOW":
+		return SWP_SHOWWINDOW, true
 	case "SW_ERASE":
 		return SW_ERASE, true
 	case "SW_FORCEMINIMIZE":
@@ -3067,6 +5736,56 @@ func Parse(name string) (Value, bool) {
 		return SW_SHOWNORMAL, true
 	case "SW_SMOOTHSCROLL":
 		return SW_SMOOTHSCROLL, true
+	case "TME_CANCEL":
+		return TME_CANCEL, true
+	case "TME_HOVER":
+		return TME_HOVER, true
+	case "TME_LEAVE":
+		return TME_LEAVE, true
+	case "TME_NONCLIENT":
+		return TME_NONCLIENT, true
+	case "TME_QUERY":
+		return TME_QUERY, true
+	case "TPM_BOTTOMALIGN":
+		return TPM_BOTTOMALIGN, true
+	case "TPM_CENTERALIGN":
+		return TPM_CENTERALIGN, true
+	case "TPM_HORIZONTAL":
+		return TPM_HORIZONTAL, true
+	case "TPM_HORNEGANIMATION":
+		return TPM_HORNEGANIMATION, true
+	case "TPM_HORPOSANIMATION":
+		return TPM_HORPOSANIMATION, true
+	case "TPM_LAYOUTRTL":
+		return TPM_LAYOUTRTL, true
+	case "TPM_LEFTALIGN":
+		return TPM_LEFTALIGN, true
+	case "TPM_LEFTBUTTON":
+		return TPM_LEFTBUTTON, true
+	case "TPM_NOANIMATION":
+		return TPM_NOANIMATION, true
+	case "TPM_NONOTIFY":
+		return TPM_NONOTIFY, true
+	case "TPM_RECURSE":
+		return TPM_RECURSE, true
+	case "TPM_RETURNCMD":
+		return TPM_RETURNCMD, true
+	case "TPM_RIGHTALIGN":
+		return TPM_RIGHTALIGN, true
+	case "TPM_RIGHTBUTTON":
+		return TPM_RIGHTBUTTON, true
+	case "TPM_TOPALIGN":
+		return TPM_TOPALIGN, true
+	case "TPM_VCENTERALIGN":
+		return TPM_VCENTERALIGN, true
+	case "TPM_VERNEGANIMATION":
+		return TPM_VERNEGANIMATION, true
+	case "TPM_VERPOSANIMATION":
+		return TPM_VERPOSANIMATION, true
+	case "TPM_VERTICAL":
+		return TPM_VERTICAL, true
+	case "TPM_WORKAREA":
+		return TPM_WORKAREA, true
 	case "VK_0":
 		return VK_0, true
 	case "VK_1":
@@ -3561,6 +6280,48 @@ func Parse(name string) (Value, bool) {
 		return VK_ZOOM, true
 	case "VK__none_":
 		return VK__none_, true
+	case "WHEEL_DELTA":
+		return WHEEL_DELTA, true
+	case "WH_CALLWNDPROC":
+		return WH_CALLWNDPROC, true
+	case "WH_CALLWNDPROCRET":
+		return WH_CALLWNDPROCRET, true
+	case "WH_CBT":
+		return WH_CBT, true
+	case "WH_DEBUG":
+		return WH_DEBUG, true
+	case "WH_FOREGROUNDIDLE":
+		return WH_FOREGROUNDIDLE, true
+	case "WH_GETMESSAGE":
+		return WH_GETMESSAGE, true
+	case "WH_HARDWARE":
+		return WH_HARDWARE, true
+	case "WH_JOURNALPLAYBACK":
+		return WH_JOURNALPLAYBACK, true
+	case "WH_JOURNALRECORD":
+		return WH_JOURNALRECORD, true
+	case "WH_KEYBOARD":
+		return WH_KEYBOARD, true
+	case "WH_KEYBOARD_LL":
+		return WH_KEYBOARD_LL, true
+	case "WH_MAX":
+		return WH_MAX, true
+	case "WH_MAXHOOK":
+		return WH_MAXHOOK, true
+	case "WH_MIN":
+		return WH_MIN, true
+	case "WH_MINHOOK":
+		return WH_MINHOOK, true
+	case "WH_MOUSE":
+		return WH_MOUSE, true
+	case "WH_MOUSE_LL":
+		return WH_MOUSE_LL, true
+	case "WH_MSGFILTER":
+		return WH_MSGFILTER, true
+	case "WH_SHELL":
+		return WH_SHELL, true
+	case "WH_SYSMSGFILTER":
+		return WH_SYSMSGFILTER, true
 	case "WM_ACTIVATE":
 		return WM_ACTIVATE, true
 	case "WM_ACTIVATEAPP":

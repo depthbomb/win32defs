@@ -21,6 +21,7 @@ Core status packages:
 Flag and API-domain packages:
 
 - `access`
+- `foundation`
 - `filesystem`
 - `memory`
 - `service`
@@ -28,6 +29,11 @@ Flag and API-domain packages:
 - `com`
 - `console`
 - `process`
+- `jobobject`
+- `power`
+- `sysinfo`
+- `toolhelp`
+- `libraryloader`
 - `winsock`
 - `winmsg`
 - `ioctl`
@@ -92,6 +98,12 @@ standard classification and field-extraction macros. The `process` package
 includes metadata-defined token pseudo-handle functions, `security` provides
 SID identifier authorities, and `syncinit` provides pointer-sized static
 synchronization initializers.
+
+The `winmacro` package provides platform-independent helpers for word and
+message-parameter packing, signed coordinate and mouse-wheel extraction, color
+values, I/O control-code construction and decomposition, integer resources,
+and legacy language and locale identifiers. Friendly Go names and exact Win32
+macro-name counterparts are both available.
 
 When Microsoft's structured documentation contains an exact, non-empty match,
 the generated value also has a Go comment sourced from that text. Missing or

@@ -48,80 +48,221 @@ const (
 	AF_UNIX       Value = 1
 	AF_UNKNOWN1   Value = 20
 	// AF_UNSPEC: Return both IPv4 and IPv6 addresses associated with adapters with IPv4 or IPv6 enabled.
-	AF_UNSPEC                     Value = 0
-	AF_VOICEVIEW                  Value = 18
-	AI_ADDRCONFIG                 Value = 1024
-	AI_ALL                        Value = 256
-	AI_BYPASS_DNS_CACHE           Value = 64
-	AI_CANONNAME                  Value = 2
-	AI_DISABLE_IDN_ENCODING       Value = 524288
-	AI_DNS_ONLY                   Value = 16
-	AI_DNS_RESPONSE_HOSTFILE      Value = 2
-	AI_DNS_RESPONSE_SECURE        Value = 1
-	AI_DNS_SERVER_TYPE_DOH        Value = 2
-	AI_DNS_SERVER_TYPE_DOT        Value = 3
-	AI_DNS_SERVER_TYPE_UDP        Value = 1
-	AI_DNS_SERVER_UDP_FALLBACK    Value = 1
-	AI_EXCLUSIVE_CUSTOM_SERVERS   Value = 2097152
-	AI_EXTENDED                   Value = 2147483648
-	AI_EXTRA_DNSSEC_REQUIRED      Value = 1
-	AI_FILESERVER                 Value = 262144
-	AI_FORCE_CLEAR_TEXT           Value = 32
-	AI_FQDN                       Value = 131072
-	AI_NON_AUTHORITATIVE          Value = 16384
-	AI_NUMERICHOST                Value = 4
-	AI_NUMERICSERV                Value = 8
-	AI_PASSIVE                    Value = 1
-	AI_REQUIRE_SECURE             Value = 536870912
-	AI_RESOLUTION_HANDLE          Value = 1073741824
-	AI_RETURN_PREFERRED_NAMES     Value = 65536
-	AI_RETURN_RESPONSE_FLAGS      Value = 268435456
-	AI_RETURN_TTL                 Value = 128
-	AI_SECURE                     Value = 32768
-	AI_SECURE_WITH_FALLBACK       Value = 1048576
-	AI_V4MAPPED                   Value = 2048
-	IPPROTO_AH                    Value = 51
-	IPPROTO_CBT                   Value = 7
-	IPPROTO_DSTOPTS               Value = 60
-	IPPROTO_EGP                   Value = 8
-	IPPROTO_ESP                   Value = 50
-	IPPROTO_FRAGMENT              Value = 44
-	IPPROTO_GGP                   Value = 3
-	IPPROTO_HOPOPTS               Value = 0
-	IPPROTO_ICLFXBM               Value = 78
-	IPPROTO_ICMP                  Value = 1
-	IPPROTO_ICMPV6                Value = 58
-	IPPROTO_IDP                   Value = 22
-	IPPROTO_IGMP                  Value = 2
-	IPPROTO_IGP                   Value = 9
-	IPPROTO_IP                    Value = 0
-	IPPROTO_IPV4                  Value = 4
-	IPPROTO_IPV6                  Value = 41
-	IPPROTO_L2TP                  Value = 115
-	IPPROTO_MAX                   Value = 256
-	IPPROTO_ND                    Value = 77
-	IPPROTO_NONE                  Value = 59
-	IPPROTO_PGM                   Value = 113
-	IPPROTO_PIM                   Value = 103
-	IPPROTO_PUP                   Value = 12
-	IPPROTO_RAW                   Value = 255
-	IPPROTO_RDP                   Value = 27
-	IPPROTO_RESERVED_IPSEC        Value = 258
-	IPPROTO_RESERVED_IPSECOFFLOAD Value = 259
-	IPPROTO_RESERVED_MAX          Value = 261
-	IPPROTO_RESERVED_RAW          Value = 257
-	IPPROTO_RESERVED_WNV          Value = 260
+	AF_UNSPEC                       Value = 0
+	AF_VOICEVIEW                    Value = 18
+	AI_ADDRCONFIG                   Value = 1024
+	AI_ALL                          Value = 256
+	AI_BYPASS_DNS_CACHE             Value = 64
+	AI_CANONNAME                    Value = 2
+	AI_DISABLE_IDN_ENCODING         Value = 524288
+	AI_DNS_ONLY                     Value = 16
+	AI_DNS_RESPONSE_HOSTFILE        Value = 2
+	AI_DNS_RESPONSE_SECURE          Value = 1
+	AI_DNS_SERVER_TYPE_DOH          Value = 2
+	AI_DNS_SERVER_TYPE_DOT          Value = 3
+	AI_DNS_SERVER_TYPE_UDP          Value = 1
+	AI_DNS_SERVER_UDP_FALLBACK      Value = 1
+	AI_EXCLUSIVE_CUSTOM_SERVERS     Value = 2097152
+	AI_EXTENDED                     Value = 2147483648
+	AI_EXTRA_DNSSEC_REQUIRED        Value = 1
+	AI_FILESERVER                   Value = 262144
+	AI_FORCE_CLEAR_TEXT             Value = 32
+	AI_FQDN                         Value = 131072
+	AI_NON_AUTHORITATIVE            Value = 16384
+	AI_NUMERICHOST                  Value = 4
+	AI_NUMERICSERV                  Value = 8
+	AI_PASSIVE                      Value = 1
+	AI_REQUIRE_SECURE               Value = 536870912
+	AI_RESOLUTION_HANDLE            Value = 1073741824
+	AI_RETURN_PREFERRED_NAMES       Value = 65536
+	AI_RETURN_RESPONSE_FLAGS        Value = 268435456
+	AI_RETURN_TTL                   Value = 128
+	AI_SECURE                       Value = 32768
+	AI_SECURE_WITH_FALLBACK         Value = 1048576
+	AI_V4MAPPED                     Value = 2048
+	FD_ACCEPT                       Value = 8
+	FD_ACCEPT_BIT                   Value = 3
+	FD_ADDRESS_LIST_CHANGE_BIT      Value = 9
+	FD_CLOSE                        Value = 32
+	FD_CLOSE_BIT                    Value = 5
+	FD_CONNECT                      Value = 16
+	FD_CONNECT_BIT                  Value = 4
+	FD_GROUP_QOS_BIT                Value = 7
+	FD_MAX_EVENTS                   Value = 10
+	FD_OOB                          Value = 4
+	FD_OOB_BIT                      Value = 2
+	FD_QOS_BIT                      Value = 6
+	FD_READ                         Value = 1
+	FD_READ_BIT                     Value = 0
+	FD_ROUTING_INTERFACE_CHANGE_BIT Value = 8
+	FD_SETSIZE                      Value = 64
+	FD_WRITE                        Value = 2
+	FD_WRITE_BIT                    Value = 1
+	IOC_IN                          Value = 2147483648
+	IOC_INOUT                       Value = 3221225472
+	IOC_OUT                         Value = 1073741824
+	IOC_PROTOCOL                    Value = 268435456
+	IOC_UNIX                        Value = 0
+	IOC_VENDOR                      Value = 402653184
+	IOC_VOID                        Value = 536870912
+	IOC_WS2                         Value = 134217728
+	IPPROTO_AH                      Value = 51
+	IPPROTO_CBT                     Value = 7
+	IPPROTO_DSTOPTS                 Value = 60
+	IPPROTO_EGP                     Value = 8
+	IPPROTO_ESP                     Value = 50
+	IPPROTO_FRAGMENT                Value = 44
+	IPPROTO_GGP                     Value = 3
+	IPPROTO_HOPOPTS                 Value = 0
+	IPPROTO_ICLFXBM                 Value = 78
+	IPPROTO_ICMP                    Value = 1
+	IPPROTO_ICMPV6                  Value = 58
+	IPPROTO_IDP                     Value = 22
+	IPPROTO_IGMP                    Value = 2
+	IPPROTO_IGP                     Value = 9
+	IPPROTO_IP                      Value = 0
+	IPPROTO_IPV4                    Value = 4
+	IPPROTO_IPV6                    Value = 41
+	IPPROTO_L2TP                    Value = 115
+	IPPROTO_MAX                     Value = 256
+	IPPROTO_ND                      Value = 77
+	IPPROTO_NONE                    Value = 59
+	IPPROTO_PGM                     Value = 113
+	IPPROTO_PIM                     Value = 103
+	IPPROTO_PUP                     Value = 12
+	IPPROTO_RAW                     Value = 255
+	IPPROTO_RDP                     Value = 27
+	IPPROTO_RESERVED_IPSEC          Value = 258
+	IPPROTO_RESERVED_IPSECOFFLOAD   Value = 259
+	IPPROTO_RESERVED_MAX            Value = 261
+	IPPROTO_RESERVED_RAW            Value = 257
+	IPPROTO_RESERVED_WNV            Value = 260
 	// IPPROTO_RM: The following table describes IPPROTO\_RM socket options that apply to sockets created for the IPv4
 	// address family (AF\_INET) with the protocol parameter to the socket function specified as reliable multicast
 	// (IPPROTO\_RM).
-	IPPROTO_RM      Value = 113
-	IPPROTO_ROUTING Value = 43
-	IPPROTO_SCTP    Value = 132
-	IPPROTO_ST      Value = 5
-	IPPROTO_TCP     Value = 6
-	IPPROTO_UDP     Value = 17
-	MSG_BCAST       Value = 1024
-	MSG_CTRUNC      Value = 512
+	IPPROTO_RM                   Value = 113
+	IPPROTO_ROUTING              Value = 43
+	IPPROTO_SCTP                 Value = 132
+	IPPROTO_ST                   Value = 5
+	IPPROTO_TCP                  Value = 6
+	IPPROTO_UDP                  Value = 17
+	IPV6_ADD_IFLIST              Value = 29
+	IPV6_ADD_MEMBERSHIP          Value = 12
+	IPV6_CHECKSUM                Value = 26
+	IPV6_DEL_IFLIST              Value = 30
+	IPV6_DONTFRAG                Value = 14
+	IPV6_DROP_MEMBERSHIP         Value = 13
+	IPV6_ECN                     Value = 50
+	IPV6_ECN_MASK                Value = 12288
+	IPV6_ECN_SHIFT               Value = 12
+	IPV6_FLOW_LABEL_MASK         Value = 4294905600
+	IPV6_FULL_TRAFFIC_CLASS_MASK Value = 61455
+	IPV6_GET_IFLIST              Value = 33
+	IPV6_HDRINCL                 Value = 2
+	IPV6_HOPLIMIT                Value = 21
+	IPV6_HOPOPTS                 Value = 1
+	IPV6_IFLIST                  Value = 28
+	IPV6_JOIN_GROUP              Value = 12
+	IPV6_LEAVE_GROUP             Value = 13
+	IPV6_MINIMUM_MTU             Value = 1280
+	IPV6_MTU                     Value = 72
+	IPV6_MTU_DISCOVER            Value = 71
+	IPV6_MULTICAST_HOPS          Value = 10
+	IPV6_MULTICAST_IF            Value = 9
+	IPV6_MULTICAST_LOOP          Value = 11
+	IPV6_NRT_INTERFACE           Value = 74
+	// IPV6_PKTINFO: Allows an application to enable or disable the return of packet information by the WSARecvMsg function
+	// on an IPv6 socket.
+	IPV6_PKTINFO                         Value = 19
+	IPV6_PKTINFO_EX                      Value = 51
+	IPV6_PROTECTION_LEVEL                Value = 23
+	IPV6_RECVDSTADDR                     Value = 25
+	IPV6_RECVECN                         Value = 50
+	IPV6_RECVERR                         Value = 75
+	IPV6_RECVIF                          Value = 24
+	IPV6_RECVRTHDR                       Value = 38
+	IPV6_RECVTCLASS                      Value = 40
+	IPV6_RTHDR                           Value = 32
+	IPV6_TCLASS                          Value = 39
+	IPV6_TRAFFIC_CLASS_MASK              Value = 49167
+	IPV6_UNICAST_HOPS                    Value = 4
+	IPV6_UNICAST_IF                      Value = 31
+	IPV6_USER_MTU                        Value = 76
+	IPV6_V6ONLY                          Value = 27
+	IPV6_VERSION                         Value = 96
+	IPV6_WFP_REDIRECT_CONTEXT            Value = 70
+	IPV6_WFP_REDIRECT_RECORDS            Value = 60
+	IP_ADD_IFLIST                        Value = 29
+	IP_ADD_MEMBERSHIP                    Value = 12
+	IP_ADD_SOURCE_MEMBERSHIP             Value = 15
+	IP_BLOCK_SOURCE                      Value = 17
+	IP_DEFAULT_MULTICAST_LOOP            Value = 1
+	IP_DEFAULT_MULTICAST_TTL             Value = 1
+	IP_DEL_IFLIST                        Value = 30
+	IP_DONTFRAGMENT                      Value = 14
+	IP_DROP_MEMBERSHIP                   Value = 13
+	IP_DROP_SOURCE_MEMBERSHIP            Value = 16
+	IP_ECN                               Value = 50
+	IP_GET_IFLIST                        Value = 33
+	IP_HDRINCL                           Value = 2
+	IP_HOPLIMIT                          Value = 21
+	IP_IFLIST                            Value = 28
+	IP_MAX_MEMBERSHIPS                   Value = 20
+	IP_MTU                               Value = 73
+	IP_MTU_DISCOVER                      Value = 71
+	IP_MULTICAST_IF                      Value = 9
+	IP_MULTICAST_LOOP                    Value = 11
+	IP_MULTICAST_TTL                     Value = 10
+	IP_NRT_INTERFACE                     Value = 74
+	IP_OPTIONS                           Value = 1
+	IP_OPTION_TIMESTAMP_ADDRESS          Value = 1
+	IP_OPTION_TIMESTAMP_ONLY             Value = 0
+	IP_OPTION_TIMESTAMP_SPECIFIC_ADDRESS Value = 3
+	IP_OPT_EOL                           Value = 0
+	IP_OPT_LSRR                          Value = 131
+	IP_OPT_MULTIDEST                     Value = 149
+	IP_OPT_NOP                           Value = 1
+	IP_OPT_ROUTER_ALERT                  Value = 148
+	IP_OPT_RR                            Value = 7
+	IP_OPT_SECURITY                      Value = 130
+	IP_OPT_SID                           Value = 136
+	IP_OPT_SSRR                          Value = 137
+	IP_OPT_TS                            Value = 68
+	IP_ORIGINAL_ARRIVAL_IF               Value = 47
+	// IP_PKTINFO: Allows an application to enable or disable the return of packet information by the WSARecvMsg function
+	// on an IPv4 socket.
+	IP_PKTINFO                     Value = 19
+	IP_PKTINFO_EX                  Value = 51
+	IP_PMTUDISC_DO                 Value = 1
+	IP_PMTUDISC_DONT               Value = 2
+	IP_PMTUDISC_MAX                Value = 4
+	IP_PMTUDISC_NOT_SET            Value = 0
+	IP_PMTUDISC_PROBE              Value = 3
+	IP_PROTECTION_LEVEL            Value = 23
+	IP_RECEIVE_BROADCAST           Value = 22
+	IP_RECVDSTADDR                 Value = 25
+	IP_RECVECN                     Value = 50
+	IP_RECVERR                     Value = 75
+	IP_RECVIF                      Value = 24
+	IP_RECVRTHDR                   Value = 38
+	IP_RECVTCLASS                  Value = 40
+	IP_RECVTOS                     Value = 40
+	IP_RECVTTL                     Value = 21
+	IP_RTHDR                       Value = 32
+	IP_TCLASS                      Value = 39
+	IP_TOS                         Value = 3
+	IP_TTL                         Value = 4
+	IP_UNBLOCK_SOURCE              Value = 18
+	IP_UNICAST_IF                  Value = 31
+	IP_UNSPECIFIED_HOP_LIMIT       Value = -1
+	IP_UNSPECIFIED_TYPE_OF_SERVICE Value = -1
+	IP_UNSPECIFIED_USER_MTU        Value = 4294967295
+	IP_USER_MTU                    Value = 76
+	IP_VER_MASK                    Value = 240
+	IP_WFP_REDIRECT_CONTEXT        Value = 70
+	IP_WFP_REDIRECT_RECORDS        Value = 60
+	MSG_BCAST                      Value = 1024
+	MSG_CTRUNC                     Value = 512
 	// MSG_DONTROUTE: Specifies that the data should not be subject to routing. A Windows Sockets service provider can
 	// choose to ignore this flag.
 	MSG_DONTROUTE Value = 4
@@ -130,43 +271,161 @@ const (
 	MSG_MAXIOVLEN Value = 16
 	MSG_MCAST     Value = 2048
 	// MSG_OOB: Sends OOB data (stream-style socket such as SOCK_STREAM only).
-	MSG_OOB                           Value = 1
-	MSG_PARTIAL                       Value = 32768
-	MSG_PEEK                          Value = 2
-	MSG_PUSH_IMMEDIATE                Value = 32
-	MSG_TRUNC                         Value = 256
-	MSG_WAITALL                       Value = 8
-	NI_DGRAM                          Value = 16
-	NI_MAXHOST                        Value = 1025
-	NI_MAXSERV                        Value = 32
-	NI_NAMEREQD                       Value = 4
-	NI_NOFQDN                         Value = 1
-	NI_NUMERICHOST                    Value = 2
-	NI_NUMERICSERV                    Value = 8
-	PF_APPLETALK                      Value = 16
-	PF_ATM                            Value = 22
-	PF_BAN                            Value = 21
-	PF_CCITT                          Value = 10
-	PF_CHAOS                          Value = 5
-	PF_DATAKIT                        Value = 9
-	PF_DECnet                         Value = 12
-	PF_DLI                            Value = 13
-	PF_ECMA                           Value = 8
-	PF_FIREFOX                        Value = 19
-	PF_HYLINK                         Value = 15
-	PF_IMPLINK                        Value = 3
-	PF_IPX                            Value = 6
-	PF_IRDA                           Value = 26
-	PF_ISO                            Value = 7
-	PF_LAT                            Value = 14
-	PF_MAX                            Value = 29
-	PF_NS                             Value = 6
-	PF_OSI                            Value = 7
-	PF_PUP                            Value = 4
-	PF_SNA                            Value = 11
-	PF_UNIX                           Value = 1
-	PF_UNKNOWN1                       Value = 20
-	PF_VOICEVIEW                      Value = 18
+	MSG_OOB             Value = 1
+	MSG_PARTIAL         Value = 32768
+	MSG_PEEK            Value = 2
+	MSG_PUSH_IMMEDIATE  Value = 32
+	MSG_TRUNC           Value = 256
+	MSG_WAITALL         Value = 8
+	NI_DGRAM            Value = 16
+	NI_MAXHOST          Value = 1025
+	NI_MAXSERV          Value = 32
+	NI_NAMEREQD         Value = 4
+	NI_NOFQDN           Value = 1
+	NI_NUMERICHOST      Value = 2
+	NI_NUMERICSERV      Value = 8
+	PF_APPLETALK        Value = 16
+	PF_ATM              Value = 22
+	PF_BAN              Value = 21
+	PF_CCITT            Value = 10
+	PF_CHAOS            Value = 5
+	PF_DATAKIT          Value = 9
+	PF_DECnet           Value = 12
+	PF_DLI              Value = 13
+	PF_ECMA             Value = 8
+	PF_FIREFOX          Value = 19
+	PF_HYLINK           Value = 15
+	PF_IMPLINK          Value = 3
+	PF_IPX              Value = 6
+	PF_IRDA             Value = 26
+	PF_ISO              Value = 7
+	PF_LAT              Value = 14
+	PF_MAX              Value = 29
+	PF_NS               Value = 6
+	PF_OSI              Value = 7
+	PF_PUP              Value = 4
+	PF_SNA              Value = 11
+	PF_UNIX             Value = 1
+	PF_UNKNOWN1         Value = 20
+	PF_VOICEVIEW        Value = 18
+	POLLERR             Value = 1
+	POLLHUP             Value = 2
+	POLLIN              Value = 768
+	POLLNVAL            Value = 4
+	POLLOUT             Value = 16
+	POLLPRI             Value = 1024
+	POLLRDBAND          Value = 512
+	POLLRDNORM          Value = 256
+	POLLWRBAND          Value = 32
+	POLLWRNORM          Value = 16
+	SD_BOTH             Value = 2
+	SD_RECEIVE          Value = 0
+	SD_SEND             Value = 1
+	SIO_ABSORB_RTRALERT Value = 2550136837
+	// SIO_ACQUIRE_PORT_RESERVATION: Control code acquires a runtime reservation for a block of TCP or UDP ports.
+	SIO_ACQUIRE_PORT_RESERVATION Value = 2550136932
+	SIO_ADDRESS_LIST_CHANGE      Value = 671088663
+	// SIO_ADDRESS_LIST_QUERY: Control code obtains a list of local transport addresses of the socket's protocol family to
+	// which the application can bind.
+	SIO_ADDRESS_LIST_QUERY        Value = 1207959574
+	SIO_ADDRESS_LIST_SORT         Value = 3355443225
+	SIO_AF_UNIX_GETPEERPID        Value = 1476395264
+	SIO_AF_UNIX_SETBINDPARENTPATH Value = 2550137089
+	SIO_AF_UNIX_SETCONNPARENTPATH Value = 2550137090
+	// SIO_APPLY_TRANSPORT_SETTING: Control code applies one or more transport settings to a socket.
+	SIO_APPLY_TRANSPORT_SETTING Value = 2550136851
+	SIO_ASSOCIATE_HANDLE        Value = 2281701377
+	// SIO_ASSOCIATE_PORT_RESERVATION: Control code associates a socket with a persistent or runtime reservation for a
+	// block of TCP or UDP identified by the port reservation token.
+	SIO_ASSOCIATE_PORT_RESERVATION              Value = 2550136934
+	SIO_ASSOCIATE_PVC                           Value = 2417360899
+	SIO_BASE_HANDLE                             Value = 1207959586
+	SIO_BSP_HANDLE                              Value = 1207959579
+	SIO_BSP_HANDLE_POLL                         Value = 1207959581
+	SIO_BSP_HANDLE_SELECT                       Value = 1207959580
+	SIO_CPU_AFFINITY                            Value = 2550136853
+	SIO_DELETE_PEER_TARGET_NAME                 Value = 2550137035
+	SIO_ENABLE_CIRCULAR_QUEUEING                Value = 671088642
+	SIO_EXT_POLL                                Value = 3355443231
+	SIO_EXT_SELECT                              Value = 3355443230
+	SIO_EXT_SENDMSG                             Value = 3355443232
+	SIO_FIND_ROUTE                              Value = 1207959555
+	SIO_FLUSH                                   Value = 671088644
+	SIO_GET_ATM_ADDRESS                         Value = 3491102722
+	SIO_GET_ATM_CONNECTION_ID                   Value = 1343619076
+	SIO_GET_BROADCAST_ADDRESS                   Value = 1207959557
+	SIO_GET_EXTENSION_FUNCTION_POINTER          Value = 3355443206
+	SIO_GET_GROUP_QOS                           Value = 3355443208
+	SIO_GET_MULTIPLE_EXTENSION_FUNCTION_POINTER Value = 3355443236
+	SIO_GET_NUMBER_OF_ATM_DEVICES               Value = 1343619073
+	SIO_GET_QOS                                 Value = 3355443207
+	SIO_GET_TX_TIMESTAMP                        Value = 2550137066
+	SIO_INDEX_ADD_MCAST                         Value = 2550136842
+	SIO_INDEX_BIND                              Value = 2550136840
+	SIO_INDEX_DEL_MCAST                         Value = 2550136843
+	SIO_INDEX_MCASTIF                           Value = 2550136841
+	// SIO_KEEPALIVE_VALS: Control code enables or disables the per-connection setting of the TCP keep-alive option which
+	// specifies the TCP keep-alive timeout and interval.
+	SIO_KEEPALIVE_VALS   Value = 2550136836
+	SIO_LIMIT_BROADCASTS Value = 2550136839
+	// SIO_LOOPBACK_FAST_PATH: Control code configures a TCP socket for lower latency and faster operations on the loopback
+	// interface.
+	SIO_LOOPBACK_FAST_PATH  Value = 2550136848
+	SIO_MULTICAST_SCOPE     Value = 2281701386
+	SIO_MULTIPOINT_LOOPBACK Value = 2281701385
+	SIO_NSP_NOTIFY_CHANGE   Value = 2281701401
+	SIO_PRIORITY_HINT       Value = 2550136856
+	// SIO_QUERY_RSS_PROCESSOR_INFO: Control code queries the association between a socket and an RSS processor core and
+	// NUMA node.
+	SIO_QUERY_RSS_PROCESSOR_INFO   Value = 1207959589
+	SIO_QUERY_RSS_SCALABILITY_INFO Value = 1476395218
+	SIO_QUERY_SECURITY             Value = 3623878857
+	SIO_QUERY_TARGET_PNP_HANDLE    Value = 1207959576
+	// SIO_QUERY_TRANSPORT_SETTING: Control code queries the transport settings on a socket.
+	SIO_QUERY_TRANSPORT_SETTING       Value = 2550136852
+	SIO_QUERY_WFP_ALE_ENDPOINT_HANDLE Value = 1476395213
+	// SIO_QUERY_WFP_CONNECTION_REDIRECT_CONTEXT: Control code retrieves the redirect context for a redirect record used by
+	// a Windows Filtering Platform redirect service.
+	SIO_QUERY_WFP_CONNECTION_REDIRECT_CONTEXT Value = 2550137053
+	// SIO_QUERY_WFP_CONNECTION_REDIRECT_RECORDS: Control code retrieves the redirect record for the accepted TCP/IP
+	// connection for use by a Windows Filtering Platform redirect service.
+	SIO_QUERY_WFP_CONNECTION_REDIRECT_RECORDS Value = 2550137052
+	// SIO_RCVALL: Control code enables a socket to receive all IPv4 or IPv6 packets passing through a network interface.
+	SIO_RCVALL           Value = 2550136833
+	SIO_RCVALL_IF        Value = 2550136846
+	SIO_RCVALL_IGMPMCAST Value = 2550136835
+	SIO_RCVALL_MCAST     Value = 2550136834
+	SIO_RCVALL_MCAST_IF  Value = 2550136845
+	// SIO_RELEASE_PORT_RESERVATION: Control code releases a runtime reservation for a block of TCP or UDP ports.
+	SIO_RELEASE_PORT_RESERVATION Value = 2550136933
+	SIO_RESERVED_1               Value = 2281701402
+	SIO_RESERVED_2               Value = 2281701409
+	SIO_ROUTING_INTERFACE_CHANGE Value = 2281701397
+	SIO_ROUTING_INTERFACE_QUERY  Value = 3355443220
+	// SIO_SET_COMPATIBILITY_MODE: Requests how the networking stack should handle certain behaviors for which the default
+	// way of handling the behavior may differ across Windows versions.
+	SIO_SET_COMPATIBILITY_MODE Value = 2550137132
+	SIO_SET_GROUP_QOS          Value = 2281701388
+	SIO_SET_PEER_TARGET_NAME   Value = 2550137034
+	SIO_SET_PRIORITY_HINT      Value = 2550136856
+	SIO_SET_QOS                Value = 2281701387
+	SIO_SET_SECURITY           Value = 2550137032
+	// SIO_SET_WFP_CONNECTION_REDIRECT_RECORDS: Control code sets the redirect record to the new TCP socket used for
+	// connecting redirect service.
+	SIO_SET_WFP_CONNECTION_REDIRECT_RECORDS Value = 2550137054
+	SIO_SOCKET_CLOSE_NOTIFY                 Value = 2550136845
+	SIO_SOCKET_USAGE_NOTIFICATION           Value = 2550137036
+	// SIO_TCP_INFO: Control code retrieves the Transmission Control Protocol (TCP) statistics for a specified socket.
+	SIO_TCP_INFO Value = 3623878695
+	// SIO_TCP_INITIAL_RTO: A control code that configures initial retransmission timeout (RTO) parameters on a socket.
+	SIO_TCP_INITIAL_RTO               Value = 2550136849
+	SIO_TCP_SET_ACK_FREQUENCY         Value = 2550136855
+	SIO_TCP_SET_ICW                   Value = 2550136854
+	SIO_TIMESTAMPING                  Value = 2550137067
+	SIO_TRANSLATE_HANDLE              Value = 3355443213
+	SIO_UCAST_IF                      Value = 2550136838
+	SIO_UDP_CONNRESET                 Value = 2550136844
+	SIO_UDP_NETRESET                  Value = 2550136847
 	SOCKET_ERROR                      Value = -1
 	SOCK_DGRAM                        Value = 2
 	SOCK_NOTIFY_EVENT_ERR             Value = 64
@@ -232,146 +491,186 @@ const (
 	SO_ORIGINAL_DST Value = 12303
 	SO_PAUSE_ACCEPT Value = 12291
 	// SO_PORT_SCALABILITY: Enables local port scalability for a socket.
-	SO_PORT_SCALABILITY             Value = 12294
-	SO_PROTOCOL_INFO                Value = 8197
-	SO_PROTOCOL_INFOA               Value = 8196
-	SO_PROTOCOL_INFOW               Value = 8197
-	SO_RANDOMIZE_PORT               Value = 12293
-	SO_RCVBUF                       Value = 4098
-	SO_RCVLOWAT                     Value = 4100
-	SO_RCVTIMEO                     Value = 4102
-	SO_RECEIVED_HOPLIMIT            Value = 12304
-	SO_RECEIVED_PROCESSOR           Value = 12305
-	SO_REUSEADDR                    Value = 4
-	SO_REUSE_MULTICASTPORT          Value = 12296
-	SO_REUSE_UNICASTPORT            Value = 12295
-	SO_SNDBUF                       Value = 4097
-	SO_SNDLOWAT                     Value = 4099
-	SO_SNDTIMEO                     Value = 4101
-	SO_SYNCHRONOUS_ALERT            Value = 16
-	SO_SYNCHRONOUS_NONALERT         Value = 32
-	SO_TIMESTAMP                    Value = 12298
-	SO_TIMESTAMP_ID                 Value = 12299
-	SO_TYPE                         Value = 4104
-	SO_UPDATE_ACCEPT_CONTEXT        Value = 28683
-	SO_UPDATE_CONNECT_CONTEXT       Value = 28688
-	SO_USELOOPBACK                  Value = 64
-	WSABASEERR                      Value = 10000
-	WSADESCRIPTION_LEN              Value = 256
-	WSAEACCES                       Value = 10013
-	WSAEADDRINUSE                   Value = 10048
-	WSAEADDRNOTAVAIL                Value = 10049
-	WSAEAFNOSUPPORT                 Value = 10047
-	WSAEALREADY                     Value = 10037
-	WSAEBADF                        Value = 10009
-	WSAECANCELLED                   Value = 10103
-	WSAECONNABORTED                 Value = 10053
-	WSAECONNREFUSED                 Value = 10061
-	WSAECONNRESET                   Value = 10054
-	WSAEDESTADDRREQ                 Value = 10039
-	WSAEDISCON                      Value = 10101
-	WSAEDQUOT                       Value = 10069
-	WSAEFAULT                       Value = 10014
-	WSAEHOSTDOWN                    Value = 10064
-	WSAEHOSTUNREACH                 Value = 10065
-	WSAEINPROGRESS                  Value = 10036
-	WSAEINTR                        Value = 10004
-	WSAEINVAL                       Value = 10022
-	WSAEINVALIDPROCTABLE            Value = 10104
-	WSAEINVALIDPROVIDER             Value = 10105
-	WSAEISCONN                      Value = 10056
-	WSAELOOP                        Value = 10062
-	WSAEMFILE                       Value = 10024
-	WSAEMSGSIZE                     Value = 10040
-	WSAENAMETOOLONG                 Value = 10063
-	WSAENETDOWN                     Value = 10050
-	WSAENETRESET                    Value = 10052
-	WSAENETUNREACH                  Value = 10051
-	WSAENOBUFS                      Value = 10055
-	WSAENOMORE                      Value = 10102
-	WSAENOPROTOOPT                  Value = 10042
-	WSAENOTCONN                     Value = 10057
-	WSAENOTEMPTY                    Value = 10066
-	WSAENOTSOCK                     Value = 10038
-	WSAEOPNOTSUPP                   Value = 10045
-	WSAEPFNOSUPPORT                 Value = 10046
-	WSAEPROCLIM                     Value = 10067
-	WSAEPROTONOSUPPORT              Value = 10043
-	WSAEPROTOTYPE                   Value = 10041
-	WSAEPROVIDERFAILEDINIT          Value = 10106
-	WSAEREFUSED                     Value = 10112
-	WSAEREMOTE                      Value = 10071
-	WSAESHUTDOWN                    Value = 10058
-	WSAESOCKTNOSUPPORT              Value = 10044
-	WSAESTALE                       Value = 10070
-	WSAETIMEDOUT                    Value = 10060
-	WSAETOOMANYREFS                 Value = 10059
-	WSAEUSERS                       Value = 10068
-	WSAEWOULDBLOCK                  Value = 10035
-	WSAHOST_NOT_FOUND               Value = 11001
-	WSANOTINITIALISED               Value = 10093
-	WSANO_DATA                      Value = 11004
-	WSANO_RECOVERY                  Value = 11003
-	WSAPROTOCOL_LEN                 Value = 255
-	WSASERVICE_NOT_FOUND            Value = 10108
-	WSASYSCALLFAILURE               Value = 10107
-	WSASYSNOTREADY                  Value = 10091
-	WSASYS_STATUS_LEN               Value = 128
-	WSATRY_AGAIN                    Value = 11002
-	WSATYPE_NOT_FOUND               Value = 10109
-	WSAVERNOTSUPPORTED              Value = 10092
-	WSA_E_CANCELLED                 Value = 10111
-	WSA_E_NO_MORE                   Value = 10110
-	WSA_FLAG_ACCESS_SYSTEM_SECURITY Value = 64
-	WSA_FLAG_MULTIPOINT_C_LEAF      Value = 4
-	WSA_FLAG_MULTIPOINT_C_ROOT      Value = 2
-	WSA_FLAG_MULTIPOINT_D_LEAF      Value = 16
-	WSA_FLAG_MULTIPOINT_D_ROOT      Value = 8
-	WSA_FLAG_NO_HANDLE_INHERIT      Value = 128
-	WSA_FLAG_OVERLAPPED             Value = 1
-	WSA_FLAG_REGISTERED_IO          Value = 256
-	WSA_INFINITE                    Value = 4294967295
-	WSA_INVALID_EVENT               Value = 0
-	WSA_INVALID_HANDLE              Value = 6
-	WSA_INVALID_PARAMETER           Value = 87
-	WSA_IO_INCOMPLETE               Value = 996
-	WSA_IO_PENDING                  Value = 997
-	WSA_IPSEC_NAME_POLICY_ERROR     Value = 11033
-	WSA_MAXIMUM_WAIT_EVENTS         Value = 64
-	WSA_NOT_ENOUGH_MEMORY           Value = 8
-	WSA_OPERATION_ABORTED           Value = 995
-	WSA_QOS_ADMISSION_FAILURE       Value = 11010
-	WSA_QOS_BAD_OBJECT              Value = 11013
-	WSA_QOS_BAD_STYLE               Value = 11012
-	WSA_QOS_EFILTERCOUNT            Value = 11021
-	WSA_QOS_EFILTERSTYLE            Value = 11019
-	WSA_QOS_EFILTERTYPE             Value = 11020
-	WSA_QOS_EFLOWCOUNT              Value = 11023
-	WSA_QOS_EFLOWDESC               Value = 11026
-	WSA_QOS_EFLOWSPEC               Value = 11017
-	WSA_QOS_EOBJLENGTH              Value = 11022
-	WSA_QOS_EPOLICYOBJ              Value = 11025
-	WSA_QOS_EPROVSPECBUF            Value = 11018
-	WSA_QOS_EPSFILTERSPEC           Value = 11028
-	WSA_QOS_EPSFLOWSPEC             Value = 11027
-	WSA_QOS_ESDMODEOBJ              Value = 11029
-	WSA_QOS_ESERVICETYPE            Value = 11016
-	WSA_QOS_ESHAPERATEOBJ           Value = 11030
-	WSA_QOS_EUNKOWNPSOBJ            Value = 11024
-	WSA_QOS_GENERIC_ERROR           Value = 11015
-	WSA_QOS_NO_RECEIVERS            Value = 11008
-	WSA_QOS_NO_SENDERS              Value = 11007
-	WSA_QOS_POLICY_FAILURE          Value = 11011
-	WSA_QOS_RECEIVERS               Value = 11005
-	WSA_QOS_REQUEST_CONFIRMED       Value = 11009
-	WSA_QOS_RESERVED_PETYPE         Value = 11031
-	WSA_QOS_SENDERS                 Value = 11006
-	WSA_QOS_TRAFFIC_CTRL_ERROR      Value = 11014
-	WSA_SECURE_HOST_NOT_FOUND       Value = 11032
-	WSA_WAIT_EVENT_0                Value = 0
-	WSA_WAIT_FAILED                 Value = 4294967295
-	WSA_WAIT_IO_COMPLETION          Value = 192
-	WSA_WAIT_TIMEOUT                Value = 258
+	SO_PORT_SCALABILITY                                 Value = 12294
+	SO_PROTOCOL_INFO                                    Value = 8197
+	SO_PROTOCOL_INFOA                                   Value = 8196
+	SO_PROTOCOL_INFOW                                   Value = 8197
+	SO_RANDOMIZE_PORT                                   Value = 12293
+	SO_RCVBUF                                           Value = 4098
+	SO_RCVLOWAT                                         Value = 4100
+	SO_RCVTIMEO                                         Value = 4102
+	SO_RECEIVED_HOPLIMIT                                Value = 12304
+	SO_RECEIVED_PROCESSOR                               Value = 12305
+	SO_REUSEADDR                                        Value = 4
+	SO_REUSE_MULTICASTPORT                              Value = 12296
+	SO_REUSE_UNICASTPORT                                Value = 12295
+	SO_SNDBUF                                           Value = 4097
+	SO_SNDLOWAT                                         Value = 4099
+	SO_SNDTIMEO                                         Value = 4101
+	SO_SYNCHRONOUS_ALERT                                Value = 16
+	SO_SYNCHRONOUS_NONALERT                             Value = 32
+	SO_TIMESTAMP                                        Value = 12298
+	SO_TIMESTAMP_ID                                     Value = 12299
+	SO_TYPE                                             Value = 4104
+	SO_UPDATE_ACCEPT_CONTEXT                            Value = 28683
+	SO_UPDATE_CONNECT_CONTEXT                           Value = 28688
+	SO_USELOOPBACK                                      Value = 64
+	TCP_ATMARK                                          Value = 8
+	TCP_BSDURGENT                                       Value = 28672
+	TCP_CONGESTION_ALGORITHM                            Value = 12
+	TCP_DELAY_FIN_ACK                                   Value = 13
+	TCP_EXPEDITED_1122                                  Value = 2
+	TCP_FAIL_CONNECT_ON_ICMP_ERROR                      Value = 18
+	TCP_FASTOPEN                                        Value = 15
+	TCP_ICMP_ERROR_INFO                                 Value = 19
+	TCP_ICW_LEVEL_AGGRESSIVE                            Value = 3
+	TCP_ICW_LEVEL_COMPAT                                Value = 254
+	TCP_ICW_LEVEL_DEFAULT                               Value = 0
+	TCP_ICW_LEVEL_EXPERIMENTAL                          Value = 4
+	TCP_ICW_LEVEL_HIGH                                  Value = 1
+	TCP_ICW_LEVEL_MAX                                   Value = 255
+	TCP_ICW_LEVEL_VERY_HIGH                             Value = 2
+	TCP_INITIAL_RTO_DEFAULT_MAX_SYN_RETRANSMISSIONS     Value = 0
+	TCP_INITIAL_RTO_DEFAULT_RTT                         Value = 0
+	TCP_INITIAL_RTO_NO_SYN_RETRANSMISSIONS              Value = 65534
+	TCP_INITIAL_RTO_UNSPECIFIED_MAX_SYN_RETRANSMISSIONS Value = 65535
+	TCP_KEEPALIVE                                       Value = 3
+	TCP_KEEPCNT                                         Value = 16
+	TCP_KEEPIDLE                                        Value = 3
+	TCP_KEEPINTVL                                       Value = 17
+	TCP_MAXRT                                           Value = 5
+	TCP_MAXRTMS                                         Value = 14
+	TCP_MAXSEG                                          Value = 4
+	TCP_NODELAY                                         Value = 1
+	TCP_NOSYNRETRIES                                    Value = 9
+	TCP_NOURG                                           Value = 7
+	TCP_OFFLOAD_NOT_PREFERRED                           Value = 1
+	TCP_OFFLOAD_NO_PREFERENCE                           Value = 0
+	TCP_OFFLOAD_PREFERENCE                              Value = 11
+	TCP_OFFLOAD_PREFERRED                               Value = 2
+	TCP_STDURG                                          Value = 6
+	TCP_TIMESTAMPS                                      Value = 10
+	UDP_CHECKSUM_COVERAGE                               Value = 20
+	UDP_COALESCED_INFO                                  Value = 3
+	UDP_NOCHECKSUM                                      Value = 1
+	UDP_RECV_MAX_COALESCED_SIZE                         Value = 3
+	UDP_SEND_MSG_SIZE                                   Value = 2
+	WSABASEERR                                          Value = 10000
+	WSADESCRIPTION_LEN                                  Value = 256
+	WSAEACCES                                           Value = 10013
+	WSAEADDRINUSE                                       Value = 10048
+	WSAEADDRNOTAVAIL                                    Value = 10049
+	WSAEAFNOSUPPORT                                     Value = 10047
+	WSAEALREADY                                         Value = 10037
+	WSAEBADF                                            Value = 10009
+	WSAECANCELLED                                       Value = 10103
+	WSAECONNABORTED                                     Value = 10053
+	WSAECONNREFUSED                                     Value = 10061
+	WSAECONNRESET                                       Value = 10054
+	WSAEDESTADDRREQ                                     Value = 10039
+	WSAEDISCON                                          Value = 10101
+	WSAEDQUOT                                           Value = 10069
+	WSAEFAULT                                           Value = 10014
+	WSAEHOSTDOWN                                        Value = 10064
+	WSAEHOSTUNREACH                                     Value = 10065
+	WSAEINPROGRESS                                      Value = 10036
+	WSAEINTR                                            Value = 10004
+	WSAEINVAL                                           Value = 10022
+	WSAEINVALIDPROCTABLE                                Value = 10104
+	WSAEINVALIDPROVIDER                                 Value = 10105
+	WSAEISCONN                                          Value = 10056
+	WSAELOOP                                            Value = 10062
+	WSAEMFILE                                           Value = 10024
+	WSAEMSGSIZE                                         Value = 10040
+	WSAENAMETOOLONG                                     Value = 10063
+	WSAENETDOWN                                         Value = 10050
+	WSAENETRESET                                        Value = 10052
+	WSAENETUNREACH                                      Value = 10051
+	WSAENOBUFS                                          Value = 10055
+	WSAENOMORE                                          Value = 10102
+	WSAENOPROTOOPT                                      Value = 10042
+	WSAENOTCONN                                         Value = 10057
+	WSAENOTEMPTY                                        Value = 10066
+	WSAENOTSOCK                                         Value = 10038
+	WSAEOPNOTSUPP                                       Value = 10045
+	WSAEPFNOSUPPORT                                     Value = 10046
+	WSAEPROCLIM                                         Value = 10067
+	WSAEPROTONOSUPPORT                                  Value = 10043
+	WSAEPROTOTYPE                                       Value = 10041
+	WSAEPROVIDERFAILEDINIT                              Value = 10106
+	WSAEREFUSED                                         Value = 10112
+	WSAEREMOTE                                          Value = 10071
+	WSAESHUTDOWN                                        Value = 10058
+	WSAESOCKTNOSUPPORT                                  Value = 10044
+	WSAESTALE                                           Value = 10070
+	WSAETIMEDOUT                                        Value = 10060
+	WSAETOOMANYREFS                                     Value = 10059
+	WSAEUSERS                                           Value = 10068
+	WSAEWOULDBLOCK                                      Value = 10035
+	WSAHOST_NOT_FOUND                                   Value = 11001
+	WSANOTINITIALISED                                   Value = 10093
+	WSANO_DATA                                          Value = 11004
+	WSANO_RECOVERY                                      Value = 11003
+	WSAPROTOCOL_LEN                                     Value = 255
+	WSASERVICE_NOT_FOUND                                Value = 10108
+	WSASYSCALLFAILURE                                   Value = 10107
+	WSASYSNOTREADY                                      Value = 10091
+	WSASYS_STATUS_LEN                                   Value = 128
+	WSATRY_AGAIN                                        Value = 11002
+	WSATYPE_NOT_FOUND                                   Value = 10109
+	WSAVERNOTSUPPORTED                                  Value = 10092
+	WSA_E_CANCELLED                                     Value = 10111
+	WSA_E_NO_MORE                                       Value = 10110
+	WSA_FLAG_ACCESS_SYSTEM_SECURITY                     Value = 64
+	WSA_FLAG_MULTIPOINT_C_LEAF                          Value = 4
+	WSA_FLAG_MULTIPOINT_C_ROOT                          Value = 2
+	WSA_FLAG_MULTIPOINT_D_LEAF                          Value = 16
+	WSA_FLAG_MULTIPOINT_D_ROOT                          Value = 8
+	WSA_FLAG_NO_HANDLE_INHERIT                          Value = 128
+	WSA_FLAG_OVERLAPPED                                 Value = 1
+	WSA_FLAG_REGISTERED_IO                              Value = 256
+	WSA_INFINITE                                        Value = 4294967295
+	WSA_INVALID_EVENT                                   Value = 0
+	WSA_INVALID_HANDLE                                  Value = 6
+	WSA_INVALID_PARAMETER                               Value = 87
+	WSA_IO_INCOMPLETE                                   Value = 996
+	WSA_IO_PENDING                                      Value = 997
+	WSA_IPSEC_NAME_POLICY_ERROR                         Value = 11033
+	WSA_MAXIMUM_WAIT_EVENTS                             Value = 64
+	WSA_NOT_ENOUGH_MEMORY                               Value = 8
+	WSA_OPERATION_ABORTED                               Value = 995
+	WSA_QOS_ADMISSION_FAILURE                           Value = 11010
+	WSA_QOS_BAD_OBJECT                                  Value = 11013
+	WSA_QOS_BAD_STYLE                                   Value = 11012
+	WSA_QOS_EFILTERCOUNT                                Value = 11021
+	WSA_QOS_EFILTERSTYLE                                Value = 11019
+	WSA_QOS_EFILTERTYPE                                 Value = 11020
+	WSA_QOS_EFLOWCOUNT                                  Value = 11023
+	WSA_QOS_EFLOWDESC                                   Value = 11026
+	WSA_QOS_EFLOWSPEC                                   Value = 11017
+	WSA_QOS_EOBJLENGTH                                  Value = 11022
+	WSA_QOS_EPOLICYOBJ                                  Value = 11025
+	WSA_QOS_EPROVSPECBUF                                Value = 11018
+	WSA_QOS_EPSFILTERSPEC                               Value = 11028
+	WSA_QOS_EPSFLOWSPEC                                 Value = 11027
+	WSA_QOS_ESDMODEOBJ                                  Value = 11029
+	WSA_QOS_ESERVICETYPE                                Value = 11016
+	WSA_QOS_ESHAPERATEOBJ                               Value = 11030
+	WSA_QOS_EUNKOWNPSOBJ                                Value = 11024
+	WSA_QOS_GENERIC_ERROR                               Value = 11015
+	WSA_QOS_NO_RECEIVERS                                Value = 11008
+	WSA_QOS_NO_SENDERS                                  Value = 11007
+	WSA_QOS_POLICY_FAILURE                              Value = 11011
+	WSA_QOS_RECEIVERS                                   Value = 11005
+	WSA_QOS_REQUEST_CONFIRMED                           Value = 11009
+	WSA_QOS_RESERVED_PETYPE                             Value = 11031
+	WSA_QOS_SENDERS                                     Value = 11006
+	WSA_QOS_TRAFFIC_CTRL_ERROR                          Value = 11014
+	WSA_SECURE_HOST_NOT_FOUND                           Value = 11032
+	WSA_WAIT_EVENT_0                                    Value = 0
+	WSA_WAIT_FAILED                                     Value = 4294967295
+	WSA_WAIT_IO_COMPLETION                              Value = 192
+	WSA_WAIT_TIMEOUT                                    Value = 258
 )
 
 // Name returns the canonical symbolic name for value.
@@ -591,6 +890,26 @@ func Name(value Value) (string, bool) {
 		return "IPPROTO_L2TP", true
 	case Value(12):
 		return "AF_DECnet", true
+	case Value(1207959555):
+		return "SIO_FIND_ROUTE", true
+	case Value(1207959557):
+		return "SIO_GET_BROADCAST_ADDRESS", true
+	case Value(1207959574):
+		return "SIO_ADDRESS_LIST_QUERY", true
+	case Value(1207959576):
+		return "SIO_QUERY_TARGET_PNP_HANDLE", true
+	case Value(1207959579):
+		return "SIO_BSP_HANDLE", true
+	case Value(1207959580):
+		return "SIO_BSP_HANDLE_SELECT", true
+	case Value(1207959581):
+		return "SIO_BSP_HANDLE_POLL", true
+	case Value(1207959586):
+		return "SIO_BASE_HANDLE", true
+	case Value(1207959589):
+		return "SIO_QUERY_RSS_PROCESSOR_INFO", true
+	case Value(12288):
+		return "IPV6_ECN_MASK", true
 	case Value(12290):
 		return "SO_CONDITIONAL_ACCEPT", true
 	case Value(12291):
@@ -617,14 +936,40 @@ func Name(value Value) (string, bool) {
 		return "SO_RECEIVED_PROCESSOR", true
 	case Value(128):
 		return "AI_RETURN_TTL", true
+	case Value(1280):
+		return "IPV6_MINIMUM_MTU", true
 	case Value(13):
 		return "AF_DLI", true
+	case Value(130):
+		return "IP_OPT_SECURITY", true
+	case Value(131):
+		return "IP_OPT_LSRR", true
 	case Value(131072):
 		return "AI_FQDN", true
 	case Value(132):
 		return "IPPROTO_SCTP", true
+	case Value(134217728):
+		return "IOC_WS2", true
+	case Value(1343619073):
+		return "SIO_GET_NUMBER_OF_ATM_DEVICES", true
+	case Value(1343619076):
+		return "SIO_GET_ATM_CONNECTION_ID", true
+	case Value(136):
+		return "IP_OPT_SID", true
+	case Value(137):
+		return "IP_OPT_SSRR", true
 	case Value(14):
 		return "AF_LAT", true
+	case Value(1476395213):
+		return "SIO_QUERY_WFP_ALE_ENDPOINT_HANDLE", true
+	case Value(1476395218):
+		return "SIO_QUERY_RSS_SCALABILITY_INFO", true
+	case Value(1476395264):
+		return "SIO_AF_UNIX_GETPEERPID", true
+	case Value(148):
+		return "IP_OPT_ROUTER_ALERT", true
+	case Value(149):
+		return "IP_OPT_MULTIDEST", true
 	case Value(15):
 		return "AF_HYLINK", true
 	case Value(16):
@@ -653,14 +998,114 @@ func Name(value Value) (string, bool) {
 		return "AI_EXTENDED", true
 	case Value(22):
 		return "AF_ATM", true
+	case Value(2281701377):
+		return "SIO_ASSOCIATE_HANDLE", true
+	case Value(2281701385):
+		return "SIO_MULTIPOINT_LOOPBACK", true
+	case Value(2281701386):
+		return "SIO_MULTICAST_SCOPE", true
+	case Value(2281701387):
+		return "SIO_SET_QOS", true
+	case Value(2281701388):
+		return "SIO_SET_GROUP_QOS", true
+	case Value(2281701397):
+		return "SIO_ROUTING_INTERFACE_CHANGE", true
+	case Value(2281701401):
+		return "SIO_NSP_NOTIFY_CHANGE", true
+	case Value(2281701402):
+		return "SIO_RESERVED_1", true
+	case Value(2281701409):
+		return "SIO_RESERVED_2", true
 	case Value(23):
 		return "AF_INET6", true
 	case Value(24):
 		return "AF_CLUSTER", true
+	case Value(240):
+		return "IP_VER_MASK", true
+	case Value(2417360899):
+		return "SIO_ASSOCIATE_PVC", true
 	case Value(25):
 		return "AF_12844", true
+	case Value(254):
+		return "TCP_ICW_LEVEL_COMPAT", true
 	case Value(255):
 		return "IPPROTO_RAW", true
+	case Value(2550136833):
+		return "SIO_RCVALL", true
+	case Value(2550136834):
+		return "SIO_RCVALL_MCAST", true
+	case Value(2550136835):
+		return "SIO_RCVALL_IGMPMCAST", true
+	case Value(2550136836):
+		return "SIO_KEEPALIVE_VALS", true
+	case Value(2550136837):
+		return "SIO_ABSORB_RTRALERT", true
+	case Value(2550136838):
+		return "SIO_UCAST_IF", true
+	case Value(2550136839):
+		return "SIO_LIMIT_BROADCASTS", true
+	case Value(2550136840):
+		return "SIO_INDEX_BIND", true
+	case Value(2550136841):
+		return "SIO_INDEX_MCASTIF", true
+	case Value(2550136842):
+		return "SIO_INDEX_ADD_MCAST", true
+	case Value(2550136843):
+		return "SIO_INDEX_DEL_MCAST", true
+	case Value(2550136844):
+		return "SIO_UDP_CONNRESET", true
+	case Value(2550136845):
+		return "SIO_RCVALL_MCAST_IF", true
+	case Value(2550136846):
+		return "SIO_RCVALL_IF", true
+	case Value(2550136847):
+		return "SIO_UDP_NETRESET", true
+	case Value(2550136848):
+		return "SIO_LOOPBACK_FAST_PATH", true
+	case Value(2550136849):
+		return "SIO_TCP_INITIAL_RTO", true
+	case Value(2550136851):
+		return "SIO_APPLY_TRANSPORT_SETTING", true
+	case Value(2550136852):
+		return "SIO_QUERY_TRANSPORT_SETTING", true
+	case Value(2550136853):
+		return "SIO_CPU_AFFINITY", true
+	case Value(2550136854):
+		return "SIO_TCP_SET_ICW", true
+	case Value(2550136855):
+		return "SIO_TCP_SET_ACK_FREQUENCY", true
+	case Value(2550136856):
+		return "SIO_PRIORITY_HINT", true
+	case Value(2550136932):
+		return "SIO_ACQUIRE_PORT_RESERVATION", true
+	case Value(2550136933):
+		return "SIO_RELEASE_PORT_RESERVATION", true
+	case Value(2550136934):
+		return "SIO_ASSOCIATE_PORT_RESERVATION", true
+	case Value(2550137032):
+		return "SIO_SET_SECURITY", true
+	case Value(2550137034):
+		return "SIO_SET_PEER_TARGET_NAME", true
+	case Value(2550137035):
+		return "SIO_DELETE_PEER_TARGET_NAME", true
+	case Value(2550137036):
+		return "SIO_SOCKET_USAGE_NOTIFICATION", true
+	case Value(2550137052):
+		return "SIO_QUERY_WFP_CONNECTION_REDIRECT_RECORDS", true
+	case Value(2550137053):
+		return "SIO_QUERY_WFP_CONNECTION_REDIRECT_CONTEXT", true
+	case Value(2550137054):
+		return "SIO_SET_WFP_CONNECTION_REDIRECT_RECORDS", true
+	case Value(2550137066):
+		return "SIO_GET_TX_TIMESTAMP", true
+	case Value(2550137067):
+		return "SIO_TIMESTAMPING", true
+	case Value(2550137089):
+		return "SIO_AF_UNIX_SETBINDPARENTPATH", true
+	case Value(2550137090):
+		return "SIO_AF_UNIX_SETCONNPARENTPATH", true
+	case Value(2550137132):
+		return "SIO_SET_COMPATIBILITY_MODE", true
 	case Value(256):
 		return "AI_ALL", true
 	case Value(257):
@@ -721,14 +1166,50 @@ func Name(value Value) (string, bool) {
 		return "AF_ICLFXBM", true
 	case Value(32):
 		return "AI_FORCE_CLEAR_TEXT", true
+	case Value(3221225472):
+		return "IOC_INOUT", true
 	case Value(32768):
 		return "AI_SECURE", true
 	case Value(33):
 		return "AF_LINK", true
+	case Value(3355443206):
+		return "SIO_GET_EXTENSION_FUNCTION_POINTER", true
+	case Value(3355443207):
+		return "SIO_GET_QOS", true
+	case Value(3355443208):
+		return "SIO_GET_GROUP_QOS", true
+	case Value(3355443213):
+		return "SIO_TRANSLATE_HANDLE", true
+	case Value(3355443220):
+		return "SIO_ROUTING_INTERFACE_QUERY", true
+	case Value(3355443225):
+		return "SIO_ADDRESS_LIST_SORT", true
+	case Value(3355443230):
+		return "SIO_EXT_SELECT", true
+	case Value(3355443231):
+		return "SIO_EXT_POLL", true
+	case Value(3355443232):
+		return "SIO_EXT_SENDMSG", true
+	case Value(3355443236):
+		return "SIO_GET_MULTIPLE_EXTENSION_FUNCTION_POINTER", true
 	case Value(34):
 		return "AF_HYPERV", true
+	case Value(3491102722):
+		return "SIO_GET_ATM_ADDRESS", true
+	case Value(3623878695):
+		return "SIO_TCP_INFO", true
+	case Value(3623878857):
+		return "SIO_QUERY_SECURITY", true
+	case Value(38):
+		return "IPV6_RECVRTHDR", true
+	case Value(39):
+		return "IPV6_TCLASS", true
 	case Value(4):
 		return "AF_PUP", true
+	case Value(40):
+		return "IPV6_RECVTCLASS", true
+	case Value(402653184):
+		return "IOC_VENDOR", true
 	case Value(4096):
 		return "MSG_ERRQUEUE", true
 	case Value(4097):
@@ -751,12 +1232,18 @@ func Name(value Value) (string, bool) {
 		return "SO_TYPE", true
 	case Value(4105):
 		return "SO_BSP_STATE", true
+	case Value(4294905600):
+		return "IPV6_FLOW_LABEL_MASK", true
 	case Value(4294967295):
 		return "WSA_INFINITE", true
 	case Value(43):
 		return "IPPROTO_ROUTING", true
 	case Value(44):
 		return "IPPROTO_FRAGMENT", true
+	case Value(47):
+		return "IP_ORIGINAL_ARRIVAL_IF", true
+	case Value(49167):
+		return "IPV6_TRAFFIC_CLASS_MASK", true
 	case Value(5):
 		return "AF_CHAOS", true
 	case Value(50):
@@ -777,14 +1264,42 @@ func Name(value Value) (string, bool) {
 		return "AF_IPX", true
 	case Value(60):
 		return "IPPROTO_DSTOPTS", true
+	case Value(61455):
+		return "IPV6_FULL_TRAFFIC_CLASS_MASK", true
 	case Value(64):
 		return "AI_BYPASS_DNS_CACHE", true
+	case Value(65534):
+		return "TCP_INITIAL_RTO_NO_SYN_RETRANSMISSIONS", true
 	case Value(65535):
 		return "SOL_SOCKET", true
 	case Value(65536):
 		return "AI_RETURN_PREFERRED_NAMES", true
+	case Value(671088642):
+		return "SIO_ENABLE_CIRCULAR_QUEUEING", true
+	case Value(671088644):
+		return "SIO_FLUSH", true
+	case Value(671088663):
+		return "SIO_ADDRESS_LIST_CHANGE", true
+	case Value(68):
+		return "IP_OPT_TS", true
 	case Value(7):
 		return "AF_ISO", true
+	case Value(70):
+		return "IPV6_WFP_REDIRECT_CONTEXT", true
+	case Value(71):
+		return "IPV6_MTU_DISCOVER", true
+	case Value(72):
+		return "IPV6_MTU", true
+	case Value(73):
+		return "IP_MTU", true
+	case Value(74):
+		return "IPV6_NRT_INTERFACE", true
+	case Value(75):
+		return "IPV6_RECVERR", true
+	case Value(76):
+		return "IPV6_USER_MTU", true
+	case Value(768):
+		return "POLLIN", true
 	case Value(77):
 		return "IPPROTO_ND", true
 	case Value(78):
@@ -805,6 +1320,8 @@ func Name(value Value) (string, bool) {
 		return "WSA_INVALID_PARAMETER", true
 	case Value(9):
 		return "AF_DATAKIT", true
+	case Value(96):
+		return "IPV6_VERSION", true
 	case Value(995):
 		return "WSA_OPERATION_ABORTED", true
 	case Value(996):
@@ -820,17 +1337,17 @@ func Name(value Value) (string, bool) {
 func Names(value Value) []string {
 	switch value {
 	case Value(-1):
-		return []string{"SOCKET_ERROR"}
+		return []string{"IP_UNSPECIFIED_HOP_LIMIT", "IP_UNSPECIFIED_TYPE_OF_SERVICE", "SOCKET_ERROR"}
 	case Value(-129):
 		return []string{"SO_DONTLINGER"}
 	case Value(-5):
 		return []string{"SO_EXCLUSIVEADDRUSE"}
 	case Value(0):
-		return []string{"AF_UNSPEC", "IPPROTO_HOPOPTS", "IPPROTO_IP", "SOCK_NOTIFY_OP_NONE", "SOCK_NOTIFY_REGISTER_EVENT_NONE", "WSA_INVALID_EVENT", "WSA_WAIT_EVENT_0"}
+		return []string{"AF_UNSPEC", "FD_READ_BIT", "IOC_UNIX", "IPPROTO_HOPOPTS", "IPPROTO_IP", "IP_OPTION_TIMESTAMP_ONLY", "IP_OPT_EOL", "IP_PMTUDISC_NOT_SET", "SD_RECEIVE", "SOCK_NOTIFY_OP_NONE", "SOCK_NOTIFY_REGISTER_EVENT_NONE", "TCP_ICW_LEVEL_DEFAULT", "TCP_INITIAL_RTO_DEFAULT_MAX_SYN_RETRANSMISSIONS", "TCP_INITIAL_RTO_DEFAULT_RTT", "TCP_OFFLOAD_NO_PREFERENCE", "WSA_INVALID_EVENT", "WSA_WAIT_EVENT_0"}
 	case Value(1):
-		return []string{"AF_UNIX", "AI_DNS_RESPONSE_SECURE", "AI_DNS_SERVER_TYPE_UDP", "AI_DNS_SERVER_UDP_FALLBACK", "AI_EXTRA_DNSSEC_REQUIRED", "AI_PASSIVE", "IPPROTO_ICMP", "MSG_OOB", "NI_NOFQDN", "PF_UNIX", "SOCK_NOTIFY_EVENT_IN", "SOCK_NOTIFY_OP_ENABLE", "SOCK_NOTIFY_REGISTER_EVENT_IN", "SOCK_NOTIFY_TRIGGER_ONESHOT", "SOCK_STREAM", "SO_DEBUG", "WSA_FLAG_OVERLAPPED"}
+		return []string{"AF_UNIX", "AI_DNS_RESPONSE_SECURE", "AI_DNS_SERVER_TYPE_UDP", "AI_DNS_SERVER_UDP_FALLBACK", "AI_EXTRA_DNSSEC_REQUIRED", "AI_PASSIVE", "FD_READ", "FD_WRITE_BIT", "IPPROTO_ICMP", "IPV6_HOPOPTS", "IP_DEFAULT_MULTICAST_LOOP", "IP_DEFAULT_MULTICAST_TTL", "IP_OPTIONS", "IP_OPTION_TIMESTAMP_ADDRESS", "IP_OPT_NOP", "IP_PMTUDISC_DO", "MSG_OOB", "NI_NOFQDN", "PF_UNIX", "POLLERR", "SD_SEND", "SOCK_NOTIFY_EVENT_IN", "SOCK_NOTIFY_OP_ENABLE", "SOCK_NOTIFY_REGISTER_EVENT_IN", "SOCK_NOTIFY_TRIGGER_ONESHOT", "SOCK_STREAM", "SO_DEBUG", "TCP_ICW_LEVEL_HIGH", "TCP_NODELAY", "TCP_OFFLOAD_NOT_PREFERRED", "UDP_NOCHECKSUM", "WSA_FLAG_OVERLAPPED"}
 	case Value(10):
-		return []string{"AF_CCITT", "PF_CCITT"}
+		return []string{"AF_CCITT", "FD_MAX_EVENTS", "IPV6_MULTICAST_HOPS", "IP_MULTICAST_TTL", "PF_CCITT", "TCP_TIMESTAMPS"}
 	case Value(10000):
 		return []string{"WSABASEERR"}
 	case Value(10004):
@@ -950,7 +1467,7 @@ func Names(value Value) []string {
 	case Value(10112):
 		return []string{"WSAEREFUSED"}
 	case Value(1024):
-		return []string{"AI_ADDRCONFIG", "MSG_BCAST"}
+		return []string{"AI_ADDRCONFIG", "MSG_BCAST", "POLLPRI"}
 	case Value(1025):
 		return []string{"NI_MAXHOST"}
 	case Value(103):
@@ -958,9 +1475,9 @@ func Names(value Value) []string {
 	case Value(1048576):
 		return []string{"AI_SECURE_WITH_FALLBACK"}
 	case Value(1073741824):
-		return []string{"AI_RESOLUTION_HANDLE"}
+		return []string{"AI_RESOLUTION_HANDLE", "IOC_OUT"}
 	case Value(11):
-		return []string{"AF_SNA", "PF_SNA"}
+		return []string{"AF_SNA", "IPV6_MULTICAST_LOOP", "IP_MULTICAST_LOOP", "PF_SNA", "TCP_OFFLOAD_PREFERENCE"}
 	case Value(11001):
 		return []string{"WSAHOST_NOT_FOUND"}
 	case Value(11002):
@@ -1032,7 +1549,27 @@ func Names(value Value) []string {
 	case Value(115):
 		return []string{"IPPROTO_L2TP"}
 	case Value(12):
-		return []string{"AF_DECnet", "IPPROTO_PUP", "PF_DECnet"}
+		return []string{"AF_DECnet", "IPPROTO_PUP", "IPV6_ADD_MEMBERSHIP", "IPV6_ECN_SHIFT", "IPV6_JOIN_GROUP", "IP_ADD_MEMBERSHIP", "PF_DECnet", "TCP_CONGESTION_ALGORITHM"}
+	case Value(1207959555):
+		return []string{"SIO_FIND_ROUTE"}
+	case Value(1207959557):
+		return []string{"SIO_GET_BROADCAST_ADDRESS"}
+	case Value(1207959574):
+		return []string{"SIO_ADDRESS_LIST_QUERY"}
+	case Value(1207959576):
+		return []string{"SIO_QUERY_TARGET_PNP_HANDLE"}
+	case Value(1207959579):
+		return []string{"SIO_BSP_HANDLE"}
+	case Value(1207959580):
+		return []string{"SIO_BSP_HANDLE_SELECT"}
+	case Value(1207959581):
+		return []string{"SIO_BSP_HANDLE_POLL"}
+	case Value(1207959586):
+		return []string{"SIO_BASE_HANDLE"}
+	case Value(1207959589):
+		return []string{"SIO_QUERY_RSS_PROCESSOR_INFO"}
+	case Value(12288):
+		return []string{"IPV6_ECN_MASK"}
 	case Value(12290):
 		return []string{"SO_CONDITIONAL_ACCEPT"}
 	case Value(12291):
@@ -1059,52 +1596,178 @@ func Names(value Value) []string {
 		return []string{"SO_RECEIVED_PROCESSOR"}
 	case Value(128):
 		return []string{"AI_RETURN_TTL", "SOCK_NOTIFY_EVENT_REMOVE", "SO_LINGER", "WSASYS_STATUS_LEN", "WSA_FLAG_NO_HANDLE_INHERIT"}
+	case Value(1280):
+		return []string{"IPV6_MINIMUM_MTU"}
 	case Value(13):
-		return []string{"AF_DLI", "PF_DLI"}
+		return []string{"AF_DLI", "IPV6_DROP_MEMBERSHIP", "IPV6_LEAVE_GROUP", "IP_DROP_MEMBERSHIP", "PF_DLI", "TCP_DELAY_FIN_ACK"}
+	case Value(130):
+		return []string{"IP_OPT_SECURITY"}
+	case Value(131):
+		return []string{"IP_OPT_LSRR"}
 	case Value(131072):
 		return []string{"AI_FQDN"}
 	case Value(132):
 		return []string{"IPPROTO_SCTP"}
+	case Value(134217728):
+		return []string{"IOC_WS2"}
+	case Value(1343619073):
+		return []string{"SIO_GET_NUMBER_OF_ATM_DEVICES"}
+	case Value(1343619076):
+		return []string{"SIO_GET_ATM_CONNECTION_ID"}
+	case Value(136):
+		return []string{"IP_OPT_SID"}
+	case Value(137):
+		return []string{"IP_OPT_SSRR"}
 	case Value(14):
-		return []string{"AF_LAT", "PF_LAT"}
+		return []string{"AF_LAT", "IPV6_DONTFRAG", "IP_DONTFRAGMENT", "PF_LAT", "TCP_MAXRTMS"}
+	case Value(1476395213):
+		return []string{"SIO_QUERY_WFP_ALE_ENDPOINT_HANDLE"}
+	case Value(1476395218):
+		return []string{"SIO_QUERY_RSS_SCALABILITY_INFO"}
+	case Value(1476395264):
+		return []string{"SIO_AF_UNIX_GETPEERPID"}
+	case Value(148):
+		return []string{"IP_OPT_ROUTER_ALERT"}
+	case Value(149):
+		return []string{"IP_OPT_MULTIDEST"}
 	case Value(15):
-		return []string{"AF_HYLINK", "PF_HYLINK"}
+		return []string{"AF_HYLINK", "IP_ADD_SOURCE_MEMBERSHIP", "PF_HYLINK", "TCP_FASTOPEN"}
 	case Value(16):
-		return []string{"AF_APPLETALK", "AI_DNS_ONLY", "MSG_INTERRUPT", "MSG_MAXIOVLEN", "NI_DGRAM", "PF_APPLETALK", "SO_DONTROUTE", "SO_SYNCHRONOUS_ALERT", "WSA_FLAG_MULTIPOINT_D_LEAF"}
+		return []string{"AF_APPLETALK", "AI_DNS_ONLY", "FD_CONNECT", "IP_DROP_SOURCE_MEMBERSHIP", "MSG_INTERRUPT", "MSG_MAXIOVLEN", "NI_DGRAM", "PF_APPLETALK", "POLLOUT", "POLLWRNORM", "SO_DONTROUTE", "SO_SYNCHRONOUS_ALERT", "TCP_KEEPCNT", "WSA_FLAG_MULTIPOINT_D_LEAF"}
 	case Value(16384):
 		return []string{"AI_NON_AUTHORITATIVE"}
 	case Value(17):
-		return []string{"AF_NETBIOS", "IPPROTO_UDP"}
+		return []string{"AF_NETBIOS", "IPPROTO_UDP", "IP_BLOCK_SOURCE", "TCP_KEEPINTVL"}
 	case Value(18):
-		return []string{"AF_VOICEVIEW", "PF_VOICEVIEW"}
+		return []string{"AF_VOICEVIEW", "IP_UNBLOCK_SOURCE", "PF_VOICEVIEW", "TCP_FAIL_CONNECT_ON_ICMP_ERROR"}
 	case Value(19):
-		return []string{"AF_FIREFOX", "PF_FIREFOX"}
+		return []string{"AF_FIREFOX", "IPV6_PKTINFO", "IP_PKTINFO", "PF_FIREFOX", "TCP_ICMP_ERROR_INFO"}
 	case Value(192):
 		return []string{"WSA_WAIT_IO_COMPLETION"}
 	case Value(2):
-		return []string{"AF_INET", "AI_CANONNAME", "AI_DNS_RESPONSE_HOSTFILE", "AI_DNS_SERVER_TYPE_DOH", "IPPROTO_IGMP", "MSG_PEEK", "NI_NUMERICHOST", "SOCK_DGRAM", "SOCK_NOTIFY_EVENT_OUT", "SOCK_NOTIFY_OP_DISABLE", "SOCK_NOTIFY_REGISTER_EVENT_OUT", "SOCK_NOTIFY_TRIGGER_PERSISTENT", "SO_ACCEPTCONN", "WSA_FLAG_MULTIPOINT_C_ROOT"}
+		return []string{"AF_INET", "AI_CANONNAME", "AI_DNS_RESPONSE_HOSTFILE", "AI_DNS_SERVER_TYPE_DOH", "FD_OOB_BIT", "FD_WRITE", "IPPROTO_IGMP", "IPV6_HDRINCL", "IP_HDRINCL", "IP_PMTUDISC_DONT", "MSG_PEEK", "NI_NUMERICHOST", "POLLHUP", "SD_BOTH", "SOCK_DGRAM", "SOCK_NOTIFY_EVENT_OUT", "SOCK_NOTIFY_OP_DISABLE", "SOCK_NOTIFY_REGISTER_EVENT_OUT", "SOCK_NOTIFY_TRIGGER_PERSISTENT", "SO_ACCEPTCONN", "TCP_EXPEDITED_1122", "TCP_ICW_LEVEL_VERY_HIGH", "TCP_OFFLOAD_PREFERRED", "UDP_SEND_MSG_SIZE", "WSA_FLAG_MULTIPOINT_C_ROOT"}
 	case Value(20):
-		return []string{"AF_UNKNOWN1", "PF_UNKNOWN1"}
+		return []string{"AF_UNKNOWN1", "IP_MAX_MEMBERSHIPS", "PF_UNKNOWN1", "UDP_CHECKSUM_COVERAGE"}
 	case Value(2048):
 		return []string{"AI_V4MAPPED", "MSG_MCAST"}
 	case Value(2097152):
 		return []string{"AI_EXCLUSIVE_CUSTOM_SERVERS"}
 	case Value(21):
-		return []string{"AF_BAN", "PF_BAN"}
+		return []string{"AF_BAN", "IPV6_HOPLIMIT", "IP_HOPLIMIT", "IP_RECVTTL", "PF_BAN"}
 	case Value(2147483648):
-		return []string{"AI_EXTENDED"}
+		return []string{"AI_EXTENDED", "IOC_IN"}
 	case Value(22):
-		return []string{"AF_ATM", "IPPROTO_IDP", "PF_ATM"}
+		return []string{"AF_ATM", "IPPROTO_IDP", "IP_RECEIVE_BROADCAST", "PF_ATM"}
+	case Value(2281701377):
+		return []string{"SIO_ASSOCIATE_HANDLE"}
+	case Value(2281701385):
+		return []string{"SIO_MULTIPOINT_LOOPBACK"}
+	case Value(2281701386):
+		return []string{"SIO_MULTICAST_SCOPE"}
+	case Value(2281701387):
+		return []string{"SIO_SET_QOS"}
+	case Value(2281701388):
+		return []string{"SIO_SET_GROUP_QOS"}
+	case Value(2281701397):
+		return []string{"SIO_ROUTING_INTERFACE_CHANGE"}
+	case Value(2281701401):
+		return []string{"SIO_NSP_NOTIFY_CHANGE"}
+	case Value(2281701402):
+		return []string{"SIO_RESERVED_1"}
+	case Value(2281701409):
+		return []string{"SIO_RESERVED_2"}
 	case Value(23):
-		return []string{"AF_INET6"}
+		return []string{"AF_INET6", "IPV6_PROTECTION_LEVEL", "IP_PROTECTION_LEVEL"}
 	case Value(24):
-		return []string{"AF_CLUSTER"}
+		return []string{"AF_CLUSTER", "IPV6_RECVIF", "IP_RECVIF"}
+	case Value(240):
+		return []string{"IP_VER_MASK"}
+	case Value(2417360899):
+		return []string{"SIO_ASSOCIATE_PVC"}
 	case Value(25):
-		return []string{"AF_12844"}
+		return []string{"AF_12844", "IPV6_RECVDSTADDR", "IP_RECVDSTADDR"}
+	case Value(254):
+		return []string{"TCP_ICW_LEVEL_COMPAT"}
 	case Value(255):
-		return []string{"IPPROTO_RAW", "WSAPROTOCOL_LEN"}
+		return []string{"IPPROTO_RAW", "TCP_ICW_LEVEL_MAX", "WSAPROTOCOL_LEN"}
+	case Value(2550136833):
+		return []string{"SIO_RCVALL"}
+	case Value(2550136834):
+		return []string{"SIO_RCVALL_MCAST"}
+	case Value(2550136835):
+		return []string{"SIO_RCVALL_IGMPMCAST"}
+	case Value(2550136836):
+		return []string{"SIO_KEEPALIVE_VALS"}
+	case Value(2550136837):
+		return []string{"SIO_ABSORB_RTRALERT"}
+	case Value(2550136838):
+		return []string{"SIO_UCAST_IF"}
+	case Value(2550136839):
+		return []string{"SIO_LIMIT_BROADCASTS"}
+	case Value(2550136840):
+		return []string{"SIO_INDEX_BIND"}
+	case Value(2550136841):
+		return []string{"SIO_INDEX_MCASTIF"}
+	case Value(2550136842):
+		return []string{"SIO_INDEX_ADD_MCAST"}
+	case Value(2550136843):
+		return []string{"SIO_INDEX_DEL_MCAST"}
+	case Value(2550136844):
+		return []string{"SIO_UDP_CONNRESET"}
+	case Value(2550136845):
+		return []string{"SIO_RCVALL_MCAST_IF", "SIO_SOCKET_CLOSE_NOTIFY"}
+	case Value(2550136846):
+		return []string{"SIO_RCVALL_IF"}
+	case Value(2550136847):
+		return []string{"SIO_UDP_NETRESET"}
+	case Value(2550136848):
+		return []string{"SIO_LOOPBACK_FAST_PATH"}
+	case Value(2550136849):
+		return []string{"SIO_TCP_INITIAL_RTO"}
+	case Value(2550136851):
+		return []string{"SIO_APPLY_TRANSPORT_SETTING"}
+	case Value(2550136852):
+		return []string{"SIO_QUERY_TRANSPORT_SETTING"}
+	case Value(2550136853):
+		return []string{"SIO_CPU_AFFINITY"}
+	case Value(2550136854):
+		return []string{"SIO_TCP_SET_ICW"}
+	case Value(2550136855):
+		return []string{"SIO_TCP_SET_ACK_FREQUENCY"}
+	case Value(2550136856):
+		return []string{"SIO_PRIORITY_HINT", "SIO_SET_PRIORITY_HINT"}
+	case Value(2550136932):
+		return []string{"SIO_ACQUIRE_PORT_RESERVATION"}
+	case Value(2550136933):
+		return []string{"SIO_RELEASE_PORT_RESERVATION"}
+	case Value(2550136934):
+		return []string{"SIO_ASSOCIATE_PORT_RESERVATION"}
+	case Value(2550137032):
+		return []string{"SIO_SET_SECURITY"}
+	case Value(2550137034):
+		return []string{"SIO_SET_PEER_TARGET_NAME"}
+	case Value(2550137035):
+		return []string{"SIO_DELETE_PEER_TARGET_NAME"}
+	case Value(2550137036):
+		return []string{"SIO_SOCKET_USAGE_NOTIFICATION"}
+	case Value(2550137052):
+		return []string{"SIO_QUERY_WFP_CONNECTION_REDIRECT_RECORDS"}
+	case Value(2550137053):
+		return []string{"SIO_QUERY_WFP_CONNECTION_REDIRECT_CONTEXT"}
+	case Value(2550137054):
+		return []string{"SIO_SET_WFP_CONNECTION_REDIRECT_RECORDS"}
+	case Value(2550137066):
+		return []string{"SIO_GET_TX_TIMESTAMP"}
+	case Value(2550137067):
+		return []string{"SIO_TIMESTAMPING"}
+	case Value(2550137089):
+		return []string{"SIO_AF_UNIX_SETBINDPARENTPATH"}
+	case Value(2550137090):
+		return []string{"SIO_AF_UNIX_SETCONNPARENTPATH"}
+	case Value(2550137132):
+		return []string{"SIO_SET_COMPATIBILITY_MODE"}
 	case Value(256):
-		return []string{"AI_ALL", "IPPROTO_MAX", "MSG_TRUNC", "SO_OOBINLINE", "WSADESCRIPTION_LEN", "WSA_FLAG_REGISTERED_IO"}
+		return []string{"AI_ALL", "IPPROTO_MAX", "MSG_TRUNC", "POLLRDNORM", "SO_OOBINLINE", "WSADESCRIPTION_LEN", "WSA_FLAG_REGISTERED_IO"}
 	case Value(257):
 		return []string{"IPPROTO_RESERVED_RAW"}
 	case Value(258):
@@ -1112,7 +1775,7 @@ func Names(value Value) []string {
 	case Value(259):
 		return []string{"IPPROTO_RESERVED_IPSECOFFLOAD"}
 	case Value(26):
-		return []string{"AF_IRDA", "PF_IRDA"}
+		return []string{"AF_IRDA", "IPV6_CHECKSUM", "PF_IRDA"}
 	case Value(260):
 		return []string{"IPPROTO_RESERVED_WNV"}
 	case Value(261):
@@ -1120,13 +1783,13 @@ func Names(value Value) []string {
 	case Value(262144):
 		return []string{"AI_FILESERVER"}
 	case Value(268435456):
-		return []string{"AI_RETURN_RESPONSE_FLAGS"}
+		return []string{"AI_RETURN_RESPONSE_FLAGS", "IOC_PROTOCOL"}
 	case Value(27):
-		return []string{"IPPROTO_RDP"}
+		return []string{"IPPROTO_RDP", "IPV6_V6ONLY"}
 	case Value(28):
-		return []string{"AF_NETDES"}
+		return []string{"AF_NETDES", "IPV6_IFLIST", "IP_IFLIST"}
 	case Value(28672):
-		return []string{"SO_CONNDATA"}
+		return []string{"SO_CONNDATA", "TCP_BSDURGENT"}
 	case Value(28673):
 		return []string{"SO_CONNOPT"}
 	case Value(28674):
@@ -1154,23 +1817,59 @@ func Names(value Value) []string {
 	case Value(28688):
 		return []string{"SO_UPDATE_CONNECT_CONTEXT"}
 	case Value(29):
-		return []string{"AF_MAX", "AF_TCNPROCESS", "PF_MAX"}
+		return []string{"AF_MAX", "AF_TCNPROCESS", "IPV6_ADD_IFLIST", "IP_ADD_IFLIST", "PF_MAX"}
 	case Value(3):
-		return []string{"AF_IMPLINK", "AI_DNS_SERVER_TYPE_DOT", "IPPROTO_GGP", "PF_IMPLINK", "SOCK_RAW"}
+		return []string{"AF_IMPLINK", "AI_DNS_SERVER_TYPE_DOT", "FD_ACCEPT_BIT", "IPPROTO_GGP", "IP_OPTION_TIMESTAMP_SPECIFIC_ADDRESS", "IP_PMTUDISC_PROBE", "IP_TOS", "PF_IMPLINK", "SOCK_RAW", "TCP_ICW_LEVEL_AGGRESSIVE", "TCP_KEEPALIVE", "TCP_KEEPIDLE", "UDP_COALESCED_INFO", "UDP_RECV_MAX_COALESCED_SIZE"}
 	case Value(30):
-		return []string{"AF_TCNMESSAGE"}
+		return []string{"AF_TCNMESSAGE", "IPV6_DEL_IFLIST", "IP_DEL_IFLIST"}
 	case Value(31):
-		return []string{"AF_ICLFXBM"}
+		return []string{"AF_ICLFXBM", "IPV6_UNICAST_IF", "IP_UNICAST_IF"}
 	case Value(32):
-		return []string{"AI_FORCE_CLEAR_TEXT", "MSG_PUSH_IMMEDIATE", "NI_MAXSERV", "SO_BROADCAST", "SO_SYNCHRONOUS_NONALERT"}
+		return []string{"AI_FORCE_CLEAR_TEXT", "FD_CLOSE", "IPV6_RTHDR", "IP_RTHDR", "MSG_PUSH_IMMEDIATE", "NI_MAXSERV", "POLLWRBAND", "SO_BROADCAST", "SO_SYNCHRONOUS_NONALERT"}
+	case Value(3221225472):
+		return []string{"IOC_INOUT"}
 	case Value(32768):
 		return []string{"AI_SECURE", "MSG_PARTIAL"}
 	case Value(33):
-		return []string{"AF_LINK"}
+		return []string{"AF_LINK", "IPV6_GET_IFLIST", "IP_GET_IFLIST"}
+	case Value(3355443206):
+		return []string{"SIO_GET_EXTENSION_FUNCTION_POINTER"}
+	case Value(3355443207):
+		return []string{"SIO_GET_QOS"}
+	case Value(3355443208):
+		return []string{"SIO_GET_GROUP_QOS"}
+	case Value(3355443213):
+		return []string{"SIO_TRANSLATE_HANDLE"}
+	case Value(3355443220):
+		return []string{"SIO_ROUTING_INTERFACE_QUERY"}
+	case Value(3355443225):
+		return []string{"SIO_ADDRESS_LIST_SORT"}
+	case Value(3355443230):
+		return []string{"SIO_EXT_SELECT"}
+	case Value(3355443231):
+		return []string{"SIO_EXT_POLL"}
+	case Value(3355443232):
+		return []string{"SIO_EXT_SENDMSG"}
+	case Value(3355443236):
+		return []string{"SIO_GET_MULTIPLE_EXTENSION_FUNCTION_POINTER"}
 	case Value(34):
 		return []string{"AF_HYPERV"}
+	case Value(3491102722):
+		return []string{"SIO_GET_ATM_ADDRESS"}
+	case Value(3623878695):
+		return []string{"SIO_TCP_INFO"}
+	case Value(3623878857):
+		return []string{"SIO_QUERY_SECURITY"}
+	case Value(38):
+		return []string{"IPV6_RECVRTHDR", "IP_RECVRTHDR"}
+	case Value(39):
+		return []string{"IPV6_TCLASS", "IP_TCLASS"}
 	case Value(4):
-		return []string{"AF_PUP", "AI_NUMERICHOST", "IPPROTO_IPV4", "MSG_DONTROUTE", "NI_NAMEREQD", "PF_PUP", "SOCK_NOTIFY_EVENT_HANGUP", "SOCK_NOTIFY_OP_REMOVE", "SOCK_NOTIFY_REGISTER_EVENT_HANGUP", "SOCK_NOTIFY_TRIGGER_LEVEL", "SOCK_RDM", "SO_REUSEADDR", "WSA_FLAG_MULTIPOINT_C_LEAF"}
+		return []string{"AF_PUP", "AI_NUMERICHOST", "FD_CONNECT_BIT", "FD_OOB", "IPPROTO_IPV4", "IPV6_UNICAST_HOPS", "IP_PMTUDISC_MAX", "IP_TTL", "MSG_DONTROUTE", "NI_NAMEREQD", "PF_PUP", "POLLNVAL", "SOCK_NOTIFY_EVENT_HANGUP", "SOCK_NOTIFY_OP_REMOVE", "SOCK_NOTIFY_REGISTER_EVENT_HANGUP", "SOCK_NOTIFY_TRIGGER_LEVEL", "SOCK_RDM", "SO_REUSEADDR", "TCP_ICW_LEVEL_EXPERIMENTAL", "TCP_MAXSEG", "WSA_FLAG_MULTIPOINT_C_LEAF"}
+	case Value(40):
+		return []string{"IPV6_RECVTCLASS", "IP_RECVTCLASS", "IP_RECVTOS"}
+	case Value(402653184):
+		return []string{"IOC_VENDOR"}
 	case Value(4096):
 		return []string{"MSG_ERRQUEUE"}
 	case Value(4097):
@@ -1193,46 +1892,80 @@ func Names(value Value) []string {
 		return []string{"SO_TYPE"}
 	case Value(4105):
 		return []string{"SO_BSP_STATE"}
+	case Value(4294905600):
+		return []string{"IPV6_FLOW_LABEL_MASK"}
 	case Value(4294967295):
-		return []string{"WSA_INFINITE", "WSA_WAIT_FAILED"}
+		return []string{"IP_UNSPECIFIED_USER_MTU", "WSA_INFINITE", "WSA_WAIT_FAILED"}
 	case Value(43):
 		return []string{"IPPROTO_ROUTING"}
 	case Value(44):
 		return []string{"IPPROTO_FRAGMENT"}
+	case Value(47):
+		return []string{"IP_ORIGINAL_ARRIVAL_IF"}
+	case Value(49167):
+		return []string{"IPV6_TRAFFIC_CLASS_MASK"}
 	case Value(5):
-		return []string{"AF_CHAOS", "IPPROTO_ST", "PF_CHAOS", "SOCK_SEQPACKET", "SOMAXCONN"}
+		return []string{"AF_CHAOS", "FD_CLOSE_BIT", "IPPROTO_ST", "PF_CHAOS", "SOCK_SEQPACKET", "SOMAXCONN", "TCP_MAXRT"}
 	case Value(50):
-		return []string{"IPPROTO_ESP"}
+		return []string{"IPPROTO_ESP", "IPV6_ECN", "IPV6_RECVECN", "IP_ECN", "IP_RECVECN"}
 	case Value(51):
-		return []string{"IPPROTO_AH"}
+		return []string{"IPPROTO_AH", "IPV6_PKTINFO_EX", "IP_PKTINFO_EX"}
 	case Value(512):
-		return []string{"MSG_CTRUNC"}
+		return []string{"MSG_CTRUNC", "POLLRDBAND"}
 	case Value(524288):
 		return []string{"AI_DISABLE_IDN_ENCODING"}
 	case Value(536870912):
-		return []string{"AI_REQUIRE_SECURE"}
+		return []string{"AI_REQUIRE_SECURE", "IOC_VOID"}
 	case Value(58):
 		return []string{"IPPROTO_ICMPV6"}
 	case Value(59):
 		return []string{"IPPROTO_NONE"}
 	case Value(6):
-		return []string{"AF_IPX", "AF_NS", "IPPROTO_TCP", "PF_IPX", "PF_NS", "WSA_INVALID_HANDLE"}
+		return []string{"AF_IPX", "AF_NS", "FD_QOS_BIT", "IPPROTO_TCP", "PF_IPX", "PF_NS", "TCP_STDURG", "WSA_INVALID_HANDLE"}
 	case Value(60):
-		return []string{"IPPROTO_DSTOPTS"}
+		return []string{"IPPROTO_DSTOPTS", "IPV6_WFP_REDIRECT_RECORDS", "IP_WFP_REDIRECT_RECORDS"}
+	case Value(61455):
+		return []string{"IPV6_FULL_TRAFFIC_CLASS_MASK"}
 	case Value(64):
-		return []string{"AI_BYPASS_DNS_CACHE", "SOCK_NOTIFY_EVENT_ERR", "SO_USELOOPBACK", "WSA_FLAG_ACCESS_SYSTEM_SECURITY", "WSA_MAXIMUM_WAIT_EVENTS"}
+		return []string{"AI_BYPASS_DNS_CACHE", "FD_SETSIZE", "SOCK_NOTIFY_EVENT_ERR", "SO_USELOOPBACK", "WSA_FLAG_ACCESS_SYSTEM_SECURITY", "WSA_MAXIMUM_WAIT_EVENTS"}
+	case Value(65534):
+		return []string{"TCP_INITIAL_RTO_NO_SYN_RETRANSMISSIONS"}
 	case Value(65535):
-		return []string{"SOL_SOCKET"}
+		return []string{"SOL_SOCKET", "TCP_INITIAL_RTO_UNSPECIFIED_MAX_SYN_RETRANSMISSIONS"}
 	case Value(65536):
 		return []string{"AI_RETURN_PREFERRED_NAMES"}
+	case Value(671088642):
+		return []string{"SIO_ENABLE_CIRCULAR_QUEUEING"}
+	case Value(671088644):
+		return []string{"SIO_FLUSH"}
+	case Value(671088663):
+		return []string{"SIO_ADDRESS_LIST_CHANGE"}
+	case Value(68):
+		return []string{"IP_OPT_TS"}
 	case Value(7):
-		return []string{"AF_ISO", "AF_OSI", "IPPROTO_CBT", "PF_ISO", "PF_OSI"}
+		return []string{"AF_ISO", "AF_OSI", "FD_GROUP_QOS_BIT", "IPPROTO_CBT", "IP_OPT_RR", "PF_ISO", "PF_OSI", "TCP_NOURG"}
+	case Value(70):
+		return []string{"IPV6_WFP_REDIRECT_CONTEXT", "IP_WFP_REDIRECT_CONTEXT"}
+	case Value(71):
+		return []string{"IPV6_MTU_DISCOVER", "IP_MTU_DISCOVER"}
+	case Value(72):
+		return []string{"IPV6_MTU"}
+	case Value(73):
+		return []string{"IP_MTU"}
+	case Value(74):
+		return []string{"IPV6_NRT_INTERFACE", "IP_NRT_INTERFACE"}
+	case Value(75):
+		return []string{"IPV6_RECVERR", "IP_RECVERR"}
+	case Value(76):
+		return []string{"IPV6_USER_MTU", "IP_USER_MTU"}
+	case Value(768):
+		return []string{"POLLIN"}
 	case Value(77):
 		return []string{"IPPROTO_ND"}
 	case Value(78):
 		return []string{"IPPROTO_ICLFXBM"}
 	case Value(8):
-		return []string{"AF_ECMA", "AI_NUMERICSERV", "IPPROTO_EGP", "MSG_WAITALL", "NI_NUMERICSERV", "PF_ECMA", "SOCK_NOTIFY_TRIGGER_EDGE", "SO_KEEPALIVE", "WSA_FLAG_MULTIPOINT_D_ROOT", "WSA_NOT_ENOUGH_MEMORY"}
+		return []string{"AF_ECMA", "AI_NUMERICSERV", "FD_ACCEPT", "FD_ROUTING_INTERFACE_CHANGE_BIT", "IPPROTO_EGP", "MSG_WAITALL", "NI_NUMERICSERV", "PF_ECMA", "SOCK_NOTIFY_TRIGGER_EDGE", "SO_KEEPALIVE", "TCP_ATMARK", "WSA_FLAG_MULTIPOINT_D_ROOT", "WSA_NOT_ENOUGH_MEMORY"}
 	case Value(8193):
 		return []string{"SO_GROUP_ID"}
 	case Value(8194):
@@ -1246,7 +1979,9 @@ func Names(value Value) []string {
 	case Value(87):
 		return []string{"WSA_INVALID_PARAMETER"}
 	case Value(9):
-		return []string{"AF_DATAKIT", "IPPROTO_IGP", "PF_DATAKIT"}
+		return []string{"AF_DATAKIT", "FD_ADDRESS_LIST_CHANGE_BIT", "IPPROTO_IGP", "IPV6_MULTICAST_IF", "IP_MULTICAST_IF", "PF_DATAKIT", "TCP_NOSYNRETRIES"}
+	case Value(96):
+		return []string{"IPV6_VERSION"}
 	case Value(995):
 		return []string{"WSA_OPERATION_ABORTED"}
 	case Value(996):
@@ -1393,6 +2128,58 @@ func Parse(name string) (Value, bool) {
 		return AI_SECURE_WITH_FALLBACK, true
 	case "AI_V4MAPPED":
 		return AI_V4MAPPED, true
+	case "FD_ACCEPT":
+		return FD_ACCEPT, true
+	case "FD_ACCEPT_BIT":
+		return FD_ACCEPT_BIT, true
+	case "FD_ADDRESS_LIST_CHANGE_BIT":
+		return FD_ADDRESS_LIST_CHANGE_BIT, true
+	case "FD_CLOSE":
+		return FD_CLOSE, true
+	case "FD_CLOSE_BIT":
+		return FD_CLOSE_BIT, true
+	case "FD_CONNECT":
+		return FD_CONNECT, true
+	case "FD_CONNECT_BIT":
+		return FD_CONNECT_BIT, true
+	case "FD_GROUP_QOS_BIT":
+		return FD_GROUP_QOS_BIT, true
+	case "FD_MAX_EVENTS":
+		return FD_MAX_EVENTS, true
+	case "FD_OOB":
+		return FD_OOB, true
+	case "FD_OOB_BIT":
+		return FD_OOB_BIT, true
+	case "FD_QOS_BIT":
+		return FD_QOS_BIT, true
+	case "FD_READ":
+		return FD_READ, true
+	case "FD_READ_BIT":
+		return FD_READ_BIT, true
+	case "FD_ROUTING_INTERFACE_CHANGE_BIT":
+		return FD_ROUTING_INTERFACE_CHANGE_BIT, true
+	case "FD_SETSIZE":
+		return FD_SETSIZE, true
+	case "FD_WRITE":
+		return FD_WRITE, true
+	case "FD_WRITE_BIT":
+		return FD_WRITE_BIT, true
+	case "IOC_IN":
+		return IOC_IN, true
+	case "IOC_INOUT":
+		return IOC_INOUT, true
+	case "IOC_OUT":
+		return IOC_OUT, true
+	case "IOC_PROTOCOL":
+		return IOC_PROTOCOL, true
+	case "IOC_UNIX":
+		return IOC_UNIX, true
+	case "IOC_VENDOR":
+		return IOC_VENDOR, true
+	case "IOC_VOID":
+		return IOC_VOID, true
+	case "IOC_WS2":
+		return IOC_WS2, true
 	case "IPPROTO_AH":
 		return IPPROTO_AH, true
 	case "IPPROTO_CBT":
@@ -1467,6 +2254,228 @@ func Parse(name string) (Value, bool) {
 		return IPPROTO_TCP, true
 	case "IPPROTO_UDP":
 		return IPPROTO_UDP, true
+	case "IPV6_ADD_IFLIST":
+		return IPV6_ADD_IFLIST, true
+	case "IPV6_ADD_MEMBERSHIP":
+		return IPV6_ADD_MEMBERSHIP, true
+	case "IPV6_CHECKSUM":
+		return IPV6_CHECKSUM, true
+	case "IPV6_DEL_IFLIST":
+		return IPV6_DEL_IFLIST, true
+	case "IPV6_DONTFRAG":
+		return IPV6_DONTFRAG, true
+	case "IPV6_DROP_MEMBERSHIP":
+		return IPV6_DROP_MEMBERSHIP, true
+	case "IPV6_ECN":
+		return IPV6_ECN, true
+	case "IPV6_ECN_MASK":
+		return IPV6_ECN_MASK, true
+	case "IPV6_ECN_SHIFT":
+		return IPV6_ECN_SHIFT, true
+	case "IPV6_FLOW_LABEL_MASK":
+		return IPV6_FLOW_LABEL_MASK, true
+	case "IPV6_FULL_TRAFFIC_CLASS_MASK":
+		return IPV6_FULL_TRAFFIC_CLASS_MASK, true
+	case "IPV6_GET_IFLIST":
+		return IPV6_GET_IFLIST, true
+	case "IPV6_HDRINCL":
+		return IPV6_HDRINCL, true
+	case "IPV6_HOPLIMIT":
+		return IPV6_HOPLIMIT, true
+	case "IPV6_HOPOPTS":
+		return IPV6_HOPOPTS, true
+	case "IPV6_IFLIST":
+		return IPV6_IFLIST, true
+	case "IPV6_JOIN_GROUP":
+		return IPV6_JOIN_GROUP, true
+	case "IPV6_LEAVE_GROUP":
+		return IPV6_LEAVE_GROUP, true
+	case "IPV6_MINIMUM_MTU":
+		return IPV6_MINIMUM_MTU, true
+	case "IPV6_MTU":
+		return IPV6_MTU, true
+	case "IPV6_MTU_DISCOVER":
+		return IPV6_MTU_DISCOVER, true
+	case "IPV6_MULTICAST_HOPS":
+		return IPV6_MULTICAST_HOPS, true
+	case "IPV6_MULTICAST_IF":
+		return IPV6_MULTICAST_IF, true
+	case "IPV6_MULTICAST_LOOP":
+		return IPV6_MULTICAST_LOOP, true
+	case "IPV6_NRT_INTERFACE":
+		return IPV6_NRT_INTERFACE, true
+	case "IPV6_PKTINFO":
+		return IPV6_PKTINFO, true
+	case "IPV6_PKTINFO_EX":
+		return IPV6_PKTINFO_EX, true
+	case "IPV6_PROTECTION_LEVEL":
+		return IPV6_PROTECTION_LEVEL, true
+	case "IPV6_RECVDSTADDR":
+		return IPV6_RECVDSTADDR, true
+	case "IPV6_RECVECN":
+		return IPV6_RECVECN, true
+	case "IPV6_RECVERR":
+		return IPV6_RECVERR, true
+	case "IPV6_RECVIF":
+		return IPV6_RECVIF, true
+	case "IPV6_RECVRTHDR":
+		return IPV6_RECVRTHDR, true
+	case "IPV6_RECVTCLASS":
+		return IPV6_RECVTCLASS, true
+	case "IPV6_RTHDR":
+		return IPV6_RTHDR, true
+	case "IPV6_TCLASS":
+		return IPV6_TCLASS, true
+	case "IPV6_TRAFFIC_CLASS_MASK":
+		return IPV6_TRAFFIC_CLASS_MASK, true
+	case "IPV6_UNICAST_HOPS":
+		return IPV6_UNICAST_HOPS, true
+	case "IPV6_UNICAST_IF":
+		return IPV6_UNICAST_IF, true
+	case "IPV6_USER_MTU":
+		return IPV6_USER_MTU, true
+	case "IPV6_V6ONLY":
+		return IPV6_V6ONLY, true
+	case "IPV6_VERSION":
+		return IPV6_VERSION, true
+	case "IPV6_WFP_REDIRECT_CONTEXT":
+		return IPV6_WFP_REDIRECT_CONTEXT, true
+	case "IPV6_WFP_REDIRECT_RECORDS":
+		return IPV6_WFP_REDIRECT_RECORDS, true
+	case "IP_ADD_IFLIST":
+		return IP_ADD_IFLIST, true
+	case "IP_ADD_MEMBERSHIP":
+		return IP_ADD_MEMBERSHIP, true
+	case "IP_ADD_SOURCE_MEMBERSHIP":
+		return IP_ADD_SOURCE_MEMBERSHIP, true
+	case "IP_BLOCK_SOURCE":
+		return IP_BLOCK_SOURCE, true
+	case "IP_DEFAULT_MULTICAST_LOOP":
+		return IP_DEFAULT_MULTICAST_LOOP, true
+	case "IP_DEFAULT_MULTICAST_TTL":
+		return IP_DEFAULT_MULTICAST_TTL, true
+	case "IP_DEL_IFLIST":
+		return IP_DEL_IFLIST, true
+	case "IP_DONTFRAGMENT":
+		return IP_DONTFRAGMENT, true
+	case "IP_DROP_MEMBERSHIP":
+		return IP_DROP_MEMBERSHIP, true
+	case "IP_DROP_SOURCE_MEMBERSHIP":
+		return IP_DROP_SOURCE_MEMBERSHIP, true
+	case "IP_ECN":
+		return IP_ECN, true
+	case "IP_GET_IFLIST":
+		return IP_GET_IFLIST, true
+	case "IP_HDRINCL":
+		return IP_HDRINCL, true
+	case "IP_HOPLIMIT":
+		return IP_HOPLIMIT, true
+	case "IP_IFLIST":
+		return IP_IFLIST, true
+	case "IP_MAX_MEMBERSHIPS":
+		return IP_MAX_MEMBERSHIPS, true
+	case "IP_MTU":
+		return IP_MTU, true
+	case "IP_MTU_DISCOVER":
+		return IP_MTU_DISCOVER, true
+	case "IP_MULTICAST_IF":
+		return IP_MULTICAST_IF, true
+	case "IP_MULTICAST_LOOP":
+		return IP_MULTICAST_LOOP, true
+	case "IP_MULTICAST_TTL":
+		return IP_MULTICAST_TTL, true
+	case "IP_NRT_INTERFACE":
+		return IP_NRT_INTERFACE, true
+	case "IP_OPTIONS":
+		return IP_OPTIONS, true
+	case "IP_OPTION_TIMESTAMP_ADDRESS":
+		return IP_OPTION_TIMESTAMP_ADDRESS, true
+	case "IP_OPTION_TIMESTAMP_ONLY":
+		return IP_OPTION_TIMESTAMP_ONLY, true
+	case "IP_OPTION_TIMESTAMP_SPECIFIC_ADDRESS":
+		return IP_OPTION_TIMESTAMP_SPECIFIC_ADDRESS, true
+	case "IP_OPT_EOL":
+		return IP_OPT_EOL, true
+	case "IP_OPT_LSRR":
+		return IP_OPT_LSRR, true
+	case "IP_OPT_MULTIDEST":
+		return IP_OPT_MULTIDEST, true
+	case "IP_OPT_NOP":
+		return IP_OPT_NOP, true
+	case "IP_OPT_ROUTER_ALERT":
+		return IP_OPT_ROUTER_ALERT, true
+	case "IP_OPT_RR":
+		return IP_OPT_RR, true
+	case "IP_OPT_SECURITY":
+		return IP_OPT_SECURITY, true
+	case "IP_OPT_SID":
+		return IP_OPT_SID, true
+	case "IP_OPT_SSRR":
+		return IP_OPT_SSRR, true
+	case "IP_OPT_TS":
+		return IP_OPT_TS, true
+	case "IP_ORIGINAL_ARRIVAL_IF":
+		return IP_ORIGINAL_ARRIVAL_IF, true
+	case "IP_PKTINFO":
+		return IP_PKTINFO, true
+	case "IP_PKTINFO_EX":
+		return IP_PKTINFO_EX, true
+	case "IP_PMTUDISC_DO":
+		return IP_PMTUDISC_DO, true
+	case "IP_PMTUDISC_DONT":
+		return IP_PMTUDISC_DONT, true
+	case "IP_PMTUDISC_MAX":
+		return IP_PMTUDISC_MAX, true
+	case "IP_PMTUDISC_NOT_SET":
+		return IP_PMTUDISC_NOT_SET, true
+	case "IP_PMTUDISC_PROBE":
+		return IP_PMTUDISC_PROBE, true
+	case "IP_PROTECTION_LEVEL":
+		return IP_PROTECTION_LEVEL, true
+	case "IP_RECEIVE_BROADCAST":
+		return IP_RECEIVE_BROADCAST, true
+	case "IP_RECVDSTADDR":
+		return IP_RECVDSTADDR, true
+	case "IP_RECVECN":
+		return IP_RECVECN, true
+	case "IP_RECVERR":
+		return IP_RECVERR, true
+	case "IP_RECVIF":
+		return IP_RECVIF, true
+	case "IP_RECVRTHDR":
+		return IP_RECVRTHDR, true
+	case "IP_RECVTCLASS":
+		return IP_RECVTCLASS, true
+	case "IP_RECVTOS":
+		return IP_RECVTOS, true
+	case "IP_RECVTTL":
+		return IP_RECVTTL, true
+	case "IP_RTHDR":
+		return IP_RTHDR, true
+	case "IP_TCLASS":
+		return IP_TCLASS, true
+	case "IP_TOS":
+		return IP_TOS, true
+	case "IP_TTL":
+		return IP_TTL, true
+	case "IP_UNBLOCK_SOURCE":
+		return IP_UNBLOCK_SOURCE, true
+	case "IP_UNICAST_IF":
+		return IP_UNICAST_IF, true
+	case "IP_UNSPECIFIED_HOP_LIMIT":
+		return IP_UNSPECIFIED_HOP_LIMIT, true
+	case "IP_UNSPECIFIED_TYPE_OF_SERVICE":
+		return IP_UNSPECIFIED_TYPE_OF_SERVICE, true
+	case "IP_UNSPECIFIED_USER_MTU":
+		return IP_UNSPECIFIED_USER_MTU, true
+	case "IP_USER_MTU":
+		return IP_USER_MTU, true
+	case "IP_VER_MASK":
+		return IP_VER_MASK, true
+	case "IP_WFP_REDIRECT_CONTEXT":
+		return IP_WFP_REDIRECT_CONTEXT, true
+	case "IP_WFP_REDIRECT_RECORDS":
+		return IP_WFP_REDIRECT_RECORDS, true
 	case "MSG_BCAST":
 		return MSG_BCAST, true
 	case "MSG_CTRUNC":
@@ -1555,6 +2564,192 @@ func Parse(name string) (Value, bool) {
 		return PF_UNKNOWN1, true
 	case "PF_VOICEVIEW":
 		return PF_VOICEVIEW, true
+	case "POLLERR":
+		return POLLERR, true
+	case "POLLHUP":
+		return POLLHUP, true
+	case "POLLIN":
+		return POLLIN, true
+	case "POLLNVAL":
+		return POLLNVAL, true
+	case "POLLOUT":
+		return POLLOUT, true
+	case "POLLPRI":
+		return POLLPRI, true
+	case "POLLRDBAND":
+		return POLLRDBAND, true
+	case "POLLRDNORM":
+		return POLLRDNORM, true
+	case "POLLWRBAND":
+		return POLLWRBAND, true
+	case "POLLWRNORM":
+		return POLLWRNORM, true
+	case "SD_BOTH":
+		return SD_BOTH, true
+	case "SD_RECEIVE":
+		return SD_RECEIVE, true
+	case "SD_SEND":
+		return SD_SEND, true
+	case "SIO_ABSORB_RTRALERT":
+		return SIO_ABSORB_RTRALERT, true
+	case "SIO_ACQUIRE_PORT_RESERVATION":
+		return SIO_ACQUIRE_PORT_RESERVATION, true
+	case "SIO_ADDRESS_LIST_CHANGE":
+		return SIO_ADDRESS_LIST_CHANGE, true
+	case "SIO_ADDRESS_LIST_QUERY":
+		return SIO_ADDRESS_LIST_QUERY, true
+	case "SIO_ADDRESS_LIST_SORT":
+		return SIO_ADDRESS_LIST_SORT, true
+	case "SIO_AF_UNIX_GETPEERPID":
+		return SIO_AF_UNIX_GETPEERPID, true
+	case "SIO_AF_UNIX_SETBINDPARENTPATH":
+		return SIO_AF_UNIX_SETBINDPARENTPATH, true
+	case "SIO_AF_UNIX_SETCONNPARENTPATH":
+		return SIO_AF_UNIX_SETCONNPARENTPATH, true
+	case "SIO_APPLY_TRANSPORT_SETTING":
+		return SIO_APPLY_TRANSPORT_SETTING, true
+	case "SIO_ASSOCIATE_HANDLE":
+		return SIO_ASSOCIATE_HANDLE, true
+	case "SIO_ASSOCIATE_PORT_RESERVATION":
+		return SIO_ASSOCIATE_PORT_RESERVATION, true
+	case "SIO_ASSOCIATE_PVC":
+		return SIO_ASSOCIATE_PVC, true
+	case "SIO_BASE_HANDLE":
+		return SIO_BASE_HANDLE, true
+	case "SIO_BSP_HANDLE":
+		return SIO_BSP_HANDLE, true
+	case "SIO_BSP_HANDLE_POLL":
+		return SIO_BSP_HANDLE_POLL, true
+	case "SIO_BSP_HANDLE_SELECT":
+		return SIO_BSP_HANDLE_SELECT, true
+	case "SIO_CPU_AFFINITY":
+		return SIO_CPU_AFFINITY, true
+	case "SIO_DELETE_PEER_TARGET_NAME":
+		return SIO_DELETE_PEER_TARGET_NAME, true
+	case "SIO_ENABLE_CIRCULAR_QUEUEING":
+		return SIO_ENABLE_CIRCULAR_QUEUEING, true
+	case "SIO_EXT_POLL":
+		return SIO_EXT_POLL, true
+	case "SIO_EXT_SELECT":
+		return SIO_EXT_SELECT, true
+	case "SIO_EXT_SENDMSG":
+		return SIO_EXT_SENDMSG, true
+	case "SIO_FIND_ROUTE":
+		return SIO_FIND_ROUTE, true
+	case "SIO_FLUSH":
+		return SIO_FLUSH, true
+	case "SIO_GET_ATM_ADDRESS":
+		return SIO_GET_ATM_ADDRESS, true
+	case "SIO_GET_ATM_CONNECTION_ID":
+		return SIO_GET_ATM_CONNECTION_ID, true
+	case "SIO_GET_BROADCAST_ADDRESS":
+		return SIO_GET_BROADCAST_ADDRESS, true
+	case "SIO_GET_EXTENSION_FUNCTION_POINTER":
+		return SIO_GET_EXTENSION_FUNCTION_POINTER, true
+	case "SIO_GET_GROUP_QOS":
+		return SIO_GET_GROUP_QOS, true
+	case "SIO_GET_MULTIPLE_EXTENSION_FUNCTION_POINTER":
+		return SIO_GET_MULTIPLE_EXTENSION_FUNCTION_POINTER, true
+	case "SIO_GET_NUMBER_OF_ATM_DEVICES":
+		return SIO_GET_NUMBER_OF_ATM_DEVICES, true
+	case "SIO_GET_QOS":
+		return SIO_GET_QOS, true
+	case "SIO_GET_TX_TIMESTAMP":
+		return SIO_GET_TX_TIMESTAMP, true
+	case "SIO_INDEX_ADD_MCAST":
+		return SIO_INDEX_ADD_MCAST, true
+	case "SIO_INDEX_BIND":
+		return SIO_INDEX_BIND, true
+	case "SIO_INDEX_DEL_MCAST":
+		return SIO_INDEX_DEL_MCAST, true
+	case "SIO_INDEX_MCASTIF":
+		return SIO_INDEX_MCASTIF, true
+	case "SIO_KEEPALIVE_VALS":
+		return SIO_KEEPALIVE_VALS, true
+	case "SIO_LIMIT_BROADCASTS":
+		return SIO_LIMIT_BROADCASTS, true
+	case "SIO_LOOPBACK_FAST_PATH":
+		return SIO_LOOPBACK_FAST_PATH, true
+	case "SIO_MULTICAST_SCOPE":
+		return SIO_MULTICAST_SCOPE, true
+	case "SIO_MULTIPOINT_LOOPBACK":
+		return SIO_MULTIPOINT_LOOPBACK, true
+	case "SIO_NSP_NOTIFY_CHANGE":
+		return SIO_NSP_NOTIFY_CHANGE, true
+	case "SIO_PRIORITY_HINT":
+		return SIO_PRIORITY_HINT, true
+	case "SIO_QUERY_RSS_PROCESSOR_INFO":
+		return SIO_QUERY_RSS_PROCESSOR_INFO, true
+	case "SIO_QUERY_RSS_SCALABILITY_INFO":
+		return SIO_QUERY_RSS_SCALABILITY_INFO, true
+	case "SIO_QUERY_SECURITY":
+		return SIO_QUERY_SECURITY, true
+	case "SIO_QUERY_TARGET_PNP_HANDLE":
+		return SIO_QUERY_TARGET_PNP_HANDLE, true
+	case "SIO_QUERY_TRANSPORT_SETTING":
+		return SIO_QUERY_TRANSPORT_SETTING, true
+	case "SIO_QUERY_WFP_ALE_ENDPOINT_HANDLE":
+		return SIO_QUERY_WFP_ALE_ENDPOINT_HANDLE, true
+	case "SIO_QUERY_WFP_CONNECTION_REDIRECT_CONTEXT":
+		return SIO_QUERY_WFP_CONNECTION_REDIRECT_CONTEXT, true
+	case "SIO_QUERY_WFP_CONNECTION_REDIRECT_RECORDS":
+		return SIO_QUERY_WFP_CONNECTION_REDIRECT_RECORDS, true
+	case "SIO_RCVALL":
+		return SIO_RCVALL, true
+	case "SIO_RCVALL_IF":
+		return SIO_RCVALL_IF, true
+	case "SIO_RCVALL_IGMPMCAST":
+		return SIO_RCVALL_IGMPMCAST, true
+	case "SIO_RCVALL_MCAST":
+		return SIO_RCVALL_MCAST, true
+	case "SIO_RCVALL_MCAST_IF":
+		return SIO_RCVALL_MCAST_IF, true
+	case "SIO_RELEASE_PORT_RESERVATION":
+		return SIO_RELEASE_PORT_RESERVATION, true
+	case "SIO_RESERVED_1":
+		return SIO_RESERVED_1, true
+	case "SIO_RESERVED_2":
+		return SIO_RESERVED_2, true
+	case "SIO_ROUTING_INTERFACE_CHANGE":
+		return SIO_ROUTING_INTERFACE_CHANGE, true
+	case "SIO_ROUTING_INTERFACE_QUERY":
+		return SIO_ROUTING_INTERFACE_QUERY, true
+	case "SIO_SET_COMPATIBILITY_MODE":
+		return SIO_SET_COMPATIBILITY_MODE, true
+	case "SIO_SET_GROUP_QOS":
+		return SIO_SET_GROUP_QOS, true
+	case "SIO_SET_PEER_TARGET_NAME":
+		return SIO_SET_PEER_TARGET_NAME, true
+	case "SIO_SET_PRIORITY_HINT":
+		return SIO_SET_PRIORITY_HINT, true
+	case "SIO_SET_QOS":
+		return SIO_SET_QOS, true
+	case "SIO_SET_SECURITY":
+		return SIO_SET_SECURITY, true
+	case "SIO_SET_WFP_CONNECTION_REDIRECT_RECORDS":
+		return SIO_SET_WFP_CONNECTION_REDIRECT_RECORDS, true
+	case "SIO_SOCKET_CLOSE_NOTIFY":
+		return SIO_SOCKET_CLOSE_NOTIFY, true
+	case "SIO_SOCKET_USAGE_NOTIFICATION":
+		return SIO_SOCKET_USAGE_NOTIFICATION, true
+	case "SIO_TCP_INFO":
+		return SIO_TCP_INFO, true
+	case "SIO_TCP_INITIAL_RTO":
+		return SIO_TCP_INITIAL_RTO, true
+	case "SIO_TCP_SET_ACK_FREQUENCY":
+		return SIO_TCP_SET_ACK_FREQUENCY, true
+	case "SIO_TCP_SET_ICW":
+		return SIO_TCP_SET_ICW, true
+	case "SIO_TIMESTAMPING":
+		return SIO_TIMESTAMPING, true
+	case "SIO_TRANSLATE_HANDLE":
+		return SIO_TRANSLATE_HANDLE, true
+	case "SIO_UCAST_IF":
+		return SIO_UCAST_IF, true
+	case "SIO_UDP_CONNRESET":
+		return SIO_UDP_CONNRESET, true
+	case "SIO_UDP_NETRESET":
+		return SIO_UDP_NETRESET, true
 	case "SOCKET_ERROR":
 		return SOCKET_ERROR, true
 	case "SOCK_DGRAM":
@@ -1713,6 +2908,86 @@ func Parse(name string) (Value, bool) {
 		return SO_UPDATE_CONNECT_CONTEXT, true
 	case "SO_USELOOPBACK":
 		return SO_USELOOPBACK, true
+	case "TCP_ATMARK":
+		return TCP_ATMARK, true
+	case "TCP_BSDURGENT":
+		return TCP_BSDURGENT, true
+	case "TCP_CONGESTION_ALGORITHM":
+		return TCP_CONGESTION_ALGORITHM, true
+	case "TCP_DELAY_FIN_ACK":
+		return TCP_DELAY_FIN_ACK, true
+	case "TCP_EXPEDITED_1122":
+		return TCP_EXPEDITED_1122, true
+	case "TCP_FAIL_CONNECT_ON_ICMP_ERROR":
+		return TCP_FAIL_CONNECT_ON_ICMP_ERROR, true
+	case "TCP_FASTOPEN":
+		return TCP_FASTOPEN, true
+	case "TCP_ICMP_ERROR_INFO":
+		return TCP_ICMP_ERROR_INFO, true
+	case "TCP_ICW_LEVEL_AGGRESSIVE":
+		return TCP_ICW_LEVEL_AGGRESSIVE, true
+	case "TCP_ICW_LEVEL_COMPAT":
+		return TCP_ICW_LEVEL_COMPAT, true
+	case "TCP_ICW_LEVEL_DEFAULT":
+		return TCP_ICW_LEVEL_DEFAULT, true
+	case "TCP_ICW_LEVEL_EXPERIMENTAL":
+		return TCP_ICW_LEVEL_EXPERIMENTAL, true
+	case "TCP_ICW_LEVEL_HIGH":
+		return TCP_ICW_LEVEL_HIGH, true
+	case "TCP_ICW_LEVEL_MAX":
+		return TCP_ICW_LEVEL_MAX, true
+	case "TCP_ICW_LEVEL_VERY_HIGH":
+		return TCP_ICW_LEVEL_VERY_HIGH, true
+	case "TCP_INITIAL_RTO_DEFAULT_MAX_SYN_RETRANSMISSIONS":
+		return TCP_INITIAL_RTO_DEFAULT_MAX_SYN_RETRANSMISSIONS, true
+	case "TCP_INITIAL_RTO_DEFAULT_RTT":
+		return TCP_INITIAL_RTO_DEFAULT_RTT, true
+	case "TCP_INITIAL_RTO_NO_SYN_RETRANSMISSIONS":
+		return TCP_INITIAL_RTO_NO_SYN_RETRANSMISSIONS, true
+	case "TCP_INITIAL_RTO_UNSPECIFIED_MAX_SYN_RETRANSMISSIONS":
+		return TCP_INITIAL_RTO_UNSPECIFIED_MAX_SYN_RETRANSMISSIONS, true
+	case "TCP_KEEPALIVE":
+		return TCP_KEEPALIVE, true
+	case "TCP_KEEPCNT":
+		return TCP_KEEPCNT, true
+	case "TCP_KEEPIDLE":
+		return TCP_KEEPIDLE, true
+	case "TCP_KEEPINTVL":
+		return TCP_KEEPINTVL, true
+	case "TCP_MAXRT":
+		return TCP_MAXRT, true
+	case "TCP_MAXRTMS":
+		return TCP_MAXRTMS, true
+	case "TCP_MAXSEG":
+		return TCP_MAXSEG, true
+	case "TCP_NODELAY":
+		return TCP_NODELAY, true
+	case "TCP_NOSYNRETRIES":
+		return TCP_NOSYNRETRIES, true
+	case "TCP_NOURG":
+		return TCP_NOURG, true
+	case "TCP_OFFLOAD_NOT_PREFERRED":
+		return TCP_OFFLOAD_NOT_PREFERRED, true
+	case "TCP_OFFLOAD_NO_PREFERENCE":
+		return TCP_OFFLOAD_NO_PREFERENCE, true
+	case "TCP_OFFLOAD_PREFERENCE":
+		return TCP_OFFLOAD_PREFERENCE, true
+	case "TCP_OFFLOAD_PREFERRED":
+		return TCP_OFFLOAD_PREFERRED, true
+	case "TCP_STDURG":
+		return TCP_STDURG, true
+	case "TCP_TIMESTAMPS":
+		return TCP_TIMESTAMPS, true
+	case "UDP_CHECKSUM_COVERAGE":
+		return UDP_CHECKSUM_COVERAGE, true
+	case "UDP_COALESCED_INFO":
+		return UDP_COALESCED_INFO, true
+	case "UDP_NOCHECKSUM":
+		return UDP_NOCHECKSUM, true
+	case "UDP_RECV_MAX_COALESCED_SIZE":
+		return UDP_RECV_MAX_COALESCED_SIZE, true
+	case "UDP_SEND_MSG_SIZE":
+		return UDP_SEND_MSG_SIZE, true
 	case "WSABASEERR":
 		return WSABASEERR, true
 	case "WSADESCRIPTION_LEN":

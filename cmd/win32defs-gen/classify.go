@@ -80,10 +80,20 @@ var packageSpecs = []packageSpec{
 		},
 	},
 	{
+		Name: "foundation", Doc: "common Win32 boolean, path, and invalid-handle sentinel values.", TypeName: "Value",
+		Underlying: "int64", Width: 64, Signed: true, Declare: true,
+		Match: func(item metadataConstant) bool {
+			return item.Namespace == "Windows.Win32.Foundation" &&
+				hasExactName(item.Name, "FALSE", "TRUE", "INVALID_HANDLE_VALUE", "MAX_PATH")
+		},
+	},
+	{
 		Name: "filesystem", Doc: "filesystem attributes, sharing modes, dispositions, and operation flags.", TypeName: "Value",
 		Underlying: "uint64", Width: 64, Declare: true,
 		Match: func(item metadataConstant) bool {
-			return hasAnyPrefix(item.Name, "FILE_", "CREATE_", "OPEN_", "TRUNCATE_", "COPY_FILE_", "MOVEFILE_", "REPLACEFILE_")
+			return hasAnyPrefix(item.Name, "FILE_", "CREATE_", "OPEN_", "TRUNCATE_", "COPY_FILE_", "MOVEFILE_", "REPLACEFILE_") ||
+				(item.Namespace == "Windows.Win32.Storage.FileSystem" &&
+					hasExactName(item.Name, "INVALID_FILE_ATTRIBUTES", "INVALID_FILE_SIZE", "INVALID_SET_FILE_POINTER"))
 		},
 	},
 	{
@@ -122,7 +132,8 @@ var packageSpecs = []packageSpec{
 				return false
 			}
 
-			return hasAnyPrefix(item.Name, "CONSOLE_", "ENABLE_", "CTRL_", "STD_", "FOREGROUND_", "BACKGROUND_", "COMMON_LVB_")
+			return hasAnyPrefix(item.Name, "CONSOLE_", "ENABLE_", "CTRL_", "STD_", "FOREGROUND_", "BACKGROUND_", "COMMON_LVB_") ||
+				hasExactName(item.Name, "ATTACH_PARENT_PROCESS", "DISABLE_NEWLINE_AUTO_RETURN")
 		},
 	},
 	{
@@ -133,9 +144,50 @@ var packageSpecs = []packageSpec{
 				return false
 			}
 
-			return hasAnyPrefix(item.Name, "CREATE_", "STARTF_", "PROCESS_", "THREAD_") ||
+			return hasAnyPrefix(
+				item.Name,
+				"CREATE_", "STARTF_", "PROCESS_", "THREAD_", "PROC_THREAD_ATTRIBUTE_", "WT_", "TLS_", "FLS_",
+				"EVENT_", "MUTEX_", "SEMAPHORE_", "TIMER_",
+			) ||
 				hasAnySuffix(item.Name, "_PRIORITY_CLASS") ||
-				hasExactName(item.Name, "DEBUG_PROCESS", "DEBUG_ONLY_THIS_PROCESS", "DETACHED_PROCESS")
+				hasExactName(item.Name, "DEBUG_PROCESS", "DEBUG_ONLY_THIS_PROCESS", "DETACHED_PROCESS") ||
+				hasExactName(item.DeclaringType, "PROCESS_MITIGATION_POLICY", "PROC_THREAD_ATTRIBUTE_NUM", "SYNCHRONIZATION_ACCESS_RIGHTS")
+		},
+		CanonicalRank: processCanonicalRank,
+	},
+	{
+		Name: "jobobject", Doc: "job object limits, controls, information classes, and rate-control flags.", TypeName: "Value",
+		Underlying: "uint32", Width: 32, Declare: true,
+		Match: func(item metadataConstant) bool {
+			return isEnumInNamespace(item, "Windows.Win32.System.JobObjects")
+		},
+	},
+	{
+		Name: "power", Doc: "power management states, actions, policies, and notification values.", TypeName: "Value",
+		Underlying: "uint32", Width: 32, Declare: true,
+		Match: func(item metadataConstant) bool {
+			return isEnumInNamespace(item, "Windows.Win32.System.Power")
+		},
+	},
+	{
+		Name: "sysinfo", Doc: "system architecture, product, version, and processor information values.", TypeName: "Value",
+		Underlying: "uint32", Width: 32, Declare: true,
+		Match: func(item metadataConstant) bool {
+			return isEnumInNamespace(item, "Windows.Win32.System.SystemInformation")
+		},
+	},
+	{
+		Name: "toolhelp", Doc: "Tool Help snapshot and heap-entry flags.", TypeName: "Value",
+		Underlying: "uint32", Width: 32, Declare: true,
+		Match: func(item metadataConstant) bool {
+			return isEnumInNamespace(item, "Windows.Win32.System.Diagnostics.ToolHelp")
+		},
+	},
+	{
+		Name: "libraryloader", Doc: "library-loading and module-handle flags.", TypeName: "Value",
+		Underlying: "uint32", Width: 32, Declare: true,
+		Match: func(item metadataConstant) bool {
+			return isEnumInNamespace(item, "Windows.Win32.System.LibraryLoader")
 		},
 	},
 	{
@@ -146,9 +198,14 @@ var packageSpecs = []packageSpec{
 				return false
 			}
 
-			return hasAnyPrefix(item.Name, "WSA", "AF_", "PF_", "SOCK_", "IPPROTO_", "SO_", "MSG_", "AI_", "NI_") ||
+			return hasAnyPrefix(
+				item.Name,
+				"WSA", "AF_", "PF_", "SOCK_", "IPPROTO_", "SO_", "MSG_", "AI_", "NI_", "FD_", "POLL", "SD_",
+				"SIO_", "IOC_", "IP_", "IPV6_", "TCP_", "UDP_",
+			) ||
 				hasExactName(item.Name, "SOL_SOCKET", "SOMAXCONN", "SOCKET_ERROR")
 		},
+		CanonicalRank: winsockCanonicalRank,
 	},
 	{
 		Name: "winmsg", Doc: "window messages, styles, show states, message-box flags, and virtual keys.", TypeName: "Value",
@@ -158,8 +215,14 @@ var packageSpecs = []packageSpec{
 				return false
 			}
 
-			return hasAnyPrefix(item.Name, "WM_", "WS_", "SW_", "MB_", "VK_", "MOD_", "HOTKEYF_", "GWL_", "GWLP_")
+			return hasAnyPrefix(
+				item.Name,
+				"WM_", "WS_", "SW_", "MB_", "VK_", "MOD_", "HOTKEYF_", "GWL_", "GWLP_", "SPI_", "SM_", "SWP_",
+				"TPM_", "MF_", "CS_", "WH_", "QS_", "SB_", "OCR_", "IDC_", "IDI_", "GCL_", "GCLP_", "HWND_",
+				"MOUSEEVENTF_", "KEYEVENTF_", "KLF_", "MAPVK_", "TME_", "INPUT_",
+			) || hasExactName(item.Name, "CW_USEDEFAULT", "WHEEL_DELTA")
 		},
+		CanonicalRank: winmsgCanonicalRank,
 	},
 	{
 		Name: "ioctl", Doc: "I/O control device types, methods, access flags, and control codes.", TypeName: "Value",
@@ -172,6 +235,10 @@ var packageSpecs = []packageSpec{
 
 func isNTStatusConstant(item metadataConstant) bool {
 	return strings.HasSuffix(item.ManagedType, ".NTSTATUS") || item.NativeType == "NTSTATUS"
+}
+
+func isEnumInNamespace(item metadataConstant, namespace string) bool {
+	return item.Enum && item.Namespace == namespace
 }
 
 func hresultCanonicalRank(name string) int {
@@ -212,6 +279,33 @@ func ntstatusCanonicalRank(name string) int {
 	}
 
 	return 100
+}
+
+func processCanonicalRank(name string) int {
+	if hasAnyPrefix(name, "CREATE_", "STARTF_", "PROCESS_", "THREAD_") ||
+		hasAnySuffix(name, "_PRIORITY_CLASS") ||
+		hasExactName(name, "DEBUG_PROCESS", "DEBUG_ONLY_THIS_PROCESS", "DETACHED_PROCESS") {
+		return 0
+	}
+
+	return 10
+}
+
+func winsockCanonicalRank(name string) int {
+	if hasAnyPrefix(name, "WSA", "AF_", "PF_", "SOCK_", "IPPROTO_", "SO_", "MSG_", "AI_", "NI_") ||
+		hasExactName(name, "SOL_SOCKET", "SOMAXCONN", "SOCKET_ERROR") {
+		return 0
+	}
+
+	return 10
+}
+
+func winmsgCanonicalRank(name string) int {
+	if hasAnyPrefix(name, "WM_", "WS_", "SW_", "MB_", "VK_", "MOD_", "HOTKEYF_", "GWL_", "GWLP_") {
+		return 0
+	}
+
+	return 10
 }
 
 func hasAnyPrefix(value string, prefixes ...string) bool {

@@ -40,6 +40,9 @@ const (
 	DEBUG_ONLY_THIS_PROCESS               Value = 0x0000000000000002
 	DEBUG_PROCESS                         Value = 0x0000000000000001
 	DETACHED_PROCESS                      Value = 0x0000000000000008
+	EVENT_ALL_ACCESS                      Value = 0x00000000001F0003
+	EVENT_MODIFY_STATE                    Value = 0x0000000000000002
+	FLS_OUT_OF_INDEXES                    Value = 0x00000000FFFFFFFF
 	// HIGH_PRIORITY_CLASS: Process that performs time-critical tasks that must be executed immediately. The threads of the
 	// process preempt the threads of normal or idle priority class processes. An example is the Task List, which must
 	// respond quickly when called by the user, regardless of the load on the operating system. Use extreme care when using
@@ -49,6 +52,10 @@ const (
 	// preempted by the threads of any process running in a higher priority class. An example is a screen saver. The
 	// idle-priority class is inherited by child processes.
 	IDLE_PRIORITY_CLASS Value = 0x0000000000000040
+	MUTEX_ALL_ACCESS    Value = 0x00000000001F0001
+	MUTEX_MODIFY_STATE  Value = 0x0000000000000001
+	// MaxProcessMitigationPolicy: Ends the enumeration.
+	MaxProcessMitigationPolicy Value = 0x0000000000000013
 	// NORMAL_PRIORITY_CLASS: Process with no special scheduling needs.
 	NORMAL_PRIORITY_CLASS                Value = 0x0000000000000020
 	PROCESS_AFFINITY_DISABLE_AUTO_UPDATE Value = 0x0000000000000000
@@ -253,32 +260,179 @@ const (
 	// background processing mode. Windows Server 2003 and Windows XP: This value is not supported.
 	PROCESS_MODE_BACKGROUND_END Value = 0x0000000000200000
 	// PROCESS_NAME_NATIVE: The name should use the native system path format.
-	PROCESS_NAME_NATIVE                              Value = 0x0000000000000001
-	PROCESS_NAME_WIN32                               Value = 0x0000000000000000
-	PROCESS_POWER_THROTTLING_CURRENT_VERSION         Value = 0x0000000000000001
-	PROCESS_POWER_THROTTLING_EXECUTION_SPEED         Value = 0x0000000000000001
-	PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION Value = 0x0000000000000004
-	PROCESS_QUERY_INFORMATION                        Value = 0x0000000000000400
-	PROCESS_QUERY_LIMITED_INFORMATION                Value = 0x0000000000001000
-	PROCESS_READ_CONTROL                             Value = 0x0000000000020000
-	PROCESS_SET_INFORMATION                          Value = 0x0000000000000200
-	PROCESS_SET_LIMITED_INFORMATION                  Value = 0x0000000000002000
-	PROCESS_SET_QUOTA                                Value = 0x0000000000000100
-	PROCESS_SET_SESSIONID                            Value = 0x0000000000000004
-	PROCESS_STANDARD_RIGHTS_REQUIRED                 Value = 0x00000000000F0000
-	PROCESS_SUSPEND_RESUME                           Value = 0x0000000000000800
-	PROCESS_SYNCHRONIZE                              Value = 0x0000000000100000
-	PROCESS_TERMINATE                                Value = 0x0000000000000001
-	PROCESS_VM_OPERATION                             Value = 0x0000000000000008
-	PROCESS_VM_READ                                  Value = 0x0000000000000010
-	PROCESS_VM_WRITE                                 Value = 0x0000000000000020
-	PROCESS_WRITE_DAC                                Value = 0x0000000000040000
-	PROCESS_WRITE_OWNER                              Value = 0x0000000000080000
+	PROCESS_NAME_NATIVE                                   Value = 0x0000000000000001
+	PROCESS_NAME_WIN32                                    Value = 0x0000000000000000
+	PROCESS_POWER_THROTTLING_CURRENT_VERSION              Value = 0x0000000000000001
+	PROCESS_POWER_THROTTLING_EXECUTION_SPEED              Value = 0x0000000000000001
+	PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION      Value = 0x0000000000000004
+	PROCESS_QUERY_INFORMATION                             Value = 0x0000000000000400
+	PROCESS_QUERY_LIMITED_INFORMATION                     Value = 0x0000000000001000
+	PROCESS_READ_CONTROL                                  Value = 0x0000000000020000
+	PROCESS_SET_INFORMATION                               Value = 0x0000000000000200
+	PROCESS_SET_LIMITED_INFORMATION                       Value = 0x0000000000002000
+	PROCESS_SET_QUOTA                                     Value = 0x0000000000000100
+	PROCESS_SET_SESSIONID                                 Value = 0x0000000000000004
+	PROCESS_STANDARD_RIGHTS_REQUIRED                      Value = 0x00000000000F0000
+	PROCESS_SUSPEND_RESUME                                Value = 0x0000000000000800
+	PROCESS_SYNCHRONIZE                                   Value = 0x0000000000100000
+	PROCESS_TERMINATE                                     Value = 0x0000000000000001
+	PROCESS_VM_OPERATION                                  Value = 0x0000000000000008
+	PROCESS_VM_READ                                       Value = 0x0000000000000010
+	PROCESS_VM_WRITE                                      Value = 0x0000000000000020
+	PROCESS_WRITE_DAC                                     Value = 0x0000000000040000
+	PROCESS_WRITE_OWNER                                   Value = 0x0000000000080000
+	PROC_THREAD_ATTRIBUTE_ADDITIVE                        Value = 0x0000000000040000
+	PROC_THREAD_ATTRIBUTE_ALL_APPLICATION_PACKAGES_POLICY Value = 0x000000000002000F
+	// PROC_THREAD_ATTRIBUTE_CHILD_PROCESS_POLICY: The lpValue parameter is a pointer to a DWORD value that specifies the
+	// child process policy. The policy specifies whether to allow a child process to be created. For information on the
+	// possible values for the DWORD to which lpValue points, see Remarks. Supported in Windows 10 and newer and Windows
+	// Server 2016 and newer.
+	PROC_THREAD_ATTRIBUTE_CHILD_PROCESS_POLICY Value = 0x000000000002000E
+	PROC_THREAD_ATTRIBUTE_COMPONENT_FILTER     Value = 0x000000000002001A
+	// PROC_THREAD_ATTRIBUTE_DESKTOP_APP_POLICY: This attribute is relevant only to win32 applications that have been
+	// converted to UWP packages by using the Desktop Bridge . The lpValue parameter is a pointer to a DWORD value that
+	// specifies the desktop app policy. The policy specifies whether descendant processes should continue to run in the
+	// desktop environment. For information about the possible values for the DWORD to which lpValue points, see Remarks.
+	// Supported in Windows 10 Version 1703 and newer and Windows Server Version 1709 and newer.
+	PROC_THREAD_ATTRIBUTE_DESKTOP_APP_POLICY Value = 0x0000000000020012
+	// PROC_THREAD_ATTRIBUTE_ENABLE_OPTIONAL_XSTATE_FEATURES: The lpValue parameter is a pointer to a DWORD64 value that
+	// specifies the set of optional XState features to enable for the new thread. Supported in Windows 11 and newer and
+	// Windows Server 2022 and newer.
+	PROC_THREAD_ATTRIBUTE_ENABLE_OPTIONAL_XSTATE_FEATURES Value = 0x000000000003001B
+	// PROC_THREAD_ATTRIBUTE_GROUP_AFFINITY: The lpValue parameter is a pointer to a GROUP_AFFINITY structure that
+	// specifies the processor group affinity for the new thread. Supported in Windows 7 and newer and Windows Server 2008
+	// R2 and newer.
+	PROC_THREAD_ATTRIBUTE_GROUP_AFFINITY Value = 0x0000000000030003
+	// PROC_THREAD_ATTRIBUTE_HANDLE_LIST: The lpValue parameter is a pointer to a list of handles to be inherited by the
+	// child process. These handles must be created as inheritable handles and must not include pseudo handles such as
+	// those returned by the GetCurrentProcess or GetCurrentThread function. Note if you use this attribute, pass in a
+	// value of TRUE for the bInheritHandles parameter of the CreateProcess function.
+	PROC_THREAD_ATTRIBUTE_HANDLE_LIST Value = 0x0000000000020002
+	// PROC_THREAD_ATTRIBUTE_IDEAL_PROCESSOR: The lpValue parameter is a pointer to a PROCESSOR_NUMBER structure that
+	// specifies the ideal processor for the new thread. Supported in Windows 7 and newer and Windows Server 2008 R2 and
+	// newer.
+	PROC_THREAD_ATTRIBUTE_IDEAL_PROCESSOR Value = 0x0000000000030005
+	PROC_THREAD_ATTRIBUTE_INPUT           Value = 0x0000000000020000
+	// PROC_THREAD_ATTRIBUTE_JOB_LIST: The lpValue parameter is a pointer to a list of job handles to be assigned to the
+	// child process, in the order specified. Supported in Windows 10 and newer and Windows Server 2016 and newer.
+	PROC_THREAD_ATTRIBUTE_JOB_LIST Value = 0x000000000002000D
+	// PROC_THREAD_ATTRIBUTE_MACHINE_TYPE: The lpValue parameter is a pointer to a WORD that specifies the machine
+	// architecture of the child process. Supported in Windows 11 and newer. The WORD pointed to by lpValue can be a value
+	// listed on IMAGE FILE MACHINE CONSTANTS .
+	PROC_THREAD_ATTRIBUTE_MACHINE_TYPE            Value = 0x0000000000020019
+	PROC_THREAD_ATTRIBUTE_MITIGATION_AUDIT_POLICY Value = 0x0000000000020018
+	// PROC_THREAD_ATTRIBUTE_MITIGATION_POLICY: The lpValue parameter is a pointer to a DWORD or DWORD64 that specifies the
+	// exploit mitigation policy for the child process. Starting in Windows 10, version 1703, this parameter can also be a
+	// pointer to a two-element DWORD64 array. The specified policy overrides the policies set for the application and the
+	// system and cannot be changed after the child process starts running. The DWORD or DWORD64 pointed to by lpValue can
+	// be one or more of the values listed in the remarks. Supported in Windows 7 and newer and Windows Server 2008 R2 and
+	// newer.
+	PROC_THREAD_ATTRIBUTE_MITIGATION_POLICY Value = 0x0000000000020007
+	PROC_THREAD_ATTRIBUTE_NUMBER            Value = 0x000000000000FFFF
+	// PROC_THREAD_ATTRIBUTE_PARENT_PROCESS: The lpValue parameter is a pointer to a handle to a process to use instead of
+	// the calling process as the parent for the process being created. The process to use must have the
+	// PROCESS_CREATE_PROCESS access right. Attributes inherited from the specified process include handles, the device
+	// map, processor affinity, priority, quotas, the process token, and job object. (Note that some attributes such as the
+	// debug port will come from the creating process, not the process specified by this handle.)
+	PROC_THREAD_ATTRIBUTE_PARENT_PROCESS Value = 0x0000000000020000
+	// PROC_THREAD_ATTRIBUTE_PREFERRED_NODE: The lpValue parameter is a pointer to the node number of the preferred NUMA
+	// node for the new process. Supported in Windows 7 and newer and Windows Server 2008 R2 and newer.
+	PROC_THREAD_ATTRIBUTE_PREFERRED_NODE Value = 0x0000000000020004
+	// PROC_THREAD_ATTRIBUTE_PROTECTION_LEVEL: The lpValue parameter is a pointer to a DWORD value of PROTECTION_LEVEL_SAME
+	// . This specifies the protection level of the child process to be the same as the protection level of its parent
+	// process. Supported in Windows 8.1 and newer and Windows Server 2012 R2 and newer.
+	PROC_THREAD_ATTRIBUTE_PROTECTION_LEVEL Value = 0x000000000002000B
+	PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE    Value = 0x0000000000020016
+	PROC_THREAD_ATTRIBUTE_REPLACE_VALUE    Value = 0x0000000000000001
+	// PROC_THREAD_ATTRIBUTE_SECURITY_CAPABILITIES: The lpValue parameter is a pointer to a SECURITY_CAPABILITIES structure
+	// that defines the security capabilities of an app container. If this attribute is set the new process will be created
+	// as an AppContainer process. Supported in Windows 8 and newer and Windows Server 2012 and newer.
+	PROC_THREAD_ATTRIBUTE_SECURITY_CAPABILITIES Value = 0x0000000000020009
+	PROC_THREAD_ATTRIBUTE_THREAD                Value = 0x0000000000010000
+	// PROC_THREAD_ATTRIBUTE_UMS_THREAD: The lpValue parameter is a pointer to a UMS_CREATE_THREAD_ATTRIBUTES structure
+	// that specifies a user-mode scheduling (UMS) thread context and a UMS completion list to associate with the thread.
+	// After the UMS thread is created, the system queues it to the specified completion list. The UMS thread runs only
+	// when an application's UMS scheduler retrieves the UMS thread from the completion list and selects it to run. For
+	// more information, see User-Mode Scheduling . Supported in Windows 7 and newer and Windows Server 2008 R2 and newer.
+	// Not supported in Windows 11 and newer (see [User-Mode Scheduling](/windows/win32/procthread/user-mode-scheduling)).
+	PROC_THREAD_ATTRIBUTE_UMS_THREAD                Value = 0x0000000000030006
+	PROC_THREAD_ATTRIBUTE_WIN32K_FILTER             Value = 0x0000000000020010
+	ProcThreadAttributeAllApplicationPackagesPolicy Value = 0x000000000000000F
+	ProcThreadAttributeChildProcessPolicy           Value = 0x000000000000000E
+	ProcThreadAttributeComponentFilter              Value = 0x000000000000001A
+	ProcThreadAttributeDesktopAppPolicy             Value = 0x0000000000000012
+	ProcThreadAttributeEnableOptionalXStateFeatures Value = 0x000000000000001B
+	ProcThreadAttributeGroupAffinity                Value = 0x0000000000000003
+	ProcThreadAttributeHandleList                   Value = 0x0000000000000002
+	ProcThreadAttributeIdealProcessor               Value = 0x0000000000000005
+	ProcThreadAttributeJobList                      Value = 0x000000000000000D
+	ProcThreadAttributeMachineType                  Value = 0x0000000000000019
+	ProcThreadAttributeMitigationAuditPolicy        Value = 0x0000000000000018
+	ProcThreadAttributeMitigationPolicy             Value = 0x0000000000000007
+	ProcThreadAttributeParentProcess                Value = 0x0000000000000000
+	ProcThreadAttributePreferredNode                Value = 0x0000000000000004
+	ProcThreadAttributeProtectionLevel              Value = 0x000000000000000B
+	ProcThreadAttributePseudoConsole                Value = 0x0000000000000016
+	ProcThreadAttributeSafeOpenPromptOriginClaim    Value = 0x0000000000000011
+	ProcThreadAttributeSecurityCapabilities         Value = 0x0000000000000009
+	ProcThreadAttributeSveVectorLength              Value = 0x000000000000001E
+	ProcThreadAttributeTrustedApp                   Value = 0x000000000000001D
+	ProcThreadAttributeUmsThread                    Value = 0x0000000000000006
+	ProcThreadAttributeWin32kFilter                 Value = 0x0000000000000010
+	// ProcessASLRPolicy: The Address Space Layout Randomization (ASLR) policy of the process.
+	ProcessASLRPolicy Value = 0x0000000000000001
+	// ProcessChildProcessPolicy: The child process policy of the process.
+	ProcessChildProcessPolicy Value = 0x000000000000000D
+	// ProcessControlFlowGuardPolicy: The Control Flow Guard (CFG) policy of the process.
+	ProcessControlFlowGuardPolicy Value = 0x0000000000000007
+	// ProcessDEPPolicy: The data execution prevention (DEP) policy of the process.
+	ProcessDEPPolicy Value = 0x0000000000000000
+	// ProcessDynamicCodePolicy: The policy that turns off the ability of the process to generate dynamic code or modify
+	// existing executable code.
+	ProcessDynamicCodePolicy Value = 0x0000000000000002
+	// ProcessExtensionPointDisablePolicy: The policy that prevents some built-in third party extension points from being
+	// turned on, which prevents legacy extension point DLLs from being loaded into the process.
+	ProcessExtensionPointDisablePolicy Value = 0x0000000000000006
+	// ProcessFontDisablePolicy: The policy that turns off the ability of the process to load non-system fonts.
+	ProcessFontDisablePolicy Value = 0x0000000000000009
+	// ProcessImageLoadPolicy: The policy that turns off the ability of the process to load images from some locations,
+	// such a remote devices or files that have the low mandatory label.
+	ProcessImageLoadPolicy Value = 0x000000000000000A
+	// ProcessMitigationOptionsMask: Returns the mask of valid bits for all the mitigation options on the system. An
+	// application can set many mitigation options without querying the operating system for mitigation options by
+	// combining bitwise with the mask to exclude all non-supported bits at once.
+	ProcessMitigationOptionsMask Value = 0x0000000000000005
+	// ProcessPayloadRestrictionPolicy: The payload restriction policy of the process.
+	ProcessPayloadRestrictionPolicy Value = 0x000000000000000C
+	// ProcessRedirectionTrustPolicy: The RedirectionGuard policy of the process.
+	ProcessRedirectionTrustPolicy Value = 0x0000000000000010
+	// ProcessSEHOPPolicy: The Structured Exception Handling Overwrite Protection (SEHOP) policy of the process.
+	ProcessSEHOPPolicy Value = 0x0000000000000012
+	// ProcessSideChannelIsolationPolicy: The side channel isolation policy of the process.
+	ProcessSideChannelIsolationPolicy Value = 0x000000000000000E
+	// ProcessSignaturePolicy: The policy of a process that can restrict image loading to those images that are either
+	// signed by Microsoft, by the Windows Store, or by Microsoft, the Windows Store and the Windows Hardware Quality Labs
+	// (WHQL).
+	ProcessSignaturePolicy Value = 0x0000000000000008
+	// ProcessStrictHandleCheckPolicy: The process will receive a fatal error if it manipulates an invalid handle. Useful
+	// for preventing downstream problems in a process due to handle misuse.
+	ProcessStrictHandleCheckPolicy Value = 0x0000000000000003
+	// ProcessSystemCallDisablePolicy: Disables the ability to use NTUser/GDI functions at the lowest layer.
+	ProcessSystemCallDisablePolicy Value = 0x0000000000000004
+	// ProcessSystemCallFilterPolicy: The system call filter policy of the process.
+	ProcessSystemCallFilterPolicy Value = 0x000000000000000B
+	// ProcessUserPointerAuthPolicy: The user pointer authentication policy of the process.
+	ProcessUserPointerAuthPolicy Value = 0x0000000000000011
+	// ProcessUserShadowStackPolicy: Windows 10, version 2004 and above: The policy regarding user-mode Hardware-enforced
+	// Stack Protection for the process.
+	ProcessUserShadowStackPolicy Value = 0x000000000000000F
 	// REALTIME_PRIORITY_CLASS: Process that has the highest possible priority. The threads of the process preempt the
 	// threads of all other processes, including operating system processes performing important tasks. For example, a
 	// real-time process that executes for more than a very brief interval can cause disk caches not to flush or cause the
 	// mouse to be unresponsive.
 	REALTIME_PRIORITY_CLASS Value = 0x0000000000000100
+	SEMAPHORE_ALL_ACCESS    Value = 0x00000000001F0003
+	SEMAPHORE_MODIFY_STATE  Value = 0x0000000000000002
 	// STARTF_FORCEOFFFEEDBACK: Indicates that the feedback cursor is forced off while the process is starting. The Normal
 	// Select cursor is displayed.
 	STARTF_FORCEOFFFEEDBACK Value = 0x0000000000000080
@@ -329,6 +483,11 @@ const (
 	// members are either the handle value specified during process creation or INVALID_HANDLE_VALUE. Handles must be
 	// closed with CloseHandle when they are no longer needed. This flag cannot be used with STARTF_USEHOTKEY .
 	STARTF_USESTDHANDLES          Value = 0x0000000000000100
+	SYNCHRONIZATION_DELETE        Value = 0x0000000000010000
+	SYNCHRONIZATION_READ_CONTROL  Value = 0x0000000000020000
+	SYNCHRONIZATION_SYNCHRONIZE   Value = 0x0000000000100000
+	SYNCHRONIZATION_WRITE_DAC     Value = 0x0000000000040000
+	SYNCHRONIZATION_WRITE_OWNER   Value = 0x0000000000080000
 	THREAD_ALL_ACCESS             Value = 0x00000000001FFFFF
 	THREAD_CREATE_RUN_IMMEDIATELY Value = 0x0000000000000000
 	THREAD_CREATE_SUSPENDED       Value = 0x0000000000000004
@@ -382,6 +541,38 @@ const (
 	THREAD_TERMINATE                 Value = 0x0000000000000001
 	THREAD_WRITE_DAC                 Value = 0x0000000000040000
 	THREAD_WRITE_OWNER               Value = 0x0000000000080000
+	TIMER_ALL_ACCESS                 Value = 0x00000000001F0003
+	TIMER_MODIFY_STATE               Value = 0x0000000000000002
+	TIMER_QUERY_STATE                Value = 0x0000000000000001
+	TLS_OUT_OF_INDEXES               Value = 0x00000000FFFFFFFF
+	// WT_EXECUTEDEFAULT: Documentation varies per use. Refer to each: CreateTimerQueueTimer , QueueUserWorkItem ,
+	// RegisterWaitForSingleObject .
+	WT_EXECUTEDEFAULT Value = 0x0000000000000000
+	// WT_EXECUTEINIOTHREAD: This flag is not used. Windows Server 2003 and Windows XP: The callback function is queued to
+	// an I/O worker thread. This flag should be used if the function should be executed in a thread that waits in an
+	// alertable state. I/O worker threads were removed starting with Windows Vista and Windows Server 2008.
+	WT_EXECUTEINIOTHREAD Value = 0x0000000000000001
+	// WT_EXECUTEINPERSISTENTTHREAD: Documentation varies per use. Refer to each: CreateTimerQueueTimer , QueueUserWorkItem
+	// , RegisterWaitForSingleObject .
+	WT_EXECUTEINPERSISTENTTHREAD Value = 0x0000000000000080
+	// WT_EXECUTEINTIMERTHREAD: The callback function is invoked by the timer thread itself. This flag should be used only
+	// for short tasks or it could affect other timer operations. The callback function is queued as an APC. It should not
+	// perform alertable wait operations.
+	WT_EXECUTEINTIMERTHREAD Value = 0x0000000000000020
+	// WT_EXECUTEINWAITTHREAD: The callback function is invoked by the wait thread itself. This flag should be used only
+	// for short tasks or it could affect other wait operations. Deadlocks can occur if some other thread acquires an
+	// exclusive lock and calls the UnregisterWait or UnregisterWaitEx function while the callback function is trying to
+	// acquire the same lock.
+	WT_EXECUTEINWAITTHREAD Value = 0x0000000000000004
+	// WT_EXECUTELONGFUNCTION: The callback function can perform a long wait. This flag helps the system to decide if it
+	// should create a new thread.
+	WT_EXECUTELONGFUNCTION Value = 0x0000000000000010
+	// WT_EXECUTEONLYONCE: Documentation varies per use. Refer to each: CreateTimerQueueTimer , RegisterWaitForSingleObject
+	// .
+	WT_EXECUTEONLYONCE Value = 0x0000000000000008
+	// WT_TRANSFER_IMPERSONATION: Documentation varies per use. Refer to each: CreateTimerQueueTimer , QueueUserWorkItem ,
+	// RegisterWaitForSingleObject .
+	WT_TRANSFER_IMPERSONATION Value = 0x0000000000000100
 )
 
 // GetCurrentProcessToken: Retrieves a pseudo-handle that you can use as a shorthand way to refer to the access token
@@ -411,14 +602,54 @@ func Name(value Value) (string, bool) {
 		return "CREATE_EVENT_MANUAL_RESET", true
 	case Value(0x0000000000000002):
 		return "CREATE_EVENT_INITIAL_SET", true
+	case Value(0x0000000000000003):
+		return "ProcThreadAttributeGroupAffinity", true
 	case Value(0x0000000000000004):
 		return "CREATE_SUSPENDED", true
+	case Value(0x0000000000000005):
+		return "ProcThreadAttributeIdealProcessor", true
+	case Value(0x0000000000000006):
+		return "ProcThreadAttributeUmsThread", true
+	case Value(0x0000000000000007):
+		return "ProcThreadAttributeMitigationPolicy", true
 	case Value(0x0000000000000008):
 		return "DETACHED_PROCESS", true
+	case Value(0x0000000000000009):
+		return "ProcThreadAttributeSecurityCapabilities", true
+	case Value(0x000000000000000A):
+		return "ProcessImageLoadPolicy", true
+	case Value(0x000000000000000B):
+		return "ProcThreadAttributeProtectionLevel", true
+	case Value(0x000000000000000C):
+		return "ProcessPayloadRestrictionPolicy", true
+	case Value(0x000000000000000D):
+		return "ProcThreadAttributeJobList", true
+	case Value(0x000000000000000E):
+		return "ProcThreadAttributeChildProcessPolicy", true
 	case Value(0x000000000000000F):
 		return "THREAD_PRIORITY_TIME_CRITICAL", true
 	case Value(0x0000000000000010):
 		return "CREATE_NEW_CONSOLE", true
+	case Value(0x0000000000000011):
+		return "ProcThreadAttributeSafeOpenPromptOriginClaim", true
+	case Value(0x0000000000000012):
+		return "ProcThreadAttributeDesktopAppPolicy", true
+	case Value(0x0000000000000013):
+		return "MaxProcessMitigationPolicy", true
+	case Value(0x0000000000000016):
+		return "ProcThreadAttributePseudoConsole", true
+	case Value(0x0000000000000018):
+		return "ProcThreadAttributeMitigationAuditPolicy", true
+	case Value(0x0000000000000019):
+		return "ProcThreadAttributeMachineType", true
+	case Value(0x000000000000001A):
+		return "ProcThreadAttributeComponentFilter", true
+	case Value(0x000000000000001B):
+		return "ProcThreadAttributeEnableOptionalXStateFeatures", true
+	case Value(0x000000000000001D):
+		return "ProcThreadAttributeTrustedApp", true
+	case Value(0x000000000000001E):
+		return "ProcThreadAttributeSveVectorLength", true
 	case Value(0x0000000000000020):
 		return "NORMAL_PRIORITY_CLASS", true
 	case Value(0x0000000000000030):
@@ -447,12 +678,50 @@ func Name(value Value) (string, bool) {
 		return "BELOW_NORMAL_PRIORITY_CLASS", true
 	case Value(0x0000000000008000):
 		return "ABOVE_NORMAL_PRIORITY_CLASS", true
+	case Value(0x000000000000FFFF):
+		return "PROC_THREAD_ATTRIBUTE_NUMBER", true
 	case Value(0x0000000000010000):
 		return "PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_ALWAYS_ON", true
 	case Value(0x0000000000020000):
 		return "PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_ALWAYS_OFF", true
+	case Value(0x0000000000020002):
+		return "PROC_THREAD_ATTRIBUTE_HANDLE_LIST", true
+	case Value(0x0000000000020004):
+		return "PROC_THREAD_ATTRIBUTE_PREFERRED_NODE", true
+	case Value(0x0000000000020007):
+		return "PROC_THREAD_ATTRIBUTE_MITIGATION_POLICY", true
+	case Value(0x0000000000020009):
+		return "PROC_THREAD_ATTRIBUTE_SECURITY_CAPABILITIES", true
+	case Value(0x000000000002000B):
+		return "PROC_THREAD_ATTRIBUTE_PROTECTION_LEVEL", true
+	case Value(0x000000000002000D):
+		return "PROC_THREAD_ATTRIBUTE_JOB_LIST", true
+	case Value(0x000000000002000E):
+		return "PROC_THREAD_ATTRIBUTE_CHILD_PROCESS_POLICY", true
+	case Value(0x000000000002000F):
+		return "PROC_THREAD_ATTRIBUTE_ALL_APPLICATION_PACKAGES_POLICY", true
+	case Value(0x0000000000020010):
+		return "PROC_THREAD_ATTRIBUTE_WIN32K_FILTER", true
+	case Value(0x0000000000020012):
+		return "PROC_THREAD_ATTRIBUTE_DESKTOP_APP_POLICY", true
+	case Value(0x0000000000020016):
+		return "PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE", true
+	case Value(0x0000000000020018):
+		return "PROC_THREAD_ATTRIBUTE_MITIGATION_AUDIT_POLICY", true
+	case Value(0x0000000000020019):
+		return "PROC_THREAD_ATTRIBUTE_MACHINE_TYPE", true
+	case Value(0x000000000002001A):
+		return "PROC_THREAD_ATTRIBUTE_COMPONENT_FILTER", true
 	case Value(0x0000000000030000):
 		return "PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_MASK", true
+	case Value(0x0000000000030003):
+		return "PROC_THREAD_ATTRIBUTE_GROUP_AFFINITY", true
+	case Value(0x0000000000030005):
+		return "PROC_THREAD_ATTRIBUTE_IDEAL_PROCESSOR", true
+	case Value(0x0000000000030006):
+		return "PROC_THREAD_ATTRIBUTE_UMS_THREAD", true
+	case Value(0x000000000003001B):
+		return "PROC_THREAD_ATTRIBUTE_ENABLE_OPTIONAL_XSTATE_FEATURES", true
 	case Value(0x0000000000040000):
 		return "CREATE_PROTECTED_PROCESS", true
 	case Value(0x0000000000080000):
@@ -461,6 +730,10 @@ func Name(value Value) (string, bool) {
 		return "PROCESS_STANDARD_RIGHTS_REQUIRED", true
 	case Value(0x0000000000100000):
 		return "PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_ALWAYS_ON", true
+	case Value(0x00000000001F0001):
+		return "MUTEX_ALL_ACCESS", true
+	case Value(0x00000000001F0003):
+		return "EVENT_ALL_ACCESS", true
 	case Value(0x00000000001FFFFF):
 		return "PROCESS_ALL_ACCESS", true
 	case Value(0x0000000000200000):
@@ -550,29 +823,69 @@ func Name(value Value) (string, bool) {
 func Names(value Value) []string {
 	switch value {
 	case Value(0x0000000000000000):
-		return []string{"PROCESS_AFFINITY_DISABLE_AUTO_UPDATE", "PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_DEFER", "PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_DEFER", "PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_DEFER", "PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_FSCTL_SYSTEM_CALL_DISABLE_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_POINTER_AUTH_USER_IP_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_CORE_SHARING_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_FONT_DISABLE_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_DEFER", "PROCESS_DEP_NONE", "PROCESS_NAME_WIN32", "THREAD_CREATE_RUN_IMMEDIATELY", "THREAD_PRIORITY_NORMAL"}
+		return []string{"PROCESS_AFFINITY_DISABLE_AUTO_UPDATE", "PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_DEFER", "PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_DEFER", "PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_DEFER", "PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_FSCTL_SYSTEM_CALL_DISABLE_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_POINTER_AUTH_USER_IP_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_CORE_SHARING_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_DEFER", "PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_FONT_DISABLE_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_DEFER", "PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_DEFER", "PROCESS_DEP_NONE", "PROCESS_NAME_WIN32", "ProcThreadAttributeParentProcess", "ProcessDEPPolicy", "THREAD_CREATE_RUN_IMMEDIATELY", "THREAD_PRIORITY_NORMAL", "WT_EXECUTEDEFAULT"}
 	case Value(0x0000000000000001):
-		return []string{"CREATE_EVENT_MANUAL_RESET", "CREATE_MUTEX_INITIAL_OWNER", "CREATE_WAITABLE_TIMER_MANUAL_RESET", "DEBUG_PROCESS", "PROCESS_AFFINITY_ENABLE_AUTO_UPDATE", "PROCESS_CREATION_ALL_APPLICATION_PACKAGES_OPT_OUT", "PROCESS_CREATION_CHILD_PROCESS_RESTRICTED", "PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_ENABLE_PROCESS_TREE", "PROCESS_CREATION_MITIGATION_POLICY_DEP_ENABLE", "PROCESS_DEP_ENABLE", "PROCESS_LEAP_SECOND_INFO_FLAG_ENABLE_SIXTY_SECOND", "PROCESS_LEAP_SECOND_INFO_VALID_FLAGS", "PROCESS_NAME_NATIVE", "PROCESS_POWER_THROTTLING_CURRENT_VERSION", "PROCESS_POWER_THROTTLING_EXECUTION_SPEED", "PROCESS_TERMINATE", "STARTF_USESHOWWINDOW", "THREAD_POWER_THROTTLING_CURRENT_VERSION", "THREAD_POWER_THROTTLING_EXECUTION_SPEED", "THREAD_POWER_THROTTLING_VALID_FLAGS", "THREAD_PRIORITY_ABOVE_NORMAL", "THREAD_TERMINATE"}
+		return []string{"CREATE_EVENT_MANUAL_RESET", "CREATE_MUTEX_INITIAL_OWNER", "CREATE_WAITABLE_TIMER_MANUAL_RESET", "DEBUG_PROCESS", "MUTEX_MODIFY_STATE", "PROCESS_AFFINITY_ENABLE_AUTO_UPDATE", "PROCESS_CREATION_ALL_APPLICATION_PACKAGES_OPT_OUT", "PROCESS_CREATION_CHILD_PROCESS_RESTRICTED", "PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_ENABLE_PROCESS_TREE", "PROCESS_CREATION_MITIGATION_POLICY_DEP_ENABLE", "PROCESS_DEP_ENABLE", "PROCESS_LEAP_SECOND_INFO_FLAG_ENABLE_SIXTY_SECOND", "PROCESS_LEAP_SECOND_INFO_VALID_FLAGS", "PROCESS_NAME_NATIVE", "PROCESS_POWER_THROTTLING_CURRENT_VERSION", "PROCESS_POWER_THROTTLING_EXECUTION_SPEED", "PROCESS_TERMINATE", "PROC_THREAD_ATTRIBUTE_REPLACE_VALUE", "ProcessASLRPolicy", "STARTF_USESHOWWINDOW", "THREAD_POWER_THROTTLING_CURRENT_VERSION", "THREAD_POWER_THROTTLING_EXECUTION_SPEED", "THREAD_POWER_THROTTLING_VALID_FLAGS", "THREAD_PRIORITY_ABOVE_NORMAL", "THREAD_TERMINATE", "TIMER_QUERY_STATE", "WT_EXECUTEINIOTHREAD"}
 	case Value(0x0000000000000002):
-		return []string{"CREATE_EVENT_INITIAL_SET", "CREATE_WAITABLE_TIMER_HIGH_RESOLUTION", "DEBUG_ONLY_THIS_PROCESS", "PROCESS_CREATE_THREAD", "PROCESS_CREATION_CHILD_PROCESS_OVERRIDE", "PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_DISABLE_PROCESS_TREE", "PROCESS_CREATION_MITIGATION_POLICY_DEP_ATL_THUNK_ENABLE", "PROCESS_DEP_DISABLE_ATL_THUNK_EMULATION", "STARTF_USESIZE", "THREAD_PRIORITY_HIGHEST", "THREAD_SUSPEND_RESUME"}
+		return []string{"CREATE_EVENT_INITIAL_SET", "CREATE_WAITABLE_TIMER_HIGH_RESOLUTION", "DEBUG_ONLY_THIS_PROCESS", "EVENT_MODIFY_STATE", "PROCESS_CREATE_THREAD", "PROCESS_CREATION_CHILD_PROCESS_OVERRIDE", "PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_DISABLE_PROCESS_TREE", "PROCESS_CREATION_MITIGATION_POLICY_DEP_ATL_THUNK_ENABLE", "PROCESS_DEP_DISABLE_ATL_THUNK_EMULATION", "ProcThreadAttributeHandleList", "ProcessDynamicCodePolicy", "SEMAPHORE_MODIFY_STATE", "STARTF_USESIZE", "THREAD_PRIORITY_HIGHEST", "THREAD_SUSPEND_RESUME", "TIMER_MODIFY_STATE"}
+	case Value(0x0000000000000003):
+		return []string{"ProcThreadAttributeGroupAffinity", "ProcessStrictHandleCheckPolicy"}
 	case Value(0x0000000000000004):
-		return []string{"CREATE_SUSPENDED", "PROCESS_CREATION_CHILD_PROCESS_RESTRICTED_UNLESS_SECURE", "PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_OVERRIDE", "PROCESS_CREATION_MITIGATION_POLICY_SEHOP_ENABLE", "PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION", "PROCESS_SET_SESSIONID", "STARTF_USEPOSITION", "THREAD_CREATE_SUSPENDED"}
+		return []string{"CREATE_SUSPENDED", "PROCESS_CREATION_CHILD_PROCESS_RESTRICTED_UNLESS_SECURE", "PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_OVERRIDE", "PROCESS_CREATION_MITIGATION_POLICY_SEHOP_ENABLE", "PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION", "PROCESS_SET_SESSIONID", "ProcThreadAttributePreferredNode", "ProcessSystemCallDisablePolicy", "STARTF_USEPOSITION", "THREAD_CREATE_SUSPENDED", "WT_EXECUTEINWAITTHREAD"}
+	case Value(0x0000000000000005):
+		return []string{"ProcThreadAttributeIdealProcessor", "ProcessMitigationOptionsMask"}
+	case Value(0x0000000000000006):
+		return []string{"ProcThreadAttributeUmsThread", "ProcessExtensionPointDisablePolicy"}
+	case Value(0x0000000000000007):
+		return []string{"ProcThreadAttributeMitigationPolicy", "ProcessControlFlowGuardPolicy"}
 	case Value(0x0000000000000008):
-		return []string{"DETACHED_PROCESS", "PROCESS_CREATION_DESKTOP_APP_TRUSTED_LAUNCH_ALLOW_WINDOWS_HOST", "PROCESS_VM_OPERATION", "STARTF_USECOUNTCHARS", "THREAD_GET_CONTEXT"}
+		return []string{"DETACHED_PROCESS", "PROCESS_CREATION_DESKTOP_APP_TRUSTED_LAUNCH_ALLOW_WINDOWS_HOST", "PROCESS_VM_OPERATION", "ProcessSignaturePolicy", "STARTF_USECOUNTCHARS", "THREAD_GET_CONTEXT", "WT_EXECUTEONLYONCE"}
+	case Value(0x0000000000000009):
+		return []string{"ProcThreadAttributeSecurityCapabilities", "ProcessFontDisablePolicy"}
+	case Value(0x000000000000000A):
+		return []string{"ProcessImageLoadPolicy"}
+	case Value(0x000000000000000B):
+		return []string{"ProcThreadAttributeProtectionLevel", "ProcessSystemCallFilterPolicy"}
+	case Value(0x000000000000000C):
+		return []string{"ProcessPayloadRestrictionPolicy"}
+	case Value(0x000000000000000D):
+		return []string{"ProcThreadAttributeJobList", "ProcessChildProcessPolicy"}
+	case Value(0x000000000000000E):
+		return []string{"ProcThreadAttributeChildProcessPolicy", "ProcessSideChannelIsolationPolicy"}
 	case Value(0x000000000000000F):
-		return []string{"THREAD_PRIORITY_TIME_CRITICAL"}
+		return []string{"ProcThreadAttributeAllApplicationPackagesPolicy", "ProcessUserShadowStackPolicy", "THREAD_PRIORITY_TIME_CRITICAL"}
 	case Value(0x0000000000000010):
-		return []string{"CREATE_NEW_CONSOLE", "PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_ALWAYS_ON", "PROCESS_VM_READ", "STARTF_USEFILLATTRIBUTE", "THREAD_SET_CONTEXT"}
+		return []string{"CREATE_NEW_CONSOLE", "PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_ALWAYS_ON", "PROCESS_VM_READ", "ProcThreadAttributeWin32kFilter", "ProcessRedirectionTrustPolicy", "STARTF_USEFILLATTRIBUTE", "THREAD_SET_CONTEXT", "WT_EXECUTELONGFUNCTION"}
+	case Value(0x0000000000000011):
+		return []string{"ProcThreadAttributeSafeOpenPromptOriginClaim", "ProcessUserPointerAuthPolicy"}
+	case Value(0x0000000000000012):
+		return []string{"ProcThreadAttributeDesktopAppPolicy", "ProcessSEHOPPolicy"}
+	case Value(0x0000000000000013):
+		return []string{"MaxProcessMitigationPolicy"}
+	case Value(0x0000000000000016):
+		return []string{"ProcThreadAttributePseudoConsole"}
+	case Value(0x0000000000000018):
+		return []string{"ProcThreadAttributeMitigationAuditPolicy"}
+	case Value(0x0000000000000019):
+		return []string{"ProcThreadAttributeMachineType"}
+	case Value(0x000000000000001A):
+		return []string{"ProcThreadAttributeComponentFilter"}
+	case Value(0x000000000000001B):
+		return []string{"ProcThreadAttributeEnableOptionalXStateFeatures"}
+	case Value(0x000000000000001D):
+		return []string{"ProcThreadAttributeTrustedApp"}
+	case Value(0x000000000000001E):
+		return []string{"ProcThreadAttributeSveVectorLength"}
 	case Value(0x0000000000000020):
-		return []string{"NORMAL_PRIORITY_CLASS", "PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_ALWAYS_OFF", "PROCESS_VM_WRITE", "STARTF_RUNFULLSCREEN", "THREAD_SET_INFORMATION"}
+		return []string{"NORMAL_PRIORITY_CLASS", "PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_ALWAYS_OFF", "PROCESS_VM_WRITE", "STARTF_RUNFULLSCREEN", "THREAD_SET_INFORMATION", "WT_EXECUTEINTIMERTHREAD"}
 	case Value(0x0000000000000030):
 		return []string{"PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_AUDIT", "PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_MASK"}
 	case Value(0x0000000000000040):
 		return []string{"IDLE_PRIORITY_CLASS", "PROCESS_DUP_HANDLE", "STARTF_FORCEONFEEDBACK", "THREAD_QUERY_INFORMATION"}
 	case Value(0x0000000000000080):
-		return []string{"HIGH_PRIORITY_CLASS", "PROCESS_CREATE_PROCESS", "STARTF_FORCEOFFFEEDBACK", "THREAD_SET_THREAD_TOKEN"}
+		return []string{"HIGH_PRIORITY_CLASS", "PROCESS_CREATE_PROCESS", "STARTF_FORCEOFFFEEDBACK", "THREAD_SET_THREAD_TOKEN", "WT_EXECUTEINPERSISTENTTHREAD"}
 	case Value(0x0000000000000100):
-		return []string{"PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_ALWAYS_ON", "PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_ALWAYS_ON", "PROCESS_SET_QUOTA", "REALTIME_PRIORITY_CLASS", "STARTF_USESTDHANDLES", "THREAD_IMPERSONATE"}
+		return []string{"PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_ALWAYS_ON", "PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_ALWAYS_ON", "PROCESS_SET_QUOTA", "REALTIME_PRIORITY_CLASS", "STARTF_USESTDHANDLES", "THREAD_IMPERSONATE", "WT_TRANSFER_IMPERSONATION"}
 	case Value(0x0000000000000200):
 		return []string{"CREATE_NEW_PROCESS_GROUP", "PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_ALWAYS_OFF", "PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_ALWAYS_OFF", "PROCESS_SET_INFORMATION", "STARTF_USEHOTKEY", "THREAD_DIRECT_IMPERSONATION"}
 	case Value(0x0000000000000300):
@@ -591,20 +904,62 @@ func Names(value Value) []string {
 		return []string{"BELOW_NORMAL_PRIORITY_CLASS"}
 	case Value(0x0000000000008000):
 		return []string{"ABOVE_NORMAL_PRIORITY_CLASS", "STARTF_UNTRUSTEDSOURCE"}
+	case Value(0x000000000000FFFF):
+		return []string{"PROC_THREAD_ATTRIBUTE_NUMBER"}
 	case Value(0x0000000000010000):
-		return []string{"PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_ALWAYS_ON", "PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_ALWAYS_ON", "PROCESS_DELETE", "THREAD_DELETE", "THREAD_MODE_BACKGROUND_BEGIN"}
+		return []string{"PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_ALWAYS_ON", "PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_ALWAYS_ON", "PROCESS_DELETE", "PROC_THREAD_ATTRIBUTE_THREAD", "SYNCHRONIZATION_DELETE", "THREAD_DELETE", "THREAD_MODE_BACKGROUND_BEGIN"}
 	case Value(0x0000000000020000):
-		return []string{"PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_ALWAYS_OFF", "PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_ALWAYS_OFF", "PROCESS_READ_CONTROL", "THREAD_MODE_BACKGROUND_END", "THREAD_READ_CONTROL"}
+		return []string{"PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_ALWAYS_OFF", "PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_ALWAYS_OFF", "PROCESS_READ_CONTROL", "PROC_THREAD_ATTRIBUTE_INPUT", "PROC_THREAD_ATTRIBUTE_PARENT_PROCESS", "SYNCHRONIZATION_READ_CONTROL", "THREAD_MODE_BACKGROUND_END", "THREAD_READ_CONTROL"}
+	case Value(0x0000000000020002):
+		return []string{"PROC_THREAD_ATTRIBUTE_HANDLE_LIST"}
+	case Value(0x0000000000020004):
+		return []string{"PROC_THREAD_ATTRIBUTE_PREFERRED_NODE"}
+	case Value(0x0000000000020007):
+		return []string{"PROC_THREAD_ATTRIBUTE_MITIGATION_POLICY"}
+	case Value(0x0000000000020009):
+		return []string{"PROC_THREAD_ATTRIBUTE_SECURITY_CAPABILITIES"}
+	case Value(0x000000000002000B):
+		return []string{"PROC_THREAD_ATTRIBUTE_PROTECTION_LEVEL"}
+	case Value(0x000000000002000D):
+		return []string{"PROC_THREAD_ATTRIBUTE_JOB_LIST"}
+	case Value(0x000000000002000E):
+		return []string{"PROC_THREAD_ATTRIBUTE_CHILD_PROCESS_POLICY"}
+	case Value(0x000000000002000F):
+		return []string{"PROC_THREAD_ATTRIBUTE_ALL_APPLICATION_PACKAGES_POLICY"}
+	case Value(0x0000000000020010):
+		return []string{"PROC_THREAD_ATTRIBUTE_WIN32K_FILTER"}
+	case Value(0x0000000000020012):
+		return []string{"PROC_THREAD_ATTRIBUTE_DESKTOP_APP_POLICY"}
+	case Value(0x0000000000020016):
+		return []string{"PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE"}
+	case Value(0x0000000000020018):
+		return []string{"PROC_THREAD_ATTRIBUTE_MITIGATION_AUDIT_POLICY"}
+	case Value(0x0000000000020019):
+		return []string{"PROC_THREAD_ATTRIBUTE_MACHINE_TYPE"}
+	case Value(0x000000000002001A):
+		return []string{"PROC_THREAD_ATTRIBUTE_COMPONENT_FILTER"}
 	case Value(0x0000000000030000):
 		return []string{"PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_MASK", "PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_RESERVED", "PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_MASK", "PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_RESERVED"}
+	case Value(0x0000000000030003):
+		return []string{"PROC_THREAD_ATTRIBUTE_GROUP_AFFINITY"}
+	case Value(0x0000000000030005):
+		return []string{"PROC_THREAD_ATTRIBUTE_IDEAL_PROCESSOR"}
+	case Value(0x0000000000030006):
+		return []string{"PROC_THREAD_ATTRIBUTE_UMS_THREAD"}
+	case Value(0x000000000003001B):
+		return []string{"PROC_THREAD_ATTRIBUTE_ENABLE_OPTIONAL_XSTATE_FEATURES"}
 	case Value(0x0000000000040000):
-		return []string{"CREATE_PROTECTED_PROCESS", "PROCESS_WRITE_DAC", "THREAD_WRITE_DAC"}
+		return []string{"CREATE_PROTECTED_PROCESS", "PROCESS_WRITE_DAC", "PROC_THREAD_ATTRIBUTE_ADDITIVE", "SYNCHRONIZATION_WRITE_DAC", "THREAD_WRITE_DAC"}
 	case Value(0x0000000000080000):
-		return []string{"PROCESS_WRITE_OWNER", "THREAD_WRITE_OWNER"}
+		return []string{"PROCESS_WRITE_OWNER", "SYNCHRONIZATION_WRITE_OWNER", "THREAD_WRITE_OWNER"}
 	case Value(0x00000000000F0000):
 		return []string{"PROCESS_STANDARD_RIGHTS_REQUIRED", "THREAD_STANDARD_RIGHTS_REQUIRED"}
 	case Value(0x0000000000100000):
-		return []string{"PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_ALWAYS_ON", "PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_ALWAYS_ON", "PROCESS_MODE_BACKGROUND_BEGIN", "PROCESS_SYNCHRONIZE", "THREAD_SYNCHRONIZE"}
+		return []string{"PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_ALWAYS_ON", "PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_ALWAYS_ON", "PROCESS_MODE_BACKGROUND_BEGIN", "PROCESS_SYNCHRONIZE", "SYNCHRONIZATION_SYNCHRONIZE", "THREAD_SYNCHRONIZE"}
+	case Value(0x00000000001F0001):
+		return []string{"MUTEX_ALL_ACCESS"}
+	case Value(0x00000000001F0003):
+		return []string{"EVENT_ALL_ACCESS", "SEMAPHORE_ALL_ACCESS", "TIMER_ALL_ACCESS"}
 	case Value(0x00000000001FFFFF):
 		return []string{"PROCESS_ALL_ACCESS", "THREAD_ALL_ACCESS"}
 	case Value(0x0000000000200000):
@@ -636,7 +991,7 @@ func Names(value Value) []string {
 	case Value(0x00000000FFFFFFFE):
 		return []string{"THREAD_PRIORITY_LOWEST", "THREAD_PRIORITY_MIN"}
 	case Value(0x00000000FFFFFFFF):
-		return []string{"THREAD_PRIORITY_BELOW_NORMAL"}
+		return []string{"FLS_OUT_OF_INDEXES", "THREAD_PRIORITY_BELOW_NORMAL", "TLS_OUT_OF_INDEXES"}
 	case Value(0x0000000100000000):
 		return []string{"PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_ALWAYS_ON", "PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_ALWAYS_ON", "PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_ALWAYS_ON"}
 	case Value(0x0000000200000000):
@@ -741,10 +1096,22 @@ func Parse(name string) (Value, bool) {
 		return DEBUG_PROCESS, true
 	case "DETACHED_PROCESS":
 		return DETACHED_PROCESS, true
+	case "EVENT_ALL_ACCESS":
+		return EVENT_ALL_ACCESS, true
+	case "EVENT_MODIFY_STATE":
+		return EVENT_MODIFY_STATE, true
+	case "FLS_OUT_OF_INDEXES":
+		return FLS_OUT_OF_INDEXES, true
 	case "HIGH_PRIORITY_CLASS":
 		return HIGH_PRIORITY_CLASS, true
 	case "IDLE_PRIORITY_CLASS":
 		return IDLE_PRIORITY_CLASS, true
+	case "MUTEX_ALL_ACCESS":
+		return MUTEX_ALL_ACCESS, true
+	case "MUTEX_MODIFY_STATE":
+		return MUTEX_MODIFY_STATE, true
+	case "MaxProcessMitigationPolicy":
+		return MaxProcessMitigationPolicy, true
 	case "NORMAL_PRIORITY_CLASS":
 		return NORMAL_PRIORITY_CLASS, true
 	case "PROCESS_AFFINITY_DISABLE_AUTO_UPDATE":
@@ -1159,8 +1526,142 @@ func Parse(name string) (Value, bool) {
 		return PROCESS_WRITE_DAC, true
 	case "PROCESS_WRITE_OWNER":
 		return PROCESS_WRITE_OWNER, true
+	case "PROC_THREAD_ATTRIBUTE_ADDITIVE":
+		return PROC_THREAD_ATTRIBUTE_ADDITIVE, true
+	case "PROC_THREAD_ATTRIBUTE_ALL_APPLICATION_PACKAGES_POLICY":
+		return PROC_THREAD_ATTRIBUTE_ALL_APPLICATION_PACKAGES_POLICY, true
+	case "PROC_THREAD_ATTRIBUTE_CHILD_PROCESS_POLICY":
+		return PROC_THREAD_ATTRIBUTE_CHILD_PROCESS_POLICY, true
+	case "PROC_THREAD_ATTRIBUTE_COMPONENT_FILTER":
+		return PROC_THREAD_ATTRIBUTE_COMPONENT_FILTER, true
+	case "PROC_THREAD_ATTRIBUTE_DESKTOP_APP_POLICY":
+		return PROC_THREAD_ATTRIBUTE_DESKTOP_APP_POLICY, true
+	case "PROC_THREAD_ATTRIBUTE_ENABLE_OPTIONAL_XSTATE_FEATURES":
+		return PROC_THREAD_ATTRIBUTE_ENABLE_OPTIONAL_XSTATE_FEATURES, true
+	case "PROC_THREAD_ATTRIBUTE_GROUP_AFFINITY":
+		return PROC_THREAD_ATTRIBUTE_GROUP_AFFINITY, true
+	case "PROC_THREAD_ATTRIBUTE_HANDLE_LIST":
+		return PROC_THREAD_ATTRIBUTE_HANDLE_LIST, true
+	case "PROC_THREAD_ATTRIBUTE_IDEAL_PROCESSOR":
+		return PROC_THREAD_ATTRIBUTE_IDEAL_PROCESSOR, true
+	case "PROC_THREAD_ATTRIBUTE_INPUT":
+		return PROC_THREAD_ATTRIBUTE_INPUT, true
+	case "PROC_THREAD_ATTRIBUTE_JOB_LIST":
+		return PROC_THREAD_ATTRIBUTE_JOB_LIST, true
+	case "PROC_THREAD_ATTRIBUTE_MACHINE_TYPE":
+		return PROC_THREAD_ATTRIBUTE_MACHINE_TYPE, true
+	case "PROC_THREAD_ATTRIBUTE_MITIGATION_AUDIT_POLICY":
+		return PROC_THREAD_ATTRIBUTE_MITIGATION_AUDIT_POLICY, true
+	case "PROC_THREAD_ATTRIBUTE_MITIGATION_POLICY":
+		return PROC_THREAD_ATTRIBUTE_MITIGATION_POLICY, true
+	case "PROC_THREAD_ATTRIBUTE_NUMBER":
+		return PROC_THREAD_ATTRIBUTE_NUMBER, true
+	case "PROC_THREAD_ATTRIBUTE_PARENT_PROCESS":
+		return PROC_THREAD_ATTRIBUTE_PARENT_PROCESS, true
+	case "PROC_THREAD_ATTRIBUTE_PREFERRED_NODE":
+		return PROC_THREAD_ATTRIBUTE_PREFERRED_NODE, true
+	case "PROC_THREAD_ATTRIBUTE_PROTECTION_LEVEL":
+		return PROC_THREAD_ATTRIBUTE_PROTECTION_LEVEL, true
+	case "PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE":
+		return PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE, true
+	case "PROC_THREAD_ATTRIBUTE_REPLACE_VALUE":
+		return PROC_THREAD_ATTRIBUTE_REPLACE_VALUE, true
+	case "PROC_THREAD_ATTRIBUTE_SECURITY_CAPABILITIES":
+		return PROC_THREAD_ATTRIBUTE_SECURITY_CAPABILITIES, true
+	case "PROC_THREAD_ATTRIBUTE_THREAD":
+		return PROC_THREAD_ATTRIBUTE_THREAD, true
+	case "PROC_THREAD_ATTRIBUTE_UMS_THREAD":
+		return PROC_THREAD_ATTRIBUTE_UMS_THREAD, true
+	case "PROC_THREAD_ATTRIBUTE_WIN32K_FILTER":
+		return PROC_THREAD_ATTRIBUTE_WIN32K_FILTER, true
+	case "ProcThreadAttributeAllApplicationPackagesPolicy":
+		return ProcThreadAttributeAllApplicationPackagesPolicy, true
+	case "ProcThreadAttributeChildProcessPolicy":
+		return ProcThreadAttributeChildProcessPolicy, true
+	case "ProcThreadAttributeComponentFilter":
+		return ProcThreadAttributeComponentFilter, true
+	case "ProcThreadAttributeDesktopAppPolicy":
+		return ProcThreadAttributeDesktopAppPolicy, true
+	case "ProcThreadAttributeEnableOptionalXStateFeatures":
+		return ProcThreadAttributeEnableOptionalXStateFeatures, true
+	case "ProcThreadAttributeGroupAffinity":
+		return ProcThreadAttributeGroupAffinity, true
+	case "ProcThreadAttributeHandleList":
+		return ProcThreadAttributeHandleList, true
+	case "ProcThreadAttributeIdealProcessor":
+		return ProcThreadAttributeIdealProcessor, true
+	case "ProcThreadAttributeJobList":
+		return ProcThreadAttributeJobList, true
+	case "ProcThreadAttributeMachineType":
+		return ProcThreadAttributeMachineType, true
+	case "ProcThreadAttributeMitigationAuditPolicy":
+		return ProcThreadAttributeMitigationAuditPolicy, true
+	case "ProcThreadAttributeMitigationPolicy":
+		return ProcThreadAttributeMitigationPolicy, true
+	case "ProcThreadAttributeParentProcess":
+		return ProcThreadAttributeParentProcess, true
+	case "ProcThreadAttributePreferredNode":
+		return ProcThreadAttributePreferredNode, true
+	case "ProcThreadAttributeProtectionLevel":
+		return ProcThreadAttributeProtectionLevel, true
+	case "ProcThreadAttributePseudoConsole":
+		return ProcThreadAttributePseudoConsole, true
+	case "ProcThreadAttributeSafeOpenPromptOriginClaim":
+		return ProcThreadAttributeSafeOpenPromptOriginClaim, true
+	case "ProcThreadAttributeSecurityCapabilities":
+		return ProcThreadAttributeSecurityCapabilities, true
+	case "ProcThreadAttributeSveVectorLength":
+		return ProcThreadAttributeSveVectorLength, true
+	case "ProcThreadAttributeTrustedApp":
+		return ProcThreadAttributeTrustedApp, true
+	case "ProcThreadAttributeUmsThread":
+		return ProcThreadAttributeUmsThread, true
+	case "ProcThreadAttributeWin32kFilter":
+		return ProcThreadAttributeWin32kFilter, true
+	case "ProcessASLRPolicy":
+		return ProcessASLRPolicy, true
+	case "ProcessChildProcessPolicy":
+		return ProcessChildProcessPolicy, true
+	case "ProcessControlFlowGuardPolicy":
+		return ProcessControlFlowGuardPolicy, true
+	case "ProcessDEPPolicy":
+		return ProcessDEPPolicy, true
+	case "ProcessDynamicCodePolicy":
+		return ProcessDynamicCodePolicy, true
+	case "ProcessExtensionPointDisablePolicy":
+		return ProcessExtensionPointDisablePolicy, true
+	case "ProcessFontDisablePolicy":
+		return ProcessFontDisablePolicy, true
+	case "ProcessImageLoadPolicy":
+		return ProcessImageLoadPolicy, true
+	case "ProcessMitigationOptionsMask":
+		return ProcessMitigationOptionsMask, true
+	case "ProcessPayloadRestrictionPolicy":
+		return ProcessPayloadRestrictionPolicy, true
+	case "ProcessRedirectionTrustPolicy":
+		return ProcessRedirectionTrustPolicy, true
+	case "ProcessSEHOPPolicy":
+		return ProcessSEHOPPolicy, true
+	case "ProcessSideChannelIsolationPolicy":
+		return ProcessSideChannelIsolationPolicy, true
+	case "ProcessSignaturePolicy":
+		return ProcessSignaturePolicy, true
+	case "ProcessStrictHandleCheckPolicy":
+		return ProcessStrictHandleCheckPolicy, true
+	case "ProcessSystemCallDisablePolicy":
+		return ProcessSystemCallDisablePolicy, true
+	case "ProcessSystemCallFilterPolicy":
+		return ProcessSystemCallFilterPolicy, true
+	case "ProcessUserPointerAuthPolicy":
+		return ProcessUserPointerAuthPolicy, true
+	case "ProcessUserShadowStackPolicy":
+		return ProcessUserShadowStackPolicy, true
 	case "REALTIME_PRIORITY_CLASS":
 		return REALTIME_PRIORITY_CLASS, true
+	case "SEMAPHORE_ALL_ACCESS":
+		return SEMAPHORE_ALL_ACCESS, true
+	case "SEMAPHORE_MODIFY_STATE":
+		return SEMAPHORE_MODIFY_STATE, true
 	case "STARTF_FORCEOFFFEEDBACK":
 		return STARTF_FORCEOFFFEEDBACK, true
 	case "STARTF_FORCEONFEEDBACK":
@@ -1189,6 +1690,16 @@ func Parse(name string) (Value, bool) {
 		return STARTF_USESIZE, true
 	case "STARTF_USESTDHANDLES":
 		return STARTF_USESTDHANDLES, true
+	case "SYNCHRONIZATION_DELETE":
+		return SYNCHRONIZATION_DELETE, true
+	case "SYNCHRONIZATION_READ_CONTROL":
+		return SYNCHRONIZATION_READ_CONTROL, true
+	case "SYNCHRONIZATION_SYNCHRONIZE":
+		return SYNCHRONIZATION_SYNCHRONIZE, true
+	case "SYNCHRONIZATION_WRITE_DAC":
+		return SYNCHRONIZATION_WRITE_DAC, true
+	case "SYNCHRONIZATION_WRITE_OWNER":
+		return SYNCHRONIZATION_WRITE_OWNER, true
 	case "THREAD_ALL_ACCESS":
 		return THREAD_ALL_ACCESS, true
 	case "THREAD_CREATE_RUN_IMMEDIATELY":
@@ -1257,6 +1768,30 @@ func Parse(name string) (Value, bool) {
 		return THREAD_WRITE_DAC, true
 	case "THREAD_WRITE_OWNER":
 		return THREAD_WRITE_OWNER, true
+	case "TIMER_ALL_ACCESS":
+		return TIMER_ALL_ACCESS, true
+	case "TIMER_MODIFY_STATE":
+		return TIMER_MODIFY_STATE, true
+	case "TIMER_QUERY_STATE":
+		return TIMER_QUERY_STATE, true
+	case "TLS_OUT_OF_INDEXES":
+		return TLS_OUT_OF_INDEXES, true
+	case "WT_EXECUTEDEFAULT":
+		return WT_EXECUTEDEFAULT, true
+	case "WT_EXECUTEINIOTHREAD":
+		return WT_EXECUTEINIOTHREAD, true
+	case "WT_EXECUTEINPERSISTENTTHREAD":
+		return WT_EXECUTEINPERSISTENTTHREAD, true
+	case "WT_EXECUTEINTIMERTHREAD":
+		return WT_EXECUTEINTIMERTHREAD, true
+	case "WT_EXECUTEINWAITTHREAD":
+		return WT_EXECUTEINWAITTHREAD, true
+	case "WT_EXECUTELONGFUNCTION":
+		return WT_EXECUTELONGFUNCTION, true
+	case "WT_EXECUTEONLYONCE":
+		return WT_EXECUTEONLYONCE, true
+	case "WT_TRANSFER_IMPERSONATION":
+		return WT_TRANSFER_IMPERSONATION, true
 	default:
 		return Value(0), false
 	}

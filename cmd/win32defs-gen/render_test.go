@@ -72,6 +72,77 @@ func TestMeasureCoverage(t *testing.T) {
 	}
 }
 
+func TestEnumPackageClassification(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		packageName string
+		namespace   string
+	}{
+		{packageName: "jobobject", namespace: "Windows.Win32.System.JobObjects"},
+		{packageName: "power", namespace: "Windows.Win32.System.Power"},
+		{packageName: "sysinfo", namespace: "Windows.Win32.System.SystemInformation"},
+		{packageName: "toolhelp", namespace: "Windows.Win32.System.Diagnostics.ToolHelp"},
+		{packageName: "libraryloader", namespace: "Windows.Win32.System.LibraryLoader"},
+	}
+
+	for _, test := range tests {
+		t.Run(test.packageName, func(t *testing.T) {
+			t.Parallel()
+
+			item := metadataConstant{Namespace: test.namespace, Enum: true}
+			if !specByName(test.packageName).Match(item) {
+				t.Fatal("enum member was not classified")
+			}
+
+			item = metadataConstant{Namespace: test.namespace}
+			if specByName(test.packageName).Match(item) {
+				t.Fatal("loose constant was classified")
+			}
+
+			item = metadataConstant{Namespace: test.namespace + ".Other", Enum: true}
+			if specByName(test.packageName).Match(item) {
+				t.Fatal("enum member from another namespace was classified")
+			}
+		})
+	}
+}
+
+func TestSecondBatchClassification(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		packageName   string
+		namespace     string
+		declaringType string
+		name          string
+	}{
+		{packageName: "foundation", namespace: "Windows.Win32.Foundation", name: "INVALID_HANDLE_VALUE"},
+		{packageName: "filesystem", namespace: "Windows.Win32.Storage.FileSystem", name: "INVALID_FILE_ATTRIBUTES"},
+		{packageName: "console", namespace: "Windows.Win32.System.Console", name: "DISABLE_NEWLINE_AUTO_RETURN"},
+		{packageName: "process", namespace: "Windows.Win32.System.Threading", declaringType: "PROCESS_MITIGATION_POLICY", name: "ProcessDEPPolicy"},
+		{packageName: "winsock", namespace: "Windows.Win32.Networking.WinSock", name: "FD_READ"},
+		{packageName: "winmsg", namespace: "Windows.Win32.UI.WindowsAndMessaging", name: "SPI_GETWORKAREA"},
+		{packageName: "winmsg", namespace: "Windows.Win32.UI.Input.KeyboardAndMouse", name: "MOUSEEVENTF_MOVE"},
+	}
+
+	for _, test := range tests {
+		t.Run(test.packageName+"/"+test.name, func(t *testing.T) {
+			t.Parallel()
+
+			item := metadataConstant{Namespace: test.namespace, DeclaringType: test.declaringType, Name: test.name}
+			if !specByName(test.packageName).Match(item) {
+				t.Fatal("constant was not classified")
+			}
+
+			item.Namespace = "Windows.Win32.Other"
+			if specByName(test.packageName).Match(item) {
+				t.Fatal("constant from another namespace was classified")
+			}
+		})
+	}
+}
+
 func TestCollectConstantMethods(t *testing.T) {
 	t.Parallel()
 

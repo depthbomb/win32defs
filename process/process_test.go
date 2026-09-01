@@ -17,3 +17,12 @@ func TestTokenPseudoHandles(t *testing.T) {
 		t.Fatal("unexpected effective-thread token pseudo-handle")
 	}
 }
+
+func TestExpandedAliasesPreserveCanonicalNames(t *testing.T) {
+	t.Parallel()
+
+	name, ok := Name(Value(0xffffffff))
+	if !ok || name != "THREAD_PRIORITY_BELOW_NORMAL" {
+		t.Fatalf("Name(0xffffffff) = %q, %v", name, ok)
+	}
+}

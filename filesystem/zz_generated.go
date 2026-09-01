@@ -588,6 +588,9 @@ const (
 	FILE_WRITE_FLAGS_NONE                                Value = 0x0000000000000000
 	FILE_WRITE_FLAGS_WRITE_THROUGH                       Value = 0x0000000000000001
 	FILE_ZERO_DATA_INFORMATION_FLAG_PRESERVE_CACHED_DATA Value = 0x0000000000000001
+	INVALID_FILE_ATTRIBUTES                              Value = 0x00000000FFFFFFFF
+	INVALID_FILE_SIZE                                    Value = 0x00000000FFFFFFFF
+	INVALID_SET_FILE_POINTER                             Value = 0x00000000FFFFFFFF
 	// MOVEFILE_COPY_ALLOWED: Documentation varies per use. Refer to each: MoveFileEx , MoveFileEx , MoveFileExA ,
 	// MoveFileExA , MoveFileExW , MoveFileExW , MoveFileTransacted , MoveFileTransacted , MoveFileTransactedA ,
 	// MoveFileTransactedA , MoveFileTransactedW , MoveFileTransactedW , MoveFileWithProgress , MoveFileWithProgress ,
@@ -930,6 +933,8 @@ func Name(value Value) (string, bool) {
 		return "COPY_FILE_DISABLE_SPARSE_COPY", true
 	case Value(0x00000000FFFFFF00):
 		return "CREATE_CLUSTER_MAJOR_VERSION_MASK", true
+	case Value(0x00000000FFFFFFFF):
+		return "INVALID_FILE_ATTRIBUTES", true
 	case Value(0x0000000100000000):
 		return "FILE_INITIATE_REPAIR_HINT1_INVALID_LCN", true
 	case Value(0x0000000200000000):
@@ -1216,6 +1221,8 @@ func Names(value Value) []string {
 		return []string{"COPY_FILE_DISABLE_SPARSE_COPY", "CREATE_IGNORE_SYSTEM_DEFAULT", "FILE_FLAG_WRITE_THROUGH", "FILE_INITIATE_REPAIR_HINT1_OUT_OF_RESOURCE", "FILE_MAP_RESERVE"}
 	case Value(0x00000000FFFFFF00):
 		return []string{"CREATE_CLUSTER_MAJOR_VERSION_MASK"}
+	case Value(0x00000000FFFFFFFF):
+		return []string{"INVALID_FILE_ATTRIBUTES", "INVALID_FILE_SIZE", "INVALID_SET_FILE_POINTER"}
 	case Value(0x0000000100000000):
 		return []string{"FILE_INITIATE_REPAIR_HINT1_INVALID_LCN"}
 	case Value(0x0000000200000000):
@@ -2118,6 +2125,12 @@ func Parse(name string) (Value, bool) {
 		return FILE_WRITE_FLAGS_WRITE_THROUGH, true
 	case "FILE_ZERO_DATA_INFORMATION_FLAG_PRESERVE_CACHED_DATA":
 		return FILE_ZERO_DATA_INFORMATION_FLAG_PRESERVE_CACHED_DATA, true
+	case "INVALID_FILE_ATTRIBUTES":
+		return INVALID_FILE_ATTRIBUTES, true
+	case "INVALID_FILE_SIZE":
+		return INVALID_FILE_SIZE, true
+	case "INVALID_SET_FILE_POINTER":
+		return INVALID_SET_FILE_POINTER, true
 	case "MOVEFILE_COPY_ALLOWED":
 		return MOVEFILE_COPY_ALLOWED, true
 	case "MOVEFILE_CREATE_HARDLINK":

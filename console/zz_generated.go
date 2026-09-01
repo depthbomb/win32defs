@@ -9,6 +9,7 @@ package console
 type Value uint32
 
 const (
+	ATTACH_PARENT_PROCESS              Value  = 0xFFFFFFFF
 	BACKGROUND_BLUE                    Value  = 0x00000010
 	BACKGROUND_GREEN                   Value  = 0x00000020
 	BACKGROUND_INTENSITY               Value  = 0x00000080
@@ -56,6 +57,7 @@ const (
 	CTRL_C_EVENT                       Value  = 0x00000000
 	CTRL_LOGOFF_EVENT                  Value  = 0x00000005
 	CTRL_SHUTDOWN_EVENT                Value  = 0x00000006
+	DISABLE_NEWLINE_AUTO_RETURN        Value  = 0x00000008
 	ENABLE_AUTO_POSITION               Value  = 0x00000100
 	ENABLE_ECHO_INPUT                  Value  = 0x00000004
 	ENABLE_EXTENDED_FLAGS              Value  = 0x00000080
@@ -130,6 +132,8 @@ func Name(value Value) (string, bool) {
 		return "STD_OUTPUT_HANDLE", true
 	case Value(0xFFFFFFF6):
 		return "STD_INPUT_HANDLE", true
+	case Value(0xFFFFFFFF):
+		return "ATTACH_PARENT_PROCESS", true
 	default:
 		return "", false
 	}
@@ -153,7 +157,7 @@ func Names(value Value) []string {
 	case Value(0x00000006):
 		return []string{"CTRL_SHUTDOWN_EVENT"}
 	case Value(0x00000008):
-		return []string{"CONSOLE_ALTENTER", "CONSOLE_MODIFIER_ALT", "CONSOLE_MOUSE_DOWN", "ENABLE_WINDOW_INPUT", "FOREGROUND_INTENSITY"}
+		return []string{"CONSOLE_ALTENTER", "CONSOLE_MODIFIER_ALT", "CONSOLE_MOUSE_DOWN", "DISABLE_NEWLINE_AUTO_RETURN", "ENABLE_WINDOW_INPUT", "FOREGROUND_INTENSITY"}
 	case Value(0x00000010):
 		return []string{"BACKGROUND_BLUE", "CONSOLE_ALTPRTSC", "CONSOLE_SELECTION_INVERTED", "ENABLE_LVB_GRID_WORLDWIDE", "ENABLE_MOUSE_INPUT"}
 	case Value(0x00000020):
@@ -186,6 +190,8 @@ func Names(value Value) []string {
 		return []string{"STD_OUTPUT_HANDLE"}
 	case Value(0xFFFFFFF6):
 		return []string{"STD_INPUT_HANDLE"}
+	case Value(0xFFFFFFFF):
+		return []string{"ATTACH_PARENT_PROCESS"}
 	default:
 		return nil
 	}
@@ -194,6 +200,8 @@ func Names(value Value) []string {
 // Parse returns the numeric value associated with an exact symbolic name.
 func Parse(name string) (Value, bool) {
 	switch name {
+	case "ATTACH_PARENT_PROCESS":
+		return ATTACH_PARENT_PROCESS, true
 	case "BACKGROUND_BLUE":
 		return BACKGROUND_BLUE, true
 	case "BACKGROUND_GREEN":
@@ -282,6 +290,8 @@ func Parse(name string) (Value, bool) {
 		return CTRL_LOGOFF_EVENT, true
 	case "CTRL_SHUTDOWN_EVENT":
 		return CTRL_SHUTDOWN_EVENT, true
+	case "DISABLE_NEWLINE_AUTO_RETURN":
+		return DISABLE_NEWLINE_AUTO_RETURN, true
 	case "ENABLE_AUTO_POSITION":
 		return ENABLE_AUTO_POSITION, true
 	case "ENABLE_ECHO_INPUT":

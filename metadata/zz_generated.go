@@ -5,9 +5,9 @@ package metadata
 
 const (
 	SourcePackage        string = "Microsoft.Windows.SDK.Win32Metadata"
-	SourceVersion        string = "71.0.20-preview"
-	SourceSHA256         string = "43b9a07fb89fb1d43edd6a05855fe88a303bf450b267ec0c4aaf00064dc62bdb"
-	SourceURL            string = "https://api.nuget.org/v3-flatcontainer/microsoft.windows.sdk.win32metadata/71.0.20-preview/microsoft.windows.sdk.win32metadata.71.0.20-preview.nupkg"
+	SourceVersion        string = "71.0.25-preview"
+	SourceSHA256         string = "65783efbef7950839ae287fa933610eb939fcddaef80024dea8465f37a9449ad"
+	SourceURL            string = "https://api.nuget.org/v3-flatcontainer/microsoft.windows.sdk.win32metadata/71.0.25-preview/microsoft.windows.sdk.win32metadata.71.0.25-preview.nupkg"
 	DocumentationPackage string = "Microsoft.Windows.SDK.Win32Docs"
 	DocumentationVersion string = "0.1.42-alpha"
 	DocumentationSHA256  string = "e83bf398dceb1957d698d24daa8a23f986beedb0109727a0ee99b229a525230b"

@@ -2,9 +2,9 @@
   "source": {
     "metadata": {
       "package": "Microsoft.Windows.SDK.Win32Metadata",
-      "version": "71.0.20-preview",
-      "sha256": "43b9a07fb89fb1d43edd6a05855fe88a303bf450b267ec0c4aaf00064dc62bdb",
-      "url": "https://api.nuget.org/v3-flatcontainer/microsoft.windows.sdk.win32metadata/71.0.20-preview/microsoft.windows.sdk.win32metadata.71.0.20-preview.nupkg"
+      "version": "71.0.25-preview",
+      "sha256": "65783efbef7950839ae287fa933610eb939fcddaef80024dea8465f37a9449ad",
+      "url": "https://api.nuget.org/v3-flatcontainer/microsoft.windows.sdk.win32metadata/71.0.25-preview/microsoft.windows.sdk.win32metadata.71.0.25-preview.nupkg"
     },
     "documentation": {
       "package": "Microsoft.Windows.SDK.Win32Docs",

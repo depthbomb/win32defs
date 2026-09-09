@@ -317,24 +317,97 @@ const (
 	SFGAO_STREAM                Value = 0x00400000
 	SFGAO_SYSTEM                Value = 0x00001000
 	SFGAO_VALIDATE              Value = 0x01000000
-	SHGFI_ADDOVERLAYS           Value = 0x00000020
-	SHGFI_ATTRIBUTES            Value = 0x00000800
-	SHGFI_ATTR_SPECIFIED        Value = 0x00020000
-	SHGFI_DISPLAYNAME           Value = 0x00000200
-	SHGFI_EXETYPE               Value = 0x00002000
-	SHGFI_ICON                  Value = 0x00000100
-	SHGFI_ICONLOCATION          Value = 0x00001000
-	SHGFI_LARGEICON             Value = 0x00000000
-	SHGFI_LINKOVERLAY           Value = 0x00008000
-	SHGFI_OPENICON              Value = 0x00000002
-	SHGFI_OVERLAYINDEX          Value = 0x00000040
-	SHGFI_PIDL                  Value = 0x00000008
-	SHGFI_SELECTED              Value = 0x00010000
-	SHGFI_SHELLICONSIZE         Value = 0x00000004
-	SHGFI_SMALLICON             Value = 0x00000001
-	SHGFI_SYSICONINDEX          Value = 0x00004000
-	SHGFI_TYPENAME              Value = 0x00000400
-	SHGFI_USEFILEATTRIBUTES     Value = 0x00000010
+	SHCNE_ALLEVENTS             Value = 0x7FFFFFFF
+	SHCNE_ASSOCCHANGED          Value = 0x08000000
+	SHCNE_ATTRIBUTES            Value = 0x00000800
+	SHCNE_CREATE                Value = 0x00000002
+	SHCNE_DELETE                Value = 0x00000004
+	SHCNE_DISKEVENTS            Value = 0x0002381F
+	SHCNE_DRIVEADD              Value = 0x00000100
+	SHCNE_DRIVEADDGUI           Value = 0x00010000
+	SHCNE_DRIVEREMOVED          Value = 0x00000080
+	SHCNE_EXTENDED_EVENT        Value = 0x04000000
+	SHCNE_FREESPACE             Value = 0x00040000
+	SHCNE_GLOBALEVENTS          Value = 0x0C0581E0
+	SHCNE_INTERRUPT             Value = 0x80000000
+	SHCNE_MEDIAINSERTED         Value = 0x00000020
+	SHCNE_MEDIAREMOVED          Value = 0x00000040
+	SHCNE_MKDIR                 Value = 0x00000008
+	SHCNE_NETSHARE              Value = 0x00000200
+	SHCNE_NETUNSHARE            Value = 0x00000400
+	SHCNE_RENAMEFOLDER          Value = 0x00020000
+	SHCNE_RENAMEITEM            Value = 0x00000001
+	SHCNE_RMDIR                 Value = 0x00000010
+	SHCNE_SERVERDISCONNECT      Value = 0x00004000
+	SHCNE_UPDATEDIR             Value = 0x00001000
+	SHCNE_UPDATEIMAGE           Value = 0x00008000
+	SHCNE_UPDATEITEM            Value = 0x00002000
+	SHCNF_DWORD                 Value = 0x00000003
+	SHCNF_FLUSH                 Value = 0x00001000
+	SHCNF_FLUSHNOWAIT           Value = 0x00003000
+	SHCNF_IDLIST                Value = 0x00000000
+	SHCNF_NOTIFYRECURSIVE       Value = 0x00010000
+	SHCNF_PATH                  Value = 0x00000005
+	SHCNF_PATHA                 Value = 0x00000001
+	SHCNF_PATHW                 Value = 0x00000005
+	SHCNF_PRINTER               Value = 0x00000006
+	SHCNF_PRINTERA              Value = 0x00000002
+	SHCNF_PRINTERW              Value = 0x00000006
+	SHCNF_TYPE                  Value = 0x000000FF
+	// SHCONTF_CHECKING_FOR_CHILDREN: 0x00010. Windows 7 and later . The calling application is checking for the existence
+	// of child items in the folder.
+	SHCONTF_CHECKING_FOR_CHILDREN Value = 0x00000010
+	// SHCONTF_ENABLE_ASYNC: 0x08000. Windows Vista and later . The calling application is monitoring for change
+	// notifications. This means that the enumerator does not have to return all results. Items can be reported through
+	// change notifications.
+	SHCONTF_ENABLE_ASYNC Value = 0x00008000
+	// SHCONTF_FASTITEMS: 0x02000. Windows Vista and later . The calling application is looking for resources that can be
+	// enumerated quickly.
+	SHCONTF_FASTITEMS Value = 0x00002000
+	// SHCONTF_FLATLIST: 0x04000. Windows Vista and later . Enumerate items as a simple list even if the folder itself is
+	// not structured in that way.
+	SHCONTF_FLATLIST Value = 0x00004000
+	// SHCONTF_FOLDERS: 0x00020. Include items that are folders in the enumeration.
+	SHCONTF_FOLDERS Value = 0x00000020
+	// SHCONTF_INCLUDEHIDDEN: 0x00080. Include hidden items in the enumeration. This does not include hidden system items.
+	// (To include hidden system items, use SHCONTF_INCLUDESUPERHIDDEN.)
+	SHCONTF_INCLUDEHIDDEN Value = 0x00000080
+	// SHCONTF_INCLUDESUPERHIDDEN: 0x10000. Windows 7 and later . Include hidden system items in the enumeration. This
+	// value does not include hidden non-system items. (To include hidden non-system items, use SHCONTF_INCLUDEHIDDEN.)
+	SHCONTF_INCLUDESUPERHIDDEN Value = 0x00010000
+	// SHCONTF_INIT_ON_FIRST_NEXT: 0x00100. No longer used; always assumed. IShellFolder::EnumObjects can return without
+	// validating the enumeration object. Validation can be postponed until the first call to IEnumIDList::Next . Use this
+	// flag when a user interface might be displayed prior to the first IEnumIDList::Next call. For a user interface to be
+	// presented, hwnd must be set to a valid window handle.
+	SHCONTF_INIT_ON_FIRST_NEXT Value = 0x00000100
+	// SHCONTF_NAVIGATION_ENUM: 0x01000. Windows 7 and later . Child folders should provide a navigation enumeration.
+	SHCONTF_NAVIGATION_ENUM Value = 0x00001000
+	// SHCONTF_NETPRINTERSRCH: 0x00200. The calling application is looking for printer objects.
+	SHCONTF_NETPRINTERSRCH Value = 0x00000200
+	// SHCONTF_NONFOLDERS: 0x00040. Include items that are not folders in the enumeration.
+	SHCONTF_NONFOLDERS Value = 0x00000040
+	// SHCONTF_SHAREABLE: 0x00400. The calling application is looking for resources that can be shared.
+	SHCONTF_SHAREABLE Value = 0x00000400
+	// SHCONTF_STORAGE: 0x00800. Include items with accessible storage and their ancestors, including hidden items.
+	SHCONTF_STORAGE         Value = 0x00000800
+	SHGFI_ADDOVERLAYS       Value = 0x00000020
+	SHGFI_ATTRIBUTES        Value = 0x00000800
+	SHGFI_ATTR_SPECIFIED    Value = 0x00020000
+	SHGFI_DISPLAYNAME       Value = 0x00000200
+	SHGFI_EXETYPE           Value = 0x00002000
+	SHGFI_ICON              Value = 0x00000100
+	SHGFI_ICONLOCATION      Value = 0x00001000
+	SHGFI_LARGEICON         Value = 0x00000000
+	SHGFI_LINKOVERLAY       Value = 0x00008000
+	SHGFI_OPENICON          Value = 0x00000002
+	SHGFI_OVERLAYINDEX      Value = 0x00000040
+	SHGFI_PIDL              Value = 0x00000008
+	SHGFI_SELECTED          Value = 0x00010000
+	SHGFI_SHELLICONSIZE     Value = 0x00000004
+	SHGFI_SMALLICON         Value = 0x00000001
+	SHGFI_SYSICONINDEX      Value = 0x00004000
+	SHGFI_TYPENAME          Value = 0x00000400
+	SHGFI_USEFILEATTRIBUTES Value = 0x00000010
 	// SIGDN_DESKTOPABSOLUTEEDITING: (int)0x8004c000. Returns the editing name relative to the desktop. In UI this name is
 	// suitable for display to the user.
 	SIGDN_DESKTOPABSOLUTEEDITING Value = 0x8004C000
@@ -365,7 +438,35 @@ const (
 	// SIGDN_URL: (int)0x80068000. Returns the item's URL, if it has one. Some items do not have a URL, and in those cases
 	// a call to IShellItem::GetDisplayName will fail. This name is suitable for display to the user in some cases, but
 	// note that it might not be specified for all items.
-	SIGDN_URL Value = 0x80068000
+	SIGDN_URL          Value = 0x80068000
+	TBPF_ERROR         Value = 0x00000004
+	TBPF_INDETERMINATE Value = 0x00000001
+	TBPF_NOPROGRESS    Value = 0x00000000
+	TBPF_NORMAL        Value = 0x00000002
+	TBPF_PAUSED        Value = 0x00000008
+	// THBF_DISABLED: The button is disabled. It is present, but has a visual state that indicates that it will not respond
+	// to user action.
+	THBF_DISABLED Value = 0x00000001
+	// THBF_DISMISSONCLICK: When the button is clicked, the taskbar button's flyout closes immediately.
+	THBF_DISMISSONCLICK Value = 0x00000002
+	// THBF_ENABLED: The button is active and available to the user.
+	THBF_ENABLED Value = 0x00000000
+	// THBF_HIDDEN: The button is not shown to the user.
+	THBF_HIDDEN Value = 0x00000008
+	// THBF_NOBACKGROUND: Do not draw a button border, use only the image.
+	THBF_NOBACKGROUND Value = 0x00000004
+	// THBF_NONINTERACTIVE: The button is enabled but not interactive; no pressed button state is drawn. This value is
+	// intended for instances where the button is used in a notification.
+	THBF_NONINTERACTIVE Value = 0x00000010
+	THBN_CLICKED        Value = 0x00001800
+	// THB_BITMAP: The iBitmap member contains valid information.
+	THB_BITMAP Value = 0x00000001
+	// THB_FLAGS: The dwFlags member contains valid information.
+	THB_FLAGS Value = 0x00000008
+	// THB_ICON: The hIcon member contains valid information.
+	THB_ICON Value = 0x00000002
+	// THB_TOOLTIP: The szTip member contains valid information.
+	THB_TOOLTIP Value = 0x00000004
 )
 
 // Name returns the canonical symbolic name for value.
@@ -383,6 +484,8 @@ func Name(value Value) (string, bool) {
 		return "FOS_STRICTFILETYPES", true
 	case Value(0x00000005):
 		return "BFFM_IUNKNOWN", true
+	case Value(0x00000006):
+		return "SHCNF_PRINTER", true
 	case Value(0x00000008):
 		return "FOS_NOCHANGEDIR", true
 	case Value(0x0000000C):
@@ -397,6 +500,8 @@ func Name(value Value) (string, bool) {
 		return "FOS_FORCEFILESYSTEM", true
 	case Value(0x00000080):
 		return "FOS_ALLNONSTORAGEITEMS", true
+	case Value(0x000000FF):
+		return "SHCNF_TYPE", true
 	case Value(0x00000100):
 		return "FOS_NOVALIDATE", true
 	case Value(0x00000177):
@@ -437,8 +542,12 @@ func Name(value Value) (string, bool) {
 		return "FOS_PATHMUSTEXIST", true
 	case Value(0x00001000):
 		return "FOS_FILEMUSTEXIST", true
+	case Value(0x00001800):
+		return "THBN_CLICKED", true
 	case Value(0x00002000):
 		return "FOS_CREATEPROMPT", true
+	case Value(0x00003000):
+		return "SHCNF_FLUSHNOWAIT", true
 	case Value(0x00004000):
 		return "FOS_SHAREAWARE", true
 	case Value(0x00008000):
@@ -447,6 +556,8 @@ func Name(value Value) (string, bool) {
 		return "FOS_NOTESTFILECREATE", true
 	case Value(0x00020000):
 		return "FOS_HIDEMRUPLACES", true
+	case Value(0x0002381F):
+		return "SHCNE_DISKEVENTS", true
 	case Value(0x00040000):
 		return "FOS_HIDEPINNEDPLACES", true
 	case Value(0x00080000):
@@ -469,6 +580,8 @@ func Name(value Value) (string, bool) {
 		return "FOFX_DONTDISPLAYSOURCEPATH", true
 	case Value(0x08000000):
 		return "FOFX_DONTDISPLAYDESTPATH", true
+	case Value(0x0C0581E0):
+		return "SHCNE_GLOBALEVENTS", true
 	case Value(0x10000000):
 		return "FOS_FORCESHOWHIDDEN", true
 	case Value(0x20000000):
@@ -477,6 +590,8 @@ func Name(value Value) (string, bool) {
 		return "FOS_FORCEPREVIEWPANEON", true
 	case Value(0x70C50008):
 		return "SFGAO_STORAGECAPMASK", true
+	case Value(0x7FFFFFFF):
+		return "SHCNE_ALLEVENTS", true
 	case Value(0x80000000):
 		return "FOS_SUPPORTSTREAMABLEITEMS", true
 	case Value(0x80018001):
@@ -508,39 +623,43 @@ func Name(value Value) (string, bool) {
 func Names(value Value) []string {
 	switch value {
 	case Value(0x00000000):
-		return []string{"KF_FLAG_DEFAULT", "NIIF_NONE", "NIM_ADD", "SEE_MASK_DEFAULT", "SHGFI_LARGEICON", "SIGDN_NORMALDISPLAY"}
+		return []string{"KF_FLAG_DEFAULT", "NIIF_NONE", "NIM_ADD", "SEE_MASK_DEFAULT", "SHCNF_IDLIST", "SHGFI_LARGEICON", "SIGDN_NORMALDISPLAY", "TBPF_NOPROGRESS", "THBF_ENABLED"}
 	case Value(0x00000001):
-		return []string{"BFFM_INITIALIZED", "BIF_RETURNONLYFSDIRS", "FOF_MULTIDESTFILES", "FO_MOVE", "NIF_MESSAGE", "NIIF_INFO", "NIM_MODIFY", "NIS_HIDDEN", "SEE_MASK_CLASSNAME", "SFGAO_CANCOPY", "SHGFI_SMALLICON"}
+		return []string{"BFFM_INITIALIZED", "BIF_RETURNONLYFSDIRS", "FOF_MULTIDESTFILES", "FO_MOVE", "NIF_MESSAGE", "NIIF_INFO", "NIM_MODIFY", "NIS_HIDDEN", "SEE_MASK_CLASSNAME", "SFGAO_CANCOPY", "SHCNE_RENAMEITEM", "SHCNF_PATHA", "SHGFI_SMALLICON", "TBPF_INDETERMINATE", "THBF_DISABLED", "THB_BITMAP"}
 	case Value(0x00000002):
-		return []string{"BFFM_SELCHANGED", "BIF_DONTGOBELOWDOMAIN", "FOF_CONFIRMMOUSE", "FOS_OVERWRITEPROMPT", "FO_COPY", "NIF_ICON", "NIIF_WARNING", "NIM_DELETE", "NIS_SHAREDICON", "SFGAO_CANMOVE", "SHGFI_OPENICON"}
+		return []string{"BFFM_SELCHANGED", "BIF_DONTGOBELOWDOMAIN", "FOF_CONFIRMMOUSE", "FOS_OVERWRITEPROMPT", "FO_COPY", "NIF_ICON", "NIIF_WARNING", "NIM_DELETE", "NIS_SHAREDICON", "SFGAO_CANMOVE", "SHCNE_CREATE", "SHCNF_PRINTERA", "SHGFI_OPENICON", "TBPF_NORMAL", "THBF_DISMISSONCLICK", "THB_ICON"}
 	case Value(0x00000003):
-		return []string{"BFFM_VALIDATEFAILEDA", "FO_DELETE", "NIIF_ERROR", "NIM_SETFOCUS", "NOTIFYICON_VERSION", "SEE_MASK_CLASSKEY"}
+		return []string{"BFFM_VALIDATEFAILEDA", "FO_DELETE", "NIIF_ERROR", "NIM_SETFOCUS", "NOTIFYICON_VERSION", "SEE_MASK_CLASSKEY", "SHCNF_DWORD"}
 	case Value(0x00000004):
-		return []string{"BFFM_VALIDATEFAILED", "BFFM_VALIDATEFAILEDW", "BIF_STATUSTEXT", "FOF_SILENT", "FOS_STRICTFILETYPES", "FO_RENAME", "NIF_TIP", "NIIF_USER", "NIM_SETVERSION", "NOTIFYICON_VERSION_4", "SEE_MASK_IDLIST", "SFGAO_CANLINK", "SHGFI_SHELLICONSIZE"}
+		return []string{"BFFM_VALIDATEFAILED", "BFFM_VALIDATEFAILEDW", "BIF_STATUSTEXT", "FOF_SILENT", "FOS_STRICTFILETYPES", "FO_RENAME", "NIF_TIP", "NIIF_USER", "NIM_SETVERSION", "NOTIFYICON_VERSION_4", "SEE_MASK_IDLIST", "SFGAO_CANLINK", "SHCNE_DELETE", "SHGFI_SHELLICONSIZE", "TBPF_ERROR", "THBF_NOBACKGROUND", "THB_TOOLTIP"}
 	case Value(0x00000005):
-		return []string{"BFFM_IUNKNOWN"}
+		return []string{"BFFM_IUNKNOWN", "SHCNF_PATH", "SHCNF_PATHW"}
+	case Value(0x00000006):
+		return []string{"SHCNF_PRINTER", "SHCNF_PRINTERW"}
 	case Value(0x00000008):
-		return []string{"BIF_PREFER_INTERNET_SHORTCUT", "BIF_RETURNFSANCESTORS", "FOF_RENAMEONCOLLISION", "FOS_NOCHANGEDIR", "NIF_STATE", "SFGAO_STORAGE", "SHGFI_PIDL"}
+		return []string{"BIF_PREFER_INTERNET_SHORTCUT", "BIF_RETURNFSANCESTORS", "FOF_RENAMEONCOLLISION", "FOS_NOCHANGEDIR", "NIF_STATE", "SFGAO_STORAGE", "SHCNE_MKDIR", "SHGFI_PIDL", "TBPF_PAUSED", "THBF_HIDDEN", "THB_FLAGS"}
 	case Value(0x0000000C):
 		return []string{"SEE_MASK_INVOKEIDLIST"}
 	case Value(0x0000000F):
 		return []string{"NIIF_ICON_MASK"}
 	case Value(0x00000010):
-		return []string{"BIF_EDITBOX", "FOF_NOCONFIRMATION", "NIF_INFO", "NIIF_NOSOUND", "SEE_MASK_ICON", "SFGAO_CANRENAME", "SHGFI_USEFILEATTRIBUTES"}
+		return []string{"BIF_EDITBOX", "FOF_NOCONFIRMATION", "NIF_INFO", "NIIF_NOSOUND", "SEE_MASK_ICON", "SFGAO_CANRENAME", "SHCNE_RMDIR", "SHCONTF_CHECKING_FOR_CHILDREN", "SHGFI_USEFILEATTRIBUTES", "THBF_NONINTERACTIVE"}
 	case Value(0x00000020):
-		return []string{"BIF_VALIDATE", "FOF_WANTMAPPINGHANDLE", "FOS_PICKFOLDERS", "NIF_GUID", "NIIF_LARGE_ICON", "SEE_MASK_HOTKEY", "SFGAO_CANDELETE", "SHGFI_ADDOVERLAYS"}
+		return []string{"BIF_VALIDATE", "FOF_WANTMAPPINGHANDLE", "FOS_PICKFOLDERS", "NIF_GUID", "NIIF_LARGE_ICON", "SEE_MASK_HOTKEY", "SFGAO_CANDELETE", "SHCNE_MEDIAINSERTED", "SHCONTF_FOLDERS", "SHGFI_ADDOVERLAYS"}
 	case Value(0x00000040):
-		return []string{"BIF_NEWDIALOGSTYLE", "FOF_ALLOWUNDO", "FOS_FORCEFILESYSTEM", "NIF_REALTIME", "SEE_MASK_NOCLOSEPROCESS", "SFGAO_HASPROPSHEET", "SHGFI_OVERLAYINDEX"}
+		return []string{"BIF_NEWDIALOGSTYLE", "FOF_ALLOWUNDO", "FOS_FORCEFILESYSTEM", "NIF_REALTIME", "SEE_MASK_NOCLOSEPROCESS", "SFGAO_HASPROPSHEET", "SHCNE_MEDIAREMOVED", "SHCONTF_NONFOLDERS", "SHGFI_OVERLAYINDEX"}
 	case Value(0x00000080):
-		return []string{"BIF_BROWSEINCLUDEURLS", "FOF_FILESONLY", "FOS_ALLNONSTORAGEITEMS", "NIF_SHOWTIP", "NIIF_RESPECT_QUIET_TIME", "SEE_MASK_CONNECTNETDRV"}
+		return []string{"BIF_BROWSEINCLUDEURLS", "FOF_FILESONLY", "FOS_ALLNONSTORAGEITEMS", "NIF_SHOWTIP", "NIIF_RESPECT_QUIET_TIME", "SEE_MASK_CONNECTNETDRV", "SHCNE_DRIVEREMOVED", "SHCONTF_INCLUDEHIDDEN"}
+	case Value(0x000000FF):
+		return []string{"SHCNF_TYPE"}
 	case Value(0x00000100):
-		return []string{"BIF_UAHINT", "FOF_SIMPLEPROGRESS", "FOS_NOVALIDATE", "KF_FLAG_SIMPLE_IDLIST", "SEE_MASK_FLAG_DDEWAIT", "SEE_MASK_NOASYNC", "SFGAO_DROPTARGET", "SHGFI_ICON"}
+		return []string{"BIF_UAHINT", "FOF_SIMPLEPROGRESS", "FOS_NOVALIDATE", "KF_FLAG_SIMPLE_IDLIST", "SEE_MASK_FLAG_DDEWAIT", "SEE_MASK_NOASYNC", "SFGAO_DROPTARGET", "SHCNE_DRIVEADD", "SHCONTF_INIT_ON_FIRST_NEXT", "SHGFI_ICON"}
 	case Value(0x00000177):
 		return []string{"SFGAO_CAPABILITYMASK"}
 	case Value(0x00000200):
-		return []string{"BIF_NONEWFOLDERBUTTON", "FOF_NOCONFIRMMKDIR", "FOS_ALLOWMULTISELECT", "KF_FLAG_NOT_PARENT_RELATIVE", "SEE_MASK_DOENVSUBST", "SHGFI_DISPLAYNAME"}
+		return []string{"BIF_NONEWFOLDERBUTTON", "FOF_NOCONFIRMMKDIR", "FOS_ALLOWMULTISELECT", "KF_FLAG_NOT_PARENT_RELATIVE", "SEE_MASK_DOENVSUBST", "SHCNE_NETSHARE", "SHCONTF_NETPRINTERSRCH", "SHGFI_DISPLAYNAME"}
 	case Value(0x00000400):
-		return []string{"BIF_NOTRANSLATETARGETS", "FOF_NOERRORUI", "KF_FLAG_DEFAULT_PATH", "NIN_SELECT", "SEE_MASK_FLAG_NO_UI", "SHGFI_TYPENAME"}
+		return []string{"BIF_NOTRANSLATETARGETS", "FOF_NOERRORUI", "KF_FLAG_DEFAULT_PATH", "NIN_SELECT", "SEE_MASK_FLAG_NO_UI", "SHCNE_NETUNSHARE", "SHCONTF_SHAREABLE", "SHGFI_TYPENAME"}
 	case Value(0x00000402):
 		return []string{"NIN_BALLOONSHOW"}
 	case Value(0x00000403):
@@ -570,21 +689,27 @@ func Names(value Value) []string {
 	case Value(0x00000614):
 		return []string{"FOF_NO_UI"}
 	case Value(0x00000800):
-		return []string{"FOF_NOCOPYSECURITYATTRIBS", "FOS_PATHMUSTEXIST", "KF_FLAG_INIT", "SFGAO_PLACEHOLDER", "SHGFI_ATTRIBUTES"}
+		return []string{"FOF_NOCOPYSECURITYATTRIBS", "FOS_PATHMUSTEXIST", "KF_FLAG_INIT", "SFGAO_PLACEHOLDER", "SHCNE_ATTRIBUTES", "SHCONTF_STORAGE", "SHGFI_ATTRIBUTES"}
 	case Value(0x00001000):
-		return []string{"BIF_BROWSEFORCOMPUTER", "FOF_NORECURSION", "FOS_FILEMUSTEXIST", "KF_FLAG_NO_ALIAS", "SFGAO_SYSTEM", "SHGFI_ICONLOCATION"}
+		return []string{"BIF_BROWSEFORCOMPUTER", "FOF_NORECURSION", "FOS_FILEMUSTEXIST", "KF_FLAG_NO_ALIAS", "SFGAO_SYSTEM", "SHCNE_UPDATEDIR", "SHCNF_FLUSH", "SHCONTF_NAVIGATION_ENUM", "SHGFI_ICONLOCATION"}
+	case Value(0x00001800):
+		return []string{"THBN_CLICKED"}
 	case Value(0x00002000):
-		return []string{"BIF_BROWSEFORPRINTER", "FOF_NO_CONNECTED_ELEMENTS", "FOS_CREATEPROMPT", "KF_FLAG_DONT_UNEXPAND", "SFGAO_ENCRYPTED", "SHGFI_EXETYPE"}
+		return []string{"BIF_BROWSEFORPRINTER", "FOF_NO_CONNECTED_ELEMENTS", "FOS_CREATEPROMPT", "KF_FLAG_DONT_UNEXPAND", "SFGAO_ENCRYPTED", "SHCNE_UPDATEITEM", "SHCONTF_FASTITEMS", "SHGFI_EXETYPE"}
+	case Value(0x00003000):
+		return []string{"SHCNF_FLUSHNOWAIT"}
 	case Value(0x00004000):
-		return []string{"BIF_BROWSEINCLUDEFILES", "FOF_WANTNUKEWARNING", "FOS_SHAREAWARE", "KF_FLAG_DONT_VERIFY", "SEE_MASK_UNICODE", "SFGAO_ISSLOW", "SHGFI_SYSICONINDEX"}
+		return []string{"BIF_BROWSEINCLUDEFILES", "FOF_WANTNUKEWARNING", "FOS_SHAREAWARE", "KF_FLAG_DONT_VERIFY", "SEE_MASK_UNICODE", "SFGAO_ISSLOW", "SHCNE_SERVERDISCONNECT", "SHCONTF_FLATLIST", "SHGFI_SYSICONINDEX"}
 	case Value(0x00008000):
-		return []string{"BIF_SHAREABLE", "FOF_NORECURSEREPARSE", "FOS_NOREADONLYRETURN", "KF_FLAG_CREATE", "SEE_MASK_NO_CONSOLE", "SFGAO_GHOSTED", "SHGFI_LINKOVERLAY"}
+		return []string{"BIF_SHAREABLE", "FOF_NORECURSEREPARSE", "FOS_NOREADONLYRETURN", "KF_FLAG_CREATE", "SEE_MASK_NO_CONSOLE", "SFGAO_GHOSTED", "SHCNE_UPDATEIMAGE", "SHCONTF_ENABLE_ASYNC", "SHGFI_LINKOVERLAY"}
 	case Value(0x00010000):
-		return []string{"BIF_BROWSEFILEJUNCTIONS", "FOFX_NOSKIPJUNCTIONS", "FOS_NOTESTFILECREATE", "KF_FLAG_NO_APPCONTAINER_REDIRECTION", "KF_FLAG_NO_PACKAGE_REDIRECTION", "SFGAO_LINK", "SHGFI_SELECTED"}
+		return []string{"BIF_BROWSEFILEJUNCTIONS", "FOFX_NOSKIPJUNCTIONS", "FOS_NOTESTFILECREATE", "KF_FLAG_NO_APPCONTAINER_REDIRECTION", "KF_FLAG_NO_PACKAGE_REDIRECTION", "SFGAO_LINK", "SHCNE_DRIVEADDGUI", "SHCNF_NOTIFYRECURSIVE", "SHCONTF_INCLUDESUPERHIDDEN", "SHGFI_SELECTED"}
 	case Value(0x00020000):
-		return []string{"FOFX_PREFERHARDLINK", "FOS_HIDEMRUPLACES", "KF_FLAG_FORCE_APPCONTAINER_REDIRECTION", "KF_FLAG_FORCE_PACKAGE_REDIRECTION", "SFGAO_SHARE", "SHGFI_ATTR_SPECIFIED"}
+		return []string{"FOFX_PREFERHARDLINK", "FOS_HIDEMRUPLACES", "KF_FLAG_FORCE_APPCONTAINER_REDIRECTION", "KF_FLAG_FORCE_PACKAGE_REDIRECTION", "SFGAO_SHARE", "SHCNE_RENAMEFOLDER", "SHGFI_ATTR_SPECIFIED"}
+	case Value(0x0002381F):
+		return []string{"SHCNE_DISKEVENTS"}
 	case Value(0x00040000):
-		return []string{"FOFX_SHOWELEVATIONPROMPT", "FOS_HIDEPINNEDPLACES", "KF_FLAG_RETURN_FILTER_REDIRECTION_TARGET", "SFGAO_READONLY"}
+		return []string{"FOFX_SHOWELEVATIONPROMPT", "FOS_HIDEPINNEDPLACES", "KF_FLAG_RETURN_FILTER_REDIRECTION_TARGET", "SFGAO_READONLY", "SHCNE_FREESPACE"}
 	case Value(0x00080000):
 		return []string{"FOFX_RECYCLEONDELETE", "KF_FLAG_FORCE_APP_DATA_REDIRECTION", "SFGAO_HIDDEN"}
 	case Value(0x000FC000):
@@ -602,9 +727,11 @@ func Names(value Value) []string {
 	case Value(0x02000000):
 		return []string{"FOFX_MOVEACLSACROSSVOLUMES", "FOS_DONTADDTORECENT", "SEE_MASK_WAITFORINPUTIDLE", "SFGAO_REMOVABLE"}
 	case Value(0x04000000):
-		return []string{"FOFX_DONTDISPLAYSOURCEPATH", "SEE_MASK_FLAG_LOG_USAGE", "SFGAO_COMPRESSED"}
+		return []string{"FOFX_DONTDISPLAYSOURCEPATH", "SEE_MASK_FLAG_LOG_USAGE", "SFGAO_COMPRESSED", "SHCNE_EXTENDED_EVENT"}
 	case Value(0x08000000):
-		return []string{"FOFX_DONTDISPLAYDESTPATH", "SEE_MASK_FLAG_HINST_IS_SITE", "SFGAO_BROWSABLE"}
+		return []string{"FOFX_DONTDISPLAYDESTPATH", "SEE_MASK_FLAG_HINST_IS_SITE", "SFGAO_BROWSABLE", "SHCNE_ASSOCCHANGED"}
+	case Value(0x0C0581E0):
+		return []string{"SHCNE_GLOBALEVENTS"}
 	case Value(0x10000000):
 		return []string{"FOFX_REQUIREELEVATION", "FOS_FORCESHOWHIDDEN", "SFGAO_FILESYSANCESTOR"}
 	case Value(0x20000000):
@@ -613,8 +740,10 @@ func Names(value Value) []string {
 		return []string{"FOFX_COPYASDOWNLOAD", "FOS_FORCEPREVIEWPANEON", "SFGAO_FILESYSTEM"}
 	case Value(0x70C50008):
 		return []string{"SFGAO_STORAGECAPMASK"}
+	case Value(0x7FFFFFFF):
+		return []string{"SHCNE_ALLEVENTS"}
 	case Value(0x80000000):
-		return []string{"FOFX_DONTDISPLAYLOCATIONS", "FOS_SUPPORTSTREAMABLEITEMS", "KF_FLAG_ALIAS_ONLY", "SFGAO_CONTENTSMASK", "SFGAO_HASSUBFOLDER"}
+		return []string{"FOFX_DONTDISPLAYLOCATIONS", "FOS_SUPPORTSTREAMABLEITEMS", "KF_FLAG_ALIAS_ONLY", "SFGAO_CONTENTSMASK", "SFGAO_HASSUBFOLDER", "SHCNE_INTERRUPT"}
 	case Value(0x80018001):
 		return []string{"SIGDN_PARENTRELATIVEPARSING"}
 	case Value(0x80028000):
@@ -1041,6 +1170,106 @@ func Parse(name string) (Value, bool) {
 		return SFGAO_SYSTEM, true
 	case "SFGAO_VALIDATE":
 		return SFGAO_VALIDATE, true
+	case "SHCNE_ALLEVENTS":
+		return SHCNE_ALLEVENTS, true
+	case "SHCNE_ASSOCCHANGED":
+		return SHCNE_ASSOCCHANGED, true
+	case "SHCNE_ATTRIBUTES":
+		return SHCNE_ATTRIBUTES, true
+	case "SHCNE_CREATE":
+		return SHCNE_CREATE, true
+	case "SHCNE_DELETE":
+		return SHCNE_DELETE, true
+	case "SHCNE_DISKEVENTS":
+		return SHCNE_DISKEVENTS, true
+	case "SHCNE_DRIVEADD":
+		return SHCNE_DRIVEADD, true
+	case "SHCNE_DRIVEADDGUI":
+		return SHCNE_DRIVEADDGUI, true
+	case "SHCNE_DRIVEREMOVED":
+		return SHCNE_DRIVEREMOVED, true
+	case "SHCNE_EXTENDED_EVENT":
+		return SHCNE_EXTENDED_EVENT, true
+	case "SHCNE_FREESPACE":
+		return SHCNE_FREESPACE, true
+	case "SHCNE_GLOBALEVENTS":
+		return SHCNE_GLOBALEVENTS, true
+	case "SHCNE_INTERRUPT":
+		return SHCNE_INTERRUPT, true
+	case "SHCNE_MEDIAINSERTED":
+		return SHCNE_MEDIAINSERTED, true
+	case "SHCNE_MEDIAREMOVED":
+		return SHCNE_MEDIAREMOVED, true
+	case "SHCNE_MKDIR":
+		return SHCNE_MKDIR, true
+	case "SHCNE_NETSHARE":
+		return SHCNE_NETSHARE, true
+	case "SHCNE_NETUNSHARE":
+		return SHCNE_NETUNSHARE, true
+	case "SHCNE_RENAMEFOLDER":
+		return SHCNE_RENAMEFOLDER, true
+	case "SHCNE_RENAMEITEM":
+		return SHCNE_RENAMEITEM, true
+	case "SHCNE_RMDIR":
+		return SHCNE_RMDIR, true
+	case "SHCNE_SERVERDISCONNECT":
+		return SHCNE_SERVERDISCONNECT, true
+	case "SHCNE_UPDATEDIR":
+		return SHCNE_UPDATEDIR, true
+	case "SHCNE_UPDATEIMAGE":
+		return SHCNE_UPDATEIMAGE, true
+	case "SHCNE_UPDATEITEM":
+		return SHCNE_UPDATEITEM, true
+	case "SHCNF_DWORD":
+		return SHCNF_DWORD, true
+	case "SHCNF_FLUSH":
+		return SHCNF_FLUSH, true
+	case "SHCNF_FLUSHNOWAIT":
+		return SHCNF_FLUSHNOWAIT, true
+	case "SHCNF_IDLIST":
+		return SHCNF_IDLIST, true
+	case "SHCNF_NOTIFYRECURSIVE":
+		return SHCNF_NOTIFYRECURSIVE, true
+	case "SHCNF_PATH":
+		return SHCNF_PATH, true
+	case "SHCNF_PATHA":
+		return SHCNF_PATHA, true
+	case "SHCNF_PATHW":
+		return SHCNF_PATHW, true
+	case "SHCNF_PRINTER":
+		return SHCNF_PRINTER, true
+	case "SHCNF_PRINTERA":
+		return SHCNF_PRINTERA, true
+	case "SHCNF_PRINTERW":
+		return SHCNF_PRINTERW, true
+	case "SHCNF_TYPE":
+		return SHCNF_TYPE, true
+	case "SHCONTF_CHECKING_FOR_CHILDREN":
+		return SHCONTF_CHECKING_FOR_CHILDREN, true
+	case "SHCONTF_ENABLE_ASYNC":
+		return SHCONTF_ENABLE_ASYNC, true
+	case "SHCONTF_FASTITEMS":
+		return SHCONTF_FASTITEMS, true
+	case "SHCONTF_FLATLIST":
+		return SHCONTF_FLATLIST, true
+	case "SHCONTF_FOLDERS":
+		return SHCONTF_FOLDERS, true
+	case "SHCONTF_INCLUDEHIDDEN":
+		return SHCONTF_INCLUDEHIDDEN, true
+	case "SHCONTF_INCLUDESUPERHIDDEN":
+		return SHCONTF_INCLUDESUPERHIDDEN, true
+	case "SHCONTF_INIT_ON_FIRST_NEXT":
+		return SHCONTF_INIT_ON_FIRST_NEXT, true
+	case "SHCONTF_NAVIGATION_ENUM":
+		return SHCONTF_NAVIGATION_ENUM, true
+	case "SHCONTF_NETPRINTERSRCH":
+		return SHCONTF_NETPRINTERSRCH, true
+	case "SHCONTF_NONFOLDERS":
+		return SHCONTF_NONFOLDERS, true
+	case "SHCONTF_SHAREABLE":
+		return SHCONTF_SHAREABLE, true
+	case "SHCONTF_STORAGE":
+		return SHCONTF_STORAGE, true
 	case "SHGFI_ADDOVERLAYS":
 		return SHGFI_ADDOVERLAYS, true
 	case "SHGFI_ATTRIBUTES":
@@ -1097,6 +1326,38 @@ func Parse(name string) (Value, bool) {
 		return SIGDN_PARENTRELATIVEPARSING, true
 	case "SIGDN_URL":
 		return SIGDN_URL, true
+	case "TBPF_ERROR":
+		return TBPF_ERROR, true
+	case "TBPF_INDETERMINATE":
+		return TBPF_INDETERMINATE, true
+	case "TBPF_NOPROGRESS":
+		return TBPF_NOPROGRESS, true
+	case "TBPF_NORMAL":
+		return TBPF_NORMAL, true
+	case "TBPF_PAUSED":
+		return TBPF_PAUSED, true
+	case "THBF_DISABLED":
+		return THBF_DISABLED, true
+	case "THBF_DISMISSONCLICK":
+		return THBF_DISMISSONCLICK, true
+	case "THBF_ENABLED":
+		return THBF_ENABLED, true
+	case "THBF_HIDDEN":
+		return THBF_HIDDEN, true
+	case "THBF_NOBACKGROUND":
+		return THBF_NOBACKGROUND, true
+	case "THBF_NONINTERACTIVE":
+		return THBF_NONINTERACTIVE, true
+	case "THBN_CLICKED":
+		return THBN_CLICKED, true
+	case "THB_BITMAP":
+		return THB_BITMAP, true
+	case "THB_FLAGS":
+		return THB_FLAGS, true
+	case "THB_ICON":
+		return THB_ICON, true
+	case "THB_TOOLTIP":
+		return THB_TOOLTIP, true
 	default:
 		return Value(0), false
 	}

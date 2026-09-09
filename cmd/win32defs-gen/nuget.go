@@ -242,16 +242,22 @@ func completeSourcePackage(source sourcePackage) bool {
 	return source.Package != "" && source.Version != "" && source.SHA256 != "" && source.URL != ""
 }
 
-func resolveSource(ctx context.Context, root string, latest bool) (sourceLock, []byte, []byte, error) {
+func resolveSource(ctx context.Context, root string, options generationOptions) (sourceLock, []byte, []byte, error) {
 	lockPath := filepath.Join(root, "internal", "source", "source.lock.json")
 	lock, lockErr := readSourceLock(lockPath)
 
-	baseAddress, err := packageBaseAddress(ctx)
-	if err != nil {
-		return sourceLock{}, nil, nil, err
+	if options.Offline && (options.Latest || lockErr != nil) {
+		return sourceLock{}, nil, nil, errors.New("offline generation requires an existing source lock and cannot use -latest")
 	}
 
-	if latest || errors.Is(lockErr, os.ErrNotExist) {
+	baseAddress := ""
+	if options.Latest || errors.Is(lockErr, os.ErrNotExist) {
+		var err error
+		baseAddress, err = packageBaseAddress(ctx)
+		if err != nil {
+			return sourceLock{}, nil, nil, err
+		}
+
 		metadataVersion, err := discoverLatestVersion(ctx, baseAddress, metadataPackageID)
 		if err != nil {
 			return sourceLock{}, nil, nil, err
@@ -270,12 +276,12 @@ func resolveSource(ctx context.Context, root string, latest bool) (sourceLock, [
 		return sourceLock{}, nil, nil, lockErr
 	}
 
-	metadata, err := resolvePackage(ctx, baseAddress, lock.Metadata, latest)
+	metadata, err := resolvePackage(ctx, baseAddress, lock.Metadata, options)
 	if err != nil {
 		return sourceLock{}, nil, nil, err
 	}
 
-	documentation, err := resolvePackage(ctx, baseAddress, lock.Documentation, latest)
+	documentation, err := resolvePackage(ctx, baseAddress, lock.Documentation, options)
 	if err != nil {
 		return sourceLock{}, nil, nil, err
 	}
@@ -286,21 +292,46 @@ func resolveSource(ctx context.Context, root string, latest bool) (sourceLock, [
 	return lock, metadata.archive, documentation.archive, nil
 }
 
-func resolvePackage(ctx context.Context, baseAddress string, source sourcePackage, latest bool) (resolvedPackage, error) {
-	source.URL = packageDownloadURL(baseAddress, source.Package, source.Version)
+func resolvePackage(ctx context.Context, baseAddress string, source sourcePackage, options generationOptions) (resolvedPackage, error) {
+	if source.URL == "" {
+		source.URL = packageDownloadURL(baseAddress, source.Package, source.Version)
+	}
 
-	archive, err := fetch(ctx, source.URL)
+	archive, cached, err := cachedPackage(source, options.CacheDir)
+	if err != nil {
+		return resolvedPackage{}, err
+	}
+
+	if cached {
+		return resolvedPackage{
+			source:  source,
+			archive: archive,
+		}, nil
+	}
+
+	if options.Offline {
+		return resolvedPackage{}, fmt.Errorf("offline cache has no signature-verified package %s %s; run generation online first", source.Package, source.Version)
+	}
+
+	archive, err = fetch(ctx, source.URL)
 	if err != nil {
 		return resolvedPackage{}, err
 	}
 
 	digest := sha256.Sum256(archive)
 	actualHash := hex.EncodeToString(digest[:])
-	if source.SHA256 != "" && !latest && source.SHA256 != actualHash {
+	if source.SHA256 != "" && !strings.EqualFold(source.SHA256, actualHash) {
 		return resolvedPackage{}, fmt.Errorf("package %s SHA-256 is %s, want %s", source.Package, actualHash, source.SHA256)
 	}
 
 	source.SHA256 = actualHash
+	if err := verifyPackage(ctx, source.Package, archive); err != nil {
+		return resolvedPackage{}, err
+	}
+
+	if err := cachePackage(source, archive, options.CacheDir); err != nil {
+		return resolvedPackage{}, err
+	}
 
 	return resolvedPackage{source: source, archive: archive}, nil
 }
@@ -388,7 +419,7 @@ func extractDocs(archive []byte) ([]byte, error) {
 	return nil, errors.New("documentation package does not contain apidocs.msgpack")
 }
 
-func exportMetadata(ctx context.Context, root string, winmd []byte, docs []byte) (metadataExport, error) {
+func exportMetadata(ctx context.Context, root string, winmd []byte, docs []byte, offline bool) (metadataExport, error) {
 	temporaryDirectory, err := os.MkdirTemp("", "win32defs-generate-")
 	if err != nil {
 		return metadataExport{}, fmt.Errorf("create temporary directory: %w", err)
@@ -406,19 +437,19 @@ func exportMetadata(ctx context.Context, root string, winmd []byte, docs []byte)
 	}
 
 	projectPath := filepath.Join(root, "tools", "winmd-exporter", "winmd-exporter.csproj")
-	command := exec.CommandContext(
-		ctx,
-		"dotnet",
+	arguments := []string{
 		"run",
 		"--project",
 		projectPath,
 		"--configuration",
 		"Release",
-		"--",
-		winmdPath,
-		docsPath,
-		exportPath,
-	)
+	}
+	if offline {
+		arguments = append(arguments, "--no-restore")
+	}
+
+	arguments = append(arguments, "--", winmdPath, docsPath, exportPath)
+	command := exec.CommandContext(ctx, "dotnet", arguments...)
 	command.Stdout = os.Stdout
 	command.Stderr = os.Stderr
 

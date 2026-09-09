@@ -1,4 +1,4 @@
-// Package security provides structured Windows security values.
+// Package security provides Windows security constants and SID authorities.
 package security
 
 // SIDIdentifierAuthority identifies the issuing authority of a Windows SID.

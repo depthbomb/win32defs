@@ -7,20 +7,13 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 	"time"
 )
 
-func generate(ctx context.Context, root string, latest bool) error {
-	lock, metadataArchive, documentationArchive, err := resolveSource(ctx, root, latest)
+func generate(ctx context.Context, root string, options generationOptions) error {
+	lock, metadataArchive, documentationArchive, err := resolveSource(ctx, root, options)
 	if err != nil {
-		return err
-	}
-
-	if err := verifyPackage(ctx, metadataPackageID, metadataArchive); err != nil {
-		return err
-	}
-
-	if err := verifyPackage(ctx, documentationPackageID, documentationArchive); err != nil {
 		return err
 	}
 
@@ -34,12 +27,19 @@ func generate(ctx context.Context, root string, latest bool) error {
 		return err
 	}
 
-	export, err := exportMetadata(ctx, root, winmd, docs)
+	export, err := exportMetadata(ctx, root, winmd, docs, options.Offline)
 	if err != nil {
 		return err
 	}
 
-	packages, collisions, skipped := collectConstants(export)
+	sourceRoot := root
+	root, err = os.MkdirTemp("", "win32defs-stage-")
+	if err != nil {
+		return err
+	}
+	defer os.RemoveAll(root)
+
+	packages, collisions, skipped, rejected := collectConstants(export)
 	constantMethods, skippedMethods := collectConstantMethods(export.ConstantMethods)
 	coverage := measureCoverage(export)
 	packageCounts := make(map[string]int, len(packageSpecs))
@@ -105,7 +105,7 @@ func generate(ctx context.Context, root string, latest bool) error {
 		return err
 	}
 
-	if err := writeFormatted(filepath.Join(root, "security", "zz_generated.go"), authorityContents); err != nil {
+	if err := writeFormatted(filepath.Join(root, "security", "zz_generated_authorities.go"), authorityContents); err != nil {
 		return err
 	}
 
@@ -159,7 +159,35 @@ func generate(ctx context.Context, root string, latest bool) error {
 		SyncInitializerCount: len(syncInitializers),
 		Collisions:           collisions,
 		Skipped:              skipped,
+		Rejected:             append(rejected, rejectedStructuredDefinitions(export)...),
+		Symbols:              emittedSymbols(packages),
 	}
+	for _, item := range guids {
+		report.Symbols["guid"] = append(report.Symbols["guid"], item.Identifier)
+	}
+	for _, item := range propertyKeys {
+		report.Symbols["propertykey"] = append(report.Symbols["propertykey"], item.Identifier)
+	}
+	for _, item := range deviceKeys {
+		report.Symbols["devpropkey"] = append(report.Symbols["devpropkey"], item.Identifier)
+	}
+	for _, item := range constantMethods {
+		report.Symbols["process"] = append(report.Symbols["process"], item.Name)
+	}
+	for _, item := range authorities {
+		report.Symbols["security"] = append(report.Symbols["security"], item.Name)
+	}
+	for _, item := range syncInitializers {
+		report.Symbols["syncinit"] = append(report.Symbols["syncinit"], item.Name)
+	}
+	for packageName := range report.Symbols {
+		sort.Strings(report.Symbols[packageName])
+	}
+
+	if err := validateGeneration(sourceRoot, report, options.AcceptChanges); err != nil {
+		return err
+	}
+
 	if err := writeReport(filepath.Join(root, "internal", "source", "report.json"), report); err != nil {
 		return err
 	}
@@ -168,15 +196,30 @@ func generate(ctx context.Context, root string, latest bool) error {
 		return err
 	}
 
-	return nil
+	if err := ctx.Err(); err != nil {
+		return err
+	}
+
+	return publishGeneration(root, sourceRoot)
 }
 
 func run() error {
 	root := flag.String("root", ".", "repository root")
 	latest := flag.Bool("latest", false, "discover and use the newest metadata package")
+	offline := flag.Bool("offline", false, "use cached, signature-verified source packages without network access")
+	cacheDir := flag.String("cache-dir", "", "source package cache directory (defaults to the user cache)")
+	acceptChanges := flag.Bool("accept-changes", false, "accept reviewed new omissions, rejected definitions, or collisions")
 	timeout := flag.Duration("timeout", 15*time.Minute, "overall generation timeout")
 
 	flag.Parse()
+	if *cacheDir == "" {
+		directory, err := os.UserCacheDir()
+		if err != nil {
+			return err
+		}
+
+		*cacheDir = filepath.Join(directory, "win32defs")
+	}
 
 	absoluteRoot, err := filepath.Abs(*root)
 	if err != nil {
@@ -190,7 +233,13 @@ func run() error {
 	ctx, cancel := context.WithTimeout(context.Background(), *timeout)
 	defer cancel()
 
-	if err := generate(ctx, absoluteRoot, *latest); err != nil {
+	options := generationOptions{
+		Latest:        *latest,
+		Offline:       *offline,
+		CacheDir:      *cacheDir,
+		AcceptChanges: *acceptChanges,
+	}
+	if err := generate(ctx, absoluteRoot, options); err != nil {
 		if errors.Is(err, context.DeadlineExceeded) {
 			return fmt.Errorf("generation timed out after %s: %w", *timeout, err)
 		}

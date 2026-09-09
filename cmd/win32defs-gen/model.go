@@ -18,6 +18,7 @@ type metadataConstant struct {
 	Kind          string `json:"kind"`
 	Value         string `json:"value"`
 	Enum          bool   `json:"enum"`
+	Flags         bool   `json:"flags"`
 }
 
 type metadataInitializer struct {
@@ -79,6 +80,24 @@ type generatedConstant struct {
 	DeclaringType string
 	Documentation string
 	Comment       string
+	Family        string
+	Flags         bool
+	Kind          string
+}
+
+type generationOptions struct {
+	Latest        bool
+	Offline       bool
+	CacheDir      string
+	AcceptChanges bool
+}
+
+type rejectedDefinition struct {
+	Package   string `json:"package"`
+	Namespace string `json:"namespace"`
+	Name      string `json:"name"`
+	Value     string `json:"value"`
+	Reason    string `json:"reason"`
 }
 
 type generatedConstantMethod struct {
@@ -111,17 +130,19 @@ type collision struct {
 }
 
 type generationReport struct {
-	Source               sourceLock       `json:"source"`
-	PackageCount         map[string]int   `json:"package_count"`
-	GUIDCount            int              `json:"guid_count"`
-	GUIDSourceCount      int              `json:"guid_source_count"`
-	PropertyKeys         int              `json:"property_key_count"`
-	DeviceKeys           int              `json:"device_property_key_count"`
-	Documented           int              `json:"documented_constant_count"`
-	Coverage             constantCoverage `json:"constant_coverage"`
-	MethodCount          int              `json:"constant_method_count"`
-	AuthorityCount       int              `json:"sid_identifier_authority_count"`
-	SyncInitializerCount int              `json:"synchronization_initializer_count"`
-	Collisions           []collision      `json:"collisions"`
-	Skipped              map[string]int   `json:"skipped"`
+	Source               sourceLock           `json:"source"`
+	PackageCount         map[string]int       `json:"package_count"`
+	GUIDCount            int                  `json:"guid_count"`
+	GUIDSourceCount      int                  `json:"guid_source_count"`
+	PropertyKeys         int                  `json:"property_key_count"`
+	DeviceKeys           int                  `json:"device_property_key_count"`
+	Documented           int                  `json:"documented_constant_count"`
+	Coverage             constantCoverage     `json:"constant_coverage"`
+	MethodCount          int                  `json:"constant_method_count"`
+	AuthorityCount       int                  `json:"sid_identifier_authority_count"`
+	SyncInitializerCount int                  `json:"synchronization_initializer_count"`
+	Collisions           []collision          `json:"collisions"`
+	Skipped              map[string]int       `json:"skipped"`
+	Rejected             []rejectedDefinition `json:"rejected,omitempty"`
+	Symbols              map[string][]string  `json:"symbols"`
 }

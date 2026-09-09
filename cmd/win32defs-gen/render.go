@@ -569,7 +569,7 @@ func renderCatalog(packages map[string][]generatedConstant, source sourceLock) (
 
 	for _, spec := range packageSpecs {
 		for _, constant := range packages[spec.Name] {
-			commentField := catalogCommentField(constant.Comment)
+			commentField := catalogConstantFields(constant)
 
 			fmt.Fprintf(
 				&output,
@@ -598,7 +598,7 @@ func renderCatalog(packages map[string][]generatedConstant, source sourceLock) (
 
 		fmt.Fprintf(&output, "\tcase %q:\n\t\tswitch name {\n", spec.Name)
 		for _, constant := range constants {
-			commentField := catalogCommentField(constant.Comment)
+			commentField := catalogConstantFields(constant)
 
 			fmt.Fprintf(&output, "\t\tcase %q:\n", constant.Name)
 			fmt.Fprintf(
@@ -626,6 +626,15 @@ func renderCatalog(packages map[string][]generatedConstant, source sourceLock) (
 	}
 
 	return formatted, nil
+}
+
+func catalogConstantFields(constant generatedConstant) string {
+	fields := catalogCommentField(constant.Comment)
+	if constant.Family != "" {
+		fields += fmt.Sprintf(", Family: %q, Flags: %t, Kind: %q", constant.Family, constant.Flags, constant.Kind)
+	}
+
+	return fields
 }
 
 func catalogCommentField(comment string) string {

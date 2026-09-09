@@ -23,7 +23,8 @@ record MetadataConstant(
     [property: JsonPropertyName("comment")] string? Comment,
     [property: JsonPropertyName("kind")] string Kind,
     [property: JsonPropertyName("value")] string Value,
-    [property: JsonPropertyName("enum")] bool Enum);
+    [property: JsonPropertyName("enum")] bool Enum,
+    [property: JsonPropertyName("flags")] bool Flags);
 
 record MetadataConstantMethod(
     [property: JsonPropertyName("namespace")] string Namespace,
@@ -225,6 +226,7 @@ static class Program
             var namespaceName = reader.GetString(type.Namespace);
             var typeName = reader.GetString(type.Name);
             var isEnum = IsEnum(reader, type);
+            var isFlags = isEnum && type.GetCustomAttributes().Any(handle => GetAttributeTypeName(reader, reader.GetCustomAttribute(handle)) == "FlagsAttribute");
             var guid = ReadGuidAttribute(reader, type.GetCustomAttributes(), provider);
             if (guid is not null)
             {
@@ -249,7 +251,7 @@ static class Program
                     var documentation = ReadStringAttribute(reader, field.GetCustomAttributes(), "DocumentationAttribute");
                     var comment = ReadFieldComment(docs, fieldComments, typeName, fieldName);
 
-                    constants.Add(new MetadataConstant(namespaceName, typeName, fieldName, managedType, nativeType, documentation, comment, kind, value, isEnum));
+                    constants.Add(new MetadataConstant(namespaceName, typeName, fieldName, managedType, nativeType, documentation, comment, kind, value, isEnum, isFlags));
                 }
 
                 var initializer = ReadStringAttribute(reader, field.GetCustomAttributes(), "ConstantAttribute");

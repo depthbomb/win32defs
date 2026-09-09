@@ -44,6 +44,11 @@ Flag and API-domain packages:
 - `hidpi`
 - `clipboard`
 - `pipes`
+- `richedit`
+- `input`
+- `globalization`
+- `winhttp`
+- `cryptography`
 - `ioctl`
 - `security`
 - `syncinit`
@@ -122,11 +127,54 @@ Desktop and application support is grouped by API domain:
 | `pipes` | Named-pipe access, modes, and operation flags. |
 | `memory` | Memory and mapping flags plus global, local, and heap allocation flags. |
 | `com` | COM flags plus drag/drop effects and variant type identifiers. |
+| `richedit` | Rich Edit messages, stream formats, character formatting, and notifications. |
+| `input` | Raw input, pointer input, and touch constants. |
+| `security` | Token access masks, privileges, security enums, and SID authorities. |
+| `globalization` | Code pages, locales, character classification, and text conversion. |
+| `winhttp` | HTTP status codes, request flags, authentication, and WinHTTP options. |
+| `cryptography` | Cryptographic algorithm names, certificate values, and data-protection flags. |
 
 Family matching accounts for metadata namespaces: clipboard `CF_*` values
 remain separate from font-dialog `CF_*` flags, and static-control `SS_*`
 styles are included from the system-services namespace. Existing package
 assignments and canonical names are preserved when expanding these families.
+
+The `winmsg` package also includes mouse-state and activation/resize values
+and the reflected-message base `OCM__BASE`. The `shell` package includes
+change notifications, enumeration options, and taskbar button/progress flags.
+
+`FACILITY_NT_BIT` is a 32-bit HRESULT mask, not a facility identifier. Its
+previously truncated value has been corrected to `uint32(0x10000000)`; it is
+available as `facility.FACILITY_NT_BIT` and through the catalog, but is excluded
+from the 16-bit facility-ID lookup functions.
+
+DPI context constants can be passed to syscall bindings with their
+pointer-sized representation on every Windows architecture:
+
+```go
+context := hidpi.DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2.Uintptr()
+```
+
+For lookups scoped to one enum or named prefix, use the opt-in catalog:
+
+```go
+family := catalog.Family{
+	Package:   "shell",
+	Namespace: "Windows.Win32.UI.Shell",
+	Name:      "FILEOPENDIALOGOPTIONS",
+}
+definition, ok := catalog.LookupInFamily(family, "FOS_PICKFOLDERS")
+names := catalog.NamesInFamily(family, "0x20")
+text, ok := catalog.FormatFlags(family, 0x60)
+// text: FOS_FORCEFILESYSTEM | FOS_PICKFOLDERS
+```
+
+`Families` discovers available families, and `FamilyDefinitions` enumerates
+their members. Integer lookup values accept decimal and Go integer-literal
+notation; other values use the catalog's literal representation. Each
+definition exposes its family, source scalar kind, and whether its enum is
+marked with the metadata Flags attribute. `FormatFlags` rejects ordinary
+enums and loose prefixes, and preserves unknown bits as a hexadecimal remainder.
 
 The `winmacro` package provides platform-independent helpers for word and
 message-parameter packing, signed coordinate and mouse-wheel extraction, color
@@ -188,6 +236,37 @@ Ordinary reproducible regeneration uses the version and package digest in
 ```console
 go generate ./...
 ```
+
+Verified source packages are cached by SHA-256 under the operating system's
+user cache directory in `win32defs`. Every reuse checks the archive digest;
+only archives that passed NuGet signature verification have a verification
+record. Override the location with `-cache-dir`.
+
+After an online generation has populated the package cache and restored the
+exporter's .NET dependencies, regenerate without network access using:
+
+```console
+go run ./cmd/win32defs-gen -offline
+```
+
+Offline mode requires the source lock and fails on missing or invalid cache
+entries; it cannot be combined with `-latest`. It builds the exporter with
+`--no-restore` so the already restored .NET dependencies are reused.
+
+Generation renders and validates all output in a temporary directory before
+replacing live files. Publication skips unchanged files and rolls back file
+replacements on an I/O failure. New omissions, rejected definitions, or
+collisions fail generation with symbol-level diagnostics. Existing documented
+collisions remain quarantined. The report records the emitted symbol inventory
+for subsequent regression checks. Use `-accept-changes` only after reviewing
+an intentional removal or a new quarantined definition.
+
+Integer normalization rejects out-of-range values before any narrowing and
+preserves intentional signed-bit reinterpretation. Finite floating-point
+constants retain their source `float32` or `float64` type; non-finite values
+are reported as unsupported. Numeric package lookup functions cover integer
+constants of the package's common type; the catalog also includes strings,
+floating-point values, and explicitly wider masks.
 
 Generation requires Go 1.26+, the .NET 10 SDK, and access to NuGet.org. Library
 consumers need only Go.

@@ -9,13 +9,19 @@ import (
 	"github.com/depthbomb/win32defs/clipboard"
 	"github.com/depthbomb/win32defs/com"
 	"github.com/depthbomb/win32defs/controls"
+	"github.com/depthbomb/win32defs/cryptography"
 	"github.com/depthbomb/win32defs/dialogs"
 	"github.com/depthbomb/win32defs/dwm"
 	"github.com/depthbomb/win32defs/gdi"
+	"github.com/depthbomb/win32defs/globalization"
 	"github.com/depthbomb/win32defs/hidpi"
+	"github.com/depthbomb/win32defs/input"
 	"github.com/depthbomb/win32defs/memory"
 	"github.com/depthbomb/win32defs/pipes"
+	"github.com/depthbomb/win32defs/richedit"
+	"github.com/depthbomb/win32defs/security"
 	"github.com/depthbomb/win32defs/shell"
+	"github.com/depthbomb/win32defs/winhttp"
 	"github.com/depthbomb/win32defs/winmsg"
 )
 
@@ -93,6 +99,20 @@ func TestDesktopConstants(t *testing.T) {
 	checkDesktopConstant(t, "memory", "HEAP_ZERO_MEMORY", memory.HEAP_ZERO_MEMORY, 8, memory.Parse, memory.Names)
 	checkDesktopConstant(t, "pipes", "PIPE_ACCESS_DUPLEX", pipes.PIPE_ACCESS_DUPLEX, 3, pipes.Parse, pipes.Names)
 	checkDesktopConstant(t, "pipes", "PIPE_TYPE_MESSAGE", pipes.PIPE_TYPE_MESSAGE, 4, pipes.Parse, pipes.Names)
+	checkDesktopConstant(t, "winmsg", "OCM__BASE", winmsg.OCM__BASE, 0x2000, winmsg.Parse, winmsg.Names)
+	checkDesktopConstant(t, "winmsg", "MK_LBUTTON", winmsg.MK_LBUTTON, 1, winmsg.Parse, winmsg.Names)
+	checkDesktopConstant(t, "winmsg", "WVR_REDRAW", winmsg.WVR_REDRAW, 0x300, winmsg.Parse, winmsg.Names)
+	checkDesktopConstant(t, "richedit", "EM_STREAMIN", richedit.EM_STREAMIN, 0x449, richedit.Parse, richedit.Names)
+	checkDesktopConstant(t, "input", "RID_INPUT", input.RID_INPUT, 0x10000003, input.Parse, input.Names)
+	checkDesktopConstant(t, "security", "TOKEN_QUERY", security.TOKEN_QUERY, 8, security.Parse, security.Names)
+	checkDesktopConstant(t, "globalization", "CP_UTF8", globalization.CP_UTF8, 65001, globalization.Parse, globalization.Names)
+	checkDesktopConstant(t, "winhttp", "HTTP_STATUS_OK", winhttp.HTTP_STATUS_OK, 200, winhttp.Parse, winhttp.Names)
+	checkDesktopConstant(t, "cryptography", "CRYPTPROTECT_UI_FORBIDDEN", cryptography.CRYPTPROTECT_UI_FORBIDDEN, 1, cryptography.Parse, cryptography.Names)
+	checkDesktopConstant(t, "shell", "THBN_CLICKED", shell.THBN_CLICKED, 0x1800, shell.Parse, shell.Names)
+
+	if security.SE_DEBUG_NAME != "SeDebugPrivilege" || cryptography.BCRYPT_SHA256_ALGORITHM != "SHA256" {
+		t.Fatal("incorrect generated security or algorithm name")
+	}
 }
 
 func TestDesktopFamilyBoundaries(t *testing.T) {

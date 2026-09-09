@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"go/token"
+	"math"
 	"math/big"
 	"sort"
 	"strconv"
@@ -230,6 +231,14 @@ var packageSpecs = []packageSpec{
 		Signed:     true,
 		Declare:    true,
 		Match: func(item metadataConstant) bool {
+			if item.Namespace == "Windows.Win32.System.Ole" && item.Name == "OCM__BASE" {
+				return true
+			}
+
+			if item.Namespace == "Windows.Win32.System.SystemServices" && strings.HasPrefix(item.Name, "MK_") {
+				return true
+			}
+
 			if hasExactName(item.Namespace, "Windows.Win32.UI.WindowsAndMessaging", "Windows.Win32.UI.Controls") && isBasicControlConstant(item.Name) {
 				return true
 			}
@@ -238,7 +247,7 @@ var packageSpecs = []packageSpec{
 				return true
 			}
 
-			if item.Namespace == "Windows.Win32.UI.WindowsAndMessaging" && isWindowOperationConstant(item.Name) {
+			if item.Namespace == "Windows.Win32.UI.WindowsAndMessaging" && (isWindowOperationConstant(item.Name) || isWindowEventConstant(item.Name)) {
 				return true
 			}
 
@@ -269,7 +278,7 @@ var packageSpecs = []packageSpec{
 
 			return item.Namespace == "Windows.Win32.UI.Shell" &&
 				(isExistingShellConstant(item.Name) ||
-					hasAnyPrefix(item.Name, "BIF_", "BFFM_", "SHGFI_", "SEE_MASK_", "FO_", "FOF_", "FOFX_", "SIGDN_", "KF_FLAG_", "SFGAO_"))
+					hasAnyPrefix(item.Name, "BIF_", "BFFM_", "SHGFI_", "SEE_MASK_", "FO_", "FOF_", "FOFX_", "SIGDN_", "KF_FLAG_", "SFGAO_", "SHCNE_", "SHCNF_", "SHCONTF_", "TBPF_", "THBN_", "THBF_", "THB_"))
 		},
 		CanonicalRank: shellCanonicalRank,
 	},
@@ -357,6 +366,78 @@ var packageSpecs = []packageSpec{
 		},
 	},
 	{
+		Name:       "richedit",
+		Doc:        "Rich Edit messages, notifications, formatting, and stream flags.",
+		TypeName:   "Value",
+		Underlying: "int64",
+		Width:      64,
+		Signed:     true,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			return item.Namespace == "Windows.Win32.UI.Controls.RichEdit"
+		},
+	},
+	{
+		Name:       "input",
+		Doc:        "raw input, mouse, pointer, and touch flags and identifiers.",
+		TypeName:   "Value",
+		Underlying: "int64",
+		Width:      64,
+		Signed:     true,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			return hasExactName(item.Namespace, "Windows.Win32.UI.Input", "Windows.Win32.UI.Input.Pointer", "Windows.Win32.UI.Input.Touch") ||
+				(item.Namespace == "Windows.Win32.UI.WindowsAndMessaging" && hasAnyPrefix(item.Name, "RI_", "RIM_", "RIDI_"))
+		},
+	},
+	{
+		Name:       "security",
+		Doc:        "security access rights, token values, privileges, and SID authorities.",
+		TypeName:   "Value",
+		Underlying: "uint64",
+		Width:      64,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			return item.Namespace == "Windows.Win32.Security"
+		},
+	},
+	{
+		Name:       "globalization",
+		Doc:        "code pages, locales, text conversion, and character classification constants.",
+		TypeName:   "Value",
+		Underlying: "int64",
+		Width:      64,
+		Signed:     true,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			return item.Namespace == "Windows.Win32.Globalization"
+		},
+	},
+	{
+		Name:       "winhttp",
+		Doc:        "WinHTTP options, request flags, status codes, and authentication values.",
+		TypeName:   "Value",
+		Underlying: "int64",
+		Width:      64,
+		Signed:     true,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			return item.Namespace == "Windows.Win32.Networking.WinHttp"
+		},
+	},
+	{
+		Name:       "cryptography",
+		Doc:        "cryptographic algorithm names, options, certificate values, and data-protection flags.",
+		TypeName:   "Value",
+		Underlying: "int64",
+		Width:      64,
+		Signed:     true,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			return item.Namespace == "Windows.Win32.Security.Cryptography"
+		},
+	},
+	{
 		Name: "ioctl", Doc: "I/O control device types, methods, access flags, and control codes.", TypeName: "Value",
 		Underlying: "uint32", Width: 32, Declare: true,
 		Match: func(item metadataConstant) bool {
@@ -433,6 +514,10 @@ func winsockCanonicalRank(name string) int {
 }
 
 func winmsgCanonicalRank(name string) int {
+	if isWindowEventConstant(name) {
+		return 40
+	}
+
 	if hasAnyPrefix(name, "WM_", "WS_", "SW_", "MB_", "VK_", "MOD_", "HOTKEYF_", "GWL_", "GWLP_") {
 		return 0
 	}
@@ -477,6 +562,10 @@ func isExistingShellConstant(name string) bool {
 }
 
 func shellCanonicalRank(name string) int {
+	if hasAnyPrefix(name, "SHCNE_", "SHCNF_", "SHCONTF_", "TBPF_", "THBN_", "THBF_", "THB_") {
+		return 20
+	}
+
 	if isExistingShellConstant(name) {
 		return 0
 	}
@@ -491,6 +580,10 @@ func isBasicControlConstant(name string) bool {
 func isWindowOperationConstant(name string) bool {
 	return hasAnyPrefix(name, "HT", "SC_", "PM_", "MIIM_", "MFT_", "MFS_", "MIM_", "GMDI_", "GW_", "GA_", "DCX_", "DI_", "LR_", "IMAGE_", "ICON_", "SIF_", "SBS_", "DLGC_", "DS_", "DM_") ||
 		hasExactName(name, "IDOK", "IDCANCEL", "IDABORT", "IDRETRY", "IDIGNORE", "IDYES", "IDNO", "IDCLOSE", "IDHELP", "IDTRYAGAIN", "IDCONTINUE", "IDTIMEOUT")
+}
+
+func isWindowEventConstant(name string) bool {
+	return hasAnyPrefix(name, "MK_", "XBUTTON", "SIZE_", "WA_", "WMSZ_", "WVR_") || name == "OCM__BASE"
 }
 
 func isControlConstant(name string) bool {
@@ -528,7 +621,7 @@ func hasExactName(value string, names ...string) bool {
 }
 
 func isNumericKind(kind string) bool {
-	return kind != "string" && kind != "bool" && kind != "null"
+	return hasExactName(kind, "int8", "uint8", "int16", "uint16", "char", "int32", "uint32", "int64", "uint64")
 }
 
 func normalizeConstant(item metadataConstant, spec packageSpec) (generatedConstant, error) {
@@ -538,6 +631,9 @@ func normalizeConstant(item metadataConstant, spec packageSpec) (generatedConsta
 		DeclaringType: item.DeclaringType,
 		Documentation: item.Documentation,
 		Comment:       item.Comment,
+		Family:        constantFamily(item),
+		Flags:         item.Enum && item.Flags,
+		Kind:          item.Kind,
 	}
 
 	if item.Kind == "string" {
@@ -554,6 +650,22 @@ func normalizeConstant(item metadataConstant, spec packageSpec) (generatedConsta
 		return result, nil
 	}
 
+	if item.Kind == "float32" || item.Kind == "float64" {
+		bits := int(sourceWidth(item.Kind))
+		value, err := strconv.ParseFloat(item.Value, bits)
+		if err != nil || math.IsNaN(value) || math.IsInf(value, 0) {
+			return generatedConstant{}, fmt.Errorf("invalid finite %s constant %q", item.Kind, item.Value)
+		}
+
+		result.Type = item.Kind
+		result.Expression = strconv.FormatFloat(value, 'g', -1, bits)
+		if !strings.ContainsAny(result.Expression, ".eE") {
+			result.Expression += ".0"
+		}
+
+		return result, nil
+	}
+
 	if !isNumericKind(item.Kind) {
 		return generatedConstant{}, fmt.Errorf("unsupported constant kind %s", item.Kind)
 	}
@@ -561,6 +673,13 @@ func normalizeConstant(item metadataConstant, spec packageSpec) (generatedConsta
 	value := new(big.Int)
 	if _, ok := value.SetString(item.Value, 10); !ok {
 		return generatedConstant{}, fmt.Errorf("parse numeric value %q", item.Value)
+	}
+
+	isFacilityMask := spec.Name == "facility" && item.Name == "FACILITY_NT_BIT"
+	if isFacilityMask {
+		spec.TypeName = "uint32"
+		spec.Underlying = "uint32"
+		spec.Width = 32
 	}
 
 	normalized, err := normalizeInteger(value, item.Kind, spec)
@@ -571,27 +690,44 @@ func normalizeConstant(item metadataConstant, spec packageSpec) (generatedConsta
 	result.Type = spec.TypeName
 	result.Expression = normalized
 	result.LookupKey = normalized
-	result.Numeric = true
+	result.Numeric = !isFacilityMask
 
 	return result, nil
 }
 
 func normalizeInteger(value *big.Int, sourceKind string, spec packageSpec) (string, error) {
+	if !isNumericKind(sourceKind) || spec.Width == 0 || spec.Width > 64 {
+		return "", fmt.Errorf("invalid integer kind or target width: %s/%d", sourceKind, spec.Width)
+	}
+
+	sourceBits := sourceWidth(sourceKind)
+	sourceSigned := strings.HasPrefix(sourceKind, "int")
+	if !integerFits(value, sourceBits, sourceSigned) {
+		return "", fmt.Errorf("value %s does not fit source %s", value, sourceKind)
+	}
+
 	normalized := new(big.Int).Set(value)
 
 	if spec.Signed {
 		if spec.Name == "hresult" {
+			if !integerFits(normalized, 32, normalized.Sign() < 0) {
+				return "", fmt.Errorf("value %s does not fit HRESULT", value)
+			}
+
 			normalized = reinterpretInteger(normalized, sourceWidth(sourceKind), 32, true)
 		}
 
-		if !normalized.IsInt64() {
+		if !integerFits(normalized, spec.Width, true) {
 			return "", fmt.Errorf("value %s does not fit %s", value, spec.Underlying)
 		}
 
 		return normalized.String(), nil
 	}
 
-	normalized = reinterpretInteger(normalized, sourceWidth(sourceKind), spec.Width, false)
+	if normalized.Sign() < 0 {
+		normalized.Add(normalized, new(big.Int).Lsh(big.NewInt(1), sourceBits))
+	}
+
 	if normalized.Sign() < 0 || normalized.BitLen() > int(spec.Width) {
 		return "", fmt.Errorf("value %s does not fit %s", value, spec.Underlying)
 	}
@@ -599,6 +735,27 @@ func normalizeInteger(value *big.Int, sourceKind string, spec packageSpec) (stri
 	width := int((spec.Width + 3) / 4)
 
 	return fmt.Sprintf("0x%0*X", width, normalized), nil
+}
+
+func integerFits(value *big.Int, width uint, signed bool) bool {
+	if signed {
+		limit := new(big.Int).Lsh(big.NewInt(1), width-1)
+		return value.Cmp(new(big.Int).Neg(limit)) >= 0 && value.Cmp(limit) < 0
+	}
+
+	return value.Sign() >= 0 && value.BitLen() <= int(width)
+}
+
+func constantFamily(item metadataConstant) string {
+	if item.Enum {
+		return item.DeclaringType
+	}
+
+	if index := strings.IndexByte(item.Name, '_'); index > 0 {
+		return item.Name[:index+1]
+	}
+
+	return item.DeclaringType
 }
 
 func sourceWidth(kind string) uint {
@@ -636,10 +793,11 @@ func reinterpretInteger(value *big.Int, fromWidth uint, toWidth uint, signed boo
 	return result
 }
 
-func collectConstants(export metadataExport) (map[string][]generatedConstant, []collision, map[string]int) {
+func collectConstants(export metadataExport) (map[string][]generatedConstant, []collision, map[string]int, []rejectedDefinition) {
 	packages := make(map[string][]generatedConstant, len(packageSpecs))
 	skipped := make(map[string]int)
 	allCollisions := make([]collision, 0)
+	var rejected []rejectedDefinition
 
 	for _, spec := range packageSpecs {
 		byName := make(map[string][]generatedConstant)
@@ -651,6 +809,7 @@ func collectConstants(export metadataExport) (map[string][]generatedConstant, []
 
 			if !token.IsIdentifier(item.Name) {
 				skipped["invalid_identifier"]++
+				rejected = append(rejected, rejectConstant(spec.Name, item, "invalid Go identifier"))
 
 				continue
 			}
@@ -658,6 +817,7 @@ func collectConstants(export metadataExport) (map[string][]generatedConstant, []
 			constant, err := normalizeConstant(item, spec)
 			if err != nil {
 				skipped["unsupported_value"]++
+				rejected = append(rejected, rejectConstant(spec.Name, item, err.Error()))
 
 				continue
 			}
@@ -704,7 +864,17 @@ func collectConstants(export metadataExport) (map[string][]generatedConstant, []
 		return allCollisions[left].Name < allCollisions[right].Name
 	})
 
-	return packages, allCollisions, skipped
+	return packages, allCollisions, skipped, rejected
+}
+
+func rejectConstant(packageName string, item metadataConstant, reason string) rejectedDefinition {
+	return rejectedDefinition{
+		Package:   packageName,
+		Namespace: item.Namespace,
+		Name:      item.Name,
+		Value:     item.Value,
+		Reason:    reason,
+	}
 }
 
 func measureCoverage(export metadataExport) constantCoverage {

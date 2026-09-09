@@ -3,9 +3,11 @@ package catalog
 import (
 	"iter"
 	"math/bits"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 )
 
 // Family identifies a metadata enum or a named prefix within an API namespace.
@@ -20,6 +22,102 @@ type flagDefinition struct {
 	value uint64
 }
 
+type familyGroup struct {
+	names   map[string][]string
+	flags   []flagDefinition
+	exact   map[uint64]string
+	isFlags bool
+}
+
+type familyDescriptor struct {
+	family Family
+	start  int
+	end    int
+}
+
+var familyGroups sync.Map
+
+func compareFamilies(left Family, right Family) int {
+	if order := strings.Compare(left.Package, right.Package); order != 0 {
+		return order
+	}
+
+	if order := strings.Compare(left.Namespace, right.Namespace); order != 0 {
+		return order
+	}
+
+	return strings.Compare(left.Name, right.Name)
+}
+
+func findFamily(family Family) *familyDescriptor {
+	index := sort.Search(len(familyDescriptors), func(index int) bool {
+		return compareFamilies(familyDescriptors[index].family, family) >= 0
+	})
+	if index == len(familyDescriptors) || familyDescriptors[index].family != family {
+		return nil
+	}
+
+	return &familyDescriptors[index]
+}
+
+func buildFamilyGroup(descriptor *familyDescriptor) *familyGroup {
+	group := &familyGroup{
+		names:   make(map[string][]string),
+		isFlags: true,
+	}
+	for _, position := range familyMembers[descriptor.start:descriptor.end] {
+		definition := definitions[position]
+		value := normalizedFamilyValue(definition.Value)
+		group.names[value] = append(group.names[value], definition.Name)
+		group.isFlags = group.isFlags && definition.Flags
+	}
+
+	if !group.isFlags {
+		return group
+	}
+
+	group.exact = make(map[uint64]string)
+	for _, position := range familyMembers[descriptor.start:descriptor.end] {
+		definition := definitions[position]
+		value, ok := flagBits(definition)
+		if !ok {
+			group.isFlags = false
+			break
+		}
+
+		if _, exists := group.exact[value]; exists {
+			continue
+		}
+
+		group.exact[value] = definition.Name
+		if value != 0 {
+			group.flags = append(group.flags, flagDefinition{
+				name:  definition.Name,
+				value: value,
+			})
+		}
+	}
+	sort.SliceStable(group.flags, func(left, right int) bool {
+		return bits.OnesCount64(group.flags[left].value) > bits.OnesCount64(group.flags[right].value)
+	})
+
+	return group
+}
+
+func indexedFamily(family Family) *familyGroup {
+	descriptor := findFamily(family)
+	if descriptor == nil {
+		return nil
+	}
+
+	if group, ok := familyGroups.Load(descriptor); ok {
+		return group.(*familyGroup)
+	}
+
+	group, _ := familyGroups.LoadOrStore(descriptor, buildFamilyGroup(descriptor))
+
+	return group.(*familyGroup)
+}
 func definitionFamily(definition Definition) Family {
 	return Family{
 		Package:   definition.Package,
@@ -29,6 +127,10 @@ func definitionFamily(definition Definition) Family {
 }
 
 func normalizedFamilyValue(value string) string {
+	if value == "" || value[0] != '-' && value[0] != '+' && (value[0] < '0' || value[0] > '9') {
+		return value
+	}
+
 	if number, err := strconv.ParseInt(value, 0, 64); err == nil {
 		return strconv.FormatInt(number, 10)
 	}
@@ -68,32 +170,18 @@ func flagBits(definition Definition) (uint64, bool) {
 // An empty packageName includes every package.
 func Families(packageName string) iter.Seq[Family] {
 	return func(yield func(Family) bool) {
-		seen := make(map[Family]bool)
-		var families []Family
-		for definition := range Definitions() {
-			if packageName != "" && definition.Package != packageName {
-				continue
-			}
-
-			family := definitionFamily(definition)
-			if !seen[family] {
-				seen[family] = true
-				families = append(families, family)
-			}
+		start, end := 0, len(familyDescriptors)
+		if packageName != "" {
+			start = sort.Search(len(familyDescriptors), func(index int) bool {
+				return familyDescriptors[index].family.Package >= packageName
+			})
+			end = sort.Search(len(familyDescriptors), func(index int) bool {
+				return familyDescriptors[index].family.Package > packageName
+			})
 		}
-		sort.Slice(families, func(left, right int) bool {
-			if families[left].Package != families[right].Package {
-				return families[left].Package < families[right].Package
-			}
 
-			if families[left].Namespace != families[right].Namespace {
-				return families[left].Namespace < families[right].Namespace
-			}
-
-			return families[left].Name < families[right].Name
-		})
-		for _, family := range families {
-			if !yield(family) {
+		for index := start; index < end; index++ {
+			if !yield(familyDescriptors[index].family) {
 				return
 			}
 		}
@@ -103,8 +191,13 @@ func Families(packageName string) iter.Seq[Family] {
 // FamilyDefinitions iterates over a family's members in lexical name order.
 func FamilyDefinitions(family Family) iter.Seq[Definition] {
 	return func(yield func(Definition) bool) {
-		for definition := range Definitions() {
-			if definitionFamily(definition) == family && !yield(definition) {
+		descriptor := findFamily(family)
+		if descriptor == nil {
+			return
+		}
+
+		for _, position := range familyMembers[descriptor.start:descriptor.end] {
+			if !yield(definitions[position]) {
 				return
 			}
 		}
@@ -125,15 +218,12 @@ func LookupInFamily(family Family, name string) (Definition, bool) {
 // may use decimal or Go integer-literal notation. Other values must match the
 // catalog's Value representation exactly, including quotes for string values.
 func NamesInFamily(family Family, value string) []string {
-	value = normalizedFamilyValue(value)
-	var names []string
-	for definition := range FamilyDefinitions(family) {
-		if normalizedFamilyValue(definition.Value) == value {
-			names = append(names, definition.Name)
-		}
+	group := indexedFamily(family)
+	if group == nil {
+		return nil
 	}
 
-	return names
+	return slices.Clone(group.names[normalizedFamilyValue(value)])
 }
 
 // FormatFlags formats a value only for an enum marked as flags by the source
@@ -141,53 +231,42 @@ func NamesInFamily(family Family, value string) []string {
 // lexical names breaking ties. Unknown bits are retained as a hexadecimal
 // remainder. Zero is "0" when the enum has no zero-valued member.
 func FormatFlags(family Family, value uint64) (string, bool) {
-	var flags []flagDefinition
-	found := false
-	for definition := range FamilyDefinitions(family) {
-		found = true
-		if !definition.Flags {
-			return "", false
-		}
-
-		mask, ok := flagBits(definition)
-		if !ok {
-			return "", false
-		}
-
-		if mask == value {
-			return definition.Name, true
-		}
-
-		if mask != 0 {
-			flags = append(flags, flagDefinition{
-				name:  definition.Name,
-				value: mask,
-			})
-		}
-	}
-
-	if !found {
+	group := indexedFamily(family)
+	if group == nil || !group.isFlags {
 		return "", false
 	}
 
-	sort.SliceStable(flags, func(left, right int) bool {
-		return bits.OnesCount64(flags[left].value) > bits.OnesCount64(flags[right].value)
-	})
-	var names []string
-	for _, flag := range flags {
+	if name, ok := group.exact[value]; ok {
+		return name, true
+	}
+
+	var output strings.Builder
+	for _, flag := range group.flags {
 		if value&flag.value == flag.value {
-			names = append(names, flag.name)
+			if output.Len() != 0 {
+				output.WriteString(" | ")
+			} else {
+				output.Grow(128)
+			}
+
+			output.WriteString(flag.name)
 			value &^= flag.value
 		}
 	}
 
 	if value != 0 {
-		names = append(names, "0x"+strconv.FormatUint(value, 16))
+		if output.Len() != 0 {
+			output.WriteString(" | ")
+		}
+
+		var buffer [18]byte
+		output.WriteString("0x")
+		output.Write(strconv.AppendUint(buffer[:0], value, 16))
 	}
 
-	if len(names) == 0 {
+	if output.Len() == 0 {
 		return "0", true
 	}
 
-	return strings.Join(names, " | "), true
+	return output.String(), true
 }

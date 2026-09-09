@@ -175,6 +175,10 @@ notation; other values use the catalog's literal representation. Each
 definition exposes its family, source scalar kind, and whether its enum is
 marked with the metadata Flags attribute. `FormatFlags` rejects ordinary
 enums and loose prefixes, and preserves unknown bits as a hexadecimal remainder.
+Family membership tables are generated alongside the definition table.
+Enumeration needs no runtime index allocation; alias and flag caches are
+built on demand for individual families. Returned alias slices are independent
+copies and can be modified by the caller.
 
 The `winmacro` package provides platform-independent helpers for word and
 message-parameter packing, signed coordinate and mouse-wheel extraction, color
@@ -284,6 +288,16 @@ git diff --exit-code
 go test ./...
 go vet ./...
 dotnet build tools/winmd-exporter/winmd-exporter.csproj --configuration Release
+```
+
+CI runs tests on Linux and Windows and compiles Windows 386 and ARM64 test
+binaries. It also verifies that offline regeneration produces no changes.
+
+The catalog and generator benchmarks include family lookup, flag formatting,
+first-use family cache construction, and scalar normalization:
+
+```console
+go test -p 1 ./catalog ./cmd/win32defs-gen -run '^$' -bench . -benchmem -count=5
 ```
 
 Generated files are named `zz_generated.go` and must not be edited manually.

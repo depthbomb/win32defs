@@ -4,6 +4,16 @@ import "testing"
 
 var benchmarkFamilyNames []string
 var benchmarkFlags string
+var benchmarkGroup *familyGroup
+
+func BenchmarkBuildFamilyGroup(b *testing.B) {
+	descriptor := findFamily(fileDialogFamily())
+	b.ReportAllocs()
+
+	for range b.N {
+		benchmarkGroup = buildFamilyGroup(descriptor)
+	}
+}
 
 func BenchmarkFamilyNames(b *testing.B) {
 	family := fileDialogFamily()

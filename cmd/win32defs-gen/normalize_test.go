@@ -2,6 +2,7 @@ package main
 
 import (
 	"math/big"
+	"strconv"
 	"testing"
 )
 
@@ -86,8 +87,36 @@ func TestIntegerBoundaries(t *testing.T) {
 			if (err != nil) != test.wantErr || !test.wantErr && got != test.want {
 				t.Fatalf("normalize = %q, %v; want %q, error=%v", got, err, test.want, test.wantErr)
 			}
+
+			got, err = normalizeIntegerText(test.value, test.kind, specByName(test.pkg))
+			if (err != nil) != test.wantErr || !test.wantErr && got != test.want {
+				t.Fatalf("fast normalize = %q, %v; want %q, error=%v", got, err, test.want, test.wantErr)
+			}
 		})
 	}
+}
+
+func FuzzIntegerNormalization(f *testing.F) {
+	f.Add(int64(-1), false, uint8(4), uint8(1))
+	f.Add(int64(4294967296), true, uint8(7), uint8(1))
+	f.Add(int64(-9223372036854775808), false, uint8(6), uint8(3))
+	f.Fuzz(func(t *testing.T, number int64, unsigned bool, kindIndex uint8, packageIndex uint8) {
+		kinds := [...]string{"int8", "uint8", "int16", "uint16", "int32", "uint32", "int64", "uint64", "char"}
+		packages := [...]string{"facility", "shell", "hresult", "winmsg", "memory"}
+		text := strconv.FormatInt(number, 10)
+		if unsigned {
+			text = strconv.FormatUint(uint64(number), 10)
+		}
+
+		value, _ := new(big.Int).SetString(text, 10)
+		kind := kinds[int(kindIndex)%len(kinds)]
+		spec := specByName(packages[int(packageIndex)%len(packages)])
+		want, wantErr := normalizeInteger(value, kind, spec)
+		got, err := normalizeIntegerText(text, kind, spec)
+		if (err != nil) != (wantErr != nil) || err == nil && got != want {
+			t.Fatalf("%s/%s/%s: fast = %q, %v; reference = %q, %v", text, kind, spec.Name, got, err, want, wantErr)
+		}
+	})
 }
 
 func TestFloatConstants(t *testing.T) {

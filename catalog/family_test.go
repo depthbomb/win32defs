@@ -98,3 +98,40 @@ func TestFamilyValueKinds(t *testing.T) {
 		t.Fatalf("string family lookup = %v", got)
 	}
 }
+
+func TestEveryDefinitionHasFamilyLookup(t *testing.T) {
+	t.Parallel()
+
+	for definition := range Definitions() {
+		family := Family{
+			Package:   definition.Package,
+			Namespace: definition.Namespace,
+			Name:      definition.Family,
+		}
+		got, ok := LookupInFamily(family, definition.Name)
+		if !ok || got != definition {
+			t.Fatalf("family lookup lost %s.%s", definition.Package, definition.Name)
+		}
+
+		if !slices.Contains(NamesInFamily(family, definition.Value), definition.Name) {
+			t.Fatalf("family aliases lost %s.%s", definition.Package, definition.Name)
+		}
+	}
+
+	count := 0
+	for family := range Families("") {
+		previous := ""
+		for definition := range FamilyDefinitions(family) {
+			if definition.Name < previous {
+				t.Fatalf("family %v is not in lexical order", family)
+			}
+
+			previous = definition.Name
+			count++
+		}
+	}
+
+	if count != len(definitions) {
+		t.Fatalf("family enumeration visited %d definitions, want %d", count, len(definitions))
+	}
+}

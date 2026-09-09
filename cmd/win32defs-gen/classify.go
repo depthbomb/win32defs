@@ -247,7 +247,7 @@ var packageSpecs = []packageSpec{
 				return true
 			}
 
-			if item.Namespace == "Windows.Win32.UI.WindowsAndMessaging" && (isWindowOperationConstant(item.Name) || isWindowEventConstant(item.Name)) {
+			if item.Namespace == "Windows.Win32.UI.WindowsAndMessaging" && (isWindowOperationConstant(item.Name) || isWindowEventConstant(item.Name) || item.DeclaringType == "ACCEL_VIRT_FLAGS" || item.Name == "DC_HASDEFID") {
 				return true
 			}
 
@@ -278,9 +278,56 @@ var packageSpecs = []packageSpec{
 
 			return item.Namespace == "Windows.Win32.UI.Shell" &&
 				(isExistingShellConstant(item.Name) ||
-					hasAnyPrefix(item.Name, "BIF_", "BFFM_", "SHGFI_", "SEE_MASK_", "FO_", "FOF_", "FOFX_", "SIGDN_", "KF_FLAG_", "SFGAO_", "SHCNE_", "SHCNF_", "SHCONTF_", "TBPF_", "THBN_", "THBF_", "THB_"))
+					hasAnyPrefix(item.Name, "BIF_", "BFFM_", "SHGFI_", "SEE_MASK_", "FO_", "FOF_", "FOFX_", "SIGDN_", "KF_FLAG_", "SFGAO_", "SHCNE_", "SHCNF_", "SHCONTF_", "TBPF_", "THBN_", "THBF_", "THB_", "NINF_"))
 		},
 		CanonicalRank: shellCanonicalRank,
+	},
+	{
+		Name:       "resource",
+		Doc:        "integer resource types and manifest resource identifiers.",
+		TypeName:   "ID",
+		Underlying: "uint16",
+		Width:      16,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			if item.Namespace == "Windows.Win32.Media.KernelStreaming" {
+				return hasExactName(item.Name, "RT_RCDATA", "RT_STRING")
+			}
+
+			return item.Namespace == "Windows.Win32.UI.WindowsAndMessaging" &&
+				(strings.HasPrefix(item.Name, "RT_") || strings.HasSuffix(item.Name, "_MANIFEST_RESOURCE_ID"))
+		},
+		CanonicalRank: func(name string) int {
+			if strings.HasPrefix(name, "RT_") {
+				return 0
+			}
+
+			return 10
+		},
+	},
+	{
+		Name:       "versioninfo",
+		Doc:        "file version signatures, flags, operating systems, types, and query flags.",
+		TypeName:   "Value",
+		Underlying: "uint32",
+		Width:      32,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			return item.Namespace == "Windows.Win32.Storage.FileSystem" &&
+				hasAnyPrefix(item.Name, "VS_", "VOS_", "VFT_", "VFT2_", "FILE_VER_")
+		},
+	},
+	{
+		Name:       "pe",
+		Doc:        "Portable Executable and COFF image signatures, directories, machines, sections, and relocations.",
+		TypeName:   "Value",
+		Underlying: "uint64",
+		Width:      64,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			return hasExactName(item.Namespace, "Windows.Win32.System.Diagnostics.Debug", "Windows.Win32.System.SystemInformation", "Windows.Win32.System.SystemServices") &&
+				strings.HasPrefix(item.Name, "IMAGE_")
+		},
 	},
 	{
 		Name:       "controls",
@@ -514,6 +561,10 @@ func winsockCanonicalRank(name string) int {
 }
 
 func winmsgCanonicalRank(name string) int {
+	if hasAnyPrefix(name, "CBN_") || hasExactName(name, "FVIRTKEY", "FNOINVERT", "FSHIFT", "FCONTROL", "FALT", "DC_HASDEFID") {
+		return 50
+	}
+
 	if isWindowEventConstant(name) {
 		return 40
 	}
@@ -562,6 +613,10 @@ func isExistingShellConstant(name string) bool {
 }
 
 func shellCanonicalRank(name string) int {
+	if strings.HasPrefix(name, "NINF_") {
+		return 30
+	}
+
 	if hasAnyPrefix(name, "SHCNE_", "SHCNF_", "SHCONTF_", "TBPF_", "THBN_", "THBF_", "THB_") {
 		return 20
 	}
@@ -587,7 +642,7 @@ func isWindowEventConstant(name string) bool {
 }
 
 func isControlConstant(name string) bool {
-	return hasAnyPrefix(name, "CB_", "CBS_", "BS_", "BM_", "BN_", "BST_")
+	return hasAnyPrefix(name, "CB_", "CBS_", "CBN_", "BS_", "BM_", "BN_", "BST_")
 }
 
 func hasAnyPrefix(value string, prefixes ...string) bool {

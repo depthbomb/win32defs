@@ -12,6 +12,45 @@ func TestDesktopNamespaceBoundaries(t *testing.T) {
 		want        bool
 	}{
 		{
+			packageName: "versioninfo",
+			name:        "VS_FFI_SIGNATURE",
+			namespace:   "Windows.Win32.Storage.FileSystem",
+			want:        true,
+		},
+		{
+			packageName: "versioninfo",
+			name:        "VS_ALLOW_LATIN",
+			namespace:   "Windows.Win32.Globalization",
+		},
+		{
+			packageName: "pe",
+			name:        "IMAGE_DIRECTORY_ENTRY_SECURITY",
+			namespace:   "Windows.Win32.System.Diagnostics.Debug",
+			want:        true,
+		},
+		{
+			packageName: "pe",
+			name:        "IMAGE_ICON",
+			namespace:   "Windows.Win32.UI.WindowsAndMessaging",
+		},
+		{
+			packageName: "resource",
+			name:        "RT_RCDATA",
+			namespace:   "Windows.Win32.Media.KernelStreaming",
+			want:        true,
+		},
+		{
+			packageName: "resource",
+			name:        "RT_OTHER",
+			namespace:   "Windows.Win32.Media.KernelStreaming",
+		},
+		{
+			packageName: "winmsg",
+			name:        "CBN_SELCHANGE",
+			namespace:   "Windows.Win32.UI.WindowsAndMessaging",
+			want:        true,
+		},
+		{
 			packageName: "clipboard",
 			name:        "CF_UNICODETEXT",
 			namespace:   "Windows.Win32.System.Ole",

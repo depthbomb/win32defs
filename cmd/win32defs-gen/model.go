@@ -145,4 +145,5 @@ type generationReport struct {
 	Skipped              map[string]int       `json:"skipped"`
 	Rejected             []rejectedDefinition `json:"rejected,omitempty"`
 	Symbols              map[string][]string  `json:"symbols"`
+	DerivedConstants     []metadataConstant   `json:"derived_constants,omitempty"`
 }

@@ -225,33 +225,37 @@ const (
 	// KF_FLAG_SIMPLE_IDLIST: Specifies to build a simple IDList (PIDL). This value can be used when you want to retrieve
 	// the file system path. But don't specify this value if you're retrieving the localized display name of the folder,
 	// because it might not resolve correctly.
-	KF_FLAG_SIMPLE_IDLIST       Value = 0x00000100
-	NIF_GUID                    Value = 0x00000020
-	NIF_ICON                    Value = 0x00000002
-	NIF_INFO                    Value = 0x00000010
-	NIF_MESSAGE                 Value = 0x00000001
-	NIF_REALTIME                Value = 0x00000040
-	NIF_SHOWTIP                 Value = 0x00000080
-	NIF_STATE                   Value = 0x00000008
-	NIF_TIP                     Value = 0x00000004
-	NIIF_ERROR                  Value = 0x00000003
-	NIIF_ICON_MASK              Value = 0x0000000F
-	NIIF_INFO                   Value = 0x00000001
-	NIIF_LARGE_ICON             Value = 0x00000020
-	NIIF_NONE                   Value = 0x00000000
-	NIIF_NOSOUND                Value = 0x00000010
-	NIIF_RESPECT_QUIET_TIME     Value = 0x00000080
-	NIIF_USER                   Value = 0x00000004
-	NIIF_WARNING                Value = 0x00000002
-	NIM_ADD                     Value = 0x00000000
-	NIM_DELETE                  Value = 0x00000002
-	NIM_MODIFY                  Value = 0x00000001
-	NIM_SETFOCUS                Value = 0x00000003
-	NIM_SETVERSION              Value = 0x00000004
-	NIN_BALLOONHIDE             Value = 0x00000403
-	NIN_BALLOONSHOW             Value = 0x00000402
-	NIN_BALLOONTIMEOUT          Value = 0x00000404
-	NIN_BALLOONUSERCLICK        Value = 0x00000405
+	KF_FLAG_SIMPLE_IDLIST   Value = 0x00000100
+	NIF_GUID                Value = 0x00000020
+	NIF_ICON                Value = 0x00000002
+	NIF_INFO                Value = 0x00000010
+	NIF_MESSAGE             Value = 0x00000001
+	NIF_REALTIME            Value = 0x00000040
+	NIF_SHOWTIP             Value = 0x00000080
+	NIF_STATE               Value = 0x00000008
+	NIF_TIP                 Value = 0x00000004
+	NIIF_ERROR              Value = 0x00000003
+	NIIF_ICON_MASK          Value = 0x0000000F
+	NIIF_INFO               Value = 0x00000001
+	NIIF_LARGE_ICON         Value = 0x00000020
+	NIIF_NONE               Value = 0x00000000
+	NIIF_NOSOUND            Value = 0x00000010
+	NIIF_RESPECT_QUIET_TIME Value = 0x00000080
+	NIIF_USER               Value = 0x00000004
+	NIIF_WARNING            Value = 0x00000002
+	NIM_ADD                 Value = 0x00000000
+	NIM_DELETE              Value = 0x00000002
+	NIM_MODIFY              Value = 0x00000001
+	NIM_SETFOCUS            Value = 0x00000003
+	NIM_SETVERSION          Value = 0x00000004
+	NINF_KEY                Value = 0x00000001
+	NIN_BALLOONHIDE         Value = 0x00000403
+	NIN_BALLOONSHOW         Value = 0x00000402
+	NIN_BALLOONTIMEOUT      Value = 0x00000404
+	NIN_BALLOONUSERCLICK    Value = 0x00000405
+	// NIN_KEYSELECT: Derived from NIN_SELECT | NINF_KEY, as defined in the Windows SDK shellapi.h header. The operands
+	// come from the pinned metadata.
+	NIN_KEYSELECT               Value = 0x00000401
 	NIN_POPUPCLOSE              Value = 0x00000407
 	NIN_POPUPOPEN               Value = 0x00000406
 	NIN_SELECT                  Value = 0x00000400
@@ -510,6 +514,8 @@ func Name(value Value) (string, bool) {
 		return "FOS_ALLOWMULTISELECT", true
 	case Value(0x00000400):
 		return "NIN_SELECT", true
+	case Value(0x00000401):
+		return "NIN_KEYSELECT", true
 	case Value(0x00000402):
 		return "NIN_BALLOONSHOW", true
 	case Value(0x00000403):
@@ -625,7 +631,7 @@ func Names(value Value) []string {
 	case Value(0x00000000):
 		return []string{"KF_FLAG_DEFAULT", "NIIF_NONE", "NIM_ADD", "SEE_MASK_DEFAULT", "SHCNF_IDLIST", "SHGFI_LARGEICON", "SIGDN_NORMALDISPLAY", "TBPF_NOPROGRESS", "THBF_ENABLED"}
 	case Value(0x00000001):
-		return []string{"BFFM_INITIALIZED", "BIF_RETURNONLYFSDIRS", "FOF_MULTIDESTFILES", "FO_MOVE", "NIF_MESSAGE", "NIIF_INFO", "NIM_MODIFY", "NIS_HIDDEN", "SEE_MASK_CLASSNAME", "SFGAO_CANCOPY", "SHCNE_RENAMEITEM", "SHCNF_PATHA", "SHGFI_SMALLICON", "TBPF_INDETERMINATE", "THBF_DISABLED", "THB_BITMAP"}
+		return []string{"BFFM_INITIALIZED", "BIF_RETURNONLYFSDIRS", "FOF_MULTIDESTFILES", "FO_MOVE", "NIF_MESSAGE", "NIIF_INFO", "NIM_MODIFY", "NINF_KEY", "NIS_HIDDEN", "SEE_MASK_CLASSNAME", "SFGAO_CANCOPY", "SHCNE_RENAMEITEM", "SHCNF_PATHA", "SHGFI_SMALLICON", "TBPF_INDETERMINATE", "THBF_DISABLED", "THB_BITMAP"}
 	case Value(0x00000002):
 		return []string{"BFFM_SELCHANGED", "BIF_DONTGOBELOWDOMAIN", "FOF_CONFIRMMOUSE", "FOS_OVERWRITEPROMPT", "FO_COPY", "NIF_ICON", "NIIF_WARNING", "NIM_DELETE", "NIS_SHAREDICON", "SFGAO_CANMOVE", "SHCNE_CREATE", "SHCNF_PRINTERA", "SHGFI_OPENICON", "TBPF_NORMAL", "THBF_DISMISSONCLICK", "THB_ICON"}
 	case Value(0x00000003):
@@ -660,6 +666,8 @@ func Names(value Value) []string {
 		return []string{"BIF_NONEWFOLDERBUTTON", "FOF_NOCONFIRMMKDIR", "FOS_ALLOWMULTISELECT", "KF_FLAG_NOT_PARENT_RELATIVE", "SEE_MASK_DOENVSUBST", "SHCNE_NETSHARE", "SHCONTF_NETPRINTERSRCH", "SHGFI_DISPLAYNAME"}
 	case Value(0x00000400):
 		return []string{"BIF_NOTRANSLATETARGETS", "FOF_NOERRORUI", "KF_FLAG_DEFAULT_PATH", "NIN_SELECT", "SEE_MASK_FLAG_NO_UI", "SHCNE_NETUNSHARE", "SHCONTF_SHAREABLE", "SHGFI_TYPENAME"}
+	case Value(0x00000401):
+		return []string{"NIN_KEYSELECT"}
 	case Value(0x00000402):
 		return []string{"NIN_BALLOONSHOW"}
 	case Value(0x00000403):
@@ -1032,6 +1040,8 @@ func Parse(name string) (Value, bool) {
 		return NIM_SETFOCUS, true
 	case "NIM_SETVERSION":
 		return NIM_SETVERSION, true
+	case "NINF_KEY":
+		return NINF_KEY, true
 	case "NIN_BALLOONHIDE":
 		return NIN_BALLOONHIDE, true
 	case "NIN_BALLOONSHOW":
@@ -1040,6 +1050,8 @@ func Parse(name string) (Value, bool) {
 		return NIN_BALLOONTIMEOUT, true
 	case "NIN_BALLOONUSERCLICK":
 		return NIN_BALLOONUSERCLICK, true
+	case "NIN_KEYSELECT":
+		return NIN_KEYSELECT, true
 	case "NIN_POPUPCLOSE":
 		return NIN_POPUPCLOSE, true
 	case "NIN_POPUPOPEN":

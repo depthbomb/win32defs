@@ -34,6 +34,9 @@ Flag and API-domain packages:
 - `sysinfo`
 - `toolhelp`
 - `libraryloader`
+- `resource`
+- `versioninfo`
+- `pe`
 - `winsock`
 - `winmsg`
 - `shell`
@@ -116,7 +119,7 @@ Desktop and application support is grouped by API domain:
 
 | Package | Coverage |
 | --- | --- |
-| `winmsg` | Window operations, menus, hit testing, dialog results, and basic button, combo box, edit, static, and list box controls. |
+| `winmsg` | Window operations, menus, accelerators, hit testing, dialog results, and basic button, combo box, edit, static, and list box controls and notifications. |
 | `controls` | Common controls, including list views, tree views, tabs, toolbars, progress bars, task dialogs, class names, notifications, and message bases such as `LVM_FIRST`. |
 | `dialogs` | Traditional file, color, font, print, and find dialogs. |
 | `shell` | Notification icons, file and folder dialogs, shell execution, file operations, shell item attributes and display names, and known-folder flags. |
@@ -133,6 +136,9 @@ Desktop and application support is grouped by API domain:
 | `globalization` | Code pages, locales, character classification, and text conversion. |
 | `winhttp` | HTTP status codes, request flags, authentication, and WinHTTP options. |
 | `cryptography` | Cryptographic algorithm names, certificate values, and data-protection flags. |
+| `resource` | Integer resource types (`RT_*`) and manifest resource identifiers. |
+| `versioninfo` | File-version signatures, flags, operating systems, file types and subtypes, and query flags. |
+| `pe` | PE/COFF image signatures, directories, machine types, section flags, and relocations. |
 
 Family matching accounts for metadata namespaces: clipboard `CF_*` values
 remain separate from font-dialog `CF_*` flags, and static-control `SS_*`
@@ -142,6 +148,20 @@ assignments and canonical names are preserved when expanding these families.
 The `winmsg` package also includes mouse-state and activation/resize values
 and the reflected-message base `OCM__BASE`. The `shell` package includes
 change notifications, enumeration options, and taskbar button/progress flags.
+
+The generator derives `shell.NIN_KEYSELECT` from the metadata operands
+`NIN_SELECT | NINF_KEY` using the SDK header definition. Its catalog entry links
+to the source header, and the generation report records the derived constant
+separately from metadata coverage. Generation fails if an operand is missing or
+a future metadata definition disagrees with that expression.
+
+Resource identifiers retain their 16-bit integer values. Use
+`resource.RT_MANIFEST.Uintptr()` when passing a resource type to a syscall
+binding; this represents an integer resource identifier, not a string address.
+`versioninfo.VS_FFI_SIGNATURE` retains the DWORD bit pattern `0xFEEF04BD` even
+though the metadata encodes it as a signed integer. The `pe` package preserves
+64-bit values such as `IMAGE_ORDINAL_FLAG64`. Existing machine constants remain
+available in `sysinfo` as well.
 
 `FACILITY_NT_BIT` is a 32-bit HRESULT mask, not a facility identifier. Its
 previously truncated value has been corrected to `uint32(0x10000000)`; it is

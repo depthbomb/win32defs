@@ -3,6 +3,7 @@ package catalog_test
 import (
 	"slices"
 	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/depthbomb/win32defs/catalog"
@@ -17,15 +18,18 @@ import (
 	"github.com/depthbomb/win32defs/hidpi"
 	"github.com/depthbomb/win32defs/input"
 	"github.com/depthbomb/win32defs/memory"
+	"github.com/depthbomb/win32defs/pe"
 	"github.com/depthbomb/win32defs/pipes"
+	"github.com/depthbomb/win32defs/resource"
 	"github.com/depthbomb/win32defs/richedit"
 	"github.com/depthbomb/win32defs/security"
 	"github.com/depthbomb/win32defs/shell"
+	"github.com/depthbomb/win32defs/versioninfo"
 	"github.com/depthbomb/win32defs/winhttp"
 	"github.com/depthbomb/win32defs/winmsg"
 )
 
-func checkDesktopConstant[T ~int64 | ~uint32 | ~uint64](t *testing.T, packageName, name string, value, want T, parse func(string) (T, bool), names func(T) []string) {
+func checkDesktopConstant[T ~int64 | ~uint16 | ~uint32 | ~uint64](t *testing.T, packageName, name string, value, want T, parse func(string) (T, bool), names func(T) []string) {
 	t.Helper()
 
 	t.Run(packageName+"/"+name, func(t *testing.T) {
@@ -112,6 +116,54 @@ func TestDesktopConstants(t *testing.T) {
 
 	if security.SE_DEBUG_NAME != "SeDebugPrivilege" || cryptography.BCRYPT_SHA256_ALGORITHM != "SHA256" {
 		t.Fatal("incorrect generated security or algorithm name")
+	}
+}
+
+func TestResourceVersionAndNotificationConstants(t *testing.T) {
+	t.Parallel()
+
+	checkDesktopConstant(t, "winmsg", "CBN_SELCHANGE", winmsg.CBN_SELCHANGE, 1, winmsg.Parse, winmsg.Names)
+	checkDesktopConstant(t, "winmsg", "FVIRTKEY", winmsg.FVIRTKEY, 1, winmsg.Parse, winmsg.Names)
+	checkDesktopConstant(t, "winmsg", "FSHIFT", winmsg.FSHIFT, 4, winmsg.Parse, winmsg.Names)
+	checkDesktopConstant(t, "winmsg", "FCONTROL", winmsg.FCONTROL, 8, winmsg.Parse, winmsg.Names)
+	checkDesktopConstant(t, "winmsg", "FALT", winmsg.FALT, 16, winmsg.Parse, winmsg.Names)
+	checkDesktopConstant(t, "winmsg", "DC_HASDEFID", winmsg.DC_HASDEFID, 0x534B, winmsg.Parse, winmsg.Names)
+	checkDesktopConstant(t, "shell", "NIN_KEYSELECT", shell.NIN_KEYSELECT, 0x401, shell.Parse, shell.Names)
+	checkDesktopConstant(t, "shell", "NINF_KEY", shell.NINF_KEY, 1, shell.Parse, shell.Names)
+	checkDesktopConstant(t, "resource", "RT_MANIFEST", resource.RT_MANIFEST, 24, resource.Parse, resource.Names)
+	checkDesktopConstant(t, "resource", "RT_VERSION", resource.RT_VERSION, 16, resource.Parse, resource.Names)
+	checkDesktopConstant(t, "resource", "RT_ICON", resource.RT_ICON, 3, resource.Parse, resource.Names)
+	checkDesktopConstant(t, "resource", "RT_GROUP_ICON", resource.RT_GROUP_ICON, 14, resource.Parse, resource.Names)
+	checkDesktopConstant(t, "resource", "RT_RCDATA", resource.RT_RCDATA, 10, resource.Parse, resource.Names)
+	checkDesktopConstant(t, "resource", "RT_STRING", resource.RT_STRING, 6, resource.Parse, resource.Names)
+	checkDesktopConstant(t, "versioninfo", "VS_FFI_SIGNATURE", versioninfo.VS_FFI_SIGNATURE, 0xFEEF04BD, versioninfo.Parse, versioninfo.Names)
+	checkDesktopConstant(t, "versioninfo", "VS_FFI_STRUCVERSION", versioninfo.VS_FFI_STRUCVERSION, 0x10000, versioninfo.Parse, versioninfo.Names)
+	checkDesktopConstant(t, "versioninfo", "VS_FFI_FILEFLAGSMASK", versioninfo.VS_FFI_FILEFLAGSMASK, 0x3F, versioninfo.Parse, versioninfo.Names)
+	checkDesktopConstant(t, "versioninfo", "VOS_NT_WINDOWS32", versioninfo.VOS_NT_WINDOWS32, 0x40004, versioninfo.Parse, versioninfo.Names)
+	checkDesktopConstant(t, "versioninfo", "VFT_APP", versioninfo.VFT_APP, 1, versioninfo.Parse, versioninfo.Names)
+	checkDesktopConstant(t, "pe", "IMAGE_DIRECTORY_ENTRY_SECURITY", pe.IMAGE_DIRECTORY_ENTRY_SECURITY, 4, pe.Parse, pe.Names)
+
+	family := catalog.Family{
+		Package:   "winmsg",
+		Namespace: "Windows.Win32.UI.WindowsAndMessaging",
+		Name:      "ACCEL_VIRT_FLAGS",
+	}
+	flags, ok := catalog.FormatFlags(family, uint64(winmsg.FVIRTKEY|winmsg.FCONTROL))
+	if !ok || !strings.Contains(flags, "FVIRTKEY") || !strings.Contains(flags, "FCONTROL") {
+		t.Fatalf("accelerator flags = %q, %v", flags, ok)
+	}
+
+	if resource.RT_MANIFEST.Uintptr() != 24 || resource.ID(0xFFFF).Uintptr() != 0xFFFF {
+		t.Fatal("incorrect integer resource pointer representation")
+	}
+
+	if pe.IMAGE_ORDINAL_FLAG64 != 0x8000000000000000 {
+		t.Fatal("64-bit image ordinal flag was truncated")
+	}
+
+	name, ok := resource.Name(resource.RT_ICON)
+	if !ok || name != "RT_ICON" {
+		t.Fatalf("resource type canonical name = %q, %v", name, ok)
 	}
 }
 

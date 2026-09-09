@@ -39,7 +39,14 @@ func generate(ctx context.Context, root string, options generationOptions) error
 	}
 	defer os.RemoveAll(root)
 
-	packages, collisions, skipped, rejected := collectConstants(export)
+	derived, err := deriveConstants(export.Constants)
+	if err != nil {
+		return err
+	}
+
+	classifiedExport := export
+	classifiedExport.Constants = append(classifiedExport.Constants, derived...)
+	packages, collisions, skipped, rejected := collectConstants(classifiedExport)
 	constantMethods, skippedMethods := collectConstantMethods(export.ConstantMethods)
 	coverage := measureCoverage(export)
 	packageCounts := make(map[string]int, len(packageSpecs))
@@ -161,6 +168,7 @@ func generate(ctx context.Context, root string, options generationOptions) error
 		Skipped:              skipped,
 		Rejected:             append(rejected, rejectedStructuredDefinitions(export)...),
 		Symbols:              emittedSymbols(packages),
+		DerivedConstants:     derived,
 	}
 	for _, item := range guids {
 		report.Symbols["guid"] = append(report.Symbols["guid"], item.Identifier)

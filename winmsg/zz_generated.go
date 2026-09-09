@@ -68,39 +68,72 @@ const (
 	BST_INDETERMINATE Value = 2
 	BST_PUSHED        Value = 4
 	// BST_UNCHECKED: Documentation varies per use. Refer to each: Button_SetCheck , CheckDlgButton .
-	BST_UNCHECKED         Value = 0
-	BS_3STATE             Value = 5
-	BS_AUTO3STATE         Value = 6
-	BS_AUTOCHECKBOX       Value = 3
-	BS_AUTORADIOBUTTON    Value = 9
-	BS_BITMAP             Value = 128
-	BS_BOTTOM             Value = 2048
-	BS_CENTER             Value = 768
-	BS_CHECKBOX           Value = 2
-	BS_COMMANDLINK        Value = 14
-	BS_DEFCOMMANDLINK     Value = 15
-	BS_DEFPUSHBUTTON      Value = 1
-	BS_DEFSPLITBUTTON     Value = 13
-	BS_FLAT               Value = 32768
-	BS_GROUPBOX           Value = 7
-	BS_ICON               Value = 64
-	BS_LEFT               Value = 256
-	BS_LEFTTEXT           Value = 32
-	BS_MULTILINE          Value = 8192
-	BS_NOTIFY             Value = 16384
-	BS_OWNERDRAW          Value = 11
-	BS_PUSHBOX            Value = 10
-	BS_PUSHBUTTON         Value = 0
-	BS_PUSHLIKE           Value = 4096
-	BS_RADIOBUTTON        Value = 4
-	BS_RIGHT              Value = 512
-	BS_RIGHTBUTTON        Value = 32
-	BS_SPLITBUTTON        Value = 12
-	BS_TEXT               Value = 0
-	BS_TOP                Value = 1024
-	BS_TYPEMASK           Value = 15
-	BS_USERBUTTON         Value = 8
-	BS_VCENTER            Value = 3072
+	BST_UNCHECKED      Value = 0
+	BS_3STATE          Value = 5
+	BS_AUTO3STATE      Value = 6
+	BS_AUTOCHECKBOX    Value = 3
+	BS_AUTORADIOBUTTON Value = 9
+	BS_BITMAP          Value = 128
+	BS_BOTTOM          Value = 2048
+	BS_CENTER          Value = 768
+	BS_CHECKBOX        Value = 2
+	BS_COMMANDLINK     Value = 14
+	BS_DEFCOMMANDLINK  Value = 15
+	BS_DEFPUSHBUTTON   Value = 1
+	BS_DEFSPLITBUTTON  Value = 13
+	BS_FLAT            Value = 32768
+	BS_GROUPBOX        Value = 7
+	BS_ICON            Value = 64
+	BS_LEFT            Value = 256
+	BS_LEFTTEXT        Value = 32
+	BS_MULTILINE       Value = 8192
+	BS_NOTIFY          Value = 16384
+	BS_OWNERDRAW       Value = 11
+	BS_PUSHBOX         Value = 10
+	BS_PUSHBUTTON      Value = 0
+	BS_PUSHLIKE        Value = 4096
+	BS_RADIOBUTTON     Value = 4
+	BS_RIGHT           Value = 512
+	BS_RIGHTBUTTON     Value = 32
+	BS_SPLITBUTTON     Value = 12
+	BS_TEXT            Value = 0
+	BS_TOP             Value = 1024
+	BS_TYPEMASK        Value = 15
+	BS_USERBUTTON      Value = 8
+	BS_VCENTER         Value = 3072
+	// CBN_CLOSEUP: Sent when the list box of a combo box has been closed. The parent window of the combo box receives this
+	// notification code through the WM\_COMMAND message.
+	CBN_CLOSEUP Value = 8
+	// CBN_DBLCLK: Sent when the user double-clicks a string in the list box of a combo box. The parent window of the combo
+	// box receives this notification code through the WM\_COMMAND message.
+	CBN_DBLCLK Value = 2
+	// CBN_DROPDOWN: Sent when the list box of a combo box is about to be made visible. The parent window of the combo box
+	// receives this notification code through the WM\_COMMAND message.
+	CBN_DROPDOWN Value = 7
+	// CBN_EDITCHANGE: Sent after the user has taken an action that may have altered the text in the edit control portion
+	// of a combo box.
+	CBN_EDITCHANGE Value = 5
+	// CBN_EDITUPDATE: Sent when the edit control portion of a combo box is about to display altered text.
+	CBN_EDITUPDATE Value = 6
+	// CBN_ERRSPACE: Sent when a combo box cannot allocate enough memory to meet a specific request. The parent window of
+	// the combo box receives this notification code through the WM\_COMMAND message.
+	CBN_ERRSPACE Value = -1
+	// CBN_KILLFOCUS: Sent when a combo box loses the keyboard focus. The parent window of the combo box receives this
+	// notification code through the WM\_COMMAND message.
+	CBN_KILLFOCUS Value = 4
+	// CBN_SELCHANGE: Sent when the user changes the current selection in the list box of a combo box.
+	CBN_SELCHANGE Value = 1
+	// CBN_SELENDCANCEL: Sent when the user selects an item, but then selects another control or closes the dialog box. It
+	// indicates the user's initial selection is to be ignored. The parent window of the combo box receives this
+	// notification code through the WM\_COMMAND message.
+	CBN_SELENDCANCEL Value = 10
+	// CBN_SELENDOK: Sent when the user selects a list item, or selects an item and then closes the list. It indicates that
+	// the user's selection is to be processed. The parent window of the combo box receives this notification code through
+	// the WM\_COMMAND message.
+	CBN_SELENDOK Value = 9
+	// CBN_SETFOCUS: Sent when a combo box receives the keyboard focus. The parent window of the combo box receives this
+	// notification code through the WM\_COMMAND message.
+	CBN_SETFOCUS          Value = 3
 	CBS_AUTOHSCROLL       Value = 64
 	CBS_CHECKEDDISABLED   Value = 8
 	CBS_CHECKEDHOT        Value = 6
@@ -262,6 +295,7 @@ const (
 	CS_VREDRAW         Value = 1
 	CW_USEDEFAULT      Value = -2147483648
 	DCX_EXCLUDEUPDATE  Value = 256
+	DC_HASDEFID        Value = 21323
 	// DI_COMPAT: This flag is ignored.
 	DI_COMPAT Value = 4
 	// DI_DEFAULTSIZE: Draws the icon or cursor using the width and height specified by the system metric values for icons,
@@ -529,6 +563,19 @@ const (
 	ES_RIGHT                   Value = 2
 	ES_UPPERCASE               Value = 8
 	ES_WANTRETURN              Value = 4096
+	// FALT: The ALT key must be held down when the accelerator key is pressed.
+	FALT Value = 16
+	// FCONTROL: The CTRL key must be held down when the accelerator key is pressed.
+	FCONTROL Value = 8
+	// FNOINVERT: No top-level menu item is highlighted when the accelerator is used. If this flag is not specified, a
+	// top-level menu item will be highlighted, if possible, when the accelerator is used. This attribute is obsolete and
+	// retained only for backward compatibility with resource files designed for 16-bit Windows.
+	FNOINVERT Value = 2
+	// FSHIFT: The SHIFT key must be held down when the accelerator key is pressed.
+	FSHIFT Value = 4
+	// FVIRTKEY: The key member specifies a virtual-key code. If this flag is not specified, key is assumed to specify a
+	// character code.
+	FVIRTKEY Value = 1
 	// GA_PARENT: Retrieves the parent window. This does not include the owner, as it does with the GetParent function.
 	GA_PARENT Value = 1
 	// GA_ROOT: Retrieves the root window by walking the chain of parent windows.
@@ -3568,6 +3615,8 @@ func Name(value Value) (string, bool) {
 		return "VK_GAMEPAD_LEFT_THUMBSTICK_DOWN", true
 	case Value(213):
 		return "VK_GAMEPAD_LEFT_THUMBSTICK_RIGHT", true
+	case Value(21323):
+		return "DC_HASDEFID", true
 	case Value(214):
 		return "VK_GAMEPAD_LEFT_THUMBSTICK_LEFT", true
 	case Value(2147483648):
@@ -4669,7 +4718,7 @@ func Name(value Value) (string, bool) {
 func Names(value Value) []string {
 	switch value {
 	case Value(-1):
-		return []string{"CB_ERR", "HTTRANSPARENT", "HWND_TOPMOST", "IDC_STATIC", "LB_ERR", "WH_MIN", "WH_MINHOOK", "WH_MSGFILTER"}
+		return []string{"CBN_ERRSPACE", "CB_ERR", "HTTRANSPARENT", "HWND_TOPMOST", "IDC_STATIC", "LB_ERR", "WH_MIN", "WH_MINHOOK", "WH_MSGFILTER"}
 	case Value(-10):
 		return []string{"GCLP_HBRBACKGROUND", "GCL_HBRBACKGROUND"}
 	case Value(-12):
@@ -4705,9 +4754,9 @@ func Names(value Value) []string {
 	case Value(0):
 		return []string{"BN_CLICKED", "BST_UNCHECKED", "BS_PUSHBUTTON", "BS_TEXT", "CB_OKAY", "ES_LEFT", "GW_HWNDFIRST", "HTNOWHERE", "HWND_DESKTOP", "HWND_TOP", "ICON_SMALL", "IMAGE_BITMAP", "INPUT_MOUSE", "LB_CTLCODE", "LB_OKAY", "LR_DEFAULTCOLOR", "MAPVK_VK_TO_VSC", "MB_APPLMODAL", "MB_DEFBUTTON1", "MB_OK", "MFS_ENABLED", "MFS_UNCHECKED", "MFS_UNHILITE", "MFT_STRING", "MF_BYCOMMAND", "MF_ENABLED", "MF_INSERT", "MF_STRING", "MF_UNCHECKED", "MF_UNHILITE", "PM_NOREMOVE", "SBS_HORZ", "SB_HORZ", "SB_LINELEFT", "SB_LINEUP", "SB_MIN", "SIZE_RESTORED", "SM_CXSCREEN", "SS_LEFT", "STN_CLICKED", "SWP_NONE", "SW_HIDE", "TPM_HORIZONTAL", "TPM_LEFTALIGN", "TPM_LEFTBUTTON", "TPM_TOPALIGN", "WA_INACTIVE", "WH_JOURNALRECORD", "WM_NULL", "WS_EX_LEFT", "WS_EX_LTRREADING", "WS_EX_RIGHTSCROLLBAR", "WS_OVERLAPPED", "WS_TILED"}
 	case Value(1):
-		return []string{"BN_PAINT", "BST_CHECKED", "BS_DEFPUSHBUTTON", "CBS_NORMAL", "CBS_SIMPLE", "CBS_UNCHECKEDNORMAL", "CS_VREDRAW", "DI_MASK", "DLGC_WANTARROWS", "DS_ABSALIGN", "ES_CENTER", "ES_EX_ALLOWEOL_CR", "GA_PARENT", "GMDI_USEDISABLED", "GW_HWNDLAST", "HTCLIENT", "HWND_BOTTOM", "ICON_BIG", "IDOK", "IMAGE_ICON", "INPUT_KEYBOARD", "KEYEVENTF_EXTENDEDKEY", "KLF_ACTIVATE", "LBN_SELCHANGE", "LBS_NOTIFY", "LR_MONOCHROME", "MAPVK_VSC_TO_VK", "MB_OKCANCEL", "MF_GRAYED", "MIIM_STATE", "MIM_MAXHEIGHT", "MK_LBUTTON", "MOD_ALT", "MOUSEEVENTF_MOVE", "PM_REMOVE", "QS_KEY", "SBS_VERT", "SB_LINEDOWN", "SB_LINERIGHT", "SB_VERT", "SIF_RANGE", "SIZE_MINIMIZED", "SM_CYSCREEN", "SPI_GETBEEP", "SS_CENTER", "STN_DBLCLK", "SWP_NOSIZE", "SW_NORMAL", "SW_PARENTCLOSING", "SW_SCROLLCHILDREN", "SW_SHOWNORMAL", "TME_HOVER", "TPM_RECURSE", "VK_LBUTTON", "WA_ACTIVE", "WH_JOURNALPLAYBACK", "WMSZ_LEFT", "WM_CREATE", "WS_ACTIVECAPTION", "WS_EX_DLGMODALFRAME", "XBUTTON1"}
+		return []string{"BN_PAINT", "BST_CHECKED", "BS_DEFPUSHBUTTON", "CBN_SELCHANGE", "CBS_NORMAL", "CBS_SIMPLE", "CBS_UNCHECKEDNORMAL", "CS_VREDRAW", "DI_MASK", "DLGC_WANTARROWS", "DS_ABSALIGN", "ES_CENTER", "ES_EX_ALLOWEOL_CR", "FVIRTKEY", "GA_PARENT", "GMDI_USEDISABLED", "GW_HWNDLAST", "HTCLIENT", "HWND_BOTTOM", "ICON_BIG", "IDOK", "IMAGE_ICON", "INPUT_KEYBOARD", "KEYEVENTF_EXTENDEDKEY", "KLF_ACTIVATE", "LBN_SELCHANGE", "LBS_NOTIFY", "LR_MONOCHROME", "MAPVK_VSC_TO_VK", "MB_OKCANCEL", "MF_GRAYED", "MIIM_STATE", "MIM_MAXHEIGHT", "MK_LBUTTON", "MOD_ALT", "MOUSEEVENTF_MOVE", "PM_REMOVE", "QS_KEY", "SBS_VERT", "SB_LINEDOWN", "SB_LINERIGHT", "SB_VERT", "SIF_RANGE", "SIZE_MINIMIZED", "SM_CYSCREEN", "SPI_GETBEEP", "SS_CENTER", "STN_DBLCLK", "SWP_NOSIZE", "SW_NORMAL", "SW_PARENTCLOSING", "SW_SCROLLCHILDREN", "SW_SHOWNORMAL", "TME_HOVER", "TPM_RECURSE", "VK_LBUTTON", "WA_ACTIVE", "WH_JOURNALPLAYBACK", "WMSZ_LEFT", "WM_CREATE", "WS_ACTIVECAPTION", "WS_EX_DLGMODALFRAME", "XBUTTON1"}
 	case Value(10):
-		return []string{"BS_PUSHBOX", "CBS_MIXEDHOT", "HTLEFT", "HTSIZEFIRST", "IDTRYAGAIN", "SM_CXHTHUMB", "SPI_GETKEYBOARDSPEED", "SS_USERITEM", "SW_SHOWDEFAULT", "WH_SHELL", "WM_ENABLE"}
+		return []string{"BS_PUSHBOX", "CBN_SELENDCANCEL", "CBS_MIXEDHOT", "HTLEFT", "HTSIZEFIRST", "IDTRYAGAIN", "SM_CXHTHUMB", "SPI_GETKEYBOARDSPEED", "SS_USERITEM", "SW_SHOWDEFAULT", "WH_SHELL", "WM_ENABLE"}
 	case Value(100):
 		return []string{"SPI_GETMOUSEHOVERHEIGHT", "VK_NUMPAD4"}
 	case Value(101):
@@ -4865,7 +4914,7 @@ func Names(value Value) []string {
 	case Value(159):
 		return []string{"SPI_SETLOGICALDPIOVERRIDE"}
 	case Value(16):
-		return []string{"CBS_IMPLICITDISABLED", "CBS_OWNERDRAWFIXED", "DI_NOMIRROR", "DLGC_DEFPUSHBUTTON", "DS_NOFAILCREATE", "ES_EX_ZOOMABLE", "ES_LOWERCASE", "HTBOTTOMLEFT", "KLF_REPLACELANG", "LBS_OWNERDRAWFIXED", "LR_LOADFROMFILE", "MB_ICONERROR", "MB_ICONHAND", "MB_ICONSTOP", "MF_POPUP", "MIIM_TYPE", "MIM_STYLE", "MK_MBUTTON", "MOUSEEVENTF_RIGHTUP", "QS_TIMER", "SBS_SIZEGRIP", "SIF_TRACKPOS", "SM_CXFULLSCREEN", "SPI_GETSCREENSAVEACTIVE", "SS_ETCHEDHORZ", "SWP_NOACTIVATE", "SW_SMOOTHSCROLL", "TME_NONCLIENT", "TPM_VCENTERALIGN", "VK_SHIFT", "WM_CLOSE", "WS_EX_ACCEPTFILES", "WVR_ALIGNTOP"}
+		return []string{"CBS_IMPLICITDISABLED", "CBS_OWNERDRAWFIXED", "DI_NOMIRROR", "DLGC_DEFPUSHBUTTON", "DS_NOFAILCREATE", "ES_EX_ZOOMABLE", "ES_LOWERCASE", "FALT", "HTBOTTOMLEFT", "KLF_REPLACELANG", "LBS_OWNERDRAWFIXED", "LR_LOADFROMFILE", "MB_ICONERROR", "MB_ICONHAND", "MB_ICONSTOP", "MF_POPUP", "MIIM_TYPE", "MIM_STYLE", "MK_MBUTTON", "MOUSEEVENTF_RIGHTUP", "QS_TIMER", "SBS_SIZEGRIP", "SIF_TRACKPOS", "SM_CXFULLSCREEN", "SPI_GETSCREENSAVEACTIVE", "SS_ETCHEDHORZ", "SWP_NOACTIVATE", "SW_SMOOTHSCROLL", "TME_NONCLIENT", "TPM_VCENTERALIGN", "VK_SHIFT", "WM_CLOSE", "WS_EX_ACCEPTFILES", "WVR_ALIGNTOP"}
 	case Value(160):
 		return []string{"VK_LSHIFT", "WM_NCMOUSEMOVE"}
 	case Value(161):
@@ -4961,7 +5010,7 @@ func Names(value Value) []string {
 	case Value(199):
 		return []string{"EM_UNDO", "VK_GAMEPAD_RIGHT_SHOULDER"}
 	case Value(2):
-		return []string{"BN_HILITE", "BN_PUSHED", "BST_INDETERMINATE", "BS_CHECKBOX", "CBS_DROPDOWN", "CBS_HOT", "CBS_UNCHECKEDHOT", "CS_HREDRAW", "DI_IMAGE", "DLGC_WANTTAB", "DS_SYSMODAL", "ES_EX_ALLOWEOL_LF", "ES_RIGHT", "GA_ROOT", "GMDI_GOINTOPOPUPS", "GW_HWNDNEXT", "HTCAPTION", "ICON_SMALL2", "IDCANCEL", "IMAGE_CURSOR", "INPUT_HARDWARE", "KEYEVENTF_KEYUP", "KLF_SUBSTITUTE_OK", "LBN_DBLCLK", "LBS_SORT", "LR_COLOR", "MAPVK_VK_TO_CHAR", "MB_ABORTRETRYIGNORE", "MF_DISABLED", "MIIM_ID", "MIM_BACKGROUND", "MK_RBUTTON", "MOD_CONTROL", "MOUSEEVENTF_LEFTDOWN", "PM_NOYIELD", "QS_MOUSEMOVE", "SBS_LEFTALIGN", "SBS_SIZEBOXTOPLEFTALIGN", "SBS_TOPALIGN", "SB_CTL", "SB_PAGELEFT", "SB_PAGEUP", "SIF_PAGE", "SIZE_MAXIMIZED", "SM_CXVSCROLL", "SPI_SETBEEP", "SS_RIGHT", "STN_ENABLE", "SWP_NOMOVE", "SW_INVALIDATE", "SW_OTHERZOOM", "SW_SHOWMINIMIZED", "TME_LEAVE", "TPM_RIGHTBUTTON", "VK_RBUTTON", "WA_CLICKACTIVE", "WH_KEYBOARD", "WMSZ_RIGHT", "WM_DESTROY", "XBUTTON2"}
+		return []string{"BN_HILITE", "BN_PUSHED", "BST_INDETERMINATE", "BS_CHECKBOX", "CBN_DBLCLK", "CBS_DROPDOWN", "CBS_HOT", "CBS_UNCHECKEDHOT", "CS_HREDRAW", "DI_IMAGE", "DLGC_WANTTAB", "DS_SYSMODAL", "ES_EX_ALLOWEOL_LF", "ES_RIGHT", "FNOINVERT", "GA_ROOT", "GMDI_GOINTOPOPUPS", "GW_HWNDNEXT", "HTCAPTION", "ICON_SMALL2", "IDCANCEL", "IMAGE_CURSOR", "INPUT_HARDWARE", "KEYEVENTF_KEYUP", "KLF_SUBSTITUTE_OK", "LBN_DBLCLK", "LBS_SORT", "LR_COLOR", "MAPVK_VK_TO_CHAR", "MB_ABORTRETRYIGNORE", "MF_DISABLED", "MIIM_ID", "MIM_BACKGROUND", "MK_RBUTTON", "MOD_CONTROL", "MOUSEEVENTF_LEFTDOWN", "PM_NOYIELD", "QS_MOUSEMOVE", "SBS_LEFTALIGN", "SBS_SIZEBOXTOPLEFTALIGN", "SBS_TOPALIGN", "SB_CTL", "SB_PAGELEFT", "SB_PAGEUP", "SIF_PAGE", "SIZE_MAXIMIZED", "SM_CXVSCROLL", "SPI_SETBEEP", "SS_RIGHT", "STN_ENABLE", "SWP_NOMOVE", "SW_INVALIDATE", "SW_OTHERZOOM", "SW_SHOWMINIMIZED", "TME_LEAVE", "TPM_RIGHTBUTTON", "VK_RBUTTON", "WA_CLICKACTIVE", "WH_KEYBOARD", "WMSZ_RIGHT", "WM_DESTROY", "XBUTTON2"}
 	case Value(20):
 		return []string{"CBS_EXCLUDEDDISABLED", "HTCLOSE", "SM_CYVSCROLL", "SPI_SETDESKWALLPAPER", "VK_CAPITAL", "WM_ERASEBKGND"}
 	case Value(200):
@@ -5000,6 +5049,8 @@ func Names(value Value) []string {
 		return []string{"EM_GETMARGINS", "VK_GAMEPAD_LEFT_THUMBSTICK_DOWN"}
 	case Value(213):
 		return []string{"EM_GETLIMITTEXT", "VK_GAMEPAD_LEFT_THUMBSTICK_RIGHT"}
+	case Value(21323):
+		return []string{"DC_HASDEFID"}
 	case Value(214):
 		return []string{"EM_POSFROMCHAR", "VK_GAMEPAD_LEFT_THUMBSTICK_LEFT"}
 	case Value(2147483648):
@@ -5171,7 +5222,7 @@ func Names(value Value) []string {
 	case Value(297):
 		return []string{"WM_QUERYUISTATE"}
 	case Value(3):
-		return []string{"BN_UNHILITE", "BN_UNPUSHED", "BS_AUTOCHECKBOX", "CBS_DROPDOWNLIST", "CBS_PUSHED", "CBS_UNCHECKEDPRESSED", "DI_NORMAL", "GA_ROOTOWNER", "GW_HWNDPREV", "HTSYSMENU", "IDABORT", "IMAGE_ENHMETAFILE", "LBN_SELCANCEL", "MAPVK_VSC_TO_VK_EX", "MB_YESNOCANCEL", "MFS_DISABLED", "MFS_GRAYED", "SB_BOTH", "SB_PAGEDOWN", "SB_PAGERIGHT", "SIZE_MAXSHOW", "SM_CYHSCROLL", "SPI_GETMOUSE", "SS_ICON", "STN_DISABLE", "SW_MAXIMIZE", "SW_PARENTOPENING", "SW_SHOWMAXIMIZED", "VK_CANCEL", "WH_GETMESSAGE", "WMSZ_TOP", "WM_MOVE"}
+		return []string{"BN_UNHILITE", "BN_UNPUSHED", "BS_AUTOCHECKBOX", "CBN_SETFOCUS", "CBS_DROPDOWNLIST", "CBS_PUSHED", "CBS_UNCHECKEDPRESSED", "DI_NORMAL", "GA_ROOTOWNER", "GW_HWNDPREV", "HTSYSMENU", "IDABORT", "IMAGE_ENHMETAFILE", "LBN_SELCANCEL", "MAPVK_VSC_TO_VK_EX", "MB_YESNOCANCEL", "MFS_DISABLED", "MFS_GRAYED", "SB_BOTH", "SB_PAGEDOWN", "SB_PAGERIGHT", "SIZE_MAXSHOW", "SM_CYHSCROLL", "SPI_GETMOUSE", "SS_ICON", "STN_DISABLE", "SW_MAXIMIZE", "SW_PARENTOPENING", "SW_SHOWMAXIMIZED", "VK_CANCEL", "WH_GETMESSAGE", "WMSZ_TOP", "WM_MOVE"}
 	case Value(30):
 		return []string{"SM_CXSIZE", "SPI_SETDOUBLECLKHEIGHT", "VK_ACCEPT", "WM_TIMECHANGE"}
 	case Value(306):
@@ -5375,7 +5426,7 @@ func Names(value Value) []string {
 	case Value(399):
 		return []string{"LB_FINDSTRING"}
 	case Value(4):
-		return []string{"BN_DISABLE", "BST_PUSHED", "BS_RADIOBUTTON", "CBS_DISABLED", "CBS_UNCHECKEDDISABLED", "DI_COMPAT", "DLGC_WANTALLKEYS", "DLGC_WANTMESSAGE", "DS_3DLOOK", "ES_EX_CONVERT_EOL_ON_PASTE", "ES_MULTILINE", "GW_OWNER", "HTGROWBOX", "HTSIZE", "IDRETRY", "KEYEVENTF_UNICODE", "LBN_SETFOCUS", "LBS_NOREDRAW", "LR_COPYRETURNORG", "MAPVK_VK_TO_VSC_EX", "MB_YESNO", "MFT_BITMAP", "MF_BITMAP", "MIIM_SUBMENU", "MIM_HELPID", "MK_SHIFT", "MOD_SHIFT", "MOUSEEVENTF_LEFTUP", "QS_MOUSEBUTTON", "SBS_BOTTOMALIGN", "SBS_RIGHTALIGN", "SBS_SIZEBOXBOTTOMRIGHTALIGN", "SB_THUMBPOSITION", "SIF_POS", "SIZE_MAXHIDE", "SM_CYCAPTION", "SPI_SETMOUSE", "SS_BLACKRECT", "SWP_NOZORDER", "SW_ERASE", "SW_OTHERUNZOOM", "SW_SHOWNOACTIVATE", "TPM_CENTERALIGN", "VK_MBUTTON", "WH_CALLWNDPROC", "WMSZ_TOPLEFT", "WS_EX_NOPARENTNOTIFY"}
+		return []string{"BN_DISABLE", "BST_PUSHED", "BS_RADIOBUTTON", "CBN_KILLFOCUS", "CBS_DISABLED", "CBS_UNCHECKEDDISABLED", "DI_COMPAT", "DLGC_WANTALLKEYS", "DLGC_WANTMESSAGE", "DS_3DLOOK", "ES_EX_CONVERT_EOL_ON_PASTE", "ES_MULTILINE", "FSHIFT", "GW_OWNER", "HTGROWBOX", "HTSIZE", "IDRETRY", "KEYEVENTF_UNICODE", "LBN_SETFOCUS", "LBS_NOREDRAW", "LR_COPYRETURNORG", "MAPVK_VK_TO_VSC_EX", "MB_YESNO", "MFT_BITMAP", "MF_BITMAP", "MIIM_SUBMENU", "MIM_HELPID", "MK_SHIFT", "MOD_SHIFT", "MOUSEEVENTF_LEFTUP", "QS_MOUSEBUTTON", "SBS_BOTTOMALIGN", "SBS_RIGHTALIGN", "SBS_SIZEBOXBOTTOMRIGHTALIGN", "SB_THUMBPOSITION", "SIF_POS", "SIZE_MAXHIDE", "SM_CYCAPTION", "SPI_SETMOUSE", "SS_BLACKRECT", "SWP_NOZORDER", "SW_ERASE", "SW_OTHERUNZOOM", "SW_SHOWNOACTIVATE", "TPM_CENTERALIGN", "VK_MBUTTON", "WH_CALLWNDPROC", "WMSZ_TOPLEFT", "WS_EX_NOPARENTNOTIFY"}
 	case Value(40):
 		return []string{"SM_MENUDROPALIGNMENT", "VK_DOWN", "WM_NEXTDLGCTL"}
 	case Value(400):
@@ -5567,7 +5618,7 @@ func Names(value Value) []string {
 	case Value(49152):
 		return []string{"MB_MISCMASK", "SS_ELLIPSISMASK", "SS_WORDELLIPSIS"}
 	case Value(5):
-		return []string{"BN_DBLCLK", "BN_DOUBLECLICKED", "BS_3STATE", "CBS_CHECKEDNORMAL", "GW_CHILD", "GW_MAX", "HTMENU", "IDIGNORE", "LBN_KILLFOCUS", "MB_RETRYCANCEL", "SB_THUMBTRACK", "SM_CXBORDER", "SPI_GETBORDER", "SS_GRAYRECT", "SW_SHOW", "VK_XBUTTON1", "WH_CBT", "WMSZ_TOPRIGHT", "WM_SIZE"}
+		return []string{"BN_DBLCLK", "BN_DOUBLECLICKED", "BS_3STATE", "CBN_EDITCHANGE", "CBS_CHECKEDNORMAL", "GW_CHILD", "GW_MAX", "HTMENU", "IDIGNORE", "LBN_KILLFOCUS", "MB_RETRYCANCEL", "SB_THUMBTRACK", "SM_CXBORDER", "SPI_GETBORDER", "SS_GRAYRECT", "SW_SHOW", "VK_XBUTTON1", "WH_CBT", "WMSZ_TOPRIGHT", "WM_SIZE"}
 	case Value(50):
 		return []string{"SM_CYSMICON", "SPI_GETFILTERKEYS", "VK_2", "WM_SETHOTKEY"}
 	case Value(51):
@@ -5763,7 +5814,7 @@ func Names(value Value) []string {
 	case Value(595):
 		return []string{"WM_POINTERROUTEDRELEASED"}
 	case Value(6):
-		return []string{"BN_SETFOCUS", "BS_AUTO3STATE", "CBS_CHECKEDHOT", "GW_ENABLEDPOPUP", "HTHSCROLL", "IDYES", "MB_CANCELTRYCONTINUE", "QS_MOUSE", "SB_LEFT", "SB_TOP", "SM_CYBORDER", "SPI_SETBORDER", "SS_WHITERECT", "SW_MINIMIZE", "VK_XBUTTON2", "WH_SYSMSGFILTER", "WMSZ_BOTTOM", "WM_ACTIVATE"}
+		return []string{"BN_SETFOCUS", "BS_AUTO3STATE", "CBN_EDITUPDATE", "CBS_CHECKEDHOT", "GW_ENABLEDPOPUP", "HTHSCROLL", "IDYES", "MB_CANCELTRYCONTINUE", "QS_MOUSE", "SB_LEFT", "SB_TOP", "SM_CYBORDER", "SPI_SETBORDER", "SS_WHITERECT", "SW_MINIMIZE", "VK_XBUTTON2", "WH_SYSMSGFILTER", "WMSZ_BOTTOM", "WM_ACTIVATE"}
 	case Value(60):
 		return []string{"SM_CYMAXTRACK", "SPI_GETACCESSTIMEOUT"}
 	case Value(61):
@@ -5855,7 +5906,7 @@ func Names(value Value) []string {
 	case Value(69):
 		return []string{"SM_CYDRAG", "SPI_SETKEYBOARDPREF", "VK_E"}
 	case Value(7):
-		return []string{"BN_KILLFOCUS", "BS_GROUPBOX", "CBS_CHECKEDPRESSED", "HTVSCROLL", "IDNO", "SB_BOTTOM", "SB_RIGHT", "SM_CXDLGFRAME", "SM_CXFIXEDFRAME", "SS_BLACKFRAME", "SW_SHOWMINNOACTIVE", "WH_MOUSE", "WMSZ_BOTTOMLEFT", "WM_SETFOCUS"}
+		return []string{"BN_KILLFOCUS", "BS_GROUPBOX", "CBN_DROPDOWN", "CBS_CHECKEDPRESSED", "HTVSCROLL", "IDNO", "SB_BOTTOM", "SB_RIGHT", "SM_CXDLGFRAME", "SM_CXFIXEDFRAME", "SS_BLACKFRAME", "SW_SHOWMINNOACTIVE", "WH_MOUSE", "WMSZ_BOTTOMLEFT", "WM_SETFOCUS"}
 	case Value(70):
 		return []string{"SM_SHOWSOUNDS", "SPI_GETSCREENREADER", "VK_F", "WM_WINDOWPOSCHANGING"}
 	case Value(704):
@@ -5941,7 +5992,7 @@ func Names(value Value) []string {
 	case Value(799):
 		return []string{"WM_DWMNCRENDERINGCHANGED"}
 	case Value(8):
-		return []string{"BST_FOCUS", "BS_USERBUTTON", "CBS_CHECKEDDISABLED", "CS_DBLCLKS", "DI_DEFAULTSIZE", "DLGC_HASSETSEL", "DS_FIXEDSYS", "ES_UPPERCASE", "HTMINBUTTON", "HTREDUCE", "IDCLOSE", "KEYEVENTF_SCANCODE", "KLF_REORDER", "LBS_MULTIPLESEL", "LR_COPYDELETEORG", "MFS_CHECKED", "MF_CHECKED", "MIIM_CHECKMARKS", "MIM_MENUDATA", "MK_CONTROL", "MOD_WIN", "MOUSEEVENTF_RIGHTDOWN", "QS_POSTMESSAGE", "SBS_SIZEBOX", "SB_ENDSCROLL", "SIF_DISABLENOSCROLL", "SM_CYDLGFRAME", "SM_CYFIXEDFRAME", "SS_GRAYFRAME", "SWP_NOREDRAW", "SW_SHOWNA", "TPM_RIGHTALIGN", "VK_BACK", "WH_HARDWARE", "WMSZ_BOTTOMRIGHT", "WM_KILLFOCUS", "WS_EX_TOPMOST"}
+		return []string{"BST_FOCUS", "BS_USERBUTTON", "CBN_CLOSEUP", "CBS_CHECKEDDISABLED", "CS_DBLCLKS", "DI_DEFAULTSIZE", "DLGC_HASSETSEL", "DS_FIXEDSYS", "ES_UPPERCASE", "FCONTROL", "HTMINBUTTON", "HTREDUCE", "IDCLOSE", "KEYEVENTF_SCANCODE", "KLF_REORDER", "LBS_MULTIPLESEL", "LR_COPYDELETEORG", "MFS_CHECKED", "MF_CHECKED", "MIIM_CHECKMARKS", "MIM_MENUDATA", "MK_CONTROL", "MOD_WIN", "MOUSEEVENTF_RIGHTDOWN", "QS_POSTMESSAGE", "SBS_SIZEBOX", "SB_ENDSCROLL", "SIF_DISABLENOSCROLL", "SM_CYDLGFRAME", "SM_CYFIXEDFRAME", "SS_GRAYFRAME", "SWP_NOREDRAW", "SW_SHOWNA", "TPM_RIGHTALIGN", "VK_BACK", "WH_HARDWARE", "WMSZ_BOTTOMRIGHT", "WM_KILLFOCUS", "WS_EX_TOPMOST"}
 	case Value(80):
 		return []string{"SM_CMONITORS", "SPI_GETPOWEROFFTIMEOUT", "VK_P", "WM_INPUTLANGCHANGEREQUEST"}
 	case Value(800):
@@ -6067,7 +6118,7 @@ func Names(value Value) []string {
 	case Value(896):
 		return []string{"WM_PENWINFIRST"}
 	case Value(9):
-		return []string{"BS_AUTORADIOBUTTON", "CBS_MIXEDNORMAL", "HTMAXBUTTON", "HTZOOM", "IDHELP", "SM_CYVTHUMB", "SS_WHITEFRAME", "SW_RESTORE", "VK_TAB", "WH_DEBUG"}
+		return []string{"BS_AUTORADIOBUTTON", "CBN_SELENDOK", "CBS_MIXEDNORMAL", "HTMAXBUTTON", "HTZOOM", "IDHELP", "SM_CYVTHUMB", "SS_WHITEFRAME", "SW_RESTORE", "VK_TAB", "WH_DEBUG"}
 	case Value(90):
 		return []string{"SPI_SETDEFAULTINPUTLANG", "VK_Z"}
 	case Value(91):
@@ -6218,6 +6269,28 @@ func Parse(name string) (Value, bool) {
 		return BS_USERBUTTON, true
 	case "BS_VCENTER":
 		return BS_VCENTER, true
+	case "CBN_CLOSEUP":
+		return CBN_CLOSEUP, true
+	case "CBN_DBLCLK":
+		return CBN_DBLCLK, true
+	case "CBN_DROPDOWN":
+		return CBN_DROPDOWN, true
+	case "CBN_EDITCHANGE":
+		return CBN_EDITCHANGE, true
+	case "CBN_EDITUPDATE":
+		return CBN_EDITUPDATE, true
+	case "CBN_ERRSPACE":
+		return CBN_ERRSPACE, true
+	case "CBN_KILLFOCUS":
+		return CBN_KILLFOCUS, true
+	case "CBN_SELCHANGE":
+		return CBN_SELCHANGE, true
+	case "CBN_SELENDCANCEL":
+		return CBN_SELENDCANCEL, true
+	case "CBN_SELENDOK":
+		return CBN_SELENDOK, true
+	case "CBN_SETFOCUS":
+		return CBN_SETFOCUS, true
 	case "CBS_AUTOHSCROLL":
 		return CBS_AUTOHSCROLL, true
 	case "CBS_CHECKEDDISABLED":
@@ -6410,6 +6483,8 @@ func Parse(name string) (Value, bool) {
 		return CW_USEDEFAULT, true
 	case "DCX_EXCLUDEUPDATE":
 		return DCX_EXCLUDEUPDATE, true
+	case "DC_HASDEFID":
+		return DC_HASDEFID, true
 	case "DI_COMPAT":
 		return DI_COMPAT, true
 	case "DI_DEFAULTSIZE":
@@ -6670,6 +6745,16 @@ func Parse(name string) (Value, bool) {
 		return ES_UPPERCASE, true
 	case "ES_WANTRETURN":
 		return ES_WANTRETURN, true
+	case "FALT":
+		return FALT, true
+	case "FCONTROL":
+		return FCONTROL, true
+	case "FNOINVERT":
+		return FNOINVERT, true
+	case "FSHIFT":
+		return FSHIFT, true
+	case "FVIRTKEY":
+		return FVIRTKEY, true
 	case "GA_PARENT":
 		return GA_PARENT, true
 	case "GA_ROOT":

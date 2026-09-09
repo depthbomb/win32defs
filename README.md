@@ -36,6 +36,7 @@ Flag and API-domain packages:
 - `libraryloader`
 - `winsock`
 - `winmsg`
+- `shell`
 - `ioctl`
 - `security`
 - `syncinit`
@@ -98,6 +99,12 @@ standard classification and field-extraction macros. The `process` package
 includes metadata-defined token pseudo-handle functions, `security` provides
 SID identifier authorities, and `syncinit` provides pointer-sized static
 synchronization initializers.
+
+The `shell` package includes notification icon operations and flags (`NIM_*`,
+`NIF_*`, `NIS_*`, `NIIF_*`), events and versions (`NIN_*`, `NOTIFYICON_*`), and
+file dialog options (`FOS_*`). The `winmsg` package also includes combo box
+messages and styles (`CB_*`, `CBS_*`) and button styles, messages,
+notifications, and states (`BS_*`, `BM_*`, `BN_*`, `BST_*`).
 
 The `winmacro` package provides platform-independent helpers for word and
 message-parameter packing, signed coordinate and mouse-wheel extraction, color

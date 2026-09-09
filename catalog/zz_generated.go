@@ -21580,6 +21580,146 @@ var definitions = [...]Definition{
 	{Package: "winsock", Name: "WSA_WAIT_FAILED", Value: "4294967295", Namespace: "Windows.Win32.Networking.WinSock", DeclaringType: "Apis", Documentation: ""},
 	{Package: "winsock", Name: "WSA_WAIT_IO_COMPLETION", Value: "192", Namespace: "Windows.Win32.Networking.WinSock", DeclaringType: "WSA_ERROR", Documentation: ""},
 	{Package: "winsock", Name: "WSA_WAIT_TIMEOUT", Value: "258", Namespace: "Windows.Win32.Networking.WinSock", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BM_CLICK", Value: "245", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-click", Comment: "Simulates the user clicking a button. This message causes the button to receive the WM\\_LBUTTONDOWN and WM\\_LBUTTONUP messages, and the button's parent window to receive a BN\\_CLICKED notification code."},
+	{Package: "winmsg", Name: "BM_GETCHECK", Value: "240", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-getcheck", Comment: "Gets the check state of a radio button or check box. You can send this message explicitly or use the Button\\_GetCheck macro."},
+	{Package: "winmsg", Name: "BM_GETIMAGE", Value: "246", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-getimage", Comment: "Retrieves a handle to the image (icon or bitmap) associated with the button."},
+	{Package: "winmsg", Name: "BM_GETSTATE", Value: "242", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-getstate", Comment: "Retrieves the state of a button or check box. You can send this message explicitly or use the Button\\_GetState macro."},
+	{Package: "winmsg", Name: "BM_SETCHECK", Value: "241", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-setcheck", Comment: "Sets the check state of a radio button or check box. You can send this message explicitly or by using the Button\\_SetCheck macro."},
+	{Package: "winmsg", Name: "BM_SETDONTCLICK", Value: "248", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-setdontclick", Comment: "Sets a flag on a radio button that controls the generation of BN\\_CLICKED messages when the button receives focus."},
+	{Package: "winmsg", Name: "BM_SETIMAGE", Value: "247", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-setimage", Comment: "Associates a new image (icon or bitmap) with the button."},
+	{Package: "winmsg", Name: "BM_SETSTATE", Value: "243", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-setstate", Comment: "Sets the highlight state of a button. The highlight state indicates whether the button is highlighted as if the user had pushed it. You can send this message explicitly or use the Button\\_SetState macro."},
+	{Package: "winmsg", Name: "BM_SETSTYLE", Value: "244", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-setstyle", Comment: "Sets the style of a button. You can send this message explicitly or use the Button\\_SetStyle macro."},
+	{Package: "winmsg", Name: "BN_CLICKED", Value: "0", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-clicked", Comment: "Sent when the user clicks a button. The parent window of the button receives this notification code through the WM\\_COMMAND message."},
+	{Package: "winmsg", Name: "BN_DBLCLK", Value: "5", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-dblclk", Comment: "BN_DBLCLK notification code - Sent when the user double-clicks a button."},
+	{Package: "winmsg", Name: "BN_DISABLE", Value: "4", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-disable", Comment: "Sent when a button is disabled."},
+	{Package: "winmsg", Name: "BN_DOUBLECLICKED", Value: "5", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-doubleclicked", Comment: "BN_DOUBLECLICKED notification code - Sent when the user double-clicks a button."},
+	{Package: "winmsg", Name: "BN_HILITE", Value: "2", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-hilite", Comment: "Sent when the user selects a button."},
+	{Package: "winmsg", Name: "BN_KILLFOCUS", Value: "7", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-killfocus", Comment: "Sent when a button loses the keyboard focus. The button must have the BS\\_NOTIFY style to send this notification code. The parent window of the button receives this notification code through the WM\\_COMMAND message."},
+	{Package: "winmsg", Name: "BN_PAINT", Value: "1", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-paint", Comment: "Sent when a button should be painted."},
+	{Package: "winmsg", Name: "BN_PUSHED", Value: "2", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-pushed", Comment: "Sent when the push state of a button is set to pushed."},
+	{Package: "winmsg", Name: "BN_SETFOCUS", Value: "6", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-setfocus", Comment: "Sent when a button receives the keyboard focus. The button must have the BS\\_NOTIFY style to send this notification code. The parent window of the button receives this notification code through the WM\\_COMMAND message."},
+	{Package: "winmsg", Name: "BN_UNHILITE", Value: "3", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-unhilite", Comment: "Sent when the highlight should be removed from a button."},
+	{Package: "winmsg", Name: "BN_UNPUSHED", Value: "3", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-unpushed", Comment: "Sent when the push state of a button is set to unpushed."},
+	{Package: "winmsg", Name: "BST_CHECKED", Value: "1", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "DLG_BUTTON_CHECK_STATE", Documentation: "", Comment: "Sets the button state to checked."},
+	{Package: "winmsg", Name: "BST_DROPDOWNPUSHED", Value: "1024", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BST_FOCUS", Value: "8", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BST_HOT", Value: "512", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BST_INDETERMINATE", Value: "2", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "DLG_BUTTON_CHECK_STATE", Documentation: "", Comment: "Sets the button state to grayed, indicating an indeterminate state. Use this value only if the button has the BS_3STATE or BS_AUTO3STATE style."},
+	{Package: "winmsg", Name: "BST_PUSHED", Value: "4", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BST_UNCHECKED", Value: "0", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "DLG_BUTTON_CHECK_STATE", Documentation: "", Comment: "Documentation varies per use. Refer to each: Button_SetCheck , CheckDlgButton ."},
+	{Package: "winmsg", Name: "BS_3STATE", Value: "5", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_AUTO3STATE", Value: "6", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_AUTOCHECKBOX", Value: "3", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_AUTORADIOBUTTON", Value: "9", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_BITMAP", Value: "128", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_BOTTOM", Value: "2048", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_CENTER", Value: "768", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_CHECKBOX", Value: "2", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_COMMANDLINK", Value: "14", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_DEFCOMMANDLINK", Value: "15", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_DEFPUSHBUTTON", Value: "1", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_DEFSPLITBUTTON", Value: "13", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_FLAT", Value: "32768", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_GROUPBOX", Value: "7", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_ICON", Value: "64", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_LEFT", Value: "256", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_LEFTTEXT", Value: "32", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_MULTILINE", Value: "8192", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_NOTIFY", Value: "16384", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_OWNERDRAW", Value: "11", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_PUSHBOX", Value: "10", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_PUSHBUTTON", Value: "0", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_PUSHLIKE", Value: "4096", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_RADIOBUTTON", Value: "4", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_RIGHT", Value: "512", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_RIGHTBUTTON", Value: "32", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_SPLITBUTTON", Value: "12", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_TEXT", Value: "0", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_TOP", Value: "1024", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_TYPEMASK", Value: "15", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_USERBUTTON", Value: "8", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "BS_VCENTER", Value: "3072", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_AUTOHSCROLL", Value: "64", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_CHECKEDDISABLED", Value: "8", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_CHECKEDHOT", Value: "6", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_CHECKEDNORMAL", Value: "5", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_CHECKEDPRESSED", Value: "7", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_DISABLED", Value: "4", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CLOSEBUTTONSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_DISABLENOSCROLL", Value: "2048", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_DROPDOWN", Value: "2", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_DROPDOWNLIST", Value: "3", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_EXCLUDEDDISABLED", Value: "20", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_EXCLUDEDHOT", Value: "18", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_EXCLUDEDNORMAL", Value: "17", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_EXCLUDEDPRESSED", Value: "19", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_HASSTRINGS", Value: "512", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_HOT", Value: "2", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CLOSEBUTTONSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_IMPLICITDISABLED", Value: "16", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_IMPLICITHOT", Value: "14", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_IMPLICITNORMAL", Value: "13", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_IMPLICITPRESSED", Value: "15", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_LOWERCASE", Value: "16384", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_MIXEDDISABLED", Value: "12", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_MIXEDHOT", Value: "10", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_MIXEDNORMAL", Value: "9", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_MIXEDPRESSED", Value: "11", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_NOINTEGRALHEIGHT", Value: "1024", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_NORMAL", Value: "1", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CLOSEBUTTONSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_OEMCONVERT", Value: "128", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_OWNERDRAWFIXED", Value: "16", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_OWNERDRAWVARIABLE", Value: "32", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_PUSHED", Value: "3", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CLOSEBUTTONSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_SIMPLE", Value: "1", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_SORT", Value: "256", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_UNCHECKEDDISABLED", Value: "4", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_UNCHECKEDHOT", Value: "2", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_UNCHECKEDNORMAL", Value: "1", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_UNCHECKEDPRESSED", Value: "3", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""},
+	{Package: "winmsg", Name: "CBS_UPPERCASE", Value: "8192", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CB_ADDSTRING", Value: "323", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-addstring", Comment: "Adds a string to the list box of a combo box. If the combo box does not have the CBS\\_SORT style, the string is added to the end of the list. Otherwise, the string is inserted into the list, and the list is sorted."},
+	{Package: "winmsg", Name: "CB_DELETESTRING", Value: "324", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-deletestring", Comment: "Deletes a string in the list box of a combo box."},
+	{Package: "winmsg", Name: "CB_DIR", Value: "325", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-dir", Comment: "Adds names to the list displayed by the combo box. The message adds the names of directories and files that match a specified string and set of file attributes. CB\\_DIR can also add mapped drive letters to the list."},
+	{Package: "winmsg", Name: "CB_ERR", Value: "-1", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CB_ERRSPACE", Value: "-2", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CB_FINDSTRING", Value: "332", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-findstring", Comment: "Searches the list box of a combo box for an item beginning with the characters in a specified string."},
+	{Package: "winmsg", Name: "CB_FINDSTRINGEXACT", Value: "344", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-findstringexact", Comment: "Finds the first list box string in a combo box that matches the string specified in the lParam parameter."},
+	{Package: "winmsg", Name: "CB_GETCOMBOBOXINFO", Value: "356", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getcomboboxinfo", Comment: "Gets information about the specified combo box."},
+	{Package: "winmsg", Name: "CB_GETCOUNT", Value: "326", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getcount", Comment: "Gets the number of items in the list box of a combo box."},
+	{Package: "winmsg", Name: "CB_GETCUEBANNER", Value: "5892", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getcuebanner", Comment: "Gets the cue banner text displayed in the edit control of a combo box. Send this message explicitly or by using the ComboBox\\_GetCueBannerText macro."},
+	{Package: "winmsg", Name: "CB_GETCURSEL", Value: "327", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getcursel", Comment: "An application sends a CB\\_GETCURSEL message to retrieve the index of the currently selected item, if any, in the list box of a combo box."},
+	{Package: "winmsg", Name: "CB_GETDROPPEDCONTROLRECT", Value: "338", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getdroppedcontrolrect", Comment: "An application sends a CB\\_GETDROPPEDCONTROLRECT message to retrieve the screen coordinates of a combo box in its dropped-down state."},
+	{Package: "winmsg", Name: "CB_GETDROPPEDSTATE", Value: "343", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getdroppedstate", Comment: "Determines whether the list box of a combo box is dropped down."},
+	{Package: "winmsg", Name: "CB_GETDROPPEDWIDTH", Value: "351", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getdroppedwidth", Comment: "Gets the minimum allowable width, in pixels, of the list box of a combo box with the CBS\\_DROPDOWN or CBS\\_DROPDOWNLIST style."},
+	{Package: "winmsg", Name: "CB_GETEDITSEL", Value: "320", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-geteditsel", Comment: "Gets the starting and ending character positions of the current selection in the edit control of a combo box."},
+	{Package: "winmsg", Name: "CB_GETEXTENDEDUI", Value: "342", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getextendedui", Comment: "Determines whether a combo box has the default user interface or the extended user interface."},
+	{Package: "winmsg", Name: "CB_GETHORIZONTALEXTENT", Value: "349", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-gethorizontalextent", Comment: "Gets the width, in pixels, that the list box can be scrolled horizontally (the scrollable width). This is applicable only if the list box has a horizontal scroll bar."},
+	{Package: "winmsg", Name: "CB_GETITEMDATA", Value: "336", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getitemdata", Comment: "An application sends a CB\\_GETITEMDATA message to a combo box to retrieve the application-supplied value associated with the specified item in the combo box."},
+	{Package: "winmsg", Name: "CB_GETITEMHEIGHT", Value: "340", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getitemheight", Comment: "Determines the height of list items or the selection field in a combo box."},
+	{Package: "winmsg", Name: "CB_GETLBTEXT", Value: "328", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getlbtext", Comment: "Gets a string from the list of a combo box."},
+	{Package: "winmsg", Name: "CB_GETLBTEXTLEN", Value: "329", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getlbtextlen", Comment: "Gets the length, in characters, of a string in the list of a combo box."},
+	{Package: "winmsg", Name: "CB_GETLOCALE", Value: "346", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getlocale", Comment: "Gets the current locale of the combo box. The locale is used to determine the correct sorting order of displayed text for combo boxes with the CBS\\_SORT style and text added by using the CB\\_ADDSTRING message."},
+	{Package: "winmsg", Name: "CB_GETMINVISIBLE", Value: "5890", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getminvisible", Comment: "Gets the minimum number of visible items in the drop-down list of a combo box."},
+	{Package: "winmsg", Name: "CB_GETTOPINDEX", Value: "347", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-gettopindex", Comment: "An application sends the CB\\_GETTOPINDEX message to retrieve the zero-based index of the first visible item in the list box portion of a combo box."},
+	{Package: "winmsg", Name: "CB_INITSTORAGE", Value: "353", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-initstorage", Comment: "An application sends the CB\\_INITSTORAGE message before adding a large number of items to the list box portion of a combo box. This message allocates memory for storing list box items."},
+	{Package: "winmsg", Name: "CB_INSERTSTRING", Value: "330", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-insertstring", Comment: "Inserts a string or item data into the list of a combo box. Unlike the CB\\_ADDSTRING message, the CB\\_INSERTSTRING message does not cause a list with the CBS\\_SORT style to be sorted."},
+	{Package: "winmsg", Name: "CB_LIMITTEXT", Value: "321", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-limittext", Comment: "Limits the length of the text the user may type into the edit control of a combo box."},
+	{Package: "winmsg", Name: "CB_MSGMAX", Value: "357", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CB_MULTIPLEADDSTRING", Value: "355", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CB_OKAY", Value: "0", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""},
+	{Package: "winmsg", Name: "CB_RESETCONTENT", Value: "331", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-resetcontent", Comment: "Removes all items from the list box and edit control of a combo box."},
+	{Package: "winmsg", Name: "CB_SELECTSTRING", Value: "333", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-selectstring", Comment: "Searches the list of a combo box for an item that begins with the characters in a specified string. If a matching item is found, it is selected and copied to the edit control."},
+	{Package: "winmsg", Name: "CB_SETCUEBANNER", Value: "5891", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-setcuebanner", Comment: "Sets the cue banner text that is displayed for the edit control of a combo box."},
+	{Package: "winmsg", Name: "CB_SETCURSEL", Value: "334", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-setcursel", Comment: "An application sends a CB\\_SETCURSEL message to select a string in the list of a combo box."},
+	{Package: "winmsg", Name: "CB_SETDROPPEDWIDTH", Value: "352", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-setdroppedwidth", Comment: "An application sends the CB\\_SETDROPPEDWIDTH message to set the minimum allowable width, in pixels, of the list box of a combo box with the CBS\\_DROPDOWN or CBS\\_DROPDOWNLIST style."},
+	{Package: "winmsg", Name: "CB_SETEDITSEL", Value: "322", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-seteditsel", Comment: "An application sends a CB\\_SETEDITSEL message to select characters in the edit control of a combo box."},
+	{Package: "winmsg", Name: "CB_SETEXTENDEDUI", Value: "341", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-setextendedui", Comment: "An application sends a CB\\_SETEXTENDEDUI message to select either the default UI or the extended UI for a combo box that has the CBS\\_DROPDOWN or CBS\\_DROPDOWNLIST style."},
+	{Package: "winmsg", Name: "CB_SETHORIZONTALEXTENT", Value: "350", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-sethorizontalextent", Comment: "An application sends the CB\\_SETHORIZONTALEXTENT message to set the width, in pixels, by which a list box can be scrolled horizontally (the scrollable width)."},
+	{Package: "winmsg", Name: "CB_SETITEMDATA", Value: "337", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-setitemdata", Comment: "An application sends a CB\\_SETITEMDATA message to set the value associated with the specified item in a combo box."},
+	{Package: "winmsg", Name: "CB_SETITEMHEIGHT", Value: "339", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-setitemheight", Comment: "An application sends a CB\\_SETITEMHEIGHT message to set the height of list items or the selection field in a combo box."},
+	{Package: "winmsg", Name: "CB_SETLOCALE", Value: "345", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-setlocale", Comment: "An application sends a CB\\_SETLOCALE message to set the current locale of the combo box. If the combo box has the CBS\\_SORT style and strings are added using CB\\_ADDSTRING, the locale of a combo box affects how list items are sorted."},
+	{Package: "winmsg", Name: "CB_SETMINVISIBLE", Value: "5889", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-setminvisible", Comment: "An application sends a CB\\_SETMINVISIBLE message to set the minimum number of visible items in the drop-down list of a combo box."},
+	{Package: "winmsg", Name: "CB_SETTOPINDEX", Value: "348", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-settopindex", Comment: "An application sends the CB\\_SETTOPINDEX message to ensure that a particular item is visible in the list box of a combo box."},
+	{Package: "winmsg", Name: "CB_SHOWDROPDOWN", Value: "335", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-showdropdown", Comment: "An application sends a CB\\_SHOWDROPDOWN message to show or hide the list box of a combo box that has the CBS\\_DROPDOWN or CBS\\_DROPDOWNLIST style."},
 	{Package: "winmsg", Name: "CS_BYTEALIGNCLIENT", Value: "4096", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "WNDCLASS_STYLES", Documentation: ""},
 	{Package: "winmsg", Name: "CS_BYTEALIGNWINDOW", Value: "8192", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "WNDCLASS_STYLES", Documentation: ""},
 	{Package: "winmsg", Name: "CS_CLASSDC", Value: "64", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "WNDCLASS_STYLES", Documentation: ""},
@@ -22804,6 +22944,62 @@ var definitions = [...]Definition{
 	{Package: "winmsg", Name: "WS_TILEDWINDOW", Value: "13565952", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "WINDOW_STYLE", Documentation: ""},
 	{Package: "winmsg", Name: "WS_VISIBLE", Value: "268435456", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "WINDOW_STYLE", Documentation: ""},
 	{Package: "winmsg", Name: "WS_VSCROLL", Value: "2097152", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "WINDOW_STYLE", Documentation: "", Comment: "Creates an MDI child window that has a vertical scroll bar."},
+	{Package: "shell", Name: "FOS_ALLNONSTORAGEITEMS", Value: "0x00000080", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Enables the user to choose any item in the Shell namespace, not just those with SFGAO_STREAM or SFAGO_FILESYSTEM attributes. This flag cannot be combined with FOS_FORCEFILESYSTEM."},
+	{Package: "shell", Name: "FOS_ALLOWMULTISELECT", Value: "0x00000200", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Enables the user to select multiple items in the open dialog. Note that when this flag is set, the IFileOpenDialog interface must be used to retrieve those items."},
+	{Package: "shell", Name: "FOS_CREATEPROMPT", Value: "0x00002000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Prompt for creation if the item returned in the open dialog does not exist. Note that this does not actually create the item."},
+	{Package: "shell", Name: "FOS_DEFAULTNOMINIMODE", Value: "0x20000000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Indicates to the Save As dialog box that it should open in expanded mode. Expanded mode is the mode that is set and unset by clicking the button in the lower-left corner of the Save As dialog box that switches between Browse Folders and Hide Folders when clicked. This value is not supported as of Windows 7."},
+	{Package: "shell", Name: "FOS_DONTADDTORECENT", Value: "0x02000000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Do not add the item being opened or saved to the recent documents list ( SHAddToRecentDocs )."},
+	{Package: "shell", Name: "FOS_FILEMUSTEXIST", Value: "0x00001000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "The item returned must exist. This is a default value for the Open dialog."},
+	{Package: "shell", Name: "FOS_FORCEFILESYSTEM", Value: "0x00000040", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Ensures that returned items are file system items ( SFGAO_FILESYSTEM ). Note that this does not apply to items returned by IFileDialog::GetCurrentSelection ."},
+	{Package: "shell", Name: "FOS_FORCEPREVIEWPANEON", Value: "0x40000000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Indicates to the Open dialog box that the preview pane should always be displayed."},
+	{Package: "shell", Name: "FOS_FORCESHOWHIDDEN", Value: "0x10000000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Include hidden and system items."},
+	{Package: "shell", Name: "FOS_HIDEMRUPLACES", Value: "0x00020000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Hide the list of places from which the user has recently opened or saved items. This value is not supported as of Windows 7."},
+	{Package: "shell", Name: "FOS_HIDEPINNEDPLACES", Value: "0x00040000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Hide items shown by default in the view's navigation pane. This flag is often used in conjunction with the IFileDialog::AddPlace method, to hide standard locations and replace them with custom locations. Windows 7 and later . Hide all of the standard namespace locations (such as Favorites, Libraries, Computer, and Network) shown in the navigation pane. Windows Vista . Hide the contents of the Favorite Links tree in the navigation pane. Note that the category itself is still displayed, but shown as empty."},
+	{Package: "shell", Name: "FOS_NOCHANGEDIR", Value: "0x00000008", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Don't change the current working directory."},
+	{Package: "shell", Name: "FOS_NODEREFERENCELINKS", Value: "0x00100000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Shortcuts should not be treated as their target items. This allows an application to open a .lnk file rather than what that file is a shortcut to."},
+	{Package: "shell", Name: "FOS_NOREADONLYRETURN", Value: "0x00008000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Do not return read-only items. This is a default value for the Save dialog."},
+	{Package: "shell", Name: "FOS_NOTESTFILECREATE", Value: "0x00010000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Do not test whether creation of the item as specified in the Save dialog will be successful. If this flag is not set, the calling application must handle errors, such as denial of access, discovered when the item is created."},
+	{Package: "shell", Name: "FOS_NOVALIDATE", Value: "0x00000100", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Do not check for situations that would prevent an application from opening the selected file, such as sharing violations or access denied errors."},
+	{Package: "shell", Name: "FOS_OKBUTTONNEEDSINTERACTION", Value: "0x00200000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "The OK button will be disabled until the user navigates the view or edits the filename (if applicable). Note: Disabling of the OK button does not prevent the dialog from being submitted by the Enter key."},
+	{Package: "shell", Name: "FOS_OVERWRITEPROMPT", Value: "0x00000002", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "When saving a file, prompt before overwriting an existing file of the same name. This is a default value for the Save dialog."},
+	{Package: "shell", Name: "FOS_PATHMUSTEXIST", Value: "0x00000800", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "The item returned must be in an existing folder. This is a default value."},
+	{Package: "shell", Name: "FOS_PICKFOLDERS", Value: "0x00000020", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Present an Open dialog that offers a choice of folders rather than files."},
+	{Package: "shell", Name: "FOS_SHAREAWARE", Value: "0x00004000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "In the case of a sharing violation when an application is opening a file, call the application back through OnShareViolation for guidance. This flag is overridden by FOS_NOVALIDATE."},
+	{Package: "shell", Name: "FOS_STRICTFILETYPES", Value: "0x00000004", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "In the Save dialog, only allow the user to choose a file that has one of the file name extensions specified through IFileDialog::SetFileTypes ."},
+	{Package: "shell", Name: "FOS_SUPPORTSTREAMABLEITEMS", Value: "0x80000000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Indicates that the caller is opening a file as a stream ( BHID_Stream ), so there is no need to download that file."},
+	{Package: "shell", Name: "NIF_GUID", Value: "0x00000020", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_DATA_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIF_ICON", Value: "0x00000002", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_DATA_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIF_INFO", Value: "0x00000010", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_DATA_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIF_MESSAGE", Value: "0x00000001", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_DATA_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIF_REALTIME", Value: "0x00000040", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_DATA_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIF_SHOWTIP", Value: "0x00000080", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_DATA_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIF_STATE", Value: "0x00000008", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_DATA_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIF_TIP", Value: "0x00000004", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_DATA_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIIF_ERROR", Value: "0x00000003", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIIF_ICON_MASK", Value: "0x0000000F", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIIF_INFO", Value: "0x00000001", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIIF_LARGE_ICON", Value: "0x00000020", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIIF_NONE", Value: "0x00000000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIIF_NOSOUND", Value: "0x00000010", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIIF_RESPECT_QUIET_TIME", Value: "0x00000080", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIIF_USER", Value: "0x00000004", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIIF_WARNING", Value: "0x00000002", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""},
+	{Package: "shell", Name: "NIM_ADD", Value: "0x00000000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_MESSAGE", Documentation: ""},
+	{Package: "shell", Name: "NIM_DELETE", Value: "0x00000002", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_MESSAGE", Documentation: ""},
+	{Package: "shell", Name: "NIM_MODIFY", Value: "0x00000001", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_MESSAGE", Documentation: ""},
+	{Package: "shell", Name: "NIM_SETFOCUS", Value: "0x00000003", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_MESSAGE", Documentation: ""},
+	{Package: "shell", Name: "NIM_SETVERSION", Value: "0x00000004", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_MESSAGE", Documentation: ""},
+	{Package: "shell", Name: "NIN_BALLOONHIDE", Value: "0x00000403", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""},
+	{Package: "shell", Name: "NIN_BALLOONSHOW", Value: "0x00000402", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""},
+	{Package: "shell", Name: "NIN_BALLOONTIMEOUT", Value: "0x00000404", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""},
+	{Package: "shell", Name: "NIN_BALLOONUSERCLICK", Value: "0x00000405", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""},
+	{Package: "shell", Name: "NIN_POPUPCLOSE", Value: "0x00000407", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""},
+	{Package: "shell", Name: "NIN_POPUPOPEN", Value: "0x00000406", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""},
+	{Package: "shell", Name: "NIN_SELECT", Value: "0x00000400", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""},
+	{Package: "shell", Name: "NIS_HIDDEN", Value: "0x00000001", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_STATE", Documentation: ""},
+	{Package: "shell", Name: "NIS_SHAREDICON", Value: "0x00000002", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_STATE", Documentation: ""},
+	{Package: "shell", Name: "NOTIFYICON_VERSION", Value: "0x00000003", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""},
+	{Package: "shell", Name: "NOTIFYICON_VERSION_4", Value: "0x00000004", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""},
 	{Package: "ioctl", Name: "FILE_DEVICE_8042_PORT", Value: "0x00000027", Namespace: "Windows.Win32.System.Ioctl", DeclaringType: "Apis", Documentation: ""},
 	{Package: "ioctl", Name: "FILE_DEVICE_ACPI", Value: "0x00000032", Namespace: "Windows.Win32.System.Ioctl", DeclaringType: "Apis", Documentation: ""},
 	{Package: "ioctl", Name: "FILE_DEVICE_BATTERY", Value: "0x00000029", Namespace: "Windows.Win32.System.Ioctl", DeclaringType: "Apis", Documentation: ""},
@@ -67035,6 +67231,286 @@ func Lookup(packageName string, name string) (Definition, bool) {
 		}
 	case "winmsg":
 		switch name {
+		case "BM_CLICK":
+			return Definition{Package: "winmsg", Name: "BM_CLICK", Value: "245", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-click", Comment: "Simulates the user clicking a button. This message causes the button to receive the WM\\_LBUTTONDOWN and WM\\_LBUTTONUP messages, and the button's parent window to receive a BN\\_CLICKED notification code."}, true
+		case "BM_GETCHECK":
+			return Definition{Package: "winmsg", Name: "BM_GETCHECK", Value: "240", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-getcheck", Comment: "Gets the check state of a radio button or check box. You can send this message explicitly or use the Button\\_GetCheck macro."}, true
+		case "BM_GETIMAGE":
+			return Definition{Package: "winmsg", Name: "BM_GETIMAGE", Value: "246", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-getimage", Comment: "Retrieves a handle to the image (icon or bitmap) associated with the button."}, true
+		case "BM_GETSTATE":
+			return Definition{Package: "winmsg", Name: "BM_GETSTATE", Value: "242", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-getstate", Comment: "Retrieves the state of a button or check box. You can send this message explicitly or use the Button\\_GetState macro."}, true
+		case "BM_SETCHECK":
+			return Definition{Package: "winmsg", Name: "BM_SETCHECK", Value: "241", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-setcheck", Comment: "Sets the check state of a radio button or check box. You can send this message explicitly or by using the Button\\_SetCheck macro."}, true
+		case "BM_SETDONTCLICK":
+			return Definition{Package: "winmsg", Name: "BM_SETDONTCLICK", Value: "248", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-setdontclick", Comment: "Sets a flag on a radio button that controls the generation of BN\\_CLICKED messages when the button receives focus."}, true
+		case "BM_SETIMAGE":
+			return Definition{Package: "winmsg", Name: "BM_SETIMAGE", Value: "247", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-setimage", Comment: "Associates a new image (icon or bitmap) with the button."}, true
+		case "BM_SETSTATE":
+			return Definition{Package: "winmsg", Name: "BM_SETSTATE", Value: "243", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-setstate", Comment: "Sets the highlight state of a button. The highlight state indicates whether the button is highlighted as if the user had pushed it. You can send this message explicitly or use the Button\\_SetState macro."}, true
+		case "BM_SETSTYLE":
+			return Definition{Package: "winmsg", Name: "BM_SETSTYLE", Value: "244", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bm-setstyle", Comment: "Sets the style of a button. You can send this message explicitly or use the Button\\_SetStyle macro."}, true
+		case "BN_CLICKED":
+			return Definition{Package: "winmsg", Name: "BN_CLICKED", Value: "0", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-clicked", Comment: "Sent when the user clicks a button. The parent window of the button receives this notification code through the WM\\_COMMAND message."}, true
+		case "BN_DBLCLK":
+			return Definition{Package: "winmsg", Name: "BN_DBLCLK", Value: "5", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-dblclk", Comment: "BN_DBLCLK notification code - Sent when the user double-clicks a button."}, true
+		case "BN_DISABLE":
+			return Definition{Package: "winmsg", Name: "BN_DISABLE", Value: "4", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-disable", Comment: "Sent when a button is disabled."}, true
+		case "BN_DOUBLECLICKED":
+			return Definition{Package: "winmsg", Name: "BN_DOUBLECLICKED", Value: "5", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-doubleclicked", Comment: "BN_DOUBLECLICKED notification code - Sent when the user double-clicks a button."}, true
+		case "BN_HILITE":
+			return Definition{Package: "winmsg", Name: "BN_HILITE", Value: "2", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-hilite", Comment: "Sent when the user selects a button."}, true
+		case "BN_KILLFOCUS":
+			return Definition{Package: "winmsg", Name: "BN_KILLFOCUS", Value: "7", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-killfocus", Comment: "Sent when a button loses the keyboard focus. The button must have the BS\\_NOTIFY style to send this notification code. The parent window of the button receives this notification code through the WM\\_COMMAND message."}, true
+		case "BN_PAINT":
+			return Definition{Package: "winmsg", Name: "BN_PAINT", Value: "1", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-paint", Comment: "Sent when a button should be painted."}, true
+		case "BN_PUSHED":
+			return Definition{Package: "winmsg", Name: "BN_PUSHED", Value: "2", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-pushed", Comment: "Sent when the push state of a button is set to pushed."}, true
+		case "BN_SETFOCUS":
+			return Definition{Package: "winmsg", Name: "BN_SETFOCUS", Value: "6", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-setfocus", Comment: "Sent when a button receives the keyboard focus. The button must have the BS\\_NOTIFY style to send this notification code. The parent window of the button receives this notification code through the WM\\_COMMAND message."}, true
+		case "BN_UNHILITE":
+			return Definition{Package: "winmsg", Name: "BN_UNHILITE", Value: "3", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-unhilite", Comment: "Sent when the highlight should be removed from a button."}, true
+		case "BN_UNPUSHED":
+			return Definition{Package: "winmsg", Name: "BN_UNPUSHED", Value: "3", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/bn-unpushed", Comment: "Sent when the push state of a button is set to unpushed."}, true
+		case "BST_CHECKED":
+			return Definition{Package: "winmsg", Name: "BST_CHECKED", Value: "1", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "DLG_BUTTON_CHECK_STATE", Documentation: "", Comment: "Sets the button state to checked."}, true
+		case "BST_DROPDOWNPUSHED":
+			return Definition{Package: "winmsg", Name: "BST_DROPDOWNPUSHED", Value: "1024", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: ""}, true
+		case "BST_FOCUS":
+			return Definition{Package: "winmsg", Name: "BST_FOCUS", Value: "8", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BST_HOT":
+			return Definition{Package: "winmsg", Name: "BST_HOT", Value: "512", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: ""}, true
+		case "BST_INDETERMINATE":
+			return Definition{Package: "winmsg", Name: "BST_INDETERMINATE", Value: "2", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "DLG_BUTTON_CHECK_STATE", Documentation: "", Comment: "Sets the button state to grayed, indicating an indeterminate state. Use this value only if the button has the BS_3STATE or BS_AUTO3STATE style."}, true
+		case "BST_PUSHED":
+			return Definition{Package: "winmsg", Name: "BST_PUSHED", Value: "4", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BST_UNCHECKED":
+			return Definition{Package: "winmsg", Name: "BST_UNCHECKED", Value: "0", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "DLG_BUTTON_CHECK_STATE", Documentation: "", Comment: "Documentation varies per use. Refer to each: Button_SetCheck , CheckDlgButton ."}, true
+		case "BS_3STATE":
+			return Definition{Package: "winmsg", Name: "BS_3STATE", Value: "5", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_AUTO3STATE":
+			return Definition{Package: "winmsg", Name: "BS_AUTO3STATE", Value: "6", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_AUTOCHECKBOX":
+			return Definition{Package: "winmsg", Name: "BS_AUTOCHECKBOX", Value: "3", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_AUTORADIOBUTTON":
+			return Definition{Package: "winmsg", Name: "BS_AUTORADIOBUTTON", Value: "9", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_BITMAP":
+			return Definition{Package: "winmsg", Name: "BS_BITMAP", Value: "128", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_BOTTOM":
+			return Definition{Package: "winmsg", Name: "BS_BOTTOM", Value: "2048", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_CENTER":
+			return Definition{Package: "winmsg", Name: "BS_CENTER", Value: "768", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_CHECKBOX":
+			return Definition{Package: "winmsg", Name: "BS_CHECKBOX", Value: "2", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_COMMANDLINK":
+			return Definition{Package: "winmsg", Name: "BS_COMMANDLINK", Value: "14", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_DEFCOMMANDLINK":
+			return Definition{Package: "winmsg", Name: "BS_DEFCOMMANDLINK", Value: "15", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_DEFPUSHBUTTON":
+			return Definition{Package: "winmsg", Name: "BS_DEFPUSHBUTTON", Value: "1", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_DEFSPLITBUTTON":
+			return Definition{Package: "winmsg", Name: "BS_DEFSPLITBUTTON", Value: "13", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_FLAT":
+			return Definition{Package: "winmsg", Name: "BS_FLAT", Value: "32768", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_GROUPBOX":
+			return Definition{Package: "winmsg", Name: "BS_GROUPBOX", Value: "7", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_ICON":
+			return Definition{Package: "winmsg", Name: "BS_ICON", Value: "64", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_LEFT":
+			return Definition{Package: "winmsg", Name: "BS_LEFT", Value: "256", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_LEFTTEXT":
+			return Definition{Package: "winmsg", Name: "BS_LEFTTEXT", Value: "32", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_MULTILINE":
+			return Definition{Package: "winmsg", Name: "BS_MULTILINE", Value: "8192", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_NOTIFY":
+			return Definition{Package: "winmsg", Name: "BS_NOTIFY", Value: "16384", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_OWNERDRAW":
+			return Definition{Package: "winmsg", Name: "BS_OWNERDRAW", Value: "11", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_PUSHBOX":
+			return Definition{Package: "winmsg", Name: "BS_PUSHBOX", Value: "10", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_PUSHBUTTON":
+			return Definition{Package: "winmsg", Name: "BS_PUSHBUTTON", Value: "0", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_PUSHLIKE":
+			return Definition{Package: "winmsg", Name: "BS_PUSHLIKE", Value: "4096", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_RADIOBUTTON":
+			return Definition{Package: "winmsg", Name: "BS_RADIOBUTTON", Value: "4", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_RIGHT":
+			return Definition{Package: "winmsg", Name: "BS_RIGHT", Value: "512", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_RIGHTBUTTON":
+			return Definition{Package: "winmsg", Name: "BS_RIGHTBUTTON", Value: "32", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_SPLITBUTTON":
+			return Definition{Package: "winmsg", Name: "BS_SPLITBUTTON", Value: "12", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_TEXT":
+			return Definition{Package: "winmsg", Name: "BS_TEXT", Value: "0", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_TOP":
+			return Definition{Package: "winmsg", Name: "BS_TOP", Value: "1024", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_TYPEMASK":
+			return Definition{Package: "winmsg", Name: "BS_TYPEMASK", Value: "15", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_USERBUTTON":
+			return Definition{Package: "winmsg", Name: "BS_USERBUTTON", Value: "8", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "BS_VCENTER":
+			return Definition{Package: "winmsg", Name: "BS_VCENTER", Value: "3072", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CBS_AUTOHSCROLL":
+			return Definition{Package: "winmsg", Name: "CBS_AUTOHSCROLL", Value: "64", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CBS_CHECKEDDISABLED":
+			return Definition{Package: "winmsg", Name: "CBS_CHECKEDDISABLED", Value: "8", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_CHECKEDHOT":
+			return Definition{Package: "winmsg", Name: "CBS_CHECKEDHOT", Value: "6", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_CHECKEDNORMAL":
+			return Definition{Package: "winmsg", Name: "CBS_CHECKEDNORMAL", Value: "5", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_CHECKEDPRESSED":
+			return Definition{Package: "winmsg", Name: "CBS_CHECKEDPRESSED", Value: "7", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_DISABLED":
+			return Definition{Package: "winmsg", Name: "CBS_DISABLED", Value: "4", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CLOSEBUTTONSTATES", Documentation: ""}, true
+		case "CBS_DISABLENOSCROLL":
+			return Definition{Package: "winmsg", Name: "CBS_DISABLENOSCROLL", Value: "2048", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CBS_DROPDOWN":
+			return Definition{Package: "winmsg", Name: "CBS_DROPDOWN", Value: "2", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CBS_DROPDOWNLIST":
+			return Definition{Package: "winmsg", Name: "CBS_DROPDOWNLIST", Value: "3", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CBS_EXCLUDEDDISABLED":
+			return Definition{Package: "winmsg", Name: "CBS_EXCLUDEDDISABLED", Value: "20", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_EXCLUDEDHOT":
+			return Definition{Package: "winmsg", Name: "CBS_EXCLUDEDHOT", Value: "18", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_EXCLUDEDNORMAL":
+			return Definition{Package: "winmsg", Name: "CBS_EXCLUDEDNORMAL", Value: "17", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_EXCLUDEDPRESSED":
+			return Definition{Package: "winmsg", Name: "CBS_EXCLUDEDPRESSED", Value: "19", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_HASSTRINGS":
+			return Definition{Package: "winmsg", Name: "CBS_HASSTRINGS", Value: "512", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CBS_HOT":
+			return Definition{Package: "winmsg", Name: "CBS_HOT", Value: "2", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CLOSEBUTTONSTATES", Documentation: ""}, true
+		case "CBS_IMPLICITDISABLED":
+			return Definition{Package: "winmsg", Name: "CBS_IMPLICITDISABLED", Value: "16", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_IMPLICITHOT":
+			return Definition{Package: "winmsg", Name: "CBS_IMPLICITHOT", Value: "14", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_IMPLICITNORMAL":
+			return Definition{Package: "winmsg", Name: "CBS_IMPLICITNORMAL", Value: "13", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_IMPLICITPRESSED":
+			return Definition{Package: "winmsg", Name: "CBS_IMPLICITPRESSED", Value: "15", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_LOWERCASE":
+			return Definition{Package: "winmsg", Name: "CBS_LOWERCASE", Value: "16384", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CBS_MIXEDDISABLED":
+			return Definition{Package: "winmsg", Name: "CBS_MIXEDDISABLED", Value: "12", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_MIXEDHOT":
+			return Definition{Package: "winmsg", Name: "CBS_MIXEDHOT", Value: "10", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_MIXEDNORMAL":
+			return Definition{Package: "winmsg", Name: "CBS_MIXEDNORMAL", Value: "9", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_MIXEDPRESSED":
+			return Definition{Package: "winmsg", Name: "CBS_MIXEDPRESSED", Value: "11", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_NOINTEGRALHEIGHT":
+			return Definition{Package: "winmsg", Name: "CBS_NOINTEGRALHEIGHT", Value: "1024", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CBS_NORMAL":
+			return Definition{Package: "winmsg", Name: "CBS_NORMAL", Value: "1", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CLOSEBUTTONSTATES", Documentation: ""}, true
+		case "CBS_OEMCONVERT":
+			return Definition{Package: "winmsg", Name: "CBS_OEMCONVERT", Value: "128", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CBS_OWNERDRAWFIXED":
+			return Definition{Package: "winmsg", Name: "CBS_OWNERDRAWFIXED", Value: "16", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CBS_OWNERDRAWVARIABLE":
+			return Definition{Package: "winmsg", Name: "CBS_OWNERDRAWVARIABLE", Value: "32", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CBS_PUSHED":
+			return Definition{Package: "winmsg", Name: "CBS_PUSHED", Value: "3", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CLOSEBUTTONSTATES", Documentation: ""}, true
+		case "CBS_SIMPLE":
+			return Definition{Package: "winmsg", Name: "CBS_SIMPLE", Value: "1", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CBS_SORT":
+			return Definition{Package: "winmsg", Name: "CBS_SORT", Value: "256", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CBS_UNCHECKEDDISABLED":
+			return Definition{Package: "winmsg", Name: "CBS_UNCHECKEDDISABLED", Value: "4", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_UNCHECKEDHOT":
+			return Definition{Package: "winmsg", Name: "CBS_UNCHECKEDHOT", Value: "2", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_UNCHECKEDNORMAL":
+			return Definition{Package: "winmsg", Name: "CBS_UNCHECKEDNORMAL", Value: "1", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_UNCHECKEDPRESSED":
+			return Definition{Package: "winmsg", Name: "CBS_UNCHECKEDPRESSED", Value: "3", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "CHECKBOXSTATES", Documentation: ""}, true
+		case "CBS_UPPERCASE":
+			return Definition{Package: "winmsg", Name: "CBS_UPPERCASE", Value: "8192", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CB_ADDSTRING":
+			return Definition{Package: "winmsg", Name: "CB_ADDSTRING", Value: "323", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-addstring", Comment: "Adds a string to the list box of a combo box. If the combo box does not have the CBS\\_SORT style, the string is added to the end of the list. Otherwise, the string is inserted into the list, and the list is sorted."}, true
+		case "CB_DELETESTRING":
+			return Definition{Package: "winmsg", Name: "CB_DELETESTRING", Value: "324", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-deletestring", Comment: "Deletes a string in the list box of a combo box."}, true
+		case "CB_DIR":
+			return Definition{Package: "winmsg", Name: "CB_DIR", Value: "325", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-dir", Comment: "Adds names to the list displayed by the combo box. The message adds the names of directories and files that match a specified string and set of file attributes. CB\\_DIR can also add mapped drive letters to the list."}, true
+		case "CB_ERR":
+			return Definition{Package: "winmsg", Name: "CB_ERR", Value: "-1", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CB_ERRSPACE":
+			return Definition{Package: "winmsg", Name: "CB_ERRSPACE", Value: "-2", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CB_FINDSTRING":
+			return Definition{Package: "winmsg", Name: "CB_FINDSTRING", Value: "332", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-findstring", Comment: "Searches the list box of a combo box for an item beginning with the characters in a specified string."}, true
+		case "CB_FINDSTRINGEXACT":
+			return Definition{Package: "winmsg", Name: "CB_FINDSTRINGEXACT", Value: "344", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-findstringexact", Comment: "Finds the first list box string in a combo box that matches the string specified in the lParam parameter."}, true
+		case "CB_GETCOMBOBOXINFO":
+			return Definition{Package: "winmsg", Name: "CB_GETCOMBOBOXINFO", Value: "356", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getcomboboxinfo", Comment: "Gets information about the specified combo box."}, true
+		case "CB_GETCOUNT":
+			return Definition{Package: "winmsg", Name: "CB_GETCOUNT", Value: "326", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getcount", Comment: "Gets the number of items in the list box of a combo box."}, true
+		case "CB_GETCUEBANNER":
+			return Definition{Package: "winmsg", Name: "CB_GETCUEBANNER", Value: "5892", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getcuebanner", Comment: "Gets the cue banner text displayed in the edit control of a combo box. Send this message explicitly or by using the ComboBox\\_GetCueBannerText macro."}, true
+		case "CB_GETCURSEL":
+			return Definition{Package: "winmsg", Name: "CB_GETCURSEL", Value: "327", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getcursel", Comment: "An application sends a CB\\_GETCURSEL message to retrieve the index of the currently selected item, if any, in the list box of a combo box."}, true
+		case "CB_GETDROPPEDCONTROLRECT":
+			return Definition{Package: "winmsg", Name: "CB_GETDROPPEDCONTROLRECT", Value: "338", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getdroppedcontrolrect", Comment: "An application sends a CB\\_GETDROPPEDCONTROLRECT message to retrieve the screen coordinates of a combo box in its dropped-down state."}, true
+		case "CB_GETDROPPEDSTATE":
+			return Definition{Package: "winmsg", Name: "CB_GETDROPPEDSTATE", Value: "343", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getdroppedstate", Comment: "Determines whether the list box of a combo box is dropped down."}, true
+		case "CB_GETDROPPEDWIDTH":
+			return Definition{Package: "winmsg", Name: "CB_GETDROPPEDWIDTH", Value: "351", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getdroppedwidth", Comment: "Gets the minimum allowable width, in pixels, of the list box of a combo box with the CBS\\_DROPDOWN or CBS\\_DROPDOWNLIST style."}, true
+		case "CB_GETEDITSEL":
+			return Definition{Package: "winmsg", Name: "CB_GETEDITSEL", Value: "320", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-geteditsel", Comment: "Gets the starting and ending character positions of the current selection in the edit control of a combo box."}, true
+		case "CB_GETEXTENDEDUI":
+			return Definition{Package: "winmsg", Name: "CB_GETEXTENDEDUI", Value: "342", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getextendedui", Comment: "Determines whether a combo box has the default user interface or the extended user interface."}, true
+		case "CB_GETHORIZONTALEXTENT":
+			return Definition{Package: "winmsg", Name: "CB_GETHORIZONTALEXTENT", Value: "349", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-gethorizontalextent", Comment: "Gets the width, in pixels, that the list box can be scrolled horizontally (the scrollable width). This is applicable only if the list box has a horizontal scroll bar."}, true
+		case "CB_GETITEMDATA":
+			return Definition{Package: "winmsg", Name: "CB_GETITEMDATA", Value: "336", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getitemdata", Comment: "An application sends a CB\\_GETITEMDATA message to a combo box to retrieve the application-supplied value associated with the specified item in the combo box."}, true
+		case "CB_GETITEMHEIGHT":
+			return Definition{Package: "winmsg", Name: "CB_GETITEMHEIGHT", Value: "340", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getitemheight", Comment: "Determines the height of list items or the selection field in a combo box."}, true
+		case "CB_GETLBTEXT":
+			return Definition{Package: "winmsg", Name: "CB_GETLBTEXT", Value: "328", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getlbtext", Comment: "Gets a string from the list of a combo box."}, true
+		case "CB_GETLBTEXTLEN":
+			return Definition{Package: "winmsg", Name: "CB_GETLBTEXTLEN", Value: "329", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getlbtextlen", Comment: "Gets the length, in characters, of a string in the list of a combo box."}, true
+		case "CB_GETLOCALE":
+			return Definition{Package: "winmsg", Name: "CB_GETLOCALE", Value: "346", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getlocale", Comment: "Gets the current locale of the combo box. The locale is used to determine the correct sorting order of displayed text for combo boxes with the CBS\\_SORT style and text added by using the CB\\_ADDSTRING message."}, true
+		case "CB_GETMINVISIBLE":
+			return Definition{Package: "winmsg", Name: "CB_GETMINVISIBLE", Value: "5890", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-getminvisible", Comment: "Gets the minimum number of visible items in the drop-down list of a combo box."}, true
+		case "CB_GETTOPINDEX":
+			return Definition{Package: "winmsg", Name: "CB_GETTOPINDEX", Value: "347", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-gettopindex", Comment: "An application sends the CB\\_GETTOPINDEX message to retrieve the zero-based index of the first visible item in the list box portion of a combo box."}, true
+		case "CB_INITSTORAGE":
+			return Definition{Package: "winmsg", Name: "CB_INITSTORAGE", Value: "353", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-initstorage", Comment: "An application sends the CB\\_INITSTORAGE message before adding a large number of items to the list box portion of a combo box. This message allocates memory for storing list box items."}, true
+		case "CB_INSERTSTRING":
+			return Definition{Package: "winmsg", Name: "CB_INSERTSTRING", Value: "330", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-insertstring", Comment: "Inserts a string or item data into the list of a combo box. Unlike the CB\\_ADDSTRING message, the CB\\_INSERTSTRING message does not cause a list with the CBS\\_SORT style to be sorted."}, true
+		case "CB_LIMITTEXT":
+			return Definition{Package: "winmsg", Name: "CB_LIMITTEXT", Value: "321", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-limittext", Comment: "Limits the length of the text the user may type into the edit control of a combo box."}, true
+		case "CB_MSGMAX":
+			return Definition{Package: "winmsg", Name: "CB_MSGMAX", Value: "357", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CB_MULTIPLEADDSTRING":
+			return Definition{Package: "winmsg", Name: "CB_MULTIPLEADDSTRING", Value: "355", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CB_OKAY":
+			return Definition{Package: "winmsg", Name: "CB_OKAY", Value: "0", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: ""}, true
+		case "CB_RESETCONTENT":
+			return Definition{Package: "winmsg", Name: "CB_RESETCONTENT", Value: "331", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-resetcontent", Comment: "Removes all items from the list box and edit control of a combo box."}, true
+		case "CB_SELECTSTRING":
+			return Definition{Package: "winmsg", Name: "CB_SELECTSTRING", Value: "333", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-selectstring", Comment: "Searches the list of a combo box for an item that begins with the characters in a specified string. If a matching item is found, it is selected and copied to the edit control."}, true
+		case "CB_SETCUEBANNER":
+			return Definition{Package: "winmsg", Name: "CB_SETCUEBANNER", Value: "5891", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-setcuebanner", Comment: "Sets the cue banner text that is displayed for the edit control of a combo box."}, true
+		case "CB_SETCURSEL":
+			return Definition{Package: "winmsg", Name: "CB_SETCURSEL", Value: "334", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-setcursel", Comment: "An application sends a CB\\_SETCURSEL message to select a string in the list of a combo box."}, true
+		case "CB_SETDROPPEDWIDTH":
+			return Definition{Package: "winmsg", Name: "CB_SETDROPPEDWIDTH", Value: "352", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-setdroppedwidth", Comment: "An application sends the CB\\_SETDROPPEDWIDTH message to set the minimum allowable width, in pixels, of the list box of a combo box with the CBS\\_DROPDOWN or CBS\\_DROPDOWNLIST style."}, true
+		case "CB_SETEDITSEL":
+			return Definition{Package: "winmsg", Name: "CB_SETEDITSEL", Value: "322", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-seteditsel", Comment: "An application sends a CB\\_SETEDITSEL message to select characters in the edit control of a combo box."}, true
+		case "CB_SETEXTENDEDUI":
+			return Definition{Package: "winmsg", Name: "CB_SETEXTENDEDUI", Value: "341", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-setextendedui", Comment: "An application sends a CB\\_SETEXTENDEDUI message to select either the default UI or the extended UI for a combo box that has the CBS\\_DROPDOWN or CBS\\_DROPDOWNLIST style."}, true
+		case "CB_SETHORIZONTALEXTENT":
+			return Definition{Package: "winmsg", Name: "CB_SETHORIZONTALEXTENT", Value: "350", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-sethorizontalextent", Comment: "An application sends the CB\\_SETHORIZONTALEXTENT message to set the width, in pixels, by which a list box can be scrolled horizontally (the scrollable width)."}, true
+		case "CB_SETITEMDATA":
+			return Definition{Package: "winmsg", Name: "CB_SETITEMDATA", Value: "337", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-setitemdata", Comment: "An application sends a CB\\_SETITEMDATA message to set the value associated with the specified item in a combo box."}, true
+		case "CB_SETITEMHEIGHT":
+			return Definition{Package: "winmsg", Name: "CB_SETITEMHEIGHT", Value: "339", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-setitemheight", Comment: "An application sends a CB\\_SETITEMHEIGHT message to set the height of list items or the selection field in a combo box."}, true
+		case "CB_SETLOCALE":
+			return Definition{Package: "winmsg", Name: "CB_SETLOCALE", Value: "345", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-setlocale", Comment: "An application sends a CB\\_SETLOCALE message to set the current locale of the combo box. If the combo box has the CBS\\_SORT style and strings are added using CB\\_ADDSTRING, the locale of a combo box affects how list items are sorted."}, true
+		case "CB_SETMINVISIBLE":
+			return Definition{Package: "winmsg", Name: "CB_SETMINVISIBLE", Value: "5889", Namespace: "Windows.Win32.UI.Controls", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-setminvisible", Comment: "An application sends a CB\\_SETMINVISIBLE message to set the minimum number of visible items in the drop-down list of a combo box."}, true
+		case "CB_SETTOPINDEX":
+			return Definition{Package: "winmsg", Name: "CB_SETTOPINDEX", Value: "348", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-settopindex", Comment: "An application sends the CB\\_SETTOPINDEX message to ensure that a particular item is visible in the list box of a combo box."}, true
+		case "CB_SHOWDROPDOWN":
+			return Definition{Package: "winmsg", Name: "CB_SHOWDROPDOWN", Value: "335", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "Apis", Documentation: "https://learn.microsoft.com/windows/win32/Controls/cb-showdropdown", Comment: "An application sends a CB\\_SHOWDROPDOWN message to show or hide the list box of a combo box that has the CBS\\_DROPDOWN or CBS\\_DROPDOWNLIST style."}, true
 		case "CS_BYTEALIGNCLIENT":
 			return Definition{Package: "winmsg", Name: "CS_BYTEALIGNCLIENT", Value: "4096", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "WNDCLASS_STYLES", Documentation: ""}, true
 		case "CS_BYTEALIGNWINDOW":
@@ -69483,6 +69959,121 @@ func Lookup(packageName string, name string) (Definition, bool) {
 			return Definition{Package: "winmsg", Name: "WS_VISIBLE", Value: "268435456", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "WINDOW_STYLE", Documentation: ""}, true
 		case "WS_VSCROLL":
 			return Definition{Package: "winmsg", Name: "WS_VSCROLL", Value: "2097152", Namespace: "Windows.Win32.UI.WindowsAndMessaging", DeclaringType: "WINDOW_STYLE", Documentation: "", Comment: "Creates an MDI child window that has a vertical scroll bar."}, true
+		}
+	case "shell":
+		switch name {
+		case "FOS_ALLNONSTORAGEITEMS":
+			return Definition{Package: "shell", Name: "FOS_ALLNONSTORAGEITEMS", Value: "0x00000080", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Enables the user to choose any item in the Shell namespace, not just those with SFGAO_STREAM or SFAGO_FILESYSTEM attributes. This flag cannot be combined with FOS_FORCEFILESYSTEM."}, true
+		case "FOS_ALLOWMULTISELECT":
+			return Definition{Package: "shell", Name: "FOS_ALLOWMULTISELECT", Value: "0x00000200", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Enables the user to select multiple items in the open dialog. Note that when this flag is set, the IFileOpenDialog interface must be used to retrieve those items."}, true
+		case "FOS_CREATEPROMPT":
+			return Definition{Package: "shell", Name: "FOS_CREATEPROMPT", Value: "0x00002000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Prompt for creation if the item returned in the open dialog does not exist. Note that this does not actually create the item."}, true
+		case "FOS_DEFAULTNOMINIMODE":
+			return Definition{Package: "shell", Name: "FOS_DEFAULTNOMINIMODE", Value: "0x20000000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Indicates to the Save As dialog box that it should open in expanded mode. Expanded mode is the mode that is set and unset by clicking the button in the lower-left corner of the Save As dialog box that switches between Browse Folders and Hide Folders when clicked. This value is not supported as of Windows 7."}, true
+		case "FOS_DONTADDTORECENT":
+			return Definition{Package: "shell", Name: "FOS_DONTADDTORECENT", Value: "0x02000000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Do not add the item being opened or saved to the recent documents list ( SHAddToRecentDocs )."}, true
+		case "FOS_FILEMUSTEXIST":
+			return Definition{Package: "shell", Name: "FOS_FILEMUSTEXIST", Value: "0x00001000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "The item returned must exist. This is a default value for the Open dialog."}, true
+		case "FOS_FORCEFILESYSTEM":
+			return Definition{Package: "shell", Name: "FOS_FORCEFILESYSTEM", Value: "0x00000040", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Ensures that returned items are file system items ( SFGAO_FILESYSTEM ). Note that this does not apply to items returned by IFileDialog::GetCurrentSelection ."}, true
+		case "FOS_FORCEPREVIEWPANEON":
+			return Definition{Package: "shell", Name: "FOS_FORCEPREVIEWPANEON", Value: "0x40000000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Indicates to the Open dialog box that the preview pane should always be displayed."}, true
+		case "FOS_FORCESHOWHIDDEN":
+			return Definition{Package: "shell", Name: "FOS_FORCESHOWHIDDEN", Value: "0x10000000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Include hidden and system items."}, true
+		case "FOS_HIDEMRUPLACES":
+			return Definition{Package: "shell", Name: "FOS_HIDEMRUPLACES", Value: "0x00020000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Hide the list of places from which the user has recently opened or saved items. This value is not supported as of Windows 7."}, true
+		case "FOS_HIDEPINNEDPLACES":
+			return Definition{Package: "shell", Name: "FOS_HIDEPINNEDPLACES", Value: "0x00040000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Hide items shown by default in the view's navigation pane. This flag is often used in conjunction with the IFileDialog::AddPlace method, to hide standard locations and replace them with custom locations. Windows 7 and later . Hide all of the standard namespace locations (such as Favorites, Libraries, Computer, and Network) shown in the navigation pane. Windows Vista . Hide the contents of the Favorite Links tree in the navigation pane. Note that the category itself is still displayed, but shown as empty."}, true
+		case "FOS_NOCHANGEDIR":
+			return Definition{Package: "shell", Name: "FOS_NOCHANGEDIR", Value: "0x00000008", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Don't change the current working directory."}, true
+		case "FOS_NODEREFERENCELINKS":
+			return Definition{Package: "shell", Name: "FOS_NODEREFERENCELINKS", Value: "0x00100000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Shortcuts should not be treated as their target items. This allows an application to open a .lnk file rather than what that file is a shortcut to."}, true
+		case "FOS_NOREADONLYRETURN":
+			return Definition{Package: "shell", Name: "FOS_NOREADONLYRETURN", Value: "0x00008000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Do not return read-only items. This is a default value for the Save dialog."}, true
+		case "FOS_NOTESTFILECREATE":
+			return Definition{Package: "shell", Name: "FOS_NOTESTFILECREATE", Value: "0x00010000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Do not test whether creation of the item as specified in the Save dialog will be successful. If this flag is not set, the calling application must handle errors, such as denial of access, discovered when the item is created."}, true
+		case "FOS_NOVALIDATE":
+			return Definition{Package: "shell", Name: "FOS_NOVALIDATE", Value: "0x00000100", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Do not check for situations that would prevent an application from opening the selected file, such as sharing violations or access denied errors."}, true
+		case "FOS_OKBUTTONNEEDSINTERACTION":
+			return Definition{Package: "shell", Name: "FOS_OKBUTTONNEEDSINTERACTION", Value: "0x00200000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "The OK button will be disabled until the user navigates the view or edits the filename (if applicable). Note: Disabling of the OK button does not prevent the dialog from being submitted by the Enter key."}, true
+		case "FOS_OVERWRITEPROMPT":
+			return Definition{Package: "shell", Name: "FOS_OVERWRITEPROMPT", Value: "0x00000002", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "When saving a file, prompt before overwriting an existing file of the same name. This is a default value for the Save dialog."}, true
+		case "FOS_PATHMUSTEXIST":
+			return Definition{Package: "shell", Name: "FOS_PATHMUSTEXIST", Value: "0x00000800", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "The item returned must be in an existing folder. This is a default value."}, true
+		case "FOS_PICKFOLDERS":
+			return Definition{Package: "shell", Name: "FOS_PICKFOLDERS", Value: "0x00000020", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Present an Open dialog that offers a choice of folders rather than files."}, true
+		case "FOS_SHAREAWARE":
+			return Definition{Package: "shell", Name: "FOS_SHAREAWARE", Value: "0x00004000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "In the case of a sharing violation when an application is opening a file, call the application back through OnShareViolation for guidance. This flag is overridden by FOS_NOVALIDATE."}, true
+		case "FOS_STRICTFILETYPES":
+			return Definition{Package: "shell", Name: "FOS_STRICTFILETYPES", Value: "0x00000004", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "In the Save dialog, only allow the user to choose a file that has one of the file name extensions specified through IFileDialog::SetFileTypes ."}, true
+		case "FOS_SUPPORTSTREAMABLEITEMS":
+			return Definition{Package: "shell", Name: "FOS_SUPPORTSTREAMABLEITEMS", Value: "0x80000000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "FILEOPENDIALOGOPTIONS", Documentation: "", Comment: "Indicates that the caller is opening a file as a stream ( BHID_Stream ), so there is no need to download that file."}, true
+		case "NIF_GUID":
+			return Definition{Package: "shell", Name: "NIF_GUID", Value: "0x00000020", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_DATA_FLAGS", Documentation: ""}, true
+		case "NIF_ICON":
+			return Definition{Package: "shell", Name: "NIF_ICON", Value: "0x00000002", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_DATA_FLAGS", Documentation: ""}, true
+		case "NIF_INFO":
+			return Definition{Package: "shell", Name: "NIF_INFO", Value: "0x00000010", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_DATA_FLAGS", Documentation: ""}, true
+		case "NIF_MESSAGE":
+			return Definition{Package: "shell", Name: "NIF_MESSAGE", Value: "0x00000001", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_DATA_FLAGS", Documentation: ""}, true
+		case "NIF_REALTIME":
+			return Definition{Package: "shell", Name: "NIF_REALTIME", Value: "0x00000040", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_DATA_FLAGS", Documentation: ""}, true
+		case "NIF_SHOWTIP":
+			return Definition{Package: "shell", Name: "NIF_SHOWTIP", Value: "0x00000080", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_DATA_FLAGS", Documentation: ""}, true
+		case "NIF_STATE":
+			return Definition{Package: "shell", Name: "NIF_STATE", Value: "0x00000008", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_DATA_FLAGS", Documentation: ""}, true
+		case "NIF_TIP":
+			return Definition{Package: "shell", Name: "NIF_TIP", Value: "0x00000004", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_DATA_FLAGS", Documentation: ""}, true
+		case "NIIF_ERROR":
+			return Definition{Package: "shell", Name: "NIIF_ERROR", Value: "0x00000003", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""}, true
+		case "NIIF_ICON_MASK":
+			return Definition{Package: "shell", Name: "NIIF_ICON_MASK", Value: "0x0000000F", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""}, true
+		case "NIIF_INFO":
+			return Definition{Package: "shell", Name: "NIIF_INFO", Value: "0x00000001", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""}, true
+		case "NIIF_LARGE_ICON":
+			return Definition{Package: "shell", Name: "NIIF_LARGE_ICON", Value: "0x00000020", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""}, true
+		case "NIIF_NONE":
+			return Definition{Package: "shell", Name: "NIIF_NONE", Value: "0x00000000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""}, true
+		case "NIIF_NOSOUND":
+			return Definition{Package: "shell", Name: "NIIF_NOSOUND", Value: "0x00000010", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""}, true
+		case "NIIF_RESPECT_QUIET_TIME":
+			return Definition{Package: "shell", Name: "NIIF_RESPECT_QUIET_TIME", Value: "0x00000080", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""}, true
+		case "NIIF_USER":
+			return Definition{Package: "shell", Name: "NIIF_USER", Value: "0x00000004", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""}, true
+		case "NIIF_WARNING":
+			return Definition{Package: "shell", Name: "NIIF_WARNING", Value: "0x00000002", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_INFOTIP_FLAGS", Documentation: ""}, true
+		case "NIM_ADD":
+			return Definition{Package: "shell", Name: "NIM_ADD", Value: "0x00000000", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_MESSAGE", Documentation: ""}, true
+		case "NIM_DELETE":
+			return Definition{Package: "shell", Name: "NIM_DELETE", Value: "0x00000002", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_MESSAGE", Documentation: ""}, true
+		case "NIM_MODIFY":
+			return Definition{Package: "shell", Name: "NIM_MODIFY", Value: "0x00000001", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_MESSAGE", Documentation: ""}, true
+		case "NIM_SETFOCUS":
+			return Definition{Package: "shell", Name: "NIM_SETFOCUS", Value: "0x00000003", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_MESSAGE", Documentation: ""}, true
+		case "NIM_SETVERSION":
+			return Definition{Package: "shell", Name: "NIM_SETVERSION", Value: "0x00000004", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_MESSAGE", Documentation: ""}, true
+		case "NIN_BALLOONHIDE":
+			return Definition{Package: "shell", Name: "NIN_BALLOONHIDE", Value: "0x00000403", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""}, true
+		case "NIN_BALLOONSHOW":
+			return Definition{Package: "shell", Name: "NIN_BALLOONSHOW", Value: "0x00000402", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""}, true
+		case "NIN_BALLOONTIMEOUT":
+			return Definition{Package: "shell", Name: "NIN_BALLOONTIMEOUT", Value: "0x00000404", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""}, true
+		case "NIN_BALLOONUSERCLICK":
+			return Definition{Package: "shell", Name: "NIN_BALLOONUSERCLICK", Value: "0x00000405", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""}, true
+		case "NIN_POPUPCLOSE":
+			return Definition{Package: "shell", Name: "NIN_POPUPCLOSE", Value: "0x00000407", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""}, true
+		case "NIN_POPUPOPEN":
+			return Definition{Package: "shell", Name: "NIN_POPUPOPEN", Value: "0x00000406", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""}, true
+		case "NIN_SELECT":
+			return Definition{Package: "shell", Name: "NIN_SELECT", Value: "0x00000400", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""}, true
+		case "NIS_HIDDEN":
+			return Definition{Package: "shell", Name: "NIS_HIDDEN", Value: "0x00000001", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_STATE", Documentation: ""}, true
+		case "NIS_SHAREDICON":
+			return Definition{Package: "shell", Name: "NIS_SHAREDICON", Value: "0x00000002", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "NOTIFY_ICON_STATE", Documentation: ""}, true
+		case "NOTIFYICON_VERSION":
+			return Definition{Package: "shell", Name: "NOTIFYICON_VERSION", Value: "0x00000003", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""}, true
+		case "NOTIFYICON_VERSION_4":
+			return Definition{Package: "shell", Name: "NOTIFYICON_VERSION_4", Value: "0x00000004", Namespace: "Windows.Win32.UI.Shell", DeclaringType: "Apis", Documentation: ""}, true
 		}
 	case "ioctl":
 		switch name {

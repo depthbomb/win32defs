@@ -208,9 +208,18 @@ var packageSpecs = []packageSpec{
 		CanonicalRank: winsockCanonicalRank,
 	},
 	{
-		Name: "winmsg", Doc: "window messages, styles, show states, message-box flags, and virtual keys.", TypeName: "Value",
-		Underlying: "int64", Width: 64, Signed: true, Declare: true,
+		Name:       "winmsg",
+		Doc:        "window and control messages, styles, show states, message-box flags, and virtual keys.",
+		TypeName:   "Value",
+		Underlying: "int64",
+		Width:      64,
+		Signed:     true,
+		Declare:    true,
 		Match: func(item metadataConstant) bool {
+			if hasExactName(item.Namespace, "Windows.Win32.UI.WindowsAndMessaging", "Windows.Win32.UI.Controls") && isControlConstant(item.Name) {
+				return true
+			}
+
 			if !strings.Contains(item.Namespace, ".WindowsAndMessaging") && !strings.Contains(item.Namespace, ".Input.KeyboardAndMouse") {
 				return false
 			}
@@ -223,6 +232,18 @@ var packageSpecs = []packageSpec{
 			) || hasExactName(item.Name, "CW_USEDEFAULT", "WHEEL_DELTA")
 		},
 		CanonicalRank: winmsgCanonicalRank,
+	},
+	{
+		Name:       "shell",
+		Doc:        "Shell notification icon operations, flags, events, and file dialog options.",
+		TypeName:   "Value",
+		Underlying: "uint32",
+		Width:      32,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			return item.Namespace == "Windows.Win32.UI.Shell" &&
+				hasAnyPrefix(item.Name, "NIM_", "NIF_", "NIS_", "NIIF_", "NIN_", "NOTIFYICON_", "FOS_")
+		},
 	},
 	{
 		Name: "ioctl", Doc: "I/O control device types, methods, access flags, and control codes.", TypeName: "Value",
@@ -305,7 +326,15 @@ func winmsgCanonicalRank(name string) int {
 		return 0
 	}
 
+	if isControlConstant(name) {
+		return 20
+	}
+
 	return 10
+}
+
+func isControlConstant(name string) bool {
+	return hasAnyPrefix(name, "CB_", "CBS_", "BS_", "BM_", "BN_", "BST_")
 }
 
 func hasAnyPrefix(value string, prefixes ...string) bool {

@@ -97,11 +97,18 @@ var packageSpecs = []packageSpec{
 		},
 	},
 	{
-		Name: "memory", Doc: "virtual memory, section, mapping, and protection flags.", TypeName: "Value",
-		Underlying: "uint64", Width: 64, Declare: true,
+		Name:       "memory",
+		Doc:        "virtual memory, section, mapping, protection, and allocation flags.",
+		TypeName:   "Value",
+		Underlying: "uint64",
+		Width:      64,
+		Declare:    true,
 		Match: func(item metadataConstant) bool {
-			return hasAnyPrefix(item.Name, "PAGE_", "MEM_", "SECTION_", "SEC_", "FILE_MAP_")
+			return isExistingMemoryConstant(item.Name) ||
+				(hasExactName(item.Namespace, "Windows.Win32.System.Memory", "Windows.Win32.System.SystemServices", "Windows.Win32.System.WindowsProgramming") &&
+					hasAnyPrefix(item.Name, "GMEM_", "LMEM_", "HEAP_"))
 		},
+		CanonicalRank: memoryCanonicalRank,
 	},
 	{
 		Name: "service", Doc: "Service Control Manager states, controls, access rights, and flags.", TypeName: "Value",
@@ -118,11 +125,18 @@ var packageSpecs = []packageSpec{
 		},
 	},
 	{
-		Name: "com", Doc: "COM initialization, activation, storage, marshaling, and data-transfer flags.", TypeName: "Value",
-		Underlying: "uint32", Width: 32, Declare: true,
+		Name:       "com",
+		Doc:        "COM initialization, activation, storage, marshaling, variant types, and data-transfer flags.",
+		TypeName:   "Value",
+		Underlying: "uint32",
+		Width:      32,
+		Declare:    true,
 		Match: func(item metadataConstant) bool {
-			return hasAnyPrefix(item.Name, "CLSCTX_", "COINIT_", "STGM_", "DVASPECT_", "TYMED_", "MSHCTX_", "MSHLFLAGS_")
+			return isExistingCOMConstant(item.Name) ||
+				(item.Namespace == "Windows.Win32.System.Ole" && hasAnyPrefix(item.Name, "DROPEFFECT_")) ||
+				(item.Namespace == "Windows.Win32.System.Variant" && hasAnyPrefix(item.Name, "VT_"))
 		},
+		CanonicalRank: comCanonicalRank,
 	},
 	{
 		Name: "console", Doc: "console modes, control events, standard handles, colors, and flags.", TypeName: "Value",
@@ -216,7 +230,15 @@ var packageSpecs = []packageSpec{
 		Signed:     true,
 		Declare:    true,
 		Match: func(item metadataConstant) bool {
-			if hasExactName(item.Namespace, "Windows.Win32.UI.WindowsAndMessaging", "Windows.Win32.UI.Controls") && isControlConstant(item.Name) {
+			if hasExactName(item.Namespace, "Windows.Win32.UI.WindowsAndMessaging", "Windows.Win32.UI.Controls") && isBasicControlConstant(item.Name) {
+				return true
+			}
+
+			if item.Namespace == "Windows.Win32.System.SystemServices" && strings.HasPrefix(item.Name, "SS_") {
+				return true
+			}
+
+			if item.Namespace == "Windows.Win32.UI.WindowsAndMessaging" && isWindowOperationConstant(item.Name) {
 				return true
 			}
 
@@ -235,14 +257,103 @@ var packageSpecs = []packageSpec{
 	},
 	{
 		Name:       "shell",
-		Doc:        "Shell notification icon operations, flags, events, and file dialog options.",
+		Doc:        "Shell notification icons, dialogs, execution, file operations, attributes, and known-folder flags.",
 		TypeName:   "Value",
 		Underlying: "uint32",
 		Width:      32,
 		Declare:    true,
 		Match: func(item metadataConstant) bool {
+			if item.Namespace == "Windows.Win32.System.SystemServices" && strings.HasPrefix(item.Name, "SFGAO_") {
+				return true
+			}
+
 			return item.Namespace == "Windows.Win32.UI.Shell" &&
-				hasAnyPrefix(item.Name, "NIM_", "NIF_", "NIS_", "NIIF_", "NIN_", "NOTIFYICON_", "FOS_")
+				(isExistingShellConstant(item.Name) ||
+					hasAnyPrefix(item.Name, "BIF_", "BFFM_", "SHGFI_", "SEE_MASK_", "FO_", "FOF_", "FOFX_", "SIGDN_", "KF_FLAG_", "SFGAO_"))
+		},
+		CanonicalRank: shellCanonicalRank,
+	},
+	{
+		Name:       "controls",
+		Doc:        "common control messages, styles, notifications, class names, and message bases.",
+		TypeName:   "Value",
+		Underlying: "int64",
+		Width:      64,
+		Signed:     true,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			return item.Namespace == "Windows.Win32.UI.Controls" && !isBasicControlConstant(item.Name)
+		},
+	},
+	{
+		Name:       "dialogs",
+		Doc:        "common file, color, font, print, and find dialog flags and messages.",
+		TypeName:   "Value",
+		Underlying: "int64",
+		Width:      64,
+		Signed:     true,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			return item.Namespace == "Windows.Win32.UI.Controls.Dialogs"
+		},
+	},
+	{
+		Name:       "gdi",
+		Doc:        "GDI drawing, text, font, bitmap, monitor, and redraw constants.",
+		TypeName:   "Value",
+		Underlying: "int64",
+		Width:      64,
+		Signed:     true,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			return item.Namespace == "Windows.Win32.Graphics.Gdi"
+		},
+	},
+	{
+		Name:       "dwm",
+		Doc:        "Desktop Window Manager attributes, policies, and flags.",
+		TypeName:   "Value",
+		Underlying: "int64",
+		Width:      64,
+		Signed:     true,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			return item.Namespace == "Windows.Win32.Graphics.Dwm"
+		},
+	},
+	{
+		Name:       "hidpi",
+		Doc:        "DPI awareness, hosting, and scaling behavior constants.",
+		TypeName:   "Value",
+		Underlying: "int64",
+		Width:      64,
+		Signed:     true,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			return item.Namespace == "Windows.Win32.UI.HiDpi"
+		},
+	},
+	{
+		Name:       "clipboard",
+		Doc:        "standard clipboard formats.",
+		TypeName:   "Value",
+		Underlying: "uint32",
+		Width:      32,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			return item.Namespace == "Windows.Win32.System.Ole" && strings.HasPrefix(item.Name, "CF_")
+		},
+	},
+	{
+		Name:       "pipes",
+		Doc:        "named-pipe access, modes, and operation flags.",
+		TypeName:   "Value",
+		Underlying: "uint32",
+		Width:      32,
+		Declare:    true,
+		Match: func(item metadataConstant) bool {
+			return item.Namespace == "Windows.Win32.System.Pipes" ||
+				(item.Namespace == "Windows.Win32.Storage.FileSystem" && strings.HasPrefix(item.Name, "PIPE_"))
 		},
 	},
 	{
@@ -330,7 +441,56 @@ func winmsgCanonicalRank(name string) int {
 		return 20
 	}
 
+	if isBasicControlConstant(name) || isWindowOperationConstant(name) {
+		return 30
+	}
+
 	return 10
+}
+
+func isExistingMemoryConstant(name string) bool {
+	return hasAnyPrefix(name, "PAGE_", "MEM_", "SECTION_", "SEC_", "FILE_MAP_")
+}
+
+func memoryCanonicalRank(name string) int {
+	if isExistingMemoryConstant(name) {
+		return 0
+	}
+
+	return 10
+}
+
+func isExistingCOMConstant(name string) bool {
+	return hasAnyPrefix(name, "CLSCTX_", "COINIT_", "STGM_", "DVASPECT_", "TYMED_", "MSHCTX_", "MSHLFLAGS_")
+}
+
+func comCanonicalRank(name string) int {
+	if isExistingCOMConstant(name) {
+		return 0
+	}
+
+	return 10
+}
+
+func isExistingShellConstant(name string) bool {
+	return hasAnyPrefix(name, "NIM_", "NIF_", "NIS_", "NIIF_", "NIN_", "NOTIFYICON_", "FOS_")
+}
+
+func shellCanonicalRank(name string) int {
+	if isExistingShellConstant(name) {
+		return 0
+	}
+
+	return 10
+}
+
+func isBasicControlConstant(name string) bool {
+	return isControlConstant(name) || hasAnyPrefix(name, "ES_", "EM_", "EN_", "SS_", "STM_", "STN_", "LB_", "LBS_", "LBN_")
+}
+
+func isWindowOperationConstant(name string) bool {
+	return hasAnyPrefix(name, "HT", "SC_", "PM_", "MIIM_", "MFT_", "MFS_", "MIM_", "GMDI_", "GW_", "GA_", "DCX_", "DI_", "LR_", "IMAGE_", "ICON_", "SIF_", "SBS_", "DLGC_", "DS_", "DM_") ||
+		hasExactName(name, "IDOK", "IDCANCEL", "IDABORT", "IDRETRY", "IDIGNORE", "IDYES", "IDNO", "IDCLOSE", "IDHELP", "IDTRYAGAIN", "IDCONTINUE", "IDTIMEOUT")
 }
 
 func isControlConstant(name string) bool {

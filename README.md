@@ -37,6 +37,13 @@ Flag and API-domain packages:
 - `winsock`
 - `winmsg`
 - `shell`
+- `controls`
+- `dialogs`
+- `gdi`
+- `dwm`
+- `hidpi`
+- `clipboard`
+- `pipes`
 - `ioctl`
 - `security`
 - `syncinit`
@@ -100,11 +107,26 @@ includes metadata-defined token pseudo-handle functions, `security` provides
 SID identifier authorities, and `syncinit` provides pointer-sized static
 synchronization initializers.
 
-The `shell` package includes notification icon operations and flags (`NIM_*`,
-`NIF_*`, `NIS_*`, `NIIF_*`), events and versions (`NIN_*`, `NOTIFYICON_*`), and
-file dialog options (`FOS_*`). The `winmsg` package also includes combo box
-messages and styles (`CB_*`, `CBS_*`) and button styles, messages,
-notifications, and states (`BS_*`, `BM_*`, `BN_*`, `BST_*`).
+Desktop and application support is grouped by API domain:
+
+| Package | Coverage |
+| --- | --- |
+| `winmsg` | Window operations, menus, hit testing, dialog results, and basic button, combo box, edit, static, and list box controls. |
+| `controls` | Common controls, including list views, tree views, tabs, toolbars, progress bars, task dialogs, class names, notifications, and message bases such as `LVM_FIRST`. |
+| `dialogs` | Traditional file, color, font, print, and find dialogs. |
+| `shell` | Notification icons, file and folder dialogs, shell execution, file operations, shell item attributes and display names, and known-folder flags. |
+| `gdi` | Drawing, text formatting, fonts, bitmaps, monitors, and redraw flags. |
+| `dwm` | Desktop Window Manager attributes and policies, including immersive dark mode. |
+| `hidpi` | DPI awareness, hosting, and scaling enums. |
+| `clipboard` | Standard clipboard formats, including `CF_UNICODETEXT`. |
+| `pipes` | Named-pipe access, modes, and operation flags. |
+| `memory` | Memory and mapping flags plus global, local, and heap allocation flags. |
+| `com` | COM flags plus drag/drop effects and variant type identifiers. |
+
+Family matching accounts for metadata namespaces: clipboard `CF_*` values
+remain separate from font-dialog `CF_*` flags, and static-control `SS_*`
+styles are included from the system-services namespace. Existing package
+assignments and canonical names are preserved when expanding these families.
 
 The `winmacro` package provides platform-independent helpers for word and
 message-parameter packing, signed coordinate and mouse-wheel extraction, color

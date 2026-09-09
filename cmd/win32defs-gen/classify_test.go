@@ -1,0 +1,113 @@
+package main
+
+import "testing"
+
+func TestDesktopNamespaceBoundaries(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		packageName string
+		name        string
+		namespace   string
+		want        bool
+	}{
+		{
+			packageName: "clipboard",
+			name:        "CF_UNICODETEXT",
+			namespace:   "Windows.Win32.System.Ole",
+			want:        true,
+		},
+		{
+			packageName: "clipboard",
+			name:        "CF_SCREENFONTS",
+			namespace:   "Windows.Win32.UI.Controls.Dialogs",
+		},
+		{
+			packageName: "clipboard",
+			name:        "CF_ACCEPT",
+			namespace:   "Windows.Win32.Networking.WinSock",
+		},
+		{
+			packageName: "winmsg",
+			name:        "SS_LEFT",
+			namespace:   "Windows.Win32.System.SystemServices",
+			want:        true,
+		},
+		{
+			packageName: "winmsg",
+			name:        "SS_OTHER",
+			namespace:   "Windows.Win32.Devices.Display",
+		},
+		{
+			packageName: "winmsg",
+			name:        "EM_SETSEL",
+			namespace:   "Windows.Win32.UI.Controls",
+			want:        true,
+		},
+		{
+			packageName: "controls",
+			name:        "LVM_FIRST",
+			namespace:   "Windows.Win32.UI.Controls",
+			want:        true,
+		},
+		{
+			packageName: "controls",
+			name:        "LVM_FIRST",
+			namespace:   "Windows.Win32.Other",
+		},
+		{
+			packageName: "controls",
+			name:        "EM_SETSEL",
+			namespace:   "Windows.Win32.UI.Controls",
+		},
+		{
+			packageName: "shell",
+			name:        "SFGAO_FOLDER",
+			namespace:   "Windows.Win32.System.SystemServices",
+			want:        true,
+		},
+		{
+			packageName: "memory",
+			name:        "GMEM_FIXED",
+			namespace:   "Windows.Win32.System.WindowsProgramming",
+			want:        true,
+		},
+		{
+			packageName: "memory",
+			name:        "LMEM_FIXED",
+			namespace:   "Windows.Win32.System.SystemServices",
+			want:        true,
+		},
+		{
+			packageName: "memory",
+			name:        "HEAP_OTHER",
+			namespace:   "Windows.Win32.Other",
+		},
+		{
+			packageName: "pipes",
+			name:        "PIPE_ACCESS_DUPLEX",
+			namespace:   "Windows.Win32.Storage.FileSystem",
+			want:        true,
+		},
+		{
+			packageName: "pipes",
+			name:        "PIPE_OTHER",
+			namespace:   "Windows.Win32.Devices.Usb",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.packageName+"/"+test.namespace+"/"+test.name, func(t *testing.T) {
+			t.Parallel()
+
+			item := metadataConstant{
+				Name:      test.name,
+				Namespace: test.namespace,
+			}
+			got := specByName(test.packageName).Match(item)
+			if got != test.want {
+				t.Fatalf("Match(%#v) = %v, want %v", item, got, test.want)
+			}
+		})
+	}
+}

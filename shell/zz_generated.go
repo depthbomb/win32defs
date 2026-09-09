@@ -2,13 +2,79 @@
 // Source: Microsoft.Windows.SDK.Win32Metadata 71.0.25-preview (65783efbef7950839ae287fa933610eb939fcddaef80024dea8465f37a9449ad).
 // Documentation: Microsoft.Windows.SDK.Win32Docs 0.1.42-alpha (e83bf398dceb1957d698d24daa8a23f986beedb0109727a0ee99b229a525230b).
 
-// Package shell provides Shell notification icon operations, flags, events, and file dialog options.
+// Package shell provides Shell notification icons, dialogs, execution, file operations, attributes, and known-folder flags.
 package shell
 
 // Value is the common representation used by this package.
 type Value uint32
 
 const (
+	BFFM_ENABLEOK           Value = 0x00000465
+	BFFM_INITIALIZED        Value = 0x00000001
+	BFFM_IUNKNOWN           Value = 0x00000005
+	BFFM_SELCHANGED         Value = 0x00000002
+	BFFM_SETEXPANDED        Value = 0x0000046A
+	BFFM_SETOKTEXT          Value = 0x00000469
+	BFFM_SETSELECTION       Value = 0x00000467
+	BFFM_SETSELECTIONA      Value = 0x00000466
+	BFFM_SETSELECTIONW      Value = 0x00000467
+	BFFM_SETSTATUSTEXT      Value = 0x00000468
+	BFFM_SETSTATUSTEXTA     Value = 0x00000464
+	BFFM_SETSTATUSTEXTW     Value = 0x00000468
+	BFFM_VALIDATEFAILED     Value = 0x00000004
+	BFFM_VALIDATEFAILEDA    Value = 0x00000003
+	BFFM_VALIDATEFAILEDW    Value = 0x00000004
+	BIF_BROWSEFILEJUNCTIONS Value = 0x00010000
+	BIF_BROWSEFORCOMPUTER   Value = 0x00001000
+	BIF_BROWSEFORPRINTER    Value = 0x00002000
+	BIF_BROWSEINCLUDEFILES  Value = 0x00004000
+	BIF_BROWSEINCLUDEURLS   Value = 0x00000080
+	BIF_DONTGOBELOWDOMAIN   Value = 0x00000002
+	BIF_EDITBOX             Value = 0x00000010
+	BIF_NEWDIALOGSTYLE      Value = 0x00000040
+	BIF_NONEWFOLDERBUTTON   Value = 0x00000200
+	BIF_NOTRANSLATETARGETS  Value = 0x00000400
+	// BIF_PREFER_INTERNET_SHORTCUT: This namespace extension prefers a .url shortcut over a .lnk shortcut.
+	BIF_PREFER_INTERNET_SHORTCUT Value = 0x00000008
+	BIF_RETURNFSANCESTORS        Value = 0x00000008
+	BIF_RETURNONLYFSDIRS         Value = 0x00000001
+	BIF_SHAREABLE                Value = 0x00008000
+	BIF_STATUSTEXT               Value = 0x00000004
+	BIF_UAHINT                   Value = 0x00000100
+	BIF_VALIDATE                 Value = 0x00000020
+	FOFX_ADDUNDORECORD           Value = 0x20000000
+	FOFX_COPYASDOWNLOAD          Value = 0x40000000
+	FOFX_DONTDISPLAYDESTPATH     Value = 0x08000000
+	FOFX_DONTDISPLAYLOCATIONS    Value = 0x80000000
+	FOFX_DONTDISPLAYSOURCEPATH   Value = 0x04000000
+	FOFX_EARLYFAILURE            Value = 0x00100000
+	FOFX_KEEPNEWERFILE           Value = 0x00400000
+	FOFX_MOVEACLSACROSSVOLUMES   Value = 0x02000000
+	FOFX_NOCOPYHOOKS             Value = 0x00800000
+	FOFX_NOMINIMIZEBOX           Value = 0x01000000
+	FOFX_NOSKIPJUNCTIONS         Value = 0x00010000
+	FOFX_PREFERHARDLINK          Value = 0x00020000
+	FOFX_PRESERVEFILEEXTENSIONS  Value = 0x00200000
+	FOFX_RECYCLEONDELETE         Value = 0x00080000
+	FOFX_REQUIREELEVATION        Value = 0x10000000
+	FOFX_SHOWELEVATIONPROMPT     Value = 0x00040000
+	FOF_ALLOWUNDO                Value = 0x00000040
+	FOF_CONFIRMMOUSE             Value = 0x00000002
+	FOF_FILESONLY                Value = 0x00000080
+	FOF_MULTIDESTFILES           Value = 0x00000001
+	FOF_NOCONFIRMATION           Value = 0x00000010
+	FOF_NOCONFIRMMKDIR           Value = 0x00000200
+	FOF_NOCOPYSECURITYATTRIBS    Value = 0x00000800
+	FOF_NOERRORUI                Value = 0x00000400
+	FOF_NORECURSEREPARSE         Value = 0x00008000
+	FOF_NORECURSION              Value = 0x00001000
+	FOF_NO_CONNECTED_ELEMENTS    Value = 0x00002000
+	FOF_NO_UI                    Value = 0x00000614
+	FOF_RENAMEONCOLLISION        Value = 0x00000008
+	FOF_SILENT                   Value = 0x00000004
+	FOF_SIMPLEPROGRESS           Value = 0x00000100
+	FOF_WANTMAPPINGHANDLE        Value = 0x00000020
+	FOF_WANTNUKEWARNING          Value = 0x00004000
 	// FOS_ALLNONSTORAGEITEMS: Enables the user to choose any item in the Shell namespace, not just those with SFGAO_STREAM
 	// or SFAGO_FILESYSTEM attributes. This flag cannot be combined with FOS_FORCEFILESYSTEM.
 	FOS_ALLNONSTORAGEITEMS Value = 0x00000080
@@ -75,39 +141,231 @@ const (
 	// FOS_SUPPORTSTREAMABLEITEMS: Indicates that the caller is opening a file as a stream ( BHID_Stream ), so there is no
 	// need to download that file.
 	FOS_SUPPORTSTREAMABLEITEMS Value = 0x80000000
-	NIF_GUID                   Value = 0x00000020
-	NIF_ICON                   Value = 0x00000002
-	NIF_INFO                   Value = 0x00000010
-	NIF_MESSAGE                Value = 0x00000001
-	NIF_REALTIME               Value = 0x00000040
-	NIF_SHOWTIP                Value = 0x00000080
-	NIF_STATE                  Value = 0x00000008
-	NIF_TIP                    Value = 0x00000004
-	NIIF_ERROR                 Value = 0x00000003
-	NIIF_ICON_MASK             Value = 0x0000000F
-	NIIF_INFO                  Value = 0x00000001
-	NIIF_LARGE_ICON            Value = 0x00000020
-	NIIF_NONE                  Value = 0x00000000
-	NIIF_NOSOUND               Value = 0x00000010
-	NIIF_RESPECT_QUIET_TIME    Value = 0x00000080
-	NIIF_USER                  Value = 0x00000004
-	NIIF_WARNING               Value = 0x00000002
-	NIM_ADD                    Value = 0x00000000
-	NIM_DELETE                 Value = 0x00000002
-	NIM_MODIFY                 Value = 0x00000001
-	NIM_SETFOCUS               Value = 0x00000003
-	NIM_SETVERSION             Value = 0x00000004
-	NIN_BALLOONHIDE            Value = 0x00000403
-	NIN_BALLOONSHOW            Value = 0x00000402
-	NIN_BALLOONTIMEOUT         Value = 0x00000404
-	NIN_BALLOONUSERCLICK       Value = 0x00000405
-	NIN_POPUPCLOSE             Value = 0x00000407
-	NIN_POPUPOPEN              Value = 0x00000406
-	NIN_SELECT                 Value = 0x00000400
-	NIS_HIDDEN                 Value = 0x00000001
-	NIS_SHAREDICON             Value = 0x00000002
-	NOTIFYICON_VERSION         Value = 0x00000003
-	NOTIFYICON_VERSION_4       Value = 0x00000004
+	FO_COPY                    Value = 0x00000002
+	FO_DELETE                  Value = 0x00000003
+	FO_MOVE                    Value = 0x00000001
+	FO_RENAME                  Value = 0x00000004
+	// KF_FLAG_ALIAS_ONLY: **Introduced in Windows 7**. Specifies to retrieve only aliased PIDLs. Don't use the file system
+	// path.
+	KF_FLAG_ALIAS_ONLY Value = 0x80000000
+	// KF_FLAG_CREATE: Specifies to force the creation of the specified folder if that folder doesn't already exist. The
+	// security provisions predefined for that folder are applied. If the folder doesn't exist and can't be created, then
+	// the function returns a failure code, and no path is returned. This value can be used only with the following
+	// functions and methods: * [SHGetKnownFolderPath](/windows/win32/api/shlobj_core/nf-shlobj_core-shgetknownfolderpath)
+	// * [SHGetKnownFolderIDList](/windows/win32/api/shlobj_core/nf-shlobj_core-shgetknownfolderidlist) *
+	// [IKnownFolder::GetIDList](/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getidlist) *
+	// [IKnownFolder::GetPath](/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getpath) *
+	// [IKnownFolder::GetShellItem](/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getshellitem)
+	KF_FLAG_CREATE Value = 0x00008000
+	// KF_FLAG_DEFAULT: Specifies no special retrieval options.
+	KF_FLAG_DEFAULT Value = 0x00000000
+	// KF_FLAG_DEFAULT_PATH: Specifies to retrieve the default path for a known folder. If this flag isn't set, then the
+	// function retrieves the current—and possibly redirected—path of the folder. The execution of this flag includes a
+	// verification of the folder's existence unless **KF_FLAG_DONT_VERIFY** is set.
+	KF_FLAG_DEFAULT_PATH Value = 0x00000400
+	// KF_FLAG_DONT_UNEXPAND: Specfies to store the full path in the registry without using environment strings. If this
+	// flag isn't set, then portions of the path might be represented by environment strings such as `%USERPROFILE%`. This
+	// flag can be used only with
+	// [SHSetKnownFolderPath](/windows/win32/api/shlobj_core/nf-shlobj_core-shsetknownfolderpath) and
+	// [IKnownFolder::SetPath](/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfolder-setpath).
+	KF_FLAG_DONT_UNEXPAND Value = 0x00002000
+	// KF_FLAG_DONT_VERIFY: Specifies not to verify the folder's existence before attempting to retrieve the path or
+	// IDList. If this flag isn't set, then an attempt is made to verify that the folder is truly present at the path. If
+	// that verification fails due to the folder being absent or inaccessible, then the function returns a failure code,
+	// and no path is returned. If the folder is located on a network, then the function might take longer to execute. So
+	// setting this flag can reduce that latency.
+	KF_FLAG_DONT_VERIFY Value = 0x00004000
+	// KF_FLAG_FORCE_APPCONTAINER_REDIRECTION: **Introduced in Windows 8**. This flag was deprecated in Windows 10, version
+	// 1703. Use **KF_FLAG_FORCE_PACKAGE_REDIRECTION** instead.
+	KF_FLAG_FORCE_APPCONTAINER_REDIRECTION Value = 0x00020000
+	// KF_FLAG_FORCE_APP_DATA_REDIRECTION: **Introduced in Windows 10, version 1709**. When called from a packaged app,
+	// specifies that **LocalAppData**/**RoamingAppData** folders are redirected to private app locations that match the
+	// paths returned from [Windows.Storage.ApplicationData.Current](/uwp/api/windows.storage.applicationdata.current) in
+	// the **LocalFolder** and **RoamingFolder** properties. Other folders are redirected to subdirectories of
+	// **LocalAppData**. This flag is used with **FOLDERID_AppDataDesktop**, **FOLDERID_AppDataDocuments**,
+	// **FOLDERID_AppDataFavorites**, and **FOLDERID_AppDataProgramData**. It's also intended for compatibility with .NET
+	// applications, and not meant to be used directly from an application.
+	KF_FLAG_FORCE_APP_DATA_REDIRECTION Value = 0x00080000
+	// KF_FLAG_FORCE_PACKAGE_REDIRECTION: **Introduced in Windows 10, version 1703**. When running inside an AppContainer
+	// process, or when providing an AppContainer token, specifies that some folders are redirected to
+	// AppContainer-specific locations within the package. This flag forces redirection (for folders that aren't normally
+	// redirected) for the purposes of packaged processes, and can be used for sharing files between UWP and packaged apps
+	// within the same package. This flag supersedes the deprecated **KF_FLAG_FORCE_APPCONTAINER_REDIRECTION**.
+	KF_FLAG_FORCE_PACKAGE_REDIRECTION Value = 0x00020000
+	// KF_FLAG_INIT: Specifies to initialize the folder using its `Desktop.ini` settings. If the folder can't be
+	// initialized, then the function returns a failure code, and no path is returned. This flag should always be combined
+	// with **KF_FLAG_CREATE**. If the folder is located on a network, then the function might take longer to execute.
+	KF_FLAG_INIT Value = 0x00000800
+	// KF_FLAG_NOT_PARENT_RELATIVE: Specifies to retrieve the folder's default path independent of the current location of
+	// its parent. **KF_FLAG_DEFAULT_PATH** must also be set.
+	KF_FLAG_NOT_PARENT_RELATIVE Value = 0x00000200
+	// KF_FLAG_NO_ALIAS: Specifies to retrieve the true system path for the folder, free of any aliased placeholders such
+	// as `%USERPROFILE%`, returned by
+	// [SHGetKnownFolderIDList](/windows/win32/api/shlobj_core/nf-shlobj_core-shgetknownfolderidlist) and
+	// [IKnownFolder::GetIDList](/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getidlist). This flag has
+	// no effect on paths returned by
+	// [SHGetKnownFolderPath](/windows/win32/api/shlobj_core/nf-shlobj_core-shgetknownfolderpath) and
+	// [IKnownFolder::GetPath](/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getpath). By default, known
+	// folder retrieval functions and methods return the aliased path if an alias exists.
+	KF_FLAG_NO_ALIAS Value = 0x00001000
+	// KF_FLAG_NO_APPCONTAINER_REDIRECTION: **Introduced in Windows 8**. This flag was deprecated in Windows 10, version
+	// 1703. Use **KF_FLAG_NO_PACKAGE_REDIRECTION** instead.
+	KF_FLAG_NO_APPCONTAINER_REDIRECTION Value = 0x00010000
+	// KF_FLAG_NO_PACKAGE_REDIRECTION: **Introduced in Windows 10, version 1703**. When running inside a packaged process,
+	// or when providing a packaged process token, specifies that some folders are redirected to package-specific
+	// locations. This flag disables redirection on locations where it's applied, and instead returns the path that would
+	// be returned were it not running inside a packaged process. This flag supersedes the deprecated
+	// **KF_FLAG_NO_APPCONTAINER_REDIRECTION**.
+	KF_FLAG_NO_PACKAGE_REDIRECTION Value = 0x00010000
+	// KF_FLAG_RETURN_FILTER_REDIRECTION_TARGET: **Introduced in Windows 10, version 1703**. When running in a packaged
+	// process, specifies that some file system locations are redirected to package-specific locations by the file system.
+	// This flag causes the target of the direction to be returned for those locations. This is useful in cases where the
+	// real location within the file system needs to be known.
+	KF_FLAG_RETURN_FILTER_REDIRECTION_TARGET Value = 0x00040000
+	// KF_FLAG_SIMPLE_IDLIST: Specifies to build a simple IDList (PIDL). This value can be used when you want to retrieve
+	// the file system path. But don't specify this value if you're retrieving the localized display name of the folder,
+	// because it might not resolve correctly.
+	KF_FLAG_SIMPLE_IDLIST       Value = 0x00000100
+	NIF_GUID                    Value = 0x00000020
+	NIF_ICON                    Value = 0x00000002
+	NIF_INFO                    Value = 0x00000010
+	NIF_MESSAGE                 Value = 0x00000001
+	NIF_REALTIME                Value = 0x00000040
+	NIF_SHOWTIP                 Value = 0x00000080
+	NIF_STATE                   Value = 0x00000008
+	NIF_TIP                     Value = 0x00000004
+	NIIF_ERROR                  Value = 0x00000003
+	NIIF_ICON_MASK              Value = 0x0000000F
+	NIIF_INFO                   Value = 0x00000001
+	NIIF_LARGE_ICON             Value = 0x00000020
+	NIIF_NONE                   Value = 0x00000000
+	NIIF_NOSOUND                Value = 0x00000010
+	NIIF_RESPECT_QUIET_TIME     Value = 0x00000080
+	NIIF_USER                   Value = 0x00000004
+	NIIF_WARNING                Value = 0x00000002
+	NIM_ADD                     Value = 0x00000000
+	NIM_DELETE                  Value = 0x00000002
+	NIM_MODIFY                  Value = 0x00000001
+	NIM_SETFOCUS                Value = 0x00000003
+	NIM_SETVERSION              Value = 0x00000004
+	NIN_BALLOONHIDE             Value = 0x00000403
+	NIN_BALLOONSHOW             Value = 0x00000402
+	NIN_BALLOONTIMEOUT          Value = 0x00000404
+	NIN_BALLOONUSERCLICK        Value = 0x00000405
+	NIN_POPUPCLOSE              Value = 0x00000407
+	NIN_POPUPOPEN               Value = 0x00000406
+	NIN_SELECT                  Value = 0x00000400
+	NIS_HIDDEN                  Value = 0x00000001
+	NIS_SHAREDICON              Value = 0x00000002
+	NOTIFYICON_VERSION          Value = 0x00000003
+	NOTIFYICON_VERSION_4        Value = 0x00000004
+	SEE_MASK_ASYNCOK            Value = 0x00100000
+	SEE_MASK_CLASSKEY           Value = 0x00000003
+	SEE_MASK_CLASSNAME          Value = 0x00000001
+	SEE_MASK_CONNECTNETDRV      Value = 0x00000080
+	SEE_MASK_DEFAULT            Value = 0x00000000
+	SEE_MASK_DOENVSUBST         Value = 0x00000200
+	SEE_MASK_FLAG_DDEWAIT       Value = 0x00000100
+	SEE_MASK_FLAG_HINST_IS_SITE Value = 0x08000000
+	SEE_MASK_FLAG_LOG_USAGE     Value = 0x04000000
+	SEE_MASK_FLAG_NO_UI         Value = 0x00000400
+	SEE_MASK_HMONITOR           Value = 0x00200000
+	SEE_MASK_HOTKEY             Value = 0x00000020
+	SEE_MASK_ICON               Value = 0x00000010
+	SEE_MASK_IDLIST             Value = 0x00000004
+	SEE_MASK_INVOKEIDLIST       Value = 0x0000000C
+	SEE_MASK_NOASYNC            Value = 0x00000100
+	SEE_MASK_NOCLOSEPROCESS     Value = 0x00000040
+	SEE_MASK_NOQUERYCLASSSTORE  Value = 0x01000000
+	SEE_MASK_NOZONECHECKS       Value = 0x00800000
+	SEE_MASK_NO_CONSOLE         Value = 0x00008000
+	SEE_MASK_UNICODE            Value = 0x00004000
+	SEE_MASK_WAITFORINPUTIDLE   Value = 0x02000000
+	SFGAO_BROWSABLE             Value = 0x08000000
+	SFGAO_CANCOPY               Value = 0x00000001
+	SFGAO_CANDELETE             Value = 0x00000020
+	SFGAO_CANLINK               Value = 0x00000004
+	SFGAO_CANMONIKER            Value = 0x00400000
+	SFGAO_CANMOVE               Value = 0x00000002
+	SFGAO_CANRENAME             Value = 0x00000010
+	SFGAO_CAPABILITYMASK        Value = 0x00000177
+	SFGAO_COMPRESSED            Value = 0x04000000
+	SFGAO_CONTENTSMASK          Value = 0x80000000
+	SFGAO_DISPLAYATTRMASK       Value = 0x000FC000
+	SFGAO_DROPTARGET            Value = 0x00000100
+	SFGAO_ENCRYPTED             Value = 0x00002000
+	SFGAO_FILESYSANCESTOR       Value = 0x10000000
+	SFGAO_FILESYSTEM            Value = 0x40000000
+	SFGAO_FOLDER                Value = 0x20000000
+	SFGAO_GHOSTED               Value = 0x00008000
+	SFGAO_HASPROPSHEET          Value = 0x00000040
+	SFGAO_HASSTORAGE            Value = 0x00400000
+	SFGAO_HASSUBFOLDER          Value = 0x80000000
+	SFGAO_HIDDEN                Value = 0x00080000
+	SFGAO_ISSLOW                Value = 0x00004000
+	SFGAO_LINK                  Value = 0x00010000
+	SFGAO_NEWCONTENT            Value = 0x00200000
+	SFGAO_NONENUMERATED         Value = 0x00100000
+	SFGAO_PKEYSFGAOMASK         Value = 0x81044000
+	SFGAO_PLACEHOLDER           Value = 0x00000800
+	SFGAO_READONLY              Value = 0x00040000
+	SFGAO_REMOVABLE             Value = 0x02000000
+	SFGAO_SHARE                 Value = 0x00020000
+	SFGAO_STORAGE               Value = 0x00000008
+	SFGAO_STORAGEANCESTOR       Value = 0x00800000
+	SFGAO_STORAGECAPMASK        Value = 0x70C50008
+	SFGAO_STREAM                Value = 0x00400000
+	SFGAO_SYSTEM                Value = 0x00001000
+	SFGAO_VALIDATE              Value = 0x01000000
+	SHGFI_ADDOVERLAYS           Value = 0x00000020
+	SHGFI_ATTRIBUTES            Value = 0x00000800
+	SHGFI_ATTR_SPECIFIED        Value = 0x00020000
+	SHGFI_DISPLAYNAME           Value = 0x00000200
+	SHGFI_EXETYPE               Value = 0x00002000
+	SHGFI_ICON                  Value = 0x00000100
+	SHGFI_ICONLOCATION          Value = 0x00001000
+	SHGFI_LARGEICON             Value = 0x00000000
+	SHGFI_LINKOVERLAY           Value = 0x00008000
+	SHGFI_OPENICON              Value = 0x00000002
+	SHGFI_OVERLAYINDEX          Value = 0x00000040
+	SHGFI_PIDL                  Value = 0x00000008
+	SHGFI_SELECTED              Value = 0x00010000
+	SHGFI_SHELLICONSIZE         Value = 0x00000004
+	SHGFI_SMALLICON             Value = 0x00000001
+	SHGFI_SYSICONINDEX          Value = 0x00004000
+	SHGFI_TYPENAME              Value = 0x00000400
+	SHGFI_USEFILEATTRIBUTES     Value = 0x00000010
+	// SIGDN_DESKTOPABSOLUTEEDITING: (int)0x8004c000. Returns the editing name relative to the desktop. In UI this name is
+	// suitable for display to the user.
+	SIGDN_DESKTOPABSOLUTEEDITING Value = 0x8004C000
+	// SIGDN_DESKTOPABSOLUTEPARSING: (int)0x80028000. Returns the parsing name relative to the desktop. This name is not
+	// suitable for use in UI.
+	SIGDN_DESKTOPABSOLUTEPARSING Value = 0x80028000
+	// SIGDN_FILESYSPATH: (int)0x80058000. Returns the item's file system path, if it has one. Only items that report
+	// SFGAO_FILESYSTEM have a file system path. When an item does not have a file system path, a call to
+	// IShellItem::GetDisplayName on that item will fail. In UI this name is suitable for display to the user in some
+	// cases, but note that it might not be specified for all items.
+	SIGDN_FILESYSPATH Value = 0x80058000
+	// SIGDN_NORMALDISPLAY: 0x00000000. Returns the display name relative to the parent folder. In UI this name is
+	// generally ideal for display to the user.
+	SIGDN_NORMALDISPLAY Value = 0x00000000
+	// SIGDN_PARENTRELATIVE: (int)0x80080001. Returns the path relative to the parent folder.
+	SIGDN_PARENTRELATIVE Value = 0x80080001
+	// SIGDN_PARENTRELATIVEEDITING: (int)0x80031001. Returns the editing name relative to the parent folder. In UI this
+	// name is suitable for display to the user.
+	SIGDN_PARENTRELATIVEEDITING Value = 0x80031001
+	// SIGDN_PARENTRELATIVEFORADDRESSBAR: (int)0x8007c001. Returns the path relative to the parent folder in a friendly
+	// format as displayed in an address bar. This name is suitable for display to the user.
+	SIGDN_PARENTRELATIVEFORADDRESSBAR Value = 0x8007C001
+	// SIGDN_PARENTRELATIVEFORUI: (int)0x80094001. Introduced in Windows 8 .
+	SIGDN_PARENTRELATIVEFORUI Value = 0x80094001
+	// SIGDN_PARENTRELATIVEPARSING: (int)0x80018001. Returns the parsing name relative to the parent folder. This name is
+	// not suitable for use in UI.
+	SIGDN_PARENTRELATIVEPARSING Value = 0x80018001
+	// SIGDN_URL: (int)0x80068000. Returns the item's URL, if it has one. Some items do not have a URL, and in those cases
+	// a call to IShellItem::GetDisplayName will fail. This name is suitable for display to the user in some cases, but
+	// note that it might not be specified for all items.
+	SIGDN_URL Value = 0x80068000
 )
 
 // Name returns the canonical symbolic name for value.
@@ -123,8 +381,12 @@ func Name(value Value) (string, bool) {
 		return "NIIF_ERROR", true
 	case Value(0x00000004):
 		return "FOS_STRICTFILETYPES", true
+	case Value(0x00000005):
+		return "BFFM_IUNKNOWN", true
 	case Value(0x00000008):
 		return "FOS_NOCHANGEDIR", true
+	case Value(0x0000000C):
+		return "SEE_MASK_INVOKEIDLIST", true
 	case Value(0x0000000F):
 		return "NIIF_ICON_MASK", true
 	case Value(0x00000010):
@@ -137,6 +399,8 @@ func Name(value Value) (string, bool) {
 		return "FOS_ALLNONSTORAGEITEMS", true
 	case Value(0x00000100):
 		return "FOS_NOVALIDATE", true
+	case Value(0x00000177):
+		return "SFGAO_CAPABILITYMASK", true
 	case Value(0x00000200):
 		return "FOS_ALLOWMULTISELECT", true
 	case Value(0x00000400):
@@ -153,6 +417,22 @@ func Name(value Value) (string, bool) {
 		return "NIN_POPUPOPEN", true
 	case Value(0x00000407):
 		return "NIN_POPUPCLOSE", true
+	case Value(0x00000464):
+		return "BFFM_SETSTATUSTEXTA", true
+	case Value(0x00000465):
+		return "BFFM_ENABLEOK", true
+	case Value(0x00000466):
+		return "BFFM_SETSELECTIONA", true
+	case Value(0x00000467):
+		return "BFFM_SETSELECTION", true
+	case Value(0x00000468):
+		return "BFFM_SETSTATUSTEXT", true
+	case Value(0x00000469):
+		return "BFFM_SETOKTEXT", true
+	case Value(0x0000046A):
+		return "BFFM_SETEXPANDED", true
+	case Value(0x00000614):
+		return "FOF_NO_UI", true
 	case Value(0x00000800):
 		return "FOS_PATHMUSTEXIST", true
 	case Value(0x00001000):
@@ -169,20 +449,56 @@ func Name(value Value) (string, bool) {
 		return "FOS_HIDEMRUPLACES", true
 	case Value(0x00040000):
 		return "FOS_HIDEPINNEDPLACES", true
+	case Value(0x00080000):
+		return "FOFX_RECYCLEONDELETE", true
+	case Value(0x000FC000):
+		return "SFGAO_DISPLAYATTRMASK", true
 	case Value(0x00100000):
 		return "FOS_NODEREFERENCELINKS", true
 	case Value(0x00200000):
 		return "FOS_OKBUTTONNEEDSINTERACTION", true
+	case Value(0x00400000):
+		return "FOFX_KEEPNEWERFILE", true
+	case Value(0x00800000):
+		return "FOFX_NOCOPYHOOKS", true
+	case Value(0x01000000):
+		return "FOFX_NOMINIMIZEBOX", true
 	case Value(0x02000000):
 		return "FOS_DONTADDTORECENT", true
+	case Value(0x04000000):
+		return "FOFX_DONTDISPLAYSOURCEPATH", true
+	case Value(0x08000000):
+		return "FOFX_DONTDISPLAYDESTPATH", true
 	case Value(0x10000000):
 		return "FOS_FORCESHOWHIDDEN", true
 	case Value(0x20000000):
 		return "FOS_DEFAULTNOMINIMODE", true
 	case Value(0x40000000):
 		return "FOS_FORCEPREVIEWPANEON", true
+	case Value(0x70C50008):
+		return "SFGAO_STORAGECAPMASK", true
 	case Value(0x80000000):
 		return "FOS_SUPPORTSTREAMABLEITEMS", true
+	case Value(0x80018001):
+		return "SIGDN_PARENTRELATIVEPARSING", true
+	case Value(0x80028000):
+		return "SIGDN_DESKTOPABSOLUTEPARSING", true
+	case Value(0x80031001):
+		return "SIGDN_PARENTRELATIVEEDITING", true
+	case Value(0x8004C000):
+		return "SIGDN_DESKTOPABSOLUTEEDITING", true
+	case Value(0x80058000):
+		return "SIGDN_FILESYSPATH", true
+	case Value(0x80068000):
+		return "SIGDN_URL", true
+	case Value(0x8007C001):
+		return "SIGDN_PARENTRELATIVEFORADDRESSBAR", true
+	case Value(0x80080001):
+		return "SIGDN_PARENTRELATIVE", true
+	case Value(0x80094001):
+		return "SIGDN_PARENTRELATIVEFORUI", true
+	case Value(0x81044000):
+		return "SFGAO_PKEYSFGAOMASK", true
 	default:
 		return "", false
 	}
@@ -192,33 +508,39 @@ func Name(value Value) (string, bool) {
 func Names(value Value) []string {
 	switch value {
 	case Value(0x00000000):
-		return []string{"NIIF_NONE", "NIM_ADD"}
+		return []string{"KF_FLAG_DEFAULT", "NIIF_NONE", "NIM_ADD", "SEE_MASK_DEFAULT", "SHGFI_LARGEICON", "SIGDN_NORMALDISPLAY"}
 	case Value(0x00000001):
-		return []string{"NIF_MESSAGE", "NIIF_INFO", "NIM_MODIFY", "NIS_HIDDEN"}
+		return []string{"BFFM_INITIALIZED", "BIF_RETURNONLYFSDIRS", "FOF_MULTIDESTFILES", "FO_MOVE", "NIF_MESSAGE", "NIIF_INFO", "NIM_MODIFY", "NIS_HIDDEN", "SEE_MASK_CLASSNAME", "SFGAO_CANCOPY", "SHGFI_SMALLICON"}
 	case Value(0x00000002):
-		return []string{"FOS_OVERWRITEPROMPT", "NIF_ICON", "NIIF_WARNING", "NIM_DELETE", "NIS_SHAREDICON"}
+		return []string{"BFFM_SELCHANGED", "BIF_DONTGOBELOWDOMAIN", "FOF_CONFIRMMOUSE", "FOS_OVERWRITEPROMPT", "FO_COPY", "NIF_ICON", "NIIF_WARNING", "NIM_DELETE", "NIS_SHAREDICON", "SFGAO_CANMOVE", "SHGFI_OPENICON"}
 	case Value(0x00000003):
-		return []string{"NIIF_ERROR", "NIM_SETFOCUS", "NOTIFYICON_VERSION"}
+		return []string{"BFFM_VALIDATEFAILEDA", "FO_DELETE", "NIIF_ERROR", "NIM_SETFOCUS", "NOTIFYICON_VERSION", "SEE_MASK_CLASSKEY"}
 	case Value(0x00000004):
-		return []string{"FOS_STRICTFILETYPES", "NIF_TIP", "NIIF_USER", "NIM_SETVERSION", "NOTIFYICON_VERSION_4"}
+		return []string{"BFFM_VALIDATEFAILED", "BFFM_VALIDATEFAILEDW", "BIF_STATUSTEXT", "FOF_SILENT", "FOS_STRICTFILETYPES", "FO_RENAME", "NIF_TIP", "NIIF_USER", "NIM_SETVERSION", "NOTIFYICON_VERSION_4", "SEE_MASK_IDLIST", "SFGAO_CANLINK", "SHGFI_SHELLICONSIZE"}
+	case Value(0x00000005):
+		return []string{"BFFM_IUNKNOWN"}
 	case Value(0x00000008):
-		return []string{"FOS_NOCHANGEDIR", "NIF_STATE"}
+		return []string{"BIF_PREFER_INTERNET_SHORTCUT", "BIF_RETURNFSANCESTORS", "FOF_RENAMEONCOLLISION", "FOS_NOCHANGEDIR", "NIF_STATE", "SFGAO_STORAGE", "SHGFI_PIDL"}
+	case Value(0x0000000C):
+		return []string{"SEE_MASK_INVOKEIDLIST"}
 	case Value(0x0000000F):
 		return []string{"NIIF_ICON_MASK"}
 	case Value(0x00000010):
-		return []string{"NIF_INFO", "NIIF_NOSOUND"}
+		return []string{"BIF_EDITBOX", "FOF_NOCONFIRMATION", "NIF_INFO", "NIIF_NOSOUND", "SEE_MASK_ICON", "SFGAO_CANRENAME", "SHGFI_USEFILEATTRIBUTES"}
 	case Value(0x00000020):
-		return []string{"FOS_PICKFOLDERS", "NIF_GUID", "NIIF_LARGE_ICON"}
+		return []string{"BIF_VALIDATE", "FOF_WANTMAPPINGHANDLE", "FOS_PICKFOLDERS", "NIF_GUID", "NIIF_LARGE_ICON", "SEE_MASK_HOTKEY", "SFGAO_CANDELETE", "SHGFI_ADDOVERLAYS"}
 	case Value(0x00000040):
-		return []string{"FOS_FORCEFILESYSTEM", "NIF_REALTIME"}
+		return []string{"BIF_NEWDIALOGSTYLE", "FOF_ALLOWUNDO", "FOS_FORCEFILESYSTEM", "NIF_REALTIME", "SEE_MASK_NOCLOSEPROCESS", "SFGAO_HASPROPSHEET", "SHGFI_OVERLAYINDEX"}
 	case Value(0x00000080):
-		return []string{"FOS_ALLNONSTORAGEITEMS", "NIF_SHOWTIP", "NIIF_RESPECT_QUIET_TIME"}
+		return []string{"BIF_BROWSEINCLUDEURLS", "FOF_FILESONLY", "FOS_ALLNONSTORAGEITEMS", "NIF_SHOWTIP", "NIIF_RESPECT_QUIET_TIME", "SEE_MASK_CONNECTNETDRV"}
 	case Value(0x00000100):
-		return []string{"FOS_NOVALIDATE"}
+		return []string{"BIF_UAHINT", "FOF_SIMPLEPROGRESS", "FOS_NOVALIDATE", "KF_FLAG_SIMPLE_IDLIST", "SEE_MASK_FLAG_DDEWAIT", "SEE_MASK_NOASYNC", "SFGAO_DROPTARGET", "SHGFI_ICON"}
+	case Value(0x00000177):
+		return []string{"SFGAO_CAPABILITYMASK"}
 	case Value(0x00000200):
-		return []string{"FOS_ALLOWMULTISELECT"}
+		return []string{"BIF_NONEWFOLDERBUTTON", "FOF_NOCONFIRMMKDIR", "FOS_ALLOWMULTISELECT", "KF_FLAG_NOT_PARENT_RELATIVE", "SEE_MASK_DOENVSUBST", "SHGFI_DISPLAYNAME"}
 	case Value(0x00000400):
-		return []string{"NIN_SELECT"}
+		return []string{"BIF_NOTRANSLATETARGETS", "FOF_NOERRORUI", "KF_FLAG_DEFAULT_PATH", "NIN_SELECT", "SEE_MASK_FLAG_NO_UI", "SHGFI_TYPENAME"}
 	case Value(0x00000402):
 		return []string{"NIN_BALLOONSHOW"}
 	case Value(0x00000403):
@@ -231,36 +553,88 @@ func Names(value Value) []string {
 		return []string{"NIN_POPUPOPEN"}
 	case Value(0x00000407):
 		return []string{"NIN_POPUPCLOSE"}
+	case Value(0x00000464):
+		return []string{"BFFM_SETSTATUSTEXTA"}
+	case Value(0x00000465):
+		return []string{"BFFM_ENABLEOK"}
+	case Value(0x00000466):
+		return []string{"BFFM_SETSELECTIONA"}
+	case Value(0x00000467):
+		return []string{"BFFM_SETSELECTION", "BFFM_SETSELECTIONW"}
+	case Value(0x00000468):
+		return []string{"BFFM_SETSTATUSTEXT", "BFFM_SETSTATUSTEXTW"}
+	case Value(0x00000469):
+		return []string{"BFFM_SETOKTEXT"}
+	case Value(0x0000046A):
+		return []string{"BFFM_SETEXPANDED"}
+	case Value(0x00000614):
+		return []string{"FOF_NO_UI"}
 	case Value(0x00000800):
-		return []string{"FOS_PATHMUSTEXIST"}
+		return []string{"FOF_NOCOPYSECURITYATTRIBS", "FOS_PATHMUSTEXIST", "KF_FLAG_INIT", "SFGAO_PLACEHOLDER", "SHGFI_ATTRIBUTES"}
 	case Value(0x00001000):
-		return []string{"FOS_FILEMUSTEXIST"}
+		return []string{"BIF_BROWSEFORCOMPUTER", "FOF_NORECURSION", "FOS_FILEMUSTEXIST", "KF_FLAG_NO_ALIAS", "SFGAO_SYSTEM", "SHGFI_ICONLOCATION"}
 	case Value(0x00002000):
-		return []string{"FOS_CREATEPROMPT"}
+		return []string{"BIF_BROWSEFORPRINTER", "FOF_NO_CONNECTED_ELEMENTS", "FOS_CREATEPROMPT", "KF_FLAG_DONT_UNEXPAND", "SFGAO_ENCRYPTED", "SHGFI_EXETYPE"}
 	case Value(0x00004000):
-		return []string{"FOS_SHAREAWARE"}
+		return []string{"BIF_BROWSEINCLUDEFILES", "FOF_WANTNUKEWARNING", "FOS_SHAREAWARE", "KF_FLAG_DONT_VERIFY", "SEE_MASK_UNICODE", "SFGAO_ISSLOW", "SHGFI_SYSICONINDEX"}
 	case Value(0x00008000):
-		return []string{"FOS_NOREADONLYRETURN"}
+		return []string{"BIF_SHAREABLE", "FOF_NORECURSEREPARSE", "FOS_NOREADONLYRETURN", "KF_FLAG_CREATE", "SEE_MASK_NO_CONSOLE", "SFGAO_GHOSTED", "SHGFI_LINKOVERLAY"}
 	case Value(0x00010000):
-		return []string{"FOS_NOTESTFILECREATE"}
+		return []string{"BIF_BROWSEFILEJUNCTIONS", "FOFX_NOSKIPJUNCTIONS", "FOS_NOTESTFILECREATE", "KF_FLAG_NO_APPCONTAINER_REDIRECTION", "KF_FLAG_NO_PACKAGE_REDIRECTION", "SFGAO_LINK", "SHGFI_SELECTED"}
 	case Value(0x00020000):
-		return []string{"FOS_HIDEMRUPLACES"}
+		return []string{"FOFX_PREFERHARDLINK", "FOS_HIDEMRUPLACES", "KF_FLAG_FORCE_APPCONTAINER_REDIRECTION", "KF_FLAG_FORCE_PACKAGE_REDIRECTION", "SFGAO_SHARE", "SHGFI_ATTR_SPECIFIED"}
 	case Value(0x00040000):
-		return []string{"FOS_HIDEPINNEDPLACES"}
+		return []string{"FOFX_SHOWELEVATIONPROMPT", "FOS_HIDEPINNEDPLACES", "KF_FLAG_RETURN_FILTER_REDIRECTION_TARGET", "SFGAO_READONLY"}
+	case Value(0x00080000):
+		return []string{"FOFX_RECYCLEONDELETE", "KF_FLAG_FORCE_APP_DATA_REDIRECTION", "SFGAO_HIDDEN"}
+	case Value(0x000FC000):
+		return []string{"SFGAO_DISPLAYATTRMASK"}
 	case Value(0x00100000):
-		return []string{"FOS_NODEREFERENCELINKS"}
+		return []string{"FOFX_EARLYFAILURE", "FOS_NODEREFERENCELINKS", "SEE_MASK_ASYNCOK", "SFGAO_NONENUMERATED"}
 	case Value(0x00200000):
-		return []string{"FOS_OKBUTTONNEEDSINTERACTION"}
+		return []string{"FOFX_PRESERVEFILEEXTENSIONS", "FOS_OKBUTTONNEEDSINTERACTION", "SEE_MASK_HMONITOR", "SFGAO_NEWCONTENT"}
+	case Value(0x00400000):
+		return []string{"FOFX_KEEPNEWERFILE", "SFGAO_CANMONIKER", "SFGAO_HASSTORAGE", "SFGAO_STREAM"}
+	case Value(0x00800000):
+		return []string{"FOFX_NOCOPYHOOKS", "SEE_MASK_NOZONECHECKS", "SFGAO_STORAGEANCESTOR"}
+	case Value(0x01000000):
+		return []string{"FOFX_NOMINIMIZEBOX", "SEE_MASK_NOQUERYCLASSSTORE", "SFGAO_VALIDATE"}
 	case Value(0x02000000):
-		return []string{"FOS_DONTADDTORECENT"}
+		return []string{"FOFX_MOVEACLSACROSSVOLUMES", "FOS_DONTADDTORECENT", "SEE_MASK_WAITFORINPUTIDLE", "SFGAO_REMOVABLE"}
+	case Value(0x04000000):
+		return []string{"FOFX_DONTDISPLAYSOURCEPATH", "SEE_MASK_FLAG_LOG_USAGE", "SFGAO_COMPRESSED"}
+	case Value(0x08000000):
+		return []string{"FOFX_DONTDISPLAYDESTPATH", "SEE_MASK_FLAG_HINST_IS_SITE", "SFGAO_BROWSABLE"}
 	case Value(0x10000000):
-		return []string{"FOS_FORCESHOWHIDDEN"}
+		return []string{"FOFX_REQUIREELEVATION", "FOS_FORCESHOWHIDDEN", "SFGAO_FILESYSANCESTOR"}
 	case Value(0x20000000):
-		return []string{"FOS_DEFAULTNOMINIMODE"}
+		return []string{"FOFX_ADDUNDORECORD", "FOS_DEFAULTNOMINIMODE", "SFGAO_FOLDER"}
 	case Value(0x40000000):
-		return []string{"FOS_FORCEPREVIEWPANEON"}
+		return []string{"FOFX_COPYASDOWNLOAD", "FOS_FORCEPREVIEWPANEON", "SFGAO_FILESYSTEM"}
+	case Value(0x70C50008):
+		return []string{"SFGAO_STORAGECAPMASK"}
 	case Value(0x80000000):
-		return []string{"FOS_SUPPORTSTREAMABLEITEMS"}
+		return []string{"FOFX_DONTDISPLAYLOCATIONS", "FOS_SUPPORTSTREAMABLEITEMS", "KF_FLAG_ALIAS_ONLY", "SFGAO_CONTENTSMASK", "SFGAO_HASSUBFOLDER"}
+	case Value(0x80018001):
+		return []string{"SIGDN_PARENTRELATIVEPARSING"}
+	case Value(0x80028000):
+		return []string{"SIGDN_DESKTOPABSOLUTEPARSING"}
+	case Value(0x80031001):
+		return []string{"SIGDN_PARENTRELATIVEEDITING"}
+	case Value(0x8004C000):
+		return []string{"SIGDN_DESKTOPABSOLUTEEDITING"}
+	case Value(0x80058000):
+		return []string{"SIGDN_FILESYSPATH"}
+	case Value(0x80068000):
+		return []string{"SIGDN_URL"}
+	case Value(0x8007C001):
+		return []string{"SIGDN_PARENTRELATIVEFORADDRESSBAR"}
+	case Value(0x80080001):
+		return []string{"SIGDN_PARENTRELATIVE"}
+	case Value(0x80094001):
+		return []string{"SIGDN_PARENTRELATIVEFORUI"}
+	case Value(0x81044000):
+		return []string{"SFGAO_PKEYSFGAOMASK"}
 	default:
 		return nil
 	}
@@ -269,6 +643,136 @@ func Names(value Value) []string {
 // Parse returns the numeric value associated with an exact symbolic name.
 func Parse(name string) (Value, bool) {
 	switch name {
+	case "BFFM_ENABLEOK":
+		return BFFM_ENABLEOK, true
+	case "BFFM_INITIALIZED":
+		return BFFM_INITIALIZED, true
+	case "BFFM_IUNKNOWN":
+		return BFFM_IUNKNOWN, true
+	case "BFFM_SELCHANGED":
+		return BFFM_SELCHANGED, true
+	case "BFFM_SETEXPANDED":
+		return BFFM_SETEXPANDED, true
+	case "BFFM_SETOKTEXT":
+		return BFFM_SETOKTEXT, true
+	case "BFFM_SETSELECTION":
+		return BFFM_SETSELECTION, true
+	case "BFFM_SETSELECTIONA":
+		return BFFM_SETSELECTIONA, true
+	case "BFFM_SETSELECTIONW":
+		return BFFM_SETSELECTIONW, true
+	case "BFFM_SETSTATUSTEXT":
+		return BFFM_SETSTATUSTEXT, true
+	case "BFFM_SETSTATUSTEXTA":
+		return BFFM_SETSTATUSTEXTA, true
+	case "BFFM_SETSTATUSTEXTW":
+		return BFFM_SETSTATUSTEXTW, true
+	case "BFFM_VALIDATEFAILED":
+		return BFFM_VALIDATEFAILED, true
+	case "BFFM_VALIDATEFAILEDA":
+		return BFFM_VALIDATEFAILEDA, true
+	case "BFFM_VALIDATEFAILEDW":
+		return BFFM_VALIDATEFAILEDW, true
+	case "BIF_BROWSEFILEJUNCTIONS":
+		return BIF_BROWSEFILEJUNCTIONS, true
+	case "BIF_BROWSEFORCOMPUTER":
+		return BIF_BROWSEFORCOMPUTER, true
+	case "BIF_BROWSEFORPRINTER":
+		return BIF_BROWSEFORPRINTER, true
+	case "BIF_BROWSEINCLUDEFILES":
+		return BIF_BROWSEINCLUDEFILES, true
+	case "BIF_BROWSEINCLUDEURLS":
+		return BIF_BROWSEINCLUDEURLS, true
+	case "BIF_DONTGOBELOWDOMAIN":
+		return BIF_DONTGOBELOWDOMAIN, true
+	case "BIF_EDITBOX":
+		return BIF_EDITBOX, true
+	case "BIF_NEWDIALOGSTYLE":
+		return BIF_NEWDIALOGSTYLE, true
+	case "BIF_NONEWFOLDERBUTTON":
+		return BIF_NONEWFOLDERBUTTON, true
+	case "BIF_NOTRANSLATETARGETS":
+		return BIF_NOTRANSLATETARGETS, true
+	case "BIF_PREFER_INTERNET_SHORTCUT":
+		return BIF_PREFER_INTERNET_SHORTCUT, true
+	case "BIF_RETURNFSANCESTORS":
+		return BIF_RETURNFSANCESTORS, true
+	case "BIF_RETURNONLYFSDIRS":
+		return BIF_RETURNONLYFSDIRS, true
+	case "BIF_SHAREABLE":
+		return BIF_SHAREABLE, true
+	case "BIF_STATUSTEXT":
+		return BIF_STATUSTEXT, true
+	case "BIF_UAHINT":
+		return BIF_UAHINT, true
+	case "BIF_VALIDATE":
+		return BIF_VALIDATE, true
+	case "FOFX_ADDUNDORECORD":
+		return FOFX_ADDUNDORECORD, true
+	case "FOFX_COPYASDOWNLOAD":
+		return FOFX_COPYASDOWNLOAD, true
+	case "FOFX_DONTDISPLAYDESTPATH":
+		return FOFX_DONTDISPLAYDESTPATH, true
+	case "FOFX_DONTDISPLAYLOCATIONS":
+		return FOFX_DONTDISPLAYLOCATIONS, true
+	case "FOFX_DONTDISPLAYSOURCEPATH":
+		return FOFX_DONTDISPLAYSOURCEPATH, true
+	case "FOFX_EARLYFAILURE":
+		return FOFX_EARLYFAILURE, true
+	case "FOFX_KEEPNEWERFILE":
+		return FOFX_KEEPNEWERFILE, true
+	case "FOFX_MOVEACLSACROSSVOLUMES":
+		return FOFX_MOVEACLSACROSSVOLUMES, true
+	case "FOFX_NOCOPYHOOKS":
+		return FOFX_NOCOPYHOOKS, true
+	case "FOFX_NOMINIMIZEBOX":
+		return FOFX_NOMINIMIZEBOX, true
+	case "FOFX_NOSKIPJUNCTIONS":
+		return FOFX_NOSKIPJUNCTIONS, true
+	case "FOFX_PREFERHARDLINK":
+		return FOFX_PREFERHARDLINK, true
+	case "FOFX_PRESERVEFILEEXTENSIONS":
+		return FOFX_PRESERVEFILEEXTENSIONS, true
+	case "FOFX_RECYCLEONDELETE":
+		return FOFX_RECYCLEONDELETE, true
+	case "FOFX_REQUIREELEVATION":
+		return FOFX_REQUIREELEVATION, true
+	case "FOFX_SHOWELEVATIONPROMPT":
+		return FOFX_SHOWELEVATIONPROMPT, true
+	case "FOF_ALLOWUNDO":
+		return FOF_ALLOWUNDO, true
+	case "FOF_CONFIRMMOUSE":
+		return FOF_CONFIRMMOUSE, true
+	case "FOF_FILESONLY":
+		return FOF_FILESONLY, true
+	case "FOF_MULTIDESTFILES":
+		return FOF_MULTIDESTFILES, true
+	case "FOF_NOCONFIRMATION":
+		return FOF_NOCONFIRMATION, true
+	case "FOF_NOCONFIRMMKDIR":
+		return FOF_NOCONFIRMMKDIR, true
+	case "FOF_NOCOPYSECURITYATTRIBS":
+		return FOF_NOCOPYSECURITYATTRIBS, true
+	case "FOF_NOERRORUI":
+		return FOF_NOERRORUI, true
+	case "FOF_NORECURSEREPARSE":
+		return FOF_NORECURSEREPARSE, true
+	case "FOF_NORECURSION":
+		return FOF_NORECURSION, true
+	case "FOF_NO_CONNECTED_ELEMENTS":
+		return FOF_NO_CONNECTED_ELEMENTS, true
+	case "FOF_NO_UI":
+		return FOF_NO_UI, true
+	case "FOF_RENAMEONCOLLISION":
+		return FOF_RENAMEONCOLLISION, true
+	case "FOF_SILENT":
+		return FOF_SILENT, true
+	case "FOF_SIMPLEPROGRESS":
+		return FOF_SIMPLEPROGRESS, true
+	case "FOF_WANTMAPPINGHANDLE":
+		return FOF_WANTMAPPINGHANDLE, true
+	case "FOF_WANTNUKEWARNING":
+		return FOF_WANTNUKEWARNING, true
 	case "FOS_ALLNONSTORAGEITEMS":
 		return FOS_ALLNONSTORAGEITEMS, true
 	case "FOS_ALLOWMULTISELECT":
@@ -315,6 +819,46 @@ func Parse(name string) (Value, bool) {
 		return FOS_STRICTFILETYPES, true
 	case "FOS_SUPPORTSTREAMABLEITEMS":
 		return FOS_SUPPORTSTREAMABLEITEMS, true
+	case "FO_COPY":
+		return FO_COPY, true
+	case "FO_DELETE":
+		return FO_DELETE, true
+	case "FO_MOVE":
+		return FO_MOVE, true
+	case "FO_RENAME":
+		return FO_RENAME, true
+	case "KF_FLAG_ALIAS_ONLY":
+		return KF_FLAG_ALIAS_ONLY, true
+	case "KF_FLAG_CREATE":
+		return KF_FLAG_CREATE, true
+	case "KF_FLAG_DEFAULT":
+		return KF_FLAG_DEFAULT, true
+	case "KF_FLAG_DEFAULT_PATH":
+		return KF_FLAG_DEFAULT_PATH, true
+	case "KF_FLAG_DONT_UNEXPAND":
+		return KF_FLAG_DONT_UNEXPAND, true
+	case "KF_FLAG_DONT_VERIFY":
+		return KF_FLAG_DONT_VERIFY, true
+	case "KF_FLAG_FORCE_APPCONTAINER_REDIRECTION":
+		return KF_FLAG_FORCE_APPCONTAINER_REDIRECTION, true
+	case "KF_FLAG_FORCE_APP_DATA_REDIRECTION":
+		return KF_FLAG_FORCE_APP_DATA_REDIRECTION, true
+	case "KF_FLAG_FORCE_PACKAGE_REDIRECTION":
+		return KF_FLAG_FORCE_PACKAGE_REDIRECTION, true
+	case "KF_FLAG_INIT":
+		return KF_FLAG_INIT, true
+	case "KF_FLAG_NOT_PARENT_RELATIVE":
+		return KF_FLAG_NOT_PARENT_RELATIVE, true
+	case "KF_FLAG_NO_ALIAS":
+		return KF_FLAG_NO_ALIAS, true
+	case "KF_FLAG_NO_APPCONTAINER_REDIRECTION":
+		return KF_FLAG_NO_APPCONTAINER_REDIRECTION, true
+	case "KF_FLAG_NO_PACKAGE_REDIRECTION":
+		return KF_FLAG_NO_PACKAGE_REDIRECTION, true
+	case "KF_FLAG_RETURN_FILTER_REDIRECTION_TARGET":
+		return KF_FLAG_RETURN_FILTER_REDIRECTION_TARGET, true
+	case "KF_FLAG_SIMPLE_IDLIST":
+		return KF_FLAG_SIMPLE_IDLIST, true
 	case "NIF_GUID":
 		return NIF_GUID, true
 	case "NIF_ICON":
@@ -381,6 +925,178 @@ func Parse(name string) (Value, bool) {
 		return NOTIFYICON_VERSION, true
 	case "NOTIFYICON_VERSION_4":
 		return NOTIFYICON_VERSION_4, true
+	case "SEE_MASK_ASYNCOK":
+		return SEE_MASK_ASYNCOK, true
+	case "SEE_MASK_CLASSKEY":
+		return SEE_MASK_CLASSKEY, true
+	case "SEE_MASK_CLASSNAME":
+		return SEE_MASK_CLASSNAME, true
+	case "SEE_MASK_CONNECTNETDRV":
+		return SEE_MASK_CONNECTNETDRV, true
+	case "SEE_MASK_DEFAULT":
+		return SEE_MASK_DEFAULT, true
+	case "SEE_MASK_DOENVSUBST":
+		return SEE_MASK_DOENVSUBST, true
+	case "SEE_MASK_FLAG_DDEWAIT":
+		return SEE_MASK_FLAG_DDEWAIT, true
+	case "SEE_MASK_FLAG_HINST_IS_SITE":
+		return SEE_MASK_FLAG_HINST_IS_SITE, true
+	case "SEE_MASK_FLAG_LOG_USAGE":
+		return SEE_MASK_FLAG_LOG_USAGE, true
+	case "SEE_MASK_FLAG_NO_UI":
+		return SEE_MASK_FLAG_NO_UI, true
+	case "SEE_MASK_HMONITOR":
+		return SEE_MASK_HMONITOR, true
+	case "SEE_MASK_HOTKEY":
+		return SEE_MASK_HOTKEY, true
+	case "SEE_MASK_ICON":
+		return SEE_MASK_ICON, true
+	case "SEE_MASK_IDLIST":
+		return SEE_MASK_IDLIST, true
+	case "SEE_MASK_INVOKEIDLIST":
+		return SEE_MASK_INVOKEIDLIST, true
+	case "SEE_MASK_NOASYNC":
+		return SEE_MASK_NOASYNC, true
+	case "SEE_MASK_NOCLOSEPROCESS":
+		return SEE_MASK_NOCLOSEPROCESS, true
+	case "SEE_MASK_NOQUERYCLASSSTORE":
+		return SEE_MASK_NOQUERYCLASSSTORE, true
+	case "SEE_MASK_NOZONECHECKS":
+		return SEE_MASK_NOZONECHECKS, true
+	case "SEE_MASK_NO_CONSOLE":
+		return SEE_MASK_NO_CONSOLE, true
+	case "SEE_MASK_UNICODE":
+		return SEE_MASK_UNICODE, true
+	case "SEE_MASK_WAITFORINPUTIDLE":
+		return SEE_MASK_WAITFORINPUTIDLE, true
+	case "SFGAO_BROWSABLE":
+		return SFGAO_BROWSABLE, true
+	case "SFGAO_CANCOPY":
+		return SFGAO_CANCOPY, true
+	case "SFGAO_CANDELETE":
+		return SFGAO_CANDELETE, true
+	case "SFGAO_CANLINK":
+		return SFGAO_CANLINK, true
+	case "SFGAO_CANMONIKER":
+		return SFGAO_CANMONIKER, true
+	case "SFGAO_CANMOVE":
+		return SFGAO_CANMOVE, true
+	case "SFGAO_CANRENAME":
+		return SFGAO_CANRENAME, true
+	case "SFGAO_CAPABILITYMASK":
+		return SFGAO_CAPABILITYMASK, true
+	case "SFGAO_COMPRESSED":
+		return SFGAO_COMPRESSED, true
+	case "SFGAO_CONTENTSMASK":
+		return SFGAO_CONTENTSMASK, true
+	case "SFGAO_DISPLAYATTRMASK":
+		return SFGAO_DISPLAYATTRMASK, true
+	case "SFGAO_DROPTARGET":
+		return SFGAO_DROPTARGET, true
+	case "SFGAO_ENCRYPTED":
+		return SFGAO_ENCRYPTED, true
+	case "SFGAO_FILESYSANCESTOR":
+		return SFGAO_FILESYSANCESTOR, true
+	case "SFGAO_FILESYSTEM":
+		return SFGAO_FILESYSTEM, true
+	case "SFGAO_FOLDER":
+		return SFGAO_FOLDER, true
+	case "SFGAO_GHOSTED":
+		return SFGAO_GHOSTED, true
+	case "SFGAO_HASPROPSHEET":
+		return SFGAO_HASPROPSHEET, true
+	case "SFGAO_HASSTORAGE":
+		return SFGAO_HASSTORAGE, true
+	case "SFGAO_HASSUBFOLDER":
+		return SFGAO_HASSUBFOLDER, true
+	case "SFGAO_HIDDEN":
+		return SFGAO_HIDDEN, true
+	case "SFGAO_ISSLOW":
+		return SFGAO_ISSLOW, true
+	case "SFGAO_LINK":
+		return SFGAO_LINK, true
+	case "SFGAO_NEWCONTENT":
+		return SFGAO_NEWCONTENT, true
+	case "SFGAO_NONENUMERATED":
+		return SFGAO_NONENUMERATED, true
+	case "SFGAO_PKEYSFGAOMASK":
+		return SFGAO_PKEYSFGAOMASK, true
+	case "SFGAO_PLACEHOLDER":
+		return SFGAO_PLACEHOLDER, true
+	case "SFGAO_READONLY":
+		return SFGAO_READONLY, true
+	case "SFGAO_REMOVABLE":
+		return SFGAO_REMOVABLE, true
+	case "SFGAO_SHARE":
+		return SFGAO_SHARE, true
+	case "SFGAO_STORAGE":
+		return SFGAO_STORAGE, true
+	case "SFGAO_STORAGEANCESTOR":
+		return SFGAO_STORAGEANCESTOR, true
+	case "SFGAO_STORAGECAPMASK":
+		return SFGAO_STORAGECAPMASK, true
+	case "SFGAO_STREAM":
+		return SFGAO_STREAM, true
+	case "SFGAO_SYSTEM":
+		return SFGAO_SYSTEM, true
+	case "SFGAO_VALIDATE":
+		return SFGAO_VALIDATE, true
+	case "SHGFI_ADDOVERLAYS":
+		return SHGFI_ADDOVERLAYS, true
+	case "SHGFI_ATTRIBUTES":
+		return SHGFI_ATTRIBUTES, true
+	case "SHGFI_ATTR_SPECIFIED":
+		return SHGFI_ATTR_SPECIFIED, true
+	case "SHGFI_DISPLAYNAME":
+		return SHGFI_DISPLAYNAME, true
+	case "SHGFI_EXETYPE":
+		return SHGFI_EXETYPE, true
+	case "SHGFI_ICON":
+		return SHGFI_ICON, true
+	case "SHGFI_ICONLOCATION":
+		return SHGFI_ICONLOCATION, true
+	case "SHGFI_LARGEICON":
+		return SHGFI_LARGEICON, true
+	case "SHGFI_LINKOVERLAY":
+		return SHGFI_LINKOVERLAY, true
+	case "SHGFI_OPENICON":
+		return SHGFI_OPENICON, true
+	case "SHGFI_OVERLAYINDEX":
+		return SHGFI_OVERLAYINDEX, true
+	case "SHGFI_PIDL":
+		return SHGFI_PIDL, true
+	case "SHGFI_SELECTED":
+		return SHGFI_SELECTED, true
+	case "SHGFI_SHELLICONSIZE":
+		return SHGFI_SHELLICONSIZE, true
+	case "SHGFI_SMALLICON":
+		return SHGFI_SMALLICON, true
+	case "SHGFI_SYSICONINDEX":
+		return SHGFI_SYSICONINDEX, true
+	case "SHGFI_TYPENAME":
+		return SHGFI_TYPENAME, true
+	case "SHGFI_USEFILEATTRIBUTES":
+		return SHGFI_USEFILEATTRIBUTES, true
+	case "SIGDN_DESKTOPABSOLUTEEDITING":
+		return SIGDN_DESKTOPABSOLUTEEDITING, true
+	case "SIGDN_DESKTOPABSOLUTEPARSING":
+		return SIGDN_DESKTOPABSOLUTEPARSING, true
+	case "SIGDN_FILESYSPATH":
+		return SIGDN_FILESYSPATH, true
+	case "SIGDN_NORMALDISPLAY":
+		return SIGDN_NORMALDISPLAY, true
+	case "SIGDN_PARENTRELATIVE":
+		return SIGDN_PARENTRELATIVE, true
+	case "SIGDN_PARENTRELATIVEEDITING":
+		return SIGDN_PARENTRELATIVEEDITING, true
+	case "SIGDN_PARENTRELATIVEFORADDRESSBAR":
+		return SIGDN_PARENTRELATIVEFORADDRESSBAR, true
+	case "SIGDN_PARENTRELATIVEFORUI":
+		return SIGDN_PARENTRELATIVEFORUI, true
+	case "SIGDN_PARENTRELATIVEPARSING":
+		return SIGDN_PARENTRELATIVEPARSING, true
+	case "SIGDN_URL":
+		return SIGDN_URL, true
 	default:
 		return Value(0), false
 	}

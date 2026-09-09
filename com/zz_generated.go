@@ -2,7 +2,7 @@
 // Source: Microsoft.Windows.SDK.Win32Metadata 71.0.25-preview (65783efbef7950839ae287fa933610eb939fcddaef80024dea8465f37a9449ad).
 // Documentation: Microsoft.Windows.SDK.Win32Docs 0.1.42-alpha (e83bf398dceb1957d698d24daa8a23f986beedb0109727a0ee99b229a525230b).
 
-// Package com provides COM initialization, activation, storage, marshaling, and data-transfer flags.
+// Package com provides COM initialization, activation, storage, marshaling, variant types, and data-transfer flags.
 package com
 
 // Value is the common representation used by this package.
@@ -113,6 +113,11 @@ const (
 	COINIT_MULTITHREADED Value = 0x00000000
 	// COINIT_SPEED_OVER_MEMORY: Increase memory usage in an attempt to increase performance.
 	COINIT_SPEED_OVER_MEMORY Value = 0x00000008
+	DROPEFFECT_COPY          Value = 0x00000001
+	DROPEFFECT_LINK          Value = 0x00000004
+	DROPEFFECT_MOVE          Value = 0x00000002
+	DROPEFFECT_NONE          Value = 0x00000000
+	DROPEFFECT_SCROLL        Value = 0x80000000
 	// DVASPECT_CONTENT: Provides a representation of an object so it can be displayed as an embedded object inside of a
 	// container. This value is typically specified for compound document objects. The presentation can be provided for the
 	// screen or printer.
@@ -229,6 +234,106 @@ const (
 	TYMED_MULTIPAGE_FILE     Value = 0x00000100
 	// TYMED_NULL: No data is being passed.
 	TYMED_NULL Value = 0x00000000
+	// VT_ARRAY: A SAFEARRAY pointer.
+	VT_ARRAY Value = 0x00002000
+	// VT_BLOB: Length-prefixed bytes.
+	VT_BLOB Value = 0x00000041
+	// VT_BLOB_OBJECT: The blob contains an object.
+	VT_BLOB_OBJECT Value = 0x00000046
+	// VT_BOOL: A Boolean value. True is -1 and false is 0.
+	VT_BOOL Value = 0x0000000B
+	// VT_BSTR: A string.
+	VT_BSTR Value = 0x00000008
+	// VT_BSTR_BLOB: Reserved.
+	VT_BSTR_BLOB Value = 0x00000FFF
+	// VT_BYREF: A void pointer for local use.
+	VT_BYREF Value = 0x00004000
+	// VT_CARRAY: A C-style array.
+	VT_CARRAY Value = 0x0000001C
+	// VT_CF: A clipboard format.
+	VT_CF Value = 0x00000047
+	// VT_CLSID: A class ID.
+	VT_CLSID Value = 0x00000048
+	// VT_CY: Currency.
+	VT_CY Value = 0x00000006
+	// VT_DATE: A date.
+	VT_DATE Value = 0x00000007
+	// VT_DECIMAL: A 16-byte fixed-pointer value.
+	VT_DECIMAL Value = 0x0000000E
+	// VT_DISPATCH: An IDispatch pointer.
+	VT_DISPATCH Value = 0x00000009
+	// VT_EMPTY: Not specified.
+	VT_EMPTY Value = 0x00000000
+	// VT_ERROR: An SCODE value.
+	VT_ERROR Value = 0x0000000A
+	// VT_FILETIME: A FILETIME value.
+	VT_FILETIME Value = 0x00000040
+	// VT_HRESULT: An HRESULT value.
+	VT_HRESULT Value = 0x00000019
+	// VT_I1: A character.
+	VT_I1 Value = 0x00000010
+	// VT_I2: A 2-byte integer.
+	VT_I2 Value = 0x00000002
+	// VT_I4: A 4-byte integer.
+	VT_I4 Value = 0x00000003
+	// VT_I8: A 64-bit integer.
+	VT_I8            Value = 0x00000014
+	VT_ILLEGAL       Value = 0x0000FFFF
+	VT_ILLEGALMASKED Value = 0x00000FFF
+	// VT_INT: An integer.
+	VT_INT Value = 0x00000016
+	// VT_INT_PTR: A signed machine register size width.
+	VT_INT_PTR Value = 0x00000025
+	// VT_LPSTR: A null-terminated string.
+	VT_LPSTR Value = 0x0000001E
+	// VT_LPWSTR: A wide null-terminated string.
+	VT_LPWSTR Value = 0x0000001F
+	// VT_NULL: Null.
+	VT_NULL Value = 0x00000001
+	// VT_PTR: A pointer type.
+	VT_PTR Value = 0x0000001A
+	// VT_R4: A 4-byte real.
+	VT_R4 Value = 0x00000004
+	// VT_R8: An 8-byte real.
+	VT_R8 Value = 0x00000005
+	// VT_RECORD: A user-defined type.
+	VT_RECORD   Value = 0x00000024
+	VT_RESERVED Value = 0x00008000
+	// VT_SAFEARRAY: A safe array. Use VT_ARRAY in VARIANT.
+	VT_SAFEARRAY Value = 0x0000001B
+	// VT_STORAGE: The name of the storage follows.
+	VT_STORAGE Value = 0x00000043
+	// VT_STORED_OBJECT: The storage contains an object.
+	VT_STORED_OBJECT Value = 0x00000045
+	// VT_STREAM: The name of the stream follows.
+	VT_STREAM Value = 0x00000042
+	// VT_STREAMED_OBJECT: The stream contains an object.
+	VT_STREAMED_OBJECT Value = 0x00000044
+	VT_TYPEMASK        Value = 0x00000FFF
+	// VT_UI1: An unsigned character.
+	VT_UI1 Value = 0x00000011
+	// VT_UI2: An unsigned short.
+	VT_UI2 Value = 0x00000012
+	// VT_UI4: An unsigned long.
+	VT_UI4 Value = 0x00000013
+	// VT_UI8: A 64-bit unsigned integer.
+	VT_UI8 Value = 0x00000015
+	// VT_UINT: An unsigned integer.
+	VT_UINT Value = 0x00000017
+	// VT_UINT_PTR: An unsigned machine register size width.
+	VT_UINT_PTR Value = 0x00000026
+	// VT_UNKNOWN: An IUnknown pointer.
+	VT_UNKNOWN Value = 0x0000000D
+	// VT_USERDEFINED: A user-defined type.
+	VT_USERDEFINED Value = 0x0000001D
+	// VT_VARIANT: A variant pointer.
+	VT_VARIANT Value = 0x0000000C
+	// VT_VECTOR: A simple counted array.
+	VT_VECTOR Value = 0x00001000
+	// VT_VERSIONED_STREAM: A stream with a GUID version.
+	VT_VERSIONED_STREAM Value = 0x00000049
+	// VT_VOID: A C-style void.
+	VT_VOID Value = 0x00000018
 )
 
 // Name returns the canonical symbolic name for value.
@@ -246,20 +351,86 @@ func Name(value Value) (string, bool) {
 		return "CLSCTX_LOCAL_SERVER", true
 	case Value(0x00000005):
 		return "MSHCTX_CONTAINER", true
+	case Value(0x00000006):
+		return "VT_CY", true
+	case Value(0x00000007):
+		return "VT_DATE", true
 	case Value(0x00000008):
 		return "CLSCTX_INPROC_SERVER16", true
+	case Value(0x00000009):
+		return "VT_DISPATCH", true
+	case Value(0x0000000A):
+		return "VT_ERROR", true
+	case Value(0x0000000B):
+		return "VT_BOOL", true
+	case Value(0x0000000C):
+		return "VT_VARIANT", true
+	case Value(0x0000000D):
+		return "VT_UNKNOWN", true
+	case Value(0x0000000E):
+		return "VT_DECIMAL", true
 	case Value(0x00000010):
 		return "CLSCTX_REMOTE_SERVER", true
+	case Value(0x00000011):
+		return "VT_UI1", true
+	case Value(0x00000012):
+		return "VT_UI2", true
+	case Value(0x00000013):
+		return "VT_UI4", true
+	case Value(0x00000014):
+		return "VT_I8", true
 	case Value(0x00000015):
 		return "CLSCTX_SERVER", true
+	case Value(0x00000016):
+		return "VT_INT", true
 	case Value(0x00000017):
 		return "CLSCTX_ALL", true
+	case Value(0x00000018):
+		return "VT_VOID", true
+	case Value(0x00000019):
+		return "VT_HRESULT", true
+	case Value(0x0000001A):
+		return "VT_PTR", true
+	case Value(0x0000001B):
+		return "VT_SAFEARRAY", true
+	case Value(0x0000001C):
+		return "VT_CARRAY", true
+	case Value(0x0000001D):
+		return "VT_USERDEFINED", true
+	case Value(0x0000001E):
+		return "VT_LPSTR", true
+	case Value(0x0000001F):
+		return "VT_LPWSTR", true
 	case Value(0x00000020):
 		return "CLSCTX_INPROC_HANDLER16", true
+	case Value(0x00000024):
+		return "VT_RECORD", true
+	case Value(0x00000025):
+		return "VT_INT_PTR", true
+	case Value(0x00000026):
+		return "VT_UINT_PTR", true
 	case Value(0x00000030):
 		return "STGM_SHARE_DENY_READ", true
 	case Value(0x00000040):
 		return "CLSCTX_RESERVED1", true
+	case Value(0x00000041):
+		return "VT_BLOB", true
+	case Value(0x00000042):
+		return "VT_STREAM", true
+	case Value(0x00000043):
+		return "VT_STORAGE", true
+	case Value(0x00000044):
+		return "VT_STREAMED_OBJECT", true
+	case Value(0x00000045):
+		return "VT_STORED_OBJECT", true
+	case Value(0x00000046):
+		return "VT_BLOB_OBJECT", true
+	case Value(0x00000047):
+		return "VT_CF", true
+	case Value(0x00000048):
+		return "VT_CLSID", true
+	case Value(0x00000049):
+		return "VT_VERSIONED_STREAM", true
 	case Value(0x00000080):
 		return "CLSCTX_RESERVED2", true
 	case Value(0x00000100):
@@ -270,6 +441,8 @@ func Name(value Value) (string, bool) {
 		return "CLSCTX_NO_CODE_DOWNLOAD", true
 	case Value(0x00000800):
 		return "CLSCTX_RESERVED5", true
+	case Value(0x00000FFF):
+		return "VT_BSTR_BLOB", true
 	case Value(0x00001000):
 		return "CLSCTX_NO_CUSTOM_MARSHAL", true
 	case Value(0x00002000):
@@ -278,6 +451,8 @@ func Name(value Value) (string, bool) {
 		return "CLSCTX_NO_FAILURE_LOG", true
 	case Value(0x00008000):
 		return "CLSCTX_DISABLE_AAA", true
+	case Value(0x0000FFFF):
+		return "VT_ILLEGAL", true
 	case Value(0x00010000):
 		return "CLSCTX_ENABLE_AAA", true
 	case Value(0x00020000):
@@ -317,31 +492,97 @@ func Name(value Value) (string, bool) {
 func Names(value Value) []string {
 	switch value {
 	case Value(0x00000000):
-		return []string{"COINIT_MULTITHREADED", "MSHCTX_LOCAL", "MSHLFLAGS_NORMAL", "STGM_DIRECT", "STGM_FAILIFTHERE", "STGM_READ", "TYMED_NULL"}
+		return []string{"COINIT_MULTITHREADED", "DROPEFFECT_NONE", "MSHCTX_LOCAL", "MSHLFLAGS_NORMAL", "STGM_DIRECT", "STGM_FAILIFTHERE", "STGM_READ", "TYMED_NULL", "VT_EMPTY"}
 	case Value(0x00000001):
-		return []string{"CLSCTX_INPROC_SERVER", "DVASPECT_CONTENT", "MSHCTX_NOSHAREDMEM", "MSHLFLAGS_TABLESTRONG", "STGM_WRITE", "TYMED_HGLOBAL"}
+		return []string{"CLSCTX_INPROC_SERVER", "DROPEFFECT_COPY", "DVASPECT_CONTENT", "MSHCTX_NOSHAREDMEM", "MSHLFLAGS_TABLESTRONG", "STGM_WRITE", "TYMED_HGLOBAL", "VT_NULL"}
 	case Value(0x00000002):
-		return []string{"CLSCTX_INPROC_HANDLER", "COINIT_APARTMENTTHREADED", "DVASPECT_SHORTNAME", "DVASPECT_THUMBNAIL", "MSHCTX_DIFFERENTMACHINE", "MSHLFLAGS_TABLEWEAK", "STGM_READWRITE", "TYMED_FILE"}
+		return []string{"CLSCTX_INPROC_HANDLER", "COINIT_APARTMENTTHREADED", "DROPEFFECT_MOVE", "DVASPECT_SHORTNAME", "DVASPECT_THUMBNAIL", "MSHCTX_DIFFERENTMACHINE", "MSHLFLAGS_TABLEWEAK", "STGM_READWRITE", "TYMED_FILE", "VT_I2"}
 	case Value(0x00000003):
-		return []string{"DVASPECT_COPY", "MSHCTX_INPROC"}
+		return []string{"DVASPECT_COPY", "MSHCTX_INPROC", "VT_I4"}
 	case Value(0x00000004):
-		return []string{"CLSCTX_LOCAL_SERVER", "COINIT_DISABLE_OLE1DDE", "DVASPECT_ICON", "DVASPECT_LINK", "MSHCTX_CROSSCTX", "MSHLFLAGS_NOPING", "TYMED_ISTREAM"}
+		return []string{"CLSCTX_LOCAL_SERVER", "COINIT_DISABLE_OLE1DDE", "DROPEFFECT_LINK", "DVASPECT_ICON", "DVASPECT_LINK", "MSHCTX_CROSSCTX", "MSHLFLAGS_NOPING", "TYMED_ISTREAM", "VT_R4"}
 	case Value(0x00000005):
-		return []string{"MSHCTX_CONTAINER"}
+		return []string{"MSHCTX_CONTAINER", "VT_R8"}
+	case Value(0x00000006):
+		return []string{"VT_CY"}
+	case Value(0x00000007):
+		return []string{"VT_DATE"}
 	case Value(0x00000008):
-		return []string{"CLSCTX_INPROC_SERVER16", "COINIT_SPEED_OVER_MEMORY", "DVASPECT_DOCPRINT", "MSHLFLAGS_RESERVED1", "TYMED_ISTORAGE"}
+		return []string{"CLSCTX_INPROC_SERVER16", "COINIT_SPEED_OVER_MEMORY", "DVASPECT_DOCPRINT", "MSHLFLAGS_RESERVED1", "TYMED_ISTORAGE", "VT_BSTR"}
+	case Value(0x00000009):
+		return []string{"VT_DISPATCH"}
+	case Value(0x0000000A):
+		return []string{"VT_ERROR"}
+	case Value(0x0000000B):
+		return []string{"VT_BOOL"}
+	case Value(0x0000000C):
+		return []string{"VT_VARIANT"}
+	case Value(0x0000000D):
+		return []string{"VT_UNKNOWN"}
+	case Value(0x0000000E):
+		return []string{"VT_DECIMAL"}
 	case Value(0x00000010):
-		return []string{"CLSCTX_REMOTE_SERVER", "DVASPECT_OPAQUE", "MSHLFLAGS_RESERVED2", "STGM_SHARE_EXCLUSIVE", "TYMED_GDI"}
+		return []string{"CLSCTX_REMOTE_SERVER", "DVASPECT_OPAQUE", "MSHLFLAGS_RESERVED2", "STGM_SHARE_EXCLUSIVE", "TYMED_GDI", "VT_I1"}
+	case Value(0x00000011):
+		return []string{"VT_UI1"}
+	case Value(0x00000012):
+		return []string{"VT_UI2"}
+	case Value(0x00000013):
+		return []string{"VT_UI4"}
+	case Value(0x00000014):
+		return []string{"VT_I8"}
 	case Value(0x00000015):
-		return []string{"CLSCTX_SERVER"}
+		return []string{"CLSCTX_SERVER", "VT_UI8"}
+	case Value(0x00000016):
+		return []string{"VT_INT"}
 	case Value(0x00000017):
-		return []string{"CLSCTX_ALL"}
+		return []string{"CLSCTX_ALL", "VT_UINT"}
+	case Value(0x00000018):
+		return []string{"VT_VOID"}
+	case Value(0x00000019):
+		return []string{"VT_HRESULT"}
+	case Value(0x0000001A):
+		return []string{"VT_PTR"}
+	case Value(0x0000001B):
+		return []string{"VT_SAFEARRAY"}
+	case Value(0x0000001C):
+		return []string{"VT_CARRAY"}
+	case Value(0x0000001D):
+		return []string{"VT_USERDEFINED"}
+	case Value(0x0000001E):
+		return []string{"VT_LPSTR"}
+	case Value(0x0000001F):
+		return []string{"VT_LPWSTR"}
 	case Value(0x00000020):
 		return []string{"CLSCTX_INPROC_HANDLER16", "DVASPECT_TRANSPARENT", "MSHLFLAGS_RESERVED3", "STGM_SHARE_DENY_WRITE", "TYMED_MFPICT"}
+	case Value(0x00000024):
+		return []string{"VT_RECORD"}
+	case Value(0x00000025):
+		return []string{"VT_INT_PTR"}
+	case Value(0x00000026):
+		return []string{"VT_UINT_PTR"}
 	case Value(0x00000030):
 		return []string{"STGM_SHARE_DENY_READ"}
 	case Value(0x00000040):
-		return []string{"CLSCTX_RESERVED1", "MSHLFLAGS_RESERVED4", "STGM_SHARE_DENY_NONE", "TYMED_ENHMF"}
+		return []string{"CLSCTX_RESERVED1", "MSHLFLAGS_RESERVED4", "STGM_SHARE_DENY_NONE", "TYMED_ENHMF", "VT_FILETIME"}
+	case Value(0x00000041):
+		return []string{"VT_BLOB"}
+	case Value(0x00000042):
+		return []string{"VT_STREAM"}
+	case Value(0x00000043):
+		return []string{"VT_STORAGE"}
+	case Value(0x00000044):
+		return []string{"VT_STREAMED_OBJECT"}
+	case Value(0x00000045):
+		return []string{"VT_STORED_OBJECT"}
+	case Value(0x00000046):
+		return []string{"VT_BLOB_OBJECT"}
+	case Value(0x00000047):
+		return []string{"VT_CF"}
+	case Value(0x00000048):
+		return []string{"VT_CLSID"}
+	case Value(0x00000049):
+		return []string{"VT_VERSIONED_STREAM"}
 	case Value(0x00000080):
 		return []string{"CLSCTX_RESERVED2", "TYMED_CALLBACK"}
 	case Value(0x00000100):
@@ -352,14 +593,18 @@ func Names(value Value) []string {
 		return []string{"CLSCTX_NO_CODE_DOWNLOAD"}
 	case Value(0x00000800):
 		return []string{"CLSCTX_RESERVED5"}
+	case Value(0x00000FFF):
+		return []string{"VT_BSTR_BLOB", "VT_ILLEGALMASKED", "VT_TYPEMASK"}
 	case Value(0x00001000):
-		return []string{"CLSCTX_NO_CUSTOM_MARSHAL", "STGM_CREATE"}
+		return []string{"CLSCTX_NO_CUSTOM_MARSHAL", "STGM_CREATE", "VT_VECTOR"}
 	case Value(0x00002000):
-		return []string{"CLSCTX_ENABLE_CODE_DOWNLOAD", "STGM_COLLECTION"}
+		return []string{"CLSCTX_ENABLE_CODE_DOWNLOAD", "STGM_COLLECTION", "VT_ARRAY"}
 	case Value(0x00004000):
-		return []string{"CLSCTX_NO_FAILURE_LOG"}
+		return []string{"CLSCTX_NO_FAILURE_LOG", "VT_BYREF"}
 	case Value(0x00008000):
-		return []string{"CLSCTX_DISABLE_AAA", "STGM_OUTPUT"}
+		return []string{"CLSCTX_DISABLE_AAA", "STGM_OUTPUT", "VT_RESERVED"}
+	case Value(0x0000FFFF):
+		return []string{"VT_ILLEGAL"}
 	case Value(0x00010000):
 		return []string{"CLSCTX_ENABLE_AAA", "STGM_TRANSACTED"}
 	case Value(0x00020000):
@@ -389,7 +634,7 @@ func Names(value Value) []string {
 	case Value(0x40000000):
 		return []string{"STGM_STRICTOPEN"}
 	case Value(0x80000000):
-		return []string{"CLSCTX_PS_DLL", "STGM_OPEN"}
+		return []string{"CLSCTX_PS_DLL", "DROPEFFECT_SCROLL", "STGM_OPEN"}
 	default:
 		return nil
 	}
@@ -470,6 +715,16 @@ func Parse(name string) (Value, bool) {
 		return COINIT_MULTITHREADED, true
 	case "COINIT_SPEED_OVER_MEMORY":
 		return COINIT_SPEED_OVER_MEMORY, true
+	case "DROPEFFECT_COPY":
+		return DROPEFFECT_COPY, true
+	case "DROPEFFECT_LINK":
+		return DROPEFFECT_LINK, true
+	case "DROPEFFECT_MOVE":
+		return DROPEFFECT_MOVE, true
+	case "DROPEFFECT_NONE":
+		return DROPEFFECT_NONE, true
+	case "DROPEFFECT_SCROLL":
+		return DROPEFFECT_SCROLL, true
 	case "DVASPECT_CONTENT":
 		return DVASPECT_CONTENT, true
 	case "DVASPECT_COPY":
@@ -584,6 +839,110 @@ func Parse(name string) (Value, bool) {
 		return TYMED_MULTIPAGE_FILE, true
 	case "TYMED_NULL":
 		return TYMED_NULL, true
+	case "VT_ARRAY":
+		return VT_ARRAY, true
+	case "VT_BLOB":
+		return VT_BLOB, true
+	case "VT_BLOB_OBJECT":
+		return VT_BLOB_OBJECT, true
+	case "VT_BOOL":
+		return VT_BOOL, true
+	case "VT_BSTR":
+		return VT_BSTR, true
+	case "VT_BSTR_BLOB":
+		return VT_BSTR_BLOB, true
+	case "VT_BYREF":
+		return VT_BYREF, true
+	case "VT_CARRAY":
+		return VT_CARRAY, true
+	case "VT_CF":
+		return VT_CF, true
+	case "VT_CLSID":
+		return VT_CLSID, true
+	case "VT_CY":
+		return VT_CY, true
+	case "VT_DATE":
+		return VT_DATE, true
+	case "VT_DECIMAL":
+		return VT_DECIMAL, true
+	case "VT_DISPATCH":
+		return VT_DISPATCH, true
+	case "VT_EMPTY":
+		return VT_EMPTY, true
+	case "VT_ERROR":
+		return VT_ERROR, true
+	case "VT_FILETIME":
+		return VT_FILETIME, true
+	case "VT_HRESULT":
+		return VT_HRESULT, true
+	case "VT_I1":
+		return VT_I1, true
+	case "VT_I2":
+		return VT_I2, true
+	case "VT_I4":
+		return VT_I4, true
+	case "VT_I8":
+		return VT_I8, true
+	case "VT_ILLEGAL":
+		return VT_ILLEGAL, true
+	case "VT_ILLEGALMASKED":
+		return VT_ILLEGALMASKED, true
+	case "VT_INT":
+		return VT_INT, true
+	case "VT_INT_PTR":
+		return VT_INT_PTR, true
+	case "VT_LPSTR":
+		return VT_LPSTR, true
+	case "VT_LPWSTR":
+		return VT_LPWSTR, true
+	case "VT_NULL":
+		return VT_NULL, true
+	case "VT_PTR":
+		return VT_PTR, true
+	case "VT_R4":
+		return VT_R4, true
+	case "VT_R8":
+		return VT_R8, true
+	case "VT_RECORD":
+		return VT_RECORD, true
+	case "VT_RESERVED":
+		return VT_RESERVED, true
+	case "VT_SAFEARRAY":
+		return VT_SAFEARRAY, true
+	case "VT_STORAGE":
+		return VT_STORAGE, true
+	case "VT_STORED_OBJECT":
+		return VT_STORED_OBJECT, true
+	case "VT_STREAM":
+		return VT_STREAM, true
+	case "VT_STREAMED_OBJECT":
+		return VT_STREAMED_OBJECT, true
+	case "VT_TYPEMASK":
+		return VT_TYPEMASK, true
+	case "VT_UI1":
+		return VT_UI1, true
+	case "VT_UI2":
+		return VT_UI2, true
+	case "VT_UI4":
+		return VT_UI4, true
+	case "VT_UI8":
+		return VT_UI8, true
+	case "VT_UINT":
+		return VT_UINT, true
+	case "VT_UINT_PTR":
+		return VT_UINT_PTR, true
+	case "VT_UNKNOWN":
+		return VT_UNKNOWN, true
+	case "VT_USERDEFINED":
+		return VT_USERDEFINED, true
+	case "VT_VARIANT":
+		return VT_VARIANT, true
+	case "VT_VECTOR":
+		return VT_VECTOR, true
+	case "VT_VERSIONED_STREAM":
+		return VT_VERSIONED_STREAM, true
+	case "VT_VOID":
+		return VT_VOID, true
 	default:
 		return Value(0), false
 	}

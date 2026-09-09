@@ -261,6 +261,281 @@ const (
 	CS_SAVEBITS        Value = 2048
 	CS_VREDRAW         Value = 1
 	CW_USEDEFAULT      Value = -2147483648
+	DCX_EXCLUDEUPDATE  Value = 256
+	// DI_COMPAT: This flag is ignored.
+	DI_COMPAT Value = 4
+	// DI_DEFAULTSIZE: Draws the icon or cursor using the width and height specified by the system metric values for icons,
+	// if the cxWidth and cyWidth parameters are set to zero. If this flag is not specified and cxWidth and cyWidth are set
+	// to zero, the function uses the actual resource size.
+	DI_DEFAULTSIZE Value = 8
+	// DI_IMAGE: Draws the icon or cursor using the image. See Remarks.
+	DI_IMAGE Value = 2
+	// DI_MASK: Draws the icon or cursor using the mask. See Remarks.
+	DI_MASK Value = 1
+	// DI_NOMIRROR: Draws the icon as an unmirrored icon. By default, the icon is drawn as a mirrored icon if hdc is
+	// mirrored.
+	DI_NOMIRROR Value = 16
+	// DI_NORMAL: Combination of DI_IMAGE and DI_MASK . See Remarks.
+	DI_NORMAL            Value = 3
+	DLGC_BUTTON          Value = 8192
+	DLGC_DEFPUSHBUTTON   Value = 16
+	DLGC_HASSETSEL       Value = 8
+	DLGC_RADIOBUTTON     Value = 64
+	DLGC_STATIC          Value = 256
+	DLGC_UNDEFPUSHBUTTON Value = 32
+	DLGC_WANTALLKEYS     Value = 4
+	DLGC_WANTARROWS      Value = 1
+	DLGC_WANTCHARS       Value = 128
+	DLGC_WANTMESSAGE     Value = 4
+	DLGC_WANTTAB         Value = 2
+	// DM_GETDEFID: Retrieves the identifier of the default push button control for a dialog box.
+	DM_GETDEFID Value = 1024
+	// DM_POINTERHITTEST: Sent to a window, when pointer input is first detected, in order to determine the most probable
+	// input target for Direct Manipulation.
+	DM_POINTERHITTEST Value = 592
+	// DM_REPOSITION: Repositions a top-level dialog box so that it fits within the desktop area. An application can send
+	// this message to a dialog box after resizing it to ensure that the entire dialog box remains visible.
+	DM_REPOSITION Value = 1026
+	// DM_SETDEFID: Changes the identifier of the default push button for a dialog box.
+	DM_SETDEFID      Value = 1025
+	DS_3DLOOK        Value = 4
+	DS_ABSALIGN      Value = 1
+	DS_CENTER        Value = 2048
+	DS_CENTERMOUSE   Value = 4096
+	DS_CONTEXTHELP   Value = 8192
+	DS_CONTROL       Value = 1024
+	DS_FIXEDSYS      Value = 8
+	DS_LOCALEDIT     Value = 32
+	DS_MODALFRAME    Value = 128
+	DS_NOFAILCREATE  Value = 16
+	DS_NOIDLEMSG     Value = 256
+	DS_SETFONT       Value = 64
+	DS_SETFOREGROUND Value = 512
+	DS_SYSMODAL      Value = 2
+	DS_USEPIXELS     Value = 32768
+	// EM_CANUNDO: Determines whether there are any actions in an edit control's undo queue. You can send this message to
+	// either an edit control or a rich edit control.
+	EM_CANUNDO Value = 198
+	// EM_CHARFROMPOS: Gets information about the character closest to a specified point in the client area of an edit
+	// control. You can send this message to either an edit control or a rich edit control.
+	EM_CHARFROMPOS Value = 215
+	// EM_EMPTYUNDOBUFFER: Resets the undo flag of an edit control. The undo flag is set whenever an operation within the
+	// edit control can be undone. You can send this message to either an edit control or a rich edit control.
+	EM_EMPTYUNDOBUFFER Value = 205
+	EM_ENABLEFEATURE   Value = 218
+	// EM_ENABLESEARCHWEB: Enables or disables the "Search the web" feature and context menu entry.
+	EM_ENABLESEARCHWEB Value = 5390
+	// EM_FILELINEFROMCHAR: Gets the index of the line that contains the specified character index in a multiline edit
+	// control, independently of how lines are displayed on the screen.
+	EM_FILELINEFROMCHAR Value = 5395
+	// EM_FILELINEINDEX: Gets the character index of the first character of a specified line in a multiline edit control,
+	// independently of how lines are displayed on the screen.
+	EM_FILELINEINDEX Value = 5396
+	// EM_FILELINELENGTH: Retrieves the length, in characters, of a line in an edit control, independently of how lines are
+	// displayed on the screen.
+	EM_FILELINELENGTH Value = 5397
+	// EM_FMTLINES: Sets a flag that determines whether a multiline edit control includes soft line-break characters. A
+	// soft line break consists of two carriage returns and a line feed and is inserted at the end of a line that is broken
+	// because of wordwrapping.
+	EM_FMTLINES Value = 200
+	// EM_GETCARETINDEX: Gets the zero-based index of the position of the caret in an edit control.
+	EM_GETCARETINDEX Value = 5394
+	// EM_GETCUEBANNER: Gets the text that is displayed as the textual cue, or tip, in an edit control.
+	EM_GETCUEBANNER Value = 5378
+	// EM_GETENDOFLINE: Retrieves the end-of-line character used when a linebreak is inserted. Send this message explicitly
+	// or by using the Edit\_GetEndOfLine macro.
+	EM_GETENDOFLINE Value = 5389
+	// EM_GETEXTENDEDSTYLE: Retrieves the extended style for an edit control. Send this message explicitly or by using the
+	// Edit\_GetExtendedStyle macro.
+	EM_GETEXTENDEDSTYLE Value = 5387
+	// EM_GETFILELINE: Copies a line of text from an edit control, independently of how lines are displayed on the screen,
+	// and places it in a specified buffer.
+	EM_GETFILELINE Value = 5398
+	// EM_GETFILELINECOUNT: Gets the number of lines in a multiline edit control, independently of how lines are displayed
+	// on the screen.
+	EM_GETFILELINECOUNT Value = 5399
+	// EM_GETFIRSTVISIBLELINE: Gets the zero-based index of the uppermost visible line in a multiline edit control. You can
+	// send this message to either an edit control or a rich edit control.
+	EM_GETFIRSTVISIBLELINE Value = 206
+	// EM_GETHANDLE: Gets a handle of the memory currently allocated for a multiline edit control's text.
+	EM_GETHANDLE Value = 189
+	// EM_GETHILITE: EM\_GETHILITE message
+	EM_GETHILITE Value = 5382
+	// EM_GETIMESTATUS: Gets a set of status flags that indicate how the edit control interacts with the Input Method
+	// Editor (IME).
+	EM_GETIMESTATUS Value = 217
+	// EM_GETLIMITTEXT: Gets the current text limit for an edit control. You can send this message to either an edit
+	// control or a rich edit control.
+	EM_GETLIMITTEXT Value = 213
+	// EM_GETLINE: Copies a line of text from an edit control and places it in a specified buffer. You can send this
+	// message to either an edit control or a rich edit control.
+	EM_GETLINE Value = 196
+	// EM_GETLINECOUNT: Gets the number of lines in a multiline edit control. You can send this message to either an edit
+	// control or a rich edit control.
+	EM_GETLINECOUNT Value = 186
+	// EM_GETMARGINS: Gets the widths of the left and right margins for an edit control.
+	EM_GETMARGINS Value = 212
+	// EM_GETMODIFY: Gets the state of an edit control's modification flag. The flag indicates whether the contents of the
+	// edit control have been modified. You can send this message to either an edit control or a rich edit control.
+	EM_GETMODIFY Value = 184
+	// EM_GETPASSWORDCHAR: Gets the password character that an edit control displays when the user enters text. You can
+	// send this message to either an edit control or a rich edit control.
+	EM_GETPASSWORDCHAR Value = 210
+	// EM_GETRECT: Gets the formatting rectangle of an edit control.
+	EM_GETRECT Value = 178
+	// EM_GETSEL: Gets the starting and ending character positions (in TCHARs) of the current selection in an edit control.
+	// You can send this message to either an edit control or a rich edit control.
+	EM_GETSEL Value = 176
+	// EM_GETTHUMB: Gets the position of the scroll box (thumb) in the vertical scroll bar of a multiline edit control. You
+	// can send this message to either an edit control or a rich edit control.
+	EM_GETTHUMB Value = 190
+	// EM_GETWORDBREAKPROC: Gets the address of the current Wordwrap function. You can send this message to either an edit
+	// control or a rich edit control.
+	EM_GETWORDBREAKPROC Value = 209
+	// EM_HIDEBALLOONTIP: Hides any balloon tip associated with an edit control.
+	EM_HIDEBALLOONTIP Value = 5380
+	// EM_LIMITTEXT: EM_LIMITTEXT message - Sets the text limit of an edit control.
+	EM_LIMITTEXT Value = 197
+	// EM_LINEFROMCHAR: Gets the index of the line that contains the specified character index in a multiline edit control.
+	EM_LINEFROMCHAR Value = 201
+	// EM_LINEINDEX: Gets the character index of the first character of a specified line in a multiline edit control.
+	EM_LINEINDEX Value = 187
+	// EM_LINELENGTH: Retrieves the length, in characters, of a line in an edit control. You can send this message to
+	// either an edit control or a rich edit control.
+	EM_LINELENGTH Value = 193
+	// EM_LINESCROLL: Scrolls the text in a multiline edit control.
+	EM_LINESCROLL Value = 182
+	// EM_NOSETFOCUS: Prevents a single-line edit control from receiving keyboard focus. You can send this message
+	// explicitly or by using the Edit\_NoSetFocus macro.
+	EM_NOSETFOCUS Value = 5383
+	// EM_POSFROMCHAR: Retrieves the client area coordinates of a specified character in an edit control. You can send this
+	// message to either an edit control or a rich edit control.
+	EM_POSFROMCHAR Value = 214
+	// EM_REPLACESEL: Replaces the selected text in an edit control or a rich edit control with the specified text.
+	EM_REPLACESEL Value = 194
+	// EM_SCROLL: Scrolls the text vertically in a multiline edit control. This message is equivalent to sending a
+	// WM\_VSCROLL message to the edit control. You can send this message to either an edit control or a rich edit control.
+	EM_SCROLL Value = 181
+	// EM_SCROLLCARET: Scrolls the caret into view in an edit control. You can send this message to either an edit control
+	// or a rich edit control.
+	EM_SCROLLCARET Value = 183
+	// EM_SEARCHWEB: Opens the browser and performs a web search with the selected text as the search term.
+	EM_SEARCHWEB Value = 5391
+	// EM_SETCARETINDEX: Sets the zero-based index value of the position of the caret in an edit control.
+	EM_SETCARETINDEX Value = 5393
+	// EM_SETCUEBANNER: Sets the textual cue, or tip, that is displayed by the edit control to prompt the user for
+	// information.
+	EM_SETCUEBANNER Value = 5377
+	// EM_SETENDOFLINE: Sets the end-of-line character used when a linebreak is inserted.
+	EM_SETENDOFLINE Value = 5388
+	// EM_SETEXTENDEDSTYLE: Informs the edit control to set extended styles. Send this message or use the macro
+	// Edit\_SetExtendedStyle.
+	EM_SETEXTENDEDSTYLE Value = 5386
+	// EM_SETHANDLE: Sets the handle of the memory that will be used by a multiline edit control.
+	EM_SETHANDLE Value = 188
+	// EM_SETHILITE: EM_SETHILITE message - Not implemented.
+	EM_SETHILITE Value = 5381
+	// EM_SETIMESTATUS: Sets the status flags that determine how an edit control interacts with the Input Method Editor
+	// (IME).
+	EM_SETIMESTATUS Value = 216
+	// EM_SETLIMITTEXT: EM_SETLIMITTEXT message - Sets the text limit of an edit control.
+	EM_SETLIMITTEXT Value = 197
+	// EM_SETMARGINS: Sets the widths of the left and right margins for an edit control. The message redraws the control to
+	// reflect the new margins. You can send this message to either an edit control or a rich edit control.
+	EM_SETMARGINS Value = 211
+	// EM_SETMODIFY: Sets or clears the modification flag for an edit control. The modification flag indicates whether the
+	// text within the edit control has been modified. You can send this message to either an edit control or a rich edit
+	// control.
+	EM_SETMODIFY Value = 185
+	// EM_SETPASSWORDCHAR: Sets or removes the password character for an edit control. When a password character is set,
+	// that character is displayed in place of the characters typed by the user. You can send this message to either an
+	// edit control or a rich edit control.
+	EM_SETPASSWORDCHAR Value = 204
+	// EM_SETREADONLY: Sets or removes the read-only style (ES\_READONLY) of an edit control. You can send this message to
+	// either an edit control or a rich edit control.
+	EM_SETREADONLY Value = 207
+	// EM_SETRECT: EM_SETRECT message - Sets the formatting rectangle of a multiline edit control.
+	EM_SETRECT Value = 179
+	// EM_SETRECTNP: EM_SETRECTNP message - Sets the formatting rectangle of a multiline edit control.
+	EM_SETRECTNP Value = 180
+	// EM_SETSEL: Selects a range of characters in an edit control. You can send this message to either an edit control or
+	// a rich edit control.
+	EM_SETSEL Value = 177
+	// EM_SETTABSTOPS: The EM\_SETTABSTOPS message sets the tab stops in a multiline edit control.
+	EM_SETTABSTOPS Value = 203
+	// EM_SETWORDBREAKPROC: Replaces an edit control's default Wordwrap function with an application-defined Wordwrap
+	// function. You can send this message to either an edit control or a rich edit control.
+	EM_SETWORDBREAKPROC Value = 208
+	// EM_SHOWBALLOONTIP: The EM\_SHOWBALLOONTIP message displays a balloon tip associated with an edit control.
+	EM_SHOWBALLOONTIP Value = 5379
+	// EM_TAKEFOCUS: Forces a single-line edit control to receive keyboard focus. You can send this message explicitly or
+	// by using the Edit\_TakeFocus macro.
+	EM_TAKEFOCUS Value = 5384
+	// EM_UNDO: This message undoes the last edit control operation in the control's undo queue. You can send this message
+	// to either an edit control or a rich edit control.
+	EM_UNDO        Value = 199
+	EN_AFTER_PASTE Value = 2049
+	// EN_ALIGN_LTR_EC: Sent when the user has changed the edit control direction to left-to-right. The parent window of
+	// the edit control receives this notification code through a WM\_COMMAND message.
+	EN_ALIGN_LTR_EC Value = 1792
+	// EN_ALIGN_RTL_EC: Sent when the user has changed the edit control direction to right-to-left. The parent window of
+	// the edit control receives this notification code through a WM\_COMMAND message.
+	EN_ALIGN_RTL_EC Value = 1793
+	EN_BEFORE_PASTE Value = 2048
+	// EN_CHANGE: Notifies a windowless rich edit control's host window that a change has occurred. A rich edit control
+	// sends this notification code in the form of a WM\_NOTIFY message.
+	EN_CHANGE Value = 768
+	// EN_ERRSPACE: Sent when an edit control cannot allocate enough memory to meet a specific request. The parent window
+	// of the edit control receives this notification code through a WM\_COMMAND message.
+	EN_ERRSPACE Value = 1280
+	EN_FIRST    Value = 4294965776
+	// EN_HSCROLL: Sent when the user clicks an edit control's horizontal scroll bar. The parent window of the edit control
+	// receives this notification code through a WM\_COMMAND message. The parent window is notified before the screen is
+	// updated.
+	EN_HSCROLL Value = 1537
+	// EN_KILLFOCUS: Sent when an edit control loses the keyboard focus. The parent window of the edit control receives
+	// this notification code through a WM\_COMMAND message.
+	EN_KILLFOCUS Value = 512
+	EN_LAST      Value = 4294965756
+	// EN_MAXTEXT: Sent when the current text insertion has exceeded the specified number of characters for the edit
+	// control.
+	EN_MAXTEXT Value = 1281
+	// EN_SEARCHWEB: Sent when an edit control loses the keyboard focus. The parent window of the edit control receives
+	// this notification code through a WM\_NOTIFY message.
+	EN_SEARCHWEB Value = 4294965776
+	// EN_SETFOCUS: Sent when an edit control receives the keyboard focus. The parent window of the edit control receives
+	// this notification code through a WM\_COMMAND message.
+	EN_SETFOCUS Value = 256
+	// EN_UPDATE: Sent when an edit control is about to redraw itself.
+	EN_UPDATE Value = 1024
+	// EN_VSCROLL: Sent when the user clicks an edit control's vertical scroll bar or when the user scrolls the mouse wheel
+	// over the edit control.
+	EN_VSCROLL                 Value = 1538
+	ES_AUTOHSCROLL             Value = 128
+	ES_AUTOVSCROLL             Value = 64
+	ES_CENTER                  Value = 1
+	ES_EX_ALLOWEOL_CR          Value = 1
+	ES_EX_ALLOWEOL_LF          Value = 2
+	ES_EX_CONVERT_EOL_ON_PASTE Value = 4
+	ES_EX_ZOOMABLE             Value = 16
+	ES_LEFT                    Value = 0
+	ES_LOWERCASE               Value = 16
+	ES_MULTILINE               Value = 4
+	ES_NOHIDESEL               Value = 256
+	ES_NUMBER                  Value = 8192
+	ES_OEMCONVERT              Value = 1024
+	ES_PASSWORD                Value = 32
+	ES_READONLY                Value = 2048
+	ES_RIGHT                   Value = 2
+	ES_UPPERCASE               Value = 8
+	ES_WANTRETURN              Value = 4096
+	// GA_PARENT: Retrieves the parent window. This does not include the owner, as it does with the GetParent function.
+	GA_PARENT Value = 1
+	// GA_ROOT: Retrieves the root window by walking the chain of parent windows.
+	GA_ROOT Value = 2
+	// GA_ROOTOWNER: Retrieves the owned root window by walking the chain of parent and owner windows returned by GetParent
+	// .
+	GA_ROOTOWNER Value = 3
 	// GCLP_HBRBACKGROUND: Retrieves a handle to the background brush associated with the class.
 	GCLP_HBRBACKGROUND Value = -10
 	// GCLP_HCURSOR: Documentation varies per use. Refer to each: GetClassLongPtr , GetClassLongPtr , GetClassLongPtrA ,
@@ -331,6 +606,14 @@ const (
 	// GetClassLongA , GetClassLongW , GetClassLongW , SetClassLong , SetClassLong , SetClassLongA , SetClassLongA ,
 	// SetClassLongW , SetClassLongW .
 	GCL_WNDPROC Value = -24
+	// GMDI_GOINTOPOPUPS: If the default item is one that opens a submenu, the function is to search recursively in the
+	// corresponding submenu. If the submenu has no default item, the return value identifies the item that opens the
+	// submenu. By default, the function returns the first default item on the specified menu, regardless of whether it is
+	// an item that opens a submenu.
+	GMDI_GOINTOPOPUPS Value = 2
+	// GMDI_USEDISABLED: The function is to return a default item, even if it is disabled. By default, the function skips
+	// disabled or grayed items.
+	GMDI_USEDISABLED Value = 1
 	// GWLP_HINSTANCE: Documentation varies per use. Refer to each: GetWindowLongPtr , GetWindowLongPtr , GetWindowLongPtrA
 	// , GetWindowLongPtrA , GetWindowLongPtrW , GetWindowLongPtrW , SetWindowLongPtr , SetWindowLongPtr ,
 	// SetWindowLongPtrA , SetWindowLongPtrA , SetWindowLongPtrW , SetWindowLongPtrW .
@@ -379,6 +662,61 @@ const (
 	// GetWindowLongA , GetWindowLongW , GetWindowLongW , SetWindowLong , SetWindowLong , SetWindowLongA , SetWindowLongA ,
 	// SetWindowLongW , SetWindowLongW .
 	GWL_WNDPROC Value = -4
+	// GW_CHILD: The retrieved handle identifies the child window at the top of the Z order, if the specified window is a
+	// parent window; otherwise, the retrieved handle is NULL . The function examines only child windows of the specified
+	// window. It does not examine descendant windows.
+	GW_CHILD Value = 5
+	// GW_ENABLEDPOPUP: The retrieved handle identifies the enabled popup window owned by the specified window (the search
+	// uses the first such window found using GW_HWNDNEXT ); otherwise, if there are no enabled popup windows, the
+	// retrieved handle is that of the specified window.
+	GW_ENABLEDPOPUP Value = 6
+	// GW_HWNDFIRST: The retrieved handle identifies the window of the same type that is highest in the Z order. If the
+	// specified window is a topmost window, the handle identifies a topmost window. If the specified window is a top-level
+	// window, the handle identifies a top-level window. If the specified window is a child window, the handle identifies a
+	// sibling window.
+	GW_HWNDFIRST Value = 0
+	// GW_HWNDLAST: The retrieved handle identifies the window of the same type that is lowest in the Z order. If the
+	// specified window is a topmost window, the handle identifies a topmost window. If the specified window is a top-level
+	// window, the handle identifies a top-level window. If the specified window is a child window, the handle identifies a
+	// sibling window.
+	GW_HWNDLAST Value = 1
+	// GW_HWNDNEXT: Documentation varies per use. Refer to each: GetNextWindow , GetWindow .
+	GW_HWNDNEXT Value = 2
+	// GW_HWNDPREV: Documentation varies per use. Refer to each: GetNextWindow , GetWindow .
+	GW_HWNDPREV Value = 3
+	GW_MAX      Value = 5
+	// GW_OWNER: The retrieved handle identifies the specified window's owner window, if any. For more information, see
+	// Owned Windows .
+	GW_OWNER      Value = 4
+	HTBORDER      Value = 18
+	HTBOTTOM      Value = 15
+	HTBOTTOMLEFT  Value = 16
+	HTBOTTOMRIGHT Value = 17
+	HTCAPTION     Value = 2
+	HTCLIENT      Value = 1
+	HTCLOSE       Value = 20
+	HTERROR       Value = -2
+	HTGROWBOX     Value = 4
+	HTHELP        Value = 21
+	HTHSCROLL     Value = 6
+	HTLEFT        Value = 10
+	HTMAXBUTTON   Value = 9
+	HTMENU        Value = 5
+	HTMINBUTTON   Value = 8
+	HTNOWHERE     Value = 0
+	HTOBJECT      Value = 19
+	HTREDUCE      Value = 8
+	HTRIGHT       Value = 11
+	HTSIZE        Value = 4
+	HTSIZEFIRST   Value = 10
+	HTSIZELAST    Value = 17
+	HTSYSMENU     Value = 3
+	HTTOP         Value = 12
+	HTTOPLEFT     Value = 13
+	HTTOPRIGHT    Value = 14
+	HTTRANSPARENT Value = -1
+	HTVSCROLL     Value = 7
+	HTZOOM        Value = 9
 	// HWND_BOTTOM: Places the window at the bottom of the Z order. If the hWnd parameter identifies a topmost window, the
 	// window loses its topmost status and is placed at the bottom of all other windows.
 	HWND_BOTTOM    Value = 1
@@ -393,6 +731,13 @@ const (
 	// HWND_TOPMOST: Places the window above all non-topmost windows. The window maintains its topmost position even when
 	// it is deactivated.
 	HWND_TOPMOST Value = -1
+	ICON_BIG     Value = 1
+	ICON_SMALL   Value = 0
+	ICON_SMALL2  Value = 2
+	IDABORT      Value = 3
+	IDCANCEL     Value = 2
+	IDCLOSE      Value = 8
+	IDCONTINUE   Value = 11
 	// IDC_APPSTARTING: Standard arrow and small hourglass cursor.
 	IDC_APPSTARTING Value = 32650
 	// IDC_ARROW: Standard arrow cursor.
@@ -426,6 +771,8 @@ const (
 	IDC_UPARROW Value = 32516
 	// IDC_WAIT: Hourglass cursor.
 	IDC_WAIT Value = 32514
+	IDHELP   Value = 9
+	IDIGNORE Value = 5
 	// IDI_APPLICATION: Documentation varies per use. Refer to each: GetIconInfo , GetIconInfoEx , GetIconInfoEx ,
 	// GetIconInfoExA , GetIconInfoExA , GetIconInfoExW , GetIconInfoExW , LoadIcon , LoadIcon , LoadIconA , LoadIconA ,
 	// LoadIconW , LoadIconW .
@@ -458,6 +805,22 @@ const (
 	// GetIconInfoExA , GetIconInfoExA , GetIconInfoExW , GetIconInfoExW , LoadIcon , LoadIcon , LoadIconA , LoadIconA ,
 	// LoadIconW , LoadIconW .
 	IDI_WINLOGO Value = 32517
+	IDNO        Value = 7
+	IDOK        Value = 1
+	IDRETRY     Value = 4
+	IDTIMEOUT   Value = 32000
+	IDTRYAGAIN  Value = 10
+	IDYES       Value = 6
+	// IMAGE_BITMAP: Documentation varies per use. Refer to each: CopyImage , LoadImage , LoadImage , LoadImageA ,
+	// LoadImageA , LoadImageW , LoadImageW .
+	IMAGE_BITMAP Value = 0
+	// IMAGE_CURSOR: Documentation varies per use. Refer to each: CopyImage , LoadImage , LoadImage , LoadImageA ,
+	// LoadImageA , LoadImageW , LoadImageW .
+	IMAGE_CURSOR      Value = 2
+	IMAGE_ENHMETAFILE Value = 3
+	// IMAGE_ICON: Documentation varies per use. Refer to each: CopyImage , LoadImage , LoadImage , LoadImageA , LoadImageA
+	// , LoadImageW , LoadImageW .
+	IMAGE_ICON Value = 1
 	// INPUT_HARDWARE: The event is a hardware event. Use the hi structure of the union.
 	INPUT_HARDWARE Value = 2
 	// INPUT_KEYBOARD: The event is a keyboard event. Use the ki structure of the union.
@@ -508,7 +871,199 @@ const (
 	// ("00000409") causes the United States-Dvorak layout ("00010409") to be loaded instead. The system uses
 	// KLF_SUBSTITUTE_OK when booting, and it is recommended that all applications use this value when loading input locale
 	// identifiers to ensure that the user's preference is selected.
-	KLF_SUBSTITUTE_OK  Value = 2
+	KLF_SUBSTITUTE_OK Value = 2
+	// LBN_DBLCLK: Notifies the application that the user has double-clicked an item in a list box. The parent window of
+	// the list box receives this notification code through the WM\_COMMAND message.
+	LBN_DBLCLK Value = 2
+	// LBN_ERRSPACE: Notifies the application that the list box cannot allocate enough memory to meet a specific request.
+	// The parent window of the list box receives this notification code through the WM\_COMMAND message.
+	LBN_ERRSPACE Value = -2
+	// LBN_KILLFOCUS: Notifies the application that the list box has lost the keyboard focus. The parent window of the list
+	// box receives this notification code through the WM\_COMMAND message.
+	LBN_KILLFOCUS Value = 5
+	// LBN_SELCANCEL: Notifies the application that the user has canceled the selection in a list box. The parent window of
+	// the list box receives this notification code through the WM\_COMMAND message.
+	LBN_SELCANCEL Value = 3
+	// LBN_SELCHANGE: Notifies the application that the selection in a list box has changed as a result of user input. The
+	// parent window of the list box receives this notification code through the WM\_COMMAND message.
+	LBN_SELCHANGE Value = 1
+	// LBN_SETFOCUS: Notifies the application that the list box has received the keyboard focus. The parent window of the
+	// list box receives this notification code through the WM\_COMMAND message.
+	LBN_SETFOCUS          Value = 4
+	LBS_COMBOBOX          Value = 32768
+	LBS_DISABLENOSCROLL   Value = 4096
+	LBS_EXTENDEDSEL       Value = 2048
+	LBS_HASSTRINGS        Value = 64
+	LBS_MULTICOLUMN       Value = 512
+	LBS_MULTIPLESEL       Value = 8
+	LBS_NODATA            Value = 8192
+	LBS_NOINTEGRALHEIGHT  Value = 256
+	LBS_NOREDRAW          Value = 4
+	LBS_NOSEL             Value = 16384
+	LBS_NOTIFY            Value = 1
+	LBS_OWNERDRAWFIXED    Value = 16
+	LBS_OWNERDRAWVARIABLE Value = 32
+	LBS_SORT              Value = 2
+	LBS_STANDARD          Value = 10485763
+	LBS_USETABSTOPS       Value = 128
+	LBS_WANTKEYBOARDINPUT Value = 1024
+	// LB_ADDFILE: Adds the specified filename to a list box that contains a directory listing.
+	LB_ADDFILE Value = 406
+	// LB_ADDSTRING: Adds a string to a list box. If the list box does not have the LBS\_SORT style, the string is added to
+	// the end of the list. Otherwise, the string is inserted into the list and the list is sorted.
+	LB_ADDSTRING Value = 384
+	LB_CTLCODE   Value = 0
+	// LB_DELETESTRING: Deletes a string in a list box.
+	LB_DELETESTRING Value = 386
+	// LB_DIR: Adds names to the list displayed by a list box. The message adds the names of directories and files that
+	// match a specified string and set of file attributes. LB\_DIR can also add mapped drive letters to the list box.
+	LB_DIR      Value = 397
+	LB_ERR      Value = -1
+	LB_ERRSPACE Value = -2
+	// LB_FINDSTRING: Finds the first string in a list box that begins with the specified string.
+	LB_FINDSTRING Value = 399
+	// LB_FINDSTRINGEXACT: Finds the first list box string that exactly matches the specified string, except that the
+	// search is not case sensitive.
+	LB_FINDSTRINGEXACT Value = 418
+	// LB_GETANCHORINDEX: Gets the index of the anchor item \ 8212;that is, the item from which a multiple selection
+	// starts. A multiple selection spans all items from the anchor item to the caret item.
+	LB_GETANCHORINDEX Value = 413
+	// LB_GETCARETINDEX: Retrieves the index of the item that has the focus in a multiple-selection list box. The item may
+	// or may not be selected.
+	LB_GETCARETINDEX Value = 415
+	// LB_GETCOUNT: Gets the number of items in a list box.
+	LB_GETCOUNT Value = 395
+	// LB_GETCURSEL: Gets the index of the currently selected item, if any, in a single-selection list box.
+	LB_GETCURSEL Value = 392
+	// LB_GETHORIZONTALEXTENT: Gets the width, in pixels, that a list box can be scrolled horizontally (the scrollable
+	// width) if the list box has a horizontal scroll bar.
+	LB_GETHORIZONTALEXTENT Value = 403
+	// LB_GETITEMDATA: Gets the application-defined value associated with the specified list box item.
+	LB_GETITEMDATA Value = 409
+	// LB_GETITEMHEIGHT: Gets the height of items in a list box.
+	LB_GETITEMHEIGHT Value = 417
+	// LB_GETITEMRECT: Gets the dimensions of the rectangle that bounds a list box item as it is currently displayed in the
+	// list box.
+	LB_GETITEMRECT Value = 408
+	// LB_GETLISTBOXINFO: Gets the number of items per column in a specified list box.
+	LB_GETLISTBOXINFO Value = 434
+	// LB_GETLOCALE: Gets the current locale of the list box. You can use the locale to determine the correct sorting order
+	// of displayed text (for list boxes with the LBS\_SORT style) and of text added by the LB\_ADDSTRING message.
+	LB_GETLOCALE Value = 422
+	// LB_GETSEL: Gets the selection state of an item.
+	LB_GETSEL Value = 391
+	// LB_GETSELCOUNT: Gets the total number of selected items in a multiple-selection list box.
+	LB_GETSELCOUNT Value = 400
+	// LB_GETSELITEMS: Fills a buffer with an array of integers that specify the item numbers of selected items in a
+	// multiple-selection list box.
+	LB_GETSELITEMS Value = 401
+	// LB_GETTEXT: Gets a string from a list box.
+	LB_GETTEXT Value = 393
+	// LB_GETTEXTLEN: Gets the length of a string in a list box.
+	LB_GETTEXTLEN Value = 394
+	// LB_GETTOPINDEX: Gets the index of the first visible item in a list box.
+	LB_GETTOPINDEX Value = 398
+	// LB_INITSTORAGE: Allocates memory for storing list box items. This message is used before an application adds a large
+	// number of items to a list box.
+	LB_INITSTORAGE Value = 424
+	// LB_INSERTSTRING: Inserts a string or item data into a list box. Unlike the LB\_ADDSTRING message, the
+	// LB\_INSERTSTRING message does not cause a list with the LBS\_SORT style to be sorted.
+	LB_INSERTSTRING Value = 385
+	// LB_ITEMFROMPOINT: Gets the zero-based index of the item nearest the specified point in a list box.
+	LB_ITEMFROMPOINT     Value = 425
+	LB_MSGMAX            Value = 435
+	LB_MULTIPLEADDSTRING Value = 433
+	LB_OKAY              Value = 0
+	// LB_RESETCONTENT: Removes all items from a list box.
+	LB_RESETCONTENT Value = 388
+	// LB_SELECTSTRING: Searches a list box for an item that begins with the characters in a specified string. If a
+	// matching item is found, the item is selected.
+	LB_SELECTSTRING Value = 396
+	// LB_SELITEMRANGE: Selects or deselects one or more consecutive items in a multiple-selection list box.
+	LB_SELITEMRANGE Value = 411
+	// LB_SELITEMRANGEEX: Selects one or more consecutive items in a multiple-selection list box.
+	LB_SELITEMRANGEEX Value = 387
+	// LB_SETANCHORINDEX: Sets the anchor item \ 8212;that is, the item from which a multiple selection starts. A multiple
+	// selection spans all items from the anchor item to the caret item.
+	LB_SETANCHORINDEX Value = 412
+	// LB_SETCARETINDEX: Sets the focus rectangle to the item at the specified index in a multiple-selection list box. If
+	// the item is not visible, it is scrolled into view.
+	LB_SETCARETINDEX Value = 414
+	// LB_SETCOLUMNWIDTH: Sets the width, in pixels, of all columns in a multiple-column list box.
+	LB_SETCOLUMNWIDTH Value = 405
+	// LB_SETCOUNT: Sets the count of items in a list box created with the LBS\_NODATA style and not created with the
+	// LBS\_HASSTRINGS style.
+	LB_SETCOUNT Value = 423
+	// LB_SETCURSEL: Selects a string and scrolls it into view, if necessary. When the new string is selected, the list box
+	// removes the highlight from the previously selected string.
+	LB_SETCURSEL Value = 390
+	// LB_SETHORIZONTALEXTENT: Sets the width, in pixels, by which a list box can be scrolled horizontally (the scrollable
+	// width).
+	LB_SETHORIZONTALEXTENT Value = 404
+	// LB_SETITEMDATA: Sets a value associated with the specified item in a list box.
+	LB_SETITEMDATA Value = 410
+	// LB_SETITEMHEIGHT: Sets the height, in pixels, of items in a list box. If the list box has the LBS\_OWNERDRAWVARIABLE
+	// style, this message sets the height of the item specified by the wParam parameter. Otherwise, this message sets the
+	// height of all items in the list box.
+	LB_SETITEMHEIGHT Value = 416
+	// LB_SETLOCALE: Sets the current locale of the list box. You can use the locale to determine the correct sorting order
+	// of displayed text (for list boxes with the LBS\_SORT style) and of text added by the LB\_ADDSTRING message.
+	LB_SETLOCALE Value = 421
+	// LB_SETSEL: Selects an item in a multiple-selection list box and, if necessary, scrolls the item into view.
+	LB_SETSEL Value = 389
+	// LB_SETTABSTOPS: Sets the tab-stop positions in a list box.
+	LB_SETTABSTOPS Value = 402
+	// LB_SETTOPINDEX: Ensures that the specified item in a list box is visible.
+	LB_SETTOPINDEX Value = 407
+	LR_COLOR       Value = 2
+	// LR_COPYDELETEORG: Deletes the original image after creating the copy.
+	LR_COPYDELETEORG Value = 8
+	// LR_COPYFROMRESOURCE: Tries to reload an icon or cursor resource from the original resource file rather than simply
+	// copying the current image. This is useful for creating a different-sized copy when the resource file contains
+	// multiple sizes of the resource. Without this flag, CopyImage stretches the original image to the new size. If this
+	// flag is set, CopyImage uses the size in the resource file closest to the desired size. This will succeed only if
+	// hImage was loaded by LoadIcon or LoadCursor , or by LoadImage with the LR_SHARED flag.
+	LR_COPYFROMRESOURCE Value = 16384
+	// LR_COPYRETURNORG: Returns the original hImage if it satisfies the criteria for the copy—that is, correct
+	// dimensions and color depth—in which case the LR_COPYDELETEORG flag is ignored. If this flag is not specified, a
+	// new object is always created.
+	LR_COPYRETURNORG Value = 4
+	// LR_CREATEDIBSECTION: Documentation varies per use. Refer to each: CopyImage , ImageList_LoadImage ,
+	// ImageList_LoadImage , ImageList_LoadImageA , ImageList_LoadImageA , ImageList_LoadImageW , ImageList_LoadImageW ,
+	// LoadImage , LoadImage , LoadImageA , LoadImageA , LoadImageW , LoadImageW .
+	LR_CREATEDIBSECTION Value = 8192
+	// LR_DEFAULTCOLOR: Documentation varies per use. Refer to each: CopyImage , CreateIconFromResourceEx ,
+	// ImageList_LoadImage , ImageList_LoadImage , ImageList_LoadImageA , ImageList_LoadImageA , ImageList_LoadImageW ,
+	// ImageList_LoadImageW , LoadImage , LoadImage , LoadImageA , LoadImageA , LoadImageW , LoadImageW ,
+	// LookupIconIdFromDirectoryEx .
+	LR_DEFAULTCOLOR Value = 0
+	// LR_DEFAULTSIZE: Documentation varies per use. Refer to each: CopyImage , CreateIconFromResourceEx ,
+	// ImageList_LoadImage , ImageList_LoadImage , ImageList_LoadImageA , ImageList_LoadImageA , ImageList_LoadImageW ,
+	// ImageList_LoadImageW , LoadImage , LoadImage , LoadImageA , LoadImageA , LoadImageW , LoadImageW .
+	LR_DEFAULTSIZE Value = 64
+	// LR_LOADFROMFILE: Documentation varies per use. Refer to each: ImageList_LoadImage , ImageList_LoadImage ,
+	// ImageList_LoadImageA , ImageList_LoadImageA , ImageList_LoadImageW , ImageList_LoadImageW , LoadImage , LoadImage ,
+	// LoadImageA , LoadImageA , LoadImageW , LoadImageW .
+	LR_LOADFROMFILE Value = 16
+	// LR_LOADMAP3DCOLORS: Documentation varies per use. Refer to each: ImageList_LoadImage , ImageList_LoadImage ,
+	// ImageList_LoadImageA , ImageList_LoadImageA , ImageList_LoadImageW , ImageList_LoadImageW , LoadImage , LoadImage ,
+	// LoadImageA , LoadImageA , LoadImageW , LoadImageW .
+	LR_LOADMAP3DCOLORS Value = 4096
+	// LR_LOADTRANSPARENT: Documentation varies per use. Refer to each: ImageList_LoadImage , ImageList_LoadImage ,
+	// ImageList_LoadImageA , ImageList_LoadImageA , ImageList_LoadImageW , ImageList_LoadImageW , LoadImage , LoadImage ,
+	// LoadImageA , LoadImageA , LoadImageW , LoadImageW .
+	LR_LOADTRANSPARENT Value = 32
+	// LR_MONOCHROME: Documentation varies per use. Refer to each: CopyImage , CreateIconFromResourceEx ,
+	// ImageList_LoadImage , ImageList_LoadImage , ImageList_LoadImageA , ImageList_LoadImageA , ImageList_LoadImageW ,
+	// ImageList_LoadImageW , LoadImage , LoadImage , LoadImageA , LoadImageA , LoadImageW , LoadImageW ,
+	// LookupIconIdFromDirectoryEx .
+	LR_MONOCHROME Value = 1
+	// LR_SHARED: Documentation varies per use. Refer to each: CreateIconFromResourceEx , ImageList_LoadImage ,
+	// ImageList_LoadImage , ImageList_LoadImageA , ImageList_LoadImageA , ImageList_LoadImageW , ImageList_LoadImageW ,
+	// LoadImage , LoadImage , LoadImageA , LoadImageA , LoadImageW , LoadImageW .
+	LR_SHARED Value = 32768
+	// LR_VGACOLOR: Uses true VGA colors.
+	LR_VGACOLOR        Value = 128
 	MAPVK_VK_TO_CHAR   Value = 2
 	MAPVK_VK_TO_VSC    Value = 0
 	MAPVK_VK_TO_VSC_EX Value = 4
@@ -598,7 +1153,47 @@ const (
 	// MB_YESNOCANCEL: Documentation varies per use. Refer to each: MessageBox , MessageBox , MessageBox , MessageBoxA ,
 	// MessageBoxA , MessageBoxA , MessageBoxW , MessageBoxW , MessageBoxW , PWLX_MESSAGE_BOX .
 	MB_YESNOCANCEL Value = 3
-	MF_APPEND      Value = 256
+	MFS_CHECKED    Value = 8
+	MFS_DEFAULT    Value = 4096
+	MFS_DISABLED   Value = 3
+	MFS_ENABLED    Value = 0
+	MFS_GRAYED     Value = 3
+	MFS_HILITE     Value = 128
+	MFS_UNCHECKED  Value = 0
+	MFS_UNHILITE   Value = 0
+	// MFT_BITMAP: Displays the menu item using a bitmap. The low-order word of the dwTypeData member is the bitmap handle,
+	// and the cch member is ignored. MFT_BITMAP is replaced by MIIM_BITMAP and hbmpItem .
+	MFT_BITMAP Value = 4
+	// MFT_MENUBARBREAK: Places the menu item on a new line (for a menu bar) or in a new column (for a drop-down menu,
+	// submenu, or shortcut menu). For a drop-down menu, submenu, or shortcut menu, a vertical line separates the new
+	// column from the old.
+	MFT_MENUBARBREAK Value = 32
+	// MFT_MENUBREAK: Places the menu item on a new line (for a menu bar) or in a new column (for a drop-down menu,
+	// submenu, or shortcut menu). For a drop-down menu, submenu, or shortcut menu, the columns are not separated by a
+	// vertical line.
+	MFT_MENUBREAK Value = 64
+	// MFT_OWNERDRAW: Assigns responsibility for drawing the menu item to the window that owns the menu. The window
+	// receives a WM_MEASUREITEM message before the menu is displayed for the first time, and a WM_DRAWITEM message
+	// whenever the appearance of the menu item must be updated. If this value is specified, the dwTypeData member contains
+	// an application-defined value.
+	MFT_OWNERDRAW Value = 256
+	// MFT_RADIOCHECK: Displays selected menu items using a radio-button mark instead of a check mark if the hbmpChecked
+	// member is NULL .
+	MFT_RADIOCHECK Value = 512
+	// MFT_RIGHTJUSTIFY: Right-justifies the menu item and any subsequent items. This value is valid only if the menu item
+	// is in a menu bar.
+	MFT_RIGHTJUSTIFY Value = 16384
+	// MFT_RIGHTORDER: Specifies that menus cascade right-to-left (the default is left-to-right). This is used to support
+	// right-to-left languages, such as Arabic and Hebrew.
+	MFT_RIGHTORDER Value = 8192
+	// MFT_SEPARATOR: Specifies that the menu item is a separator. A menu item separator appears as a horizontal dividing
+	// line. The dwTypeData and cch members are ignored. This value is valid only in a drop-down menu, submenu, or shortcut
+	// menu.
+	MFT_SEPARATOR Value = 2048
+	// MFT_STRING: Displays the menu item using a text string. The dwTypeData member is the pointer to a null-terminated
+	// string, and the cch member is the length of the string. MFT_STRING is replaced by MIIM_STRING .
+	MFT_STRING Value = 0
+	MF_APPEND  Value = 256
 	// MF_BITMAP: Uses a bitmap as the menu item. The lpNewItem parameter contains a handle to the bitmap.
 	MF_BITMAP Value = 4
 	// MF_BYCOMMAND: Documentation varies per use. Refer to each: DeleteMenu , EnableMenuItem , GetMenuState ,
@@ -666,6 +1261,38 @@ const (
 	MF_UNCHECKED       Value = 0
 	MF_UNHILITE        Value = 0
 	MF_USECHECKBITMAPS Value = 512
+	// MIIM_BITMAP: Retrieves or sets the hbmpItem member.
+	MIIM_BITMAP Value = 128
+	// MIIM_CHECKMARKS: Retrieves or sets the hbmpChecked and hbmpUnchecked members.
+	MIIM_CHECKMARKS Value = 8
+	// MIIM_DATA: Retrieves or sets the dwItemData member.
+	MIIM_DATA Value = 32
+	// MIIM_FTYPE: Retrieves or sets the fType member.
+	MIIM_FTYPE Value = 256
+	// MIIM_ID: Retrieves or sets the wID member.
+	MIIM_ID Value = 2
+	// MIIM_STATE: Retrieves or sets the fState member.
+	MIIM_STATE Value = 1
+	// MIIM_STRING: Retrieves or sets the dwTypeData member.
+	MIIM_STRING Value = 64
+	// MIIM_SUBMENU: Retrieves or sets the hSubMenu member.
+	MIIM_SUBMENU Value = 4
+	// MIIM_TYPE: Retrieves or sets the fType and dwTypeData members. MIIM_TYPE is replaced by MIIM_BITMAP , MIIM_FTYPE ,
+	// and MIIM_STRING .
+	MIIM_TYPE Value = 16
+	// MIM_APPLYTOSUBMENUS: Settings apply to the menu and all of its submenus. SetMenuInfo uses this flag and GetMenuInfo
+	// ignores this flag
+	MIM_APPLYTOSUBMENUS Value = 2147483648
+	// MIM_BACKGROUND: Retrieves or sets the hbrBack member.
+	MIM_BACKGROUND Value = 2
+	// MIM_HELPID: Retrieves or sets the dwContextHelpID member.
+	MIM_HELPID Value = 4
+	// MIM_MAXHEIGHT: Retrieves or sets the cyMax member.
+	MIM_MAXHEIGHT Value = 1
+	// MIM_MENUDATA: Retrieves or sets the dwMenuData member.
+	MIM_MENUDATA Value = 8
+	// MIM_STYLE: Retrieves or sets the dwStyle member.
+	MIM_STYLE Value = 16
 	// MOD_ALT: Either ALT key must be held down.
 	MOD_ALT Value = 1
 	// MOD_CONTROL: Either CTRL key must be held down.
@@ -706,40 +1333,61 @@ const (
 	// MOUSEEVENTF_XDOWN: An X button was pressed.
 	MOUSEEVENTF_XDOWN Value = 128
 	// MOUSEEVENTF_XUP: An X button was released.
-	MOUSEEVENTF_XUP   Value = 256
-	OCR_APPSTARTING   Value = 32650
-	OCR_CROSS         Value = 32515
-	OCR_HAND          Value = 32649
-	OCR_HELP          Value = 32651
-	OCR_IBEAM         Value = 32513
-	OCR_ICOCUR        Value = 32647
-	OCR_ICON          Value = 32641
-	OCR_NO            Value = 32648
-	OCR_NORMAL        Value = 32512
-	OCR_SIZE          Value = 32640
-	OCR_SIZEALL       Value = 32646
-	OCR_SIZENESW      Value = 32643
-	OCR_SIZENS        Value = 32645
-	OCR_SIZENWSE      Value = 32642
-	OCR_SIZEWE        Value = 32644
-	OCR_UP            Value = 32516
-	OCR_WAIT          Value = 32514
-	QS_ALLEVENTS      Value = 1215
-	QS_ALLINPUT       Value = 1279
-	QS_ALLPOSTMESSAGE Value = 256
-	QS_HOTKEY         Value = 128
-	QS_INPUT          Value = 1031
-	QS_KEY            Value = 1
-	QS_MOUSE          Value = 6
-	QS_MOUSEBUTTON    Value = 4
-	QS_MOUSEMOVE      Value = 2
-	QS_PAINT          Value = 32
-	QS_POINTER        Value = 4096
-	QS_POSTMESSAGE    Value = 8
-	QS_RAWINPUT       Value = 1024
-	QS_SENDMESSAGE    Value = 64
-	QS_TIMER          Value = 16
-	QS_TOUCH          Value = 2048
+	MOUSEEVENTF_XUP Value = 256
+	OCR_APPSTARTING Value = 32650
+	OCR_CROSS       Value = 32515
+	OCR_HAND        Value = 32649
+	OCR_HELP        Value = 32651
+	OCR_IBEAM       Value = 32513
+	OCR_ICOCUR      Value = 32647
+	OCR_ICON        Value = 32641
+	OCR_NO          Value = 32648
+	OCR_NORMAL      Value = 32512
+	OCR_SIZE        Value = 32640
+	OCR_SIZEALL     Value = 32646
+	OCR_SIZENESW    Value = 32643
+	OCR_SIZENS      Value = 32645
+	OCR_SIZENWSE    Value = 32642
+	OCR_SIZEWE      Value = 32644
+	OCR_UP          Value = 32516
+	OCR_WAIT        Value = 32514
+	// PM_NOREMOVE: Messages are not removed from the queue after processing by PeekMessage .
+	PM_NOREMOVE Value = 0
+	// PM_NOYIELD: Prevents the system from releasing any thread that is waiting for the caller to go idle (see
+	// WaitForInputIdle ). Combine this value with either PM_NOREMOVE or PM_REMOVE .
+	PM_NOYIELD        Value = 2
+	PM_QS_INPUT       Value = 67567616
+	PM_QS_PAINT       Value = 2097152
+	PM_QS_POSTMESSAGE Value = 9961472
+	PM_QS_SENDMESSAGE Value = 4194304
+	// PM_REMOVE: Messages are removed from the queue after processing by PeekMessage .
+	PM_REMOVE                   Value = 1
+	QS_ALLEVENTS                Value = 1215
+	QS_ALLINPUT                 Value = 1279
+	QS_ALLPOSTMESSAGE           Value = 256
+	QS_HOTKEY                   Value = 128
+	QS_INPUT                    Value = 1031
+	QS_KEY                      Value = 1
+	QS_MOUSE                    Value = 6
+	QS_MOUSEBUTTON              Value = 4
+	QS_MOUSEMOVE                Value = 2
+	QS_PAINT                    Value = 32
+	QS_POINTER                  Value = 4096
+	QS_POSTMESSAGE              Value = 8
+	QS_RAWINPUT                 Value = 1024
+	QS_SENDMESSAGE              Value = 64
+	QS_TIMER                    Value = 16
+	QS_TOUCH                    Value = 2048
+	SBS_BOTTOMALIGN             Value = 4
+	SBS_HORZ                    Value = 0
+	SBS_LEFTALIGN               Value = 2
+	SBS_RIGHTALIGN              Value = 4
+	SBS_SIZEBOX                 Value = 8
+	SBS_SIZEBOXBOTTOMRIGHTALIGN Value = 4
+	SBS_SIZEBOXTOPLEFTALIGN     Value = 2
+	SBS_SIZEGRIP                Value = 16
+	SBS_TOPALIGN                Value = 2
+	SBS_VERT                    Value = 1
 	// SB_BOTH: Documentation varies per use. Refer to each: EnableScrollBar , FlatSB_EnableScrollBar ,
 	// FlatSB_ShowScrollBar , ITextHost.TxEnableScrollBar , ShowScrollBar .
 	SB_BOTH   Value = 3
@@ -771,7 +1419,44 @@ const (
 	// FlatSB_GetScrollInfo , FlatSB_GetScrollPos , FlatSB_GetScrollRange , FlatSB_SetScrollInfo , FlatSB_SetScrollPos ,
 	// FlatSB_SetScrollRange , FlatSB_ShowScrollBar , GetScrollInfo , GetScrollPos , GetScrollRange ,
 	// ITextHost.TxEnableScrollBar , SetScrollInfo , SetScrollPos , SetScrollRange , ShowScrollBar .
-	SB_VERT Value = 1
+	SB_VERT         Value = 1
+	SC_ARRANGE      Value = 61712
+	SC_CLOSE        Value = 61536
+	SC_CONTEXTHELP  Value = 61824
+	SC_DEFAULT      Value = 61792
+	SC_HOTKEY       Value = 61776
+	SC_HSCROLL      Value = 61568
+	SC_ICON         Value = 61472
+	SC_KEYMENU      Value = 61696
+	SC_MAXIMIZE     Value = 61488
+	SC_MINIMIZE     Value = 61472
+	SC_MONITORPOWER Value = 61808
+	SC_MOUSEMENU    Value = 61584
+	SC_MOVE         Value = 61456
+	SC_NEXTWINDOW   Value = 61504
+	SC_PREVWINDOW   Value = 61520
+	SC_RESTORE      Value = 61728
+	SC_SEPARATOR    Value = 61455
+	SC_SIZE         Value = 61440
+	SC_TASKLIST     Value = 61744
+	SC_VSCROLL      Value = 61552
+	SC_ZOOM         Value = 61488
+	// SIF_ALL: Documentation varies per use. Refer to each: FlatSB_GetScrollInfo , FlatSB_SetScrollInfo , SCROLLINFO .
+	SIF_ALL Value = 23
+	// SIF_DISABLENOSCROLL: Documentation varies per use. Refer to each: FlatSB_SetScrollInfo , SCROLLINFO , SetScrollInfo
+	// .
+	SIF_DISABLENOSCROLL Value = 8
+	// SIF_PAGE: Documentation varies per use. Refer to each: FlatSB_GetScrollInfo , FlatSB_SetScrollInfo , GetScrollInfo ,
+	// SCROLLINFO , SetScrollInfo .
+	SIF_PAGE Value = 2
+	// SIF_POS: Documentation varies per use. Refer to each: FlatSB_GetScrollInfo , FlatSB_SetScrollInfo , GetScrollInfo ,
+	// SCROLLINFO , SetScrollInfo .
+	SIF_POS Value = 4
+	// SIF_RANGE: Documentation varies per use. Refer to each: FlatSB_GetScrollInfo , FlatSB_SetScrollInfo , GetScrollInfo
+	// , SCROLLINFO , SetScrollInfo .
+	SIF_RANGE Value = 1
+	// SIF_TRACKPOS: Documentation varies per use. Refer to each: GetScrollInfo , SCROLLINFO .
+	SIF_TRACKPOS Value = 16
 	// SM_ARRANGE: The flags that specify how the system arranged minimized windows. For more information, see the Remarks
 	// section in this topic.
 	SM_ARRANGE              Value = 56
@@ -1296,6 +1981,59 @@ const (
 	SPI_SETWHEELSCROLLLINES          Value = 105
 	SPI_SETWINARRANGING              Value = 131
 	SPI_SETWORKAREA                  Value = 47
+	SS_BITMAP                        Value = 14
+	SS_BLACKFRAME                    Value = 7
+	SS_BLACKRECT                     Value = 4
+	SS_CENTER                        Value = 1
+	SS_CENTERIMAGE                   Value = 512
+	SS_EDITCONTROL                   Value = 8192
+	SS_ELLIPSISMASK                  Value = 49152
+	SS_ENDELLIPSIS                   Value = 16384
+	SS_ENHMETAFILE                   Value = 15
+	SS_ETCHEDFRAME                   Value = 18
+	SS_ETCHEDHORZ                    Value = 16
+	SS_ETCHEDVERT                    Value = 17
+	SS_GRAYFRAME                     Value = 8
+	SS_GRAYRECT                      Value = 5
+	SS_ICON                          Value = 3
+	SS_LEFT                          Value = 0
+	SS_LEFTNOWORDWRAP                Value = 12
+	SS_NOPREFIX                      Value = 128
+	SS_NOTIFY                        Value = 256
+	SS_OWNERDRAW                     Value = 13
+	SS_PATHELLIPSIS                  Value = 32768
+	SS_REALSIZECONTROL               Value = 64
+	SS_REALSIZEIMAGE                 Value = 2048
+	SS_RIGHT                         Value = 2
+	SS_RIGHTJUST                     Value = 1024
+	SS_SIMPLE                        Value = 11
+	SS_SUNKEN                        Value = 4096
+	SS_TYPEMASK                      Value = 31
+	SS_USERITEM                      Value = 10
+	SS_WHITEFRAME                    Value = 9
+	SS_WHITERECT                     Value = 6
+	SS_WORDELLIPSIS                  Value = 49152
+	// STM_GETICON: An application sends the STM\_GETICON message to retrieve a handle to the icon associated with a static
+	// control that has the SS\_ICON style.
+	STM_GETICON Value = 369
+	// STM_GETIMAGE: An application sends an STM\_GETIMAGE message to retrieve a handle to the image (icon or bitmap)
+	// associated with a static control.
+	STM_GETIMAGE Value = 371
+	STM_MSGMAX   Value = 372
+	// STM_SETICON: An application sends the STM\_SETICON message to associate an icon with an icon control.
+	STM_SETICON Value = 368
+	// STM_SETIMAGE: An application sends an STM\_SETIMAGE message to associate a new image with a static control.
+	STM_SETIMAGE Value = 370
+	// STN_CLICKED: The STN\_CLICKED notification code is sent when the user clicks a static control that has the
+	// SS\_NOTIFY style. The parent window of the control receives this notification code through the WM\_COMMAND message.
+	STN_CLICKED Value = 0
+	// STN_DBLCLK: The STN\_DBLCLK notification code is sent when the user double-clicks a static control that has the
+	// SS\_NOTIFY style. The parent window of the control receives this notification code through the WM\_COMMAND message.
+	STN_DBLCLK Value = 1
+	// STN_DISABLE: The STN\_DISABLE notification code is sent when a static control is disabled.
+	STN_DISABLE Value = 3
+	// STN_ENABLE: The STN\_ENABLE notification code is sent when a static control is enabled.
+	STN_ENABLE Value = 2
 	// SWP_ASYNCWINDOWPOS: If the calling thread and the thread that owns the window are attached to different input
 	// queues, the system posts the request to the thread that owns the window. This prevents the calling thread from
 	// blocking its execution while other threads process the request.
@@ -2508,6 +3246,10 @@ func Name(value Value) (string, bool) {
 		return "VK_NUMPAD6", true
 	case Value(1024):
 		return "WM_USER", true
+	case Value(1025):
+		return "DM_SETDEFID", true
+	case Value(1026):
+		return "DM_REPOSITION", true
 	case Value(103):
 		return "VK_NUMPAD7", true
 	case Value(1031):
@@ -2516,6 +3258,8 @@ func Name(value Value) (string, bool) {
 		return "VK_NUMPAD8", true
 	case Value(1048576):
 		return "MB_RTLREADING", true
+	case Value(10485763):
+		return "LBS_STANDARD", true
 	case Value(105):
 		return "VK_NUMPAD9", true
 	case Value(106):
@@ -2578,6 +3322,10 @@ func Name(value Value) (string, bool) {
 		return "QS_ALLINPUT", true
 	case Value(128):
 		return "MB_USERICON", true
+	case Value(1280):
+		return "EN_ERRSPACE", true
+	case Value(1281):
+		return "EN_MAXTEXT", true
 	case Value(129):
 		return "VK_F18", true
 	case Value(13):
@@ -2634,6 +3382,10 @@ func Name(value Value) (string, bool) {
 		return "MB_TYPEMASK", true
 	case Value(150):
 		return "VK_OEM_FJ_ROYA", true
+	case Value(1537):
+		return "EN_HSCROLL", true
+	case Value(1538):
+		return "EN_VSCROLL", true
 	case Value(156):
 		return "SPI_GETTOUCHPREDICTIONPARAMETERS", true
 	case Value(157):
@@ -2690,6 +3442,10 @@ func Name(value Value) (string, bool) {
 		return "VK_MEDIA_STOP", true
 	case Value(179):
 		return "VK_MEDIA_PLAY_PAUSE", true
+	case Value(1792):
+		return "EN_ALIGN_LTR_EC", true
+	case Value(1793):
+		return "EN_ALIGN_RTL_EC", true
 	case Value(18):
 		return "VK_MENU", true
 	case Value(180):
@@ -2700,6 +3456,10 @@ func Name(value Value) (string, bool) {
 		return "VK_LAUNCH_APP1", true
 	case Value(183):
 		return "VK_LAUNCH_APP2", true
+	case Value(184):
+		return "EM_GETMODIFY", true
+	case Value(185):
+		return "EM_SETMODIFY", true
 	case Value(186):
 		return "VK_OEM_1", true
 	case Value(187):
@@ -2746,6 +3506,8 @@ func Name(value Value) (string, bool) {
 		return "VK_GAMEPAD_DPAD_DOWN", true
 	case Value(2048):
 		return "CS_SAVEBITS", true
+	case Value(2049):
+		return "EN_AFTER_PASTE", true
 	case Value(205):
 		return "VK_GAMEPAD_DPAD_LEFT", true
 	case Value(206):
@@ -2964,6 +3726,8 @@ func Name(value Value) (string, bool) {
 		return "MB_ICONQUESTION", true
 	case Value(320):
 		return "CB_GETEDITSEL", true
+	case Value(32000):
+		return "IDTIMEOUT", true
 	case Value(321):
 		return "CB_LIMITTEXT", true
 	case Value(322):
@@ -3090,20 +3854,80 @@ func Name(value Value) (string, bool) {
 		return "CB_MSGMAX", true
 	case Value(36):
 		return "VK_HOME", true
+	case Value(368):
+		return "STM_SETICON", true
+	case Value(369):
+		return "STM_GETICON", true
 	case Value(37):
 		return "VK_LEFT", true
+	case Value(370):
+		return "STM_SETIMAGE", true
+	case Value(371):
+		return "STM_GETIMAGE", true
+	case Value(372):
+		return "STM_MSGMAX", true
 	case Value(38):
 		return "VK_UP", true
+	case Value(384):
+		return "LB_ADDSTRING", true
 	case Value(3840):
 		return "MB_DEFMASK", true
+	case Value(385):
+		return "LB_INSERTSTRING", true
+	case Value(386):
+		return "LB_DELETESTRING", true
+	case Value(387):
+		return "LB_SELITEMRANGEEX", true
+	case Value(388):
+		return "LB_RESETCONTENT", true
+	case Value(389):
+		return "LB_SETSEL", true
 	case Value(39):
 		return "VK_RIGHT", true
+	case Value(390):
+		return "LB_SETCURSEL", true
+	case Value(391):
+		return "LB_GETSEL", true
 	case Value(392):
 		return "WS_EX_PALETTEWINDOW", true
+	case Value(393):
+		return "LB_GETTEXT", true
+	case Value(394):
+		return "LB_GETTEXTLEN", true
+	case Value(395):
+		return "LB_GETCOUNT", true
+	case Value(396):
+		return "LB_SELECTSTRING", true
+	case Value(397):
+		return "LB_DIR", true
+	case Value(398):
+		return "LB_GETTOPINDEX", true
+	case Value(399):
+		return "LB_FINDSTRING", true
 	case Value(4):
 		return "MB_YESNO", true
 	case Value(40):
 		return "VK_DOWN", true
+	case Value(400):
+		return "LB_GETSELCOUNT", true
+	case Value(401):
+		return "LB_GETSELITEMS", true
+	case Value(402):
+		return "LB_SETTABSTOPS", true
+	case Value(403):
+		return "LB_GETHORIZONTALEXTENT", true
+	case Value(404):
+		return "LB_SETHORIZONTALEXTENT", true
+	case Value(405):
+		return "LB_SETCOLUMNWIDTH", true
+	case Value(406):
+		return "LB_ADDFILE", true
+	case Value(407):
+		return "LB_SETTOPINDEX", true
+	case Value(408):
+		return "LB_GETITEMRECT", true
+	case Value(409):
+		return "LB_GETITEMDATA", true
 	case Value(4096):
 		return "MB_SYSTEMMODAL", true
 	case Value(4097):
@@ -3114,6 +3938,8 @@ func Name(value Value) (string, bool) {
 		return "SPI_SETMENUANIMATION", true
 	case Value(41):
 		return "VK_SELECT", true
+	case Value(410):
+		return "LB_SETITEMDATA", true
 	case Value(4100):
 		return "SPI_GETCOMBOBOXANIMATION", true
 	case Value(4101):
@@ -3134,6 +3960,8 @@ func Name(value Value) (string, bool) {
 		return "SPI_GETACTIVEWNDTRKZORDER", true
 	case Value(4109):
 		return "SPI_SETACTIVEWNDTRKZORDER", true
+	case Value(411):
+		return "LB_SELITEMRANGE", true
 	case Value(4110):
 		return "SPI_GETHOTTRACKING", true
 	case Value(4111):
@@ -3150,6 +3978,8 @@ func Name(value Value) (string, bool) {
 		return "SPI_GETTOOLTIPANIMATION", true
 	case Value(4119):
 		return "SPI_SETTOOLTIPANIMATION", true
+	case Value(412):
+		return "LB_SETANCHORINDEX", true
 	case Value(4120):
 		return "SPI_GETTOOLTIPFADE", true
 	case Value(4121):
@@ -3170,6 +4000,8 @@ func Name(value Value) (string, bool) {
 		return "SPI_GETMOUSEVANISH", true
 	case Value(4129):
 		return "SPI_SETMOUSEVANISH", true
+	case Value(413):
+		return "LB_GETANCHORINDEX", true
 	case Value(4130):
 		return "SPI_GETFLATMENU", true
 	case Value(4131):
@@ -3182,10 +4014,16 @@ func Name(value Value) (string, bool) {
 		return "SPI_GETBLOCKSENDINPUTRESETS", true
 	case Value(4135):
 		return "SPI_SETBLOCKSENDINPUTRESETS", true
+	case Value(414):
+		return "LB_SETCARETINDEX", true
+	case Value(415):
+		return "LB_GETCARETINDEX", true
 	case Value(4158):
 		return "SPI_GETUIEFFECTS", true
 	case Value(4159):
 		return "SPI_SETUIEFFECTS", true
+	case Value(416):
+		return "LB_SETITEMHEIGHT", true
 	case Value(4160):
 		return "SPI_GETDISABLEOVERLAPPEDCONTENT", true
 	case Value(4161):
@@ -3198,6 +4036,8 @@ func Name(value Value) (string, bool) {
 		return "SPI_GETCLEARTYPE", true
 	case Value(4169):
 		return "SPI_SETCLEARTYPE", true
+	case Value(417):
+		return "LB_GETITEMHEIGHT", true
 	case Value(4170):
 		return "SPI_GETSPEECHRECOGNITION", true
 	case Value(4171):
@@ -3214,12 +4054,34 @@ func Name(value Value) (string, bool) {
 		return "SPI_GETSYSTEMLANGUAGEBAR", true
 	case Value(4177):
 		return "SPI_SETSYSTEMLANGUAGEBAR", true
+	case Value(418):
+		return "LB_FINDSTRINGEXACT", true
 	case Value(4194304):
 		return "WS_DLGFRAME", true
 	case Value(42):
 		return "VK_PRINT", true
+	case Value(421):
+		return "LB_SETLOCALE", true
+	case Value(422):
+		return "LB_GETLOCALE", true
+	case Value(423):
+		return "LB_SETCOUNT", true
+	case Value(424):
+		return "LB_INITSTORAGE", true
+	case Value(425):
+		return "LB_ITEMFROMPOINT", true
+	case Value(4294965756):
+		return "EN_LAST", true
+	case Value(4294965776):
+		return "EN_FIRST", true
 	case Value(43):
 		return "VK_EXECUTE", true
+	case Value(433):
+		return "LB_MULTIPLEADDSTRING", true
+	case Value(434):
+		return "LB_GETLISTBOXINFO", true
+	case Value(435):
+		return "LB_MSGMAX", true
 	case Value(44):
 		return "VK_SNAPSHOT", true
 	case Value(45):
@@ -3296,6 +4158,48 @@ func Name(value Value) (string, bool) {
 		return "WS_ICONIC", true
 	case Value(537):
 		return "WM_DEVICECHANGE", true
+	case Value(5377):
+		return "EM_SETCUEBANNER", true
+	case Value(5378):
+		return "EM_GETCUEBANNER", true
+	case Value(5379):
+		return "EM_SHOWBALLOONTIP", true
+	case Value(5380):
+		return "EM_HIDEBALLOONTIP", true
+	case Value(5381):
+		return "EM_SETHILITE", true
+	case Value(5382):
+		return "EM_GETHILITE", true
+	case Value(5383):
+		return "EM_NOSETFOCUS", true
+	case Value(5384):
+		return "EM_TAKEFOCUS", true
+	case Value(5386):
+		return "EM_SETEXTENDEDSTYLE", true
+	case Value(5387):
+		return "EM_GETEXTENDEDSTYLE", true
+	case Value(5388):
+		return "EM_SETENDOFLINE", true
+	case Value(5389):
+		return "EM_GETENDOFLINE", true
+	case Value(5390):
+		return "EM_ENABLESEARCHWEB", true
+	case Value(5391):
+		return "EM_SEARCHWEB", true
+	case Value(5393):
+		return "EM_SETCARETINDEX", true
+	case Value(5394):
+		return "EM_GETCARETINDEX", true
+	case Value(5395):
+		return "EM_FILELINEFROMCHAR", true
+	case Value(5396):
+		return "EM_FILELINEINDEX", true
+	case Value(5397):
+		return "EM_FILELINELENGTH", true
+	case Value(5398):
+		return "EM_GETFILELINE", true
+	case Value(5399):
+		return "EM_GETFILELINECOUNT", true
 	case Value(54):
 		return "VK_6", true
 	case Value(544):
@@ -3380,6 +4284,8 @@ func Name(value Value) (string, bool) {
 		return "WM_POINTERWHEEL", true
 	case Value(591):
 		return "WM_POINTERHWHEEL", true
+	case Value(592):
+		return "DM_POINTERHITTEST", true
 	case Value(593):
 		return "WM_POINTERROUTEDTO", true
 	case Value(594):
@@ -3392,6 +4298,44 @@ func Name(value Value) (string, bool) {
 		return "SM_CYMAXTRACK", true
 	case Value(61):
 		return "WM_GETOBJECT", true
+	case Value(61440):
+		return "SC_SIZE", true
+	case Value(61455):
+		return "SC_SEPARATOR", true
+	case Value(61456):
+		return "SC_MOVE", true
+	case Value(61472):
+		return "SC_ICON", true
+	case Value(61488):
+		return "SC_MAXIMIZE", true
+	case Value(61504):
+		return "SC_NEXTWINDOW", true
+	case Value(61520):
+		return "SC_PREVWINDOW", true
+	case Value(61536):
+		return "SC_CLOSE", true
+	case Value(61552):
+		return "SC_VSCROLL", true
+	case Value(61568):
+		return "SC_HSCROLL", true
+	case Value(61584):
+		return "SC_MOUSEMENU", true
+	case Value(61696):
+		return "SC_KEYMENU", true
+	case Value(61712):
+		return "SC_ARRANGE", true
+	case Value(61728):
+		return "SC_RESTORE", true
+	case Value(61744):
+		return "SC_TASKLIST", true
+	case Value(61776):
+		return "SC_HOTKEY", true
+	case Value(61792):
+		return "SC_DEFAULT", true
+	case Value(61808):
+		return "SC_MONITORPOWER", true
+	case Value(61824):
+		return "SC_CONTEXTHELP", true
 	case Value(62):
 		return "SM_CYMAXIMIZED", true
 	case Value(63):
@@ -3432,6 +4376,8 @@ func Name(value Value) (string, bool) {
 		return "WM_NCMOUSEHOVER", true
 	case Value(674):
 		return "WM_NCMOUSELEAVE", true
+	case Value(67567616):
+		return "PM_QS_INPUT", true
 	case Value(68):
 		return "VK_D", true
 	case Value(689):
@@ -3674,6 +4620,8 @@ func Name(value Value) (string, bool) {
 		return "VK_NUMPAD2", true
 	case Value(99):
 		return "VK_NUMPAD3", true
+	case Value(9961472):
+		return "PM_QS_POSTMESSAGE", true
 	default:
 		return "", false
 	}
@@ -3683,7 +4631,7 @@ func Name(value Value) (string, bool) {
 func Names(value Value) []string {
 	switch value {
 	case Value(-1):
-		return []string{"CB_ERR", "HWND_TOPMOST", "IDC_STATIC", "WH_MIN", "WH_MINHOOK", "WH_MSGFILTER"}
+		return []string{"CB_ERR", "HTTRANSPARENT", "HWND_TOPMOST", "IDC_STATIC", "LB_ERR", "WH_MIN", "WH_MINHOOK", "WH_MSGFILTER"}
 	case Value(-10):
 		return []string{"GCLP_HBRBACKGROUND", "GCL_HBRBACKGROUND"}
 	case Value(-12):
@@ -3695,7 +4643,7 @@ func Names(value Value) []string {
 	case Value(-18):
 		return []string{"GCL_CBWNDEXTRA"}
 	case Value(-2):
-		return []string{"CB_ERRSPACE", "HWND_NOTOPMOST"}
+		return []string{"CB_ERRSPACE", "HTERROR", "HWND_NOTOPMOST", "LBN_ERRSPACE", "LB_ERRSPACE"}
 	case Value(-20):
 		return []string{"GCL_CBCLSEXTRA", "GWL_EXSTYLE"}
 	case Value(-21):
@@ -3717,11 +4665,11 @@ func Names(value Value) []string {
 	case Value(-8):
 		return []string{"GCLP_MENUNAME", "GCL_MENUNAME", "GWLP_HWNDPARENT", "GWL_HWNDPARENT"}
 	case Value(0):
-		return []string{"BN_CLICKED", "BST_UNCHECKED", "BS_PUSHBUTTON", "BS_TEXT", "CB_OKAY", "HWND_DESKTOP", "HWND_TOP", "INPUT_MOUSE", "MAPVK_VK_TO_VSC", "MB_APPLMODAL", "MB_DEFBUTTON1", "MB_OK", "MF_BYCOMMAND", "MF_ENABLED", "MF_INSERT", "MF_STRING", "MF_UNCHECKED", "MF_UNHILITE", "SB_HORZ", "SB_LINELEFT", "SB_LINEUP", "SB_MIN", "SM_CXSCREEN", "SWP_NONE", "SW_HIDE", "TPM_HORIZONTAL", "TPM_LEFTALIGN", "TPM_LEFTBUTTON", "TPM_TOPALIGN", "WH_JOURNALRECORD", "WM_NULL", "WS_EX_LEFT", "WS_EX_LTRREADING", "WS_EX_RIGHTSCROLLBAR", "WS_OVERLAPPED", "WS_TILED"}
+		return []string{"BN_CLICKED", "BST_UNCHECKED", "BS_PUSHBUTTON", "BS_TEXT", "CB_OKAY", "ES_LEFT", "GW_HWNDFIRST", "HTNOWHERE", "HWND_DESKTOP", "HWND_TOP", "ICON_SMALL", "IMAGE_BITMAP", "INPUT_MOUSE", "LB_CTLCODE", "LB_OKAY", "LR_DEFAULTCOLOR", "MAPVK_VK_TO_VSC", "MB_APPLMODAL", "MB_DEFBUTTON1", "MB_OK", "MFS_ENABLED", "MFS_UNCHECKED", "MFS_UNHILITE", "MFT_STRING", "MF_BYCOMMAND", "MF_ENABLED", "MF_INSERT", "MF_STRING", "MF_UNCHECKED", "MF_UNHILITE", "PM_NOREMOVE", "SBS_HORZ", "SB_HORZ", "SB_LINELEFT", "SB_LINEUP", "SB_MIN", "SM_CXSCREEN", "SS_LEFT", "STN_CLICKED", "SWP_NONE", "SW_HIDE", "TPM_HORIZONTAL", "TPM_LEFTALIGN", "TPM_LEFTBUTTON", "TPM_TOPALIGN", "WH_JOURNALRECORD", "WM_NULL", "WS_EX_LEFT", "WS_EX_LTRREADING", "WS_EX_RIGHTSCROLLBAR", "WS_OVERLAPPED", "WS_TILED"}
 	case Value(1):
-		return []string{"BN_PAINT", "BST_CHECKED", "BS_DEFPUSHBUTTON", "CBS_NORMAL", "CBS_SIMPLE", "CBS_UNCHECKEDNORMAL", "CS_VREDRAW", "HWND_BOTTOM", "INPUT_KEYBOARD", "KEYEVENTF_EXTENDEDKEY", "KLF_ACTIVATE", "MAPVK_VSC_TO_VK", "MB_OKCANCEL", "MF_GRAYED", "MOD_ALT", "MOUSEEVENTF_MOVE", "QS_KEY", "SB_LINEDOWN", "SB_LINERIGHT", "SB_VERT", "SM_CYSCREEN", "SPI_GETBEEP", "SWP_NOSIZE", "SW_NORMAL", "SW_PARENTCLOSING", "SW_SCROLLCHILDREN", "SW_SHOWNORMAL", "TME_HOVER", "TPM_RECURSE", "VK_LBUTTON", "WH_JOURNALPLAYBACK", "WM_CREATE", "WS_ACTIVECAPTION", "WS_EX_DLGMODALFRAME"}
+		return []string{"BN_PAINT", "BST_CHECKED", "BS_DEFPUSHBUTTON", "CBS_NORMAL", "CBS_SIMPLE", "CBS_UNCHECKEDNORMAL", "CS_VREDRAW", "DI_MASK", "DLGC_WANTARROWS", "DS_ABSALIGN", "ES_CENTER", "ES_EX_ALLOWEOL_CR", "GA_PARENT", "GMDI_USEDISABLED", "GW_HWNDLAST", "HTCLIENT", "HWND_BOTTOM", "ICON_BIG", "IDOK", "IMAGE_ICON", "INPUT_KEYBOARD", "KEYEVENTF_EXTENDEDKEY", "KLF_ACTIVATE", "LBN_SELCHANGE", "LBS_NOTIFY", "LR_MONOCHROME", "MAPVK_VSC_TO_VK", "MB_OKCANCEL", "MF_GRAYED", "MIIM_STATE", "MIM_MAXHEIGHT", "MOD_ALT", "MOUSEEVENTF_MOVE", "PM_REMOVE", "QS_KEY", "SBS_VERT", "SB_LINEDOWN", "SB_LINERIGHT", "SB_VERT", "SIF_RANGE", "SM_CYSCREEN", "SPI_GETBEEP", "SS_CENTER", "STN_DBLCLK", "SWP_NOSIZE", "SW_NORMAL", "SW_PARENTCLOSING", "SW_SCROLLCHILDREN", "SW_SHOWNORMAL", "TME_HOVER", "TPM_RECURSE", "VK_LBUTTON", "WH_JOURNALPLAYBACK", "WM_CREATE", "WS_ACTIVECAPTION", "WS_EX_DLGMODALFRAME"}
 	case Value(10):
-		return []string{"BS_PUSHBOX", "CBS_MIXEDHOT", "SM_CXHTHUMB", "SPI_GETKEYBOARDSPEED", "SW_SHOWDEFAULT", "WH_SHELL", "WM_ENABLE"}
+		return []string{"BS_PUSHBOX", "CBS_MIXEDHOT", "HTLEFT", "HTSIZEFIRST", "IDTRYAGAIN", "SM_CXHTHUMB", "SPI_GETKEYBOARDSPEED", "SS_USERITEM", "SW_SHOWDEFAULT", "WH_SHELL", "WM_ENABLE"}
 	case Value(100):
 		return []string{"SPI_GETMOUSEHOVERHEIGHT", "VK_NUMPAD4"}
 	case Value(101):
@@ -3729,7 +4677,11 @@ func Names(value Value) []string {
 	case Value(102):
 		return []string{"SPI_GETMOUSEHOVERTIME", "VK_NUMPAD6"}
 	case Value(1024):
-		return []string{"BST_DROPDOWNPUSHED", "BS_TOP", "CBS_NOINTEGRALHEIGHT", "MF_BYPOSITION", "QS_RAWINPUT", "SWP_NOSENDCHANGING", "TPM_HORPOSANIMATION", "WM_USER", "WS_EX_CONTEXTHELP"}
+		return []string{"BST_DROPDOWNPUSHED", "BS_TOP", "CBS_NOINTEGRALHEIGHT", "DM_GETDEFID", "DS_CONTROL", "EN_UPDATE", "ES_OEMCONVERT", "LBS_WANTKEYBOARDINPUT", "MF_BYPOSITION", "QS_RAWINPUT", "SS_RIGHTJUST", "SWP_NOSENDCHANGING", "TPM_HORPOSANIMATION", "WM_USER", "WS_EX_CONTEXTHELP"}
+	case Value(1025):
+		return []string{"DM_SETDEFID"}
+	case Value(1026):
+		return []string{"DM_REPOSITION"}
 	case Value(103):
 		return []string{"SPI_SETMOUSEHOVERTIME", "VK_NUMPAD7"}
 	case Value(1031):
@@ -3738,6 +4690,8 @@ func Names(value Value) []string {
 		return []string{"SPI_GETWHEELSCROLLLINES", "VK_NUMPAD8"}
 	case Value(1048576):
 		return []string{"MB_RTLREADING", "WS_EX_NOINHERITLAYOUT", "WS_HSCROLL"}
+	case Value(10485763):
+		return []string{"LBS_STANDARD"}
 	case Value(105):
 		return []string{"SPI_SETWHEELSCROLLLINES", "VK_NUMPAD9"}
 	case Value(106):
@@ -3751,7 +4705,7 @@ func Names(value Value) []string {
 	case Value(109):
 		return []string{"SPI_SETWHEELSCROLLCHARS", "VK_SUBTRACT"}
 	case Value(11):
-		return []string{"BS_OWNERDRAW", "CBS_MIXEDPRESSED", "SM_CXICON", "SPI_SETKEYBOARDSPEED", "SW_FORCEMINIMIZE", "SW_MAX", "WH_FOREGROUNDIDLE", "WM_SETREDRAW"}
+		return []string{"BS_OWNERDRAW", "CBS_MIXEDPRESSED", "HTRIGHT", "IDCONTINUE", "SM_CXICON", "SPI_SETKEYBOARDSPEED", "SS_SIMPLE", "SW_FORCEMINIMIZE", "SW_MAX", "WH_FOREGROUNDIDLE", "WM_SETREDRAW"}
 	case Value(110):
 		return []string{"SPI_GETSHOWIMEUI", "VK_DECIMAL"}
 	case Value(111):
@@ -3773,7 +4727,7 @@ func Names(value Value) []string {
 	case Value(119):
 		return []string{"SPI_SETSCREENSAVESECURE", "VK_F8"}
 	case Value(12):
-		return []string{"BS_SPLITBUTTON", "CBS_MIXEDDISABLED", "SM_CYICON", "SPI_LANGDRIVER", "VK_CLEAR", "WH_CALLWNDPROCRET", "WM_SETTEXT"}
+		return []string{"BS_SPLITBUTTON", "CBS_MIXEDDISABLED", "HTTOP", "SM_CYICON", "SPI_LANGDRIVER", "SS_LEFTNOWORDWRAP", "VK_CLEAR", "WH_CALLWNDPROCRET", "WM_SETTEXT"}
 	case Value(120):
 		return []string{"SPI_GETHUNGAPPTIMEOUT", "VK_F9", "WHEEL_DELTA"}
 	case Value(121):
@@ -3799,11 +4753,15 @@ func Names(value Value) []string {
 	case Value(1279):
 		return []string{"QS_ALLINPUT"}
 	case Value(128):
-		return []string{"BS_BITMAP", "CBS_OEMCONVERT", "CS_PARENTDC", "KLF_NOTELLSHELL", "MB_USERICON", "MF_CHANGE", "MF_END", "MF_HILITE", "MOUSEEVENTF_XDOWN", "QS_HOTKEY", "SPI_GETPENDOCKTHRESHOLD", "SWP_HIDEWINDOW", "TPM_NONOTIFY", "VK_F17", "WM_SETICON", "WS_EX_TOOLWINDOW"}
+		return []string{"BS_BITMAP", "CBS_OEMCONVERT", "CS_PARENTDC", "DLGC_WANTCHARS", "DS_MODALFRAME", "ES_AUTOHSCROLL", "KLF_NOTELLSHELL", "LBS_USETABSTOPS", "LR_VGACOLOR", "MB_USERICON", "MFS_HILITE", "MF_CHANGE", "MF_END", "MF_HILITE", "MIIM_BITMAP", "MOUSEEVENTF_XDOWN", "QS_HOTKEY", "SPI_GETPENDOCKTHRESHOLD", "SS_NOPREFIX", "SWP_HIDEWINDOW", "TPM_NONOTIFY", "VK_F17", "WM_SETICON", "WS_EX_TOOLWINDOW"}
+	case Value(1280):
+		return []string{"EN_ERRSPACE"}
+	case Value(1281):
+		return []string{"EN_MAXTEXT"}
 	case Value(129):
 		return []string{"SPI_SETPENDOCKTHRESHOLD", "VK_F18", "WM_NCCREATE"}
 	case Value(13):
-		return []string{"BS_DEFSPLITBUTTON", "CBS_IMPLICITNORMAL", "SM_CXCURSOR", "SPI_ICONHORIZONTALSPACING", "VK_RETURN", "WH_KEYBOARD_LL", "WM_GETTEXT"}
+		return []string{"BS_DEFSPLITBUTTON", "CBS_IMPLICITNORMAL", "HTTOPLEFT", "SM_CXCURSOR", "SPI_ICONHORIZONTALSPACING", "SS_OWNERDRAW", "VK_RETURN", "WH_KEYBOARD_LL", "WM_GETTEXT"}
 	case Value(130):
 		return []string{"SPI_GETWINARRANGING", "VK_F19", "WM_NCDESTROY"}
 	case Value(131):
@@ -3831,7 +4789,7 @@ func Names(value Value) []string {
 	case Value(139):
 		return []string{"SPI_SETPENSIDEMOVETHRESHOLD", "VK_NAVIGATION_DOWN"}
 	case Value(14):
-		return []string{"BS_COMMANDLINK", "CBS_IMPLICITHOT", "SM_CYCURSOR", "SPI_GETSCREENSAVETIMEOUT", "WH_MAX", "WH_MAXHOOK", "WH_MOUSE_LL", "WM_GETTEXTLENGTH"}
+		return []string{"BS_COMMANDLINK", "CBS_IMPLICITHOT", "HTTOPRIGHT", "SM_CYCURSOR", "SPI_GETSCREENSAVETIMEOUT", "SS_BITMAP", "WH_MAX", "WH_MAXHOOK", "WH_MOUSE_LL", "WM_GETTEXTLENGTH"}
 	case Value(140):
 		return []string{"SPI_GETDRAGFROMMAXIMIZE", "VK_NAVIGATION_LEFT"}
 	case Value(141):
@@ -3853,9 +4811,13 @@ func Names(value Value) []string {
 	case Value(149):
 		return []string{"VK_OEM_FJ_LOYA"}
 	case Value(15):
-		return []string{"BS_DEFCOMMANDLINK", "BS_TYPEMASK", "CBS_IMPLICITPRESSED", "MB_TYPEMASK", "SM_CYMENU", "SPI_SETSCREENSAVETIMEOUT", "WM_PAINT"}
+		return []string{"BS_DEFCOMMANDLINK", "BS_TYPEMASK", "CBS_IMPLICITPRESSED", "HTBOTTOM", "MB_TYPEMASK", "SM_CYMENU", "SPI_SETSCREENSAVETIMEOUT", "SS_ENHMETAFILE", "WM_PAINT"}
 	case Value(150):
 		return []string{"VK_OEM_FJ_ROYA"}
+	case Value(1537):
+		return []string{"EN_HSCROLL"}
+	case Value(1538):
+		return []string{"EN_VSCROLL"}
 	case Value(156):
 		return []string{"SPI_GETTOUCHPREDICTIONPARAMETERS"}
 	case Value(157):
@@ -3865,7 +4827,7 @@ func Names(value Value) []string {
 	case Value(159):
 		return []string{"SPI_SETLOGICALDPIOVERRIDE"}
 	case Value(16):
-		return []string{"CBS_IMPLICITDISABLED", "CBS_OWNERDRAWFIXED", "KLF_REPLACELANG", "MB_ICONERROR", "MB_ICONHAND", "MB_ICONSTOP", "MF_POPUP", "MOUSEEVENTF_RIGHTUP", "QS_TIMER", "SM_CXFULLSCREEN", "SPI_GETSCREENSAVEACTIVE", "SWP_NOACTIVATE", "SW_SMOOTHSCROLL", "TME_NONCLIENT", "TPM_VCENTERALIGN", "VK_SHIFT", "WM_CLOSE", "WS_EX_ACCEPTFILES"}
+		return []string{"CBS_IMPLICITDISABLED", "CBS_OWNERDRAWFIXED", "DI_NOMIRROR", "DLGC_DEFPUSHBUTTON", "DS_NOFAILCREATE", "ES_EX_ZOOMABLE", "ES_LOWERCASE", "HTBOTTOMLEFT", "KLF_REPLACELANG", "LBS_OWNERDRAWFIXED", "LR_LOADFROMFILE", "MB_ICONERROR", "MB_ICONHAND", "MB_ICONSTOP", "MF_POPUP", "MIIM_TYPE", "MIM_STYLE", "MOUSEEVENTF_RIGHTUP", "QS_TIMER", "SBS_SIZEGRIP", "SIF_TRACKPOS", "SM_CXFULLSCREEN", "SPI_GETSCREENSAVEACTIVE", "SS_ETCHEDHORZ", "SWP_NOACTIVATE", "SW_SMOOTHSCROLL", "TME_NONCLIENT", "TPM_VCENTERALIGN", "VK_SHIFT", "WM_CLOSE", "WS_EX_ACCEPTFILES"}
 	case Value(160):
 		return []string{"VK_LSHIFT", "WM_NCMOUSEMOVE"}
 	case Value(161):
@@ -3875,7 +4837,7 @@ func Names(value Value) []string {
 	case Value(163):
 		return []string{"SPI_SETMENURECT", "VK_RCONTROL", "WM_NCLBUTTONDBLCLK"}
 	case Value(16384):
-		return []string{"BS_NOTIFY", "CBS_LOWERCASE", "CS_GLOBALCLASS", "MB_HELP", "MF_HELP", "MF_RIGHTJUSTIFY", "MOD_NOREPEAT", "MOUSEEVENTF_VIRTUALDESK", "SWP_ASYNCWINDOWPOS", "TPM_NOANIMATION", "WS_EX_LEFTSCROLLBAR"}
+		return []string{"BS_NOTIFY", "CBS_LOWERCASE", "CS_GLOBALCLASS", "LBS_NOSEL", "LR_COPYFROMRESOURCE", "MB_HELP", "MFT_RIGHTJUSTIFY", "MF_HELP", "MF_RIGHTJUSTIFY", "MOD_NOREPEAT", "MOUSEEVENTF_VIRTUALDESK", "SS_ENDELLIPSIS", "SWP_ASYNCWINDOWPOS", "TPM_NOANIMATION", "WS_EX_LEFTSCROLLBAR"}
 	case Value(164):
 		return []string{"VK_LMENU", "WM_NCRBUTTONDOWN"}
 	case Value(165):
@@ -3891,7 +4853,7 @@ func Names(value Value) []string {
 	case Value(169):
 		return []string{"VK_BROWSER_STOP", "WM_NCMBUTTONDBLCLK"}
 	case Value(17):
-		return []string{"CBS_EXCLUDEDNORMAL", "SM_CYFULLSCREEN", "SPI_SETSCREENSAVEACTIVE", "VK_CONTROL", "WM_QUERYENDSESSION"}
+		return []string{"CBS_EXCLUDEDNORMAL", "HTBOTTOMRIGHT", "HTSIZELAST", "SM_CYFULLSCREEN", "SPI_SETSCREENSAVEACTIVE", "SS_ETCHEDVERT", "VK_CONTROL", "WM_QUERYENDSESSION"}
 	case Value(170):
 		return []string{"VK_BROWSER_SEARCH"}
 	case Value(171):
@@ -3905,105 +4867,115 @@ func Names(value Value) []string {
 	case Value(175):
 		return []string{"SPI_SETTOUCHPADPARAMETERS", "VK_VOLUME_UP"}
 	case Value(176):
-		return []string{"VK_MEDIA_NEXT_TRACK"}
+		return []string{"EM_GETSEL", "VK_MEDIA_NEXT_TRACK"}
 	case Value(177):
-		return []string{"VK_MEDIA_PREV_TRACK"}
+		return []string{"EM_SETSEL", "VK_MEDIA_PREV_TRACK"}
 	case Value(178):
-		return []string{"VK_MEDIA_STOP"}
+		return []string{"EM_GETRECT", "VK_MEDIA_STOP"}
 	case Value(179):
-		return []string{"VK_MEDIA_PLAY_PAUSE"}
+		return []string{"EM_SETRECT", "VK_MEDIA_PLAY_PAUSE"}
+	case Value(1792):
+		return []string{"EN_ALIGN_LTR_EC"}
+	case Value(1793):
+		return []string{"EN_ALIGN_RTL_EC"}
 	case Value(18):
-		return []string{"CBS_EXCLUDEDHOT", "SM_CYKANJIWINDOW", "SPI_GETGRIDGRANULARITY", "VK_MENU", "WM_QUIT"}
+		return []string{"CBS_EXCLUDEDHOT", "HTBORDER", "SM_CYKANJIWINDOW", "SPI_GETGRIDGRANULARITY", "SS_ETCHEDFRAME", "VK_MENU", "WM_QUIT"}
 	case Value(180):
-		return []string{"VK_LAUNCH_MAIL"}
+		return []string{"EM_SETRECTNP", "VK_LAUNCH_MAIL"}
 	case Value(181):
-		return []string{"VK_LAUNCH_MEDIA_SELECT"}
+		return []string{"EM_SCROLL", "VK_LAUNCH_MEDIA_SELECT"}
 	case Value(182):
-		return []string{"VK_LAUNCH_APP1"}
+		return []string{"EM_LINESCROLL", "VK_LAUNCH_APP1"}
 	case Value(183):
-		return []string{"VK_LAUNCH_APP2"}
+		return []string{"EM_SCROLLCARET", "VK_LAUNCH_APP2"}
+	case Value(184):
+		return []string{"EM_GETMODIFY"}
+	case Value(185):
+		return []string{"EM_SETMODIFY"}
 	case Value(186):
-		return []string{"VK_OEM_1"}
+		return []string{"EM_GETLINECOUNT", "VK_OEM_1"}
 	case Value(187):
-		return []string{"VK_OEM_PLUS"}
+		return []string{"EM_LINEINDEX", "VK_OEM_PLUS"}
 	case Value(188):
-		return []string{"VK_OEM_COMMA"}
+		return []string{"EM_SETHANDLE", "VK_OEM_COMMA"}
 	case Value(189):
-		return []string{"VK_OEM_MINUS"}
+		return []string{"EM_GETHANDLE", "VK_OEM_MINUS"}
 	case Value(19):
-		return []string{"CBS_EXCLUDEDPRESSED", "SM_MOUSEPRESENT", "SPI_SETGRIDGRANULARITY", "VK_PAUSE", "WM_QUERYOPEN"}
+		return []string{"CBS_EXCLUDEDPRESSED", "HTOBJECT", "SM_MOUSEPRESENT", "SPI_SETGRIDGRANULARITY", "VK_PAUSE", "WM_QUERYOPEN"}
 	case Value(190):
-		return []string{"VK_OEM_PERIOD"}
+		return []string{"EM_GETTHUMB", "VK_OEM_PERIOD"}
 	case Value(191):
 		return []string{"VK_OEM_2"}
 	case Value(192):
 		return []string{"VK_OEM_3"}
 	case Value(193):
-		return []string{"VK_ABNT_C1"}
+		return []string{"EM_LINELENGTH", "VK_ABNT_C1"}
 	case Value(194):
-		return []string{"VK_ABNT_C2"}
+		return []string{"EM_REPLACESEL", "VK_ABNT_C2"}
 	case Value(195):
 		return []string{"VK_GAMEPAD_A"}
 	case Value(196):
-		return []string{"VK_GAMEPAD_B"}
+		return []string{"EM_GETLINE", "VK_GAMEPAD_B"}
 	case Value(197):
-		return []string{"VK_GAMEPAD_X"}
+		return []string{"EM_LIMITTEXT", "EM_SETLIMITTEXT", "VK_GAMEPAD_X"}
 	case Value(198):
-		return []string{"VK_GAMEPAD_Y"}
+		return []string{"EM_CANUNDO", "VK_GAMEPAD_Y"}
 	case Value(199):
-		return []string{"VK_GAMEPAD_RIGHT_SHOULDER"}
+		return []string{"EM_UNDO", "VK_GAMEPAD_RIGHT_SHOULDER"}
 	case Value(2):
-		return []string{"BN_HILITE", "BN_PUSHED", "BST_INDETERMINATE", "BS_CHECKBOX", "CBS_DROPDOWN", "CBS_HOT", "CBS_UNCHECKEDHOT", "CS_HREDRAW", "INPUT_HARDWARE", "KEYEVENTF_KEYUP", "KLF_SUBSTITUTE_OK", "MAPVK_VK_TO_CHAR", "MB_ABORTRETRYIGNORE", "MF_DISABLED", "MOD_CONTROL", "MOUSEEVENTF_LEFTDOWN", "QS_MOUSEMOVE", "SB_CTL", "SB_PAGELEFT", "SB_PAGEUP", "SM_CXVSCROLL", "SPI_SETBEEP", "SWP_NOMOVE", "SW_INVALIDATE", "SW_OTHERZOOM", "SW_SHOWMINIMIZED", "TME_LEAVE", "TPM_RIGHTBUTTON", "VK_RBUTTON", "WH_KEYBOARD", "WM_DESTROY"}
+		return []string{"BN_HILITE", "BN_PUSHED", "BST_INDETERMINATE", "BS_CHECKBOX", "CBS_DROPDOWN", "CBS_HOT", "CBS_UNCHECKEDHOT", "CS_HREDRAW", "DI_IMAGE", "DLGC_WANTTAB", "DS_SYSMODAL", "ES_EX_ALLOWEOL_LF", "ES_RIGHT", "GA_ROOT", "GMDI_GOINTOPOPUPS", "GW_HWNDNEXT", "HTCAPTION", "ICON_SMALL2", "IDCANCEL", "IMAGE_CURSOR", "INPUT_HARDWARE", "KEYEVENTF_KEYUP", "KLF_SUBSTITUTE_OK", "LBN_DBLCLK", "LBS_SORT", "LR_COLOR", "MAPVK_VK_TO_CHAR", "MB_ABORTRETRYIGNORE", "MF_DISABLED", "MIIM_ID", "MIM_BACKGROUND", "MOD_CONTROL", "MOUSEEVENTF_LEFTDOWN", "PM_NOYIELD", "QS_MOUSEMOVE", "SBS_LEFTALIGN", "SBS_SIZEBOXTOPLEFTALIGN", "SBS_TOPALIGN", "SB_CTL", "SB_PAGELEFT", "SB_PAGEUP", "SIF_PAGE", "SM_CXVSCROLL", "SPI_SETBEEP", "SS_RIGHT", "STN_ENABLE", "SWP_NOMOVE", "SW_INVALIDATE", "SW_OTHERZOOM", "SW_SHOWMINIMIZED", "TME_LEAVE", "TPM_RIGHTBUTTON", "VK_RBUTTON", "WH_KEYBOARD", "WM_DESTROY"}
 	case Value(20):
-		return []string{"CBS_EXCLUDEDDISABLED", "SM_CYVSCROLL", "SPI_SETDESKWALLPAPER", "VK_CAPITAL", "WM_ERASEBKGND"}
+		return []string{"CBS_EXCLUDEDDISABLED", "HTCLOSE", "SM_CYVSCROLL", "SPI_SETDESKWALLPAPER", "VK_CAPITAL", "WM_ERASEBKGND"}
 	case Value(200):
-		return []string{"VK_GAMEPAD_LEFT_SHOULDER"}
+		return []string{"EM_FMTLINES", "VK_GAMEPAD_LEFT_SHOULDER"}
 	case Value(201):
-		return []string{"VK_GAMEPAD_LEFT_TRIGGER"}
+		return []string{"EM_LINEFROMCHAR", "VK_GAMEPAD_LEFT_TRIGGER"}
 	case Value(202):
 		return []string{"VK_GAMEPAD_RIGHT_TRIGGER"}
 	case Value(203):
-		return []string{"VK_GAMEPAD_DPAD_UP"}
+		return []string{"EM_SETTABSTOPS", "VK_GAMEPAD_DPAD_UP"}
 	case Value(204):
-		return []string{"VK_GAMEPAD_DPAD_DOWN"}
+		return []string{"EM_SETPASSWORDCHAR", "VK_GAMEPAD_DPAD_DOWN"}
 	case Value(2048):
-		return []string{"BS_BOTTOM", "CBS_DISABLENOSCROLL", "CS_SAVEBITS", "MF_SEPARATOR", "MOUSEEVENTF_WHEEL", "QS_TOUCH", "TPM_HORNEGANIMATION"}
+		return []string{"BS_BOTTOM", "CBS_DISABLENOSCROLL", "CS_SAVEBITS", "DS_CENTER", "EN_BEFORE_PASTE", "ES_READONLY", "LBS_EXTENDEDSEL", "MFT_SEPARATOR", "MF_SEPARATOR", "MOUSEEVENTF_WHEEL", "QS_TOUCH", "SS_REALSIZEIMAGE", "TPM_HORNEGANIMATION"}
+	case Value(2049):
+		return []string{"EN_AFTER_PASTE"}
 	case Value(205):
-		return []string{"VK_GAMEPAD_DPAD_LEFT"}
+		return []string{"EM_EMPTYUNDOBUFFER", "VK_GAMEPAD_DPAD_LEFT"}
 	case Value(206):
-		return []string{"VK_GAMEPAD_DPAD_RIGHT"}
+		return []string{"EM_GETFIRSTVISIBLELINE", "VK_GAMEPAD_DPAD_RIGHT"}
 	case Value(207):
-		return []string{"VK_GAMEPAD_MENU"}
+		return []string{"EM_SETREADONLY", "VK_GAMEPAD_MENU"}
 	case Value(208):
-		return []string{"VK_GAMEPAD_VIEW"}
+		return []string{"EM_SETWORDBREAKPROC", "VK_GAMEPAD_VIEW"}
 	case Value(209):
-		return []string{"VK_GAMEPAD_LEFT_THUMBSTICK_BUTTON"}
+		return []string{"EM_GETWORDBREAKPROC", "VK_GAMEPAD_LEFT_THUMBSTICK_BUTTON"}
 	case Value(2097152):
-		return []string{"MB_SERVICE_NOTIFICATION", "WS_EX_NOREDIRECTIONBITMAP", "WS_VSCROLL"}
+		return []string{"MB_SERVICE_NOTIFICATION", "PM_QS_PAINT", "WS_EX_NOREDIRECTIONBITMAP", "WS_VSCROLL"}
 	case Value(21):
-		return []string{"SM_CXHSCROLL", "SPI_SETDESKPATTERN", "VK_HANGEUL", "VK_HANGUL", "VK_KANA", "WM_SYSCOLORCHANGE"}
+		return []string{"HTHELP", "SM_CXHSCROLL", "SPI_SETDESKPATTERN", "VK_HANGEUL", "VK_HANGUL", "VK_KANA", "WM_SYSCOLORCHANGE"}
 	case Value(210):
-		return []string{"VK_GAMEPAD_RIGHT_THUMBSTICK_BUTTON"}
+		return []string{"EM_GETPASSWORDCHAR", "VK_GAMEPAD_RIGHT_THUMBSTICK_BUTTON"}
 	case Value(211):
-		return []string{"VK_GAMEPAD_LEFT_THUMBSTICK_UP"}
+		return []string{"EM_SETMARGINS", "VK_GAMEPAD_LEFT_THUMBSTICK_UP"}
 	case Value(212):
-		return []string{"VK_GAMEPAD_LEFT_THUMBSTICK_DOWN"}
+		return []string{"EM_GETMARGINS", "VK_GAMEPAD_LEFT_THUMBSTICK_DOWN"}
 	case Value(213):
-		return []string{"VK_GAMEPAD_LEFT_THUMBSTICK_RIGHT"}
+		return []string{"EM_GETLIMITTEXT", "VK_GAMEPAD_LEFT_THUMBSTICK_RIGHT"}
 	case Value(214):
-		return []string{"VK_GAMEPAD_LEFT_THUMBSTICK_LEFT"}
+		return []string{"EM_POSFROMCHAR", "VK_GAMEPAD_LEFT_THUMBSTICK_LEFT"}
 	case Value(2147483648):
-		return []string{"TME_CANCEL", "WS_POPUP"}
+		return []string{"MIM_APPLYTOSUBMENUS", "TME_CANCEL", "WS_POPUP"}
 	case Value(215):
-		return []string{"VK_GAMEPAD_RIGHT_THUMBSTICK_UP"}
+		return []string{"EM_CHARFROMPOS", "VK_GAMEPAD_RIGHT_THUMBSTICK_UP"}
 	case Value(2156396544):
 		return []string{"WS_POPUPWINDOW"}
 	case Value(216):
-		return []string{"VK_GAMEPAD_RIGHT_THUMBSTICK_DOWN"}
+		return []string{"EM_SETIMESTATUS", "VK_GAMEPAD_RIGHT_THUMBSTICK_DOWN"}
 	case Value(217):
-		return []string{"VK_GAMEPAD_RIGHT_THUMBSTICK_RIGHT"}
+		return []string{"EM_GETIMESTATUS", "VK_GAMEPAD_RIGHT_THUMBSTICK_RIGHT"}
 	case Value(218):
-		return []string{"VK_GAMEPAD_RIGHT_THUMBSTICK_LEFT"}
+		return []string{"EM_ENABLEFEATURE", "VK_GAMEPAD_RIGHT_THUMBSTICK_LEFT"}
 	case Value(219):
 		return []string{"VK_OEM_4"}
 	case Value(22):
@@ -4027,7 +4999,7 @@ func Names(value Value) []string {
 	case Value(229):
 		return []string{"VK_PROCESSKEY"}
 	case Value(23):
-		return []string{"SM_SWAPBUTTON", "SPI_SETKEYBOARDDELAY", "VK_JUNJA"}
+		return []string{"SIF_ALL", "SM_SWAPBUTTON", "SPI_SETKEYBOARDDELAY", "VK_JUNJA"}
 	case Value(230):
 		return []string{"VK_ICO_CLEAR"}
 	case Value(231):
@@ -4083,7 +5055,7 @@ func Names(value Value) []string {
 	case Value(255):
 		return []string{"VK__none_", "WM_INPUT"}
 	case Value(256):
-		return []string{"BS_LEFT", "CBS_SORT", "KLF_SETFORPROCESS", "MB_DEFBUTTON2", "MF_APPEND", "MF_OWNERDRAW", "MOUSEEVENTF_XUP", "QS_ALLPOSTMESSAGE", "SWP_NOCOPYBITS", "TPM_RETURNCMD", "WM_KEYDOWN", "WM_KEYFIRST", "WS_EX_WINDOWEDGE"}
+		return []string{"BS_LEFT", "CBS_SORT", "DCX_EXCLUDEUPDATE", "DLGC_STATIC", "DS_NOIDLEMSG", "EN_SETFOCUS", "ES_NOHIDESEL", "KLF_SETFORPROCESS", "LBS_NOINTEGRALHEIGHT", "MB_DEFBUTTON2", "MFT_OWNERDRAW", "MF_APPEND", "MF_OWNERDRAW", "MIIM_FTYPE", "MOUSEEVENTF_XUP", "QS_ALLPOSTMESSAGE", "SS_NOTIFY", "SWP_NOCOPYBITS", "TPM_RETURNCMD", "WM_KEYDOWN", "WM_KEYFIRST", "WS_EX_WINDOWEDGE"}
 	case Value(257):
 		return []string{"WM_KEYUP"}
 	case Value(258):
@@ -4161,7 +5133,7 @@ func Names(value Value) []string {
 	case Value(297):
 		return []string{"WM_QUERYUISTATE"}
 	case Value(3):
-		return []string{"BN_UNHILITE", "BN_UNPUSHED", "BS_AUTOCHECKBOX", "CBS_DROPDOWNLIST", "CBS_PUSHED", "CBS_UNCHECKEDPRESSED", "MAPVK_VSC_TO_VK_EX", "MB_YESNOCANCEL", "SB_BOTH", "SB_PAGEDOWN", "SB_PAGERIGHT", "SM_CYHSCROLL", "SPI_GETMOUSE", "SW_MAXIMIZE", "SW_PARENTOPENING", "SW_SHOWMAXIMIZED", "VK_CANCEL", "WH_GETMESSAGE", "WM_MOVE"}
+		return []string{"BN_UNHILITE", "BN_UNPUSHED", "BS_AUTOCHECKBOX", "CBS_DROPDOWNLIST", "CBS_PUSHED", "CBS_UNCHECKEDPRESSED", "DI_NORMAL", "GA_ROOTOWNER", "GW_HWNDPREV", "HTSYSMENU", "IDABORT", "IMAGE_ENHMETAFILE", "LBN_SELCANCEL", "MAPVK_VSC_TO_VK_EX", "MB_YESNOCANCEL", "MFS_DISABLED", "MFS_GRAYED", "SB_BOTH", "SB_PAGEDOWN", "SB_PAGERIGHT", "SM_CYHSCROLL", "SPI_GETMOUSE", "SS_ICON", "STN_DISABLE", "SW_MAXIMIZE", "SW_PARENTOPENING", "SW_SHOWMAXIMIZED", "VK_CANCEL", "WH_GETMESSAGE", "WM_MOVE"}
 	case Value(30):
 		return []string{"SM_CXSIZE", "SPI_SETDOUBLECLKHEIGHT", "VK_ACCEPT", "WM_TIMECHANGE"}
 	case Value(306):
@@ -4175,7 +5147,7 @@ func Names(value Value) []string {
 	case Value(309):
 		return []string{"WM_CTLCOLORBTN"}
 	case Value(31):
-		return []string{"SM_CYSIZE", "SPI_GETICONTITLELOGFONT", "VK_MODECHANGE", "WM_CANCELMODE"}
+		return []string{"SM_CYSIZE", "SPI_GETICONTITLELOGFONT", "SS_TYPEMASK", "VK_MODECHANGE", "WM_CANCELMODE"}
 	case Value(310):
 		return []string{"WM_CTLCOLORDLG"}
 	case Value(311):
@@ -4183,9 +5155,11 @@ func Names(value Value) []string {
 	case Value(312):
 		return []string{"WM_CTLCOLORSTATIC"}
 	case Value(32):
-		return []string{"BS_LEFTTEXT", "BS_RIGHTBUTTON", "CBS_OWNERDRAWVARIABLE", "CS_OWNDC", "MB_ICONQUESTION", "MF_MENUBARBREAK", "MOUSEEVENTF_MIDDLEDOWN", "QS_PAINT", "SM_CXFRAME", "SM_CXSIZEFRAME", "SPI_SETDOUBLECLICKTIME", "SWP_DRAWFRAME", "SWP_FRAMECHANGED", "TPM_BOTTOMALIGN", "VK_SPACE", "WM_SETCURSOR", "WS_EX_TRANSPARENT"}
+		return []string{"BS_LEFTTEXT", "BS_RIGHTBUTTON", "CBS_OWNERDRAWVARIABLE", "CS_OWNDC", "DLGC_UNDEFPUSHBUTTON", "DS_LOCALEDIT", "ES_PASSWORD", "LBS_OWNERDRAWVARIABLE", "LR_LOADTRANSPARENT", "MB_ICONQUESTION", "MFT_MENUBARBREAK", "MF_MENUBARBREAK", "MIIM_DATA", "MOUSEEVENTF_MIDDLEDOWN", "QS_PAINT", "SM_CXFRAME", "SM_CXSIZEFRAME", "SPI_SETDOUBLECLICKTIME", "SWP_DRAWFRAME", "SWP_FRAMECHANGED", "TPM_BOTTOMALIGN", "VK_SPACE", "WM_SETCURSOR", "WS_EX_TRANSPARENT"}
 	case Value(320):
 		return []string{"CB_GETEDITSEL"}
+	case Value(32000):
+		return []string{"IDTIMEOUT"}
 	case Value(321):
 		return []string{"CB_LIMITTEXT"}
 	case Value(322):
@@ -4243,7 +5217,7 @@ func Names(value Value) []string {
 	case Value(327):
 		return []string{"CB_GETCURSEL"}
 	case Value(32768):
-		return []string{"BS_FLAT", "MB_NOFOCUS", "MF_MOUSESELECT", "MOUSEEVENTF_ABSOLUTE", "TPM_LAYOUTRTL", "WM_APP"}
+		return []string{"BS_FLAT", "DS_USEPIXELS", "LBS_COMBOBOX", "LR_SHARED", "MB_NOFOCUS", "MF_MOUSESELECT", "MOUSEEVENTF_ABSOLUTE", "SS_PATHELLIPSIS", "TPM_LAYOUTRTL", "WM_APP"}
 	case Value(328):
 		return []string{"CB_GETLBTEXT"}
 	case Value(329):
@@ -4312,22 +5286,82 @@ func Names(value Value) []string {
 		return []string{"CB_MSGMAX"}
 	case Value(36):
 		return []string{"SM_CXDOUBLECLK", "SPI_SETFASTTASKSWITCH", "VK_HOME", "WM_GETMINMAXINFO"}
+	case Value(368):
+		return []string{"STM_SETICON"}
+	case Value(369):
+		return []string{"STM_GETICON"}
 	case Value(37):
 		return []string{"SM_CYDOUBLECLK", "SPI_SETDRAGFULLWINDOWS", "VK_LEFT"}
+	case Value(370):
+		return []string{"STM_SETIMAGE"}
+	case Value(371):
+		return []string{"STM_GETIMAGE"}
+	case Value(372):
+		return []string{"STM_MSGMAX"}
 	case Value(38):
 		return []string{"SM_CXICONSPACING", "SPI_GETDRAGFULLWINDOWS", "VK_UP", "WM_PAINTICON"}
+	case Value(384):
+		return []string{"LB_ADDSTRING"}
 	case Value(3840):
 		return []string{"MB_DEFMASK"}
+	case Value(385):
+		return []string{"LB_INSERTSTRING"}
+	case Value(386):
+		return []string{"LB_DELETESTRING"}
+	case Value(387):
+		return []string{"LB_SELITEMRANGEEX"}
+	case Value(388):
+		return []string{"LB_RESETCONTENT"}
+	case Value(389):
+		return []string{"LB_SETSEL"}
 	case Value(39):
 		return []string{"SM_CYICONSPACING", "VK_RIGHT", "WM_ICONERASEBKGND"}
+	case Value(390):
+		return []string{"LB_SETCURSEL"}
+	case Value(391):
+		return []string{"LB_GETSEL"}
 	case Value(392):
-		return []string{"WS_EX_PALETTEWINDOW"}
+		return []string{"LB_GETCURSEL", "WS_EX_PALETTEWINDOW"}
+	case Value(393):
+		return []string{"LB_GETTEXT"}
+	case Value(394):
+		return []string{"LB_GETTEXTLEN"}
+	case Value(395):
+		return []string{"LB_GETCOUNT"}
+	case Value(396):
+		return []string{"LB_SELECTSTRING"}
+	case Value(397):
+		return []string{"LB_DIR"}
+	case Value(398):
+		return []string{"LB_GETTOPINDEX"}
+	case Value(399):
+		return []string{"LB_FINDSTRING"}
 	case Value(4):
-		return []string{"BN_DISABLE", "BST_PUSHED", "BS_RADIOBUTTON", "CBS_DISABLED", "CBS_UNCHECKEDDISABLED", "KEYEVENTF_UNICODE", "MAPVK_VK_TO_VSC_EX", "MB_YESNO", "MF_BITMAP", "MOD_SHIFT", "MOUSEEVENTF_LEFTUP", "QS_MOUSEBUTTON", "SB_THUMBPOSITION", "SM_CYCAPTION", "SPI_SETMOUSE", "SWP_NOZORDER", "SW_ERASE", "SW_OTHERUNZOOM", "SW_SHOWNOACTIVATE", "TPM_CENTERALIGN", "VK_MBUTTON", "WH_CALLWNDPROC", "WS_EX_NOPARENTNOTIFY"}
+		return []string{"BN_DISABLE", "BST_PUSHED", "BS_RADIOBUTTON", "CBS_DISABLED", "CBS_UNCHECKEDDISABLED", "DI_COMPAT", "DLGC_WANTALLKEYS", "DLGC_WANTMESSAGE", "DS_3DLOOK", "ES_EX_CONVERT_EOL_ON_PASTE", "ES_MULTILINE", "GW_OWNER", "HTGROWBOX", "HTSIZE", "IDRETRY", "KEYEVENTF_UNICODE", "LBN_SETFOCUS", "LBS_NOREDRAW", "LR_COPYRETURNORG", "MAPVK_VK_TO_VSC_EX", "MB_YESNO", "MFT_BITMAP", "MF_BITMAP", "MIIM_SUBMENU", "MIM_HELPID", "MOD_SHIFT", "MOUSEEVENTF_LEFTUP", "QS_MOUSEBUTTON", "SBS_BOTTOMALIGN", "SBS_RIGHTALIGN", "SBS_SIZEBOXBOTTOMRIGHTALIGN", "SB_THUMBPOSITION", "SIF_POS", "SM_CYCAPTION", "SPI_SETMOUSE", "SS_BLACKRECT", "SWP_NOZORDER", "SW_ERASE", "SW_OTHERUNZOOM", "SW_SHOWNOACTIVATE", "TPM_CENTERALIGN", "VK_MBUTTON", "WH_CALLWNDPROC", "WS_EX_NOPARENTNOTIFY"}
 	case Value(40):
 		return []string{"SM_MENUDROPALIGNMENT", "VK_DOWN", "WM_NEXTDLGCTL"}
+	case Value(400):
+		return []string{"LB_GETSELCOUNT"}
+	case Value(401):
+		return []string{"LB_GETSELITEMS"}
+	case Value(402):
+		return []string{"LB_SETTABSTOPS"}
+	case Value(403):
+		return []string{"LB_GETHORIZONTALEXTENT"}
+	case Value(404):
+		return []string{"LB_SETHORIZONTALEXTENT"}
+	case Value(405):
+		return []string{"LB_SETCOLUMNWIDTH"}
+	case Value(406):
+		return []string{"LB_ADDFILE"}
+	case Value(407):
+		return []string{"LB_SETTOPINDEX"}
+	case Value(408):
+		return []string{"LB_GETITEMRECT"}
+	case Value(409):
+		return []string{"LB_GETITEMDATA"}
 	case Value(4096):
-		return []string{"BS_PUSHLIKE", "CS_BYTEALIGNCLIENT", "MB_SYSTEMMODAL", "MF_DEFAULT", "MF_REMOVE", "MOUSEEVENTF_HWHEEL", "QS_POINTER", "SM_REMOTESESSION", "SPI_GETACTIVEWINDOWTRACKING", "TPM_VERPOSANIMATION", "WS_EX_RIGHT"}
+		return []string{"BS_PUSHLIKE", "CS_BYTEALIGNCLIENT", "DS_CENTERMOUSE", "ES_WANTRETURN", "LBS_DISABLENOSCROLL", "LR_LOADMAP3DCOLORS", "MB_SYSTEMMODAL", "MFS_DEFAULT", "MF_DEFAULT", "MF_REMOVE", "MOUSEEVENTF_HWHEEL", "QS_POINTER", "SM_REMOTESESSION", "SPI_GETACTIVEWINDOWTRACKING", "SS_SUNKEN", "TPM_VERPOSANIMATION", "WS_EX_RIGHT"}
 	case Value(4097):
 		return []string{"SPI_SETACTIVEWINDOWTRACKING"}
 	case Value(4098):
@@ -4336,6 +5370,8 @@ func Names(value Value) []string {
 		return []string{"SPI_SETMENUANIMATION"}
 	case Value(41):
 		return []string{"SM_PENWINDOWS", "SPI_GETNONCLIENTMETRICS", "VK_SELECT"}
+	case Value(410):
+		return []string{"LB_SETITEMDATA"}
 	case Value(4100):
 		return []string{"SPI_GETCOMBOBOXANIMATION"}
 	case Value(4101):
@@ -4356,6 +5392,8 @@ func Names(value Value) []string {
 		return []string{"SPI_GETACTIVEWNDTRKZORDER"}
 	case Value(4109):
 		return []string{"SPI_SETACTIVEWNDTRKZORDER"}
+	case Value(411):
+		return []string{"LB_SELITEMRANGE"}
 	case Value(4110):
 		return []string{"SPI_GETHOTTRACKING"}
 	case Value(4111):
@@ -4372,6 +5410,8 @@ func Names(value Value) []string {
 		return []string{"SPI_GETTOOLTIPANIMATION"}
 	case Value(4119):
 		return []string{"SPI_SETTOOLTIPANIMATION"}
+	case Value(412):
+		return []string{"LB_SETANCHORINDEX"}
 	case Value(4120):
 		return []string{"SPI_GETTOOLTIPFADE"}
 	case Value(4121):
@@ -4392,6 +5432,8 @@ func Names(value Value) []string {
 		return []string{"SPI_GETMOUSEVANISH"}
 	case Value(4129):
 		return []string{"SPI_SETMOUSEVANISH"}
+	case Value(413):
+		return []string{"LB_GETANCHORINDEX"}
 	case Value(4130):
 		return []string{"SPI_GETFLATMENU"}
 	case Value(4131):
@@ -4404,10 +5446,16 @@ func Names(value Value) []string {
 		return []string{"SPI_GETBLOCKSENDINPUTRESETS"}
 	case Value(4135):
 		return []string{"SPI_SETBLOCKSENDINPUTRESETS"}
+	case Value(414):
+		return []string{"LB_SETCARETINDEX"}
+	case Value(415):
+		return []string{"LB_GETCARETINDEX"}
 	case Value(4158):
 		return []string{"SPI_GETUIEFFECTS"}
 	case Value(4159):
 		return []string{"SPI_SETUIEFFECTS"}
+	case Value(416):
+		return []string{"LB_SETITEMHEIGHT"}
 	case Value(4160):
 		return []string{"SPI_GETDISABLEOVERLAPPEDCONTENT"}
 	case Value(4161):
@@ -4420,6 +5468,8 @@ func Names(value Value) []string {
 		return []string{"SPI_GETCLEARTYPE"}
 	case Value(4169):
 		return []string{"SPI_SETCLEARTYPE"}
+	case Value(417):
+		return []string{"LB_GETITEMHEIGHT"}
 	case Value(4170):
 		return []string{"SPI_GETSPEECHRECOGNITION"}
 	case Value(4171):
@@ -4436,12 +5486,34 @@ func Names(value Value) []string {
 		return []string{"SPI_GETSYSTEMLANGUAGEBAR"}
 	case Value(4177):
 		return []string{"SPI_SETSYSTEMLANGUAGEBAR"}
+	case Value(418):
+		return []string{"LB_FINDSTRINGEXACT"}
 	case Value(4194304):
-		return []string{"WS_DLGFRAME", "WS_EX_LAYOUTRTL"}
+		return []string{"PM_QS_SENDMESSAGE", "WS_DLGFRAME", "WS_EX_LAYOUTRTL"}
 	case Value(42):
 		return []string{"SM_DBCSENABLED", "SPI_SETNONCLIENTMETRICS", "VK_PRINT", "WM_SPOOLERSTATUS"}
+	case Value(421):
+		return []string{"LB_SETLOCALE"}
+	case Value(422):
+		return []string{"LB_GETLOCALE"}
+	case Value(423):
+		return []string{"LB_SETCOUNT"}
+	case Value(424):
+		return []string{"LB_INITSTORAGE"}
+	case Value(425):
+		return []string{"LB_ITEMFROMPOINT"}
+	case Value(4294965756):
+		return []string{"EN_LAST"}
+	case Value(4294965776):
+		return []string{"EN_FIRST", "EN_SEARCHWEB"}
 	case Value(43):
 		return []string{"SM_CMOUSEBUTTONS", "SPI_GETMINIMIZEDMETRICS", "VK_EXECUTE", "WM_DRAWITEM"}
+	case Value(433):
+		return []string{"LB_MULTIPLEADDSTRING"}
+	case Value(434):
+		return []string{"LB_GETLISTBOXINFO"}
+	case Value(435):
+		return []string{"LB_MSGMAX"}
 	case Value(44):
 		return []string{"SM_SECURE", "SPI_SETMINIMIZEDMETRICS", "VK_SNAPSHOT", "WM_MEASUREITEM"}
 	case Value(45):
@@ -4455,15 +5527,15 @@ func Names(value Value) []string {
 	case Value(49):
 		return []string{"SM_CXSMICON", "SPI_SETPENWINDOWS", "VK_1", "WM_GETFONT"}
 	case Value(49152):
-		return []string{"MB_MISCMASK"}
+		return []string{"MB_MISCMASK", "SS_ELLIPSISMASK", "SS_WORDELLIPSIS"}
 	case Value(5):
-		return []string{"BN_DBLCLK", "BN_DOUBLECLICKED", "BS_3STATE", "CBS_CHECKEDNORMAL", "MB_RETRYCANCEL", "SB_THUMBTRACK", "SM_CXBORDER", "SPI_GETBORDER", "SW_SHOW", "VK_XBUTTON1", "WH_CBT", "WM_SIZE"}
+		return []string{"BN_DBLCLK", "BN_DOUBLECLICKED", "BS_3STATE", "CBS_CHECKEDNORMAL", "GW_CHILD", "GW_MAX", "HTMENU", "IDIGNORE", "LBN_KILLFOCUS", "MB_RETRYCANCEL", "SB_THUMBTRACK", "SM_CXBORDER", "SPI_GETBORDER", "SS_GRAYRECT", "SW_SHOW", "VK_XBUTTON1", "WH_CBT", "WM_SIZE"}
 	case Value(50):
 		return []string{"SM_CYSMICON", "SPI_GETFILTERKEYS", "VK_2", "WM_SETHOTKEY"}
 	case Value(51):
 		return []string{"SM_CYSMCAPTION", "SPI_SETFILTERKEYS", "VK_3", "WM_GETHOTKEY"}
 	case Value(512):
-		return []string{"BST_HOT", "BS_RIGHT", "CBS_HASSTRINGS", "CS_NOCLOSE", "MB_DEFBUTTON3", "MF_DELETE", "MF_USECHECKBITMAPS", "SWP_NOOWNERZORDER", "SWP_NOREPOSITION", "WM_MOUSEFIRST", "WM_MOUSEMOVE", "WS_EX_CLIENTEDGE"}
+		return []string{"BST_HOT", "BS_RIGHT", "CBS_HASSTRINGS", "CS_NOCLOSE", "DS_SETFOREGROUND", "EN_KILLFOCUS", "LBS_MULTICOLUMN", "MB_DEFBUTTON3", "MFT_RADIOCHECK", "MF_DELETE", "MF_USECHECKBITMAPS", "SS_CENTERIMAGE", "SWP_NOOWNERZORDER", "SWP_NOREPOSITION", "WM_MOUSEFIRST", "WM_MOUSEMOVE", "WS_EX_CLIENTEDGE"}
 	case Value(513):
 		return []string{"WM_LBUTTONDOWN"}
 	case Value(514):
@@ -4518,6 +5590,48 @@ func Names(value Value) []string {
 		return []string{"WS_ICONIC", "WS_MINIMIZE"}
 	case Value(537):
 		return []string{"WM_DEVICECHANGE"}
+	case Value(5377):
+		return []string{"EM_SETCUEBANNER"}
+	case Value(5378):
+		return []string{"EM_GETCUEBANNER"}
+	case Value(5379):
+		return []string{"EM_SHOWBALLOONTIP"}
+	case Value(5380):
+		return []string{"EM_HIDEBALLOONTIP"}
+	case Value(5381):
+		return []string{"EM_SETHILITE"}
+	case Value(5382):
+		return []string{"EM_GETHILITE"}
+	case Value(5383):
+		return []string{"EM_NOSETFOCUS"}
+	case Value(5384):
+		return []string{"EM_TAKEFOCUS"}
+	case Value(5386):
+		return []string{"EM_SETEXTENDEDSTYLE"}
+	case Value(5387):
+		return []string{"EM_GETEXTENDEDSTYLE"}
+	case Value(5388):
+		return []string{"EM_SETENDOFLINE"}
+	case Value(5389):
+		return []string{"EM_GETENDOFLINE"}
+	case Value(5390):
+		return []string{"EM_ENABLESEARCHWEB"}
+	case Value(5391):
+		return []string{"EM_SEARCHWEB"}
+	case Value(5393):
+		return []string{"EM_SETCARETINDEX"}
+	case Value(5394):
+		return []string{"EM_GETCARETINDEX"}
+	case Value(5395):
+		return []string{"EM_FILELINEFROMCHAR"}
+	case Value(5396):
+		return []string{"EM_FILELINEINDEX"}
+	case Value(5397):
+		return []string{"EM_FILELINELENGTH"}
+	case Value(5398):
+		return []string{"EM_GETFILELINE"}
+	case Value(5399):
+		return []string{"EM_GETFILELINECOUNT"}
 	case Value(54):
 		return []string{"SM_CXMENUSIZE", "SPI_GETMOUSEKEYS", "VK_6"}
 	case Value(544):
@@ -4602,6 +5716,8 @@ func Names(value Value) []string {
 		return []string{"WM_POINTERWHEEL"}
 	case Value(591):
 		return []string{"WM_POINTERHWHEEL"}
+	case Value(592):
+		return []string{"DM_POINTERHITTEST"}
 	case Value(593):
 		return []string{"WM_POINTERROUTEDTO"}
 	case Value(594):
@@ -4609,17 +5725,55 @@ func Names(value Value) []string {
 	case Value(595):
 		return []string{"WM_POINTERROUTEDRELEASED"}
 	case Value(6):
-		return []string{"BN_SETFOCUS", "BS_AUTO3STATE", "CBS_CHECKEDHOT", "MB_CANCELTRYCONTINUE", "QS_MOUSE", "SB_LEFT", "SB_TOP", "SM_CYBORDER", "SPI_SETBORDER", "SW_MINIMIZE", "VK_XBUTTON2", "WH_SYSMSGFILTER", "WM_ACTIVATE"}
+		return []string{"BN_SETFOCUS", "BS_AUTO3STATE", "CBS_CHECKEDHOT", "GW_ENABLEDPOPUP", "HTHSCROLL", "IDYES", "MB_CANCELTRYCONTINUE", "QS_MOUSE", "SB_LEFT", "SB_TOP", "SM_CYBORDER", "SPI_SETBORDER", "SS_WHITERECT", "SW_MINIMIZE", "VK_XBUTTON2", "WH_SYSMSGFILTER", "WM_ACTIVATE"}
 	case Value(60):
 		return []string{"SM_CYMAXTRACK", "SPI_GETACCESSTIMEOUT"}
 	case Value(61):
 		return []string{"SM_CXMAXIMIZED", "SPI_SETACCESSTIMEOUT", "WM_GETOBJECT"}
+	case Value(61440):
+		return []string{"SC_SIZE"}
+	case Value(61455):
+		return []string{"SC_SEPARATOR"}
+	case Value(61456):
+		return []string{"SC_MOVE"}
+	case Value(61472):
+		return []string{"SC_ICON", "SC_MINIMIZE"}
+	case Value(61488):
+		return []string{"SC_MAXIMIZE", "SC_ZOOM"}
+	case Value(61504):
+		return []string{"SC_NEXTWINDOW"}
+	case Value(61520):
+		return []string{"SC_PREVWINDOW"}
+	case Value(61536):
+		return []string{"SC_CLOSE"}
+	case Value(61552):
+		return []string{"SC_VSCROLL"}
+	case Value(61568):
+		return []string{"SC_HSCROLL"}
+	case Value(61584):
+		return []string{"SC_MOUSEMENU"}
+	case Value(61696):
+		return []string{"SC_KEYMENU"}
+	case Value(61712):
+		return []string{"SC_ARRANGE"}
+	case Value(61728):
+		return []string{"SC_RESTORE"}
+	case Value(61744):
+		return []string{"SC_TASKLIST"}
+	case Value(61776):
+		return []string{"SC_HOTKEY"}
+	case Value(61792):
+		return []string{"SC_DEFAULT"}
+	case Value(61808):
+		return []string{"SC_MONITORPOWER"}
+	case Value(61824):
+		return []string{"SC_CONTEXTHELP"}
 	case Value(62):
 		return []string{"SM_CYMAXIMIZED", "SPI_GETSERIALKEYS"}
 	case Value(63):
 		return []string{"SM_NETWORK", "SPI_SETSERIALKEYS"}
 	case Value(64):
-		return []string{"BS_ICON", "CBS_AUTOHSCROLL", "CS_CLASSDC", "MB_ICONASTERISK", "MB_ICONINFORMATION", "MF_MENUBREAK", "MOUSEEVENTF_MIDDLEUP", "QS_SENDMESSAGE", "SPI_GETSOUNDSENTRY", "SWP_SHOWWINDOW", "TPM_VERTICAL", "WS_EX_MDICHILD"}
+		return []string{"BS_ICON", "CBS_AUTOHSCROLL", "CS_CLASSDC", "DLGC_RADIOBUTTON", "DS_SETFONT", "ES_AUTOVSCROLL", "LBS_HASSTRINGS", "LR_DEFAULTSIZE", "MB_ICONASTERISK", "MB_ICONINFORMATION", "MFT_MENUBREAK", "MF_MENUBREAK", "MIIM_STRING", "MOUSEEVENTF_MIDDLEUP", "QS_SENDMESSAGE", "SPI_GETSOUNDSENTRY", "SS_REALSIZECONTROL", "SWP_SHOWWINDOW", "TPM_VERTICAL", "WS_EX_MDICHILD"}
 	case Value(641):
 		return []string{"WM_IME_SETCONTEXT"}
 	case Value(642):
@@ -4654,6 +5808,8 @@ func Names(value Value) []string {
 		return []string{"WM_NCMOUSEHOVER"}
 	case Value(674):
 		return []string{"WM_NCMOUSELEAVE"}
+	case Value(67567616):
+		return []string{"PM_QS_INPUT"}
 	case Value(68):
 		return []string{"SM_CXDRAG", "SPI_GETKEYBOARDPREF", "VK_D", "WM_COMMNOTIFY"}
 	case Value(689):
@@ -4661,7 +5817,7 @@ func Names(value Value) []string {
 	case Value(69):
 		return []string{"SM_CYDRAG", "SPI_SETKEYBOARDPREF", "VK_E"}
 	case Value(7):
-		return []string{"BN_KILLFOCUS", "BS_GROUPBOX", "CBS_CHECKEDPRESSED", "SB_BOTTOM", "SB_RIGHT", "SM_CXDLGFRAME", "SM_CXFIXEDFRAME", "SW_SHOWMINNOACTIVE", "WH_MOUSE", "WM_SETFOCUS"}
+		return []string{"BN_KILLFOCUS", "BS_GROUPBOX", "CBS_CHECKEDPRESSED", "HTVSCROLL", "IDNO", "SB_BOTTOM", "SB_RIGHT", "SM_CXDLGFRAME", "SM_CXFIXEDFRAME", "SS_BLACKFRAME", "SW_SHOWMINNOACTIVE", "WH_MOUSE", "WM_SETFOCUS"}
 	case Value(70):
 		return []string{"SM_SHOWSOUNDS", "SPI_GETSCREENREADER", "VK_F", "WM_WINDOWPOSCHANGING"}
 	case Value(704):
@@ -4689,7 +5845,7 @@ func Names(value Value) []string {
 	case Value(76):
 		return []string{"SM_CMETRICS", "SM_XVIRTUALSCREEN", "SPI_SETDRAGWIDTH", "VK_L"}
 	case Value(768):
-		return []string{"BS_CENTER", "MB_DEFBUTTON4", "WM_CUT", "WS_EX_OVERLAPPEDWINDOW"}
+		return []string{"BS_CENTER", "EN_CHANGE", "MB_DEFBUTTON4", "WM_CUT", "WS_EX_OVERLAPPEDWINDOW"}
 	case Value(769):
 		return []string{"WM_COPY"}
 	case Value(77):
@@ -4747,7 +5903,7 @@ func Names(value Value) []string {
 	case Value(799):
 		return []string{"WM_DWMNCRENDERINGCHANGED"}
 	case Value(8):
-		return []string{"BST_FOCUS", "BS_USERBUTTON", "CBS_CHECKEDDISABLED", "CS_DBLCLKS", "KEYEVENTF_SCANCODE", "KLF_REORDER", "MF_CHECKED", "MOD_WIN", "MOUSEEVENTF_RIGHTDOWN", "QS_POSTMESSAGE", "SB_ENDSCROLL", "SM_CYDLGFRAME", "SM_CYFIXEDFRAME", "SWP_NOREDRAW", "SW_SHOWNA", "TPM_RIGHTALIGN", "VK_BACK", "WH_HARDWARE", "WM_KILLFOCUS", "WS_EX_TOPMOST"}
+		return []string{"BST_FOCUS", "BS_USERBUTTON", "CBS_CHECKEDDISABLED", "CS_DBLCLKS", "DI_DEFAULTSIZE", "DLGC_HASSETSEL", "DS_FIXEDSYS", "ES_UPPERCASE", "HTMINBUTTON", "HTREDUCE", "IDCLOSE", "KEYEVENTF_SCANCODE", "KLF_REORDER", "LBS_MULTIPLESEL", "LR_COPYDELETEORG", "MFS_CHECKED", "MF_CHECKED", "MIIM_CHECKMARKS", "MIM_MENUDATA", "MOD_WIN", "MOUSEEVENTF_RIGHTDOWN", "QS_POSTMESSAGE", "SBS_SIZEBOX", "SB_ENDSCROLL", "SIF_DISABLENOSCROLL", "SM_CYDLGFRAME", "SM_CYFIXEDFRAME", "SS_GRAYFRAME", "SWP_NOREDRAW", "SW_SHOWNA", "TPM_RIGHTALIGN", "VK_BACK", "WH_HARDWARE", "WM_KILLFOCUS", "WS_EX_TOPMOST"}
 	case Value(80):
 		return []string{"SM_CMONITORS", "SPI_GETPOWEROFFTIMEOUT", "VK_P", "WM_INPUTLANGCHANGEREQUEST"}
 	case Value(800):
@@ -4761,7 +5917,7 @@ func Names(value Value) []string {
 	case Value(81):
 		return []string{"SM_SAMEDISPLAYFORMAT", "SPI_SETLOWPOWERTIMEOUT", "VK_Q", "WM_INPUTLANGCHANGE"}
 	case Value(8192):
-		return []string{"BS_MULTILINE", "CBS_UPPERCASE", "CS_BYTEALIGNWINDOW", "MB_TASKMODAL", "MF_SYSMENU", "MOUSEEVENTF_MOVE_NOCOALESCE", "SM_SHUTTINGDOWN", "SPI_GETFOREGROUNDLOCKTIMEOUT", "SWP_DEFERERASE", "TPM_VERNEGANIMATION", "WS_EX_RTLREADING"}
+		return []string{"BS_MULTILINE", "CBS_UPPERCASE", "CS_BYTEALIGNWINDOW", "DLGC_BUTTON", "DS_CONTEXTHELP", "ES_NUMBER", "LBS_NODATA", "LR_CREATEDIBSECTION", "MB_TASKMODAL", "MFT_RIGHTORDER", "MF_SYSMENU", "MOUSEEVENTF_MOVE_NOCOALESCE", "SM_SHUTTINGDOWN", "SPI_GETFOREGROUNDLOCKTIMEOUT", "SS_EDITCONTROL", "SWP_DEFERERASE", "TPM_VERNEGANIMATION", "WS_EX_RTLREADING"}
 	case Value(8193):
 		return []string{"SM_REMOTECONTROL", "SPI_SETFOREGROUNDLOCKTIMEOUT"}
 	case Value(8194):
@@ -4873,7 +6029,7 @@ func Names(value Value) []string {
 	case Value(896):
 		return []string{"WM_PENWINFIRST"}
 	case Value(9):
-		return []string{"BS_AUTORADIOBUTTON", "CBS_MIXEDNORMAL", "SM_CYVTHUMB", "SW_RESTORE", "VK_TAB", "WH_DEBUG"}
+		return []string{"BS_AUTORADIOBUTTON", "CBS_MIXEDNORMAL", "HTMAXBUTTON", "HTZOOM", "IDHELP", "SM_CYVTHUMB", "SS_WHITEFRAME", "SW_RESTORE", "VK_TAB", "WH_DEBUG"}
 	case Value(90):
 		return []string{"SPI_SETDEFAULTINPUTLANG", "VK_Z"}
 	case Value(91):
@@ -4896,6 +6052,8 @@ func Names(value Value) []string {
 		return []string{"SPI_GETMOUSEHOVERWIDTH", "VK_NUMPAD2"}
 	case Value(99):
 		return []string{"SPI_SETMOUSEHOVERWIDTH", "VK_NUMPAD3"}
+	case Value(9961472):
+		return []string{"PM_QS_POSTMESSAGE"}
 	default:
 		return nil
 	}
@@ -5212,6 +6370,274 @@ func Parse(name string) (Value, bool) {
 		return CS_VREDRAW, true
 	case "CW_USEDEFAULT":
 		return CW_USEDEFAULT, true
+	case "DCX_EXCLUDEUPDATE":
+		return DCX_EXCLUDEUPDATE, true
+	case "DI_COMPAT":
+		return DI_COMPAT, true
+	case "DI_DEFAULTSIZE":
+		return DI_DEFAULTSIZE, true
+	case "DI_IMAGE":
+		return DI_IMAGE, true
+	case "DI_MASK":
+		return DI_MASK, true
+	case "DI_NOMIRROR":
+		return DI_NOMIRROR, true
+	case "DI_NORMAL":
+		return DI_NORMAL, true
+	case "DLGC_BUTTON":
+		return DLGC_BUTTON, true
+	case "DLGC_DEFPUSHBUTTON":
+		return DLGC_DEFPUSHBUTTON, true
+	case "DLGC_HASSETSEL":
+		return DLGC_HASSETSEL, true
+	case "DLGC_RADIOBUTTON":
+		return DLGC_RADIOBUTTON, true
+	case "DLGC_STATIC":
+		return DLGC_STATIC, true
+	case "DLGC_UNDEFPUSHBUTTON":
+		return DLGC_UNDEFPUSHBUTTON, true
+	case "DLGC_WANTALLKEYS":
+		return DLGC_WANTALLKEYS, true
+	case "DLGC_WANTARROWS":
+		return DLGC_WANTARROWS, true
+	case "DLGC_WANTCHARS":
+		return DLGC_WANTCHARS, true
+	case "DLGC_WANTMESSAGE":
+		return DLGC_WANTMESSAGE, true
+	case "DLGC_WANTTAB":
+		return DLGC_WANTTAB, true
+	case "DM_GETDEFID":
+		return DM_GETDEFID, true
+	case "DM_POINTERHITTEST":
+		return DM_POINTERHITTEST, true
+	case "DM_REPOSITION":
+		return DM_REPOSITION, true
+	case "DM_SETDEFID":
+		return DM_SETDEFID, true
+	case "DS_3DLOOK":
+		return DS_3DLOOK, true
+	case "DS_ABSALIGN":
+		return DS_ABSALIGN, true
+	case "DS_CENTER":
+		return DS_CENTER, true
+	case "DS_CENTERMOUSE":
+		return DS_CENTERMOUSE, true
+	case "DS_CONTEXTHELP":
+		return DS_CONTEXTHELP, true
+	case "DS_CONTROL":
+		return DS_CONTROL, true
+	case "DS_FIXEDSYS":
+		return DS_FIXEDSYS, true
+	case "DS_LOCALEDIT":
+		return DS_LOCALEDIT, true
+	case "DS_MODALFRAME":
+		return DS_MODALFRAME, true
+	case "DS_NOFAILCREATE":
+		return DS_NOFAILCREATE, true
+	case "DS_NOIDLEMSG":
+		return DS_NOIDLEMSG, true
+	case "DS_SETFONT":
+		return DS_SETFONT, true
+	case "DS_SETFOREGROUND":
+		return DS_SETFOREGROUND, true
+	case "DS_SYSMODAL":
+		return DS_SYSMODAL, true
+	case "DS_USEPIXELS":
+		return DS_USEPIXELS, true
+	case "EM_CANUNDO":
+		return EM_CANUNDO, true
+	case "EM_CHARFROMPOS":
+		return EM_CHARFROMPOS, true
+	case "EM_EMPTYUNDOBUFFER":
+		return EM_EMPTYUNDOBUFFER, true
+	case "EM_ENABLEFEATURE":
+		return EM_ENABLEFEATURE, true
+	case "EM_ENABLESEARCHWEB":
+		return EM_ENABLESEARCHWEB, true
+	case "EM_FILELINEFROMCHAR":
+		return EM_FILELINEFROMCHAR, true
+	case "EM_FILELINEINDEX":
+		return EM_FILELINEINDEX, true
+	case "EM_FILELINELENGTH":
+		return EM_FILELINELENGTH, true
+	case "EM_FMTLINES":
+		return EM_FMTLINES, true
+	case "EM_GETCARETINDEX":
+		return EM_GETCARETINDEX, true
+	case "EM_GETCUEBANNER":
+		return EM_GETCUEBANNER, true
+	case "EM_GETENDOFLINE":
+		return EM_GETENDOFLINE, true
+	case "EM_GETEXTENDEDSTYLE":
+		return EM_GETEXTENDEDSTYLE, true
+	case "EM_GETFILELINE":
+		return EM_GETFILELINE, true
+	case "EM_GETFILELINECOUNT":
+		return EM_GETFILELINECOUNT, true
+	case "EM_GETFIRSTVISIBLELINE":
+		return EM_GETFIRSTVISIBLELINE, true
+	case "EM_GETHANDLE":
+		return EM_GETHANDLE, true
+	case "EM_GETHILITE":
+		return EM_GETHILITE, true
+	case "EM_GETIMESTATUS":
+		return EM_GETIMESTATUS, true
+	case "EM_GETLIMITTEXT":
+		return EM_GETLIMITTEXT, true
+	case "EM_GETLINE":
+		return EM_GETLINE, true
+	case "EM_GETLINECOUNT":
+		return EM_GETLINECOUNT, true
+	case "EM_GETMARGINS":
+		return EM_GETMARGINS, true
+	case "EM_GETMODIFY":
+		return EM_GETMODIFY, true
+	case "EM_GETPASSWORDCHAR":
+		return EM_GETPASSWORDCHAR, true
+	case "EM_GETRECT":
+		return EM_GETRECT, true
+	case "EM_GETSEL":
+		return EM_GETSEL, true
+	case "EM_GETTHUMB":
+		return EM_GETTHUMB, true
+	case "EM_GETWORDBREAKPROC":
+		return EM_GETWORDBREAKPROC, true
+	case "EM_HIDEBALLOONTIP":
+		return EM_HIDEBALLOONTIP, true
+	case "EM_LIMITTEXT":
+		return EM_LIMITTEXT, true
+	case "EM_LINEFROMCHAR":
+		return EM_LINEFROMCHAR, true
+	case "EM_LINEINDEX":
+		return EM_LINEINDEX, true
+	case "EM_LINELENGTH":
+		return EM_LINELENGTH, true
+	case "EM_LINESCROLL":
+		return EM_LINESCROLL, true
+	case "EM_NOSETFOCUS":
+		return EM_NOSETFOCUS, true
+	case "EM_POSFROMCHAR":
+		return EM_POSFROMCHAR, true
+	case "EM_REPLACESEL":
+		return EM_REPLACESEL, true
+	case "EM_SCROLL":
+		return EM_SCROLL, true
+	case "EM_SCROLLCARET":
+		return EM_SCROLLCARET, true
+	case "EM_SEARCHWEB":
+		return EM_SEARCHWEB, true
+	case "EM_SETCARETINDEX":
+		return EM_SETCARETINDEX, true
+	case "EM_SETCUEBANNER":
+		return EM_SETCUEBANNER, true
+	case "EM_SETENDOFLINE":
+		return EM_SETENDOFLINE, true
+	case "EM_SETEXTENDEDSTYLE":
+		return EM_SETEXTENDEDSTYLE, true
+	case "EM_SETHANDLE":
+		return EM_SETHANDLE, true
+	case "EM_SETHILITE":
+		return EM_SETHILITE, true
+	case "EM_SETIMESTATUS":
+		return EM_SETIMESTATUS, true
+	case "EM_SETLIMITTEXT":
+		return EM_SETLIMITTEXT, true
+	case "EM_SETMARGINS":
+		return EM_SETMARGINS, true
+	case "EM_SETMODIFY":
+		return EM_SETMODIFY, true
+	case "EM_SETPASSWORDCHAR":
+		return EM_SETPASSWORDCHAR, true
+	case "EM_SETREADONLY":
+		return EM_SETREADONLY, true
+	case "EM_SETRECT":
+		return EM_SETRECT, true
+	case "EM_SETRECTNP":
+		return EM_SETRECTNP, true
+	case "EM_SETSEL":
+		return EM_SETSEL, true
+	case "EM_SETTABSTOPS":
+		return EM_SETTABSTOPS, true
+	case "EM_SETWORDBREAKPROC":
+		return EM_SETWORDBREAKPROC, true
+	case "EM_SHOWBALLOONTIP":
+		return EM_SHOWBALLOONTIP, true
+	case "EM_TAKEFOCUS":
+		return EM_TAKEFOCUS, true
+	case "EM_UNDO":
+		return EM_UNDO, true
+	case "EN_AFTER_PASTE":
+		return EN_AFTER_PASTE, true
+	case "EN_ALIGN_LTR_EC":
+		return EN_ALIGN_LTR_EC, true
+	case "EN_ALIGN_RTL_EC":
+		return EN_ALIGN_RTL_EC, true
+	case "EN_BEFORE_PASTE":
+		return EN_BEFORE_PASTE, true
+	case "EN_CHANGE":
+		return EN_CHANGE, true
+	case "EN_ERRSPACE":
+		return EN_ERRSPACE, true
+	case "EN_FIRST":
+		return EN_FIRST, true
+	case "EN_HSCROLL":
+		return EN_HSCROLL, true
+	case "EN_KILLFOCUS":
+		return EN_KILLFOCUS, true
+	case "EN_LAST":
+		return EN_LAST, true
+	case "EN_MAXTEXT":
+		return EN_MAXTEXT, true
+	case "EN_SEARCHWEB":
+		return EN_SEARCHWEB, true
+	case "EN_SETFOCUS":
+		return EN_SETFOCUS, true
+	case "EN_UPDATE":
+		return EN_UPDATE, true
+	case "EN_VSCROLL":
+		return EN_VSCROLL, true
+	case "ES_AUTOHSCROLL":
+		return ES_AUTOHSCROLL, true
+	case "ES_AUTOVSCROLL":
+		return ES_AUTOVSCROLL, true
+	case "ES_CENTER":
+		return ES_CENTER, true
+	case "ES_EX_ALLOWEOL_CR":
+		return ES_EX_ALLOWEOL_CR, true
+	case "ES_EX_ALLOWEOL_LF":
+		return ES_EX_ALLOWEOL_LF, true
+	case "ES_EX_CONVERT_EOL_ON_PASTE":
+		return ES_EX_CONVERT_EOL_ON_PASTE, true
+	case "ES_EX_ZOOMABLE":
+		return ES_EX_ZOOMABLE, true
+	case "ES_LEFT":
+		return ES_LEFT, true
+	case "ES_LOWERCASE":
+		return ES_LOWERCASE, true
+	case "ES_MULTILINE":
+		return ES_MULTILINE, true
+	case "ES_NOHIDESEL":
+		return ES_NOHIDESEL, true
+	case "ES_NUMBER":
+		return ES_NUMBER, true
+	case "ES_OEMCONVERT":
+		return ES_OEMCONVERT, true
+	case "ES_PASSWORD":
+		return ES_PASSWORD, true
+	case "ES_READONLY":
+		return ES_READONLY, true
+	case "ES_RIGHT":
+		return ES_RIGHT, true
+	case "ES_UPPERCASE":
+		return ES_UPPERCASE, true
+	case "ES_WANTRETURN":
+		return ES_WANTRETURN, true
+	case "GA_PARENT":
+		return GA_PARENT, true
+	case "GA_ROOT":
+		return GA_ROOT, true
+	case "GA_ROOTOWNER":
+		return GA_ROOTOWNER, true
 	case "GCLP_HBRBACKGROUND":
 		return GCLP_HBRBACKGROUND, true
 	case "GCLP_HCURSOR":
@@ -5246,6 +6672,10 @@ func Parse(name string) (Value, bool) {
 		return GCL_STYLE, true
 	case "GCL_WNDPROC":
 		return GCL_WNDPROC, true
+	case "GMDI_GOINTOPOPUPS":
+		return GMDI_GOINTOPOPUPS, true
+	case "GMDI_USEDISABLED":
+		return GMDI_USEDISABLED, true
 	case "GWLP_HINSTANCE":
 		return GWLP_HINSTANCE, true
 	case "GWLP_HWNDPARENT":
@@ -5270,6 +6700,80 @@ func Parse(name string) (Value, bool) {
 		return GWL_USERDATA, true
 	case "GWL_WNDPROC":
 		return GWL_WNDPROC, true
+	case "GW_CHILD":
+		return GW_CHILD, true
+	case "GW_ENABLEDPOPUP":
+		return GW_ENABLEDPOPUP, true
+	case "GW_HWNDFIRST":
+		return GW_HWNDFIRST, true
+	case "GW_HWNDLAST":
+		return GW_HWNDLAST, true
+	case "GW_HWNDNEXT":
+		return GW_HWNDNEXT, true
+	case "GW_HWNDPREV":
+		return GW_HWNDPREV, true
+	case "GW_MAX":
+		return GW_MAX, true
+	case "GW_OWNER":
+		return GW_OWNER, true
+	case "HTBORDER":
+		return HTBORDER, true
+	case "HTBOTTOM":
+		return HTBOTTOM, true
+	case "HTBOTTOMLEFT":
+		return HTBOTTOMLEFT, true
+	case "HTBOTTOMRIGHT":
+		return HTBOTTOMRIGHT, true
+	case "HTCAPTION":
+		return HTCAPTION, true
+	case "HTCLIENT":
+		return HTCLIENT, true
+	case "HTCLOSE":
+		return HTCLOSE, true
+	case "HTERROR":
+		return HTERROR, true
+	case "HTGROWBOX":
+		return HTGROWBOX, true
+	case "HTHELP":
+		return HTHELP, true
+	case "HTHSCROLL":
+		return HTHSCROLL, true
+	case "HTLEFT":
+		return HTLEFT, true
+	case "HTMAXBUTTON":
+		return HTMAXBUTTON, true
+	case "HTMENU":
+		return HTMENU, true
+	case "HTMINBUTTON":
+		return HTMINBUTTON, true
+	case "HTNOWHERE":
+		return HTNOWHERE, true
+	case "HTOBJECT":
+		return HTOBJECT, true
+	case "HTREDUCE":
+		return HTREDUCE, true
+	case "HTRIGHT":
+		return HTRIGHT, true
+	case "HTSIZE":
+		return HTSIZE, true
+	case "HTSIZEFIRST":
+		return HTSIZEFIRST, true
+	case "HTSIZELAST":
+		return HTSIZELAST, true
+	case "HTSYSMENU":
+		return HTSYSMENU, true
+	case "HTTOP":
+		return HTTOP, true
+	case "HTTOPLEFT":
+		return HTTOPLEFT, true
+	case "HTTOPRIGHT":
+		return HTTOPRIGHT, true
+	case "HTTRANSPARENT":
+		return HTTRANSPARENT, true
+	case "HTVSCROLL":
+		return HTVSCROLL, true
+	case "HTZOOM":
+		return HTZOOM, true
 	case "HWND_BOTTOM":
 		return HWND_BOTTOM, true
 	case "HWND_BROADCAST":
@@ -5284,6 +6788,20 @@ func Parse(name string) (Value, bool) {
 		return HWND_TOP, true
 	case "HWND_TOPMOST":
 		return HWND_TOPMOST, true
+	case "ICON_BIG":
+		return ICON_BIG, true
+	case "ICON_SMALL":
+		return ICON_SMALL, true
+	case "ICON_SMALL2":
+		return ICON_SMALL2, true
+	case "IDABORT":
+		return IDABORT, true
+	case "IDCANCEL":
+		return IDCANCEL, true
+	case "IDCLOSE":
+		return IDCLOSE, true
+	case "IDCONTINUE":
+		return IDCONTINUE, true
 	case "IDC_APPSTARTING":
 		return IDC_APPSTARTING, true
 	case "IDC_ARROW":
@@ -5322,6 +6840,10 @@ func Parse(name string) (Value, bool) {
 		return IDC_UPARROW, true
 	case "IDC_WAIT":
 		return IDC_WAIT, true
+	case "IDHELP":
+		return IDHELP, true
+	case "IDIGNORE":
+		return IDIGNORE, true
 	case "IDI_APPLICATION":
 		return IDI_APPLICATION, true
 	case "IDI_ASTERISK":
@@ -5342,6 +6864,26 @@ func Parse(name string) (Value, bool) {
 		return IDI_WARNING, true
 	case "IDI_WINLOGO":
 		return IDI_WINLOGO, true
+	case "IDNO":
+		return IDNO, true
+	case "IDOK":
+		return IDOK, true
+	case "IDRETRY":
+		return IDRETRY, true
+	case "IDTIMEOUT":
+		return IDTIMEOUT, true
+	case "IDTRYAGAIN":
+		return IDTRYAGAIN, true
+	case "IDYES":
+		return IDYES, true
+	case "IMAGE_BITMAP":
+		return IMAGE_BITMAP, true
+	case "IMAGE_CURSOR":
+		return IMAGE_CURSOR, true
+	case "IMAGE_ENHMETAFILE":
+		return IMAGE_ENHMETAFILE, true
+	case "IMAGE_ICON":
+		return IMAGE_ICON, true
 	case "INPUT_HARDWARE":
 		return INPUT_HARDWARE, true
 	case "INPUT_KEYBOARD":
@@ -5372,6 +6914,172 @@ func Parse(name string) (Value, bool) {
 		return KLF_SHIFTLOCK, true
 	case "KLF_SUBSTITUTE_OK":
 		return KLF_SUBSTITUTE_OK, true
+	case "LBN_DBLCLK":
+		return LBN_DBLCLK, true
+	case "LBN_ERRSPACE":
+		return LBN_ERRSPACE, true
+	case "LBN_KILLFOCUS":
+		return LBN_KILLFOCUS, true
+	case "LBN_SELCANCEL":
+		return LBN_SELCANCEL, true
+	case "LBN_SELCHANGE":
+		return LBN_SELCHANGE, true
+	case "LBN_SETFOCUS":
+		return LBN_SETFOCUS, true
+	case "LBS_COMBOBOX":
+		return LBS_COMBOBOX, true
+	case "LBS_DISABLENOSCROLL":
+		return LBS_DISABLENOSCROLL, true
+	case "LBS_EXTENDEDSEL":
+		return LBS_EXTENDEDSEL, true
+	case "LBS_HASSTRINGS":
+		return LBS_HASSTRINGS, true
+	case "LBS_MULTICOLUMN":
+		return LBS_MULTICOLUMN, true
+	case "LBS_MULTIPLESEL":
+		return LBS_MULTIPLESEL, true
+	case "LBS_NODATA":
+		return LBS_NODATA, true
+	case "LBS_NOINTEGRALHEIGHT":
+		return LBS_NOINTEGRALHEIGHT, true
+	case "LBS_NOREDRAW":
+		return LBS_NOREDRAW, true
+	case "LBS_NOSEL":
+		return LBS_NOSEL, true
+	case "LBS_NOTIFY":
+		return LBS_NOTIFY, true
+	case "LBS_OWNERDRAWFIXED":
+		return LBS_OWNERDRAWFIXED, true
+	case "LBS_OWNERDRAWVARIABLE":
+		return LBS_OWNERDRAWVARIABLE, true
+	case "LBS_SORT":
+		return LBS_SORT, true
+	case "LBS_STANDARD":
+		return LBS_STANDARD, true
+	case "LBS_USETABSTOPS":
+		return LBS_USETABSTOPS, true
+	case "LBS_WANTKEYBOARDINPUT":
+		return LBS_WANTKEYBOARDINPUT, true
+	case "LB_ADDFILE":
+		return LB_ADDFILE, true
+	case "LB_ADDSTRING":
+		return LB_ADDSTRING, true
+	case "LB_CTLCODE":
+		return LB_CTLCODE, true
+	case "LB_DELETESTRING":
+		return LB_DELETESTRING, true
+	case "LB_DIR":
+		return LB_DIR, true
+	case "LB_ERR":
+		return LB_ERR, true
+	case "LB_ERRSPACE":
+		return LB_ERRSPACE, true
+	case "LB_FINDSTRING":
+		return LB_FINDSTRING, true
+	case "LB_FINDSTRINGEXACT":
+		return LB_FINDSTRINGEXACT, true
+	case "LB_GETANCHORINDEX":
+		return LB_GETANCHORINDEX, true
+	case "LB_GETCARETINDEX":
+		return LB_GETCARETINDEX, true
+	case "LB_GETCOUNT":
+		return LB_GETCOUNT, true
+	case "LB_GETCURSEL":
+		return LB_GETCURSEL, true
+	case "LB_GETHORIZONTALEXTENT":
+		return LB_GETHORIZONTALEXTENT, true
+	case "LB_GETITEMDATA":
+		return LB_GETITEMDATA, true
+	case "LB_GETITEMHEIGHT":
+		return LB_GETITEMHEIGHT, true
+	case "LB_GETITEMRECT":
+		return LB_GETITEMRECT, true
+	case "LB_GETLISTBOXINFO":
+		return LB_GETLISTBOXINFO, true
+	case "LB_GETLOCALE":
+		return LB_GETLOCALE, true
+	case "LB_GETSEL":
+		return LB_GETSEL, true
+	case "LB_GETSELCOUNT":
+		return LB_GETSELCOUNT, true
+	case "LB_GETSELITEMS":
+		return LB_GETSELITEMS, true
+	case "LB_GETTEXT":
+		return LB_GETTEXT, true
+	case "LB_GETTEXTLEN":
+		return LB_GETTEXTLEN, true
+	case "LB_GETTOPINDEX":
+		return LB_GETTOPINDEX, true
+	case "LB_INITSTORAGE":
+		return LB_INITSTORAGE, true
+	case "LB_INSERTSTRING":
+		return LB_INSERTSTRING, true
+	case "LB_ITEMFROMPOINT":
+		return LB_ITEMFROMPOINT, true
+	case "LB_MSGMAX":
+		return LB_MSGMAX, true
+	case "LB_MULTIPLEADDSTRING":
+		return LB_MULTIPLEADDSTRING, true
+	case "LB_OKAY":
+		return LB_OKAY, true
+	case "LB_RESETCONTENT":
+		return LB_RESETCONTENT, true
+	case "LB_SELECTSTRING":
+		return LB_SELECTSTRING, true
+	case "LB_SELITEMRANGE":
+		return LB_SELITEMRANGE, true
+	case "LB_SELITEMRANGEEX":
+		return LB_SELITEMRANGEEX, true
+	case "LB_SETANCHORINDEX":
+		return LB_SETANCHORINDEX, true
+	case "LB_SETCARETINDEX":
+		return LB_SETCARETINDEX, true
+	case "LB_SETCOLUMNWIDTH":
+		return LB_SETCOLUMNWIDTH, true
+	case "LB_SETCOUNT":
+		return LB_SETCOUNT, true
+	case "LB_SETCURSEL":
+		return LB_SETCURSEL, true
+	case "LB_SETHORIZONTALEXTENT":
+		return LB_SETHORIZONTALEXTENT, true
+	case "LB_SETITEMDATA":
+		return LB_SETITEMDATA, true
+	case "LB_SETITEMHEIGHT":
+		return LB_SETITEMHEIGHT, true
+	case "LB_SETLOCALE":
+		return LB_SETLOCALE, true
+	case "LB_SETSEL":
+		return LB_SETSEL, true
+	case "LB_SETTABSTOPS":
+		return LB_SETTABSTOPS, true
+	case "LB_SETTOPINDEX":
+		return LB_SETTOPINDEX, true
+	case "LR_COLOR":
+		return LR_COLOR, true
+	case "LR_COPYDELETEORG":
+		return LR_COPYDELETEORG, true
+	case "LR_COPYFROMRESOURCE":
+		return LR_COPYFROMRESOURCE, true
+	case "LR_COPYRETURNORG":
+		return LR_COPYRETURNORG, true
+	case "LR_CREATEDIBSECTION":
+		return LR_CREATEDIBSECTION, true
+	case "LR_DEFAULTCOLOR":
+		return LR_DEFAULTCOLOR, true
+	case "LR_DEFAULTSIZE":
+		return LR_DEFAULTSIZE, true
+	case "LR_LOADFROMFILE":
+		return LR_LOADFROMFILE, true
+	case "LR_LOADMAP3DCOLORS":
+		return LR_LOADMAP3DCOLORS, true
+	case "LR_LOADTRANSPARENT":
+		return LR_LOADTRANSPARENT, true
+	case "LR_MONOCHROME":
+		return LR_MONOCHROME, true
+	case "LR_SHARED":
+		return LR_SHARED, true
+	case "LR_VGACOLOR":
+		return LR_VGACOLOR, true
 	case "MAPVK_VK_TO_CHAR":
 		return MAPVK_VK_TO_CHAR, true
 	case "MAPVK_VK_TO_VSC":
@@ -5456,6 +7164,40 @@ func Parse(name string) (Value, bool) {
 		return MB_YESNO, true
 	case "MB_YESNOCANCEL":
 		return MB_YESNOCANCEL, true
+	case "MFS_CHECKED":
+		return MFS_CHECKED, true
+	case "MFS_DEFAULT":
+		return MFS_DEFAULT, true
+	case "MFS_DISABLED":
+		return MFS_DISABLED, true
+	case "MFS_ENABLED":
+		return MFS_ENABLED, true
+	case "MFS_GRAYED":
+		return MFS_GRAYED, true
+	case "MFS_HILITE":
+		return MFS_HILITE, true
+	case "MFS_UNCHECKED":
+		return MFS_UNCHECKED, true
+	case "MFS_UNHILITE":
+		return MFS_UNHILITE, true
+	case "MFT_BITMAP":
+		return MFT_BITMAP, true
+	case "MFT_MENUBARBREAK":
+		return MFT_MENUBARBREAK, true
+	case "MFT_MENUBREAK":
+		return MFT_MENUBREAK, true
+	case "MFT_OWNERDRAW":
+		return MFT_OWNERDRAW, true
+	case "MFT_RADIOCHECK":
+		return MFT_RADIOCHECK, true
+	case "MFT_RIGHTJUSTIFY":
+		return MFT_RIGHTJUSTIFY, true
+	case "MFT_RIGHTORDER":
+		return MFT_RIGHTORDER, true
+	case "MFT_SEPARATOR":
+		return MFT_SEPARATOR, true
+	case "MFT_STRING":
+		return MFT_STRING, true
 	case "MF_APPEND":
 		return MF_APPEND, true
 	case "MF_BITMAP":
@@ -5512,6 +7254,36 @@ func Parse(name string) (Value, bool) {
 		return MF_UNHILITE, true
 	case "MF_USECHECKBITMAPS":
 		return MF_USECHECKBITMAPS, true
+	case "MIIM_BITMAP":
+		return MIIM_BITMAP, true
+	case "MIIM_CHECKMARKS":
+		return MIIM_CHECKMARKS, true
+	case "MIIM_DATA":
+		return MIIM_DATA, true
+	case "MIIM_FTYPE":
+		return MIIM_FTYPE, true
+	case "MIIM_ID":
+		return MIIM_ID, true
+	case "MIIM_STATE":
+		return MIIM_STATE, true
+	case "MIIM_STRING":
+		return MIIM_STRING, true
+	case "MIIM_SUBMENU":
+		return MIIM_SUBMENU, true
+	case "MIIM_TYPE":
+		return MIIM_TYPE, true
+	case "MIM_APPLYTOSUBMENUS":
+		return MIM_APPLYTOSUBMENUS, true
+	case "MIM_BACKGROUND":
+		return MIM_BACKGROUND, true
+	case "MIM_HELPID":
+		return MIM_HELPID, true
+	case "MIM_MAXHEIGHT":
+		return MIM_MAXHEIGHT, true
+	case "MIM_MENUDATA":
+		return MIM_MENUDATA, true
+	case "MIM_STYLE":
+		return MIM_STYLE, true
 	case "MOD_ALT":
 		return MOD_ALT, true
 	case "MOD_CONTROL":
@@ -5584,6 +7356,20 @@ func Parse(name string) (Value, bool) {
 		return OCR_UP, true
 	case "OCR_WAIT":
 		return OCR_WAIT, true
+	case "PM_NOREMOVE":
+		return PM_NOREMOVE, true
+	case "PM_NOYIELD":
+		return PM_NOYIELD, true
+	case "PM_QS_INPUT":
+		return PM_QS_INPUT, true
+	case "PM_QS_PAINT":
+		return PM_QS_PAINT, true
+	case "PM_QS_POSTMESSAGE":
+		return PM_QS_POSTMESSAGE, true
+	case "PM_QS_SENDMESSAGE":
+		return PM_QS_SENDMESSAGE, true
+	case "PM_REMOVE":
+		return PM_REMOVE, true
 	case "QS_ALLEVENTS":
 		return QS_ALLEVENTS, true
 	case "QS_ALLINPUT":
@@ -5616,6 +7402,26 @@ func Parse(name string) (Value, bool) {
 		return QS_TIMER, true
 	case "QS_TOUCH":
 		return QS_TOUCH, true
+	case "SBS_BOTTOMALIGN":
+		return SBS_BOTTOMALIGN, true
+	case "SBS_HORZ":
+		return SBS_HORZ, true
+	case "SBS_LEFTALIGN":
+		return SBS_LEFTALIGN, true
+	case "SBS_RIGHTALIGN":
+		return SBS_RIGHTALIGN, true
+	case "SBS_SIZEBOX":
+		return SBS_SIZEBOX, true
+	case "SBS_SIZEBOXBOTTOMRIGHTALIGN":
+		return SBS_SIZEBOXBOTTOMRIGHTALIGN, true
+	case "SBS_SIZEBOXTOPLEFTALIGN":
+		return SBS_SIZEBOXTOPLEFTALIGN, true
+	case "SBS_SIZEGRIP":
+		return SBS_SIZEGRIP, true
+	case "SBS_TOPALIGN":
+		return SBS_TOPALIGN, true
+	case "SBS_VERT":
+		return SBS_VERT, true
 	case "SB_BOTH":
 		return SB_BOTH, true
 	case "SB_BOTTOM":
@@ -5656,6 +7462,60 @@ func Parse(name string) (Value, bool) {
 		return SB_TOP, true
 	case "SB_VERT":
 		return SB_VERT, true
+	case "SC_ARRANGE":
+		return SC_ARRANGE, true
+	case "SC_CLOSE":
+		return SC_CLOSE, true
+	case "SC_CONTEXTHELP":
+		return SC_CONTEXTHELP, true
+	case "SC_DEFAULT":
+		return SC_DEFAULT, true
+	case "SC_HOTKEY":
+		return SC_HOTKEY, true
+	case "SC_HSCROLL":
+		return SC_HSCROLL, true
+	case "SC_ICON":
+		return SC_ICON, true
+	case "SC_KEYMENU":
+		return SC_KEYMENU, true
+	case "SC_MAXIMIZE":
+		return SC_MAXIMIZE, true
+	case "SC_MINIMIZE":
+		return SC_MINIMIZE, true
+	case "SC_MONITORPOWER":
+		return SC_MONITORPOWER, true
+	case "SC_MOUSEMENU":
+		return SC_MOUSEMENU, true
+	case "SC_MOVE":
+		return SC_MOVE, true
+	case "SC_NEXTWINDOW":
+		return SC_NEXTWINDOW, true
+	case "SC_PREVWINDOW":
+		return SC_PREVWINDOW, true
+	case "SC_RESTORE":
+		return SC_RESTORE, true
+	case "SC_SEPARATOR":
+		return SC_SEPARATOR, true
+	case "SC_SIZE":
+		return SC_SIZE, true
+	case "SC_TASKLIST":
+		return SC_TASKLIST, true
+	case "SC_VSCROLL":
+		return SC_VSCROLL, true
+	case "SC_ZOOM":
+		return SC_ZOOM, true
+	case "SIF_ALL":
+		return SIF_ALL, true
+	case "SIF_DISABLENOSCROLL":
+		return SIF_DISABLENOSCROLL, true
+	case "SIF_PAGE":
+		return SIF_PAGE, true
+	case "SIF_POS":
+		return SIF_POS, true
+	case "SIF_RANGE":
+		return SIF_RANGE, true
+	case "SIF_TRACKPOS":
+		return SIF_TRACKPOS, true
 	case "SM_ARRANGE":
 		return SM_ARRANGE, true
 	case "SM_CARETBLINKINGENABLED":
@@ -6344,6 +8204,88 @@ func Parse(name string) (Value, bool) {
 		return SPI_SETWINARRANGING, true
 	case "SPI_SETWORKAREA":
 		return SPI_SETWORKAREA, true
+	case "SS_BITMAP":
+		return SS_BITMAP, true
+	case "SS_BLACKFRAME":
+		return SS_BLACKFRAME, true
+	case "SS_BLACKRECT":
+		return SS_BLACKRECT, true
+	case "SS_CENTER":
+		return SS_CENTER, true
+	case "SS_CENTERIMAGE":
+		return SS_CENTERIMAGE, true
+	case "SS_EDITCONTROL":
+		return SS_EDITCONTROL, true
+	case "SS_ELLIPSISMASK":
+		return SS_ELLIPSISMASK, true
+	case "SS_ENDELLIPSIS":
+		return SS_ENDELLIPSIS, true
+	case "SS_ENHMETAFILE":
+		return SS_ENHMETAFILE, true
+	case "SS_ETCHEDFRAME":
+		return SS_ETCHEDFRAME, true
+	case "SS_ETCHEDHORZ":
+		return SS_ETCHEDHORZ, true
+	case "SS_ETCHEDVERT":
+		return SS_ETCHEDVERT, true
+	case "SS_GRAYFRAME":
+		return SS_GRAYFRAME, true
+	case "SS_GRAYRECT":
+		return SS_GRAYRECT, true
+	case "SS_ICON":
+		return SS_ICON, true
+	case "SS_LEFT":
+		return SS_LEFT, true
+	case "SS_LEFTNOWORDWRAP":
+		return SS_LEFTNOWORDWRAP, true
+	case "SS_NOPREFIX":
+		return SS_NOPREFIX, true
+	case "SS_NOTIFY":
+		return SS_NOTIFY, true
+	case "SS_OWNERDRAW":
+		return SS_OWNERDRAW, true
+	case "SS_PATHELLIPSIS":
+		return SS_PATHELLIPSIS, true
+	case "SS_REALSIZECONTROL":
+		return SS_REALSIZECONTROL, true
+	case "SS_REALSIZEIMAGE":
+		return SS_REALSIZEIMAGE, true
+	case "SS_RIGHT":
+		return SS_RIGHT, true
+	case "SS_RIGHTJUST":
+		return SS_RIGHTJUST, true
+	case "SS_SIMPLE":
+		return SS_SIMPLE, true
+	case "SS_SUNKEN":
+		return SS_SUNKEN, true
+	case "SS_TYPEMASK":
+		return SS_TYPEMASK, true
+	case "SS_USERITEM":
+		return SS_USERITEM, true
+	case "SS_WHITEFRAME":
+		return SS_WHITEFRAME, true
+	case "SS_WHITERECT":
+		return SS_WHITERECT, true
+	case "SS_WORDELLIPSIS":
+		return SS_WORDELLIPSIS, true
+	case "STM_GETICON":
+		return STM_GETICON, true
+	case "STM_GETIMAGE":
+		return STM_GETIMAGE, true
+	case "STM_MSGMAX":
+		return STM_MSGMAX, true
+	case "STM_SETICON":
+		return STM_SETICON, true
+	case "STM_SETIMAGE":
+		return STM_SETIMAGE, true
+	case "STN_CLICKED":
+		return STN_CLICKED, true
+	case "STN_DBLCLK":
+		return STN_DBLCLK, true
+	case "STN_DISABLE":
+		return STN_DISABLE, true
+	case "STN_ENABLE":
+		return STN_ENABLE, true
 	case "SWP_ASYNCWINDOWPOS":
 		return SWP_ASYNCWINDOWPOS, true
 	case "SWP_DEFERERASE":

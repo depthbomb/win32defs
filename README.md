@@ -1,98 +1,19 @@
 # win32defs
 
-`win32defs` provides generated Go definitions for Windows status codes, errors,
-flags, identifiers, and value-oriented macros. The constant packages compile on
-every Go platform; native message formatting is enabled only on Windows.
+Windows definitions for Go: status codes, errors, flags, identifiers, structures,
+and common Win32 helpers. Definitions are generated from Microsoft's SDK metadata.
 
-The library also generates portable ABI structures across its existing API
-domains. Structures are discovered from metadata without a symbol allowlist.
-The same rules apply to every candidate and its dependencies: sequential
-layouts, scalar typedefs, enum storage types, and fixed array extents must be
-representable in Go with matching Windows sizes, alignments, and field offsets
-on both 32-bit and 64-bit targets. Generated compile-time assertions verify
-these properties on the consumer's architecture. Unsupported layouts and
-name collisions are recorded in the generation report; previously emitted
-types cannot disappear silently.
+You'll need Go 1.26 or later. The library is intended for Windows, though the
+constant packages compile on other Go platforms too. Native message formatting
+is available only on Windows.
 
-This includes `jobobject.JOBOBJECT_BASIC_PROCESS_ID_LIST`, `winmsg.ICONINFO`,
-and `winmsg.ICONINFOEXA`/`ICONINFOEXW`. Field names retain the metadata spelling
-with the initial letter capitalized, such as `FIcon` and `HbmMask`. Flexible
-arrays retain their metadata-declared initial extent, such as `[1]uintptr`;
-additional elements require a larger native allocation. Scalar dependencies
-such as `foundation.BOOL` and `gdi.HBITMAP` are generated from their metadata
-typedefs. The `foundation` package also includes the complete
-`DUPLICATE_HANDLE_OPTIONS` constant family.
+## Getting started
 
-`JOBOBJECT_BASIC_LIMIT_INFORMATION`, `JOBOBJECT_EXTENDED_LIMIT_INFORMATION`,
-and `IO_COUNTERS` are deferred by the general ABI checks: Windows 386 requires
-8-byte structure alignment, which ordinary Go 386 value types cannot provide.
-Explicit layouts, incompatible packing, architecture-specific declarations, bitfields,
-pointer fields, and unresolved dependencies are also deferred by the current
-projection. There are no handwritten structure layouts or fallback definitions.
+```console
+go get github.com/depthbomb/win32defs
+```
 
-The minimum supported Go release is Go 1.26.
-
-## Packages
-
-Core status packages:
-
-- `hresult`
-- `winerror`
-- `ntstatus`
-- `exitcode`
-- `facility`
-- `wait`
-- `exception`
-
-Flag and API-domain packages:
-
-- `access`
-- `foundation`
-- `filesystem`
-- `memory`
-- `service`
-- `registry`
-- `com`
-- `console`
-- `process`
-- `jobobject`
-- `power`
-- `sysinfo`
-- `toolhelp`
-- `libraryloader`
-- `resource`
-- `versioninfo`
-- `pe`
-- `winsock`
-- `winmsg`
-- `shell`
-- `controls`
-- `dialogs`
-- `gdi`
-- `dwm`
-- `hidpi`
-- `clipboard`
-- `pipes`
-- `richedit`
-- `input`
-- `globalization`
-- `winhttp`
-- `cryptography`
-- `ioctl`
-- `security`
-- `syncinit`
-
-Generated structured values and helpers:
-
-- `guid`
-- `propertykey`
-- `devpropkey`
-- `message`
-- `winmacro`
-- `metadata`
-- `catalog`
-
-## Examples
+Import the packages you need:
 
 ```go
 package main
@@ -120,7 +41,39 @@ func main() {
 }
 ```
 
-Each generated numeric package supports exact-name parsing and reverse lookup:
+## Packages
+
+Packages are grouped by the part of Windows they cover:
+
+| Area                             | Packages                                                                            |
+|----------------------------------|-------------------------------------------------------------------------------------|
+| Status codes and errors          | `hresult`, `winerror`, `ntstatus`, `exitcode`, `facility`, `wait`, `exception`      |
+| Common values and access rights  | `foundation`, `access`                                                              |
+| Files, memory, and resources     | `filesystem`, `memory`, `resource`, `versioninfo`, `pe`                             |
+| Processes and system information | `process`, `jobobject`, `sysinfo`, `toolhelp`, `libraryloader`, `power`, `syncinit` |
+| Services, security, and settings | `service`, `security`, `registry`, `cryptography`                                   |
+| Windows and controls             | `winmsg`, `controls`, `dialogs`, `richedit`, `input`, `clipboard`                   |
+| Graphics and DPI                 | `gdi`, `dwm`, `hidpi`                                                               |
+| Shell, COM, console, and text    | `shell`, `com`, `console`, `globalization`                                          |
+| Networking and device I/O        | `winsock`, `winhttp`, `pipes`, `ioctl`                                              |
+| Structured values                | `guid`, `propertykey`, `devpropkey`                                                 |
+| Helpers and metadata             | `message`, `winmacro`, `catalog`, `metadata`                                        |
+
+For desktop apps, `winmsg` covers windows, menus, messages, and basic controls.
+`controls` covers common controls such as list views, tree views, tabs, and task
+dialogs. `shell` includes notification icons, file dialogs, shell operations,
+change notifications, and taskbar flags. `dialogs` covers the traditional file,
+color, font, print, and find dialogs.
+
+Other useful helpers include token pseudo-handles in `process`, SID authorities
+in `security`, and static synchronization initializers in `syncinit`. The
+`winmacro` package handles word and message packing, coordinates, mouse-wheel
+values, colors, I/O control codes, integer resources, and language identifiers.
+It offers both friendly Go names and their Win32 macro-name counterparts.
+
+## Looking up values
+
+Generated numeric packages provide `Name`, `Names`, and `Parse`:
 
 ```go
 name, ok := winerror.Name(5)
@@ -128,80 +81,15 @@ aliases := winerror.Names(5)
 code, ok := winerror.Parse("ERROR_ACCESS_DENIED")
 ```
 
-The `Names` function is important because Windows intentionally assigns
-multiple symbolic names to some values.
+Windows often gives the same value several names. `Name` picks one, preferring
+standard success names such as `S_OK`, `ERROR_SUCCESS`, and `STATUS_SUCCESS`.
+`Names` returns all known aliases. Parsing uses exact names.
 
-Canonical names prefer the conventional success symbols (`S_OK`,
-`ERROR_SUCCESS`, and `STATUS_SUCCESS`) and then package-specific naming
-families. `Names` always returns every known alias.
+These helpers cover integer constants using the package's common numeric type.
+The `catalog` package also includes strings, floating-point constants, and wider
+masks, along with source namespaces, comments, and documentation links.
 
-The HRESULT and NTSTATUS packages also expose exact-name counterparts of the
-standard classification and field-extraction macros. The `process` package
-includes metadata-defined token pseudo-handle functions, `security` provides
-SID identifier authorities, and `syncinit` provides pointer-sized static
-synchronization initializers.
-
-Desktop and application support is grouped by API domain:
-
-| Package | Coverage |
-| --- | --- |
-| `winmsg` | Window operations, menus, accelerators, hit testing, dialog results, and basic button, combo box, edit, static, and list box controls and notifications. |
-| `controls` | Common controls, including list views, tree views, tabs, toolbars, progress bars, task dialogs, class names, notifications, and message bases such as `LVM_FIRST`. |
-| `dialogs` | Traditional file, color, font, print, and find dialogs. |
-| `shell` | Notification icons, file and folder dialogs, shell execution, file operations, shell item attributes and display names, and known-folder flags. |
-| `gdi` | Drawing, text formatting, fonts, bitmaps, monitors, and redraw flags. |
-| `dwm` | Desktop Window Manager attributes and policies, including immersive dark mode. |
-| `hidpi` | DPI awareness, hosting, and scaling enums. |
-| `clipboard` | Standard clipboard formats, including `CF_UNICODETEXT`. |
-| `pipes` | Named-pipe access, modes, and operation flags. |
-| `memory` | Memory and mapping flags plus global, local, and heap allocation flags. |
-| `com` | COM flags plus drag/drop effects and variant type identifiers. |
-| `richedit` | Rich Edit messages, stream formats, character formatting, and notifications. |
-| `input` | Raw input, pointer input, and touch constants. |
-| `security` | Token access masks, privileges, security enums, and SID authorities. |
-| `globalization` | Code pages, locales, character classification, and text conversion. |
-| `winhttp` | HTTP status codes, request flags, authentication, and WinHTTP options. |
-| `cryptography` | Cryptographic algorithm names, certificate values, and data-protection flags. |
-| `resource` | Integer resource types (`RT_*`) and manifest resource identifiers. |
-| `versioninfo` | File-version signatures, flags, operating systems, file types and subtypes, and query flags. |
-| `pe` | PE/COFF image signatures, directories, machine types, section flags, and relocations. |
-
-Family matching accounts for metadata namespaces: clipboard `CF_*` values
-remain separate from font-dialog `CF_*` flags, and static-control `SS_*`
-styles are included from the system-services namespace. Existing package
-assignments and canonical names are preserved when expanding these families.
-
-The `winmsg` package also includes mouse-state and activation/resize values
-and the reflected-message base `OCM__BASE`. The `shell` package includes
-change notifications, enumeration options, and taskbar button/progress flags.
-
-The generator derives `shell.NIN_KEYSELECT` from the metadata operands
-`NIN_SELECT | NINF_KEY` using the SDK header definition. Its catalog entry links
-to the source header, and the generation report records the derived constant
-separately from metadata coverage. Generation fails if an operand is missing or
-a future metadata definition disagrees with that expression.
-
-Resource identifiers retain their 16-bit integer values. Use
-`resource.RT_MANIFEST.Uintptr()` when passing a resource type to a syscall
-binding; this represents an integer resource identifier, not a string address.
-`versioninfo.VS_FFI_SIGNATURE` retains the DWORD bit pattern `0xFEEF04BD` even
-though the metadata encodes it as a signed integer. The `pe` package preserves
-64-bit values such as `IMAGE_ORDINAL_FLAG64`. Existing machine constants remain
-available in `sysinfo` as well.
-
-`FACILITY_NT_BIT` is a 32-bit HRESULT mask, not a facility identifier. Its
-previously truncated value has been corrected to `uint32(0x10000000)`; it is
-available as `facility.FACILITY_NT_BIT` and through the catalog, but is excluded
-from the 16-bit facility-ID lookup functions.
-
-DPI context constants can be passed to syscall bindings with their
-pointer-sized representation on every Windows architecture:
-
-```go
-context := hidpi.DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2.Uintptr()
-```
-
-For lookups scoped to one enum or named prefix, use the opt-in catalog:
+Use the catalog to narrow a lookup to one enum or naming family:
 
 ```go
 family := catalog.Family{
@@ -215,141 +103,136 @@ text, ok := catalog.FormatFlags(family, 0x60)
 // text: FOS_FORCEFILESYSTEM | FOS_PICKFOLDERS
 ```
 
-`Families` discovers available families, and `FamilyDefinitions` enumerates
-their members. Integer lookup values accept decimal and Go integer-literal
-notation; other values use the catalog's literal representation. Each
-definition exposes its family, source scalar kind, and whether its enum is
-marked with the metadata Flags attribute. `FormatFlags` rejects ordinary
-enums and loose prefixes, and preserves unknown bits as a hexadecimal remainder.
-Family membership tables are generated alongside the definition table.
-Enumeration needs no runtime index allocation; alias and flag caches are
-built on demand for individual families. Returned alias slices are independent
-copies and can be modified by the caller.
+`Families` lists the available families, and `FamilyDefinitions` lists their
+members. Integer lookups accept decimal or Go integer-literal notation.
+`FormatFlags` works with metadata-defined flag enums and keeps unknown bits in
+hexadecimal. Returned alias slices are safe to modify.
 
-The `winmacro` package provides platform-independent helpers for word and
-message-parameter packing, signed coordinate and mouse-wheel extraction, color
-values, I/O control-code construction and decomposition, integer resources,
-and legacy language and locale identifiers. Friendly Go names and exact Win32
-macro-name counterparts are both available.
+## Structures
 
-When Microsoft's structured documentation contains an exact, non-empty match,
-the generated value also has a Go comment sourced from that text. Missing or
-ambiguous documentation is left blank; the generator does not infer prose.
-The opt-in `catalog` package exposes that comment alongside the original
-metadata namespace, declaring type, normalized value, and official
-documentation URL when available. The `metadata` package exposes both source
-package versions, URLs, and SHA-256 digests used for the build.
+The generator checks every structure in the supported API domains using the
+same rules. There's no per-structure list or handwritten layout fallback.
+Types are emitted only when their sizes, alignments, and field offsets match
+the Windows ABI on both 32-bit and 64-bit targets. Generated compile-time
+checks verify the layout on the target architecture.
 
-## Autonomous generation
+Examples include `jobobject.JOBOBJECT_BASIC_PROCESS_ID_LIST`, `winmsg.ICONINFO`,
+and `winmsg.ICONINFOEXA`/`ICONINFOEXW`, with supporting types such as
+`foundation.BOOL` and `gdi.HBITMAP`.
 
-Constants are not maintained in a seed list. The generator:
+Field names follow the metadata with the first letter capitalized, such as
+`FIcon` and `HbmMask`. Flexible arrays keep their declared initial length, such
+as `[1]uintptr`. You'll need a larger native allocation for additional elements.
 
-1. Discovers the NuGet `PackageBaseAddress` endpoint from the official NuGet V3
-   service index.
-2. Discovers the newest `Microsoft.Windows.SDK.Win32Metadata` and
-   `Microsoft.Windows.SDK.Win32Docs` releases.
-3. Downloads both packages, verifies their NuGet signatures, and records their
-   SHA-256 digests.
-4. Extracts `Windows.Win32.winmd` and the structured `apidocs.msgpack` data.
-5. Reads ECMA-335 constants, enum members, struct initializers, and GUID
-   attributes with `System.Reflection.Metadata`.
-6. Attaches documentation only by exact API/field-name matches and normalizes
-   upstream markup into Go comments without paraphrasing it.
-7. Classifies and emits deterministic Go packages.
-8. Quarantines ambiguous definitions in `internal/source/report.json` instead
-   of selecting a value silently.
+Some structures are left out. In particular, `JOBOBJECT_BASIC_LIMIT_INFORMATION`,
+`JOBOBJECT_EXTENDED_LIMIT_INFORMATION`, and `IO_COUNTERS` require 8-byte alignment
+on Windows 386, which ordinary Go value types can't provide. The current
+generator also skips explicit layouts, incompatible packing, architecture-specific
+declarations, bitfields, pointer fields, and unresolved dependencies. Details
+are recorded in [the generation report](internal/source/report.json).
 
-The top-level packages are deliberately curated around broadly useful Win32
-domains; they are not a projection of every metadata enum. The generation
-report records total, matched, and unclassified metadata rows by namespace so
-that this scope is explicit and coverage regressions are visible. Structured
-values and constant-returning inline methods are counted separately.
+## A few details worth knowing
 
-The source artifact is Microsoft's
+- `foundation` includes both `DUPLICATE_CLOSE_SOURCE` and `DUPLICATE_SAME_ACCESS`.
+- Use `resource.RT_MANIFEST.Uintptr()` to pass an integer resource ID to a syscall
+  binding. The value is an integer identifier, not a string address.
+- DPI contexts have a `.Uintptr()` helper too, such as
+  `hidpi.DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2.Uintptr()`.
+- `facility.FACILITY_NT_BIT` is a 32-bit HRESULT mask. It's available in the
+  catalog but isn't part of the 16-bit facility-ID lookup functions.
+- Values keep their native bit patterns and widths, including
+  `versioninfo.VS_FFI_SIGNATURE` and `pe.IMAGE_ORDINAL_FLAG64`.
+- Namespaces keep unrelated families separate, such as clipboard and font-dialog
+  `CF_*` constants.
+
+## Regenerating definitions
+
+Using the library only requires Go. Running the generator also requires the
+.NET 10 SDK and, for online generation, access to NuGet.org.
+
+The sources are Microsoft's
 [`Microsoft.Windows.SDK.Win32Metadata`](https://www.nuget.org/packages/Microsoft.Windows.SDK.Win32Metadata/)
-package, together with its
-[`Microsoft.Windows.SDK.Win32Docs`](https://www.nuget.org/packages/Microsoft.Windows.SDK.Win32Docs/)
-package. Its [projection guidance](https://github.com/microsoft/win32metadata/blob/main/docs/projections.md)
-documents both `.winmd` and the rich documentation artifact as language
-projection inputs. Package discovery uses the documented
-[NuGet V3 package-content API](https://learn.microsoft.com/nuget/api/package-base-address-resource).
+and [`Microsoft.Windows.SDK.Win32Docs`](https://www.nuget.org/packages/Microsoft.Windows.SDK.Win32Docs/)
+packages. Microsoft's [projection guide](https://github.com/microsoft/win32metadata/blob/main/docs/projections.md)
+explains how these inputs work.
 
-Run an explicit upstream update with:
+The generator discovers packages through NuGet's API, verifies their signatures
+and SHA-256 hashes, then reads the metadata and documentation. It groups the
+results into Go packages and adds comments where Microsoft's documentation has
+an exact match. Unsupported or ambiguous definitions are recorded in the report.
+The library covers selected API domains, rather than every Win32 namespace.
+
+To regenerate from the versions and hashes in
+[`source.lock.json`](internal/source/source.lock.json):
+
+```console
+go generate ./...
+```
+
+To check for newer upstream releases and update the lock:
 
 ```console
 go run ./cmd/win32defs-gen -latest
 ```
 
-Ordinary reproducible regeneration uses the version and package digest in
-`internal/source/source.lock.json`:
+Verified packages are cached under `win32defs` in your OS user cache directory.
+Each reuse checks the package hash. You can choose another location with
+`-cache-dir`.
 
-```console
-go generate ./...
-```
-
-Verified source packages are cached by SHA-256 under the operating system's
-user cache directory in `win32defs`. Every reuse checks the archive digest;
-only archives that passed NuGet signature verification have a verification
-record. Override the location with `-cache-dir`.
-
-After an online generation has populated the package cache and restored the
-exporter's .NET dependencies, regenerate without network access using:
+Once an online run has filled the cache and restored the .NET dependencies, you
+can regenerate offline:
 
 ```console
 go run ./cmd/win32defs-gen -offline
 ```
 
-Offline mode requires the source lock and fails on missing or invalid cache
-entries; it cannot be combined with `-latest`. It builds the exporter with
-`--no-restore` so the already restored .NET dependencies are reused.
+Offline mode needs a valid lock and cache, and can't be combined with `-latest`.
+The `metadata` package exposes the source versions, URLs, and hashes used to
+generate the library.
 
-Generation renders and validates all output in a temporary directory before
-replacing live files. Publication skips unchanged files and rolls back file
-replacements on an I/O failure. New omissions, rejected definitions, or
-collisions fail generation with symbol-level diagnostics. Existing documented
-collisions remain quarantined. The report records the emitted symbol inventory
-for subsequent regression checks. Use `-accept-changes` only after reviewing
-an intentional removal or a new quarantined definition.
+Output is prepared and checked in a temporary directory before replacing files.
+Unchanged files are left alone, and failed replacements are rolled back. Coverage
+checks catch removed symbols and newly rejected definitions. Use
+`-accept-changes` only after reviewing an intentional removal or rejection.
 
-Integer normalization rejects out-of-range values before any narrowing and
-preserves intentional signed-bit reinterpretation. Finite floating-point
-constants retain their source `float32` or `float64` type; non-finite values
-are reported as unsupported. Numeric package lookup functions cover integer
-constants of the package's common type; the catalog also includes strings,
-floating-point values, and explicitly wider masks.
+One header-derived constant, `shell.NIN_KEYSELECT`, comes from
+`NIN_SELECT | NINF_KEY` using metadata operands. Its catalog entry links to the
+SDK header. Generation fails if an operand is missing or a future metadata
+value disagrees with the expression.
 
-Generation requires Go 1.26+, the .NET 10 SDK, and access to NuGet.org. Library
-consumers need only Go.
+Generated files are named `zz_generated*.go`. Update the generator instead of
+editing those files directly.
 
-The scheduled GitHub Actions workflow checks for upstream releases every
-Monday, regenerates the repository, runs tests and vet, and commits only when
-tracked output changes. The workflow also supports manual dispatch for the
-initial or an on-demand run.
+## Checking changes
 
-## Validation
+For generator changes, regenerate first and review the diff. Then run:
 
 ```console
-go generate ./...
-git diff --exit-code
 go test ./...
 go vet ./...
 dotnet build tools/winmd-exporter/winmd-exporter.csproj --configuration Release
 ```
 
-CI runs tests on Windows amd64 and 386 and compiles Windows ARM64 test
-binaries. It also verifies that offline regeneration produces no changes.
-On Windows, `./tools/verify-abi.ps1` additionally checks generated structures
-documented in the core `winnt.h`, `winuser.h`, and `wingdi.h` headers against
-the installed SDK using the native x86 and x64 MSVC compilers. It verifies
-sizes, alignments, field sizes and offsets, and duplicate-handle flag values.
-The checks derive their expectations from the pinned metadata. Optional SDK
-components are not required; ARM64 layouts are checked by Go cross-compilation.
+To check reproducibility from a clean checkout:
 
-The catalog and generator benchmarks include family lookup, flag formatting,
-first-use family cache construction, and scalar normalization:
+```console
+go generate ./...
+git diff --exit-code
+go run ./cmd/win32defs-gen -offline
+git diff --exit-code
+```
+
+CI runs on Windows: amd64 and 386 tests, ARM64 test-binary compilation, and
+reproducible generation. `./tools/verify-abi.ps1` also checks layouts and
+duplicate-handle flags against the installed Windows SDK with the x86 and x64
+MSVC compilers. It covers structures documented in `winnt.h`, `winuser.h`, and
+`wingdi.h`; optional SDK components aren't needed.
+
+The scheduled workflow checks for upstream releases every Monday, validates the
+output, and commits it only when something changed. You can also run it manually.
+
+To run the catalog and generator benchmarks:
 
 ```console
 go test -p 1 ./catalog ./cmd/win32defs-gen -run '^$' -bench . -benchmem -count=5
 ```
-
-Generated files are named `zz_generated*.go` and must not be edited manually.

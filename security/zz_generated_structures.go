@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/depthbomb/win32defs/foundation"
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
 )
 
 // ACCESS_ALLOWED_ACE projects Windows.Win32.Security.ACCESS_ALLOWED_ACE.
@@ -121,6 +122,124 @@ type PSECURITY_DESCRIPTOR uintptr
 
 // PSID projects Windows.Win32.Security.PSID.
 type PSID uintptr
+
+// QUOTA_LIMITS is a view of native Windows.Win32.Security.QUOTA_LIMITS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-quota_limits.
+type QUOTA_LIMITS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	QUOTA_LIMITSSize                        = 32 + (unsafe.Sizeof(uintptr(0))-4)/4*16
+	QUOTA_LIMITSAlignment                   = 8
+	QUOTA_LIMITSPagedPoolLimitOffset        = 0
+	QUOTA_LIMITSNonPagedPoolLimitOffset     = 4 + (unsafe.Sizeof(uintptr(0))-4)/4*4
+	QUOTA_LIMITSMinimumWorkingSetSizeOffset = 8 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	QUOTA_LIMITSMaximumWorkingSetSizeOffset = 12 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+	QUOTA_LIMITSPagefileLimitOffset         = 16 + (unsafe.Sizeof(uintptr(0))-4)/4*16
+	QUOTA_LIMITSTimeLimitOffset             = 24 + (unsafe.Sizeof(uintptr(0))-4)/4*16
+)
+
+// NewQUOTA_LIMITS allocates zeroed, aligned native storage.
+func NewQUOTA_LIMITS() QUOTA_LIMITS {
+	return QUOTA_LIMITS{data: nativebuffer.New(int(QUOTA_LIMITSSize), uintptr(QUOTA_LIMITSAlignment))}
+}
+
+// ViewQUOTA_LIMITS shares data without copying. It panics if data is shorter than QUOTA_LIMITSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewQUOTA_LIMITS(data []byte) QUOTA_LIMITS {
+	return QUOTA_LIMITS{data: nativebuffer.View(data, int(QUOTA_LIMITSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b QUOTA_LIMITS) Bytes() []byte {
+	return b.data[:QUOTA_LIMITSSize:QUOTA_LIMITSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b QUOTA_LIMITS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(QUOTA_LIMITSAlignment))
+}
+
+// GetPagedPoolLimit returns a copy of the native field value.
+func (b QUOTA_LIMITS) GetPagedPoolLimit() uintptr {
+	offset := uintptr(QUOTA_LIMITSPagedPoolLimitOffset)
+
+	return nativebuffer.Read[uintptr](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetPagedPoolLimit copies value into the native field.
+func (b QUOTA_LIMITS) SetPagedPoolLimit(value uintptr) {
+	offset := uintptr(QUOTA_LIMITSPagedPoolLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetNonPagedPoolLimit returns a copy of the native field value.
+func (b QUOTA_LIMITS) GetNonPagedPoolLimit() uintptr {
+	offset := uintptr(QUOTA_LIMITSNonPagedPoolLimitOffset)
+
+	return nativebuffer.Read[uintptr](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetNonPagedPoolLimit copies value into the native field.
+func (b QUOTA_LIMITS) SetNonPagedPoolLimit(value uintptr) {
+	offset := uintptr(QUOTA_LIMITSNonPagedPoolLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetMinimumWorkingSetSize returns a copy of the native field value.
+func (b QUOTA_LIMITS) GetMinimumWorkingSetSize() uintptr {
+	offset := uintptr(QUOTA_LIMITSMinimumWorkingSetSizeOffset)
+
+	return nativebuffer.Read[uintptr](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetMinimumWorkingSetSize copies value into the native field.
+func (b QUOTA_LIMITS) SetMinimumWorkingSetSize(value uintptr) {
+	offset := uintptr(QUOTA_LIMITSMinimumWorkingSetSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetMaximumWorkingSetSize returns a copy of the native field value.
+func (b QUOTA_LIMITS) GetMaximumWorkingSetSize() uintptr {
+	offset := uintptr(QUOTA_LIMITSMaximumWorkingSetSizeOffset)
+
+	return nativebuffer.Read[uintptr](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetMaximumWorkingSetSize copies value into the native field.
+func (b QUOTA_LIMITS) SetMaximumWorkingSetSize(value uintptr) {
+	offset := uintptr(QUOTA_LIMITSMaximumWorkingSetSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetPagefileLimit returns a copy of the native field value.
+func (b QUOTA_LIMITS) GetPagefileLimit() uintptr {
+	offset := uintptr(QUOTA_LIMITSPagefileLimitOffset)
+
+	return nativebuffer.Read[uintptr](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetPagefileLimit copies value into the native field.
+func (b QUOTA_LIMITS) SetPagefileLimit(value uintptr) {
+	offset := uintptr(QUOTA_LIMITSPagefileLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetTimeLimit returns a copy of the native field value.
+func (b QUOTA_LIMITS) GetTimeLimit() int64 {
+	offset := uintptr(QUOTA_LIMITSTimeLimitOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTimeLimit copies value into the native field.
+func (b QUOTA_LIMITS) SetTimeLimit(value int64) {
+	offset := uintptr(QUOTA_LIMITSTimeLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
 
 // SAFER_LEVEL_HANDLE projects Windows.Win32.Security.SAFER_LEVEL_HANDLE.
 type SAFER_LEVEL_HANDLE uintptr
@@ -331,6 +450,180 @@ type TOKEN_PRIVILEGES_ATTRIBUTES uint32
 type TOKEN_SOURCE struct {
 	SourceName       [8]foundation.CHAR
 	SourceIdentifier foundation.LUID
+}
+
+// TOKEN_STATISTICS is a view of native Windows.Win32.Security.TOKEN_STATISTICS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_statistics.
+type TOKEN_STATISTICS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	TOKEN_STATISTICSSize                     = 56
+	TOKEN_STATISTICSAlignment                = 8
+	TOKEN_STATISTICSTokenIdOffset            = 0
+	TOKEN_STATISTICSAuthenticationIdOffset   = 8
+	TOKEN_STATISTICSExpirationTimeOffset     = 16
+	TOKEN_STATISTICSTokenTypeOffset          = 24
+	TOKEN_STATISTICSImpersonationLevelOffset = 28
+	TOKEN_STATISTICSDynamicChargedOffset     = 32
+	TOKEN_STATISTICSDynamicAvailableOffset   = 36
+	TOKEN_STATISTICSGroupCountOffset         = 40
+	TOKEN_STATISTICSPrivilegeCountOffset     = 44
+	TOKEN_STATISTICSModifiedIdOffset         = 48
+)
+
+// NewTOKEN_STATISTICS allocates zeroed, aligned native storage.
+func NewTOKEN_STATISTICS() TOKEN_STATISTICS {
+	return TOKEN_STATISTICS{data: nativebuffer.New(int(TOKEN_STATISTICSSize), uintptr(TOKEN_STATISTICSAlignment))}
+}
+
+// ViewTOKEN_STATISTICS shares data without copying. It panics if data is shorter than TOKEN_STATISTICSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewTOKEN_STATISTICS(data []byte) TOKEN_STATISTICS {
+	return TOKEN_STATISTICS{data: nativebuffer.View(data, int(TOKEN_STATISTICSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b TOKEN_STATISTICS) Bytes() []byte {
+	return b.data[:TOKEN_STATISTICSSize:TOKEN_STATISTICSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b TOKEN_STATISTICS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(TOKEN_STATISTICSAlignment))
+}
+
+// GetTokenId returns a copy of the native field value.
+func (b TOKEN_STATISTICS) GetTokenId() foundation.LUID {
+	offset := uintptr(TOKEN_STATISTICSTokenIdOffset)
+
+	return nativebuffer.Read[foundation.LUID](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTokenId copies value into the native field.
+func (b TOKEN_STATISTICS) SetTokenId(value foundation.LUID) {
+	offset := uintptr(TOKEN_STATISTICSTokenIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetAuthenticationId returns a copy of the native field value.
+func (b TOKEN_STATISTICS) GetAuthenticationId() foundation.LUID {
+	offset := uintptr(TOKEN_STATISTICSAuthenticationIdOffset)
+
+	return nativebuffer.Read[foundation.LUID](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAuthenticationId copies value into the native field.
+func (b TOKEN_STATISTICS) SetAuthenticationId(value foundation.LUID) {
+	offset := uintptr(TOKEN_STATISTICSAuthenticationIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetExpirationTime returns a copy of the native field value.
+func (b TOKEN_STATISTICS) GetExpirationTime() int64 {
+	offset := uintptr(TOKEN_STATISTICSExpirationTimeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetExpirationTime copies value into the native field.
+func (b TOKEN_STATISTICS) SetExpirationTime(value int64) {
+	offset := uintptr(TOKEN_STATISTICSExpirationTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTokenType returns a copy of the native field value.
+func (b TOKEN_STATISTICS) GetTokenType() TOKEN_TYPE {
+	offset := uintptr(TOKEN_STATISTICSTokenTypeOffset)
+
+	return nativebuffer.Read[TOKEN_TYPE](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTokenType copies value into the native field.
+func (b TOKEN_STATISTICS) SetTokenType(value TOKEN_TYPE) {
+	offset := uintptr(TOKEN_STATISTICSTokenTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetImpersonationLevel returns a copy of the native field value.
+func (b TOKEN_STATISTICS) GetImpersonationLevel() SECURITY_IMPERSONATION_LEVEL {
+	offset := uintptr(TOKEN_STATISTICSImpersonationLevelOffset)
+
+	return nativebuffer.Read[SECURITY_IMPERSONATION_LEVEL](b.Bytes()[offset : offset+(4)])
+}
+
+// SetImpersonationLevel copies value into the native field.
+func (b TOKEN_STATISTICS) SetImpersonationLevel(value SECURITY_IMPERSONATION_LEVEL) {
+	offset := uintptr(TOKEN_STATISTICSImpersonationLevelOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDynamicCharged returns a copy of the native field value.
+func (b TOKEN_STATISTICS) GetDynamicCharged() uint32 {
+	offset := uintptr(TOKEN_STATISTICSDynamicChargedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDynamicCharged copies value into the native field.
+func (b TOKEN_STATISTICS) SetDynamicCharged(value uint32) {
+	offset := uintptr(TOKEN_STATISTICSDynamicChargedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDynamicAvailable returns a copy of the native field value.
+func (b TOKEN_STATISTICS) GetDynamicAvailable() uint32 {
+	offset := uintptr(TOKEN_STATISTICSDynamicAvailableOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDynamicAvailable copies value into the native field.
+func (b TOKEN_STATISTICS) SetDynamicAvailable(value uint32) {
+	offset := uintptr(TOKEN_STATISTICSDynamicAvailableOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetGroupCount returns a copy of the native field value.
+func (b TOKEN_STATISTICS) GetGroupCount() uint32 {
+	offset := uintptr(TOKEN_STATISTICSGroupCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetGroupCount copies value into the native field.
+func (b TOKEN_STATISTICS) SetGroupCount(value uint32) {
+	offset := uintptr(TOKEN_STATISTICSGroupCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPrivilegeCount returns a copy of the native field value.
+func (b TOKEN_STATISTICS) GetPrivilegeCount() uint32 {
+	offset := uintptr(TOKEN_STATISTICSPrivilegeCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPrivilegeCount copies value into the native field.
+func (b TOKEN_STATISTICS) SetPrivilegeCount(value uint32) {
+	offset := uintptr(TOKEN_STATISTICSPrivilegeCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetModifiedId returns a copy of the native field value.
+func (b TOKEN_STATISTICS) GetModifiedId() foundation.LUID {
+	offset := uintptr(TOKEN_STATISTICSModifiedIdOffset)
+
+	return nativebuffer.Read[foundation.LUID](b.Bytes()[offset : offset+(8)])
+}
+
+// SetModifiedId copies value into the native field.
+func (b TOKEN_STATISTICS) SetModifiedId(value foundation.LUID) {
+	offset := uintptr(TOKEN_STATISTICSModifiedIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // TOKEN_TYPE projects Windows.Win32.Security.TOKEN_TYPE.

@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/depthbomb/win32defs/foundation"
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
 )
 
 // ACPI_REAL_TIME projects Windows.Win32.System.Power.ACPI_REAL_TIME.
@@ -182,6 +183,68 @@ type CUSTOMIZED_IO_SEND_OUTPUT_BUFFER struct {
 // DEVICE_POWER_STATE projects Windows.Win32.System.Power.DEVICE_POWER_STATE.
 type DEVICE_POWER_STATE int32
 
+// EMI_CHANNEL_MEASUREMENT_DATA is a view of native Windows.Win32.System.Power.EMI_CHANNEL_MEASUREMENT_DATA storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/emi/ns-emi-emi_channel_measurement_data.
+type EMI_CHANNEL_MEASUREMENT_DATA struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	EMI_CHANNEL_MEASUREMENT_DATASize                 = 16
+	EMI_CHANNEL_MEASUREMENT_DATAAlignment            = 8
+	EMI_CHANNEL_MEASUREMENT_DATAAbsoluteEnergyOffset = 0
+	EMI_CHANNEL_MEASUREMENT_DATAAbsoluteTimeOffset   = 8
+)
+
+// NewEMI_CHANNEL_MEASUREMENT_DATA allocates zeroed, aligned native storage.
+func NewEMI_CHANNEL_MEASUREMENT_DATA() EMI_CHANNEL_MEASUREMENT_DATA {
+	return EMI_CHANNEL_MEASUREMENT_DATA{data: nativebuffer.New(int(EMI_CHANNEL_MEASUREMENT_DATASize), uintptr(EMI_CHANNEL_MEASUREMENT_DATAAlignment))}
+}
+
+// ViewEMI_CHANNEL_MEASUREMENT_DATA shares data without copying. It panics if data is shorter than EMI_CHANNEL_MEASUREMENT_DATASize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewEMI_CHANNEL_MEASUREMENT_DATA(data []byte) EMI_CHANNEL_MEASUREMENT_DATA {
+	return EMI_CHANNEL_MEASUREMENT_DATA{data: nativebuffer.View(data, int(EMI_CHANNEL_MEASUREMENT_DATASize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b EMI_CHANNEL_MEASUREMENT_DATA) Bytes() []byte {
+	return b.data[:EMI_CHANNEL_MEASUREMENT_DATASize:EMI_CHANNEL_MEASUREMENT_DATASize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b EMI_CHANNEL_MEASUREMENT_DATA) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(EMI_CHANNEL_MEASUREMENT_DATAAlignment))
+}
+
+// GetAbsoluteEnergy returns a copy of the native field value.
+func (b EMI_CHANNEL_MEASUREMENT_DATA) GetAbsoluteEnergy() uint64 {
+	offset := uintptr(EMI_CHANNEL_MEASUREMENT_DATAAbsoluteEnergyOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAbsoluteEnergy copies value into the native field.
+func (b EMI_CHANNEL_MEASUREMENT_DATA) SetAbsoluteEnergy(value uint64) {
+	offset := uintptr(EMI_CHANNEL_MEASUREMENT_DATAAbsoluteEnergyOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetAbsoluteTime returns a copy of the native field value.
+func (b EMI_CHANNEL_MEASUREMENT_DATA) GetAbsoluteTime() uint64 {
+	offset := uintptr(EMI_CHANNEL_MEASUREMENT_DATAAbsoluteTimeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAbsoluteTime copies value into the native field.
+func (b EMI_CHANNEL_MEASUREMENT_DATA) SetAbsoluteTime(value uint64) {
+	offset := uintptr(EMI_CHANNEL_MEASUREMENT_DATAAbsoluteTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // EMI_CHANNEL_V2 projects Windows.Win32.System.Power.EMI_CHANNEL_V2.
 // See https://learn.microsoft.com/windows/win32/api/emi/ns-emi-emi_channel_v2.
 type EMI_CHANNEL_V2 struct {
@@ -190,6 +253,60 @@ type EMI_CHANNEL_V2 struct {
 	// Flexible array: this is the metadata-declared initial extent.
 	// Additional elements require a larger native allocation.
 	ChannelName [1]uint16
+}
+
+// EMI_MEASUREMENT_DATA_V2 is a view of native Windows.Win32.System.Power.EMI_MEASUREMENT_DATA_V2 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/emi/ns-emi-emi_measurement_data_v2.
+type EMI_MEASUREMENT_DATA_V2 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	EMI_MEASUREMENT_DATA_V2Size              = 16
+	EMI_MEASUREMENT_DATA_V2Alignment         = 8
+	EMI_MEASUREMENT_DATA_V2ChannelDataOffset = 0
+)
+
+// NewEMI_MEASUREMENT_DATA_V2 allocates zeroed, aligned native storage.
+func NewEMI_MEASUREMENT_DATA_V2() EMI_MEASUREMENT_DATA_V2 {
+	return EMI_MEASUREMENT_DATA_V2{data: nativebuffer.New(int(EMI_MEASUREMENT_DATA_V2Size), uintptr(EMI_MEASUREMENT_DATA_V2Alignment))}
+}
+
+// ViewEMI_MEASUREMENT_DATA_V2 shares data without copying. It panics if data is shorter than EMI_MEASUREMENT_DATA_V2Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewEMI_MEASUREMENT_DATA_V2(data []byte) EMI_MEASUREMENT_DATA_V2 {
+	return EMI_MEASUREMENT_DATA_V2{data: nativebuffer.View(data, int(EMI_MEASUREMENT_DATA_V2Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b EMI_MEASUREMENT_DATA_V2) Bytes() []byte {
+	return b.data[:EMI_MEASUREMENT_DATA_V2Size:EMI_MEASUREMENT_DATA_V2Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b EMI_MEASUREMENT_DATA_V2) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(EMI_MEASUREMENT_DATA_V2Alignment))
+}
+
+// GetChannelData accesses the metadata-declared initial flexible-array extent only.
+func (b EMI_MEASUREMENT_DATA_V2) GetChannelData(index0 int) EMI_CHANNEL_MEASUREMENT_DATA {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(EMI_MEASUREMENT_DATA_V2ChannelDataOffset + uintptr(index0)*(16))
+
+	return ViewEMI_CHANNEL_MEASUREMENT_DATA(b.Bytes()[offset : offset+(16)])
+}
+
+// SetChannelData copies value into the native field.
+func (b EMI_MEASUREMENT_DATA_V2) SetChannelData(index0 int, value EMI_CHANNEL_MEASUREMENT_DATA) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(EMI_MEASUREMENT_DATA_V2ChannelDataOffset + uintptr(index0)*(16))
+	copy(b.Bytes()[offset:offset+(16)], value.Bytes())
 }
 
 // EMI_MEASUREMENT_UNIT projects Windows.Win32.System.Power.EMI_MEASUREMENT_UNIT.
@@ -356,6 +473,67 @@ type POWER_SESSION_CONNECT struct {
 	Console   foundation.BOOLEAN
 }
 
+// POWER_SESSION_RIT_STATE is a view of native Windows.Win32.System.Power.POWER_SESSION_RIT_STATE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type POWER_SESSION_RIT_STATE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	POWER_SESSION_RIT_STATESize                = 16
+	POWER_SESSION_RIT_STATEAlignment           = 8
+	POWER_SESSION_RIT_STATEActiveOffset        = 0
+	POWER_SESSION_RIT_STATELastInputTimeOffset = 8
+)
+
+// NewPOWER_SESSION_RIT_STATE allocates zeroed, aligned native storage.
+func NewPOWER_SESSION_RIT_STATE() POWER_SESSION_RIT_STATE {
+	return POWER_SESSION_RIT_STATE{data: nativebuffer.New(int(POWER_SESSION_RIT_STATESize), uintptr(POWER_SESSION_RIT_STATEAlignment))}
+}
+
+// ViewPOWER_SESSION_RIT_STATE shares data without copying. It panics if data is shorter than POWER_SESSION_RIT_STATESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPOWER_SESSION_RIT_STATE(data []byte) POWER_SESSION_RIT_STATE {
+	return POWER_SESSION_RIT_STATE{data: nativebuffer.View(data, int(POWER_SESSION_RIT_STATESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b POWER_SESSION_RIT_STATE) Bytes() []byte {
+	return b.data[:POWER_SESSION_RIT_STATESize:POWER_SESSION_RIT_STATESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b POWER_SESSION_RIT_STATE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(POWER_SESSION_RIT_STATEAlignment))
+}
+
+// GetActive returns a copy of the native field value.
+func (b POWER_SESSION_RIT_STATE) GetActive() foundation.BOOLEAN {
+	offset := uintptr(POWER_SESSION_RIT_STATEActiveOffset)
+
+	return nativebuffer.Read[foundation.BOOLEAN](b.Bytes()[offset : offset+(1)])
+}
+
+// SetActive copies value into the native field.
+func (b POWER_SESSION_RIT_STATE) SetActive(value foundation.BOOLEAN) {
+	offset := uintptr(POWER_SESSION_RIT_STATEActiveOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetLastInputTime returns a copy of the native field value.
+func (b POWER_SESSION_RIT_STATE) GetLastInputTime() uint64 {
+	offset := uintptr(POWER_SESSION_RIT_STATELastInputTimeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLastInputTime copies value into the native field.
+func (b POWER_SESSION_RIT_STATE) SetLastInputTime(value uint64) {
+	offset := uintptr(POWER_SESSION_RIT_STATELastInputTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // POWER_SESSION_TIMEOUTS projects Windows.Win32.System.Power.POWER_SESSION_TIMEOUTS.
 type POWER_SESSION_TIMEOUTS struct {
 	InputTimeout   uint32
@@ -377,6 +555,751 @@ type POWER_USER_PRESENCE struct {
 // POWER_USER_PRESENCE_TYPE projects Windows.Win32.System.Power.POWER_USER_PRESENCE_TYPE.
 type POWER_USER_PRESENCE_TYPE int32
 
+// PPM_IDLESTATE_EVENT is a view of native Windows.Win32.System.Power.PPM_IDLESTATE_EVENT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type PPM_IDLESTATE_EVENT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PPM_IDLESTATE_EVENTSize             = 16
+	PPM_IDLESTATE_EVENTAlignment        = 8
+	PPM_IDLESTATE_EVENTNewStateOffset   = 0
+	PPM_IDLESTATE_EVENTOldStateOffset   = 4
+	PPM_IDLESTATE_EVENTProcessorsOffset = 8
+)
+
+// NewPPM_IDLESTATE_EVENT allocates zeroed, aligned native storage.
+func NewPPM_IDLESTATE_EVENT() PPM_IDLESTATE_EVENT {
+	return PPM_IDLESTATE_EVENT{data: nativebuffer.New(int(PPM_IDLESTATE_EVENTSize), uintptr(PPM_IDLESTATE_EVENTAlignment))}
+}
+
+// ViewPPM_IDLESTATE_EVENT shares data without copying. It panics if data is shorter than PPM_IDLESTATE_EVENTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPPM_IDLESTATE_EVENT(data []byte) PPM_IDLESTATE_EVENT {
+	return PPM_IDLESTATE_EVENT{data: nativebuffer.View(data, int(PPM_IDLESTATE_EVENTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PPM_IDLESTATE_EVENT) Bytes() []byte {
+	return b.data[:PPM_IDLESTATE_EVENTSize:PPM_IDLESTATE_EVENTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PPM_IDLESTATE_EVENT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PPM_IDLESTATE_EVENTAlignment))
+}
+
+// GetNewState returns a copy of the native field value.
+func (b PPM_IDLESTATE_EVENT) GetNewState() uint32 {
+	offset := uintptr(PPM_IDLESTATE_EVENTNewStateOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNewState copies value into the native field.
+func (b PPM_IDLESTATE_EVENT) SetNewState(value uint32) {
+	offset := uintptr(PPM_IDLESTATE_EVENTNewStateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetOldState returns a copy of the native field value.
+func (b PPM_IDLESTATE_EVENT) GetOldState() uint32 {
+	offset := uintptr(PPM_IDLESTATE_EVENTOldStateOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetOldState copies value into the native field.
+func (b PPM_IDLESTATE_EVENT) SetOldState(value uint32) {
+	offset := uintptr(PPM_IDLESTATE_EVENTOldStateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetProcessors returns a copy of the native field value.
+func (b PPM_IDLESTATE_EVENT) GetProcessors() uint64 {
+	offset := uintptr(PPM_IDLESTATE_EVENTProcessorsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetProcessors copies value into the native field.
+func (b PPM_IDLESTATE_EVENT) SetProcessors(value uint64) {
+	offset := uintptr(PPM_IDLESTATE_EVENTProcessorsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// PPM_IDLE_ACCOUNTING is a view of native Windows.Win32.System.Power.PPM_IDLE_ACCOUNTING storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type PPM_IDLE_ACCOUNTING struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PPM_IDLE_ACCOUNTINGSize                   = 72
+	PPM_IDLE_ACCOUNTINGAlignment              = 8
+	PPM_IDLE_ACCOUNTINGStateCountOffset       = 0
+	PPM_IDLE_ACCOUNTINGTotalTransitionsOffset = 4
+	PPM_IDLE_ACCOUNTINGResetCountOffset       = 8
+	PPM_IDLE_ACCOUNTINGStartTimeOffset        = 16
+	PPM_IDLE_ACCOUNTINGStateOffset            = 24
+)
+
+// NewPPM_IDLE_ACCOUNTING allocates zeroed, aligned native storage.
+func NewPPM_IDLE_ACCOUNTING() PPM_IDLE_ACCOUNTING {
+	return PPM_IDLE_ACCOUNTING{data: nativebuffer.New(int(PPM_IDLE_ACCOUNTINGSize), uintptr(PPM_IDLE_ACCOUNTINGAlignment))}
+}
+
+// ViewPPM_IDLE_ACCOUNTING shares data without copying. It panics if data is shorter than PPM_IDLE_ACCOUNTINGSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPPM_IDLE_ACCOUNTING(data []byte) PPM_IDLE_ACCOUNTING {
+	return PPM_IDLE_ACCOUNTING{data: nativebuffer.View(data, int(PPM_IDLE_ACCOUNTINGSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PPM_IDLE_ACCOUNTING) Bytes() []byte {
+	return b.data[:PPM_IDLE_ACCOUNTINGSize:PPM_IDLE_ACCOUNTINGSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PPM_IDLE_ACCOUNTING) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PPM_IDLE_ACCOUNTINGAlignment))
+}
+
+// GetStateCount returns a copy of the native field value.
+func (b PPM_IDLE_ACCOUNTING) GetStateCount() uint32 {
+	offset := uintptr(PPM_IDLE_ACCOUNTINGStateCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetStateCount copies value into the native field.
+func (b PPM_IDLE_ACCOUNTING) SetStateCount(value uint32) {
+	offset := uintptr(PPM_IDLE_ACCOUNTINGStateCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTotalTransitions returns a copy of the native field value.
+func (b PPM_IDLE_ACCOUNTING) GetTotalTransitions() uint32 {
+	offset := uintptr(PPM_IDLE_ACCOUNTINGTotalTransitionsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTotalTransitions copies value into the native field.
+func (b PPM_IDLE_ACCOUNTING) SetTotalTransitions(value uint32) {
+	offset := uintptr(PPM_IDLE_ACCOUNTINGTotalTransitionsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetResetCount returns a copy of the native field value.
+func (b PPM_IDLE_ACCOUNTING) GetResetCount() uint32 {
+	offset := uintptr(PPM_IDLE_ACCOUNTINGResetCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetResetCount copies value into the native field.
+func (b PPM_IDLE_ACCOUNTING) SetResetCount(value uint32) {
+	offset := uintptr(PPM_IDLE_ACCOUNTINGResetCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetStartTime returns a copy of the native field value.
+func (b PPM_IDLE_ACCOUNTING) GetStartTime() uint64 {
+	offset := uintptr(PPM_IDLE_ACCOUNTINGStartTimeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartTime copies value into the native field.
+func (b PPM_IDLE_ACCOUNTING) SetStartTime(value uint64) {
+	offset := uintptr(PPM_IDLE_ACCOUNTINGStartTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetState accesses the metadata-declared initial flexible-array extent only.
+func (b PPM_IDLE_ACCOUNTING) GetState(index0 int) PPM_IDLE_STATE_ACCOUNTING {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PPM_IDLE_ACCOUNTINGStateOffset + uintptr(index0)*(48))
+
+	return ViewPPM_IDLE_STATE_ACCOUNTING(b.Bytes()[offset : offset+(48)])
+}
+
+// SetState copies value into the native field.
+func (b PPM_IDLE_ACCOUNTING) SetState(index0 int, value PPM_IDLE_STATE_ACCOUNTING) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PPM_IDLE_ACCOUNTINGStateOffset + uintptr(index0)*(48))
+	copy(b.Bytes()[offset:offset+(48)], value.Bytes())
+}
+
+// PPM_IDLE_ACCOUNTING_EX is a view of native Windows.Win32.System.Power.PPM_IDLE_ACCOUNTING_EX storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type PPM_IDLE_ACCOUNTING_EX struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PPM_IDLE_ACCOUNTING_EXSize                   = 440
+	PPM_IDLE_ACCOUNTING_EXAlignment              = 8
+	PPM_IDLE_ACCOUNTING_EXStateCountOffset       = 0
+	PPM_IDLE_ACCOUNTING_EXTotalTransitionsOffset = 4
+	PPM_IDLE_ACCOUNTING_EXResetCountOffset       = 8
+	PPM_IDLE_ACCOUNTING_EXAbortCountOffset       = 12
+	PPM_IDLE_ACCOUNTING_EXStartTimeOffset        = 16
+	PPM_IDLE_ACCOUNTING_EXStateOffset            = 24
+)
+
+// NewPPM_IDLE_ACCOUNTING_EX allocates zeroed, aligned native storage.
+func NewPPM_IDLE_ACCOUNTING_EX() PPM_IDLE_ACCOUNTING_EX {
+	return PPM_IDLE_ACCOUNTING_EX{data: nativebuffer.New(int(PPM_IDLE_ACCOUNTING_EXSize), uintptr(PPM_IDLE_ACCOUNTING_EXAlignment))}
+}
+
+// ViewPPM_IDLE_ACCOUNTING_EX shares data without copying. It panics if data is shorter than PPM_IDLE_ACCOUNTING_EXSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPPM_IDLE_ACCOUNTING_EX(data []byte) PPM_IDLE_ACCOUNTING_EX {
+	return PPM_IDLE_ACCOUNTING_EX{data: nativebuffer.View(data, int(PPM_IDLE_ACCOUNTING_EXSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PPM_IDLE_ACCOUNTING_EX) Bytes() []byte {
+	return b.data[:PPM_IDLE_ACCOUNTING_EXSize:PPM_IDLE_ACCOUNTING_EXSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PPM_IDLE_ACCOUNTING_EX) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PPM_IDLE_ACCOUNTING_EXAlignment))
+}
+
+// GetStateCount returns a copy of the native field value.
+func (b PPM_IDLE_ACCOUNTING_EX) GetStateCount() uint32 {
+	offset := uintptr(PPM_IDLE_ACCOUNTING_EXStateCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetStateCount copies value into the native field.
+func (b PPM_IDLE_ACCOUNTING_EX) SetStateCount(value uint32) {
+	offset := uintptr(PPM_IDLE_ACCOUNTING_EXStateCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTotalTransitions returns a copy of the native field value.
+func (b PPM_IDLE_ACCOUNTING_EX) GetTotalTransitions() uint32 {
+	offset := uintptr(PPM_IDLE_ACCOUNTING_EXTotalTransitionsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTotalTransitions copies value into the native field.
+func (b PPM_IDLE_ACCOUNTING_EX) SetTotalTransitions(value uint32) {
+	offset := uintptr(PPM_IDLE_ACCOUNTING_EXTotalTransitionsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetResetCount returns a copy of the native field value.
+func (b PPM_IDLE_ACCOUNTING_EX) GetResetCount() uint32 {
+	offset := uintptr(PPM_IDLE_ACCOUNTING_EXResetCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetResetCount copies value into the native field.
+func (b PPM_IDLE_ACCOUNTING_EX) SetResetCount(value uint32) {
+	offset := uintptr(PPM_IDLE_ACCOUNTING_EXResetCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetAbortCount returns a copy of the native field value.
+func (b PPM_IDLE_ACCOUNTING_EX) GetAbortCount() uint32 {
+	offset := uintptr(PPM_IDLE_ACCOUNTING_EXAbortCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetAbortCount copies value into the native field.
+func (b PPM_IDLE_ACCOUNTING_EX) SetAbortCount(value uint32) {
+	offset := uintptr(PPM_IDLE_ACCOUNTING_EXAbortCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetStartTime returns a copy of the native field value.
+func (b PPM_IDLE_ACCOUNTING_EX) GetStartTime() uint64 {
+	offset := uintptr(PPM_IDLE_ACCOUNTING_EXStartTimeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartTime copies value into the native field.
+func (b PPM_IDLE_ACCOUNTING_EX) SetStartTime(value uint64) {
+	offset := uintptr(PPM_IDLE_ACCOUNTING_EXStartTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetState accesses the metadata-declared initial flexible-array extent only.
+func (b PPM_IDLE_ACCOUNTING_EX) GetState(index0 int) PPM_IDLE_STATE_ACCOUNTING_EX {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PPM_IDLE_ACCOUNTING_EXStateOffset + uintptr(index0)*(416))
+
+	return ViewPPM_IDLE_STATE_ACCOUNTING_EX(b.Bytes()[offset : offset+(416)])
+}
+
+// SetState copies value into the native field.
+func (b PPM_IDLE_ACCOUNTING_EX) SetState(index0 int, value PPM_IDLE_STATE_ACCOUNTING_EX) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PPM_IDLE_ACCOUNTING_EXStateOffset + uintptr(index0)*(416))
+	copy(b.Bytes()[offset:offset+(416)], value.Bytes())
+}
+
+// PPM_IDLE_STATE_ACCOUNTING is a view of native Windows.Win32.System.Power.PPM_IDLE_STATE_ACCOUNTING storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type PPM_IDLE_STATE_ACCOUNTING struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PPM_IDLE_STATE_ACCOUNTINGSize                     = 48
+	PPM_IDLE_STATE_ACCOUNTINGAlignment                = 8
+	PPM_IDLE_STATE_ACCOUNTINGIdleTransitionsOffset    = 0
+	PPM_IDLE_STATE_ACCOUNTINGFailedTransitionsOffset  = 4
+	PPM_IDLE_STATE_ACCOUNTINGInvalidBucketIndexOffset = 8
+	PPM_IDLE_STATE_ACCOUNTINGTotalTimeOffset          = 16
+	PPM_IDLE_STATE_ACCOUNTINGIdleTimeBucketsOffset    = 24
+)
+
+// NewPPM_IDLE_STATE_ACCOUNTING allocates zeroed, aligned native storage.
+func NewPPM_IDLE_STATE_ACCOUNTING() PPM_IDLE_STATE_ACCOUNTING {
+	return PPM_IDLE_STATE_ACCOUNTING{data: nativebuffer.New(int(PPM_IDLE_STATE_ACCOUNTINGSize), uintptr(PPM_IDLE_STATE_ACCOUNTINGAlignment))}
+}
+
+// ViewPPM_IDLE_STATE_ACCOUNTING shares data without copying. It panics if data is shorter than PPM_IDLE_STATE_ACCOUNTINGSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPPM_IDLE_STATE_ACCOUNTING(data []byte) PPM_IDLE_STATE_ACCOUNTING {
+	return PPM_IDLE_STATE_ACCOUNTING{data: nativebuffer.View(data, int(PPM_IDLE_STATE_ACCOUNTINGSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PPM_IDLE_STATE_ACCOUNTING) Bytes() []byte {
+	return b.data[:PPM_IDLE_STATE_ACCOUNTINGSize:PPM_IDLE_STATE_ACCOUNTINGSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PPM_IDLE_STATE_ACCOUNTING) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PPM_IDLE_STATE_ACCOUNTINGAlignment))
+}
+
+// GetIdleTransitions returns a copy of the native field value.
+func (b PPM_IDLE_STATE_ACCOUNTING) GetIdleTransitions() uint32 {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTINGIdleTransitionsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetIdleTransitions copies value into the native field.
+func (b PPM_IDLE_STATE_ACCOUNTING) SetIdleTransitions(value uint32) {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTINGIdleTransitionsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFailedTransitions returns a copy of the native field value.
+func (b PPM_IDLE_STATE_ACCOUNTING) GetFailedTransitions() uint32 {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTINGFailedTransitionsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFailedTransitions copies value into the native field.
+func (b PPM_IDLE_STATE_ACCOUNTING) SetFailedTransitions(value uint32) {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTINGFailedTransitionsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetInvalidBucketIndex returns a copy of the native field value.
+func (b PPM_IDLE_STATE_ACCOUNTING) GetInvalidBucketIndex() uint32 {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTINGInvalidBucketIndexOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetInvalidBucketIndex copies value into the native field.
+func (b PPM_IDLE_STATE_ACCOUNTING) SetInvalidBucketIndex(value uint32) {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTINGInvalidBucketIndexOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTotalTime returns a copy of the native field value.
+func (b PPM_IDLE_STATE_ACCOUNTING) GetTotalTime() uint64 {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTINGTotalTimeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalTime copies value into the native field.
+func (b PPM_IDLE_STATE_ACCOUNTING) SetTotalTime(value uint64) {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTINGTotalTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetIdleTimeBuckets returns a copy of the native field value.
+func (b PPM_IDLE_STATE_ACCOUNTING) GetIdleTimeBuckets(index0 int) uint32 {
+	if index0 < 0 || index0 >= 6 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTINGIdleTimeBucketsOffset + uintptr(index0)*(4))
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetIdleTimeBuckets copies value into the native field.
+func (b PPM_IDLE_STATE_ACCOUNTING) SetIdleTimeBuckets(index0 int, value uint32) {
+	if index0 < 0 || index0 >= 6 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTINGIdleTimeBucketsOffset + uintptr(index0)*(4))
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// PPM_IDLE_STATE_ACCOUNTING_EX is a view of native Windows.Win32.System.Power.PPM_IDLE_STATE_ACCOUNTING_EX storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type PPM_IDLE_STATE_ACCOUNTING_EX struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PPM_IDLE_STATE_ACCOUNTING_EXSize                       = 416
+	PPM_IDLE_STATE_ACCOUNTING_EXAlignment                  = 8
+	PPM_IDLE_STATE_ACCOUNTING_EXTotalTimeOffset            = 0
+	PPM_IDLE_STATE_ACCOUNTING_EXIdleTransitionsOffset      = 8
+	PPM_IDLE_STATE_ACCOUNTING_EXFailedTransitionsOffset    = 12
+	PPM_IDLE_STATE_ACCOUNTING_EXInvalidBucketIndexOffset   = 16
+	PPM_IDLE_STATE_ACCOUNTING_EXMinTimeUsOffset            = 20
+	PPM_IDLE_STATE_ACCOUNTING_EXMaxTimeUsOffset            = 24
+	PPM_IDLE_STATE_ACCOUNTING_EXCancelledTransitionsOffset = 28
+	PPM_IDLE_STATE_ACCOUNTING_EXIdleTimeBucketsOffset      = 32
+)
+
+// NewPPM_IDLE_STATE_ACCOUNTING_EX allocates zeroed, aligned native storage.
+func NewPPM_IDLE_STATE_ACCOUNTING_EX() PPM_IDLE_STATE_ACCOUNTING_EX {
+	return PPM_IDLE_STATE_ACCOUNTING_EX{data: nativebuffer.New(int(PPM_IDLE_STATE_ACCOUNTING_EXSize), uintptr(PPM_IDLE_STATE_ACCOUNTING_EXAlignment))}
+}
+
+// ViewPPM_IDLE_STATE_ACCOUNTING_EX shares data without copying. It panics if data is shorter than PPM_IDLE_STATE_ACCOUNTING_EXSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPPM_IDLE_STATE_ACCOUNTING_EX(data []byte) PPM_IDLE_STATE_ACCOUNTING_EX {
+	return PPM_IDLE_STATE_ACCOUNTING_EX{data: nativebuffer.View(data, int(PPM_IDLE_STATE_ACCOUNTING_EXSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) Bytes() []byte {
+	return b.data[:PPM_IDLE_STATE_ACCOUNTING_EXSize:PPM_IDLE_STATE_ACCOUNTING_EXSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PPM_IDLE_STATE_ACCOUNTING_EXAlignment))
+}
+
+// GetTotalTime returns a copy of the native field value.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) GetTotalTime() uint64 {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTING_EXTotalTimeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalTime copies value into the native field.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) SetTotalTime(value uint64) {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTING_EXTotalTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetIdleTransitions returns a copy of the native field value.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) GetIdleTransitions() uint32 {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTING_EXIdleTransitionsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetIdleTransitions copies value into the native field.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) SetIdleTransitions(value uint32) {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTING_EXIdleTransitionsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFailedTransitions returns a copy of the native field value.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) GetFailedTransitions() uint32 {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTING_EXFailedTransitionsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFailedTransitions copies value into the native field.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) SetFailedTransitions(value uint32) {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTING_EXFailedTransitionsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetInvalidBucketIndex returns a copy of the native field value.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) GetInvalidBucketIndex() uint32 {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTING_EXInvalidBucketIndexOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetInvalidBucketIndex copies value into the native field.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) SetInvalidBucketIndex(value uint32) {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTING_EXInvalidBucketIndexOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMinTimeUs returns a copy of the native field value.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) GetMinTimeUs() uint32 {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTING_EXMinTimeUsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMinTimeUs copies value into the native field.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) SetMinTimeUs(value uint32) {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTING_EXMinTimeUsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMaxTimeUs returns a copy of the native field value.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) GetMaxTimeUs() uint32 {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTING_EXMaxTimeUsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMaxTimeUs copies value into the native field.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) SetMaxTimeUs(value uint32) {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTING_EXMaxTimeUsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCancelledTransitions returns a copy of the native field value.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) GetCancelledTransitions() uint32 {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTING_EXCancelledTransitionsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCancelledTransitions copies value into the native field.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) SetCancelledTransitions(value uint32) {
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTING_EXCancelledTransitionsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetIdleTimeBuckets returns a view sharing this buffer's storage.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) GetIdleTimeBuckets(index0 int) PPM_IDLE_STATE_BUCKET_EX {
+	if index0 < 0 || index0 >= 16 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTING_EXIdleTimeBucketsOffset + uintptr(index0)*(24))
+
+	return ViewPPM_IDLE_STATE_BUCKET_EX(b.Bytes()[offset : offset+(24)])
+}
+
+// SetIdleTimeBuckets copies value into the native field.
+func (b PPM_IDLE_STATE_ACCOUNTING_EX) SetIdleTimeBuckets(index0 int, value PPM_IDLE_STATE_BUCKET_EX) {
+	if index0 < 0 || index0 >= 16 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PPM_IDLE_STATE_ACCOUNTING_EXIdleTimeBucketsOffset + uintptr(index0)*(24))
+	copy(b.Bytes()[offset:offset+(24)], value.Bytes())
+}
+
+// PPM_IDLE_STATE_BUCKET_EX is a view of native Windows.Win32.System.Power.PPM_IDLE_STATE_BUCKET_EX storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type PPM_IDLE_STATE_BUCKET_EX struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PPM_IDLE_STATE_BUCKET_EXSize              = 24
+	PPM_IDLE_STATE_BUCKET_EXAlignment         = 8
+	PPM_IDLE_STATE_BUCKET_EXTotalTimeUsOffset = 0
+	PPM_IDLE_STATE_BUCKET_EXMinTimeUsOffset   = 8
+	PPM_IDLE_STATE_BUCKET_EXMaxTimeUsOffset   = 12
+	PPM_IDLE_STATE_BUCKET_EXCountOffset       = 16
+)
+
+// NewPPM_IDLE_STATE_BUCKET_EX allocates zeroed, aligned native storage.
+func NewPPM_IDLE_STATE_BUCKET_EX() PPM_IDLE_STATE_BUCKET_EX {
+	return PPM_IDLE_STATE_BUCKET_EX{data: nativebuffer.New(int(PPM_IDLE_STATE_BUCKET_EXSize), uintptr(PPM_IDLE_STATE_BUCKET_EXAlignment))}
+}
+
+// ViewPPM_IDLE_STATE_BUCKET_EX shares data without copying. It panics if data is shorter than PPM_IDLE_STATE_BUCKET_EXSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPPM_IDLE_STATE_BUCKET_EX(data []byte) PPM_IDLE_STATE_BUCKET_EX {
+	return PPM_IDLE_STATE_BUCKET_EX{data: nativebuffer.View(data, int(PPM_IDLE_STATE_BUCKET_EXSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PPM_IDLE_STATE_BUCKET_EX) Bytes() []byte {
+	return b.data[:PPM_IDLE_STATE_BUCKET_EXSize:PPM_IDLE_STATE_BUCKET_EXSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PPM_IDLE_STATE_BUCKET_EX) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PPM_IDLE_STATE_BUCKET_EXAlignment))
+}
+
+// GetTotalTimeUs returns a copy of the native field value.
+func (b PPM_IDLE_STATE_BUCKET_EX) GetTotalTimeUs() uint64 {
+	offset := uintptr(PPM_IDLE_STATE_BUCKET_EXTotalTimeUsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalTimeUs copies value into the native field.
+func (b PPM_IDLE_STATE_BUCKET_EX) SetTotalTimeUs(value uint64) {
+	offset := uintptr(PPM_IDLE_STATE_BUCKET_EXTotalTimeUsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMinTimeUs returns a copy of the native field value.
+func (b PPM_IDLE_STATE_BUCKET_EX) GetMinTimeUs() uint32 {
+	offset := uintptr(PPM_IDLE_STATE_BUCKET_EXMinTimeUsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMinTimeUs copies value into the native field.
+func (b PPM_IDLE_STATE_BUCKET_EX) SetMinTimeUs(value uint32) {
+	offset := uintptr(PPM_IDLE_STATE_BUCKET_EXMinTimeUsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMaxTimeUs returns a copy of the native field value.
+func (b PPM_IDLE_STATE_BUCKET_EX) GetMaxTimeUs() uint32 {
+	offset := uintptr(PPM_IDLE_STATE_BUCKET_EXMaxTimeUsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMaxTimeUs copies value into the native field.
+func (b PPM_IDLE_STATE_BUCKET_EX) SetMaxTimeUs(value uint32) {
+	offset := uintptr(PPM_IDLE_STATE_BUCKET_EXMaxTimeUsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCount returns a copy of the native field value.
+func (b PPM_IDLE_STATE_BUCKET_EX) GetCount() uint32 {
+	offset := uintptr(PPM_IDLE_STATE_BUCKET_EXCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCount copies value into the native field.
+func (b PPM_IDLE_STATE_BUCKET_EX) SetCount(value uint32) {
+	offset := uintptr(PPM_IDLE_STATE_BUCKET_EXCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// PPM_PERFSTATE_DOMAIN_EVENT is a view of native Windows.Win32.System.Power.PPM_PERFSTATE_DOMAIN_EVENT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type PPM_PERFSTATE_DOMAIN_EVENT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PPM_PERFSTATE_DOMAIN_EVENTSize             = 24
+	PPM_PERFSTATE_DOMAIN_EVENTAlignment        = 8
+	PPM_PERFSTATE_DOMAIN_EVENTStateOffset      = 0
+	PPM_PERFSTATE_DOMAIN_EVENTLatencyOffset    = 4
+	PPM_PERFSTATE_DOMAIN_EVENTSpeedOffset      = 8
+	PPM_PERFSTATE_DOMAIN_EVENTProcessorsOffset = 16
+)
+
+// NewPPM_PERFSTATE_DOMAIN_EVENT allocates zeroed, aligned native storage.
+func NewPPM_PERFSTATE_DOMAIN_EVENT() PPM_PERFSTATE_DOMAIN_EVENT {
+	return PPM_PERFSTATE_DOMAIN_EVENT{data: nativebuffer.New(int(PPM_PERFSTATE_DOMAIN_EVENTSize), uintptr(PPM_PERFSTATE_DOMAIN_EVENTAlignment))}
+}
+
+// ViewPPM_PERFSTATE_DOMAIN_EVENT shares data without copying. It panics if data is shorter than PPM_PERFSTATE_DOMAIN_EVENTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPPM_PERFSTATE_DOMAIN_EVENT(data []byte) PPM_PERFSTATE_DOMAIN_EVENT {
+	return PPM_PERFSTATE_DOMAIN_EVENT{data: nativebuffer.View(data, int(PPM_PERFSTATE_DOMAIN_EVENTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PPM_PERFSTATE_DOMAIN_EVENT) Bytes() []byte {
+	return b.data[:PPM_PERFSTATE_DOMAIN_EVENTSize:PPM_PERFSTATE_DOMAIN_EVENTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PPM_PERFSTATE_DOMAIN_EVENT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PPM_PERFSTATE_DOMAIN_EVENTAlignment))
+}
+
+// GetState returns a copy of the native field value.
+func (b PPM_PERFSTATE_DOMAIN_EVENT) GetState() uint32 {
+	offset := uintptr(PPM_PERFSTATE_DOMAIN_EVENTStateOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetState copies value into the native field.
+func (b PPM_PERFSTATE_DOMAIN_EVENT) SetState(value uint32) {
+	offset := uintptr(PPM_PERFSTATE_DOMAIN_EVENTStateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetLatency returns a copy of the native field value.
+func (b PPM_PERFSTATE_DOMAIN_EVENT) GetLatency() uint32 {
+	offset := uintptr(PPM_PERFSTATE_DOMAIN_EVENTLatencyOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLatency copies value into the native field.
+func (b PPM_PERFSTATE_DOMAIN_EVENT) SetLatency(value uint32) {
+	offset := uintptr(PPM_PERFSTATE_DOMAIN_EVENTLatencyOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSpeed returns a copy of the native field value.
+func (b PPM_PERFSTATE_DOMAIN_EVENT) GetSpeed() uint32 {
+	offset := uintptr(PPM_PERFSTATE_DOMAIN_EVENTSpeedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSpeed copies value into the native field.
+func (b PPM_PERFSTATE_DOMAIN_EVENT) SetSpeed(value uint32) {
+	offset := uintptr(PPM_PERFSTATE_DOMAIN_EVENTSpeedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetProcessors returns a copy of the native field value.
+func (b PPM_PERFSTATE_DOMAIN_EVENT) GetProcessors() uint64 {
+	offset := uintptr(PPM_PERFSTATE_DOMAIN_EVENTProcessorsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetProcessors copies value into the native field.
+func (b PPM_PERFSTATE_DOMAIN_EVENT) SetProcessors(value uint64) {
+	offset := uintptr(PPM_PERFSTATE_DOMAIN_EVENTProcessorsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // PPM_PERFSTATE_EVENT projects Windows.Win32.System.Power.PPM_PERFSTATE_EVENT.
 type PPM_PERFSTATE_EVENT struct {
 	State     uint32
@@ -384,6 +1307,128 @@ type PPM_PERFSTATE_EVENT struct {
 	Latency   uint32
 	Speed     uint32
 	Processor uint32
+}
+
+// PPM_THERMALCHANGE_EVENT is a view of native Windows.Win32.System.Power.PPM_THERMALCHANGE_EVENT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type PPM_THERMALCHANGE_EVENT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PPM_THERMALCHANGE_EVENTSize                    = 16
+	PPM_THERMALCHANGE_EVENTAlignment               = 8
+	PPM_THERMALCHANGE_EVENTThermalConstraintOffset = 0
+	PPM_THERMALCHANGE_EVENTProcessorsOffset        = 8
+)
+
+// NewPPM_THERMALCHANGE_EVENT allocates zeroed, aligned native storage.
+func NewPPM_THERMALCHANGE_EVENT() PPM_THERMALCHANGE_EVENT {
+	return PPM_THERMALCHANGE_EVENT{data: nativebuffer.New(int(PPM_THERMALCHANGE_EVENTSize), uintptr(PPM_THERMALCHANGE_EVENTAlignment))}
+}
+
+// ViewPPM_THERMALCHANGE_EVENT shares data without copying. It panics if data is shorter than PPM_THERMALCHANGE_EVENTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPPM_THERMALCHANGE_EVENT(data []byte) PPM_THERMALCHANGE_EVENT {
+	return PPM_THERMALCHANGE_EVENT{data: nativebuffer.View(data, int(PPM_THERMALCHANGE_EVENTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PPM_THERMALCHANGE_EVENT) Bytes() []byte {
+	return b.data[:PPM_THERMALCHANGE_EVENTSize:PPM_THERMALCHANGE_EVENTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PPM_THERMALCHANGE_EVENT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PPM_THERMALCHANGE_EVENTAlignment))
+}
+
+// GetThermalConstraint returns a copy of the native field value.
+func (b PPM_THERMALCHANGE_EVENT) GetThermalConstraint() uint32 {
+	offset := uintptr(PPM_THERMALCHANGE_EVENTThermalConstraintOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetThermalConstraint copies value into the native field.
+func (b PPM_THERMALCHANGE_EVENT) SetThermalConstraint(value uint32) {
+	offset := uintptr(PPM_THERMALCHANGE_EVENTThermalConstraintOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetProcessors returns a copy of the native field value.
+func (b PPM_THERMALCHANGE_EVENT) GetProcessors() uint64 {
+	offset := uintptr(PPM_THERMALCHANGE_EVENTProcessorsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetProcessors copies value into the native field.
+func (b PPM_THERMALCHANGE_EVENT) SetProcessors(value uint64) {
+	offset := uintptr(PPM_THERMALCHANGE_EVENTProcessorsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// PPM_THERMAL_POLICY_EVENT is a view of native Windows.Win32.System.Power.PPM_THERMAL_POLICY_EVENT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type PPM_THERMAL_POLICY_EVENT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PPM_THERMAL_POLICY_EVENTSize             = 16
+	PPM_THERMAL_POLICY_EVENTAlignment        = 8
+	PPM_THERMAL_POLICY_EVENTModeOffset       = 0
+	PPM_THERMAL_POLICY_EVENTProcessorsOffset = 8
+)
+
+// NewPPM_THERMAL_POLICY_EVENT allocates zeroed, aligned native storage.
+func NewPPM_THERMAL_POLICY_EVENT() PPM_THERMAL_POLICY_EVENT {
+	return PPM_THERMAL_POLICY_EVENT{data: nativebuffer.New(int(PPM_THERMAL_POLICY_EVENTSize), uintptr(PPM_THERMAL_POLICY_EVENTAlignment))}
+}
+
+// ViewPPM_THERMAL_POLICY_EVENT shares data without copying. It panics if data is shorter than PPM_THERMAL_POLICY_EVENTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPPM_THERMAL_POLICY_EVENT(data []byte) PPM_THERMAL_POLICY_EVENT {
+	return PPM_THERMAL_POLICY_EVENT{data: nativebuffer.View(data, int(PPM_THERMAL_POLICY_EVENTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PPM_THERMAL_POLICY_EVENT) Bytes() []byte {
+	return b.data[:PPM_THERMAL_POLICY_EVENTSize:PPM_THERMAL_POLICY_EVENTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PPM_THERMAL_POLICY_EVENT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PPM_THERMAL_POLICY_EVENTAlignment))
+}
+
+// GetMode returns a copy of the native field value.
+func (b PPM_THERMAL_POLICY_EVENT) GetMode() uint8 {
+	offset := uintptr(PPM_THERMAL_POLICY_EVENTModeOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetMode copies value into the native field.
+func (b PPM_THERMAL_POLICY_EVENT) SetMode(value uint8) {
+	offset := uintptr(PPM_THERMAL_POLICY_EVENTModeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetProcessors returns a copy of the native field value.
+func (b PPM_THERMAL_POLICY_EVENT) GetProcessors() uint64 {
+	offset := uintptr(PPM_THERMAL_POLICY_EVENTProcessorsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetProcessors copies value into the native field.
+func (b PPM_THERMAL_POLICY_EVENT) SetProcessors(value uint64) {
+	offset := uintptr(PPM_THERMAL_POLICY_EVENTProcessorsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // PPM_WMI_IDLE_STATE projects Windows.Win32.System.Power.PPM_WMI_IDLE_STATE.
@@ -401,11 +1446,696 @@ type PPM_WMI_IDLE_STATE struct {
 	Reserved1      uint32
 }
 
+// PPM_WMI_IDLE_STATES is a view of native Windows.Win32.System.Power.PPM_WMI_IDLE_STATES storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type PPM_WMI_IDLE_STATES struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PPM_WMI_IDLE_STATESSize                   = 56
+	PPM_WMI_IDLE_STATESAlignment              = 8
+	PPM_WMI_IDLE_STATESTypeOffset             = 0
+	PPM_WMI_IDLE_STATESCountOffset            = 4
+	PPM_WMI_IDLE_STATESTargetStateOffset      = 8
+	PPM_WMI_IDLE_STATESOldStateOffset         = 12
+	PPM_WMI_IDLE_STATESTargetProcessorsOffset = 16
+	PPM_WMI_IDLE_STATESStateOffset            = 24
+)
+
+// NewPPM_WMI_IDLE_STATES allocates zeroed, aligned native storage.
+func NewPPM_WMI_IDLE_STATES() PPM_WMI_IDLE_STATES {
+	return PPM_WMI_IDLE_STATES{data: nativebuffer.New(int(PPM_WMI_IDLE_STATESSize), uintptr(PPM_WMI_IDLE_STATESAlignment))}
+}
+
+// ViewPPM_WMI_IDLE_STATES shares data without copying. It panics if data is shorter than PPM_WMI_IDLE_STATESSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPPM_WMI_IDLE_STATES(data []byte) PPM_WMI_IDLE_STATES {
+	return PPM_WMI_IDLE_STATES{data: nativebuffer.View(data, int(PPM_WMI_IDLE_STATESSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PPM_WMI_IDLE_STATES) Bytes() []byte {
+	return b.data[:PPM_WMI_IDLE_STATESSize:PPM_WMI_IDLE_STATESSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PPM_WMI_IDLE_STATES) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PPM_WMI_IDLE_STATESAlignment))
+}
+
+// GetType returns a copy of the native field value.
+func (b PPM_WMI_IDLE_STATES) GetType() uint32 {
+	offset := uintptr(PPM_WMI_IDLE_STATESTypeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetType copies value into the native field.
+func (b PPM_WMI_IDLE_STATES) SetType(value uint32) {
+	offset := uintptr(PPM_WMI_IDLE_STATESTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCount returns a copy of the native field value.
+func (b PPM_WMI_IDLE_STATES) GetCount() uint32 {
+	offset := uintptr(PPM_WMI_IDLE_STATESCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCount copies value into the native field.
+func (b PPM_WMI_IDLE_STATES) SetCount(value uint32) {
+	offset := uintptr(PPM_WMI_IDLE_STATESCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTargetState returns a copy of the native field value.
+func (b PPM_WMI_IDLE_STATES) GetTargetState() uint32 {
+	offset := uintptr(PPM_WMI_IDLE_STATESTargetStateOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTargetState copies value into the native field.
+func (b PPM_WMI_IDLE_STATES) SetTargetState(value uint32) {
+	offset := uintptr(PPM_WMI_IDLE_STATESTargetStateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetOldState returns a copy of the native field value.
+func (b PPM_WMI_IDLE_STATES) GetOldState() uint32 {
+	offset := uintptr(PPM_WMI_IDLE_STATESOldStateOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetOldState copies value into the native field.
+func (b PPM_WMI_IDLE_STATES) SetOldState(value uint32) {
+	offset := uintptr(PPM_WMI_IDLE_STATESOldStateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTargetProcessors returns a copy of the native field value.
+func (b PPM_WMI_IDLE_STATES) GetTargetProcessors() uint64 {
+	offset := uintptr(PPM_WMI_IDLE_STATESTargetProcessorsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTargetProcessors copies value into the native field.
+func (b PPM_WMI_IDLE_STATES) SetTargetProcessors(value uint64) {
+	offset := uintptr(PPM_WMI_IDLE_STATESTargetProcessorsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetState accesses the metadata-declared initial flexible-array extent only.
+func (b PPM_WMI_IDLE_STATES) GetState(index0 int) PPM_WMI_IDLE_STATE {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PPM_WMI_IDLE_STATESStateOffset + uintptr(index0)*(32))
+
+	return nativebuffer.Read[PPM_WMI_IDLE_STATE](b.Bytes()[offset : offset+(32)])
+}
+
+// SetState copies value into the native field.
+func (b PPM_WMI_IDLE_STATES) SetState(index0 int, value PPM_WMI_IDLE_STATE) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PPM_WMI_IDLE_STATESStateOffset + uintptr(index0)*(32))
+	nativebuffer.Write(b.Bytes()[offset:offset+(32)], value)
+}
+
 // PPM_WMI_LEGACY_PERFSTATE projects Windows.Win32.System.Power.PPM_WMI_LEGACY_PERFSTATE.
 type PPM_WMI_LEGACY_PERFSTATE struct {
 	Frequency        uint32
 	Flags            uint32
 	PercentFrequency uint32
+}
+
+// PPM_WMI_PERF_STATE is a view of native Windows.Win32.System.Power.PPM_WMI_PERF_STATE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type PPM_WMI_PERF_STATE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PPM_WMI_PERF_STATESize                   = 64
+	PPM_WMI_PERF_STATEAlignment              = 8
+	PPM_WMI_PERF_STATEFrequencyOffset        = 0
+	PPM_WMI_PERF_STATEPowerOffset            = 4
+	PPM_WMI_PERF_STATEPercentFrequencyOffset = 8
+	PPM_WMI_PERF_STATEIncreaseLevelOffset    = 9
+	PPM_WMI_PERF_STATEDecreaseLevelOffset    = 10
+	PPM_WMI_PERF_STATETypeOffset             = 11
+	PPM_WMI_PERF_STATEIncreaseTimeOffset     = 12
+	PPM_WMI_PERF_STATEDecreaseTimeOffset     = 16
+	PPM_WMI_PERF_STATEControlOffset          = 24
+	PPM_WMI_PERF_STATEStatusOffset           = 32
+	PPM_WMI_PERF_STATEHitCountOffset         = 40
+	PPM_WMI_PERF_STATEReserved1Offset        = 44
+	PPM_WMI_PERF_STATEReserved2Offset        = 48
+	PPM_WMI_PERF_STATEReserved3Offset        = 56
+)
+
+// NewPPM_WMI_PERF_STATE allocates zeroed, aligned native storage.
+func NewPPM_WMI_PERF_STATE() PPM_WMI_PERF_STATE {
+	return PPM_WMI_PERF_STATE{data: nativebuffer.New(int(PPM_WMI_PERF_STATESize), uintptr(PPM_WMI_PERF_STATEAlignment))}
+}
+
+// ViewPPM_WMI_PERF_STATE shares data without copying. It panics if data is shorter than PPM_WMI_PERF_STATESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPPM_WMI_PERF_STATE(data []byte) PPM_WMI_PERF_STATE {
+	return PPM_WMI_PERF_STATE{data: nativebuffer.View(data, int(PPM_WMI_PERF_STATESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PPM_WMI_PERF_STATE) Bytes() []byte {
+	return b.data[:PPM_WMI_PERF_STATESize:PPM_WMI_PERF_STATESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PPM_WMI_PERF_STATE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PPM_WMI_PERF_STATEAlignment))
+}
+
+// GetFrequency returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATE) GetFrequency() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATEFrequencyOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFrequency copies value into the native field.
+func (b PPM_WMI_PERF_STATE) SetFrequency(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATEFrequencyOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPower returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATE) GetPower() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATEPowerOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPower copies value into the native field.
+func (b PPM_WMI_PERF_STATE) SetPower(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATEPowerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPercentFrequency returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATE) GetPercentFrequency() uint8 {
+	offset := uintptr(PPM_WMI_PERF_STATEPercentFrequencyOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetPercentFrequency copies value into the native field.
+func (b PPM_WMI_PERF_STATE) SetPercentFrequency(value uint8) {
+	offset := uintptr(PPM_WMI_PERF_STATEPercentFrequencyOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetIncreaseLevel returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATE) GetIncreaseLevel() uint8 {
+	offset := uintptr(PPM_WMI_PERF_STATEIncreaseLevelOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetIncreaseLevel copies value into the native field.
+func (b PPM_WMI_PERF_STATE) SetIncreaseLevel(value uint8) {
+	offset := uintptr(PPM_WMI_PERF_STATEIncreaseLevelOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetDecreaseLevel returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATE) GetDecreaseLevel() uint8 {
+	offset := uintptr(PPM_WMI_PERF_STATEDecreaseLevelOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetDecreaseLevel copies value into the native field.
+func (b PPM_WMI_PERF_STATE) SetDecreaseLevel(value uint8) {
+	offset := uintptr(PPM_WMI_PERF_STATEDecreaseLevelOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetType returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATE) GetType() uint8 {
+	offset := uintptr(PPM_WMI_PERF_STATETypeOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetType copies value into the native field.
+func (b PPM_WMI_PERF_STATE) SetType(value uint8) {
+	offset := uintptr(PPM_WMI_PERF_STATETypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetIncreaseTime returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATE) GetIncreaseTime() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATEIncreaseTimeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetIncreaseTime copies value into the native field.
+func (b PPM_WMI_PERF_STATE) SetIncreaseTime(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATEIncreaseTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDecreaseTime returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATE) GetDecreaseTime() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATEDecreaseTimeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDecreaseTime copies value into the native field.
+func (b PPM_WMI_PERF_STATE) SetDecreaseTime(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATEDecreaseTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetControl returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATE) GetControl() uint64 {
+	offset := uintptr(PPM_WMI_PERF_STATEControlOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetControl copies value into the native field.
+func (b PPM_WMI_PERF_STATE) SetControl(value uint64) {
+	offset := uintptr(PPM_WMI_PERF_STATEControlOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetStatus returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATE) GetStatus() uint64 {
+	offset := uintptr(PPM_WMI_PERF_STATEStatusOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStatus copies value into the native field.
+func (b PPM_WMI_PERF_STATE) SetStatus(value uint64) {
+	offset := uintptr(PPM_WMI_PERF_STATEStatusOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetHitCount returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATE) GetHitCount() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATEHitCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetHitCount copies value into the native field.
+func (b PPM_WMI_PERF_STATE) SetHitCount(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATEHitCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved1 returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATE) GetReserved1() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATEReserved1Offset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved1 copies value into the native field.
+func (b PPM_WMI_PERF_STATE) SetReserved1(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATEReserved1Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved2 returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATE) GetReserved2() uint64 {
+	offset := uintptr(PPM_WMI_PERF_STATEReserved2Offset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetReserved2 copies value into the native field.
+func (b PPM_WMI_PERF_STATE) SetReserved2(value uint64) {
+	offset := uintptr(PPM_WMI_PERF_STATEReserved2Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetReserved3 returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATE) GetReserved3() uint64 {
+	offset := uintptr(PPM_WMI_PERF_STATEReserved3Offset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetReserved3 copies value into the native field.
+func (b PPM_WMI_PERF_STATE) SetReserved3(value uint64) {
+	offset := uintptr(PPM_WMI_PERF_STATEReserved3Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// PPM_WMI_PERF_STATES is a view of native Windows.Win32.System.Power.PPM_WMI_PERF_STATES storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type PPM_WMI_PERF_STATES struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PPM_WMI_PERF_STATESSize                    = 144
+	PPM_WMI_PERF_STATESAlignment               = 8
+	PPM_WMI_PERF_STATESCountOffset             = 0
+	PPM_WMI_PERF_STATESMaxFrequencyOffset      = 4
+	PPM_WMI_PERF_STATESCurrentStateOffset      = 8
+	PPM_WMI_PERF_STATESMaxPerfStateOffset      = 12
+	PPM_WMI_PERF_STATESMinPerfStateOffset      = 16
+	PPM_WMI_PERF_STATESLowestPerfStateOffset   = 20
+	PPM_WMI_PERF_STATESThermalConstraintOffset = 24
+	PPM_WMI_PERF_STATESBusyAdjThresholdOffset  = 28
+	PPM_WMI_PERF_STATESPolicyTypeOffset        = 29
+	PPM_WMI_PERF_STATESTypeOffset              = 30
+	PPM_WMI_PERF_STATESReservedOffset          = 31
+	PPM_WMI_PERF_STATESTimerIntervalOffset     = 32
+	PPM_WMI_PERF_STATESTargetProcessorsOffset  = 40
+	PPM_WMI_PERF_STATESPStateHandlerOffset     = 48
+	PPM_WMI_PERF_STATESPStateContextOffset     = 52
+	PPM_WMI_PERF_STATESTStateHandlerOffset     = 56
+	PPM_WMI_PERF_STATESTStateContextOffset     = 60
+	PPM_WMI_PERF_STATESFeedbackHandlerOffset   = 64
+	PPM_WMI_PERF_STATESReserved1Offset         = 68
+	PPM_WMI_PERF_STATESReserved2Offset         = 72
+	PPM_WMI_PERF_STATESStateOffset             = 80
+)
+
+// NewPPM_WMI_PERF_STATES allocates zeroed, aligned native storage.
+func NewPPM_WMI_PERF_STATES() PPM_WMI_PERF_STATES {
+	return PPM_WMI_PERF_STATES{data: nativebuffer.New(int(PPM_WMI_PERF_STATESSize), uintptr(PPM_WMI_PERF_STATESAlignment))}
+}
+
+// ViewPPM_WMI_PERF_STATES shares data without copying. It panics if data is shorter than PPM_WMI_PERF_STATESSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPPM_WMI_PERF_STATES(data []byte) PPM_WMI_PERF_STATES {
+	return PPM_WMI_PERF_STATES{data: nativebuffer.View(data, int(PPM_WMI_PERF_STATESSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PPM_WMI_PERF_STATES) Bytes() []byte {
+	return b.data[:PPM_WMI_PERF_STATESSize:PPM_WMI_PERF_STATESSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PPM_WMI_PERF_STATES) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PPM_WMI_PERF_STATESAlignment))
+}
+
+// GetCount returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetCount() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATESCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCount copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetCount(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATESCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMaxFrequency returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetMaxFrequency() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATESMaxFrequencyOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMaxFrequency copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetMaxFrequency(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATESMaxFrequencyOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCurrentState returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetCurrentState() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATESCurrentStateOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCurrentState copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetCurrentState(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATESCurrentStateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMaxPerfState returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetMaxPerfState() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATESMaxPerfStateOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMaxPerfState copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetMaxPerfState(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATESMaxPerfStateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMinPerfState returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetMinPerfState() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATESMinPerfStateOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMinPerfState copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetMinPerfState(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATESMinPerfStateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetLowestPerfState returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetLowestPerfState() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATESLowestPerfStateOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLowestPerfState copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetLowestPerfState(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATESLowestPerfStateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetThermalConstraint returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetThermalConstraint() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATESThermalConstraintOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetThermalConstraint copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetThermalConstraint(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATESThermalConstraintOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBusyAdjThreshold returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetBusyAdjThreshold() uint8 {
+	offset := uintptr(PPM_WMI_PERF_STATESBusyAdjThresholdOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBusyAdjThreshold copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetBusyAdjThreshold(value uint8) {
+	offset := uintptr(PPM_WMI_PERF_STATESBusyAdjThresholdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetPolicyType returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetPolicyType() uint8 {
+	offset := uintptr(PPM_WMI_PERF_STATESPolicyTypeOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetPolicyType copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetPolicyType(value uint8) {
+	offset := uintptr(PPM_WMI_PERF_STATESPolicyTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetType returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetType() uint8 {
+	offset := uintptr(PPM_WMI_PERF_STATESTypeOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetType copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetType(value uint8) {
+	offset := uintptr(PPM_WMI_PERF_STATESTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetReserved() uint8 {
+	offset := uintptr(PPM_WMI_PERF_STATESReservedOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetReserved copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetReserved(value uint8) {
+	offset := uintptr(PPM_WMI_PERF_STATESReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetTimerInterval returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetTimerInterval() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATESTimerIntervalOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTimerInterval copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetTimerInterval(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATESTimerIntervalOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTargetProcessors returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetTargetProcessors() uint64 {
+	offset := uintptr(PPM_WMI_PERF_STATESTargetProcessorsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTargetProcessors copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetTargetProcessors(value uint64) {
+	offset := uintptr(PPM_WMI_PERF_STATESTargetProcessorsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetPStateHandler returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetPStateHandler() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATESPStateHandlerOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPStateHandler copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetPStateHandler(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATESPStateHandlerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPStateContext returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetPStateContext() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATESPStateContextOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPStateContext copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetPStateContext(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATESPStateContextOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTStateHandler returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetTStateHandler() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATESTStateHandlerOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTStateHandler copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetTStateHandler(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATESTStateHandlerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTStateContext returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetTStateContext() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATESTStateContextOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTStateContext copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetTStateContext(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATESTStateContextOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFeedbackHandler returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetFeedbackHandler() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATESFeedbackHandlerOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFeedbackHandler copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetFeedbackHandler(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATESFeedbackHandlerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved1 returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetReserved1() uint32 {
+	offset := uintptr(PPM_WMI_PERF_STATESReserved1Offset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved1 copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetReserved1(value uint32) {
+	offset := uintptr(PPM_WMI_PERF_STATESReserved1Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved2 returns a copy of the native field value.
+func (b PPM_WMI_PERF_STATES) GetReserved2() uint64 {
+	offset := uintptr(PPM_WMI_PERF_STATESReserved2Offset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetReserved2 copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetReserved2(value uint64) {
+	offset := uintptr(PPM_WMI_PERF_STATESReserved2Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetState accesses the metadata-declared initial flexible-array extent only.
+func (b PPM_WMI_PERF_STATES) GetState(index0 int) PPM_WMI_PERF_STATE {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PPM_WMI_PERF_STATESStateOffset + uintptr(index0)*(64))
+
+	return ViewPPM_WMI_PERF_STATE(b.Bytes()[offset : offset+(64)])
+}
+
+// SetState copies value into the native field.
+func (b PPM_WMI_PERF_STATES) SetState(index0 int, value PPM_WMI_PERF_STATE) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PPM_WMI_PERF_STATESStateOffset + uintptr(index0)*(64))
+	copy(b.Bytes()[offset:offset+(64)], value.Bytes())
 }
 
 // PROCESSOR_OBJECT_INFO projects Windows.Win32.System.Power.PROCESSOR_OBJECT_INFO.
@@ -432,6 +2162,81 @@ type PROCESSOR_POWER_INFORMATION struct {
 	MhzLimit         uint32
 	MaxIdleState     uint32
 	CurrentIdleState uint32
+}
+
+// RESUME_PERFORMANCE is a view of native Windows.Win32.System.Power.RESUME_PERFORMANCE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type RESUME_PERFORMANCE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	RESUME_PERFORMANCESize                          = 24
+	RESUME_PERFORMANCEAlignment                     = 8
+	RESUME_PERFORMANCEPostTimeMsOffset              = 0
+	RESUME_PERFORMANCETotalResumeTimeMsOffset       = 8
+	RESUME_PERFORMANCEResumeCompleteTimestampOffset = 16
+)
+
+// NewRESUME_PERFORMANCE allocates zeroed, aligned native storage.
+func NewRESUME_PERFORMANCE() RESUME_PERFORMANCE {
+	return RESUME_PERFORMANCE{data: nativebuffer.New(int(RESUME_PERFORMANCESize), uintptr(RESUME_PERFORMANCEAlignment))}
+}
+
+// ViewRESUME_PERFORMANCE shares data without copying. It panics if data is shorter than RESUME_PERFORMANCESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewRESUME_PERFORMANCE(data []byte) RESUME_PERFORMANCE {
+	return RESUME_PERFORMANCE{data: nativebuffer.View(data, int(RESUME_PERFORMANCESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b RESUME_PERFORMANCE) Bytes() []byte {
+	return b.data[:RESUME_PERFORMANCESize:RESUME_PERFORMANCESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b RESUME_PERFORMANCE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(RESUME_PERFORMANCEAlignment))
+}
+
+// GetPostTimeMs returns a copy of the native field value.
+func (b RESUME_PERFORMANCE) GetPostTimeMs() uint32 {
+	offset := uintptr(RESUME_PERFORMANCEPostTimeMsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPostTimeMs copies value into the native field.
+func (b RESUME_PERFORMANCE) SetPostTimeMs(value uint32) {
+	offset := uintptr(RESUME_PERFORMANCEPostTimeMsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTotalResumeTimeMs returns a copy of the native field value.
+func (b RESUME_PERFORMANCE) GetTotalResumeTimeMs() uint64 {
+	offset := uintptr(RESUME_PERFORMANCETotalResumeTimeMsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalResumeTimeMs copies value into the native field.
+func (b RESUME_PERFORMANCE) SetTotalResumeTimeMs(value uint64) {
+	offset := uintptr(RESUME_PERFORMANCETotalResumeTimeMsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetResumeCompleteTimestamp returns a copy of the native field value.
+func (b RESUME_PERFORMANCE) GetResumeCompleteTimestamp() uint64 {
+	offset := uintptr(RESUME_PERFORMANCEResumeCompleteTimestampOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetResumeCompleteTimestamp copies value into the native field.
+func (b RESUME_PERFORMANCE) SetResumeCompleteTimestamp(value uint64) {
+	offset := uintptr(RESUME_PERFORMANCEResumeCompleteTimestampOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // SYSTEM_BATTERY_STATE projects Windows.Win32.System.Power.SYSTEM_BATTERY_STATE.

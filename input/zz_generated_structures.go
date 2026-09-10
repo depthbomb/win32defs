@@ -8,6 +8,8 @@ import (
 
 	"github.com/depthbomb/win32defs/foundation"
 	"github.com/depthbomb/win32defs/gdi"
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
+	"github.com/depthbomb/win32defs/winmsg"
 )
 
 // GESTURECONFIG projects Windows.Win32.UI.Input.Touch.GESTURECONFIG.
@@ -20,6 +22,166 @@ type GESTURECONFIG struct {
 
 // GESTURECONFIG_ID projects Windows.Win32.UI.Input.Touch.GESTURECONFIG_ID.
 type GESTURECONFIG_ID uint32
+
+// GESTUREINFO is a view of native Windows.Win32.UI.Input.Touch.GESTUREINFO storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-gestureinfo.
+type GESTUREINFO struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	GESTUREINFOSize               = 48 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	GESTUREINFOAlignment          = 8
+	GESTUREINFOCbSizeOffset       = 0
+	GESTUREINFODwFlagsOffset      = 4
+	GESTUREINFODwIDOffset         = 8
+	GESTUREINFOHwndTargetOffset   = 12 + (unsafe.Sizeof(uintptr(0))-4)/4*4
+	GESTUREINFOPtsLocationOffset  = 16 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	GESTUREINFODwInstanceIDOffset = 20 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	GESTUREINFODwSequenceIDOffset = 24 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	GESTUREINFOUllArgumentsOffset = 32 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	GESTUREINFOCbExtraArgsOffset  = 40 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+)
+
+// NewGESTUREINFO allocates zeroed, aligned native storage.
+func NewGESTUREINFO() GESTUREINFO {
+	return GESTUREINFO{data: nativebuffer.New(int(GESTUREINFOSize), uintptr(GESTUREINFOAlignment))}
+}
+
+// ViewGESTUREINFO shares data without copying. It panics if data is shorter than GESTUREINFOSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewGESTUREINFO(data []byte) GESTUREINFO {
+	return GESTUREINFO{data: nativebuffer.View(data, int(GESTUREINFOSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b GESTUREINFO) Bytes() []byte {
+	return b.data[:GESTUREINFOSize:GESTUREINFOSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b GESTUREINFO) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(GESTUREINFOAlignment))
+}
+
+// GetCbSize returns a copy of the native field value.
+func (b GESTUREINFO) GetCbSize() uint32 {
+	offset := uintptr(GESTUREINFOCbSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCbSize copies value into the native field.
+func (b GESTUREINFO) SetCbSize(value uint32) {
+	offset := uintptr(GESTUREINFOCbSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDwFlags returns a copy of the native field value.
+func (b GESTUREINFO) GetDwFlags() uint32 {
+	offset := uintptr(GESTUREINFODwFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwFlags copies value into the native field.
+func (b GESTUREINFO) SetDwFlags(value uint32) {
+	offset := uintptr(GESTUREINFODwFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDwID returns a copy of the native field value.
+func (b GESTUREINFO) GetDwID() uint32 {
+	offset := uintptr(GESTUREINFODwIDOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwID copies value into the native field.
+func (b GESTUREINFO) SetDwID(value uint32) {
+	offset := uintptr(GESTUREINFODwIDOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetHwndTarget returns a copy of the native field value.
+func (b GESTUREINFO) GetHwndTarget() foundation.HWND {
+	offset := uintptr(GESTUREINFOHwndTargetOffset)
+
+	return nativebuffer.Read[foundation.HWND](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetHwndTarget copies value into the native field.
+func (b GESTUREINFO) SetHwndTarget(value foundation.HWND) {
+	offset := uintptr(GESTUREINFOHwndTargetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetPtsLocation returns a copy of the native field value.
+func (b GESTUREINFO) GetPtsLocation() foundation.POINTS {
+	offset := uintptr(GESTUREINFOPtsLocationOffset)
+
+	return nativebuffer.Read[foundation.POINTS](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPtsLocation copies value into the native field.
+func (b GESTUREINFO) SetPtsLocation(value foundation.POINTS) {
+	offset := uintptr(GESTUREINFOPtsLocationOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDwInstanceID returns a copy of the native field value.
+func (b GESTUREINFO) GetDwInstanceID() uint32 {
+	offset := uintptr(GESTUREINFODwInstanceIDOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwInstanceID copies value into the native field.
+func (b GESTUREINFO) SetDwInstanceID(value uint32) {
+	offset := uintptr(GESTUREINFODwInstanceIDOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDwSequenceID returns a copy of the native field value.
+func (b GESTUREINFO) GetDwSequenceID() uint32 {
+	offset := uintptr(GESTUREINFODwSequenceIDOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwSequenceID copies value into the native field.
+func (b GESTUREINFO) SetDwSequenceID(value uint32) {
+	offset := uintptr(GESTUREINFODwSequenceIDOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetUllArguments returns a copy of the native field value.
+func (b GESTUREINFO) GetUllArguments() uint64 {
+	offset := uintptr(GESTUREINFOUllArgumentsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUllArguments copies value into the native field.
+func (b GESTUREINFO) SetUllArguments(value uint64) {
+	offset := uintptr(GESTUREINFOUllArgumentsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetCbExtraArgs returns a copy of the native field value.
+func (b GESTUREINFO) GetCbExtraArgs() uint32 {
+	offset := uintptr(GESTUREINFOCbExtraArgsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCbExtraArgs copies value into the native field.
+func (b GESTUREINFO) SetCbExtraArgs(value uint32) {
+	offset := uintptr(GESTUREINFOCbExtraArgsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
 
 // GESTURENOTIFYSTRUCT projects Windows.Win32.UI.Input.Touch.GESTURENOTIFYSTRUCT.
 // See https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-gesturenotifystruct.
@@ -116,6 +278,528 @@ type POINTER_DEVICE_TYPE int32
 
 // POINTER_FLAGS projects Windows.Win32.UI.Input.Pointer.POINTER_FLAGS.
 type POINTER_FLAGS uint32
+
+// POINTER_INFO is a view of native Windows.Win32.UI.Input.Pointer.POINTER_INFO storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_info.
+type POINTER_INFO struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	POINTER_INFOSize                        = 88 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_INFOAlignment                   = 8
+	POINTER_INFOPointerTypeOffset           = 0
+	POINTER_INFOPointerIdOffset             = 4
+	POINTER_INFOFrameIdOffset               = 8
+	POINTER_INFOPointerFlagsOffset          = 12
+	POINTER_INFOSourceDeviceOffset          = 16
+	POINTER_INFOHwndTargetOffset            = 20 + (unsafe.Sizeof(uintptr(0))-4)/4*4
+	POINTER_INFOPtPixelLocationOffset       = 24 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_INFOPtHimetricLocationOffset    = 32 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_INFOPtPixelLocationRawOffset    = 40 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_INFOPtHimetricLocationRawOffset = 48 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_INFODwTimeOffset                = 56 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_INFOHistoryCountOffset          = 60 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_INFOInputDataOffset             = 64 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_INFODwKeyStatesOffset           = 68 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_INFOPerformanceCountOffset      = 72 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_INFOButtonChangeTypeOffset      = 80 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+)
+
+// NewPOINTER_INFO allocates zeroed, aligned native storage.
+func NewPOINTER_INFO() POINTER_INFO {
+	return POINTER_INFO{data: nativebuffer.New(int(POINTER_INFOSize), uintptr(POINTER_INFOAlignment))}
+}
+
+// ViewPOINTER_INFO shares data without copying. It panics if data is shorter than POINTER_INFOSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPOINTER_INFO(data []byte) POINTER_INFO {
+	return POINTER_INFO{data: nativebuffer.View(data, int(POINTER_INFOSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b POINTER_INFO) Bytes() []byte {
+	return b.data[:POINTER_INFOSize:POINTER_INFOSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b POINTER_INFO) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(POINTER_INFOAlignment))
+}
+
+// GetPointerType returns a copy of the native field value.
+func (b POINTER_INFO) GetPointerType() winmsg.POINTER_INPUT_TYPE {
+	offset := uintptr(POINTER_INFOPointerTypeOffset)
+
+	return nativebuffer.Read[winmsg.POINTER_INPUT_TYPE](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPointerType copies value into the native field.
+func (b POINTER_INFO) SetPointerType(value winmsg.POINTER_INPUT_TYPE) {
+	offset := uintptr(POINTER_INFOPointerTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPointerId returns a copy of the native field value.
+func (b POINTER_INFO) GetPointerId() uint32 {
+	offset := uintptr(POINTER_INFOPointerIdOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPointerId copies value into the native field.
+func (b POINTER_INFO) SetPointerId(value uint32) {
+	offset := uintptr(POINTER_INFOPointerIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFrameId returns a copy of the native field value.
+func (b POINTER_INFO) GetFrameId() uint32 {
+	offset := uintptr(POINTER_INFOFrameIdOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFrameId copies value into the native field.
+func (b POINTER_INFO) SetFrameId(value uint32) {
+	offset := uintptr(POINTER_INFOFrameIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPointerFlags returns a copy of the native field value.
+func (b POINTER_INFO) GetPointerFlags() POINTER_FLAGS {
+	offset := uintptr(POINTER_INFOPointerFlagsOffset)
+
+	return nativebuffer.Read[POINTER_FLAGS](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPointerFlags copies value into the native field.
+func (b POINTER_INFO) SetPointerFlags(value POINTER_FLAGS) {
+	offset := uintptr(POINTER_INFOPointerFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSourceDevice returns a copy of the native field value.
+func (b POINTER_INFO) GetSourceDevice() foundation.HANDLE {
+	offset := uintptr(POINTER_INFOSourceDeviceOffset)
+
+	return nativebuffer.Read[foundation.HANDLE](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetSourceDevice copies value into the native field.
+func (b POINTER_INFO) SetSourceDevice(value foundation.HANDLE) {
+	offset := uintptr(POINTER_INFOSourceDeviceOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetHwndTarget returns a copy of the native field value.
+func (b POINTER_INFO) GetHwndTarget() foundation.HWND {
+	offset := uintptr(POINTER_INFOHwndTargetOffset)
+
+	return nativebuffer.Read[foundation.HWND](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetHwndTarget copies value into the native field.
+func (b POINTER_INFO) SetHwndTarget(value foundation.HWND) {
+	offset := uintptr(POINTER_INFOHwndTargetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetPtPixelLocation returns a copy of the native field value.
+func (b POINTER_INFO) GetPtPixelLocation() foundation.POINT {
+	offset := uintptr(POINTER_INFOPtPixelLocationOffset)
+
+	return nativebuffer.Read[foundation.POINT](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPtPixelLocation copies value into the native field.
+func (b POINTER_INFO) SetPtPixelLocation(value foundation.POINT) {
+	offset := uintptr(POINTER_INFOPtPixelLocationOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetPtHimetricLocation returns a copy of the native field value.
+func (b POINTER_INFO) GetPtHimetricLocation() foundation.POINT {
+	offset := uintptr(POINTER_INFOPtHimetricLocationOffset)
+
+	return nativebuffer.Read[foundation.POINT](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPtHimetricLocation copies value into the native field.
+func (b POINTER_INFO) SetPtHimetricLocation(value foundation.POINT) {
+	offset := uintptr(POINTER_INFOPtHimetricLocationOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetPtPixelLocationRaw returns a copy of the native field value.
+func (b POINTER_INFO) GetPtPixelLocationRaw() foundation.POINT {
+	offset := uintptr(POINTER_INFOPtPixelLocationRawOffset)
+
+	return nativebuffer.Read[foundation.POINT](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPtPixelLocationRaw copies value into the native field.
+func (b POINTER_INFO) SetPtPixelLocationRaw(value foundation.POINT) {
+	offset := uintptr(POINTER_INFOPtPixelLocationRawOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetPtHimetricLocationRaw returns a copy of the native field value.
+func (b POINTER_INFO) GetPtHimetricLocationRaw() foundation.POINT {
+	offset := uintptr(POINTER_INFOPtHimetricLocationRawOffset)
+
+	return nativebuffer.Read[foundation.POINT](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPtHimetricLocationRaw copies value into the native field.
+func (b POINTER_INFO) SetPtHimetricLocationRaw(value foundation.POINT) {
+	offset := uintptr(POINTER_INFOPtHimetricLocationRawOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetDwTime returns a copy of the native field value.
+func (b POINTER_INFO) GetDwTime() uint32 {
+	offset := uintptr(POINTER_INFODwTimeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwTime copies value into the native field.
+func (b POINTER_INFO) SetDwTime(value uint32) {
+	offset := uintptr(POINTER_INFODwTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetHistoryCount returns a copy of the native field value.
+func (b POINTER_INFO) GetHistoryCount() uint32 {
+	offset := uintptr(POINTER_INFOHistoryCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetHistoryCount copies value into the native field.
+func (b POINTER_INFO) SetHistoryCount(value uint32) {
+	offset := uintptr(POINTER_INFOHistoryCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetInputData returns a copy of the native field value.
+func (b POINTER_INFO) GetInputData() int32 {
+	offset := uintptr(POINTER_INFOInputDataOffset)
+
+	return nativebuffer.Read[int32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetInputData copies value into the native field.
+func (b POINTER_INFO) SetInputData(value int32) {
+	offset := uintptr(POINTER_INFOInputDataOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDwKeyStates returns a copy of the native field value.
+func (b POINTER_INFO) GetDwKeyStates() uint32 {
+	offset := uintptr(POINTER_INFODwKeyStatesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwKeyStates copies value into the native field.
+func (b POINTER_INFO) SetDwKeyStates(value uint32) {
+	offset := uintptr(POINTER_INFODwKeyStatesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPerformanceCount returns a copy of the native field value.
+func (b POINTER_INFO) GetPerformanceCount() uint64 {
+	offset := uintptr(POINTER_INFOPerformanceCountOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPerformanceCount copies value into the native field.
+func (b POINTER_INFO) SetPerformanceCount(value uint64) {
+	offset := uintptr(POINTER_INFOPerformanceCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetButtonChangeType returns a copy of the native field value.
+func (b POINTER_INFO) GetButtonChangeType() POINTER_BUTTON_CHANGE_TYPE {
+	offset := uintptr(POINTER_INFOButtonChangeTypeOffset)
+
+	return nativebuffer.Read[POINTER_BUTTON_CHANGE_TYPE](b.Bytes()[offset : offset+(4)])
+}
+
+// SetButtonChangeType copies value into the native field.
+func (b POINTER_INFO) SetButtonChangeType(value POINTER_BUTTON_CHANGE_TYPE) {
+	offset := uintptr(POINTER_INFOButtonChangeTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// POINTER_PEN_INFO is a view of native Windows.Win32.UI.Input.Pointer.POINTER_PEN_INFO storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_pen_info.
+type POINTER_PEN_INFO struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	POINTER_PEN_INFOSize              = 112 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_PEN_INFOAlignment         = 8
+	POINTER_PEN_INFOPointerInfoOffset = 0
+	POINTER_PEN_INFOPenFlagsOffset    = 88 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_PEN_INFOPenMaskOffset     = 92 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_PEN_INFOPressureOffset    = 96 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_PEN_INFORotationOffset    = 100 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_PEN_INFOTiltXOffset       = 104 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_PEN_INFOTiltYOffset       = 108 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+)
+
+// NewPOINTER_PEN_INFO allocates zeroed, aligned native storage.
+func NewPOINTER_PEN_INFO() POINTER_PEN_INFO {
+	return POINTER_PEN_INFO{data: nativebuffer.New(int(POINTER_PEN_INFOSize), uintptr(POINTER_PEN_INFOAlignment))}
+}
+
+// ViewPOINTER_PEN_INFO shares data without copying. It panics if data is shorter than POINTER_PEN_INFOSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPOINTER_PEN_INFO(data []byte) POINTER_PEN_INFO {
+	return POINTER_PEN_INFO{data: nativebuffer.View(data, int(POINTER_PEN_INFOSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b POINTER_PEN_INFO) Bytes() []byte {
+	return b.data[:POINTER_PEN_INFOSize:POINTER_PEN_INFOSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b POINTER_PEN_INFO) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(POINTER_PEN_INFOAlignment))
+}
+
+// GetPointerInfo returns a view sharing this buffer's storage.
+func (b POINTER_PEN_INFO) GetPointerInfo() POINTER_INFO {
+	offset := uintptr(POINTER_PEN_INFOPointerInfoOffset)
+
+	return ViewPOINTER_INFO(b.Bytes()[offset : offset+(88+(unsafe.Sizeof(uintptr(0))-4)/4*8)])
+}
+
+// SetPointerInfo copies value into the native field.
+func (b POINTER_PEN_INFO) SetPointerInfo(value POINTER_INFO) {
+	offset := uintptr(POINTER_PEN_INFOPointerInfoOffset)
+	copy(b.Bytes()[offset:offset+(88+(unsafe.Sizeof(uintptr(0))-4)/4*8)], value.Bytes())
+}
+
+// GetPenFlags returns a copy of the native field value.
+func (b POINTER_PEN_INFO) GetPenFlags() uint32 {
+	offset := uintptr(POINTER_PEN_INFOPenFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPenFlags copies value into the native field.
+func (b POINTER_PEN_INFO) SetPenFlags(value uint32) {
+	offset := uintptr(POINTER_PEN_INFOPenFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPenMask returns a copy of the native field value.
+func (b POINTER_PEN_INFO) GetPenMask() uint32 {
+	offset := uintptr(POINTER_PEN_INFOPenMaskOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPenMask copies value into the native field.
+func (b POINTER_PEN_INFO) SetPenMask(value uint32) {
+	offset := uintptr(POINTER_PEN_INFOPenMaskOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPressure returns a copy of the native field value.
+func (b POINTER_PEN_INFO) GetPressure() uint32 {
+	offset := uintptr(POINTER_PEN_INFOPressureOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPressure copies value into the native field.
+func (b POINTER_PEN_INFO) SetPressure(value uint32) {
+	offset := uintptr(POINTER_PEN_INFOPressureOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRotation returns a copy of the native field value.
+func (b POINTER_PEN_INFO) GetRotation() uint32 {
+	offset := uintptr(POINTER_PEN_INFORotationOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRotation copies value into the native field.
+func (b POINTER_PEN_INFO) SetRotation(value uint32) {
+	offset := uintptr(POINTER_PEN_INFORotationOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTiltX returns a copy of the native field value.
+func (b POINTER_PEN_INFO) GetTiltX() int32 {
+	offset := uintptr(POINTER_PEN_INFOTiltXOffset)
+
+	return nativebuffer.Read[int32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTiltX copies value into the native field.
+func (b POINTER_PEN_INFO) SetTiltX(value int32) {
+	offset := uintptr(POINTER_PEN_INFOTiltXOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTiltY returns a copy of the native field value.
+func (b POINTER_PEN_INFO) GetTiltY() int32 {
+	offset := uintptr(POINTER_PEN_INFOTiltYOffset)
+
+	return nativebuffer.Read[int32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTiltY copies value into the native field.
+func (b POINTER_PEN_INFO) SetTiltY(value int32) {
+	offset := uintptr(POINTER_PEN_INFOTiltYOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// POINTER_TOUCH_INFO is a view of native Windows.Win32.UI.Input.Pointer.POINTER_TOUCH_INFO storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_touch_info.
+type POINTER_TOUCH_INFO struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	POINTER_TOUCH_INFOSize               = 136 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_TOUCH_INFOAlignment          = 8
+	POINTER_TOUCH_INFOPointerInfoOffset  = 0
+	POINTER_TOUCH_INFOTouchFlagsOffset   = 88 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_TOUCH_INFOTouchMaskOffset    = 92 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_TOUCH_INFORcContactOffset    = 96 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_TOUCH_INFORcContactRawOffset = 112 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_TOUCH_INFOOrientationOffset  = 128 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	POINTER_TOUCH_INFOPressureOffset     = 132 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+)
+
+// NewPOINTER_TOUCH_INFO allocates zeroed, aligned native storage.
+func NewPOINTER_TOUCH_INFO() POINTER_TOUCH_INFO {
+	return POINTER_TOUCH_INFO{data: nativebuffer.New(int(POINTER_TOUCH_INFOSize), uintptr(POINTER_TOUCH_INFOAlignment))}
+}
+
+// ViewPOINTER_TOUCH_INFO shares data without copying. It panics if data is shorter than POINTER_TOUCH_INFOSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPOINTER_TOUCH_INFO(data []byte) POINTER_TOUCH_INFO {
+	return POINTER_TOUCH_INFO{data: nativebuffer.View(data, int(POINTER_TOUCH_INFOSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b POINTER_TOUCH_INFO) Bytes() []byte {
+	return b.data[:POINTER_TOUCH_INFOSize:POINTER_TOUCH_INFOSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b POINTER_TOUCH_INFO) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(POINTER_TOUCH_INFOAlignment))
+}
+
+// GetPointerInfo returns a view sharing this buffer's storage.
+func (b POINTER_TOUCH_INFO) GetPointerInfo() POINTER_INFO {
+	offset := uintptr(POINTER_TOUCH_INFOPointerInfoOffset)
+
+	return ViewPOINTER_INFO(b.Bytes()[offset : offset+(88+(unsafe.Sizeof(uintptr(0))-4)/4*8)])
+}
+
+// SetPointerInfo copies value into the native field.
+func (b POINTER_TOUCH_INFO) SetPointerInfo(value POINTER_INFO) {
+	offset := uintptr(POINTER_TOUCH_INFOPointerInfoOffset)
+	copy(b.Bytes()[offset:offset+(88+(unsafe.Sizeof(uintptr(0))-4)/4*8)], value.Bytes())
+}
+
+// GetTouchFlags returns a copy of the native field value.
+func (b POINTER_TOUCH_INFO) GetTouchFlags() uint32 {
+	offset := uintptr(POINTER_TOUCH_INFOTouchFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTouchFlags copies value into the native field.
+func (b POINTER_TOUCH_INFO) SetTouchFlags(value uint32) {
+	offset := uintptr(POINTER_TOUCH_INFOTouchFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTouchMask returns a copy of the native field value.
+func (b POINTER_TOUCH_INFO) GetTouchMask() uint32 {
+	offset := uintptr(POINTER_TOUCH_INFOTouchMaskOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTouchMask copies value into the native field.
+func (b POINTER_TOUCH_INFO) SetTouchMask(value uint32) {
+	offset := uintptr(POINTER_TOUCH_INFOTouchMaskOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRcContact returns a copy of the native field value.
+func (b POINTER_TOUCH_INFO) GetRcContact() foundation.RECT {
+	offset := uintptr(POINTER_TOUCH_INFORcContactOffset)
+
+	return nativebuffer.Read[foundation.RECT](b.Bytes()[offset : offset+(16)])
+}
+
+// SetRcContact copies value into the native field.
+func (b POINTER_TOUCH_INFO) SetRcContact(value foundation.RECT) {
+	offset := uintptr(POINTER_TOUCH_INFORcContactOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(16)], value)
+}
+
+// GetRcContactRaw returns a copy of the native field value.
+func (b POINTER_TOUCH_INFO) GetRcContactRaw() foundation.RECT {
+	offset := uintptr(POINTER_TOUCH_INFORcContactRawOffset)
+
+	return nativebuffer.Read[foundation.RECT](b.Bytes()[offset : offset+(16)])
+}
+
+// SetRcContactRaw copies value into the native field.
+func (b POINTER_TOUCH_INFO) SetRcContactRaw(value foundation.RECT) {
+	offset := uintptr(POINTER_TOUCH_INFORcContactRawOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(16)], value)
+}
+
+// GetOrientation returns a copy of the native field value.
+func (b POINTER_TOUCH_INFO) GetOrientation() uint32 {
+	offset := uintptr(POINTER_TOUCH_INFOOrientationOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetOrientation copies value into the native field.
+func (b POINTER_TOUCH_INFO) SetOrientation(value uint32) {
+	offset := uintptr(POINTER_TOUCH_INFOOrientationOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPressure returns a copy of the native field value.
+func (b POINTER_TOUCH_INFO) GetPressure() uint32 {
+	offset := uintptr(POINTER_TOUCH_INFOPressureOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPressure copies value into the native field.
+func (b POINTER_TOUCH_INFO) SetPressure(value uint32) {
+	offset := uintptr(POINTER_TOUCH_INFOPressureOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
 
 // RAWHID projects Windows.Win32.UI.Input.RAWHID.
 // See https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rawhid.

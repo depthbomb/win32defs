@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/depthbomb/win32defs/foundation"
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
 )
 
 // ENUM_SERVICE_TYPE projects Windows.Win32.System.Services.ENUM_SERVICE_TYPE.
@@ -109,6 +110,68 @@ type SERVICE_STATUS_PROCESS struct {
 	DwWaitHint                uint32
 	DwProcessId               uint32
 	DwServiceFlags            SERVICE_RUNS_IN_PROCESS
+}
+
+// SERVICE_TIMECHANGE_INFO is a view of native Windows.Win32.System.Services.SERVICE_TIMECHANGE_INFO storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_timechange_info.
+type SERVICE_TIMECHANGE_INFO struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SERVICE_TIMECHANGE_INFOSize            = 16
+	SERVICE_TIMECHANGE_INFOAlignment       = 8
+	SERVICE_TIMECHANGE_INFOLiNewTimeOffset = 0
+	SERVICE_TIMECHANGE_INFOLiOldTimeOffset = 8
+)
+
+// NewSERVICE_TIMECHANGE_INFO allocates zeroed, aligned native storage.
+func NewSERVICE_TIMECHANGE_INFO() SERVICE_TIMECHANGE_INFO {
+	return SERVICE_TIMECHANGE_INFO{data: nativebuffer.New(int(SERVICE_TIMECHANGE_INFOSize), uintptr(SERVICE_TIMECHANGE_INFOAlignment))}
+}
+
+// ViewSERVICE_TIMECHANGE_INFO shares data without copying. It panics if data is shorter than SERVICE_TIMECHANGE_INFOSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSERVICE_TIMECHANGE_INFO(data []byte) SERVICE_TIMECHANGE_INFO {
+	return SERVICE_TIMECHANGE_INFO{data: nativebuffer.View(data, int(SERVICE_TIMECHANGE_INFOSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SERVICE_TIMECHANGE_INFO) Bytes() []byte {
+	return b.data[:SERVICE_TIMECHANGE_INFOSize:SERVICE_TIMECHANGE_INFOSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SERVICE_TIMECHANGE_INFO) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SERVICE_TIMECHANGE_INFOAlignment))
+}
+
+// GetLiNewTime returns a copy of the native field value.
+func (b SERVICE_TIMECHANGE_INFO) GetLiNewTime() int64 {
+	offset := uintptr(SERVICE_TIMECHANGE_INFOLiNewTimeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLiNewTime copies value into the native field.
+func (b SERVICE_TIMECHANGE_INFO) SetLiNewTime(value int64) {
+	offset := uintptr(SERVICE_TIMECHANGE_INFOLiNewTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLiOldTime returns a copy of the native field value.
+func (b SERVICE_TIMECHANGE_INFO) GetLiOldTime() int64 {
+	offset := uintptr(SERVICE_TIMECHANGE_INFOLiOldTimeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLiOldTime copies value into the native field.
+func (b SERVICE_TIMECHANGE_INFO) SetLiOldTime(value int64) {
+	offset := uintptr(SERVICE_TIMECHANGE_INFOLiOldTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // SERVICE_TRIGGER_ACTION projects Windows.Win32.System.Services.SERVICE_TRIGGER_ACTION.

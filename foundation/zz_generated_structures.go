@@ -5,6 +5,8 @@ package foundation
 
 import (
 	"unsafe"
+
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
 )
 
 // APP_LOCAL_DEVICE_ID projects Windows.Win32.Foundation.APP_LOCAL_DEVICE_ID.
@@ -30,6 +32,67 @@ type COLORREF uint32
 type FILETIME struct {
 	DwLowDateTime  uint32
 	DwHighDateTime uint32
+}
+
+// FLOAT128 is a view of native Windows.Win32.Foundation.FLOAT128 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type FLOAT128 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FLOAT128Size           = 16
+	FLOAT128Alignment      = 8
+	FLOAT128LowPartOffset  = 0
+	FLOAT128HighPartOffset = 8
+)
+
+// NewFLOAT128 allocates zeroed, aligned native storage.
+func NewFLOAT128() FLOAT128 {
+	return FLOAT128{data: nativebuffer.New(int(FLOAT128Size), uintptr(FLOAT128Alignment))}
+}
+
+// ViewFLOAT128 shares data without copying. It panics if data is shorter than FLOAT128Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFLOAT128(data []byte) FLOAT128 {
+	return FLOAT128{data: nativebuffer.View(data, int(FLOAT128Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FLOAT128) Bytes() []byte {
+	return b.data[:FLOAT128Size:FLOAT128Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FLOAT128) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FLOAT128Alignment))
+}
+
+// GetLowPart returns a copy of the native field value.
+func (b FLOAT128) GetLowPart() int64 {
+	offset := uintptr(FLOAT128LowPartOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLowPart copies value into the native field.
+func (b FLOAT128) SetLowPart(value int64) {
+	offset := uintptr(FLOAT128LowPartOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetHighPart returns a copy of the native field value.
+func (b FLOAT128) GetHighPart() int64 {
+	offset := uintptr(FLOAT128HighPartOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetHighPart copies value into the native field.
+func (b FLOAT128) SetHighPart(value int64) {
+	offset := uintptr(FLOAT128HighPartOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // HANDLE projects Windows.Win32.Foundation.HANDLE.

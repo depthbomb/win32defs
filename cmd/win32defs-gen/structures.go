@@ -54,7 +54,9 @@ type abiLayout struct {
 type projectedType struct {
 	GoType       types.Type
 	ABI          [2]abiLayout
+	Buffer       bool
 	Source       metadataType
+	Element      *projectedType
 	Fields       []projectedField
 	Base         string
 	Dependencies []string
@@ -64,12 +66,18 @@ type projectedField struct {
 	Name     string
 	Type     string
 	Flexible bool
+	Resolved *projectedType
 }
 
 type structureProjection struct {
 	Metadata map[string][]metadataType
 	Types    map[string]projectedType
 	Visiting map[string]bool
+}
+
+type structurePrimitive struct {
+	Kind types.BasicKind
+	Size int64 // Zero denotes a pointer-sized scalar.
 }
 
 var structureNamespaces = map[string]string{
@@ -108,20 +116,20 @@ var structureNamespaces = map[string]string{
 	"Windows.Win32.System.Ioctl":                "ioctl",
 }
 
-var structurePrimitives = map[string]types.BasicKind{
-	"SByte":   types.Int8,
-	"Byte":    types.Uint8,
-	"Int16":   types.Int16,
-	"UInt16":  types.Uint16,
-	"Char":    types.Uint16,
-	"Int32":   types.Int32,
-	"UInt32":  types.Uint32,
-	"Int64":   types.Int64,
-	"UInt64":  types.Uint64,
-	"Single":  types.Float32,
-	"Double":  types.Float64,
-	"IntPtr":  types.Int,
-	"UIntPtr": types.Uintptr,
+var structurePrimitives = map[string]structurePrimitive{
+	"SByte":   {types.Int8, 1},
+	"Byte":    {types.Uint8, 1},
+	"Int16":   {types.Int16, 2},
+	"UInt16":  {types.Uint16, 2},
+	"Char":    {types.Uint16, 2},
+	"Int32":   {types.Int32, 4},
+	"UInt32":  {types.Uint32, 4},
+	"Int64":   {types.Int64, 8},
+	"UInt64":  {types.Uint64, 8},
+	"Single":  {types.Float32, 4},
+	"Double":  {types.Float64, 8},
+	"IntPtr":  {types.Int, 0},
+	"UIntPtr": {types.Uintptr, 0},
 }
 
 func newStructureProjection(items []metadataType) *structureProjection {
@@ -141,12 +149,15 @@ func newStructureProjection(items []metadataType) *structureProjection {
 func (projection *structureProjection) resolve(name string) (projectedType, error) {
 	kind, primitive := structurePrimitives[name]
 	if primitive {
-		goType := types.Typ[kind]
+		goType := types.Typ[kind.Kind]
 		result := projectedType{
 			GoType: goType,
 		}
 		for index, pointerSize := range []int64{4, 8} {
-			size := (&types.StdSizes{WordSize: pointerSize, MaxAlign: 8}).Sizeof(goType)
+			size := kind.Size
+			if size == 0 {
+				size = pointerSize
+			}
 			result.ABI[index] = abiLayout{
 				Size:  size,
 				Align: size,
@@ -169,7 +180,9 @@ func (projection *structureProjection) resolve(name string) (projectedType, erro
 		}
 
 		result := projectedType{
-			GoType: types.NewArray(element.GoType, count),
+			GoType:  types.NewArray(element.GoType, count),
+			Buffer:  element.Buffer,
+			Element: &element,
 		}
 		for index, layout := range element.ABI {
 			if layout.Size > math.MaxInt32/count {
@@ -241,23 +254,14 @@ func (projection *structureProjection) resolve(name string) (projectedType, erro
 			Name:     fieldName,
 			Type:     types.TypeString(resolved.GoType, packageQualifier(packageName)),
 			Flexible: field.Flexible,
+			Resolved: &resolved,
 		})
-		for arch, layout := range resolved.ABI {
-			current := &result.ABI[arch]
-			alignment := layout.Align
-			if item.Packing != 0 {
-				alignment = min(alignment, int64(item.Packing))
-			}
-
-			offset := alignSize(current.Size, alignment)
-			if offset > math.MaxInt32-layout.Size {
-				return projectedType{}, fmt.Errorf("structure exceeds portable Go object size: %s", name)
-			}
-
-			current.Offsets = append(current.Offsets, offset)
-			current.Size = offset + layout.Size
-			current.Align = max(current.Align, alignment)
-		}
+		result.Buffer = result.Buffer || resolved.Buffer
+	}
+	var err error
+	result.ABI, err = nativeStructureLayouts(item.Packing, result.Fields)
+	if err != nil {
+		return projectedType{}, fmt.Errorf("%s: %w", name, err)
 	}
 
 	var underlying types.Type = types.NewStruct(fields, nil)
@@ -272,15 +276,17 @@ func (projection *structureProjection) resolve(name string) (projectedType, erro
 
 		underlying = fields[0].Type().Underlying()
 		result.Base = result.Fields[0].Type
-		result.Fields = nil
 	}
 
-	for arch, goarch := range []string{"386", "amd64"} {
-		layout := &result.ABI[arch]
-		layout.Size = alignSize(layout.Size, layout.Align)
+	for _, goarch := range []string{"386", "amd64", "arm64"} {
+		arch := 1
+		if goarch == "386" {
+			arch = 0
+		}
+		layout := result.ABI[arch]
 		sizes := types.SizesFor("gc", goarch)
 		if sizes.Sizeof(underlying) != layout.Size || sizes.Alignof(underlying) != layout.Align {
-			return projectedType{}, fmt.Errorf("%s: Windows %s requires size/alignment %d/%d; Go provides %d/%d", name, goarch, layout.Size, layout.Align, sizes.Sizeof(underlying), sizes.Alignof(underlying))
+			result.Buffer = true
 		}
 
 		if result.Base != "" {
@@ -289,14 +295,53 @@ func (projection *structureProjection) resolve(name string) (projectedType, erro
 
 		for index, offset := range sizes.Offsetsof(fields) {
 			if offset != layout.Offsets[index] {
-				return projectedType{}, fmt.Errorf("%s.%s: Windows %s field offset differs from Go", name, fields[index].Name(), goarch)
+				result.Buffer = true
 			}
 		}
+	}
+	if result.Buffer {
+		result.Base = ""
+	} else if result.Base != "" {
+		result.Fields = nil
 	}
 
 	goPackage := types.NewPackage("github.com/depthbomb/win32defs/"+packageName, packageName)
 	result.GoType = types.NewNamed(types.NewTypeName(token.NoPos, goPackage, item.Name, nil), underlying, nil)
 	projection.Types[name] = result
+
+	return result, nil
+}
+
+// nativeStructureLayouts uses metadata packing and Windows aggregate rules,
+// independently of the Go representation chosen for each field.
+// https://learn.microsoft.com/en-us/cpp/c-language/padding-and-alignment-of-structure-members
+// https://learn.microsoft.com/en-us/cpp/build/x64-software-conventions
+func nativeStructureLayouts(packing int, fields []projectedField) ([2]abiLayout, error) {
+	var result [2]abiLayout
+	for _, field := range fields {
+		for arch, layout := range field.Resolved.ABI {
+			current := &result[arch]
+			alignment := layout.Align
+			if packing != 0 {
+				alignment = min(alignment, int64(packing))
+			}
+
+			offset := alignSize(current.Size, alignment)
+			if offset > math.MaxInt32-layout.Size {
+				return result, fmt.Errorf("structure exceeds portable Go object size")
+			}
+			current.Offsets = append(current.Offsets, offset)
+			current.Size = offset + layout.Size
+			current.Align = max(current.Align, alignment)
+		}
+	}
+	for arch := range result {
+		layout := &result[arch]
+		layout.Size = alignSize(layout.Size, layout.Align)
+		if layout.Size > math.MaxInt32-layout.Align+1 {
+			return result, fmt.Errorf("aligned allocation exceeds portable Go object size")
+		}
+	}
 
 	return result, nil
 }
@@ -412,13 +457,22 @@ func filterStructureCollisions(packages map[string][]projectedType, constants ma
 	for packageName, items := range packages {
 		for _, item := range items {
 			key := packageName + "." + item.Source.Name
-			counts[key]++
-			if reserved[key] {
-				blocked[key] = "collides with existing symbol " + key
+			for _, symbol := range structureSymbols(item) {
+				qualified := packageName + "." + symbol
+				counts[qualified]++
+				if reserved[qualified] {
+					blocked[key] = "collides with existing symbol " + qualified
+				}
 			}
-
-			if counts[key] > 1 {
-				blocked[key] = "ambiguous projected type name " + key
+		}
+	}
+	for packageName, items := range packages {
+		for _, item := range items {
+			for _, symbol := range structureSymbols(item) {
+				qualified := packageName + "." + symbol
+				if counts[qualified] > 1 {
+					blocked[packageName+"."+item.Source.Name] = "ambiguous projected symbol " + qualified
+				}
 			}
 		}
 	}
@@ -531,6 +585,18 @@ func renderStructures(packageName string, items []projectedType, source sourceLo
 
 	imports := make(map[string]bool)
 	for _, item := range items {
+		if item.Buffer {
+			imports["github.com/depthbomb/win32defs/internal/nativebuffer"] = true
+			for _, field := range item.Fields {
+				types.TypeString(field.Resolved.GoType, func(pkg *types.Package) string {
+					if pkg.Name() != packageName {
+						imports[pkg.Path()] = true
+					}
+
+					return pkg.Name()
+				})
+			}
+		}
 		types.TypeString(item.GoType.Underlying(), func(pkg *types.Package) string {
 			if pkg.Name() != packageName {
 				imports[pkg.Path()] = true
@@ -551,6 +617,10 @@ func renderStructures(packageName string, items []projectedType, source sourceLo
 	output.WriteString(")\n\n")
 	for _, item := range items {
 		name := item.Source.Name
+		if item.Buffer {
+			renderNativeBuffer(&output, packageName, item)
+			continue
+		}
 		fmt.Fprintf(&output, "// %s projects %s.%s.\n", name, item.Source.Namespace, name)
 		if item.Source.Documentation != "" {
 			fmt.Fprintf(&output, "// See %s.\n", item.Source.Documentation)
@@ -573,6 +643,9 @@ func renderStructures(packageName string, items []projectedType, source sourceLo
 	output.WriteString("// Verify metadata-derived Windows ABI sizes, alignments, and field offsets.\n")
 	output.WriteString("var (\n")
 	for _, item := range items {
+		if item.Buffer {
+			continue
+		}
 		name := item.Source.Name
 		value := "*new(" + name + ")"
 		writeABIAssertion(&output, "unsafe.Sizeof("+value+")", item.ABI[0].Size, item.ABI[1].Size)
@@ -587,11 +660,16 @@ func renderStructures(packageName string, items []projectedType, source sourceLo
 }
 
 func writeABIAssertion(output *bytes.Buffer, expression string, size32 int64, size64 int64) {
+	fmt.Fprintf(output, "_ [%s]byte = [%s]byte{}\n", abiExpression(size32, size64), expression)
+}
+
+func abiExpression(size32 int64, size64 int64) string {
 	expected := strconv.FormatInt(size32, 10)
 	if size32 != size64 {
 		expected += fmt.Sprintf(" + (unsafe.Sizeof(uintptr(0))-4)/4*%d", size64-size32)
 	}
-	fmt.Fprintf(output, "_ [%s]byte = [%s]byte{}\n", expected, expression)
+
+	return expected
 }
 
 func writeStructures(root string, sourceRoot string, packages map[string][]projectedType, source sourceLock) error {

@@ -6,8 +6,10 @@ package richedit
 import (
 	"unsafe"
 
+	"github.com/depthbomb/win32defs/controls"
 	"github.com/depthbomb/win32defs/foundation"
 	"github.com/depthbomb/win32defs/gdi"
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
 )
 
 // BIDIOPTIONS projects Windows.Win32.UI.Controls.RichEdit.BIDIOPTIONS.
@@ -76,6 +78,67 @@ type GETTEXTLENGTHEX struct {
 
 // GETTEXTLENGTHEX_FLAGS projects Windows.Win32.UI.Controls.RichEdit.GETTEXTLENGTHEX_FLAGS.
 type GETTEXTLENGTHEX_FLAGS uint32
+
+// GROUPTYPINGCHANGE is a view of native Windows.Win32.UI.Controls.RichEdit.GROUPTYPINGCHANGE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type GROUPTYPINGCHANGE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	GROUPTYPINGCHANGESize               = 16 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+	GROUPTYPINGCHANGEAlignment          = 4
+	GROUPTYPINGCHANGENmhdrOffset        = 0
+	GROUPTYPINGCHANGEFGroupTypingOffset = 12 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+)
+
+// NewGROUPTYPINGCHANGE allocates zeroed, aligned native storage.
+func NewGROUPTYPINGCHANGE() GROUPTYPINGCHANGE {
+	return GROUPTYPINGCHANGE{data: nativebuffer.New(int(GROUPTYPINGCHANGESize), uintptr(GROUPTYPINGCHANGEAlignment))}
+}
+
+// ViewGROUPTYPINGCHANGE shares data without copying. It panics if data is shorter than GROUPTYPINGCHANGESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewGROUPTYPINGCHANGE(data []byte) GROUPTYPINGCHANGE {
+	return GROUPTYPINGCHANGE{data: nativebuffer.View(data, int(GROUPTYPINGCHANGESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b GROUPTYPINGCHANGE) Bytes() []byte {
+	return b.data[:GROUPTYPINGCHANGESize:GROUPTYPINGCHANGESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b GROUPTYPINGCHANGE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(GROUPTYPINGCHANGEAlignment))
+}
+
+// GetNmhdr returns a copy of the native field value.
+func (b GROUPTYPINGCHANGE) GetNmhdr() controls.NMHDR {
+	offset := uintptr(GROUPTYPINGCHANGENmhdrOffset)
+
+	return nativebuffer.Read[controls.NMHDR](b.Bytes()[offset : offset+(12+(unsafe.Sizeof(uintptr(0))-4)/4*12)])
+}
+
+// SetNmhdr copies value into the native field.
+func (b GROUPTYPINGCHANGE) SetNmhdr(value controls.NMHDR) {
+	offset := uintptr(GROUPTYPINGCHANGENmhdrOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(12+(unsafe.Sizeof(uintptr(0))-4)/4*12)], value)
+}
+
+// GetFGroupTyping returns a copy of the native field value.
+func (b GROUPTYPINGCHANGE) GetFGroupTyping() foundation.BOOL {
+	offset := uintptr(GROUPTYPINGCHANGEFGroupTypingOffset)
+
+	return nativebuffer.Read[foundation.BOOL](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFGroupTyping copies value into the native field.
+func (b GROUPTYPINGCHANGE) SetFGroupTyping(value foundation.BOOL) {
+	offset := uintptr(GROUPTYPINGCHANGEFGroupTypingOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
 
 // HYPHRESULT projects Windows.Win32.UI.Controls.RichEdit.HYPHRESULT.
 // See https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-hyphresult.

@@ -7,8 +7,112 @@ import (
 	"unsafe"
 
 	"github.com/depthbomb/win32defs/foundation"
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
 	"github.com/depthbomb/win32defs/sysinfo"
 )
+
+// IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY is a view of native Windows.Win32.System.SystemServices.IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYSize                   = 40
+	IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYAlignment              = 4
+	IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYBeginAddressOffset     = 0
+	IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYEndAddressOffset       = 8
+	IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYExceptionHandlerOffset = 16
+	IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYHandlerDataOffset      = 24
+	IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYPrologEndAddressOffset = 32
+)
+
+// NewIMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY allocates zeroed, aligned native storage.
+func NewIMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY() IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY {
+	return IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY{data: nativebuffer.New(int(IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYSize), uintptr(IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYAlignment))}
+}
+
+// ViewIMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY shares data without copying. It panics if data is shorter than IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY(data []byte) IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY {
+	return IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY{data: nativebuffer.View(data, int(IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY) Bytes() []byte {
+	return b.data[:IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYSize:IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYAlignment))
+}
+
+// GetBeginAddress returns a copy of the native field value.
+func (b IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY) GetBeginAddress() uint64 {
+	offset := uintptr(IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYBeginAddressOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBeginAddress copies value into the native field.
+func (b IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY) SetBeginAddress(value uint64) {
+	offset := uintptr(IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYBeginAddressOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetEndAddress returns a copy of the native field value.
+func (b IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY) GetEndAddress() uint64 {
+	offset := uintptr(IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYEndAddressOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetEndAddress copies value into the native field.
+func (b IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY) SetEndAddress(value uint64) {
+	offset := uintptr(IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYEndAddressOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetExceptionHandler returns a copy of the native field value.
+func (b IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY) GetExceptionHandler() uint64 {
+	offset := uintptr(IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYExceptionHandlerOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetExceptionHandler copies value into the native field.
+func (b IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY) SetExceptionHandler(value uint64) {
+	offset := uintptr(IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYExceptionHandlerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetHandlerData returns a copy of the native field value.
+func (b IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY) GetHandlerData() uint64 {
+	offset := uintptr(IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYHandlerDataOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetHandlerData copies value into the native field.
+func (b IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY) SetHandlerData(value uint64) {
+	offset := uintptr(IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYHandlerDataOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetPrologEndAddress returns a copy of the native field value.
+func (b IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY) GetPrologEndAddress() uint64 {
+	offset := uintptr(IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYPrologEndAddressOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPrologEndAddress copies value into the native field.
+func (b IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY) SetPrologEndAddress(value uint64) {
+	offset := uintptr(IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRYPrologEndAddressOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
 
 // IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY projects Windows.Win32.System.SystemServices.IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY.
 type IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY struct {
@@ -36,10 +140,241 @@ type IMAGE_ARCHIVE_MEMBER_HEADER struct {
 	EndHeader [2]uint8
 }
 
+// IMAGE_AUX_SYMBOL_TOKEN_DEF is a view of native Windows.Win32.System.SystemServices.IMAGE_AUX_SYMBOL_TOKEN_DEF storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type IMAGE_AUX_SYMBOL_TOKEN_DEF struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_AUX_SYMBOL_TOKEN_DEFSize                   = 18
+	IMAGE_AUX_SYMBOL_TOKEN_DEFAlignment              = 2
+	IMAGE_AUX_SYMBOL_TOKEN_DEFBAuxTypeOffset         = 0
+	IMAGE_AUX_SYMBOL_TOKEN_DEFBReservedOffset        = 1
+	IMAGE_AUX_SYMBOL_TOKEN_DEFSymbolTableIndexOffset = 2
+	IMAGE_AUX_SYMBOL_TOKEN_DEFRgbReservedOffset      = 6
+)
+
+// NewIMAGE_AUX_SYMBOL_TOKEN_DEF allocates zeroed, aligned native storage.
+func NewIMAGE_AUX_SYMBOL_TOKEN_DEF() IMAGE_AUX_SYMBOL_TOKEN_DEF {
+	return IMAGE_AUX_SYMBOL_TOKEN_DEF{data: nativebuffer.New(int(IMAGE_AUX_SYMBOL_TOKEN_DEFSize), uintptr(IMAGE_AUX_SYMBOL_TOKEN_DEFAlignment))}
+}
+
+// ViewIMAGE_AUX_SYMBOL_TOKEN_DEF shares data without copying. It panics if data is shorter than IMAGE_AUX_SYMBOL_TOKEN_DEFSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_AUX_SYMBOL_TOKEN_DEF(data []byte) IMAGE_AUX_SYMBOL_TOKEN_DEF {
+	return IMAGE_AUX_SYMBOL_TOKEN_DEF{data: nativebuffer.View(data, int(IMAGE_AUX_SYMBOL_TOKEN_DEFSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_AUX_SYMBOL_TOKEN_DEF) Bytes() []byte {
+	return b.data[:IMAGE_AUX_SYMBOL_TOKEN_DEFSize:IMAGE_AUX_SYMBOL_TOKEN_DEFSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_AUX_SYMBOL_TOKEN_DEF) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_AUX_SYMBOL_TOKEN_DEFAlignment))
+}
+
+// GetBAuxType returns a copy of the native field value.
+func (b IMAGE_AUX_SYMBOL_TOKEN_DEF) GetBAuxType() uint8 {
+	offset := uintptr(IMAGE_AUX_SYMBOL_TOKEN_DEFBAuxTypeOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBAuxType copies value into the native field.
+func (b IMAGE_AUX_SYMBOL_TOKEN_DEF) SetBAuxType(value uint8) {
+	offset := uintptr(IMAGE_AUX_SYMBOL_TOKEN_DEFBAuxTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetBReserved returns a copy of the native field value.
+func (b IMAGE_AUX_SYMBOL_TOKEN_DEF) GetBReserved() uint8 {
+	offset := uintptr(IMAGE_AUX_SYMBOL_TOKEN_DEFBReservedOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBReserved copies value into the native field.
+func (b IMAGE_AUX_SYMBOL_TOKEN_DEF) SetBReserved(value uint8) {
+	offset := uintptr(IMAGE_AUX_SYMBOL_TOKEN_DEFBReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetSymbolTableIndex returns a copy of the native field value.
+func (b IMAGE_AUX_SYMBOL_TOKEN_DEF) GetSymbolTableIndex() uint32 {
+	offset := uintptr(IMAGE_AUX_SYMBOL_TOKEN_DEFSymbolTableIndexOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSymbolTableIndex copies value into the native field.
+func (b IMAGE_AUX_SYMBOL_TOKEN_DEF) SetSymbolTableIndex(value uint32) {
+	offset := uintptr(IMAGE_AUX_SYMBOL_TOKEN_DEFSymbolTableIndexOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRgbReserved returns a copy of the native field value.
+func (b IMAGE_AUX_SYMBOL_TOKEN_DEF) GetRgbReserved(index0 int) uint8 {
+	if index0 < 0 || index0 >= 12 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(IMAGE_AUX_SYMBOL_TOKEN_DEFRgbReservedOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetRgbReserved copies value into the native field.
+func (b IMAGE_AUX_SYMBOL_TOKEN_DEF) SetRgbReserved(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 12 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(IMAGE_AUX_SYMBOL_TOKEN_DEFRgbReservedOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
 // IMAGE_BASE_RELOCATION projects Windows.Win32.System.SystemServices.IMAGE_BASE_RELOCATION.
 type IMAGE_BASE_RELOCATION struct {
 	VirtualAddress uint32
 	SizeOfBlock    uint32
+}
+
+// IMAGE_BDD_DYNAMIC_RELOCATION is a view of native Windows.Win32.System.SystemServices.IMAGE_BDD_DYNAMIC_RELOCATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type IMAGE_BDD_DYNAMIC_RELOCATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_BDD_DYNAMIC_RELOCATIONSize        = 8
+	IMAGE_BDD_DYNAMIC_RELOCATIONAlignment   = 1
+	IMAGE_BDD_DYNAMIC_RELOCATIONLeftOffset  = 0
+	IMAGE_BDD_DYNAMIC_RELOCATIONRightOffset = 2
+	IMAGE_BDD_DYNAMIC_RELOCATIONValueOffset = 4
+)
+
+// NewIMAGE_BDD_DYNAMIC_RELOCATION allocates zeroed, aligned native storage.
+func NewIMAGE_BDD_DYNAMIC_RELOCATION() IMAGE_BDD_DYNAMIC_RELOCATION {
+	return IMAGE_BDD_DYNAMIC_RELOCATION{data: nativebuffer.New(int(IMAGE_BDD_DYNAMIC_RELOCATIONSize), uintptr(IMAGE_BDD_DYNAMIC_RELOCATIONAlignment))}
+}
+
+// ViewIMAGE_BDD_DYNAMIC_RELOCATION shares data without copying. It panics if data is shorter than IMAGE_BDD_DYNAMIC_RELOCATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_BDD_DYNAMIC_RELOCATION(data []byte) IMAGE_BDD_DYNAMIC_RELOCATION {
+	return IMAGE_BDD_DYNAMIC_RELOCATION{data: nativebuffer.View(data, int(IMAGE_BDD_DYNAMIC_RELOCATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_BDD_DYNAMIC_RELOCATION) Bytes() []byte {
+	return b.data[:IMAGE_BDD_DYNAMIC_RELOCATIONSize:IMAGE_BDD_DYNAMIC_RELOCATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_BDD_DYNAMIC_RELOCATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_BDD_DYNAMIC_RELOCATIONAlignment))
+}
+
+// GetLeft returns a copy of the native field value.
+func (b IMAGE_BDD_DYNAMIC_RELOCATION) GetLeft() uint16 {
+	offset := uintptr(IMAGE_BDD_DYNAMIC_RELOCATIONLeftOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetLeft copies value into the native field.
+func (b IMAGE_BDD_DYNAMIC_RELOCATION) SetLeft(value uint16) {
+	offset := uintptr(IMAGE_BDD_DYNAMIC_RELOCATIONLeftOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetRight returns a copy of the native field value.
+func (b IMAGE_BDD_DYNAMIC_RELOCATION) GetRight() uint16 {
+	offset := uintptr(IMAGE_BDD_DYNAMIC_RELOCATIONRightOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetRight copies value into the native field.
+func (b IMAGE_BDD_DYNAMIC_RELOCATION) SetRight(value uint16) {
+	offset := uintptr(IMAGE_BDD_DYNAMIC_RELOCATIONRightOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetValue returns a copy of the native field value.
+func (b IMAGE_BDD_DYNAMIC_RELOCATION) GetValue() uint32 {
+	offset := uintptr(IMAGE_BDD_DYNAMIC_RELOCATIONValueOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetValue copies value into the native field.
+func (b IMAGE_BDD_DYNAMIC_RELOCATION) SetValue(value uint32) {
+	offset := uintptr(IMAGE_BDD_DYNAMIC_RELOCATIONValueOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// IMAGE_BDD_INFO is a view of native Windows.Win32.System.SystemServices.IMAGE_BDD_INFO storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type IMAGE_BDD_INFO struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_BDD_INFOSize          = 8
+	IMAGE_BDD_INFOAlignment     = 1
+	IMAGE_BDD_INFOVersionOffset = 0
+	IMAGE_BDD_INFOBDDSizeOffset = 4
+)
+
+// NewIMAGE_BDD_INFO allocates zeroed, aligned native storage.
+func NewIMAGE_BDD_INFO() IMAGE_BDD_INFO {
+	return IMAGE_BDD_INFO{data: nativebuffer.New(int(IMAGE_BDD_INFOSize), uintptr(IMAGE_BDD_INFOAlignment))}
+}
+
+// ViewIMAGE_BDD_INFO shares data without copying. It panics if data is shorter than IMAGE_BDD_INFOSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_BDD_INFO(data []byte) IMAGE_BDD_INFO {
+	return IMAGE_BDD_INFO{data: nativebuffer.View(data, int(IMAGE_BDD_INFOSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_BDD_INFO) Bytes() []byte {
+	return b.data[:IMAGE_BDD_INFOSize:IMAGE_BDD_INFOSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_BDD_INFO) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_BDD_INFOAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b IMAGE_BDD_INFO) GetVersion() uint32 {
+	offset := uintptr(IMAGE_BDD_INFOVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b IMAGE_BDD_INFO) SetVersion(value uint32) {
+	offset := uintptr(IMAGE_BDD_INFOVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBDDSize returns a copy of the native field value.
+func (b IMAGE_BDD_INFO) GetBDDSize() uint32 {
+	offset := uintptr(IMAGE_BDD_INFOBDDSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBDDSize copies value into the native field.
+func (b IMAGE_BDD_INFO) SetBDDSize(value uint32) {
+	offset := uintptr(IMAGE_BDD_INFOBDDSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
 }
 
 // IMAGE_BOUND_FORWARDER_REF projects Windows.Win32.System.SystemServices.IMAGE_BOUND_FORWARDER_REF.
@@ -106,10 +441,738 @@ type IMAGE_DEBUG_TYPE uint32
 // IMAGE_DLL_CHARACTERISTICS projects Windows.Win32.System.Diagnostics.Debug.IMAGE_DLL_CHARACTERISTICS.
 type IMAGE_DLL_CHARACTERISTICS uint16
 
+// IMAGE_DOS_HEADER is a view of native Windows.Win32.System.SystemServices.IMAGE_DOS_HEADER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type IMAGE_DOS_HEADER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_DOS_HEADERSize             = 64
+	IMAGE_DOS_HEADERAlignment        = 2
+	IMAGE_DOS_HEADERE_magicOffset    = 0
+	IMAGE_DOS_HEADERE_cblpOffset     = 2
+	IMAGE_DOS_HEADERE_cpOffset       = 4
+	IMAGE_DOS_HEADERE_crlcOffset     = 6
+	IMAGE_DOS_HEADERE_cparhdrOffset  = 8
+	IMAGE_DOS_HEADERE_minallocOffset = 10
+	IMAGE_DOS_HEADERE_maxallocOffset = 12
+	IMAGE_DOS_HEADERE_ssOffset       = 14
+	IMAGE_DOS_HEADERE_spOffset       = 16
+	IMAGE_DOS_HEADERE_csumOffset     = 18
+	IMAGE_DOS_HEADERE_ipOffset       = 20
+	IMAGE_DOS_HEADERE_csOffset       = 22
+	IMAGE_DOS_HEADERE_lfarlcOffset   = 24
+	IMAGE_DOS_HEADERE_ovnoOffset     = 26
+	IMAGE_DOS_HEADERE_resOffset      = 28
+	IMAGE_DOS_HEADERE_oemidOffset    = 36
+	IMAGE_DOS_HEADERE_oeminfoOffset  = 38
+	IMAGE_DOS_HEADERE_res2Offset     = 40
+	IMAGE_DOS_HEADERE_lfanewOffset   = 60
+)
+
+// NewIMAGE_DOS_HEADER allocates zeroed, aligned native storage.
+func NewIMAGE_DOS_HEADER() IMAGE_DOS_HEADER {
+	return IMAGE_DOS_HEADER{data: nativebuffer.New(int(IMAGE_DOS_HEADERSize), uintptr(IMAGE_DOS_HEADERAlignment))}
+}
+
+// ViewIMAGE_DOS_HEADER shares data without copying. It panics if data is shorter than IMAGE_DOS_HEADERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_DOS_HEADER(data []byte) IMAGE_DOS_HEADER {
+	return IMAGE_DOS_HEADER{data: nativebuffer.View(data, int(IMAGE_DOS_HEADERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_DOS_HEADER) Bytes() []byte {
+	return b.data[:IMAGE_DOS_HEADERSize:IMAGE_DOS_HEADERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_DOS_HEADER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_DOS_HEADERAlignment))
+}
+
+// GetE_magic returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_magic() uint16 {
+	offset := uintptr(IMAGE_DOS_HEADERE_magicOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_magic copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_magic(value uint16) {
+	offset := uintptr(IMAGE_DOS_HEADERE_magicOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_cblp returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_cblp() uint16 {
+	offset := uintptr(IMAGE_DOS_HEADERE_cblpOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_cblp copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_cblp(value uint16) {
+	offset := uintptr(IMAGE_DOS_HEADERE_cblpOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_cp returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_cp() uint16 {
+	offset := uintptr(IMAGE_DOS_HEADERE_cpOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_cp copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_cp(value uint16) {
+	offset := uintptr(IMAGE_DOS_HEADERE_cpOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_crlc returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_crlc() uint16 {
+	offset := uintptr(IMAGE_DOS_HEADERE_crlcOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_crlc copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_crlc(value uint16) {
+	offset := uintptr(IMAGE_DOS_HEADERE_crlcOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_cparhdr returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_cparhdr() uint16 {
+	offset := uintptr(IMAGE_DOS_HEADERE_cparhdrOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_cparhdr copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_cparhdr(value uint16) {
+	offset := uintptr(IMAGE_DOS_HEADERE_cparhdrOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_minalloc returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_minalloc() uint16 {
+	offset := uintptr(IMAGE_DOS_HEADERE_minallocOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_minalloc copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_minalloc(value uint16) {
+	offset := uintptr(IMAGE_DOS_HEADERE_minallocOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_maxalloc returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_maxalloc() uint16 {
+	offset := uintptr(IMAGE_DOS_HEADERE_maxallocOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_maxalloc copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_maxalloc(value uint16) {
+	offset := uintptr(IMAGE_DOS_HEADERE_maxallocOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_ss returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_ss() uint16 {
+	offset := uintptr(IMAGE_DOS_HEADERE_ssOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_ss copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_ss(value uint16) {
+	offset := uintptr(IMAGE_DOS_HEADERE_ssOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_sp returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_sp() uint16 {
+	offset := uintptr(IMAGE_DOS_HEADERE_spOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_sp copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_sp(value uint16) {
+	offset := uintptr(IMAGE_DOS_HEADERE_spOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_csum returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_csum() uint16 {
+	offset := uintptr(IMAGE_DOS_HEADERE_csumOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_csum copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_csum(value uint16) {
+	offset := uintptr(IMAGE_DOS_HEADERE_csumOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_ip returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_ip() uint16 {
+	offset := uintptr(IMAGE_DOS_HEADERE_ipOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_ip copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_ip(value uint16) {
+	offset := uintptr(IMAGE_DOS_HEADERE_ipOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_cs returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_cs() uint16 {
+	offset := uintptr(IMAGE_DOS_HEADERE_csOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_cs copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_cs(value uint16) {
+	offset := uintptr(IMAGE_DOS_HEADERE_csOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_lfarlc returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_lfarlc() uint16 {
+	offset := uintptr(IMAGE_DOS_HEADERE_lfarlcOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_lfarlc copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_lfarlc(value uint16) {
+	offset := uintptr(IMAGE_DOS_HEADERE_lfarlcOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_ovno returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_ovno() uint16 {
+	offset := uintptr(IMAGE_DOS_HEADERE_ovnoOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_ovno copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_ovno(value uint16) {
+	offset := uintptr(IMAGE_DOS_HEADERE_ovnoOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_res returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_res(index0 int) uint16 {
+	if index0 < 0 || index0 >= 4 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(IMAGE_DOS_HEADERE_resOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_res copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_res(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 4 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(IMAGE_DOS_HEADERE_resOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_oemid returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_oemid() uint16 {
+	offset := uintptr(IMAGE_DOS_HEADERE_oemidOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_oemid copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_oemid(value uint16) {
+	offset := uintptr(IMAGE_DOS_HEADERE_oemidOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_oeminfo returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_oeminfo() uint16 {
+	offset := uintptr(IMAGE_DOS_HEADERE_oeminfoOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_oeminfo copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_oeminfo(value uint16) {
+	offset := uintptr(IMAGE_DOS_HEADERE_oeminfoOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_res2 returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_res2(index0 int) uint16 {
+	if index0 < 0 || index0 >= 10 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(IMAGE_DOS_HEADERE_res2Offset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE_res2 copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_res2(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 10 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(IMAGE_DOS_HEADERE_res2Offset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE_lfanew returns a copy of the native field value.
+func (b IMAGE_DOS_HEADER) GetE_lfanew() int32 {
+	offset := uintptr(IMAGE_DOS_HEADERE_lfanewOffset)
+
+	return nativebuffer.Read[int32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE_lfanew copies value into the native field.
+func (b IMAGE_DOS_HEADER) SetE_lfanew(value int32) {
+	offset := uintptr(IMAGE_DOS_HEADERE_lfanewOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// IMAGE_DYNAMIC_RELOCATION32 is a view of native Windows.Win32.System.SystemServices.IMAGE_DYNAMIC_RELOCATION32 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type IMAGE_DYNAMIC_RELOCATION32 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_DYNAMIC_RELOCATION32Size                = 8
+	IMAGE_DYNAMIC_RELOCATION32Alignment           = 1
+	IMAGE_DYNAMIC_RELOCATION32SymbolOffset        = 0
+	IMAGE_DYNAMIC_RELOCATION32BaseRelocSizeOffset = 4
+)
+
+// NewIMAGE_DYNAMIC_RELOCATION32 allocates zeroed, aligned native storage.
+func NewIMAGE_DYNAMIC_RELOCATION32() IMAGE_DYNAMIC_RELOCATION32 {
+	return IMAGE_DYNAMIC_RELOCATION32{data: nativebuffer.New(int(IMAGE_DYNAMIC_RELOCATION32Size), uintptr(IMAGE_DYNAMIC_RELOCATION32Alignment))}
+}
+
+// ViewIMAGE_DYNAMIC_RELOCATION32 shares data without copying. It panics if data is shorter than IMAGE_DYNAMIC_RELOCATION32Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_DYNAMIC_RELOCATION32(data []byte) IMAGE_DYNAMIC_RELOCATION32 {
+	return IMAGE_DYNAMIC_RELOCATION32{data: nativebuffer.View(data, int(IMAGE_DYNAMIC_RELOCATION32Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_DYNAMIC_RELOCATION32) Bytes() []byte {
+	return b.data[:IMAGE_DYNAMIC_RELOCATION32Size:IMAGE_DYNAMIC_RELOCATION32Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_DYNAMIC_RELOCATION32) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_DYNAMIC_RELOCATION32Alignment))
+}
+
+// GetSymbol returns a copy of the native field value.
+func (b IMAGE_DYNAMIC_RELOCATION32) GetSymbol() uint32 {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION32SymbolOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSymbol copies value into the native field.
+func (b IMAGE_DYNAMIC_RELOCATION32) SetSymbol(value uint32) {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION32SymbolOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBaseRelocSize returns a copy of the native field value.
+func (b IMAGE_DYNAMIC_RELOCATION32) GetBaseRelocSize() uint32 {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION32BaseRelocSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBaseRelocSize copies value into the native field.
+func (b IMAGE_DYNAMIC_RELOCATION32) SetBaseRelocSize(value uint32) {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION32BaseRelocSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// IMAGE_DYNAMIC_RELOCATION32_V2 is a view of native Windows.Win32.System.SystemServices.IMAGE_DYNAMIC_RELOCATION32_V2 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type IMAGE_DYNAMIC_RELOCATION32_V2 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_DYNAMIC_RELOCATION32_V2Size                = 20
+	IMAGE_DYNAMIC_RELOCATION32_V2Alignment           = 1
+	IMAGE_DYNAMIC_RELOCATION32_V2HeaderSizeOffset    = 0
+	IMAGE_DYNAMIC_RELOCATION32_V2FixupInfoSizeOffset = 4
+	IMAGE_DYNAMIC_RELOCATION32_V2SymbolOffset        = 8
+	IMAGE_DYNAMIC_RELOCATION32_V2SymbolGroupOffset   = 12
+	IMAGE_DYNAMIC_RELOCATION32_V2FlagsOffset         = 16
+)
+
+// NewIMAGE_DYNAMIC_RELOCATION32_V2 allocates zeroed, aligned native storage.
+func NewIMAGE_DYNAMIC_RELOCATION32_V2() IMAGE_DYNAMIC_RELOCATION32_V2 {
+	return IMAGE_DYNAMIC_RELOCATION32_V2{data: nativebuffer.New(int(IMAGE_DYNAMIC_RELOCATION32_V2Size), uintptr(IMAGE_DYNAMIC_RELOCATION32_V2Alignment))}
+}
+
+// ViewIMAGE_DYNAMIC_RELOCATION32_V2 shares data without copying. It panics if data is shorter than IMAGE_DYNAMIC_RELOCATION32_V2Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_DYNAMIC_RELOCATION32_V2(data []byte) IMAGE_DYNAMIC_RELOCATION32_V2 {
+	return IMAGE_DYNAMIC_RELOCATION32_V2{data: nativebuffer.View(data, int(IMAGE_DYNAMIC_RELOCATION32_V2Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_DYNAMIC_RELOCATION32_V2) Bytes() []byte {
+	return b.data[:IMAGE_DYNAMIC_RELOCATION32_V2Size:IMAGE_DYNAMIC_RELOCATION32_V2Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_DYNAMIC_RELOCATION32_V2) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_DYNAMIC_RELOCATION32_V2Alignment))
+}
+
+// GetHeaderSize returns a copy of the native field value.
+func (b IMAGE_DYNAMIC_RELOCATION32_V2) GetHeaderSize() uint32 {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION32_V2HeaderSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetHeaderSize copies value into the native field.
+func (b IMAGE_DYNAMIC_RELOCATION32_V2) SetHeaderSize(value uint32) {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION32_V2HeaderSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFixupInfoSize returns a copy of the native field value.
+func (b IMAGE_DYNAMIC_RELOCATION32_V2) GetFixupInfoSize() uint32 {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION32_V2FixupInfoSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFixupInfoSize copies value into the native field.
+func (b IMAGE_DYNAMIC_RELOCATION32_V2) SetFixupInfoSize(value uint32) {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION32_V2FixupInfoSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSymbol returns a copy of the native field value.
+func (b IMAGE_DYNAMIC_RELOCATION32_V2) GetSymbol() uint32 {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION32_V2SymbolOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSymbol copies value into the native field.
+func (b IMAGE_DYNAMIC_RELOCATION32_V2) SetSymbol(value uint32) {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION32_V2SymbolOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSymbolGroup returns a copy of the native field value.
+func (b IMAGE_DYNAMIC_RELOCATION32_V2) GetSymbolGroup() uint32 {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION32_V2SymbolGroupOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSymbolGroup copies value into the native field.
+func (b IMAGE_DYNAMIC_RELOCATION32_V2) SetSymbolGroup(value uint32) {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION32_V2SymbolGroupOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b IMAGE_DYNAMIC_RELOCATION32_V2) GetFlags() uint32 {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION32_V2FlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b IMAGE_DYNAMIC_RELOCATION32_V2) SetFlags(value uint32) {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION32_V2FlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// IMAGE_DYNAMIC_RELOCATION64 is a view of native Windows.Win32.System.SystemServices.IMAGE_DYNAMIC_RELOCATION64 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type IMAGE_DYNAMIC_RELOCATION64 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_DYNAMIC_RELOCATION64Size                = 12
+	IMAGE_DYNAMIC_RELOCATION64Alignment           = 1
+	IMAGE_DYNAMIC_RELOCATION64SymbolOffset        = 0
+	IMAGE_DYNAMIC_RELOCATION64BaseRelocSizeOffset = 8
+)
+
+// NewIMAGE_DYNAMIC_RELOCATION64 allocates zeroed, aligned native storage.
+func NewIMAGE_DYNAMIC_RELOCATION64() IMAGE_DYNAMIC_RELOCATION64 {
+	return IMAGE_DYNAMIC_RELOCATION64{data: nativebuffer.New(int(IMAGE_DYNAMIC_RELOCATION64Size), uintptr(IMAGE_DYNAMIC_RELOCATION64Alignment))}
+}
+
+// ViewIMAGE_DYNAMIC_RELOCATION64 shares data without copying. It panics if data is shorter than IMAGE_DYNAMIC_RELOCATION64Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_DYNAMIC_RELOCATION64(data []byte) IMAGE_DYNAMIC_RELOCATION64 {
+	return IMAGE_DYNAMIC_RELOCATION64{data: nativebuffer.View(data, int(IMAGE_DYNAMIC_RELOCATION64Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_DYNAMIC_RELOCATION64) Bytes() []byte {
+	return b.data[:IMAGE_DYNAMIC_RELOCATION64Size:IMAGE_DYNAMIC_RELOCATION64Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_DYNAMIC_RELOCATION64) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_DYNAMIC_RELOCATION64Alignment))
+}
+
+// GetSymbol returns a copy of the native field value.
+func (b IMAGE_DYNAMIC_RELOCATION64) GetSymbol() uint64 {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION64SymbolOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSymbol copies value into the native field.
+func (b IMAGE_DYNAMIC_RELOCATION64) SetSymbol(value uint64) {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION64SymbolOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBaseRelocSize returns a copy of the native field value.
+func (b IMAGE_DYNAMIC_RELOCATION64) GetBaseRelocSize() uint32 {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION64BaseRelocSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBaseRelocSize copies value into the native field.
+func (b IMAGE_DYNAMIC_RELOCATION64) SetBaseRelocSize(value uint32) {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION64BaseRelocSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// IMAGE_DYNAMIC_RELOCATION64_V2 is a view of native Windows.Win32.System.SystemServices.IMAGE_DYNAMIC_RELOCATION64_V2 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type IMAGE_DYNAMIC_RELOCATION64_V2 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_DYNAMIC_RELOCATION64_V2Size                = 24
+	IMAGE_DYNAMIC_RELOCATION64_V2Alignment           = 1
+	IMAGE_DYNAMIC_RELOCATION64_V2HeaderSizeOffset    = 0
+	IMAGE_DYNAMIC_RELOCATION64_V2FixupInfoSizeOffset = 4
+	IMAGE_DYNAMIC_RELOCATION64_V2SymbolOffset        = 8
+	IMAGE_DYNAMIC_RELOCATION64_V2SymbolGroupOffset   = 16
+	IMAGE_DYNAMIC_RELOCATION64_V2FlagsOffset         = 20
+)
+
+// NewIMAGE_DYNAMIC_RELOCATION64_V2 allocates zeroed, aligned native storage.
+func NewIMAGE_DYNAMIC_RELOCATION64_V2() IMAGE_DYNAMIC_RELOCATION64_V2 {
+	return IMAGE_DYNAMIC_RELOCATION64_V2{data: nativebuffer.New(int(IMAGE_DYNAMIC_RELOCATION64_V2Size), uintptr(IMAGE_DYNAMIC_RELOCATION64_V2Alignment))}
+}
+
+// ViewIMAGE_DYNAMIC_RELOCATION64_V2 shares data without copying. It panics if data is shorter than IMAGE_DYNAMIC_RELOCATION64_V2Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_DYNAMIC_RELOCATION64_V2(data []byte) IMAGE_DYNAMIC_RELOCATION64_V2 {
+	return IMAGE_DYNAMIC_RELOCATION64_V2{data: nativebuffer.View(data, int(IMAGE_DYNAMIC_RELOCATION64_V2Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_DYNAMIC_RELOCATION64_V2) Bytes() []byte {
+	return b.data[:IMAGE_DYNAMIC_RELOCATION64_V2Size:IMAGE_DYNAMIC_RELOCATION64_V2Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_DYNAMIC_RELOCATION64_V2) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_DYNAMIC_RELOCATION64_V2Alignment))
+}
+
+// GetHeaderSize returns a copy of the native field value.
+func (b IMAGE_DYNAMIC_RELOCATION64_V2) GetHeaderSize() uint32 {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION64_V2HeaderSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetHeaderSize copies value into the native field.
+func (b IMAGE_DYNAMIC_RELOCATION64_V2) SetHeaderSize(value uint32) {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION64_V2HeaderSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFixupInfoSize returns a copy of the native field value.
+func (b IMAGE_DYNAMIC_RELOCATION64_V2) GetFixupInfoSize() uint32 {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION64_V2FixupInfoSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFixupInfoSize copies value into the native field.
+func (b IMAGE_DYNAMIC_RELOCATION64_V2) SetFixupInfoSize(value uint32) {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION64_V2FixupInfoSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSymbol returns a copy of the native field value.
+func (b IMAGE_DYNAMIC_RELOCATION64_V2) GetSymbol() uint64 {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION64_V2SymbolOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSymbol copies value into the native field.
+func (b IMAGE_DYNAMIC_RELOCATION64_V2) SetSymbol(value uint64) {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION64_V2SymbolOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSymbolGroup returns a copy of the native field value.
+func (b IMAGE_DYNAMIC_RELOCATION64_V2) GetSymbolGroup() uint32 {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION64_V2SymbolGroupOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSymbolGroup copies value into the native field.
+func (b IMAGE_DYNAMIC_RELOCATION64_V2) SetSymbolGroup(value uint32) {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION64_V2SymbolGroupOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b IMAGE_DYNAMIC_RELOCATION64_V2) GetFlags() uint32 {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION64_V2FlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b IMAGE_DYNAMIC_RELOCATION64_V2) SetFlags(value uint32) {
+	offset := uintptr(IMAGE_DYNAMIC_RELOCATION64_V2FlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
 // IMAGE_DYNAMIC_RELOCATION_TABLE projects Windows.Win32.System.SystemServices.IMAGE_DYNAMIC_RELOCATION_TABLE.
 type IMAGE_DYNAMIC_RELOCATION_TABLE struct {
 	Version uint32
 	Size    uint32
+}
+
+// IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER is a view of native Windows.Win32.System.SystemServices.IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADERSize                              = 8
+	IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADERAlignment                         = 1
+	IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADEREpilogueCountOffset               = 0
+	IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADEREpilogueByteCountOffset           = 4
+	IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADERBranchDescriptorElementSizeOffset = 5
+	IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADERBranchDescriptorCountOffset       = 6
+)
+
+// NewIMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER allocates zeroed, aligned native storage.
+func NewIMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER() IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER {
+	return IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER{data: nativebuffer.New(int(IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADERSize), uintptr(IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADERAlignment))}
+}
+
+// ViewIMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER shares data without copying. It panics if data is shorter than IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER(data []byte) IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER {
+	return IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER{data: nativebuffer.View(data, int(IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER) Bytes() []byte {
+	return b.data[:IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADERSize:IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADERAlignment))
+}
+
+// GetEpilogueCount returns a copy of the native field value.
+func (b IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER) GetEpilogueCount() uint32 {
+	offset := uintptr(IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADEREpilogueCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetEpilogueCount copies value into the native field.
+func (b IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER) SetEpilogueCount(value uint32) {
+	offset := uintptr(IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADEREpilogueCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetEpilogueByteCount returns a copy of the native field value.
+func (b IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER) GetEpilogueByteCount() uint8 {
+	offset := uintptr(IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADEREpilogueByteCountOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetEpilogueByteCount copies value into the native field.
+func (b IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER) SetEpilogueByteCount(value uint8) {
+	offset := uintptr(IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADEREpilogueByteCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetBranchDescriptorElementSize returns a copy of the native field value.
+func (b IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER) GetBranchDescriptorElementSize() uint8 {
+	offset := uintptr(IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADERBranchDescriptorElementSizeOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBranchDescriptorElementSize copies value into the native field.
+func (b IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER) SetBranchDescriptorElementSize(value uint8) {
+	offset := uintptr(IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADERBranchDescriptorElementSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetBranchDescriptorCount returns a copy of the native field value.
+func (b IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER) GetBranchDescriptorCount() uint16 {
+	offset := uintptr(IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADERBranchDescriptorCountOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetBranchDescriptorCount copies value into the native field.
+func (b IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER) SetBranchDescriptorCount(value uint16) {
+	offset := uintptr(IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADERBranchDescriptorCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
 }
 
 // IMAGE_EXPORT_DIRECTORY projects Windows.Win32.System.SystemServices.IMAGE_EXPORT_DIRECTORY.
@@ -148,6 +1211,142 @@ type IMAGE_FUNCTION_ENTRY struct {
 	StartingAddress uint32
 	EndingAddress   uint32
 	EndOfPrologue   uint32
+}
+
+// IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION is a view of native Windows.Win32.System.SystemServices.IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONSize                = 16
+	IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONAlignment           = 1
+	IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONOriginalRvaOffset   = 0
+	IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONBDDOffsetOffset     = 4
+	IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONRvaSizeOffset       = 8
+	IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONBaseRelocSizeOffset = 12
+)
+
+// NewIMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION allocates zeroed, aligned native storage.
+func NewIMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION() IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION {
+	return IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION{data: nativebuffer.New(int(IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONSize), uintptr(IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONAlignment))}
+}
+
+// ViewIMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION shares data without copying. It panics if data is shorter than IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION(data []byte) IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION {
+	return IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION{data: nativebuffer.View(data, int(IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION) Bytes() []byte {
+	return b.data[:IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONSize:IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONAlignment))
+}
+
+// GetOriginalRva returns a copy of the native field value.
+func (b IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION) GetOriginalRva() uint32 {
+	offset := uintptr(IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONOriginalRvaOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetOriginalRva copies value into the native field.
+func (b IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION) SetOriginalRva(value uint32) {
+	offset := uintptr(IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONOriginalRvaOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBDDOffset returns a copy of the native field value.
+func (b IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION) GetBDDOffset() uint32 {
+	offset := uintptr(IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONBDDOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBDDOffset copies value into the native field.
+func (b IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION) SetBDDOffset(value uint32) {
+	offset := uintptr(IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONBDDOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRvaSize returns a copy of the native field value.
+func (b IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION) GetRvaSize() uint32 {
+	offset := uintptr(IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONRvaSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRvaSize copies value into the native field.
+func (b IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION) SetRvaSize(value uint32) {
+	offset := uintptr(IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONRvaSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBaseRelocSize returns a copy of the native field value.
+func (b IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION) GetBaseRelocSize() uint32 {
+	offset := uintptr(IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONBaseRelocSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBaseRelocSize copies value into the native field.
+func (b IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATION) SetBaseRelocSize(value uint32) {
+	offset := uintptr(IMAGE_FUNCTION_OVERRIDE_DYNAMIC_RELOCATIONBaseRelocSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// IMAGE_FUNCTION_OVERRIDE_HEADER is a view of native Windows.Win32.System.SystemServices.IMAGE_FUNCTION_OVERRIDE_HEADER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type IMAGE_FUNCTION_OVERRIDE_HEADER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_FUNCTION_OVERRIDE_HEADERSize                   = 4
+	IMAGE_FUNCTION_OVERRIDE_HEADERAlignment              = 1
+	IMAGE_FUNCTION_OVERRIDE_HEADERFuncOverrideSizeOffset = 0
+)
+
+// NewIMAGE_FUNCTION_OVERRIDE_HEADER allocates zeroed, aligned native storage.
+func NewIMAGE_FUNCTION_OVERRIDE_HEADER() IMAGE_FUNCTION_OVERRIDE_HEADER {
+	return IMAGE_FUNCTION_OVERRIDE_HEADER{data: nativebuffer.New(int(IMAGE_FUNCTION_OVERRIDE_HEADERSize), uintptr(IMAGE_FUNCTION_OVERRIDE_HEADERAlignment))}
+}
+
+// ViewIMAGE_FUNCTION_OVERRIDE_HEADER shares data without copying. It panics if data is shorter than IMAGE_FUNCTION_OVERRIDE_HEADERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_FUNCTION_OVERRIDE_HEADER(data []byte) IMAGE_FUNCTION_OVERRIDE_HEADER {
+	return IMAGE_FUNCTION_OVERRIDE_HEADER{data: nativebuffer.View(data, int(IMAGE_FUNCTION_OVERRIDE_HEADERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_FUNCTION_OVERRIDE_HEADER) Bytes() []byte {
+	return b.data[:IMAGE_FUNCTION_OVERRIDE_HEADERSize:IMAGE_FUNCTION_OVERRIDE_HEADERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_FUNCTION_OVERRIDE_HEADER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_FUNCTION_OVERRIDE_HEADERAlignment))
+}
+
+// GetFuncOverrideSize returns a copy of the native field value.
+func (b IMAGE_FUNCTION_OVERRIDE_HEADER) GetFuncOverrideSize() uint32 {
+	offset := uintptr(IMAGE_FUNCTION_OVERRIDE_HEADERFuncOverrideSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFuncOverrideSize copies value into the native field.
+func (b IMAGE_FUNCTION_OVERRIDE_HEADER) SetFuncOverrideSize(value uint32) {
+	offset := uintptr(IMAGE_FUNCTION_OVERRIDE_HEADERFuncOverrideSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
 }
 
 // IMAGE_HOT_PATCH_BASE projects Windows.Win32.System.SystemServices.IMAGE_HOT_PATCH_BASE.
@@ -252,12 +1451,822 @@ type IMAGE_LOAD_CONFIG_DIRECTORY32 struct {
 	UmaFunctionPointers                      uint32
 }
 
+// IMAGE_LOAD_CONFIG_DIRECTORY64 is a view of native Windows.Win32.System.Diagnostics.Debug.IMAGE_LOAD_CONFIG_DIRECTORY64 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_load_config_directory64.
+type IMAGE_LOAD_CONFIG_DIRECTORY64 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_LOAD_CONFIG_DIRECTORY64Size                                           = 328
+	IMAGE_LOAD_CONFIG_DIRECTORY64Alignment                                      = 4
+	IMAGE_LOAD_CONFIG_DIRECTORY64SizeOffset                                     = 0
+	IMAGE_LOAD_CONFIG_DIRECTORY64TimeDateStampOffset                            = 4
+	IMAGE_LOAD_CONFIG_DIRECTORY64MajorVersionOffset                             = 8
+	IMAGE_LOAD_CONFIG_DIRECTORY64MinorVersionOffset                             = 10
+	IMAGE_LOAD_CONFIG_DIRECTORY64GlobalFlagsClearOffset                         = 12
+	IMAGE_LOAD_CONFIG_DIRECTORY64GlobalFlagsSetOffset                           = 16
+	IMAGE_LOAD_CONFIG_DIRECTORY64CriticalSectionDefaultTimeoutOffset            = 20
+	IMAGE_LOAD_CONFIG_DIRECTORY64DeCommitFreeBlockThresholdOffset               = 24
+	IMAGE_LOAD_CONFIG_DIRECTORY64DeCommitTotalFreeThresholdOffset               = 32
+	IMAGE_LOAD_CONFIG_DIRECTORY64LockPrefixTableOffset                          = 40
+	IMAGE_LOAD_CONFIG_DIRECTORY64MaximumAllocationSizeOffset                    = 48
+	IMAGE_LOAD_CONFIG_DIRECTORY64VirtualMemoryThresholdOffset                   = 56
+	IMAGE_LOAD_CONFIG_DIRECTORY64ProcessAffinityMaskOffset                      = 64
+	IMAGE_LOAD_CONFIG_DIRECTORY64ProcessHeapFlagsOffset                         = 72
+	IMAGE_LOAD_CONFIG_DIRECTORY64CSDVersionOffset                               = 76
+	IMAGE_LOAD_CONFIG_DIRECTORY64DependentLoadFlagsOffset                       = 78
+	IMAGE_LOAD_CONFIG_DIRECTORY64EditListOffset                                 = 80
+	IMAGE_LOAD_CONFIG_DIRECTORY64SecurityCookieOffset                           = 88
+	IMAGE_LOAD_CONFIG_DIRECTORY64SEHandlerTableOffset                           = 96
+	IMAGE_LOAD_CONFIG_DIRECTORY64SEHandlerCountOffset                           = 104
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardCFCheckFunctionPointerOffset              = 112
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardCFDispatchFunctionPointerOffset           = 120
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardCFFunctionTableOffset                     = 128
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardCFFunctionCountOffset                     = 136
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardFlagsOffset                               = 144
+	IMAGE_LOAD_CONFIG_DIRECTORY64CodeIntegrityOffset                            = 148
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardAddressTakenIatEntryTableOffset           = 160
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardAddressTakenIatEntryCountOffset           = 168
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardLongJumpTargetTableOffset                 = 176
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardLongJumpTargetCountOffset                 = 184
+	IMAGE_LOAD_CONFIG_DIRECTORY64DynamicValueRelocTableOffset                   = 192
+	IMAGE_LOAD_CONFIG_DIRECTORY64CHPEMetadataPointerOffset                      = 200
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardRFFailureRoutineOffset                    = 208
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardRFFailureRoutineFunctionPointerOffset     = 216
+	IMAGE_LOAD_CONFIG_DIRECTORY64DynamicValueRelocTableOffsetOffset             = 224
+	IMAGE_LOAD_CONFIG_DIRECTORY64DynamicValueRelocTableSectionOffset            = 228
+	IMAGE_LOAD_CONFIG_DIRECTORY64Reserved2Offset                                = 230
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardRFVerifyStackPointerFunctionPointerOffset = 232
+	IMAGE_LOAD_CONFIG_DIRECTORY64HotPatchTableOffsetOffset                      = 240
+	IMAGE_LOAD_CONFIG_DIRECTORY64Reserved3Offset                                = 244
+	IMAGE_LOAD_CONFIG_DIRECTORY64EnclaveConfigurationPointerOffset              = 248
+	IMAGE_LOAD_CONFIG_DIRECTORY64VolatileMetadataPointerOffset                  = 256
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardEHContinuationTableOffset                 = 264
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardEHContinuationCountOffset                 = 272
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardXFGCheckFunctionPointerOffset             = 280
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardXFGDispatchFunctionPointerOffset          = 288
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardXFGTableDispatchFunctionPointerOffset     = 296
+	IMAGE_LOAD_CONFIG_DIRECTORY64CastGuardOsDeterminedFailureModeOffset         = 304
+	IMAGE_LOAD_CONFIG_DIRECTORY64GuardMemcpyFunctionPointerOffset               = 312
+	IMAGE_LOAD_CONFIG_DIRECTORY64UmaFunctionPointersOffset                      = 320
+)
+
+// NewIMAGE_LOAD_CONFIG_DIRECTORY64 allocates zeroed, aligned native storage.
+func NewIMAGE_LOAD_CONFIG_DIRECTORY64() IMAGE_LOAD_CONFIG_DIRECTORY64 {
+	return IMAGE_LOAD_CONFIG_DIRECTORY64{data: nativebuffer.New(int(IMAGE_LOAD_CONFIG_DIRECTORY64Size), uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64Alignment))}
+}
+
+// ViewIMAGE_LOAD_CONFIG_DIRECTORY64 shares data without copying. It panics if data is shorter than IMAGE_LOAD_CONFIG_DIRECTORY64Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_LOAD_CONFIG_DIRECTORY64(data []byte) IMAGE_LOAD_CONFIG_DIRECTORY64 {
+	return IMAGE_LOAD_CONFIG_DIRECTORY64{data: nativebuffer.View(data, int(IMAGE_LOAD_CONFIG_DIRECTORY64Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) Bytes() []byte {
+	return b.data[:IMAGE_LOAD_CONFIG_DIRECTORY64Size:IMAGE_LOAD_CONFIG_DIRECTORY64Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64Alignment))
+}
+
+// GetSize returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetSize() uint32 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64SizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetSize(value uint32) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64SizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTimeDateStamp returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetTimeDateStamp() uint32 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64TimeDateStampOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTimeDateStamp copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetTimeDateStamp(value uint32) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64TimeDateStampOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMajorVersion returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetMajorVersion() uint16 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64MajorVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMajorVersion copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetMajorVersion(value uint16) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64MajorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMinorVersion returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetMinorVersion() uint16 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64MinorVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMinorVersion copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetMinorVersion(value uint16) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64MinorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetGlobalFlagsClear returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGlobalFlagsClear() uint32 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GlobalFlagsClearOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetGlobalFlagsClear copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGlobalFlagsClear(value uint32) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GlobalFlagsClearOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetGlobalFlagsSet returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGlobalFlagsSet() uint32 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GlobalFlagsSetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetGlobalFlagsSet copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGlobalFlagsSet(value uint32) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GlobalFlagsSetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCriticalSectionDefaultTimeout returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetCriticalSectionDefaultTimeout() uint32 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64CriticalSectionDefaultTimeoutOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCriticalSectionDefaultTimeout copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetCriticalSectionDefaultTimeout(value uint32) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64CriticalSectionDefaultTimeoutOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDeCommitFreeBlockThreshold returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetDeCommitFreeBlockThreshold() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64DeCommitFreeBlockThresholdOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetDeCommitFreeBlockThreshold copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetDeCommitFreeBlockThreshold(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64DeCommitFreeBlockThresholdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetDeCommitTotalFreeThreshold returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetDeCommitTotalFreeThreshold() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64DeCommitTotalFreeThresholdOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetDeCommitTotalFreeThreshold copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetDeCommitTotalFreeThreshold(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64DeCommitTotalFreeThresholdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLockPrefixTable returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetLockPrefixTable() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64LockPrefixTableOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLockPrefixTable copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetLockPrefixTable(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64LockPrefixTableOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMaximumAllocationSize returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetMaximumAllocationSize() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64MaximumAllocationSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMaximumAllocationSize copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetMaximumAllocationSize(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64MaximumAllocationSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetVirtualMemoryThreshold returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetVirtualMemoryThreshold() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64VirtualMemoryThresholdOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetVirtualMemoryThreshold copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetVirtualMemoryThreshold(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64VirtualMemoryThresholdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetProcessAffinityMask returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetProcessAffinityMask() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64ProcessAffinityMaskOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetProcessAffinityMask copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetProcessAffinityMask(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64ProcessAffinityMaskOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetProcessHeapFlags returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetProcessHeapFlags() uint32 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64ProcessHeapFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetProcessHeapFlags copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetProcessHeapFlags(value uint32) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64ProcessHeapFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCSDVersion returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetCSDVersion() uint16 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64CSDVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetCSDVersion copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetCSDVersion(value uint16) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64CSDVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetDependentLoadFlags returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetDependentLoadFlags() uint16 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64DependentLoadFlagsOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetDependentLoadFlags copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetDependentLoadFlags(value uint16) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64DependentLoadFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetEditList returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetEditList() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64EditListOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetEditList copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetEditList(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64EditListOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSecurityCookie returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetSecurityCookie() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64SecurityCookieOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSecurityCookie copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetSecurityCookie(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64SecurityCookieOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSEHandlerTable returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetSEHandlerTable() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64SEHandlerTableOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSEHandlerTable copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetSEHandlerTable(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64SEHandlerTableOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSEHandlerCount returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetSEHandlerCount() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64SEHandlerCountOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSEHandlerCount copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetSEHandlerCount(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64SEHandlerCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetGuardCFCheckFunctionPointer returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardCFCheckFunctionPointer() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardCFCheckFunctionPointerOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardCFCheckFunctionPointer copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardCFCheckFunctionPointer(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardCFCheckFunctionPointerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetGuardCFDispatchFunctionPointer returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardCFDispatchFunctionPointer() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardCFDispatchFunctionPointerOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardCFDispatchFunctionPointer copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardCFDispatchFunctionPointer(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardCFDispatchFunctionPointerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetGuardCFFunctionTable returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardCFFunctionTable() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardCFFunctionTableOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardCFFunctionTable copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardCFFunctionTable(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardCFFunctionTableOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetGuardCFFunctionCount returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardCFFunctionCount() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardCFFunctionCountOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardCFFunctionCount copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardCFFunctionCount(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardCFFunctionCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetGuardFlags returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardFlags() uint32 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetGuardFlags copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardFlags(value uint32) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCodeIntegrity returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetCodeIntegrity() IMAGE_LOAD_CONFIG_CODE_INTEGRITY {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64CodeIntegrityOffset)
+
+	return nativebuffer.Read[IMAGE_LOAD_CONFIG_CODE_INTEGRITY](b.Bytes()[offset : offset+(12)])
+}
+
+// SetCodeIntegrity copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetCodeIntegrity(value IMAGE_LOAD_CONFIG_CODE_INTEGRITY) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64CodeIntegrityOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(12)], value)
+}
+
+// GetGuardAddressTakenIatEntryTable returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardAddressTakenIatEntryTable() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardAddressTakenIatEntryTableOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardAddressTakenIatEntryTable copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardAddressTakenIatEntryTable(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardAddressTakenIatEntryTableOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetGuardAddressTakenIatEntryCount returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardAddressTakenIatEntryCount() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardAddressTakenIatEntryCountOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardAddressTakenIatEntryCount copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardAddressTakenIatEntryCount(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardAddressTakenIatEntryCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetGuardLongJumpTargetTable returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardLongJumpTargetTable() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardLongJumpTargetTableOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardLongJumpTargetTable copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardLongJumpTargetTable(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardLongJumpTargetTableOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetGuardLongJumpTargetCount returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardLongJumpTargetCount() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardLongJumpTargetCountOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardLongJumpTargetCount copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardLongJumpTargetCount(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardLongJumpTargetCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetDynamicValueRelocTable returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetDynamicValueRelocTable() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64DynamicValueRelocTableOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetDynamicValueRelocTable copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetDynamicValueRelocTable(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64DynamicValueRelocTableOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetCHPEMetadataPointer returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetCHPEMetadataPointer() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64CHPEMetadataPointerOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetCHPEMetadataPointer copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetCHPEMetadataPointer(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64CHPEMetadataPointerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetGuardRFFailureRoutine returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardRFFailureRoutine() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardRFFailureRoutineOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardRFFailureRoutine copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardRFFailureRoutine(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardRFFailureRoutineOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetGuardRFFailureRoutineFunctionPointer returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardRFFailureRoutineFunctionPointer() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardRFFailureRoutineFunctionPointerOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardRFFailureRoutineFunctionPointer copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardRFFailureRoutineFunctionPointer(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardRFFailureRoutineFunctionPointerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetDynamicValueRelocTableOffset returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetDynamicValueRelocTableOffset() uint32 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64DynamicValueRelocTableOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDynamicValueRelocTableOffset copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetDynamicValueRelocTableOffset(value uint32) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64DynamicValueRelocTableOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDynamicValueRelocTableSection returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetDynamicValueRelocTableSection() uint16 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64DynamicValueRelocTableSectionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetDynamicValueRelocTableSection copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetDynamicValueRelocTableSection(value uint16) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64DynamicValueRelocTableSectionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetReserved2 returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetReserved2() uint16 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64Reserved2Offset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetReserved2 copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetReserved2(value uint16) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64Reserved2Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetGuardRFVerifyStackPointerFunctionPointer returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardRFVerifyStackPointerFunctionPointer() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardRFVerifyStackPointerFunctionPointerOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardRFVerifyStackPointerFunctionPointer copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardRFVerifyStackPointerFunctionPointer(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardRFVerifyStackPointerFunctionPointerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetHotPatchTableOffset returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetHotPatchTableOffset() uint32 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64HotPatchTableOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetHotPatchTableOffset copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetHotPatchTableOffset(value uint32) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64HotPatchTableOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved3 returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetReserved3() uint32 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64Reserved3Offset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved3 copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetReserved3(value uint32) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64Reserved3Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetEnclaveConfigurationPointer returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetEnclaveConfigurationPointer() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64EnclaveConfigurationPointerOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetEnclaveConfigurationPointer copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetEnclaveConfigurationPointer(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64EnclaveConfigurationPointerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetVolatileMetadataPointer returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetVolatileMetadataPointer() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64VolatileMetadataPointerOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetVolatileMetadataPointer copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetVolatileMetadataPointer(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64VolatileMetadataPointerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetGuardEHContinuationTable returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardEHContinuationTable() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardEHContinuationTableOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardEHContinuationTable copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardEHContinuationTable(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardEHContinuationTableOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetGuardEHContinuationCount returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardEHContinuationCount() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardEHContinuationCountOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardEHContinuationCount copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardEHContinuationCount(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardEHContinuationCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetGuardXFGCheckFunctionPointer returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardXFGCheckFunctionPointer() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardXFGCheckFunctionPointerOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardXFGCheckFunctionPointer copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardXFGCheckFunctionPointer(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardXFGCheckFunctionPointerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetGuardXFGDispatchFunctionPointer returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardXFGDispatchFunctionPointer() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardXFGDispatchFunctionPointerOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardXFGDispatchFunctionPointer copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardXFGDispatchFunctionPointer(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardXFGDispatchFunctionPointerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetGuardXFGTableDispatchFunctionPointer returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardXFGTableDispatchFunctionPointer() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardXFGTableDispatchFunctionPointerOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardXFGTableDispatchFunctionPointer copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardXFGTableDispatchFunctionPointer(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardXFGTableDispatchFunctionPointerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetCastGuardOsDeterminedFailureMode returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetCastGuardOsDeterminedFailureMode() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64CastGuardOsDeterminedFailureModeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetCastGuardOsDeterminedFailureMode copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetCastGuardOsDeterminedFailureMode(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64CastGuardOsDeterminedFailureModeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetGuardMemcpyFunctionPointer returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetGuardMemcpyFunctionPointer() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardMemcpyFunctionPointerOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGuardMemcpyFunctionPointer copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetGuardMemcpyFunctionPointer(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64GuardMemcpyFunctionPointerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetUmaFunctionPointers returns a copy of the native field value.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) GetUmaFunctionPointers() uint64 {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64UmaFunctionPointersOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUmaFunctionPointers copies value into the native field.
+func (b IMAGE_LOAD_CONFIG_DIRECTORY64) SetUmaFunctionPointers(value uint64) {
+	offset := uintptr(IMAGE_LOAD_CONFIG_DIRECTORY64UmaFunctionPointersOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // IMAGE_NT_HEADERS32 projects Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS32.
 // See https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_nt_headers32.
 type IMAGE_NT_HEADERS32 struct {
 	Signature      uint32
 	FileHeader     IMAGE_FILE_HEADER
 	OptionalHeader IMAGE_OPTIONAL_HEADER32
+}
+
+// IMAGE_NT_HEADERS64 is a view of native Windows.Win32.System.Diagnostics.Debug.IMAGE_NT_HEADERS64 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_nt_headers64.
+type IMAGE_NT_HEADERS64 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_NT_HEADERS64Size                 = 264
+	IMAGE_NT_HEADERS64Alignment            = 4
+	IMAGE_NT_HEADERS64SignatureOffset      = 0
+	IMAGE_NT_HEADERS64FileHeaderOffset     = 4
+	IMAGE_NT_HEADERS64OptionalHeaderOffset = 24
+)
+
+// NewIMAGE_NT_HEADERS64 allocates zeroed, aligned native storage.
+func NewIMAGE_NT_HEADERS64() IMAGE_NT_HEADERS64 {
+	return IMAGE_NT_HEADERS64{data: nativebuffer.New(int(IMAGE_NT_HEADERS64Size), uintptr(IMAGE_NT_HEADERS64Alignment))}
+}
+
+// ViewIMAGE_NT_HEADERS64 shares data without copying. It panics if data is shorter than IMAGE_NT_HEADERS64Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_NT_HEADERS64(data []byte) IMAGE_NT_HEADERS64 {
+	return IMAGE_NT_HEADERS64{data: nativebuffer.View(data, int(IMAGE_NT_HEADERS64Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_NT_HEADERS64) Bytes() []byte {
+	return b.data[:IMAGE_NT_HEADERS64Size:IMAGE_NT_HEADERS64Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_NT_HEADERS64) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_NT_HEADERS64Alignment))
+}
+
+// GetSignature returns a copy of the native field value.
+func (b IMAGE_NT_HEADERS64) GetSignature() uint32 {
+	offset := uintptr(IMAGE_NT_HEADERS64SignatureOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSignature copies value into the native field.
+func (b IMAGE_NT_HEADERS64) SetSignature(value uint32) {
+	offset := uintptr(IMAGE_NT_HEADERS64SignatureOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFileHeader returns a copy of the native field value.
+func (b IMAGE_NT_HEADERS64) GetFileHeader() IMAGE_FILE_HEADER {
+	offset := uintptr(IMAGE_NT_HEADERS64FileHeaderOffset)
+
+	return nativebuffer.Read[IMAGE_FILE_HEADER](b.Bytes()[offset : offset+(20)])
+}
+
+// SetFileHeader copies value into the native field.
+func (b IMAGE_NT_HEADERS64) SetFileHeader(value IMAGE_FILE_HEADER) {
+	offset := uintptr(IMAGE_NT_HEADERS64FileHeaderOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(20)], value)
+}
+
+// GetOptionalHeader returns a view sharing this buffer's storage.
+func (b IMAGE_NT_HEADERS64) GetOptionalHeader() IMAGE_OPTIONAL_HEADER64 {
+	offset := uintptr(IMAGE_NT_HEADERS64OptionalHeaderOffset)
+
+	return ViewIMAGE_OPTIONAL_HEADER64(b.Bytes()[offset : offset+(240)])
+}
+
+// SetOptionalHeader copies value into the native field.
+func (b IMAGE_NT_HEADERS64) SetOptionalHeader(value IMAGE_OPTIONAL_HEADER64) {
+	offset := uintptr(IMAGE_NT_HEADERS64OptionalHeaderOffset)
+	copy(b.Bytes()[offset:offset+(240)], value.Bytes())
 }
 
 // IMAGE_OPTIONAL_HEADER32 projects Windows.Win32.System.Diagnostics.Debug.IMAGE_OPTIONAL_HEADER32.
@@ -296,8 +2305,921 @@ type IMAGE_OPTIONAL_HEADER32 struct {
 	DataDirectory               [16]IMAGE_DATA_DIRECTORY
 }
 
+// IMAGE_OPTIONAL_HEADER64 is a view of native Windows.Win32.System.Diagnostics.Debug.IMAGE_OPTIONAL_HEADER64 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_optional_header64.
+type IMAGE_OPTIONAL_HEADER64 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_OPTIONAL_HEADER64Size                              = 240
+	IMAGE_OPTIONAL_HEADER64Alignment                         = 4
+	IMAGE_OPTIONAL_HEADER64MagicOffset                       = 0
+	IMAGE_OPTIONAL_HEADER64MajorLinkerVersionOffset          = 2
+	IMAGE_OPTIONAL_HEADER64MinorLinkerVersionOffset          = 3
+	IMAGE_OPTIONAL_HEADER64SizeOfCodeOffset                  = 4
+	IMAGE_OPTIONAL_HEADER64SizeOfInitializedDataOffset       = 8
+	IMAGE_OPTIONAL_HEADER64SizeOfUninitializedDataOffset     = 12
+	IMAGE_OPTIONAL_HEADER64AddressOfEntryPointOffset         = 16
+	IMAGE_OPTIONAL_HEADER64BaseOfCodeOffset                  = 20
+	IMAGE_OPTIONAL_HEADER64ImageBaseOffset                   = 24
+	IMAGE_OPTIONAL_HEADER64SectionAlignmentOffset            = 32
+	IMAGE_OPTIONAL_HEADER64FileAlignmentOffset               = 36
+	IMAGE_OPTIONAL_HEADER64MajorOperatingSystemVersionOffset = 40
+	IMAGE_OPTIONAL_HEADER64MinorOperatingSystemVersionOffset = 42
+	IMAGE_OPTIONAL_HEADER64MajorImageVersionOffset           = 44
+	IMAGE_OPTIONAL_HEADER64MinorImageVersionOffset           = 46
+	IMAGE_OPTIONAL_HEADER64MajorSubsystemVersionOffset       = 48
+	IMAGE_OPTIONAL_HEADER64MinorSubsystemVersionOffset       = 50
+	IMAGE_OPTIONAL_HEADER64Win32VersionValueOffset           = 52
+	IMAGE_OPTIONAL_HEADER64SizeOfImageOffset                 = 56
+	IMAGE_OPTIONAL_HEADER64SizeOfHeadersOffset               = 60
+	IMAGE_OPTIONAL_HEADER64CheckSumOffset                    = 64
+	IMAGE_OPTIONAL_HEADER64SubsystemOffset                   = 68
+	IMAGE_OPTIONAL_HEADER64DllCharacteristicsOffset          = 70
+	IMAGE_OPTIONAL_HEADER64SizeOfStackReserveOffset          = 72
+	IMAGE_OPTIONAL_HEADER64SizeOfStackCommitOffset           = 80
+	IMAGE_OPTIONAL_HEADER64SizeOfHeapReserveOffset           = 88
+	IMAGE_OPTIONAL_HEADER64SizeOfHeapCommitOffset            = 96
+	IMAGE_OPTIONAL_HEADER64LoaderFlagsOffset                 = 104
+	IMAGE_OPTIONAL_HEADER64NumberOfRvaAndSizesOffset         = 108
+	IMAGE_OPTIONAL_HEADER64DataDirectoryOffset               = 112
+)
+
+// NewIMAGE_OPTIONAL_HEADER64 allocates zeroed, aligned native storage.
+func NewIMAGE_OPTIONAL_HEADER64() IMAGE_OPTIONAL_HEADER64 {
+	return IMAGE_OPTIONAL_HEADER64{data: nativebuffer.New(int(IMAGE_OPTIONAL_HEADER64Size), uintptr(IMAGE_OPTIONAL_HEADER64Alignment))}
+}
+
+// ViewIMAGE_OPTIONAL_HEADER64 shares data without copying. It panics if data is shorter than IMAGE_OPTIONAL_HEADER64Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_OPTIONAL_HEADER64(data []byte) IMAGE_OPTIONAL_HEADER64 {
+	return IMAGE_OPTIONAL_HEADER64{data: nativebuffer.View(data, int(IMAGE_OPTIONAL_HEADER64Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_OPTIONAL_HEADER64) Bytes() []byte {
+	return b.data[:IMAGE_OPTIONAL_HEADER64Size:IMAGE_OPTIONAL_HEADER64Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_OPTIONAL_HEADER64) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_OPTIONAL_HEADER64Alignment))
+}
+
+// GetMagic returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetMagic() IMAGE_OPTIONAL_HEADER_MAGIC {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MagicOffset)
+
+	return nativebuffer.Read[IMAGE_OPTIONAL_HEADER_MAGIC](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMagic copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetMagic(value IMAGE_OPTIONAL_HEADER_MAGIC) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MagicOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMajorLinkerVersion returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetMajorLinkerVersion() uint8 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MajorLinkerVersionOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetMajorLinkerVersion copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetMajorLinkerVersion(value uint8) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MajorLinkerVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetMinorLinkerVersion returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetMinorLinkerVersion() uint8 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MinorLinkerVersionOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetMinorLinkerVersion copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetMinorLinkerVersion(value uint8) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MinorLinkerVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetSizeOfCode returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetSizeOfCode() uint32 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfCodeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSizeOfCode copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetSizeOfCode(value uint32) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfCodeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSizeOfInitializedData returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetSizeOfInitializedData() uint32 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfInitializedDataOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSizeOfInitializedData copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetSizeOfInitializedData(value uint32) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfInitializedDataOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSizeOfUninitializedData returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetSizeOfUninitializedData() uint32 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfUninitializedDataOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSizeOfUninitializedData copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetSizeOfUninitializedData(value uint32) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfUninitializedDataOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetAddressOfEntryPoint returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetAddressOfEntryPoint() uint32 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64AddressOfEntryPointOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetAddressOfEntryPoint copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetAddressOfEntryPoint(value uint32) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64AddressOfEntryPointOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBaseOfCode returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetBaseOfCode() uint32 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64BaseOfCodeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBaseOfCode copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetBaseOfCode(value uint32) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64BaseOfCodeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetImageBase returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetImageBase() uint64 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64ImageBaseOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetImageBase copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetImageBase(value uint64) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64ImageBaseOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSectionAlignment returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetSectionAlignment() uint32 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SectionAlignmentOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSectionAlignment copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetSectionAlignment(value uint32) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SectionAlignmentOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFileAlignment returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetFileAlignment() uint32 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64FileAlignmentOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFileAlignment copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetFileAlignment(value uint32) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64FileAlignmentOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMajorOperatingSystemVersion returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetMajorOperatingSystemVersion() uint16 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MajorOperatingSystemVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMajorOperatingSystemVersion copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetMajorOperatingSystemVersion(value uint16) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MajorOperatingSystemVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMinorOperatingSystemVersion returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetMinorOperatingSystemVersion() uint16 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MinorOperatingSystemVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMinorOperatingSystemVersion copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetMinorOperatingSystemVersion(value uint16) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MinorOperatingSystemVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMajorImageVersion returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetMajorImageVersion() uint16 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MajorImageVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMajorImageVersion copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetMajorImageVersion(value uint16) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MajorImageVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMinorImageVersion returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetMinorImageVersion() uint16 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MinorImageVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMinorImageVersion copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetMinorImageVersion(value uint16) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MinorImageVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMajorSubsystemVersion returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetMajorSubsystemVersion() uint16 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MajorSubsystemVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMajorSubsystemVersion copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetMajorSubsystemVersion(value uint16) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MajorSubsystemVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMinorSubsystemVersion returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetMinorSubsystemVersion() uint16 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MinorSubsystemVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMinorSubsystemVersion copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetMinorSubsystemVersion(value uint16) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64MinorSubsystemVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetWin32VersionValue returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetWin32VersionValue() uint32 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64Win32VersionValueOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetWin32VersionValue copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetWin32VersionValue(value uint32) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64Win32VersionValueOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSizeOfImage returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetSizeOfImage() uint32 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfImageOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSizeOfImage copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetSizeOfImage(value uint32) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfImageOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSizeOfHeaders returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetSizeOfHeaders() uint32 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfHeadersOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSizeOfHeaders copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetSizeOfHeaders(value uint32) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfHeadersOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCheckSum returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetCheckSum() uint32 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64CheckSumOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCheckSum copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetCheckSum(value uint32) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64CheckSumOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSubsystem returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetSubsystem() IMAGE_SUBSYSTEM {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SubsystemOffset)
+
+	return nativebuffer.Read[IMAGE_SUBSYSTEM](b.Bytes()[offset : offset+(2)])
+}
+
+// SetSubsystem copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetSubsystem(value IMAGE_SUBSYSTEM) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SubsystemOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetDllCharacteristics returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetDllCharacteristics() IMAGE_DLL_CHARACTERISTICS {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64DllCharacteristicsOffset)
+
+	return nativebuffer.Read[IMAGE_DLL_CHARACTERISTICS](b.Bytes()[offset : offset+(2)])
+}
+
+// SetDllCharacteristics copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetDllCharacteristics(value IMAGE_DLL_CHARACTERISTICS) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64DllCharacteristicsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetSizeOfStackReserve returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetSizeOfStackReserve() uint64 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfStackReserveOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSizeOfStackReserve copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetSizeOfStackReserve(value uint64) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfStackReserveOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSizeOfStackCommit returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetSizeOfStackCommit() uint64 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfStackCommitOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSizeOfStackCommit copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetSizeOfStackCommit(value uint64) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfStackCommitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSizeOfHeapReserve returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetSizeOfHeapReserve() uint64 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfHeapReserveOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSizeOfHeapReserve copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetSizeOfHeapReserve(value uint64) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfHeapReserveOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSizeOfHeapCommit returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetSizeOfHeapCommit() uint64 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfHeapCommitOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSizeOfHeapCommit copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetSizeOfHeapCommit(value uint64) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64SizeOfHeapCommitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLoaderFlags returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetLoaderFlags() uint32 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64LoaderFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLoaderFlags copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetLoaderFlags(value uint32) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64LoaderFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNumberOfRvaAndSizes returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetNumberOfRvaAndSizes() uint32 {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64NumberOfRvaAndSizesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNumberOfRvaAndSizes copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetNumberOfRvaAndSizes(value uint32) {
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64NumberOfRvaAndSizesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDataDirectory returns a copy of the native field value.
+func (b IMAGE_OPTIONAL_HEADER64) GetDataDirectory(index0 int) IMAGE_DATA_DIRECTORY {
+	if index0 < 0 || index0 >= 16 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64DataDirectoryOffset + uintptr(index0)*(8))
+
+	return nativebuffer.Read[IMAGE_DATA_DIRECTORY](b.Bytes()[offset : offset+(8)])
+}
+
+// SetDataDirectory copies value into the native field.
+func (b IMAGE_OPTIONAL_HEADER64) SetDataDirectory(index0 int, value IMAGE_DATA_DIRECTORY) {
+	if index0 < 0 || index0 >= 16 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(IMAGE_OPTIONAL_HEADER64DataDirectoryOffset + uintptr(index0)*(8))
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // IMAGE_OPTIONAL_HEADER_MAGIC projects Windows.Win32.System.Diagnostics.Debug.IMAGE_OPTIONAL_HEADER_MAGIC.
 type IMAGE_OPTIONAL_HEADER_MAGIC uint16
+
+// IMAGE_OS2_HEADER is a view of native Windows.Win32.System.SystemServices.IMAGE_OS2_HEADER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type IMAGE_OS2_HEADER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_OS2_HEADERSize                  = 64
+	IMAGE_OS2_HEADERAlignment             = 2
+	IMAGE_OS2_HEADERNe_magicOffset        = 0
+	IMAGE_OS2_HEADERNe_verOffset          = 2
+	IMAGE_OS2_HEADERNe_revOffset          = 3
+	IMAGE_OS2_HEADERNe_enttabOffset       = 4
+	IMAGE_OS2_HEADERNe_cbenttabOffset     = 6
+	IMAGE_OS2_HEADERNe_crcOffset          = 8
+	IMAGE_OS2_HEADERNe_flagsOffset        = 12
+	IMAGE_OS2_HEADERNe_autodataOffset     = 14
+	IMAGE_OS2_HEADERNe_heapOffset         = 16
+	IMAGE_OS2_HEADERNe_stackOffset        = 18
+	IMAGE_OS2_HEADERNe_csipOffset         = 20
+	IMAGE_OS2_HEADERNe_ssspOffset         = 24
+	IMAGE_OS2_HEADERNe_csegOffset         = 28
+	IMAGE_OS2_HEADERNe_cmodOffset         = 30
+	IMAGE_OS2_HEADERNe_cbnrestabOffset    = 32
+	IMAGE_OS2_HEADERNe_segtabOffset       = 34
+	IMAGE_OS2_HEADERNe_rsrctabOffset      = 36
+	IMAGE_OS2_HEADERNe_restabOffset       = 38
+	IMAGE_OS2_HEADERNe_modtabOffset       = 40
+	IMAGE_OS2_HEADERNe_imptabOffset       = 42
+	IMAGE_OS2_HEADERNe_nrestabOffset      = 44
+	IMAGE_OS2_HEADERNe_cmoventOffset      = 48
+	IMAGE_OS2_HEADERNe_alignOffset        = 50
+	IMAGE_OS2_HEADERNe_cresOffset         = 52
+	IMAGE_OS2_HEADERNe_exetypOffset       = 54
+	IMAGE_OS2_HEADERNe_flagsothersOffset  = 55
+	IMAGE_OS2_HEADERNe_pretthunksOffset   = 56
+	IMAGE_OS2_HEADERNe_psegrefbytesOffset = 58
+	IMAGE_OS2_HEADERNe_swapareaOffset     = 60
+	IMAGE_OS2_HEADERNe_expverOffset       = 62
+)
+
+// NewIMAGE_OS2_HEADER allocates zeroed, aligned native storage.
+func NewIMAGE_OS2_HEADER() IMAGE_OS2_HEADER {
+	return IMAGE_OS2_HEADER{data: nativebuffer.New(int(IMAGE_OS2_HEADERSize), uintptr(IMAGE_OS2_HEADERAlignment))}
+}
+
+// ViewIMAGE_OS2_HEADER shares data without copying. It panics if data is shorter than IMAGE_OS2_HEADERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_OS2_HEADER(data []byte) IMAGE_OS2_HEADER {
+	return IMAGE_OS2_HEADER{data: nativebuffer.View(data, int(IMAGE_OS2_HEADERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_OS2_HEADER) Bytes() []byte {
+	return b.data[:IMAGE_OS2_HEADERSize:IMAGE_OS2_HEADERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_OS2_HEADER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_OS2_HEADERAlignment))
+}
+
+// GetNe_magic returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_magic() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_magicOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_magic copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_magic(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_magicOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_ver returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_ver() foundation.CHAR {
+	offset := uintptr(IMAGE_OS2_HEADERNe_verOffset)
+
+	return nativebuffer.Read[foundation.CHAR](b.Bytes()[offset : offset+(1)])
+}
+
+// SetNe_ver copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_ver(value foundation.CHAR) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_verOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetNe_rev returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_rev() foundation.CHAR {
+	offset := uintptr(IMAGE_OS2_HEADERNe_revOffset)
+
+	return nativebuffer.Read[foundation.CHAR](b.Bytes()[offset : offset+(1)])
+}
+
+// SetNe_rev copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_rev(value foundation.CHAR) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_revOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetNe_enttab returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_enttab() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_enttabOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_enttab copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_enttab(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_enttabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_cbenttab returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_cbenttab() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_cbenttabOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_cbenttab copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_cbenttab(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_cbenttabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_crc returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_crc() int32 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_crcOffset)
+
+	return nativebuffer.Read[int32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNe_crc copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_crc(value int32) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_crcOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNe_flags returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_flags() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_flagsOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_flags copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_flags(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_flagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_autodata returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_autodata() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_autodataOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_autodata copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_autodata(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_autodataOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_heap returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_heap() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_heapOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_heap copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_heap(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_heapOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_stack returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_stack() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_stackOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_stack copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_stack(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_stackOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_csip returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_csip() int32 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_csipOffset)
+
+	return nativebuffer.Read[int32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNe_csip copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_csip(value int32) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_csipOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNe_sssp returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_sssp() int32 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_ssspOffset)
+
+	return nativebuffer.Read[int32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNe_sssp copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_sssp(value int32) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_ssspOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNe_cseg returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_cseg() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_csegOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_cseg copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_cseg(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_csegOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_cmod returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_cmod() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_cmodOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_cmod copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_cmod(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_cmodOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_cbnrestab returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_cbnrestab() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_cbnrestabOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_cbnrestab copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_cbnrestab(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_cbnrestabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_segtab returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_segtab() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_segtabOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_segtab copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_segtab(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_segtabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_rsrctab returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_rsrctab() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_rsrctabOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_rsrctab copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_rsrctab(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_rsrctabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_restab returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_restab() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_restabOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_restab copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_restab(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_restabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_modtab returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_modtab() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_modtabOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_modtab copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_modtab(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_modtabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_imptab returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_imptab() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_imptabOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_imptab copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_imptab(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_imptabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_nrestab returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_nrestab() int32 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_nrestabOffset)
+
+	return nativebuffer.Read[int32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNe_nrestab copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_nrestab(value int32) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_nrestabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNe_cmovent returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_cmovent() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_cmoventOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_cmovent copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_cmovent(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_cmoventOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_align returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_align() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_alignOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_align copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_align(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_alignOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_cres returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_cres() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_cresOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_cres copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_cres(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_cresOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_exetyp returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_exetyp() uint8 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_exetypOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetNe_exetyp copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_exetyp(value uint8) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_exetypOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetNe_flagsothers returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_flagsothers() uint8 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_flagsothersOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetNe_flagsothers copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_flagsothers(value uint8) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_flagsothersOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetNe_pretthunks returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_pretthunks() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_pretthunksOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_pretthunks copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_pretthunks(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_pretthunksOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_psegrefbytes returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_psegrefbytes() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_psegrefbytesOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_psegrefbytes copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_psegrefbytes(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_psegrefbytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_swaparea returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_swaparea() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_swapareaOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_swaparea copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_swaparea(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_swapareaOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetNe_expver returns a copy of the native field value.
+func (b IMAGE_OS2_HEADER) GetNe_expver() uint16 {
+	offset := uintptr(IMAGE_OS2_HEADERNe_expverOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNe_expver copies value into the native field.
+func (b IMAGE_OS2_HEADER) SetNe_expver(value uint16) {
+	offset := uintptr(IMAGE_OS2_HEADERNe_expverOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
 
 // IMAGE_POLICY_ENTRY_TYPE projects Windows.Win32.System.SystemServices.IMAGE_POLICY_ENTRY_TYPE.
 type IMAGE_POLICY_ENTRY_TYPE int32
@@ -386,6 +3308,759 @@ type IMAGE_SEPARATE_DEBUG_HEADER struct {
 
 // IMAGE_SUBSYSTEM projects Windows.Win32.System.Diagnostics.Debug.IMAGE_SUBSYSTEM.
 type IMAGE_SUBSYSTEM uint16
+
+// IMAGE_VXD_HEADER is a view of native Windows.Win32.System.SystemServices.IMAGE_VXD_HEADER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type IMAGE_VXD_HEADER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IMAGE_VXD_HEADERSize                   = 196
+	IMAGE_VXD_HEADERAlignment              = 2
+	IMAGE_VXD_HEADERE32_magicOffset        = 0
+	IMAGE_VXD_HEADERE32_borderOffset       = 2
+	IMAGE_VXD_HEADERE32_worderOffset       = 3
+	IMAGE_VXD_HEADERE32_levelOffset        = 4
+	IMAGE_VXD_HEADERE32_cpuOffset          = 8
+	IMAGE_VXD_HEADERE32_osOffset           = 10
+	IMAGE_VXD_HEADERE32_verOffset          = 12
+	IMAGE_VXD_HEADERE32_mflagsOffset       = 16
+	IMAGE_VXD_HEADERE32_mpagesOffset       = 20
+	IMAGE_VXD_HEADERE32_startobjOffset     = 24
+	IMAGE_VXD_HEADERE32_eipOffset          = 28
+	IMAGE_VXD_HEADERE32_stackobjOffset     = 32
+	IMAGE_VXD_HEADERE32_espOffset          = 36
+	IMAGE_VXD_HEADERE32_pagesizeOffset     = 40
+	IMAGE_VXD_HEADERE32_lastpagesizeOffset = 44
+	IMAGE_VXD_HEADERE32_fixupsizeOffset    = 48
+	IMAGE_VXD_HEADERE32_fixupsumOffset     = 52
+	IMAGE_VXD_HEADERE32_ldrsizeOffset      = 56
+	IMAGE_VXD_HEADERE32_ldrsumOffset       = 60
+	IMAGE_VXD_HEADERE32_objtabOffset       = 64
+	IMAGE_VXD_HEADERE32_objcntOffset       = 68
+	IMAGE_VXD_HEADERE32_objmapOffset       = 72
+	IMAGE_VXD_HEADERE32_itermapOffset      = 76
+	IMAGE_VXD_HEADERE32_rsrctabOffset      = 80
+	IMAGE_VXD_HEADERE32_rsrccntOffset      = 84
+	IMAGE_VXD_HEADERE32_restabOffset       = 88
+	IMAGE_VXD_HEADERE32_enttabOffset       = 92
+	IMAGE_VXD_HEADERE32_dirtabOffset       = 96
+	IMAGE_VXD_HEADERE32_dircntOffset       = 100
+	IMAGE_VXD_HEADERE32_fpagetabOffset     = 104
+	IMAGE_VXD_HEADERE32_frectabOffset      = 108
+	IMAGE_VXD_HEADERE32_impmodOffset       = 112
+	IMAGE_VXD_HEADERE32_impmodcntOffset    = 116
+	IMAGE_VXD_HEADERE32_impprocOffset      = 120
+	IMAGE_VXD_HEADERE32_pagesumOffset      = 124
+	IMAGE_VXD_HEADERE32_datapageOffset     = 128
+	IMAGE_VXD_HEADERE32_preloadOffset      = 132
+	IMAGE_VXD_HEADERE32_nrestabOffset      = 136
+	IMAGE_VXD_HEADERE32_cbnrestabOffset    = 140
+	IMAGE_VXD_HEADERE32_nressumOffset      = 144
+	IMAGE_VXD_HEADERE32_autodataOffset     = 148
+	IMAGE_VXD_HEADERE32_debuginfoOffset    = 152
+	IMAGE_VXD_HEADERE32_debuglenOffset     = 156
+	IMAGE_VXD_HEADERE32_instpreloadOffset  = 160
+	IMAGE_VXD_HEADERE32_instdemandOffset   = 164
+	IMAGE_VXD_HEADERE32_heapsizeOffset     = 168
+	IMAGE_VXD_HEADERE32_res3Offset         = 172
+	IMAGE_VXD_HEADERE32_winresoffOffset    = 184
+	IMAGE_VXD_HEADERE32_winreslenOffset    = 188
+	IMAGE_VXD_HEADERE32_devidOffset        = 192
+	IMAGE_VXD_HEADERE32_ddkverOffset       = 194
+)
+
+// NewIMAGE_VXD_HEADER allocates zeroed, aligned native storage.
+func NewIMAGE_VXD_HEADER() IMAGE_VXD_HEADER {
+	return IMAGE_VXD_HEADER{data: nativebuffer.New(int(IMAGE_VXD_HEADERSize), uintptr(IMAGE_VXD_HEADERAlignment))}
+}
+
+// ViewIMAGE_VXD_HEADER shares data without copying. It panics if data is shorter than IMAGE_VXD_HEADERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIMAGE_VXD_HEADER(data []byte) IMAGE_VXD_HEADER {
+	return IMAGE_VXD_HEADER{data: nativebuffer.View(data, int(IMAGE_VXD_HEADERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IMAGE_VXD_HEADER) Bytes() []byte {
+	return b.data[:IMAGE_VXD_HEADERSize:IMAGE_VXD_HEADERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IMAGE_VXD_HEADER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IMAGE_VXD_HEADERAlignment))
+}
+
+// GetE32_magic returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_magic() uint16 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_magicOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE32_magic copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_magic(value uint16) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_magicOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE32_border returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_border() uint8 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_borderOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetE32_border copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_border(value uint8) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_borderOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetE32_worder returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_worder() uint8 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_worderOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetE32_worder copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_worder(value uint8) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_worderOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetE32_level returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_level() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_levelOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_level copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_level(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_levelOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_cpu returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_cpu() uint16 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_cpuOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE32_cpu copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_cpu(value uint16) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_cpuOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE32_os returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_os() uint16 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_osOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE32_os copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_os(value uint16) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_osOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE32_ver returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_ver() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_verOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_ver copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_ver(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_verOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_mflags returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_mflags() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_mflagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_mflags copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_mflags(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_mflagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_mpages returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_mpages() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_mpagesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_mpages copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_mpages(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_mpagesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_startobj returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_startobj() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_startobjOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_startobj copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_startobj(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_startobjOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_eip returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_eip() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_eipOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_eip copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_eip(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_eipOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_stackobj returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_stackobj() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_stackobjOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_stackobj copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_stackobj(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_stackobjOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_esp returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_esp() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_espOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_esp copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_esp(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_espOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_pagesize returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_pagesize() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_pagesizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_pagesize copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_pagesize(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_pagesizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_lastpagesize returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_lastpagesize() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_lastpagesizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_lastpagesize copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_lastpagesize(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_lastpagesizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_fixupsize returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_fixupsize() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_fixupsizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_fixupsize copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_fixupsize(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_fixupsizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_fixupsum returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_fixupsum() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_fixupsumOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_fixupsum copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_fixupsum(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_fixupsumOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_ldrsize returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_ldrsize() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_ldrsizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_ldrsize copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_ldrsize(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_ldrsizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_ldrsum returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_ldrsum() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_ldrsumOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_ldrsum copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_ldrsum(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_ldrsumOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_objtab returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_objtab() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_objtabOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_objtab copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_objtab(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_objtabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_objcnt returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_objcnt() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_objcntOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_objcnt copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_objcnt(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_objcntOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_objmap returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_objmap() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_objmapOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_objmap copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_objmap(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_objmapOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_itermap returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_itermap() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_itermapOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_itermap copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_itermap(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_itermapOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_rsrctab returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_rsrctab() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_rsrctabOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_rsrctab copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_rsrctab(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_rsrctabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_rsrccnt returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_rsrccnt() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_rsrccntOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_rsrccnt copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_rsrccnt(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_rsrccntOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_restab returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_restab() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_restabOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_restab copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_restab(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_restabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_enttab returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_enttab() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_enttabOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_enttab copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_enttab(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_enttabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_dirtab returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_dirtab() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_dirtabOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_dirtab copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_dirtab(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_dirtabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_dircnt returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_dircnt() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_dircntOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_dircnt copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_dircnt(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_dircntOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_fpagetab returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_fpagetab() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_fpagetabOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_fpagetab copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_fpagetab(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_fpagetabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_frectab returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_frectab() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_frectabOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_frectab copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_frectab(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_frectabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_impmod returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_impmod() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_impmodOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_impmod copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_impmod(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_impmodOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_impmodcnt returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_impmodcnt() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_impmodcntOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_impmodcnt copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_impmodcnt(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_impmodcntOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_impproc returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_impproc() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_impprocOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_impproc copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_impproc(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_impprocOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_pagesum returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_pagesum() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_pagesumOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_pagesum copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_pagesum(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_pagesumOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_datapage returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_datapage() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_datapageOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_datapage copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_datapage(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_datapageOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_preload returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_preload() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_preloadOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_preload copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_preload(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_preloadOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_nrestab returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_nrestab() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_nrestabOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_nrestab copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_nrestab(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_nrestabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_cbnrestab returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_cbnrestab() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_cbnrestabOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_cbnrestab copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_cbnrestab(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_cbnrestabOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_nressum returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_nressum() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_nressumOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_nressum copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_nressum(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_nressumOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_autodata returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_autodata() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_autodataOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_autodata copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_autodata(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_autodataOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_debuginfo returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_debuginfo() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_debuginfoOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_debuginfo copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_debuginfo(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_debuginfoOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_debuglen returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_debuglen() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_debuglenOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_debuglen copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_debuglen(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_debuglenOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_instpreload returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_instpreload() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_instpreloadOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_instpreload copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_instpreload(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_instpreloadOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_instdemand returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_instdemand() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_instdemandOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_instdemand copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_instdemand(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_instdemandOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_heapsize returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_heapsize() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_heapsizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_heapsize copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_heapsize(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_heapsizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_res3 returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_res3(index0 int) uint8 {
+	if index0 < 0 || index0 >= 12 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(IMAGE_VXD_HEADERE32_res3Offset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetE32_res3 copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_res3(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 12 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(IMAGE_VXD_HEADERE32_res3Offset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetE32_winresoff returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_winresoff() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_winresoffOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_winresoff copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_winresoff(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_winresoffOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_winreslen returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_winreslen() uint32 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_winreslenOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetE32_winreslen copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_winreslen(value uint32) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_winreslenOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetE32_devid returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_devid() uint16 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_devidOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE32_devid copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_devid(value uint16) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_devidOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetE32_ddkver returns a copy of the native field value.
+func (b IMAGE_VXD_HEADER) GetE32_ddkver() uint16 {
+	offset := uintptr(IMAGE_VXD_HEADERE32_ddkverOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetE32_ddkver copies value into the native field.
+func (b IMAGE_VXD_HEADER) SetE32_ddkver(value uint16) {
+	offset := uintptr(IMAGE_VXD_HEADERE32_ddkverOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
 
 // Verify metadata-derived Windows ABI sizes, alignments, and field offsets.
 var (

@@ -148,4 +148,5 @@ type generationReport struct {
 	Symbols              map[string][]string  `json:"symbols"`
 	DerivedConstants     []metadataConstant   `json:"derived_constants,omitempty"`
 	DeferredStructures   []deferredStructure  `json:"deferred_structures,omitempty"`
+	NativeBufferCount    map[string]int       `json:"native_buffer_count,omitempty"`
 }

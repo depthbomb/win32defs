@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/depthbomb/win32defs/foundation"
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
 )
 
 // ALG_ID projects Windows.Win32.Security.Cryptography.ALG_ID.
@@ -919,6 +920,95 @@ type NCRYPT_VBS_ROOT_ATTESTATION_HEADER struct {
 	CbNonce      uint32
 	CbReport     uint32
 	CbSignature  uint32
+}
+
+// NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS is a view of native Windows.Win32.Security.Cryptography.NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSSize                            = 24
+	NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSAlignment                       = 8
+	NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSUlKeyFlagsOffset                = 0
+	NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSUllTrustletIdOffset             = 8
+	NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSUlTrustletSecurityVersionOffset = 16
+	NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSUlTrustletDebuggableOffset      = 20
+)
+
+// NewNCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS allocates zeroed, aligned native storage.
+func NewNCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS() NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS {
+	return NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS{data: nativebuffer.New(int(NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSSize), uintptr(NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSAlignment))}
+}
+
+// ViewNCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS shares data without copying. It panics if data is shorter than NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewNCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS(data []byte) NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS {
+	return NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS{data: nativebuffer.View(data, int(NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS) Bytes() []byte {
+	return b.data[:NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSSize:NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSAlignment))
+}
+
+// GetUlKeyFlags returns a copy of the native field value.
+func (b NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS) GetUlKeyFlags() uint32 {
+	offset := uintptr(NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSUlKeyFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetUlKeyFlags copies value into the native field.
+func (b NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS) SetUlKeyFlags(value uint32) {
+	offset := uintptr(NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSUlKeyFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetUllTrustletId returns a copy of the native field value.
+func (b NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS) GetUllTrustletId() uint64 {
+	offset := uintptr(NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSUllTrustletIdOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUllTrustletId copies value into the native field.
+func (b NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS) SetUllTrustletId(value uint64) {
+	offset := uintptr(NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSUllTrustletIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetUlTrustletSecurityVersion returns a copy of the native field value.
+func (b NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS) GetUlTrustletSecurityVersion() uint32 {
+	offset := uintptr(NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSUlTrustletSecurityVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetUlTrustletSecurityVersion copies value into the native field.
+func (b NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS) SetUlTrustletSecurityVersion(value uint32) {
+	offset := uintptr(NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSUlTrustletSecurityVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetUlTrustletDebuggable returns a copy of the native field value.
+func (b NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS) GetUlTrustletDebuggable() uint32 {
+	offset := uintptr(NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSUlTrustletDebuggableOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetUlTrustletDebuggable copies value into the native field.
+func (b NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILS) SetUlTrustletDebuggable(value uint32) {
+	offset := uintptr(NCRYPT_VBS_ROOT_KEY_ATTESTATION_CLAIM_DETAILSUlTrustletDebuggableOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
 }
 
 // OCSP_BASIC_REVOKED_INFO projects Windows.Win32.Security.Cryptography.OCSP_BASIC_REVOKED_INFO.

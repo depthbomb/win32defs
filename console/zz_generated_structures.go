@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/depthbomb/win32defs/foundation"
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
 )
 
 // ALLOC_CONSOLE_MODE projects Windows.Win32.System.Console.ALLOC_CONSOLE_MODE.
@@ -146,6 +147,87 @@ type COORD struct {
 // ExtKeyDef projects Windows.Win32.System.Console.ExtKeyDef.
 type ExtKeyDef struct {
 	Keys [3]ExtKeySubst
+}
+
+// ExtKeyDefBuf is a view of native Windows.Win32.System.Console.ExtKeyDefBuf storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type ExtKeyDefBuf struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	ExtKeyDefBufSize             = 476
+	ExtKeyDefBufAlignment        = 2
+	ExtKeyDefBufDwVersionOffset  = 0
+	ExtKeyDefBufDwCheckSumOffset = 4
+	ExtKeyDefBufTableOffset      = 8
+)
+
+// NewExtKeyDefBuf allocates zeroed, aligned native storage.
+func NewExtKeyDefBuf() ExtKeyDefBuf {
+	return ExtKeyDefBuf{data: nativebuffer.New(int(ExtKeyDefBufSize), uintptr(ExtKeyDefBufAlignment))}
+}
+
+// ViewExtKeyDefBuf shares data without copying. It panics if data is shorter than ExtKeyDefBufSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewExtKeyDefBuf(data []byte) ExtKeyDefBuf {
+	return ExtKeyDefBuf{data: nativebuffer.View(data, int(ExtKeyDefBufSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b ExtKeyDefBuf) Bytes() []byte {
+	return b.data[:ExtKeyDefBufSize:ExtKeyDefBufSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b ExtKeyDefBuf) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(ExtKeyDefBufAlignment))
+}
+
+// GetDwVersion returns a copy of the native field value.
+func (b ExtKeyDefBuf) GetDwVersion() uint32 {
+	offset := uintptr(ExtKeyDefBufDwVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwVersion copies value into the native field.
+func (b ExtKeyDefBuf) SetDwVersion(value uint32) {
+	offset := uintptr(ExtKeyDefBufDwVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDwCheckSum returns a copy of the native field value.
+func (b ExtKeyDefBuf) GetDwCheckSum() uint32 {
+	offset := uintptr(ExtKeyDefBufDwCheckSumOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwCheckSum copies value into the native field.
+func (b ExtKeyDefBuf) SetDwCheckSum(value uint32) {
+	offset := uintptr(ExtKeyDefBufDwCheckSumOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTable returns a copy of the native field value.
+func (b ExtKeyDefBuf) GetTable(index0 int) ExtKeyDef {
+	if index0 < 0 || index0 >= 26 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(ExtKeyDefBufTableOffset + uintptr(index0)*(18))
+
+	return nativebuffer.Read[ExtKeyDef](b.Bytes()[offset : offset+(18)])
+}
+
+// SetTable copies value into the native field.
+func (b ExtKeyDefBuf) SetTable(index0 int, value ExtKeyDef) {
+	if index0 < 0 || index0 >= 26 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(ExtKeyDefBufTableOffset + uintptr(index0)*(18))
+	nativebuffer.Write(b.Bytes()[offset:offset+(18)], value)
 }
 
 // ExtKeySubst projects Windows.Win32.System.Console.ExtKeySubst.

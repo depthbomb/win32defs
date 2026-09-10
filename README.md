@@ -112,9 +112,8 @@ hexadecimal. Returned alias slices are safe to modify.
 
 The generator checks every structure in the supported API domains using the
 same rules. There's no per-structure list or handwritten layout fallback.
-Types are emitted only when their sizes, alignments, and field offsets match
-the Windows ABI on both 32-bit and 64-bit targets. Generated compile-time
-checks verify the layout on the target architecture.
+When sizes, alignments, and field offsets match the Windows ABI on 386, amd64,
+and arm64, it emits ordinary Go structs with compile-time layout checks.
 
 Examples include `jobobject.JOBOBJECT_BASIC_PROCESS_ID_LIST`, `winmsg.ICONINFO`,
 and `winmsg.ICONINFOEXA`/`ICONINFOEXW`, with supporting types such as
@@ -124,12 +123,43 @@ Field names follow the metadata with the first letter capitalized, such as
 `FIcon` and `HbmMask`. Flexible arrays keep their declared initial length, such
 as `[1]uintptr`. You'll need a larger native allocation for additional elements.
 
-Some structures are left out. In particular, `JOBOBJECT_BASIC_LIMIT_INFORMATION`,
-`JOBOBJECT_EXTENDED_LIMIT_INFORMATION`, and `IO_COUNTERS` require 8-byte alignment
-on Windows 386, which ordinary Go value types can't provide. The current
-generator also skips explicit layouts, incompatible packing, architecture-specific
-declarations, bitfields, pointer fields, and unresolved dependencies. Details
-are recorded in [the generation report](internal/source/report.json).
+When a sequential native layout doesn't fit Go, the generator emits a typed
+buffer view instead. This covers alignment differences, packing, and nested
+buffers, including `jobobject.JOBOBJECT_BASIC_LIMIT_INFORMATION`,
+`jobobject.JOBOBJECT_EXTENDED_LIMIT_INFORMATION`, and `process.IO_COUNTERS`.
+Their sizes, alignments, offsets, and accessors come from the same metadata
+and Windows ABI rules as the ordinary structs.
+
+```go
+limits := jobobject.NewJOBOBJECT_EXTENDED_LIMIT_INFORMATION()
+basic := limits.GetBasicLimitInformation() // shares the parent's storage
+basic.SetLimitFlags(jobobject.JOB_OBJECT_LIMIT(jobobject.JOB_OBJECT_LIMIT_PROCESS_MEMORY))
+limits.SetProcessMemoryLimit(64 * 1024 * 1024)
+
+// Pass limits.Pointer() and jobobject.JOBOBJECT_EXTENDED_LIMIT_INFORMATIONSize
+// to your Windows binding. Keep limits alive while Windows uses the buffer.
+```
+
+Use `NewTYPE()` for zeroed, aligned storage or `ViewTYPE(data)` to share existing
+bytes. Views check the byte length; `Pointer()` also checks native alignment.
+`TYPESize`, `TYPEAlignment`, and `TYPEFieldOffset` describe the native layout
+for the current pointer width. Use these instead of `unsafe.Sizeof` on a view,
+and pass `Pointer()` instead of the address of the Go wrapper.
+
+`GetField` returns a value copy for scalars and ordinary structs, or a shared
+view for nested buffers. `SetField` copies into the buffer. Array accessors
+take an index for each dimension and check bounds. Unaligned views support
+field access, even when their address can't be passed to Windows on its own.
+Copies of a buffer view share storage; the zero value isn't usable. `Bytes()`
+exposes the native bytes, including padding. Flexible-array accessors cover
+only the metadata-declared initial extent. If your binding takes `uintptr`,
+convert `Pointer()` in the call expression and use `runtime.KeepAlive` afterward.
+These byte accessors target Windows' little-endian architectures.
+
+Explicit layouts and unions, architecture-specific declarations, bitfields,
+pointer fields, and unresolved or ambiguous dependencies are still left out.
+Those need more projection rules or metadata; a byte buffer alone isn't enough.
+Details are recorded in [the generation report](internal/source/report.json).
 
 ## A few details worth knowing
 
@@ -225,8 +255,8 @@ git diff --exit-code
 CI runs on Windows: amd64 and 386 tests, ARM64 test-binary compilation, and
 reproducible generation. `./tools/verify-abi.ps1` also checks layouts and
 duplicate-handle flags against the installed Windows SDK with the x86 and x64
-MSVC compilers. It covers structures documented in `winnt.h`, `winuser.h`, and
-`wingdi.h`; optional SDK components aren't needed.
+MSVC compilers. It covers structures documented in `winnt.h`, `winuser.h`,
+`wingdi.h`, and `winioctl.h`; optional SDK components aren't needed.
 
 The scheduled workflow checks for upstream releases every Monday, validates the
 output, and commits it only when something changed. You can also run it manually.

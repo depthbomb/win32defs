@@ -8,6 +8,7 @@ import (
 
 	"github.com/depthbomb/win32defs/foundation"
 	"github.com/depthbomb/win32defs/gdi"
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
 )
 
 // ACCEL projects Windows.Win32.UI.WindowsAndMessaging.ACCEL.
@@ -131,6 +132,109 @@ type DEVICE_EVENT_BECOMING_READY struct {
 	Estimated100msToReady uint32
 }
 
+// DEVICE_EVENT_EXTERNAL_REQUEST is a view of native Windows.Win32.UI.WindowsAndMessaging.DEVICE_EVENT_EXTERNAL_REQUEST storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICE_EVENT_EXTERNAL_REQUEST struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICE_EVENT_EXTERNAL_REQUESTSize               = 24
+	DEVICE_EVENT_EXTERNAL_REQUESTAlignment          = 8
+	DEVICE_EVENT_EXTERNAL_REQUESTVersionOffset      = 0
+	DEVICE_EVENT_EXTERNAL_REQUESTDeviceClassOffset  = 4
+	DEVICE_EVENT_EXTERNAL_REQUESTButtonStatusOffset = 8
+	DEVICE_EVENT_EXTERNAL_REQUESTRequestOffset      = 10
+	DEVICE_EVENT_EXTERNAL_REQUESTSystemTimeOffset   = 16
+)
+
+// NewDEVICE_EVENT_EXTERNAL_REQUEST allocates zeroed, aligned native storage.
+func NewDEVICE_EVENT_EXTERNAL_REQUEST() DEVICE_EVENT_EXTERNAL_REQUEST {
+	return DEVICE_EVENT_EXTERNAL_REQUEST{data: nativebuffer.New(int(DEVICE_EVENT_EXTERNAL_REQUESTSize), uintptr(DEVICE_EVENT_EXTERNAL_REQUESTAlignment))}
+}
+
+// ViewDEVICE_EVENT_EXTERNAL_REQUEST shares data without copying. It panics if data is shorter than DEVICE_EVENT_EXTERNAL_REQUESTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICE_EVENT_EXTERNAL_REQUEST(data []byte) DEVICE_EVENT_EXTERNAL_REQUEST {
+	return DEVICE_EVENT_EXTERNAL_REQUEST{data: nativebuffer.View(data, int(DEVICE_EVENT_EXTERNAL_REQUESTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICE_EVENT_EXTERNAL_REQUEST) Bytes() []byte {
+	return b.data[:DEVICE_EVENT_EXTERNAL_REQUESTSize:DEVICE_EVENT_EXTERNAL_REQUESTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICE_EVENT_EXTERNAL_REQUEST) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICE_EVENT_EXTERNAL_REQUESTAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b DEVICE_EVENT_EXTERNAL_REQUEST) GetVersion() uint32 {
+	offset := uintptr(DEVICE_EVENT_EXTERNAL_REQUESTVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b DEVICE_EVENT_EXTERNAL_REQUEST) SetVersion(value uint32) {
+	offset := uintptr(DEVICE_EVENT_EXTERNAL_REQUESTVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDeviceClass returns a copy of the native field value.
+func (b DEVICE_EVENT_EXTERNAL_REQUEST) GetDeviceClass() uint32 {
+	offset := uintptr(DEVICE_EVENT_EXTERNAL_REQUESTDeviceClassOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDeviceClass copies value into the native field.
+func (b DEVICE_EVENT_EXTERNAL_REQUEST) SetDeviceClass(value uint32) {
+	offset := uintptr(DEVICE_EVENT_EXTERNAL_REQUESTDeviceClassOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetButtonStatus returns a copy of the native field value.
+func (b DEVICE_EVENT_EXTERNAL_REQUEST) GetButtonStatus() uint16 {
+	offset := uintptr(DEVICE_EVENT_EXTERNAL_REQUESTButtonStatusOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetButtonStatus copies value into the native field.
+func (b DEVICE_EVENT_EXTERNAL_REQUEST) SetButtonStatus(value uint16) {
+	offset := uintptr(DEVICE_EVENT_EXTERNAL_REQUESTButtonStatusOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetRequest returns a copy of the native field value.
+func (b DEVICE_EVENT_EXTERNAL_REQUEST) GetRequest() uint16 {
+	offset := uintptr(DEVICE_EVENT_EXTERNAL_REQUESTRequestOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetRequest copies value into the native field.
+func (b DEVICE_EVENT_EXTERNAL_REQUEST) SetRequest(value uint16) {
+	offset := uintptr(DEVICE_EVENT_EXTERNAL_REQUESTRequestOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetSystemTime returns a copy of the native field value.
+func (b DEVICE_EVENT_EXTERNAL_REQUEST) GetSystemTime() int64 {
+	offset := uintptr(DEVICE_EVENT_EXTERNAL_REQUESTSystemTimeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSystemTime copies value into the native field.
+func (b DEVICE_EVENT_EXTERNAL_REQUEST) SetSystemTime(value int64) {
+	offset := uintptr(DEVICE_EVENT_EXTERNAL_REQUESTSystemTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // DEVICE_EVENT_GENERIC_DATA projects Windows.Win32.UI.WindowsAndMessaging.DEVICE_EVENT_GENERIC_DATA.
 type DEVICE_EVENT_GENERIC_DATA struct {
 	EventNumber uint32
@@ -226,6 +330,270 @@ type DEV_BROADCAST_VOLUME struct {
 
 // DEV_BROADCAST_VOLUME_FLAGS projects Windows.Win32.UI.WindowsAndMessaging.DEV_BROADCAST_VOLUME_FLAGS.
 type DEV_BROADCAST_VOLUME_FLAGS uint16
+
+// DLGITEMTEMPLATE is a view of native Windows.Win32.UI.WindowsAndMessaging.DLGITEMTEMPLATE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-dlgitemtemplate.
+type DLGITEMTEMPLATE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DLGITEMTEMPLATESize                  = 18
+	DLGITEMTEMPLATEAlignment             = 2
+	DLGITEMTEMPLATEStyleOffset           = 0
+	DLGITEMTEMPLATEDwExtendedStyleOffset = 4
+	DLGITEMTEMPLATEXOffset               = 8
+	DLGITEMTEMPLATEYOffset               = 10
+	DLGITEMTEMPLATECxOffset              = 12
+	DLGITEMTEMPLATECyOffset              = 14
+	DLGITEMTEMPLATEIdOffset              = 16
+)
+
+// NewDLGITEMTEMPLATE allocates zeroed, aligned native storage.
+func NewDLGITEMTEMPLATE() DLGITEMTEMPLATE {
+	return DLGITEMTEMPLATE{data: nativebuffer.New(int(DLGITEMTEMPLATESize), uintptr(DLGITEMTEMPLATEAlignment))}
+}
+
+// ViewDLGITEMTEMPLATE shares data without copying. It panics if data is shorter than DLGITEMTEMPLATESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDLGITEMTEMPLATE(data []byte) DLGITEMTEMPLATE {
+	return DLGITEMTEMPLATE{data: nativebuffer.View(data, int(DLGITEMTEMPLATESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DLGITEMTEMPLATE) Bytes() []byte {
+	return b.data[:DLGITEMTEMPLATESize:DLGITEMTEMPLATESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DLGITEMTEMPLATE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DLGITEMTEMPLATEAlignment))
+}
+
+// GetStyle returns a copy of the native field value.
+func (b DLGITEMTEMPLATE) GetStyle() uint32 {
+	offset := uintptr(DLGITEMTEMPLATEStyleOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetStyle copies value into the native field.
+func (b DLGITEMTEMPLATE) SetStyle(value uint32) {
+	offset := uintptr(DLGITEMTEMPLATEStyleOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDwExtendedStyle returns a copy of the native field value.
+func (b DLGITEMTEMPLATE) GetDwExtendedStyle() uint32 {
+	offset := uintptr(DLGITEMTEMPLATEDwExtendedStyleOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwExtendedStyle copies value into the native field.
+func (b DLGITEMTEMPLATE) SetDwExtendedStyle(value uint32) {
+	offset := uintptr(DLGITEMTEMPLATEDwExtendedStyleOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetX returns a copy of the native field value.
+func (b DLGITEMTEMPLATE) GetX() int16 {
+	offset := uintptr(DLGITEMTEMPLATEXOffset)
+
+	return nativebuffer.Read[int16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetX copies value into the native field.
+func (b DLGITEMTEMPLATE) SetX(value int16) {
+	offset := uintptr(DLGITEMTEMPLATEXOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetY returns a copy of the native field value.
+func (b DLGITEMTEMPLATE) GetY() int16 {
+	offset := uintptr(DLGITEMTEMPLATEYOffset)
+
+	return nativebuffer.Read[int16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetY copies value into the native field.
+func (b DLGITEMTEMPLATE) SetY(value int16) {
+	offset := uintptr(DLGITEMTEMPLATEYOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetCx returns a copy of the native field value.
+func (b DLGITEMTEMPLATE) GetCx() int16 {
+	offset := uintptr(DLGITEMTEMPLATECxOffset)
+
+	return nativebuffer.Read[int16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetCx copies value into the native field.
+func (b DLGITEMTEMPLATE) SetCx(value int16) {
+	offset := uintptr(DLGITEMTEMPLATECxOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetCy returns a copy of the native field value.
+func (b DLGITEMTEMPLATE) GetCy() int16 {
+	offset := uintptr(DLGITEMTEMPLATECyOffset)
+
+	return nativebuffer.Read[int16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetCy copies value into the native field.
+func (b DLGITEMTEMPLATE) SetCy(value int16) {
+	offset := uintptr(DLGITEMTEMPLATECyOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetId returns a copy of the native field value.
+func (b DLGITEMTEMPLATE) GetId() uint16 {
+	offset := uintptr(DLGITEMTEMPLATEIdOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetId copies value into the native field.
+func (b DLGITEMTEMPLATE) SetId(value uint16) {
+	offset := uintptr(DLGITEMTEMPLATEIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// DLGTEMPLATE is a view of native Windows.Win32.UI.WindowsAndMessaging.DLGTEMPLATE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-dlgtemplate.
+type DLGTEMPLATE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DLGTEMPLATESize                  = 18
+	DLGTEMPLATEAlignment             = 2
+	DLGTEMPLATEStyleOffset           = 0
+	DLGTEMPLATEDwExtendedStyleOffset = 4
+	DLGTEMPLATECditOffset            = 8
+	DLGTEMPLATEXOffset               = 10
+	DLGTEMPLATEYOffset               = 12
+	DLGTEMPLATECxOffset              = 14
+	DLGTEMPLATECyOffset              = 16
+)
+
+// NewDLGTEMPLATE allocates zeroed, aligned native storage.
+func NewDLGTEMPLATE() DLGTEMPLATE {
+	return DLGTEMPLATE{data: nativebuffer.New(int(DLGTEMPLATESize), uintptr(DLGTEMPLATEAlignment))}
+}
+
+// ViewDLGTEMPLATE shares data without copying. It panics if data is shorter than DLGTEMPLATESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDLGTEMPLATE(data []byte) DLGTEMPLATE {
+	return DLGTEMPLATE{data: nativebuffer.View(data, int(DLGTEMPLATESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DLGTEMPLATE) Bytes() []byte {
+	return b.data[:DLGTEMPLATESize:DLGTEMPLATESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DLGTEMPLATE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DLGTEMPLATEAlignment))
+}
+
+// GetStyle returns a copy of the native field value.
+func (b DLGTEMPLATE) GetStyle() uint32 {
+	offset := uintptr(DLGTEMPLATEStyleOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetStyle copies value into the native field.
+func (b DLGTEMPLATE) SetStyle(value uint32) {
+	offset := uintptr(DLGTEMPLATEStyleOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDwExtendedStyle returns a copy of the native field value.
+func (b DLGTEMPLATE) GetDwExtendedStyle() uint32 {
+	offset := uintptr(DLGTEMPLATEDwExtendedStyleOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwExtendedStyle copies value into the native field.
+func (b DLGTEMPLATE) SetDwExtendedStyle(value uint32) {
+	offset := uintptr(DLGTEMPLATEDwExtendedStyleOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCdit returns a copy of the native field value.
+func (b DLGTEMPLATE) GetCdit() uint16 {
+	offset := uintptr(DLGTEMPLATECditOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetCdit copies value into the native field.
+func (b DLGTEMPLATE) SetCdit(value uint16) {
+	offset := uintptr(DLGTEMPLATECditOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetX returns a copy of the native field value.
+func (b DLGTEMPLATE) GetX() int16 {
+	offset := uintptr(DLGTEMPLATEXOffset)
+
+	return nativebuffer.Read[int16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetX copies value into the native field.
+func (b DLGTEMPLATE) SetX(value int16) {
+	offset := uintptr(DLGTEMPLATEXOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetY returns a copy of the native field value.
+func (b DLGTEMPLATE) GetY() int16 {
+	offset := uintptr(DLGTEMPLATEYOffset)
+
+	return nativebuffer.Read[int16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetY copies value into the native field.
+func (b DLGTEMPLATE) SetY(value int16) {
+	offset := uintptr(DLGTEMPLATEYOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetCx returns a copy of the native field value.
+func (b DLGTEMPLATE) GetCx() int16 {
+	offset := uintptr(DLGTEMPLATECxOffset)
+
+	return nativebuffer.Read[int16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetCx copies value into the native field.
+func (b DLGTEMPLATE) SetCx(value int16) {
+	offset := uintptr(DLGTEMPLATECxOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetCy returns a copy of the native field value.
+func (b DLGTEMPLATE) GetCy() int16 {
+	offset := uintptr(DLGTEMPLATECyOffset)
+
+	return nativebuffer.Read[int16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetCy copies value into the native field.
+func (b DLGTEMPLATE) SetCy(value int16) {
+	offset := uintptr(DLGTEMPLATECyOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
 
 // DROPSTRUCT projects Windows.Win32.UI.WindowsAndMessaging.DROPSTRUCT.
 type DROPSTRUCT struct {

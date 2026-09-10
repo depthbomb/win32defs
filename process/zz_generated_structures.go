@@ -7,14 +7,223 @@ import (
 	"unsafe"
 
 	"github.com/depthbomb/win32defs/foundation"
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
 	"github.com/depthbomb/win32defs/sysinfo"
 )
+
+// APP_MEMORY_INFORMATION is a view of native Windows.Win32.System.Threading.APP_MEMORY_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-app_memory_information.
+type APP_MEMORY_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	APP_MEMORY_INFORMATIONSize                         = 32
+	APP_MEMORY_INFORMATIONAlignment                    = 8
+	APP_MEMORY_INFORMATIONAvailableCommitOffset        = 0
+	APP_MEMORY_INFORMATIONPrivateCommitUsageOffset     = 8
+	APP_MEMORY_INFORMATIONPeakPrivateCommitUsageOffset = 16
+	APP_MEMORY_INFORMATIONTotalCommitUsageOffset       = 24
+)
+
+// NewAPP_MEMORY_INFORMATION allocates zeroed, aligned native storage.
+func NewAPP_MEMORY_INFORMATION() APP_MEMORY_INFORMATION {
+	return APP_MEMORY_INFORMATION{data: nativebuffer.New(int(APP_MEMORY_INFORMATIONSize), uintptr(APP_MEMORY_INFORMATIONAlignment))}
+}
+
+// ViewAPP_MEMORY_INFORMATION shares data without copying. It panics if data is shorter than APP_MEMORY_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewAPP_MEMORY_INFORMATION(data []byte) APP_MEMORY_INFORMATION {
+	return APP_MEMORY_INFORMATION{data: nativebuffer.View(data, int(APP_MEMORY_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b APP_MEMORY_INFORMATION) Bytes() []byte {
+	return b.data[:APP_MEMORY_INFORMATIONSize:APP_MEMORY_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b APP_MEMORY_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(APP_MEMORY_INFORMATIONAlignment))
+}
+
+// GetAvailableCommit returns a copy of the native field value.
+func (b APP_MEMORY_INFORMATION) GetAvailableCommit() uint64 {
+	offset := uintptr(APP_MEMORY_INFORMATIONAvailableCommitOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAvailableCommit copies value into the native field.
+func (b APP_MEMORY_INFORMATION) SetAvailableCommit(value uint64) {
+	offset := uintptr(APP_MEMORY_INFORMATIONAvailableCommitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetPrivateCommitUsage returns a copy of the native field value.
+func (b APP_MEMORY_INFORMATION) GetPrivateCommitUsage() uint64 {
+	offset := uintptr(APP_MEMORY_INFORMATIONPrivateCommitUsageOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPrivateCommitUsage copies value into the native field.
+func (b APP_MEMORY_INFORMATION) SetPrivateCommitUsage(value uint64) {
+	offset := uintptr(APP_MEMORY_INFORMATIONPrivateCommitUsageOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetPeakPrivateCommitUsage returns a copy of the native field value.
+func (b APP_MEMORY_INFORMATION) GetPeakPrivateCommitUsage() uint64 {
+	offset := uintptr(APP_MEMORY_INFORMATIONPeakPrivateCommitUsageOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPeakPrivateCommitUsage copies value into the native field.
+func (b APP_MEMORY_INFORMATION) SetPeakPrivateCommitUsage(value uint64) {
+	offset := uintptr(APP_MEMORY_INFORMATIONPeakPrivateCommitUsageOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTotalCommitUsage returns a copy of the native field value.
+func (b APP_MEMORY_INFORMATION) GetTotalCommitUsage() uint64 {
+	offset := uintptr(APP_MEMORY_INFORMATIONTotalCommitUsageOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalCommitUsage copies value into the native field.
+func (b APP_MEMORY_INFORMATION) SetTotalCommitUsage(value uint64) {
+	offset := uintptr(APP_MEMORY_INFORMATIONTotalCommitUsageOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
 
 // AVRT_TASK_HANDLE projects Windows.Win32.System.Threading.AVRT_TASK_HANDLE.
 type AVRT_TASK_HANDLE uintptr
 
 // AVRT_THREAD_ORDERING_GROUP_HANDLE projects Windows.Win32.System.Threading.AVRT_THREAD_ORDERING_GROUP_HANDLE.
 type AVRT_THREAD_ORDERING_GROUP_HANDLE uintptr
+
+// IO_COUNTERS is a view of native Windows.Win32.System.Threading.IO_COUNTERS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-io_counters.
+type IO_COUNTERS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IO_COUNTERSSize                      = 48
+	IO_COUNTERSAlignment                 = 8
+	IO_COUNTERSReadOperationCountOffset  = 0
+	IO_COUNTERSWriteOperationCountOffset = 8
+	IO_COUNTERSOtherOperationCountOffset = 16
+	IO_COUNTERSReadTransferCountOffset   = 24
+	IO_COUNTERSWriteTransferCountOffset  = 32
+	IO_COUNTERSOtherTransferCountOffset  = 40
+)
+
+// NewIO_COUNTERS allocates zeroed, aligned native storage.
+func NewIO_COUNTERS() IO_COUNTERS {
+	return IO_COUNTERS{data: nativebuffer.New(int(IO_COUNTERSSize), uintptr(IO_COUNTERSAlignment))}
+}
+
+// ViewIO_COUNTERS shares data without copying. It panics if data is shorter than IO_COUNTERSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIO_COUNTERS(data []byte) IO_COUNTERS {
+	return IO_COUNTERS{data: nativebuffer.View(data, int(IO_COUNTERSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IO_COUNTERS) Bytes() []byte {
+	return b.data[:IO_COUNTERSSize:IO_COUNTERSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IO_COUNTERS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IO_COUNTERSAlignment))
+}
+
+// GetReadOperationCount returns a copy of the native field value.
+func (b IO_COUNTERS) GetReadOperationCount() uint64 {
+	offset := uintptr(IO_COUNTERSReadOperationCountOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetReadOperationCount copies value into the native field.
+func (b IO_COUNTERS) SetReadOperationCount(value uint64) {
+	offset := uintptr(IO_COUNTERSReadOperationCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetWriteOperationCount returns a copy of the native field value.
+func (b IO_COUNTERS) GetWriteOperationCount() uint64 {
+	offset := uintptr(IO_COUNTERSWriteOperationCountOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetWriteOperationCount copies value into the native field.
+func (b IO_COUNTERS) SetWriteOperationCount(value uint64) {
+	offset := uintptr(IO_COUNTERSWriteOperationCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetOtherOperationCount returns a copy of the native field value.
+func (b IO_COUNTERS) GetOtherOperationCount() uint64 {
+	offset := uintptr(IO_COUNTERSOtherOperationCountOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetOtherOperationCount copies value into the native field.
+func (b IO_COUNTERS) SetOtherOperationCount(value uint64) {
+	offset := uintptr(IO_COUNTERSOtherOperationCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetReadTransferCount returns a copy of the native field value.
+func (b IO_COUNTERS) GetReadTransferCount() uint64 {
+	offset := uintptr(IO_COUNTERSReadTransferCountOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetReadTransferCount copies value into the native field.
+func (b IO_COUNTERS) SetReadTransferCount(value uint64) {
+	offset := uintptr(IO_COUNTERSReadTransferCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetWriteTransferCount returns a copy of the native field value.
+func (b IO_COUNTERS) GetWriteTransferCount() uint64 {
+	offset := uintptr(IO_COUNTERSWriteTransferCountOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetWriteTransferCount copies value into the native field.
+func (b IO_COUNTERS) SetWriteTransferCount(value uint64) {
+	offset := uintptr(IO_COUNTERSWriteTransferCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetOtherTransferCount returns a copy of the native field value.
+func (b IO_COUNTERS) GetOtherTransferCount() uint64 {
+	offset := uintptr(IO_COUNTERSOtherTransferCountOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetOtherTransferCount copies value into the native field.
+func (b IO_COUNTERS) SetOtherTransferCount(value uint64) {
+	offset := uintptr(IO_COUNTERSOtherTransferCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
 
 // LPPROC_THREAD_ATTRIBUTE_LIST projects Windows.Win32.System.Threading.LPPROC_THREAD_ATTRIBUTE_LIST.
 type LPPROC_THREAD_ATTRIBUTE_LIST uintptr

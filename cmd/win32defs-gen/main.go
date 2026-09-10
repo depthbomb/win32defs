@@ -184,10 +184,14 @@ func generate(ctx context.Context, root string, options generationOptions) error
 		Symbols:              emittedSymbols(packages),
 		DerivedConstants:     derived,
 		DeferredStructures:   deferredStructures,
+		NativeBufferCount:    make(map[string]int),
 	}
 	for packageName, items := range structures {
 		for _, item := range items {
 			name := item.Source.Name
+			if item.Buffer {
+				report.NativeBufferCount[packageName]++
+			}
 			if name == specByName(packageName).TypeName {
 				return fmt.Errorf("structure %s.%s collides with package scalar type", packageName, name)
 			}
@@ -197,7 +201,7 @@ func generate(ctx context.Context, root string, options generationOptions) error
 					return fmt.Errorf("structure %s.%s collides with existing symbol", packageName, name)
 				}
 			}
-			report.Symbols[packageName] = append(report.Symbols[packageName], name)
+			report.Symbols[packageName] = append(report.Symbols[packageName], structureSymbols(item)...)
 		}
 	}
 	for _, item := range guids {

@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/depthbomb/win32defs/foundation"
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
 )
 
 // AAL5_PARAMETERS projects Windows.Win32.Networking.WinSock.AAL5_PARAMETERS.
@@ -213,6 +214,116 @@ type INET_PORT_RESERVATION_INFORMATION struct {
 	OwningPid uint32
 }
 
+// INET_PORT_RESERVATION_INSTANCE is a view of native Windows.Win32.Networking.WinSock.INET_PORT_RESERVATION_INSTANCE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-inet_port_reservation_instance.
+type INET_PORT_RESERVATION_INSTANCE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	INET_PORT_RESERVATION_INSTANCESize              = 16
+	INET_PORT_RESERVATION_INSTANCEAlignment         = 8
+	INET_PORT_RESERVATION_INSTANCEReservationOffset = 0
+	INET_PORT_RESERVATION_INSTANCETokenOffset       = 8
+)
+
+// NewINET_PORT_RESERVATION_INSTANCE allocates zeroed, aligned native storage.
+func NewINET_PORT_RESERVATION_INSTANCE() INET_PORT_RESERVATION_INSTANCE {
+	return INET_PORT_RESERVATION_INSTANCE{data: nativebuffer.New(int(INET_PORT_RESERVATION_INSTANCESize), uintptr(INET_PORT_RESERVATION_INSTANCEAlignment))}
+}
+
+// ViewINET_PORT_RESERVATION_INSTANCE shares data without copying. It panics if data is shorter than INET_PORT_RESERVATION_INSTANCESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewINET_PORT_RESERVATION_INSTANCE(data []byte) INET_PORT_RESERVATION_INSTANCE {
+	return INET_PORT_RESERVATION_INSTANCE{data: nativebuffer.View(data, int(INET_PORT_RESERVATION_INSTANCESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b INET_PORT_RESERVATION_INSTANCE) Bytes() []byte {
+	return b.data[:INET_PORT_RESERVATION_INSTANCESize:INET_PORT_RESERVATION_INSTANCESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b INET_PORT_RESERVATION_INSTANCE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(INET_PORT_RESERVATION_INSTANCEAlignment))
+}
+
+// GetReservation returns a copy of the native field value.
+func (b INET_PORT_RESERVATION_INSTANCE) GetReservation() INET_PORT_RANGE {
+	offset := uintptr(INET_PORT_RESERVATION_INSTANCEReservationOffset)
+
+	return nativebuffer.Read[INET_PORT_RANGE](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReservation copies value into the native field.
+func (b INET_PORT_RESERVATION_INSTANCE) SetReservation(value INET_PORT_RANGE) {
+	offset := uintptr(INET_PORT_RESERVATION_INSTANCEReservationOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetToken returns a view sharing this buffer's storage.
+func (b INET_PORT_RESERVATION_INSTANCE) GetToken() INET_PORT_RESERVATION_TOKEN {
+	offset := uintptr(INET_PORT_RESERVATION_INSTANCETokenOffset)
+
+	return ViewINET_PORT_RESERVATION_TOKEN(b.Bytes()[offset : offset+(8)])
+}
+
+// SetToken copies value into the native field.
+func (b INET_PORT_RESERVATION_INSTANCE) SetToken(value INET_PORT_RESERVATION_TOKEN) {
+	offset := uintptr(INET_PORT_RESERVATION_INSTANCETokenOffset)
+	copy(b.Bytes()[offset:offset+(8)], value.Bytes())
+}
+
+// INET_PORT_RESERVATION_TOKEN is a view of native Windows.Win32.Networking.WinSock.INET_PORT_RESERVATION_TOKEN storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-inet_port_reservation_token.
+type INET_PORT_RESERVATION_TOKEN struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	INET_PORT_RESERVATION_TOKENSize        = 8
+	INET_PORT_RESERVATION_TOKENAlignment   = 8
+	INET_PORT_RESERVATION_TOKENTokenOffset = 0
+)
+
+// NewINET_PORT_RESERVATION_TOKEN allocates zeroed, aligned native storage.
+func NewINET_PORT_RESERVATION_TOKEN() INET_PORT_RESERVATION_TOKEN {
+	return INET_PORT_RESERVATION_TOKEN{data: nativebuffer.New(int(INET_PORT_RESERVATION_TOKENSize), uintptr(INET_PORT_RESERVATION_TOKENAlignment))}
+}
+
+// ViewINET_PORT_RESERVATION_TOKEN shares data without copying. It panics if data is shorter than INET_PORT_RESERVATION_TOKENSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewINET_PORT_RESERVATION_TOKEN(data []byte) INET_PORT_RESERVATION_TOKEN {
+	return INET_PORT_RESERVATION_TOKEN{data: nativebuffer.View(data, int(INET_PORT_RESERVATION_TOKENSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b INET_PORT_RESERVATION_TOKEN) Bytes() []byte {
+	return b.data[:INET_PORT_RESERVATION_TOKENSize:INET_PORT_RESERVATION_TOKENSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b INET_PORT_RESERVATION_TOKEN) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(INET_PORT_RESERVATION_TOKENAlignment))
+}
+
+// GetToken returns a copy of the native field value.
+func (b INET_PORT_RESERVATION_TOKEN) GetToken() uint64 {
+	offset := uintptr(INET_PORT_RESERVATION_TOKENTokenOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetToken copies value into the native field.
+func (b INET_PORT_RESERVATION_TOKEN) SetToken(value uint64) {
+	offset := uintptr(INET_PORT_RESERVATION_TOKENTokenOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // IN_RECVERR projects Windows.Win32.Networking.WinSock.IN_RECVERR.
 type IN_RECVERR struct {
 	Protocol IPPROTO
@@ -223,6 +334,53 @@ type IN_RECVERR struct {
 
 // IPPROTO projects Windows.Win32.Networking.WinSock.IPPROTO.
 type IPPROTO int32
+
+// IPTLS_METADATA is a view of native Windows.Win32.Networking.WinSock.IPTLS_METADATA storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type IPTLS_METADATA struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	IPTLS_METADATASize                 = 8
+	IPTLS_METADATAAlignment            = 1
+	IPTLS_METADATASequenceNumberOffset = 0
+)
+
+// NewIPTLS_METADATA allocates zeroed, aligned native storage.
+func NewIPTLS_METADATA() IPTLS_METADATA {
+	return IPTLS_METADATA{data: nativebuffer.New(int(IPTLS_METADATASize), uintptr(IPTLS_METADATAAlignment))}
+}
+
+// ViewIPTLS_METADATA shares data without copying. It panics if data is shorter than IPTLS_METADATASize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewIPTLS_METADATA(data []byte) IPTLS_METADATA {
+	return IPTLS_METADATA{data: nativebuffer.View(data, int(IPTLS_METADATASize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b IPTLS_METADATA) Bytes() []byte {
+	return b.data[:IPTLS_METADATASize:IPTLS_METADATASize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b IPTLS_METADATA) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(IPTLS_METADATAAlignment))
+}
+
+// GetSequenceNumber returns a copy of the native field value.
+func (b IPTLS_METADATA) GetSequenceNumber() uint64 {
+	offset := uintptr(IPTLS_METADATASequenceNumberOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSequenceNumber copies value into the native field.
+func (b IPTLS_METADATA) SetSequenceNumber(value uint64) {
+	offset := uintptr(IPTLS_METADATASequenceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
 
 // IPV6_EXTENSION_HEADER projects Windows.Win32.Networking.WinSock.IPV6_EXTENSION_HEADER.
 type IPV6_EXTENSION_HEADER struct {
@@ -385,6 +543,82 @@ type ND_OPTION_RD_HDR struct {
 	Nd_opt_rh_reserved2 uint32
 }
 
+// NL_BANDWIDTH_INFORMATION is a view of native Windows.Win32.Networking.WinSock.NL_BANDWIDTH_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/nldef/ns-nldef-nl_bandwidth_information.
+type NL_BANDWIDTH_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	NL_BANDWIDTH_INFORMATIONSize                  = 24
+	NL_BANDWIDTH_INFORMATIONAlignment             = 8
+	NL_BANDWIDTH_INFORMATIONBandwidthOffset       = 0
+	NL_BANDWIDTH_INFORMATIONInstabilityOffset     = 8
+	NL_BANDWIDTH_INFORMATIONBandwidthPeakedOffset = 16
+)
+
+// NewNL_BANDWIDTH_INFORMATION allocates zeroed, aligned native storage.
+func NewNL_BANDWIDTH_INFORMATION() NL_BANDWIDTH_INFORMATION {
+	return NL_BANDWIDTH_INFORMATION{data: nativebuffer.New(int(NL_BANDWIDTH_INFORMATIONSize), uintptr(NL_BANDWIDTH_INFORMATIONAlignment))}
+}
+
+// ViewNL_BANDWIDTH_INFORMATION shares data without copying. It panics if data is shorter than NL_BANDWIDTH_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewNL_BANDWIDTH_INFORMATION(data []byte) NL_BANDWIDTH_INFORMATION {
+	return NL_BANDWIDTH_INFORMATION{data: nativebuffer.View(data, int(NL_BANDWIDTH_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b NL_BANDWIDTH_INFORMATION) Bytes() []byte {
+	return b.data[:NL_BANDWIDTH_INFORMATIONSize:NL_BANDWIDTH_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b NL_BANDWIDTH_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(NL_BANDWIDTH_INFORMATIONAlignment))
+}
+
+// GetBandwidth returns a copy of the native field value.
+func (b NL_BANDWIDTH_INFORMATION) GetBandwidth() uint64 {
+	offset := uintptr(NL_BANDWIDTH_INFORMATIONBandwidthOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBandwidth copies value into the native field.
+func (b NL_BANDWIDTH_INFORMATION) SetBandwidth(value uint64) {
+	offset := uintptr(NL_BANDWIDTH_INFORMATIONBandwidthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetInstability returns a copy of the native field value.
+func (b NL_BANDWIDTH_INFORMATION) GetInstability() uint64 {
+	offset := uintptr(NL_BANDWIDTH_INFORMATIONInstabilityOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetInstability copies value into the native field.
+func (b NL_BANDWIDTH_INFORMATION) SetInstability(value uint64) {
+	offset := uintptr(NL_BANDWIDTH_INFORMATIONInstabilityOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBandwidthPeaked returns a copy of the native field value.
+func (b NL_BANDWIDTH_INFORMATION) GetBandwidthPeaked() foundation.BOOLEAN {
+	offset := uintptr(NL_BANDWIDTH_INFORMATIONBandwidthPeakedOffset)
+
+	return nativebuffer.Read[foundation.BOOLEAN](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBandwidthPeaked copies value into the native field.
+func (b NL_BANDWIDTH_INFORMATION) SetBandwidthPeaked(value foundation.BOOLEAN) {
+	offset := uintptr(NL_BANDWIDTH_INFORMATIONBandwidthPeakedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
 // NL_NETWORK_CONNECTIVITY_COST_HINT projects Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_COST_HINT.
 // See https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_network_connectivity_cost_hint.
 type NL_NETWORK_CONNECTIVITY_COST_HINT int32
@@ -402,6 +636,81 @@ type NL_NETWORK_CONNECTIVITY_HINT struct {
 // NL_NETWORK_CONNECTIVITY_LEVEL_HINT projects Windows.Win32.Networking.WinSock.NL_NETWORK_CONNECTIVITY_LEVEL_HINT.
 // See https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_network_connectivity_level_hint.
 type NL_NETWORK_CONNECTIVITY_LEVEL_HINT int32
+
+// NL_PATH_BANDWIDTH_ROD is a view of native Windows.Win32.Networking.WinSock.NL_PATH_BANDWIDTH_ROD storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type NL_PATH_BANDWIDTH_ROD struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	NL_PATH_BANDWIDTH_RODSize                  = 24
+	NL_PATH_BANDWIDTH_RODAlignment             = 8
+	NL_PATH_BANDWIDTH_RODBandwidthOffset       = 0
+	NL_PATH_BANDWIDTH_RODInstabilityOffset     = 8
+	NL_PATH_BANDWIDTH_RODBandwidthPeakedOffset = 16
+)
+
+// NewNL_PATH_BANDWIDTH_ROD allocates zeroed, aligned native storage.
+func NewNL_PATH_BANDWIDTH_ROD() NL_PATH_BANDWIDTH_ROD {
+	return NL_PATH_BANDWIDTH_ROD{data: nativebuffer.New(int(NL_PATH_BANDWIDTH_RODSize), uintptr(NL_PATH_BANDWIDTH_RODAlignment))}
+}
+
+// ViewNL_PATH_BANDWIDTH_ROD shares data without copying. It panics if data is shorter than NL_PATH_BANDWIDTH_RODSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewNL_PATH_BANDWIDTH_ROD(data []byte) NL_PATH_BANDWIDTH_ROD {
+	return NL_PATH_BANDWIDTH_ROD{data: nativebuffer.View(data, int(NL_PATH_BANDWIDTH_RODSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b NL_PATH_BANDWIDTH_ROD) Bytes() []byte {
+	return b.data[:NL_PATH_BANDWIDTH_RODSize:NL_PATH_BANDWIDTH_RODSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b NL_PATH_BANDWIDTH_ROD) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(NL_PATH_BANDWIDTH_RODAlignment))
+}
+
+// GetBandwidth returns a copy of the native field value.
+func (b NL_PATH_BANDWIDTH_ROD) GetBandwidth() uint64 {
+	offset := uintptr(NL_PATH_BANDWIDTH_RODBandwidthOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBandwidth copies value into the native field.
+func (b NL_PATH_BANDWIDTH_ROD) SetBandwidth(value uint64) {
+	offset := uintptr(NL_PATH_BANDWIDTH_RODBandwidthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetInstability returns a copy of the native field value.
+func (b NL_PATH_BANDWIDTH_ROD) GetInstability() uint64 {
+	offset := uintptr(NL_PATH_BANDWIDTH_RODInstabilityOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetInstability copies value into the native field.
+func (b NL_PATH_BANDWIDTH_ROD) SetInstability(value uint64) {
+	offset := uintptr(NL_PATH_BANDWIDTH_RODInstabilityOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBandwidthPeaked returns a copy of the native field value.
+func (b NL_PATH_BANDWIDTH_ROD) GetBandwidthPeaked() foundation.BOOLEAN {
+	offset := uintptr(NL_PATH_BANDWIDTH_RODBandwidthPeakedOffset)
+
+	return nativebuffer.Read[foundation.BOOLEAN](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBandwidthPeaked copies value into the native field.
+func (b NL_PATH_BANDWIDTH_ROD) SetBandwidthPeaked(value foundation.BOOLEAN) {
+	offset := uintptr(NL_PATH_BANDWIDTH_RODBandwidthPeakedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
 
 // NPI_MODULEID_TYPE projects Windows.Win32.Networking.WinSock.NPI_MODULEID_TYPE.
 type NPI_MODULEID_TYPE int32
@@ -437,6 +746,96 @@ type RCVALL_VALUE int32
 // See https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-real_time_notification_setting_output.
 type REAL_TIME_NOTIFICATION_SETTING_OUTPUT struct {
 	ChannelStatus CONTROL_CHANNEL_TRIGGER_STATUS
+}
+
+// RIORESULT is a view of native Windows.Win32.Networking.WinSock.RIORESULT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/mswsockdef/ns-mswsockdef-rioresult.
+type RIORESULT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	RIORESULTSize                   = 24
+	RIORESULTAlignment              = 8
+	RIORESULTStatusOffset           = 0
+	RIORESULTBytesTransferredOffset = 4
+	RIORESULTSocketContextOffset    = 8
+	RIORESULTRequestContextOffset   = 16
+)
+
+// NewRIORESULT allocates zeroed, aligned native storage.
+func NewRIORESULT() RIORESULT {
+	return RIORESULT{data: nativebuffer.New(int(RIORESULTSize), uintptr(RIORESULTAlignment))}
+}
+
+// ViewRIORESULT shares data without copying. It panics if data is shorter than RIORESULTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewRIORESULT(data []byte) RIORESULT {
+	return RIORESULT{data: nativebuffer.View(data, int(RIORESULTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b RIORESULT) Bytes() []byte {
+	return b.data[:RIORESULTSize:RIORESULTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b RIORESULT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(RIORESULTAlignment))
+}
+
+// GetStatus returns a copy of the native field value.
+func (b RIORESULT) GetStatus() int32 {
+	offset := uintptr(RIORESULTStatusOffset)
+
+	return nativebuffer.Read[int32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetStatus copies value into the native field.
+func (b RIORESULT) SetStatus(value int32) {
+	offset := uintptr(RIORESULTStatusOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesTransferred returns a copy of the native field value.
+func (b RIORESULT) GetBytesTransferred() uint32 {
+	offset := uintptr(RIORESULTBytesTransferredOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesTransferred copies value into the native field.
+func (b RIORESULT) SetBytesTransferred(value uint32) {
+	offset := uintptr(RIORESULTBytesTransferredOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSocketContext returns a copy of the native field value.
+func (b RIORESULT) GetSocketContext() uint64 {
+	offset := uintptr(RIORESULTSocketContextOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSocketContext copies value into the native field.
+func (b RIORESULT) SetSocketContext(value uint64) {
+	offset := uintptr(RIORESULTSocketContextOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetRequestContext returns a copy of the native field value.
+func (b RIORESULT) GetRequestContext() uint64 {
+	offset := uintptr(RIORESULTRequestContextOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetRequestContext copies value into the native field.
+func (b RIORESULT) SetRequestContext(value uint64) {
+	offset := uintptr(RIORESULTRequestContextOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // RIO_BUF projects Windows.Win32.Networking.WinSock.RIO_BUF.
@@ -475,6 +874,508 @@ type RM_FEC_INFO struct {
 	FECProActivePackets       uint16
 	FECGroupSize              uint8
 	FFECOnDemandParityEnabled foundation.BOOLEAN
+}
+
+// RM_RECEIVER_STATS is a view of native Windows.Win32.Networking.WinSock.RM_RECEIVER_STATS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/wsrm/ns-wsrm-rm_receiver_stats.
+type RM_RECEIVER_STATS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	RM_RECEIVER_STATSSize                           = 144
+	RM_RECEIVER_STATSAlignment                      = 8
+	RM_RECEIVER_STATSNumODataPacketsReceivedOffset  = 0
+	RM_RECEIVER_STATSNumRDataPacketsReceivedOffset  = 8
+	RM_RECEIVER_STATSNumDuplicateDataPacketsOffset  = 16
+	RM_RECEIVER_STATSDataBytesReceivedOffset        = 24
+	RM_RECEIVER_STATSTotalBytesReceivedOffset       = 32
+	RM_RECEIVER_STATSRateKBitsPerSecOverallOffset   = 40
+	RM_RECEIVER_STATSRateKBitsPerSecLastOffset      = 48
+	RM_RECEIVER_STATSTrailingEdgeSeqIdOffset        = 56
+	RM_RECEIVER_STATSLeadingEdgeSeqIdOffset         = 64
+	RM_RECEIVER_STATSAverageSequencesInWindowOffset = 72
+	RM_RECEIVER_STATSMinSequencesInWindowOffset     = 80
+	RM_RECEIVER_STATSMaxSequencesInWindowOffset     = 88
+	RM_RECEIVER_STATSFirstNakSequenceNumberOffset   = 96
+	RM_RECEIVER_STATSNumPendingNaksOffset           = 104
+	RM_RECEIVER_STATSNumOutstandingNaksOffset       = 112
+	RM_RECEIVER_STATSNumDataPacketsBufferedOffset   = 120
+	RM_RECEIVER_STATSTotalSelectiveNaksSentOffset   = 128
+	RM_RECEIVER_STATSTotalParityNaksSentOffset      = 136
+)
+
+// NewRM_RECEIVER_STATS allocates zeroed, aligned native storage.
+func NewRM_RECEIVER_STATS() RM_RECEIVER_STATS {
+	return RM_RECEIVER_STATS{data: nativebuffer.New(int(RM_RECEIVER_STATSSize), uintptr(RM_RECEIVER_STATSAlignment))}
+}
+
+// ViewRM_RECEIVER_STATS shares data without copying. It panics if data is shorter than RM_RECEIVER_STATSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewRM_RECEIVER_STATS(data []byte) RM_RECEIVER_STATS {
+	return RM_RECEIVER_STATS{data: nativebuffer.View(data, int(RM_RECEIVER_STATSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b RM_RECEIVER_STATS) Bytes() []byte {
+	return b.data[:RM_RECEIVER_STATSSize:RM_RECEIVER_STATSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b RM_RECEIVER_STATS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(RM_RECEIVER_STATSAlignment))
+}
+
+// GetNumODataPacketsReceived returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetNumODataPacketsReceived() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSNumODataPacketsReceivedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumODataPacketsReceived copies value into the native field.
+func (b RM_RECEIVER_STATS) SetNumODataPacketsReceived(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSNumODataPacketsReceivedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumRDataPacketsReceived returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetNumRDataPacketsReceived() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSNumRDataPacketsReceivedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumRDataPacketsReceived copies value into the native field.
+func (b RM_RECEIVER_STATS) SetNumRDataPacketsReceived(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSNumRDataPacketsReceivedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumDuplicateDataPackets returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetNumDuplicateDataPackets() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSNumDuplicateDataPacketsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumDuplicateDataPackets copies value into the native field.
+func (b RM_RECEIVER_STATS) SetNumDuplicateDataPackets(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSNumDuplicateDataPacketsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetDataBytesReceived returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetDataBytesReceived() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSDataBytesReceivedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetDataBytesReceived copies value into the native field.
+func (b RM_RECEIVER_STATS) SetDataBytesReceived(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSDataBytesReceivedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTotalBytesReceived returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetTotalBytesReceived() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSTotalBytesReceivedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalBytesReceived copies value into the native field.
+func (b RM_RECEIVER_STATS) SetTotalBytesReceived(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSTotalBytesReceivedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetRateKBitsPerSecOverall returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetRateKBitsPerSecOverall() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSRateKBitsPerSecOverallOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetRateKBitsPerSecOverall copies value into the native field.
+func (b RM_RECEIVER_STATS) SetRateKBitsPerSecOverall(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSRateKBitsPerSecOverallOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetRateKBitsPerSecLast returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetRateKBitsPerSecLast() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSRateKBitsPerSecLastOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetRateKBitsPerSecLast copies value into the native field.
+func (b RM_RECEIVER_STATS) SetRateKBitsPerSecLast(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSRateKBitsPerSecLastOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTrailingEdgeSeqId returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetTrailingEdgeSeqId() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSTrailingEdgeSeqIdOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTrailingEdgeSeqId copies value into the native field.
+func (b RM_RECEIVER_STATS) SetTrailingEdgeSeqId(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSTrailingEdgeSeqIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLeadingEdgeSeqId returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetLeadingEdgeSeqId() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSLeadingEdgeSeqIdOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLeadingEdgeSeqId copies value into the native field.
+func (b RM_RECEIVER_STATS) SetLeadingEdgeSeqId(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSLeadingEdgeSeqIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetAverageSequencesInWindow returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetAverageSequencesInWindow() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSAverageSequencesInWindowOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAverageSequencesInWindow copies value into the native field.
+func (b RM_RECEIVER_STATS) SetAverageSequencesInWindow(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSAverageSequencesInWindowOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMinSequencesInWindow returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetMinSequencesInWindow() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSMinSequencesInWindowOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMinSequencesInWindow copies value into the native field.
+func (b RM_RECEIVER_STATS) SetMinSequencesInWindow(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSMinSequencesInWindowOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMaxSequencesInWindow returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetMaxSequencesInWindow() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSMaxSequencesInWindowOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMaxSequencesInWindow copies value into the native field.
+func (b RM_RECEIVER_STATS) SetMaxSequencesInWindow(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSMaxSequencesInWindowOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFirstNakSequenceNumber returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetFirstNakSequenceNumber() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSFirstNakSequenceNumberOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFirstNakSequenceNumber copies value into the native field.
+func (b RM_RECEIVER_STATS) SetFirstNakSequenceNumber(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSFirstNakSequenceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumPendingNaks returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetNumPendingNaks() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSNumPendingNaksOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumPendingNaks copies value into the native field.
+func (b RM_RECEIVER_STATS) SetNumPendingNaks(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSNumPendingNaksOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumOutstandingNaks returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetNumOutstandingNaks() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSNumOutstandingNaksOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumOutstandingNaks copies value into the native field.
+func (b RM_RECEIVER_STATS) SetNumOutstandingNaks(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSNumOutstandingNaksOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumDataPacketsBuffered returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetNumDataPacketsBuffered() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSNumDataPacketsBufferedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumDataPacketsBuffered copies value into the native field.
+func (b RM_RECEIVER_STATS) SetNumDataPacketsBuffered(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSNumDataPacketsBufferedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTotalSelectiveNaksSent returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetTotalSelectiveNaksSent() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSTotalSelectiveNaksSentOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalSelectiveNaksSent copies value into the native field.
+func (b RM_RECEIVER_STATS) SetTotalSelectiveNaksSent(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSTotalSelectiveNaksSentOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTotalParityNaksSent returns a copy of the native field value.
+func (b RM_RECEIVER_STATS) GetTotalParityNaksSent() uint64 {
+	offset := uintptr(RM_RECEIVER_STATSTotalParityNaksSentOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalParityNaksSent copies value into the native field.
+func (b RM_RECEIVER_STATS) SetTotalParityNaksSent(value uint64) {
+	offset := uintptr(RM_RECEIVER_STATSTotalParityNaksSentOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// RM_SENDER_STATS is a view of native Windows.Win32.Networking.WinSock.RM_SENDER_STATS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/wsrm/ns-wsrm-rm_sender_stats.
+type RM_SENDER_STATS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	RM_SENDER_STATSSize                         = 104
+	RM_SENDER_STATSAlignment                    = 8
+	RM_SENDER_STATSDataBytesSentOffset          = 0
+	RM_SENDER_STATSTotalBytesSentOffset         = 8
+	RM_SENDER_STATSNaksReceivedOffset           = 16
+	RM_SENDER_STATSNaksReceivedTooLateOffset    = 24
+	RM_SENDER_STATSNumOutstandingNaksOffset     = 32
+	RM_SENDER_STATSNumNaksAfterRDataOffset      = 40
+	RM_SENDER_STATSRepairPacketsSentOffset      = 48
+	RM_SENDER_STATSBufferSpaceAvailableOffset   = 56
+	RM_SENDER_STATSTrailingEdgeSeqIdOffset      = 64
+	RM_SENDER_STATSLeadingEdgeSeqIdOffset       = 72
+	RM_SENDER_STATSRateKBitsPerSecOverallOffset = 80
+	RM_SENDER_STATSRateKBitsPerSecLastOffset    = 88
+	RM_SENDER_STATSTotalODataPacketsSentOffset  = 96
+)
+
+// NewRM_SENDER_STATS allocates zeroed, aligned native storage.
+func NewRM_SENDER_STATS() RM_SENDER_STATS {
+	return RM_SENDER_STATS{data: nativebuffer.New(int(RM_SENDER_STATSSize), uintptr(RM_SENDER_STATSAlignment))}
+}
+
+// ViewRM_SENDER_STATS shares data without copying. It panics if data is shorter than RM_SENDER_STATSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewRM_SENDER_STATS(data []byte) RM_SENDER_STATS {
+	return RM_SENDER_STATS{data: nativebuffer.View(data, int(RM_SENDER_STATSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b RM_SENDER_STATS) Bytes() []byte {
+	return b.data[:RM_SENDER_STATSSize:RM_SENDER_STATSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b RM_SENDER_STATS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(RM_SENDER_STATSAlignment))
+}
+
+// GetDataBytesSent returns a copy of the native field value.
+func (b RM_SENDER_STATS) GetDataBytesSent() uint64 {
+	offset := uintptr(RM_SENDER_STATSDataBytesSentOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetDataBytesSent copies value into the native field.
+func (b RM_SENDER_STATS) SetDataBytesSent(value uint64) {
+	offset := uintptr(RM_SENDER_STATSDataBytesSentOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTotalBytesSent returns a copy of the native field value.
+func (b RM_SENDER_STATS) GetTotalBytesSent() uint64 {
+	offset := uintptr(RM_SENDER_STATSTotalBytesSentOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalBytesSent copies value into the native field.
+func (b RM_SENDER_STATS) SetTotalBytesSent(value uint64) {
+	offset := uintptr(RM_SENDER_STATSTotalBytesSentOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNaksReceived returns a copy of the native field value.
+func (b RM_SENDER_STATS) GetNaksReceived() uint64 {
+	offset := uintptr(RM_SENDER_STATSNaksReceivedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNaksReceived copies value into the native field.
+func (b RM_SENDER_STATS) SetNaksReceived(value uint64) {
+	offset := uintptr(RM_SENDER_STATSNaksReceivedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNaksReceivedTooLate returns a copy of the native field value.
+func (b RM_SENDER_STATS) GetNaksReceivedTooLate() uint64 {
+	offset := uintptr(RM_SENDER_STATSNaksReceivedTooLateOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNaksReceivedTooLate copies value into the native field.
+func (b RM_SENDER_STATS) SetNaksReceivedTooLate(value uint64) {
+	offset := uintptr(RM_SENDER_STATSNaksReceivedTooLateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumOutstandingNaks returns a copy of the native field value.
+func (b RM_SENDER_STATS) GetNumOutstandingNaks() uint64 {
+	offset := uintptr(RM_SENDER_STATSNumOutstandingNaksOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumOutstandingNaks copies value into the native field.
+func (b RM_SENDER_STATS) SetNumOutstandingNaks(value uint64) {
+	offset := uintptr(RM_SENDER_STATSNumOutstandingNaksOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumNaksAfterRData returns a copy of the native field value.
+func (b RM_SENDER_STATS) GetNumNaksAfterRData() uint64 {
+	offset := uintptr(RM_SENDER_STATSNumNaksAfterRDataOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumNaksAfterRData copies value into the native field.
+func (b RM_SENDER_STATS) SetNumNaksAfterRData(value uint64) {
+	offset := uintptr(RM_SENDER_STATSNumNaksAfterRDataOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetRepairPacketsSent returns a copy of the native field value.
+func (b RM_SENDER_STATS) GetRepairPacketsSent() uint64 {
+	offset := uintptr(RM_SENDER_STATSRepairPacketsSentOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetRepairPacketsSent copies value into the native field.
+func (b RM_SENDER_STATS) SetRepairPacketsSent(value uint64) {
+	offset := uintptr(RM_SENDER_STATSRepairPacketsSentOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBufferSpaceAvailable returns a copy of the native field value.
+func (b RM_SENDER_STATS) GetBufferSpaceAvailable() uint64 {
+	offset := uintptr(RM_SENDER_STATSBufferSpaceAvailableOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBufferSpaceAvailable copies value into the native field.
+func (b RM_SENDER_STATS) SetBufferSpaceAvailable(value uint64) {
+	offset := uintptr(RM_SENDER_STATSBufferSpaceAvailableOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTrailingEdgeSeqId returns a copy of the native field value.
+func (b RM_SENDER_STATS) GetTrailingEdgeSeqId() uint64 {
+	offset := uintptr(RM_SENDER_STATSTrailingEdgeSeqIdOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTrailingEdgeSeqId copies value into the native field.
+func (b RM_SENDER_STATS) SetTrailingEdgeSeqId(value uint64) {
+	offset := uintptr(RM_SENDER_STATSTrailingEdgeSeqIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLeadingEdgeSeqId returns a copy of the native field value.
+func (b RM_SENDER_STATS) GetLeadingEdgeSeqId() uint64 {
+	offset := uintptr(RM_SENDER_STATSLeadingEdgeSeqIdOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLeadingEdgeSeqId copies value into the native field.
+func (b RM_SENDER_STATS) SetLeadingEdgeSeqId(value uint64) {
+	offset := uintptr(RM_SENDER_STATSLeadingEdgeSeqIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetRateKBitsPerSecOverall returns a copy of the native field value.
+func (b RM_SENDER_STATS) GetRateKBitsPerSecOverall() uint64 {
+	offset := uintptr(RM_SENDER_STATSRateKBitsPerSecOverallOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetRateKBitsPerSecOverall copies value into the native field.
+func (b RM_SENDER_STATS) SetRateKBitsPerSecOverall(value uint64) {
+	offset := uintptr(RM_SENDER_STATSRateKBitsPerSecOverallOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetRateKBitsPerSecLast returns a copy of the native field value.
+func (b RM_SENDER_STATS) GetRateKBitsPerSecLast() uint64 {
+	offset := uintptr(RM_SENDER_STATSRateKBitsPerSecLastOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetRateKBitsPerSecLast copies value into the native field.
+func (b RM_SENDER_STATS) SetRateKBitsPerSecLast(value uint64) {
+	offset := uintptr(RM_SENDER_STATSRateKBitsPerSecLastOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTotalODataPacketsSent returns a copy of the native field value.
+func (b RM_SENDER_STATS) GetTotalODataPacketsSent() uint64 {
+	offset := uintptr(RM_SENDER_STATSTotalODataPacketsSentOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalODataPacketsSent copies value into the native field.
+func (b RM_SENDER_STATS) SetTotalODataPacketsSent(value uint64) {
+	offset := uintptr(RM_SENDER_STATSTotalODataPacketsSentOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // RM_SEND_WINDOW projects Windows.Win32.Networking.WinSock.RM_SEND_WINDOW.
@@ -597,6 +1498,96 @@ type SOCKET_PRIORITY_HINT int32
 // See https://learn.microsoft.com/windows/win32/api/mstcpip/ne-mstcpip-socket_security_protocol.
 type SOCKET_SECURITY_PROTOCOL int32
 
+// SOCKET_SECURITY_QUERY_INFO is a view of native Windows.Win32.Networking.WinSock.SOCKET_SECURITY_QUERY_INFO storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-socket_security_query_info.
+type SOCKET_SECURITY_QUERY_INFO struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SOCKET_SECURITY_QUERY_INFOSize                                   = 24
+	SOCKET_SECURITY_QUERY_INFOAlignment                              = 8
+	SOCKET_SECURITY_QUERY_INFOSecurityProtocolOffset                 = 0
+	SOCKET_SECURITY_QUERY_INFOFlagsOffset                            = 4
+	SOCKET_SECURITY_QUERY_INFOPeerApplicationAccessTokenHandleOffset = 8
+	SOCKET_SECURITY_QUERY_INFOPeerMachineAccessTokenHandleOffset     = 16
+)
+
+// NewSOCKET_SECURITY_QUERY_INFO allocates zeroed, aligned native storage.
+func NewSOCKET_SECURITY_QUERY_INFO() SOCKET_SECURITY_QUERY_INFO {
+	return SOCKET_SECURITY_QUERY_INFO{data: nativebuffer.New(int(SOCKET_SECURITY_QUERY_INFOSize), uintptr(SOCKET_SECURITY_QUERY_INFOAlignment))}
+}
+
+// ViewSOCKET_SECURITY_QUERY_INFO shares data without copying. It panics if data is shorter than SOCKET_SECURITY_QUERY_INFOSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSOCKET_SECURITY_QUERY_INFO(data []byte) SOCKET_SECURITY_QUERY_INFO {
+	return SOCKET_SECURITY_QUERY_INFO{data: nativebuffer.View(data, int(SOCKET_SECURITY_QUERY_INFOSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SOCKET_SECURITY_QUERY_INFO) Bytes() []byte {
+	return b.data[:SOCKET_SECURITY_QUERY_INFOSize:SOCKET_SECURITY_QUERY_INFOSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SOCKET_SECURITY_QUERY_INFO) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SOCKET_SECURITY_QUERY_INFOAlignment))
+}
+
+// GetSecurityProtocol returns a copy of the native field value.
+func (b SOCKET_SECURITY_QUERY_INFO) GetSecurityProtocol() SOCKET_SECURITY_PROTOCOL {
+	offset := uintptr(SOCKET_SECURITY_QUERY_INFOSecurityProtocolOffset)
+
+	return nativebuffer.Read[SOCKET_SECURITY_PROTOCOL](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSecurityProtocol copies value into the native field.
+func (b SOCKET_SECURITY_QUERY_INFO) SetSecurityProtocol(value SOCKET_SECURITY_PROTOCOL) {
+	offset := uintptr(SOCKET_SECURITY_QUERY_INFOSecurityProtocolOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b SOCKET_SECURITY_QUERY_INFO) GetFlags() uint32 {
+	offset := uintptr(SOCKET_SECURITY_QUERY_INFOFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b SOCKET_SECURITY_QUERY_INFO) SetFlags(value uint32) {
+	offset := uintptr(SOCKET_SECURITY_QUERY_INFOFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPeerApplicationAccessTokenHandle returns a copy of the native field value.
+func (b SOCKET_SECURITY_QUERY_INFO) GetPeerApplicationAccessTokenHandle() uint64 {
+	offset := uintptr(SOCKET_SECURITY_QUERY_INFOPeerApplicationAccessTokenHandleOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPeerApplicationAccessTokenHandle copies value into the native field.
+func (b SOCKET_SECURITY_QUERY_INFO) SetPeerApplicationAccessTokenHandle(value uint64) {
+	offset := uintptr(SOCKET_SECURITY_QUERY_INFOPeerApplicationAccessTokenHandleOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetPeerMachineAccessTokenHandle returns a copy of the native field value.
+func (b SOCKET_SECURITY_QUERY_INFO) GetPeerMachineAccessTokenHandle() uint64 {
+	offset := uintptr(SOCKET_SECURITY_QUERY_INFOPeerMachineAccessTokenHandleOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPeerMachineAccessTokenHandle copies value into the native field.
+func (b SOCKET_SECURITY_QUERY_INFO) SetPeerMachineAccessTokenHandle(value uint64) {
+	offset := uintptr(SOCKET_SECURITY_QUERY_INFOPeerMachineAccessTokenHandleOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // SOCKET_SECURITY_SETTINGS projects Windows.Win32.Networking.WinSock.SOCKET_SECURITY_SETTINGS.
 // See https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-socket_security_settings.
 type SOCKET_SECURITY_SETTINGS struct {
@@ -621,6 +1612,1213 @@ type TCP_ICW_PARAMETERS struct {
 	Level TCP_ICW_LEVEL
 }
 
+// TCP_INFO_v0 is a view of native Windows.Win32.Networking.WinSock.TCP_INFO_v0 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-tcp_info_v0.
+type TCP_INFO_v0 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	TCP_INFO_v0Size                    = 88
+	TCP_INFO_v0Alignment               = 8
+	TCP_INFO_v0StateOffset             = 0
+	TCP_INFO_v0MssOffset               = 4
+	TCP_INFO_v0ConnectionTimeMsOffset  = 8
+	TCP_INFO_v0TimestampsEnabledOffset = 16
+	TCP_INFO_v0RttUsOffset             = 20
+	TCP_INFO_v0MinRttUsOffset          = 24
+	TCP_INFO_v0BytesInFlightOffset     = 28
+	TCP_INFO_v0CwndOffset              = 32
+	TCP_INFO_v0SndWndOffset            = 36
+	TCP_INFO_v0RcvWndOffset            = 40
+	TCP_INFO_v0RcvBufOffset            = 44
+	TCP_INFO_v0BytesOutOffset          = 48
+	TCP_INFO_v0BytesInOffset           = 56
+	TCP_INFO_v0BytesReorderedOffset    = 64
+	TCP_INFO_v0BytesRetransOffset      = 68
+	TCP_INFO_v0FastRetransOffset       = 72
+	TCP_INFO_v0DupAcksInOffset         = 76
+	TCP_INFO_v0TimeoutEpisodesOffset   = 80
+	TCP_INFO_v0SynRetransOffset        = 84
+)
+
+// NewTCP_INFO_v0 allocates zeroed, aligned native storage.
+func NewTCP_INFO_v0() TCP_INFO_v0 {
+	return TCP_INFO_v0{data: nativebuffer.New(int(TCP_INFO_v0Size), uintptr(TCP_INFO_v0Alignment))}
+}
+
+// ViewTCP_INFO_v0 shares data without copying. It panics if data is shorter than TCP_INFO_v0Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewTCP_INFO_v0(data []byte) TCP_INFO_v0 {
+	return TCP_INFO_v0{data: nativebuffer.View(data, int(TCP_INFO_v0Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b TCP_INFO_v0) Bytes() []byte {
+	return b.data[:TCP_INFO_v0Size:TCP_INFO_v0Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b TCP_INFO_v0) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(TCP_INFO_v0Alignment))
+}
+
+// GetState returns a copy of the native field value.
+func (b TCP_INFO_v0) GetState() TCPSTATE {
+	offset := uintptr(TCP_INFO_v0StateOffset)
+
+	return nativebuffer.Read[TCPSTATE](b.Bytes()[offset : offset+(4)])
+}
+
+// SetState copies value into the native field.
+func (b TCP_INFO_v0) SetState(value TCPSTATE) {
+	offset := uintptr(TCP_INFO_v0StateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMss returns a copy of the native field value.
+func (b TCP_INFO_v0) GetMss() uint32 {
+	offset := uintptr(TCP_INFO_v0MssOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMss copies value into the native field.
+func (b TCP_INFO_v0) SetMss(value uint32) {
+	offset := uintptr(TCP_INFO_v0MssOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetConnectionTimeMs returns a copy of the native field value.
+func (b TCP_INFO_v0) GetConnectionTimeMs() uint64 {
+	offset := uintptr(TCP_INFO_v0ConnectionTimeMsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetConnectionTimeMs copies value into the native field.
+func (b TCP_INFO_v0) SetConnectionTimeMs(value uint64) {
+	offset := uintptr(TCP_INFO_v0ConnectionTimeMsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTimestampsEnabled returns a copy of the native field value.
+func (b TCP_INFO_v0) GetTimestampsEnabled() foundation.BOOLEAN {
+	offset := uintptr(TCP_INFO_v0TimestampsEnabledOffset)
+
+	return nativebuffer.Read[foundation.BOOLEAN](b.Bytes()[offset : offset+(1)])
+}
+
+// SetTimestampsEnabled copies value into the native field.
+func (b TCP_INFO_v0) SetTimestampsEnabled(value foundation.BOOLEAN) {
+	offset := uintptr(TCP_INFO_v0TimestampsEnabledOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetRttUs returns a copy of the native field value.
+func (b TCP_INFO_v0) GetRttUs() uint32 {
+	offset := uintptr(TCP_INFO_v0RttUsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRttUs copies value into the native field.
+func (b TCP_INFO_v0) SetRttUs(value uint32) {
+	offset := uintptr(TCP_INFO_v0RttUsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMinRttUs returns a copy of the native field value.
+func (b TCP_INFO_v0) GetMinRttUs() uint32 {
+	offset := uintptr(TCP_INFO_v0MinRttUsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMinRttUs copies value into the native field.
+func (b TCP_INFO_v0) SetMinRttUs(value uint32) {
+	offset := uintptr(TCP_INFO_v0MinRttUsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesInFlight returns a copy of the native field value.
+func (b TCP_INFO_v0) GetBytesInFlight() uint32 {
+	offset := uintptr(TCP_INFO_v0BytesInFlightOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesInFlight copies value into the native field.
+func (b TCP_INFO_v0) SetBytesInFlight(value uint32) {
+	offset := uintptr(TCP_INFO_v0BytesInFlightOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCwnd returns a copy of the native field value.
+func (b TCP_INFO_v0) GetCwnd() uint32 {
+	offset := uintptr(TCP_INFO_v0CwndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCwnd copies value into the native field.
+func (b TCP_INFO_v0) SetCwnd(value uint32) {
+	offset := uintptr(TCP_INFO_v0CwndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSndWnd returns a copy of the native field value.
+func (b TCP_INFO_v0) GetSndWnd() uint32 {
+	offset := uintptr(TCP_INFO_v0SndWndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSndWnd copies value into the native field.
+func (b TCP_INFO_v0) SetSndWnd(value uint32) {
+	offset := uintptr(TCP_INFO_v0SndWndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRcvWnd returns a copy of the native field value.
+func (b TCP_INFO_v0) GetRcvWnd() uint32 {
+	offset := uintptr(TCP_INFO_v0RcvWndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRcvWnd copies value into the native field.
+func (b TCP_INFO_v0) SetRcvWnd(value uint32) {
+	offset := uintptr(TCP_INFO_v0RcvWndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRcvBuf returns a copy of the native field value.
+func (b TCP_INFO_v0) GetRcvBuf() uint32 {
+	offset := uintptr(TCP_INFO_v0RcvBufOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRcvBuf copies value into the native field.
+func (b TCP_INFO_v0) SetRcvBuf(value uint32) {
+	offset := uintptr(TCP_INFO_v0RcvBufOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesOut returns a copy of the native field value.
+func (b TCP_INFO_v0) GetBytesOut() uint64 {
+	offset := uintptr(TCP_INFO_v0BytesOutOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesOut copies value into the native field.
+func (b TCP_INFO_v0) SetBytesOut(value uint64) {
+	offset := uintptr(TCP_INFO_v0BytesOutOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBytesIn returns a copy of the native field value.
+func (b TCP_INFO_v0) GetBytesIn() uint64 {
+	offset := uintptr(TCP_INFO_v0BytesInOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesIn copies value into the native field.
+func (b TCP_INFO_v0) SetBytesIn(value uint64) {
+	offset := uintptr(TCP_INFO_v0BytesInOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBytesReordered returns a copy of the native field value.
+func (b TCP_INFO_v0) GetBytesReordered() uint32 {
+	offset := uintptr(TCP_INFO_v0BytesReorderedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesReordered copies value into the native field.
+func (b TCP_INFO_v0) SetBytesReordered(value uint32) {
+	offset := uintptr(TCP_INFO_v0BytesReorderedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesRetrans returns a copy of the native field value.
+func (b TCP_INFO_v0) GetBytesRetrans() uint32 {
+	offset := uintptr(TCP_INFO_v0BytesRetransOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesRetrans copies value into the native field.
+func (b TCP_INFO_v0) SetBytesRetrans(value uint32) {
+	offset := uintptr(TCP_INFO_v0BytesRetransOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFastRetrans returns a copy of the native field value.
+func (b TCP_INFO_v0) GetFastRetrans() uint32 {
+	offset := uintptr(TCP_INFO_v0FastRetransOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFastRetrans copies value into the native field.
+func (b TCP_INFO_v0) SetFastRetrans(value uint32) {
+	offset := uintptr(TCP_INFO_v0FastRetransOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDupAcksIn returns a copy of the native field value.
+func (b TCP_INFO_v0) GetDupAcksIn() uint32 {
+	offset := uintptr(TCP_INFO_v0DupAcksInOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDupAcksIn copies value into the native field.
+func (b TCP_INFO_v0) SetDupAcksIn(value uint32) {
+	offset := uintptr(TCP_INFO_v0DupAcksInOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTimeoutEpisodes returns a copy of the native field value.
+func (b TCP_INFO_v0) GetTimeoutEpisodes() uint32 {
+	offset := uintptr(TCP_INFO_v0TimeoutEpisodesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTimeoutEpisodes copies value into the native field.
+func (b TCP_INFO_v0) SetTimeoutEpisodes(value uint32) {
+	offset := uintptr(TCP_INFO_v0TimeoutEpisodesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSynRetrans returns a copy of the native field value.
+func (b TCP_INFO_v0) GetSynRetrans() uint8 {
+	offset := uintptr(TCP_INFO_v0SynRetransOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetSynRetrans copies value into the native field.
+func (b TCP_INFO_v0) SetSynRetrans(value uint8) {
+	offset := uintptr(TCP_INFO_v0SynRetransOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// TCP_INFO_v1 is a view of native Windows.Win32.Networking.WinSock.TCP_INFO_v1 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-tcp_info_v1.
+type TCP_INFO_v1 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	TCP_INFO_v1Size                    = 136
+	TCP_INFO_v1Alignment               = 8
+	TCP_INFO_v1StateOffset             = 0
+	TCP_INFO_v1MssOffset               = 4
+	TCP_INFO_v1ConnectionTimeMsOffset  = 8
+	TCP_INFO_v1TimestampsEnabledOffset = 16
+	TCP_INFO_v1RttUsOffset             = 20
+	TCP_INFO_v1MinRttUsOffset          = 24
+	TCP_INFO_v1BytesInFlightOffset     = 28
+	TCP_INFO_v1CwndOffset              = 32
+	TCP_INFO_v1SndWndOffset            = 36
+	TCP_INFO_v1RcvWndOffset            = 40
+	TCP_INFO_v1RcvBufOffset            = 44
+	TCP_INFO_v1BytesOutOffset          = 48
+	TCP_INFO_v1BytesInOffset           = 56
+	TCP_INFO_v1BytesReorderedOffset    = 64
+	TCP_INFO_v1BytesRetransOffset      = 68
+	TCP_INFO_v1FastRetransOffset       = 72
+	TCP_INFO_v1DupAcksInOffset         = 76
+	TCP_INFO_v1TimeoutEpisodesOffset   = 80
+	TCP_INFO_v1SynRetransOffset        = 84
+	TCP_INFO_v1SndLimTransRwinOffset   = 88
+	TCP_INFO_v1SndLimTimeRwinOffset    = 92
+	TCP_INFO_v1SndLimBytesRwinOffset   = 96
+	TCP_INFO_v1SndLimTransCwndOffset   = 104
+	TCP_INFO_v1SndLimTimeCwndOffset    = 108
+	TCP_INFO_v1SndLimBytesCwndOffset   = 112
+	TCP_INFO_v1SndLimTransSndOffset    = 120
+	TCP_INFO_v1SndLimTimeSndOffset     = 124
+	TCP_INFO_v1SndLimBytesSndOffset    = 128
+)
+
+// NewTCP_INFO_v1 allocates zeroed, aligned native storage.
+func NewTCP_INFO_v1() TCP_INFO_v1 {
+	return TCP_INFO_v1{data: nativebuffer.New(int(TCP_INFO_v1Size), uintptr(TCP_INFO_v1Alignment))}
+}
+
+// ViewTCP_INFO_v1 shares data without copying. It panics if data is shorter than TCP_INFO_v1Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewTCP_INFO_v1(data []byte) TCP_INFO_v1 {
+	return TCP_INFO_v1{data: nativebuffer.View(data, int(TCP_INFO_v1Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b TCP_INFO_v1) Bytes() []byte {
+	return b.data[:TCP_INFO_v1Size:TCP_INFO_v1Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b TCP_INFO_v1) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(TCP_INFO_v1Alignment))
+}
+
+// GetState returns a copy of the native field value.
+func (b TCP_INFO_v1) GetState() TCPSTATE {
+	offset := uintptr(TCP_INFO_v1StateOffset)
+
+	return nativebuffer.Read[TCPSTATE](b.Bytes()[offset : offset+(4)])
+}
+
+// SetState copies value into the native field.
+func (b TCP_INFO_v1) SetState(value TCPSTATE) {
+	offset := uintptr(TCP_INFO_v1StateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMss returns a copy of the native field value.
+func (b TCP_INFO_v1) GetMss() uint32 {
+	offset := uintptr(TCP_INFO_v1MssOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMss copies value into the native field.
+func (b TCP_INFO_v1) SetMss(value uint32) {
+	offset := uintptr(TCP_INFO_v1MssOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetConnectionTimeMs returns a copy of the native field value.
+func (b TCP_INFO_v1) GetConnectionTimeMs() uint64 {
+	offset := uintptr(TCP_INFO_v1ConnectionTimeMsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetConnectionTimeMs copies value into the native field.
+func (b TCP_INFO_v1) SetConnectionTimeMs(value uint64) {
+	offset := uintptr(TCP_INFO_v1ConnectionTimeMsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTimestampsEnabled returns a copy of the native field value.
+func (b TCP_INFO_v1) GetTimestampsEnabled() foundation.BOOLEAN {
+	offset := uintptr(TCP_INFO_v1TimestampsEnabledOffset)
+
+	return nativebuffer.Read[foundation.BOOLEAN](b.Bytes()[offset : offset+(1)])
+}
+
+// SetTimestampsEnabled copies value into the native field.
+func (b TCP_INFO_v1) SetTimestampsEnabled(value foundation.BOOLEAN) {
+	offset := uintptr(TCP_INFO_v1TimestampsEnabledOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetRttUs returns a copy of the native field value.
+func (b TCP_INFO_v1) GetRttUs() uint32 {
+	offset := uintptr(TCP_INFO_v1RttUsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRttUs copies value into the native field.
+func (b TCP_INFO_v1) SetRttUs(value uint32) {
+	offset := uintptr(TCP_INFO_v1RttUsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMinRttUs returns a copy of the native field value.
+func (b TCP_INFO_v1) GetMinRttUs() uint32 {
+	offset := uintptr(TCP_INFO_v1MinRttUsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMinRttUs copies value into the native field.
+func (b TCP_INFO_v1) SetMinRttUs(value uint32) {
+	offset := uintptr(TCP_INFO_v1MinRttUsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesInFlight returns a copy of the native field value.
+func (b TCP_INFO_v1) GetBytesInFlight() uint32 {
+	offset := uintptr(TCP_INFO_v1BytesInFlightOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesInFlight copies value into the native field.
+func (b TCP_INFO_v1) SetBytesInFlight(value uint32) {
+	offset := uintptr(TCP_INFO_v1BytesInFlightOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCwnd returns a copy of the native field value.
+func (b TCP_INFO_v1) GetCwnd() uint32 {
+	offset := uintptr(TCP_INFO_v1CwndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCwnd copies value into the native field.
+func (b TCP_INFO_v1) SetCwnd(value uint32) {
+	offset := uintptr(TCP_INFO_v1CwndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSndWnd returns a copy of the native field value.
+func (b TCP_INFO_v1) GetSndWnd() uint32 {
+	offset := uintptr(TCP_INFO_v1SndWndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSndWnd copies value into the native field.
+func (b TCP_INFO_v1) SetSndWnd(value uint32) {
+	offset := uintptr(TCP_INFO_v1SndWndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRcvWnd returns a copy of the native field value.
+func (b TCP_INFO_v1) GetRcvWnd() uint32 {
+	offset := uintptr(TCP_INFO_v1RcvWndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRcvWnd copies value into the native field.
+func (b TCP_INFO_v1) SetRcvWnd(value uint32) {
+	offset := uintptr(TCP_INFO_v1RcvWndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRcvBuf returns a copy of the native field value.
+func (b TCP_INFO_v1) GetRcvBuf() uint32 {
+	offset := uintptr(TCP_INFO_v1RcvBufOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRcvBuf copies value into the native field.
+func (b TCP_INFO_v1) SetRcvBuf(value uint32) {
+	offset := uintptr(TCP_INFO_v1RcvBufOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesOut returns a copy of the native field value.
+func (b TCP_INFO_v1) GetBytesOut() uint64 {
+	offset := uintptr(TCP_INFO_v1BytesOutOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesOut copies value into the native field.
+func (b TCP_INFO_v1) SetBytesOut(value uint64) {
+	offset := uintptr(TCP_INFO_v1BytesOutOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBytesIn returns a copy of the native field value.
+func (b TCP_INFO_v1) GetBytesIn() uint64 {
+	offset := uintptr(TCP_INFO_v1BytesInOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesIn copies value into the native field.
+func (b TCP_INFO_v1) SetBytesIn(value uint64) {
+	offset := uintptr(TCP_INFO_v1BytesInOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBytesReordered returns a copy of the native field value.
+func (b TCP_INFO_v1) GetBytesReordered() uint32 {
+	offset := uintptr(TCP_INFO_v1BytesReorderedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesReordered copies value into the native field.
+func (b TCP_INFO_v1) SetBytesReordered(value uint32) {
+	offset := uintptr(TCP_INFO_v1BytesReorderedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesRetrans returns a copy of the native field value.
+func (b TCP_INFO_v1) GetBytesRetrans() uint32 {
+	offset := uintptr(TCP_INFO_v1BytesRetransOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesRetrans copies value into the native field.
+func (b TCP_INFO_v1) SetBytesRetrans(value uint32) {
+	offset := uintptr(TCP_INFO_v1BytesRetransOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFastRetrans returns a copy of the native field value.
+func (b TCP_INFO_v1) GetFastRetrans() uint32 {
+	offset := uintptr(TCP_INFO_v1FastRetransOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFastRetrans copies value into the native field.
+func (b TCP_INFO_v1) SetFastRetrans(value uint32) {
+	offset := uintptr(TCP_INFO_v1FastRetransOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDupAcksIn returns a copy of the native field value.
+func (b TCP_INFO_v1) GetDupAcksIn() uint32 {
+	offset := uintptr(TCP_INFO_v1DupAcksInOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDupAcksIn copies value into the native field.
+func (b TCP_INFO_v1) SetDupAcksIn(value uint32) {
+	offset := uintptr(TCP_INFO_v1DupAcksInOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTimeoutEpisodes returns a copy of the native field value.
+func (b TCP_INFO_v1) GetTimeoutEpisodes() uint32 {
+	offset := uintptr(TCP_INFO_v1TimeoutEpisodesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTimeoutEpisodes copies value into the native field.
+func (b TCP_INFO_v1) SetTimeoutEpisodes(value uint32) {
+	offset := uintptr(TCP_INFO_v1TimeoutEpisodesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSynRetrans returns a copy of the native field value.
+func (b TCP_INFO_v1) GetSynRetrans() uint8 {
+	offset := uintptr(TCP_INFO_v1SynRetransOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetSynRetrans copies value into the native field.
+func (b TCP_INFO_v1) SetSynRetrans(value uint8) {
+	offset := uintptr(TCP_INFO_v1SynRetransOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetSndLimTransRwin returns a copy of the native field value.
+func (b TCP_INFO_v1) GetSndLimTransRwin() uint32 {
+	offset := uintptr(TCP_INFO_v1SndLimTransRwinOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSndLimTransRwin copies value into the native field.
+func (b TCP_INFO_v1) SetSndLimTransRwin(value uint32) {
+	offset := uintptr(TCP_INFO_v1SndLimTransRwinOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSndLimTimeRwin returns a copy of the native field value.
+func (b TCP_INFO_v1) GetSndLimTimeRwin() uint32 {
+	offset := uintptr(TCP_INFO_v1SndLimTimeRwinOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSndLimTimeRwin copies value into the native field.
+func (b TCP_INFO_v1) SetSndLimTimeRwin(value uint32) {
+	offset := uintptr(TCP_INFO_v1SndLimTimeRwinOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSndLimBytesRwin returns a copy of the native field value.
+func (b TCP_INFO_v1) GetSndLimBytesRwin() uint64 {
+	offset := uintptr(TCP_INFO_v1SndLimBytesRwinOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSndLimBytesRwin copies value into the native field.
+func (b TCP_INFO_v1) SetSndLimBytesRwin(value uint64) {
+	offset := uintptr(TCP_INFO_v1SndLimBytesRwinOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSndLimTransCwnd returns a copy of the native field value.
+func (b TCP_INFO_v1) GetSndLimTransCwnd() uint32 {
+	offset := uintptr(TCP_INFO_v1SndLimTransCwndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSndLimTransCwnd copies value into the native field.
+func (b TCP_INFO_v1) SetSndLimTransCwnd(value uint32) {
+	offset := uintptr(TCP_INFO_v1SndLimTransCwndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSndLimTimeCwnd returns a copy of the native field value.
+func (b TCP_INFO_v1) GetSndLimTimeCwnd() uint32 {
+	offset := uintptr(TCP_INFO_v1SndLimTimeCwndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSndLimTimeCwnd copies value into the native field.
+func (b TCP_INFO_v1) SetSndLimTimeCwnd(value uint32) {
+	offset := uintptr(TCP_INFO_v1SndLimTimeCwndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSndLimBytesCwnd returns a copy of the native field value.
+func (b TCP_INFO_v1) GetSndLimBytesCwnd() uint64 {
+	offset := uintptr(TCP_INFO_v1SndLimBytesCwndOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSndLimBytesCwnd copies value into the native field.
+func (b TCP_INFO_v1) SetSndLimBytesCwnd(value uint64) {
+	offset := uintptr(TCP_INFO_v1SndLimBytesCwndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSndLimTransSnd returns a copy of the native field value.
+func (b TCP_INFO_v1) GetSndLimTransSnd() uint32 {
+	offset := uintptr(TCP_INFO_v1SndLimTransSndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSndLimTransSnd copies value into the native field.
+func (b TCP_INFO_v1) SetSndLimTransSnd(value uint32) {
+	offset := uintptr(TCP_INFO_v1SndLimTransSndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSndLimTimeSnd returns a copy of the native field value.
+func (b TCP_INFO_v1) GetSndLimTimeSnd() uint32 {
+	offset := uintptr(TCP_INFO_v1SndLimTimeSndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSndLimTimeSnd copies value into the native field.
+func (b TCP_INFO_v1) SetSndLimTimeSnd(value uint32) {
+	offset := uintptr(TCP_INFO_v1SndLimTimeSndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSndLimBytesSnd returns a copy of the native field value.
+func (b TCP_INFO_v1) GetSndLimBytesSnd() uint64 {
+	offset := uintptr(TCP_INFO_v1SndLimBytesSndOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSndLimBytesSnd copies value into the native field.
+func (b TCP_INFO_v1) SetSndLimBytesSnd(value uint64) {
+	offset := uintptr(TCP_INFO_v1SndLimBytesSndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// TCP_INFO_v2 is a view of native Windows.Win32.Networking.WinSock.TCP_INFO_v2 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type TCP_INFO_v2 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	TCP_INFO_v2Size                    = 152
+	TCP_INFO_v2Alignment               = 8
+	TCP_INFO_v2StateOffset             = 0
+	TCP_INFO_v2MssOffset               = 4
+	TCP_INFO_v2ConnectionTimeMsOffset  = 8
+	TCP_INFO_v2TimestampsEnabledOffset = 16
+	TCP_INFO_v2RttUsOffset             = 20
+	TCP_INFO_v2MinRttUsOffset          = 24
+	TCP_INFO_v2BytesInFlightOffset     = 28
+	TCP_INFO_v2CwndOffset              = 32
+	TCP_INFO_v2SndWndOffset            = 36
+	TCP_INFO_v2RcvWndOffset            = 40
+	TCP_INFO_v2RcvBufOffset            = 44
+	TCP_INFO_v2BytesOutOffset          = 48
+	TCP_INFO_v2BytesInOffset           = 56
+	TCP_INFO_v2BytesReorderedOffset    = 64
+	TCP_INFO_v2BytesRetransOffset      = 68
+	TCP_INFO_v2FastRetransOffset       = 72
+	TCP_INFO_v2DupAcksInOffset         = 76
+	TCP_INFO_v2TimeoutEpisodesOffset   = 80
+	TCP_INFO_v2SynRetransOffset        = 84
+	TCP_INFO_v2SndLimTransRwinOffset   = 88
+	TCP_INFO_v2SndLimTimeRwinOffset    = 92
+	TCP_INFO_v2SndLimBytesRwinOffset   = 96
+	TCP_INFO_v2SndLimTransCwndOffset   = 104
+	TCP_INFO_v2SndLimTimeCwndOffset    = 108
+	TCP_INFO_v2SndLimBytesCwndOffset   = 112
+	TCP_INFO_v2SndLimTransSndOffset    = 120
+	TCP_INFO_v2SndLimTimeSndOffset     = 124
+	TCP_INFO_v2SndLimBytesSndOffset    = 128
+	TCP_INFO_v2OutOfOrderPktsInOffset  = 136
+	TCP_INFO_v2EcnNegotiatedOffset     = 140
+	TCP_INFO_v2EceAcksInOffset         = 144
+	TCP_INFO_v2PtoEpisodesOffset       = 148
+)
+
+// NewTCP_INFO_v2 allocates zeroed, aligned native storage.
+func NewTCP_INFO_v2() TCP_INFO_v2 {
+	return TCP_INFO_v2{data: nativebuffer.New(int(TCP_INFO_v2Size), uintptr(TCP_INFO_v2Alignment))}
+}
+
+// ViewTCP_INFO_v2 shares data without copying. It panics if data is shorter than TCP_INFO_v2Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewTCP_INFO_v2(data []byte) TCP_INFO_v2 {
+	return TCP_INFO_v2{data: nativebuffer.View(data, int(TCP_INFO_v2Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b TCP_INFO_v2) Bytes() []byte {
+	return b.data[:TCP_INFO_v2Size:TCP_INFO_v2Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b TCP_INFO_v2) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(TCP_INFO_v2Alignment))
+}
+
+// GetState returns a copy of the native field value.
+func (b TCP_INFO_v2) GetState() TCPSTATE {
+	offset := uintptr(TCP_INFO_v2StateOffset)
+
+	return nativebuffer.Read[TCPSTATE](b.Bytes()[offset : offset+(4)])
+}
+
+// SetState copies value into the native field.
+func (b TCP_INFO_v2) SetState(value TCPSTATE) {
+	offset := uintptr(TCP_INFO_v2StateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMss returns a copy of the native field value.
+func (b TCP_INFO_v2) GetMss() uint32 {
+	offset := uintptr(TCP_INFO_v2MssOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMss copies value into the native field.
+func (b TCP_INFO_v2) SetMss(value uint32) {
+	offset := uintptr(TCP_INFO_v2MssOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetConnectionTimeMs returns a copy of the native field value.
+func (b TCP_INFO_v2) GetConnectionTimeMs() uint64 {
+	offset := uintptr(TCP_INFO_v2ConnectionTimeMsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetConnectionTimeMs copies value into the native field.
+func (b TCP_INFO_v2) SetConnectionTimeMs(value uint64) {
+	offset := uintptr(TCP_INFO_v2ConnectionTimeMsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTimestampsEnabled returns a copy of the native field value.
+func (b TCP_INFO_v2) GetTimestampsEnabled() foundation.BOOLEAN {
+	offset := uintptr(TCP_INFO_v2TimestampsEnabledOffset)
+
+	return nativebuffer.Read[foundation.BOOLEAN](b.Bytes()[offset : offset+(1)])
+}
+
+// SetTimestampsEnabled copies value into the native field.
+func (b TCP_INFO_v2) SetTimestampsEnabled(value foundation.BOOLEAN) {
+	offset := uintptr(TCP_INFO_v2TimestampsEnabledOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetRttUs returns a copy of the native field value.
+func (b TCP_INFO_v2) GetRttUs() uint32 {
+	offset := uintptr(TCP_INFO_v2RttUsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRttUs copies value into the native field.
+func (b TCP_INFO_v2) SetRttUs(value uint32) {
+	offset := uintptr(TCP_INFO_v2RttUsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMinRttUs returns a copy of the native field value.
+func (b TCP_INFO_v2) GetMinRttUs() uint32 {
+	offset := uintptr(TCP_INFO_v2MinRttUsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMinRttUs copies value into the native field.
+func (b TCP_INFO_v2) SetMinRttUs(value uint32) {
+	offset := uintptr(TCP_INFO_v2MinRttUsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesInFlight returns a copy of the native field value.
+func (b TCP_INFO_v2) GetBytesInFlight() uint32 {
+	offset := uintptr(TCP_INFO_v2BytesInFlightOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesInFlight copies value into the native field.
+func (b TCP_INFO_v2) SetBytesInFlight(value uint32) {
+	offset := uintptr(TCP_INFO_v2BytesInFlightOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCwnd returns a copy of the native field value.
+func (b TCP_INFO_v2) GetCwnd() uint32 {
+	offset := uintptr(TCP_INFO_v2CwndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCwnd copies value into the native field.
+func (b TCP_INFO_v2) SetCwnd(value uint32) {
+	offset := uintptr(TCP_INFO_v2CwndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSndWnd returns a copy of the native field value.
+func (b TCP_INFO_v2) GetSndWnd() uint32 {
+	offset := uintptr(TCP_INFO_v2SndWndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSndWnd copies value into the native field.
+func (b TCP_INFO_v2) SetSndWnd(value uint32) {
+	offset := uintptr(TCP_INFO_v2SndWndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRcvWnd returns a copy of the native field value.
+func (b TCP_INFO_v2) GetRcvWnd() uint32 {
+	offset := uintptr(TCP_INFO_v2RcvWndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRcvWnd copies value into the native field.
+func (b TCP_INFO_v2) SetRcvWnd(value uint32) {
+	offset := uintptr(TCP_INFO_v2RcvWndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRcvBuf returns a copy of the native field value.
+func (b TCP_INFO_v2) GetRcvBuf() uint32 {
+	offset := uintptr(TCP_INFO_v2RcvBufOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRcvBuf copies value into the native field.
+func (b TCP_INFO_v2) SetRcvBuf(value uint32) {
+	offset := uintptr(TCP_INFO_v2RcvBufOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesOut returns a copy of the native field value.
+func (b TCP_INFO_v2) GetBytesOut() uint64 {
+	offset := uintptr(TCP_INFO_v2BytesOutOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesOut copies value into the native field.
+func (b TCP_INFO_v2) SetBytesOut(value uint64) {
+	offset := uintptr(TCP_INFO_v2BytesOutOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBytesIn returns a copy of the native field value.
+func (b TCP_INFO_v2) GetBytesIn() uint64 {
+	offset := uintptr(TCP_INFO_v2BytesInOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesIn copies value into the native field.
+func (b TCP_INFO_v2) SetBytesIn(value uint64) {
+	offset := uintptr(TCP_INFO_v2BytesInOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBytesReordered returns a copy of the native field value.
+func (b TCP_INFO_v2) GetBytesReordered() uint32 {
+	offset := uintptr(TCP_INFO_v2BytesReorderedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesReordered copies value into the native field.
+func (b TCP_INFO_v2) SetBytesReordered(value uint32) {
+	offset := uintptr(TCP_INFO_v2BytesReorderedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesRetrans returns a copy of the native field value.
+func (b TCP_INFO_v2) GetBytesRetrans() uint32 {
+	offset := uintptr(TCP_INFO_v2BytesRetransOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesRetrans copies value into the native field.
+func (b TCP_INFO_v2) SetBytesRetrans(value uint32) {
+	offset := uintptr(TCP_INFO_v2BytesRetransOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFastRetrans returns a copy of the native field value.
+func (b TCP_INFO_v2) GetFastRetrans() uint32 {
+	offset := uintptr(TCP_INFO_v2FastRetransOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFastRetrans copies value into the native field.
+func (b TCP_INFO_v2) SetFastRetrans(value uint32) {
+	offset := uintptr(TCP_INFO_v2FastRetransOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDupAcksIn returns a copy of the native field value.
+func (b TCP_INFO_v2) GetDupAcksIn() uint32 {
+	offset := uintptr(TCP_INFO_v2DupAcksInOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDupAcksIn copies value into the native field.
+func (b TCP_INFO_v2) SetDupAcksIn(value uint32) {
+	offset := uintptr(TCP_INFO_v2DupAcksInOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTimeoutEpisodes returns a copy of the native field value.
+func (b TCP_INFO_v2) GetTimeoutEpisodes() uint32 {
+	offset := uintptr(TCP_INFO_v2TimeoutEpisodesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTimeoutEpisodes copies value into the native field.
+func (b TCP_INFO_v2) SetTimeoutEpisodes(value uint32) {
+	offset := uintptr(TCP_INFO_v2TimeoutEpisodesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSynRetrans returns a copy of the native field value.
+func (b TCP_INFO_v2) GetSynRetrans() uint8 {
+	offset := uintptr(TCP_INFO_v2SynRetransOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetSynRetrans copies value into the native field.
+func (b TCP_INFO_v2) SetSynRetrans(value uint8) {
+	offset := uintptr(TCP_INFO_v2SynRetransOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetSndLimTransRwin returns a copy of the native field value.
+func (b TCP_INFO_v2) GetSndLimTransRwin() uint32 {
+	offset := uintptr(TCP_INFO_v2SndLimTransRwinOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSndLimTransRwin copies value into the native field.
+func (b TCP_INFO_v2) SetSndLimTransRwin(value uint32) {
+	offset := uintptr(TCP_INFO_v2SndLimTransRwinOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSndLimTimeRwin returns a copy of the native field value.
+func (b TCP_INFO_v2) GetSndLimTimeRwin() uint32 {
+	offset := uintptr(TCP_INFO_v2SndLimTimeRwinOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSndLimTimeRwin copies value into the native field.
+func (b TCP_INFO_v2) SetSndLimTimeRwin(value uint32) {
+	offset := uintptr(TCP_INFO_v2SndLimTimeRwinOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSndLimBytesRwin returns a copy of the native field value.
+func (b TCP_INFO_v2) GetSndLimBytesRwin() uint64 {
+	offset := uintptr(TCP_INFO_v2SndLimBytesRwinOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSndLimBytesRwin copies value into the native field.
+func (b TCP_INFO_v2) SetSndLimBytesRwin(value uint64) {
+	offset := uintptr(TCP_INFO_v2SndLimBytesRwinOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSndLimTransCwnd returns a copy of the native field value.
+func (b TCP_INFO_v2) GetSndLimTransCwnd() uint32 {
+	offset := uintptr(TCP_INFO_v2SndLimTransCwndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSndLimTransCwnd copies value into the native field.
+func (b TCP_INFO_v2) SetSndLimTransCwnd(value uint32) {
+	offset := uintptr(TCP_INFO_v2SndLimTransCwndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSndLimTimeCwnd returns a copy of the native field value.
+func (b TCP_INFO_v2) GetSndLimTimeCwnd() uint32 {
+	offset := uintptr(TCP_INFO_v2SndLimTimeCwndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSndLimTimeCwnd copies value into the native field.
+func (b TCP_INFO_v2) SetSndLimTimeCwnd(value uint32) {
+	offset := uintptr(TCP_INFO_v2SndLimTimeCwndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSndLimBytesCwnd returns a copy of the native field value.
+func (b TCP_INFO_v2) GetSndLimBytesCwnd() uint64 {
+	offset := uintptr(TCP_INFO_v2SndLimBytesCwndOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSndLimBytesCwnd copies value into the native field.
+func (b TCP_INFO_v2) SetSndLimBytesCwnd(value uint64) {
+	offset := uintptr(TCP_INFO_v2SndLimBytesCwndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSndLimTransSnd returns a copy of the native field value.
+func (b TCP_INFO_v2) GetSndLimTransSnd() uint32 {
+	offset := uintptr(TCP_INFO_v2SndLimTransSndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSndLimTransSnd copies value into the native field.
+func (b TCP_INFO_v2) SetSndLimTransSnd(value uint32) {
+	offset := uintptr(TCP_INFO_v2SndLimTransSndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSndLimTimeSnd returns a copy of the native field value.
+func (b TCP_INFO_v2) GetSndLimTimeSnd() uint32 {
+	offset := uintptr(TCP_INFO_v2SndLimTimeSndOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSndLimTimeSnd copies value into the native field.
+func (b TCP_INFO_v2) SetSndLimTimeSnd(value uint32) {
+	offset := uintptr(TCP_INFO_v2SndLimTimeSndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSndLimBytesSnd returns a copy of the native field value.
+func (b TCP_INFO_v2) GetSndLimBytesSnd() uint64 {
+	offset := uintptr(TCP_INFO_v2SndLimBytesSndOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSndLimBytesSnd copies value into the native field.
+func (b TCP_INFO_v2) SetSndLimBytesSnd(value uint64) {
+	offset := uintptr(TCP_INFO_v2SndLimBytesSndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetOutOfOrderPktsIn returns a copy of the native field value.
+func (b TCP_INFO_v2) GetOutOfOrderPktsIn() uint32 {
+	offset := uintptr(TCP_INFO_v2OutOfOrderPktsInOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetOutOfOrderPktsIn copies value into the native field.
+func (b TCP_INFO_v2) SetOutOfOrderPktsIn(value uint32) {
+	offset := uintptr(TCP_INFO_v2OutOfOrderPktsInOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetEcnNegotiated returns a copy of the native field value.
+func (b TCP_INFO_v2) GetEcnNegotiated() foundation.BOOLEAN {
+	offset := uintptr(TCP_INFO_v2EcnNegotiatedOffset)
+
+	return nativebuffer.Read[foundation.BOOLEAN](b.Bytes()[offset : offset+(1)])
+}
+
+// SetEcnNegotiated copies value into the native field.
+func (b TCP_INFO_v2) SetEcnNegotiated(value foundation.BOOLEAN) {
+	offset := uintptr(TCP_INFO_v2EcnNegotiatedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetEceAcksIn returns a copy of the native field value.
+func (b TCP_INFO_v2) GetEceAcksIn() uint32 {
+	offset := uintptr(TCP_INFO_v2EceAcksInOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetEceAcksIn copies value into the native field.
+func (b TCP_INFO_v2) SetEceAcksIn(value uint32) {
+	offset := uintptr(TCP_INFO_v2EceAcksInOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPtoEpisodes returns a copy of the native field value.
+func (b TCP_INFO_v2) GetPtoEpisodes() uint32 {
+	offset := uintptr(TCP_INFO_v2PtoEpisodesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPtoEpisodes copies value into the native field.
+func (b TCP_INFO_v2) SetPtoEpisodes(value uint32) {
+	offset := uintptr(TCP_INFO_v2PtoEpisodesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
 // TCP_INITIAL_RTO_PARAMETERS projects Windows.Win32.Networking.WinSock.TCP_INITIAL_RTO_PARAMETERS.
 // See https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-tcp_initial_rto_parameters.
 type TCP_INITIAL_RTO_PARAMETERS struct {
@@ -637,10 +2835,174 @@ type TCP_OPT_FASTOPEN struct {
 	Cookie [1]uint8
 }
 
+// TCP_OPT_MSS is a view of native Windows.Win32.Networking.WinSock.TCP_OPT_MSS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type TCP_OPT_MSS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	TCP_OPT_MSSSize         = 4
+	TCP_OPT_MSSAlignment    = 1
+	TCP_OPT_MSSKindOffset   = 0
+	TCP_OPT_MSSLengthOffset = 1
+	TCP_OPT_MSSMssOffset    = 2
+)
+
+// NewTCP_OPT_MSS allocates zeroed, aligned native storage.
+func NewTCP_OPT_MSS() TCP_OPT_MSS {
+	return TCP_OPT_MSS{data: nativebuffer.New(int(TCP_OPT_MSSSize), uintptr(TCP_OPT_MSSAlignment))}
+}
+
+// ViewTCP_OPT_MSS shares data without copying. It panics if data is shorter than TCP_OPT_MSSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewTCP_OPT_MSS(data []byte) TCP_OPT_MSS {
+	return TCP_OPT_MSS{data: nativebuffer.View(data, int(TCP_OPT_MSSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b TCP_OPT_MSS) Bytes() []byte {
+	return b.data[:TCP_OPT_MSSSize:TCP_OPT_MSSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b TCP_OPT_MSS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(TCP_OPT_MSSAlignment))
+}
+
+// GetKind returns a copy of the native field value.
+func (b TCP_OPT_MSS) GetKind() uint8 {
+	offset := uintptr(TCP_OPT_MSSKindOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetKind copies value into the native field.
+func (b TCP_OPT_MSS) SetKind(value uint8) {
+	offset := uintptr(TCP_OPT_MSSKindOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetLength returns a copy of the native field value.
+func (b TCP_OPT_MSS) GetLength() uint8 {
+	offset := uintptr(TCP_OPT_MSSLengthOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetLength copies value into the native field.
+func (b TCP_OPT_MSS) SetLength(value uint8) {
+	offset := uintptr(TCP_OPT_MSSLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetMss returns a copy of the native field value.
+func (b TCP_OPT_MSS) GetMss() uint16 {
+	offset := uintptr(TCP_OPT_MSSMssOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMss copies value into the native field.
+func (b TCP_OPT_MSS) SetMss(value uint16) {
+	offset := uintptr(TCP_OPT_MSSMssOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
 // TCP_OPT_SACK_PERMITTED projects Windows.Win32.Networking.WinSock.TCP_OPT_SACK_PERMITTED.
 type TCP_OPT_SACK_PERMITTED struct {
 	Kind   uint8
 	Length uint8
+}
+
+// TCP_OPT_TS is a view of native Windows.Win32.Networking.WinSock.TCP_OPT_TS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type TCP_OPT_TS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	TCP_OPT_TSSize         = 10
+	TCP_OPT_TSAlignment    = 1
+	TCP_OPT_TSKindOffset   = 0
+	TCP_OPT_TSLengthOffset = 1
+	TCP_OPT_TSValOffset    = 2
+	TCP_OPT_TSEcROffset    = 6
+)
+
+// NewTCP_OPT_TS allocates zeroed, aligned native storage.
+func NewTCP_OPT_TS() TCP_OPT_TS {
+	return TCP_OPT_TS{data: nativebuffer.New(int(TCP_OPT_TSSize), uintptr(TCP_OPT_TSAlignment))}
+}
+
+// ViewTCP_OPT_TS shares data without copying. It panics if data is shorter than TCP_OPT_TSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewTCP_OPT_TS(data []byte) TCP_OPT_TS {
+	return TCP_OPT_TS{data: nativebuffer.View(data, int(TCP_OPT_TSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b TCP_OPT_TS) Bytes() []byte {
+	return b.data[:TCP_OPT_TSSize:TCP_OPT_TSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b TCP_OPT_TS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(TCP_OPT_TSAlignment))
+}
+
+// GetKind returns a copy of the native field value.
+func (b TCP_OPT_TS) GetKind() uint8 {
+	offset := uintptr(TCP_OPT_TSKindOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetKind copies value into the native field.
+func (b TCP_OPT_TS) SetKind(value uint8) {
+	offset := uintptr(TCP_OPT_TSKindOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetLength returns a copy of the native field value.
+func (b TCP_OPT_TS) GetLength() uint8 {
+	offset := uintptr(TCP_OPT_TSLengthOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetLength copies value into the native field.
+func (b TCP_OPT_TS) SetLength(value uint8) {
+	offset := uintptr(TCP_OPT_TSLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetVal returns a copy of the native field value.
+func (b TCP_OPT_TS) GetVal() uint32 {
+	offset := uintptr(TCP_OPT_TSValOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVal copies value into the native field.
+func (b TCP_OPT_TS) SetVal(value uint32) {
+	offset := uintptr(TCP_OPT_TSValOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetEcR returns a copy of the native field value.
+func (b TCP_OPT_TS) GetEcR() uint32 {
+	offset := uintptr(TCP_OPT_TSEcROffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetEcR copies value into the native field.
+func (b TCP_OPT_TS) SetEcR(value uint32) {
+	offset := uintptr(TCP_OPT_TSEcROffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
 }
 
 // TCP_OPT_UNKNOWN projects Windows.Win32.Networking.WinSock.TCP_OPT_UNKNOWN.

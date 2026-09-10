@@ -102,11 +102,11 @@ func TestStructureRejections(t *testing.T) {
 		want   string
 	}{
 		{
-			name: "packing",
+			name: "invalid packing",
 			change: func(item *metadataType) {
-				item.Packing = 1
+				item.Packing = 3
 			},
-			want: "Windows 386",
+			want: "packing",
 		},
 		{
 			name: "explicit layout",
@@ -128,13 +128,6 @@ func TestStructureRejections(t *testing.T) {
 				item.Size = 16
 			},
 			want: "layout",
-		},
-		{
-			name: "64 bit alignment",
-			change: func(item *metadataType) {
-				item.Fields[0].Type = "UInt64"
-			},
-			want: "Go provides 8/4",
 		},
 		{
 			name: "field semantics",
@@ -206,7 +199,7 @@ func TestStructureRejections(t *testing.T) {
 	}
 }
 
-func TestStructureFlexibleExtentAndDependencyFailure(t *testing.T) {
+func TestStructureFlexibleExtentAndBufferDependency(t *testing.T) {
 	t.Parallel()
 
 	field := fieldFixture("data", "UIntPtr[7]")
@@ -220,9 +213,9 @@ func TestStructureFlexibleExtentAndDependencyFailure(t *testing.T) {
 
 	dependency := structureFixture("ALIGNED", fieldFixture("value", "Int64"))
 	parent := structureFixture("PARENT", fieldFixture("value", "Windows.Win32.Foundation.ALIGNED"))
-	_, err = newStructureProjection([]metadataType{parent, dependency}).resolve("Windows.Win32.Foundation.PARENT")
-	if err == nil || !strings.Contains(err.Error(), "PARENT.value") || !strings.Contains(err.Error(), "Windows 386") {
-		t.Fatalf("dependency ABI failure not propagated: %v", err)
+	result, err = newStructureProjection([]metadataType{parent, dependency}).resolve("Windows.Win32.Foundation.PARENT")
+	if err != nil || !result.Buffer || !result.Fields[0].Resolved.Buffer || result.ABI[0].Align != 8 {
+		t.Fatalf("dependency native layout not preserved: %+v, %v", result, err)
 	}
 }
 
@@ -280,7 +273,7 @@ func TestCollectStructuresUniformScope(t *testing.T) {
 
 	first := structureFixture("NEW_STRUCTURE", fieldFixture("value", "UInt16"))
 	second := structureFixture("ANOTHER_STRUCTURE", fieldFixture("value", "Windows.Win32.Foundation.NEW_STRUCTURE"))
-	unsupported := structureFixture("UNSUPPORTED_STRUCTURE", fieldFixture("value", "Int64"))
+	unsupported := structureFixture("UNSUPPORTED_STRUCTURE", fieldFixture("value", "Void*"))
 	outside := structureFixture("OUTSIDE_STRUCTURE", fieldFixture("value", "UInt32"))
 	outside.Namespace = "Windows.Win32.Other"
 	items := []metadataType{first, second, unsupported, outside}
@@ -432,7 +425,7 @@ func TestWindowsSDKStructures(t *testing.T) {
 	filterStructureCollisions(packages, constants, reserved)
 
 	var code strings.Builder
-	code.WriteString("#include <windows.h>\n#include <stddef.h>\n#include <stdint.h>\n")
+	code.WriteString("#include <windows.h>\n#include <winioctl.h>\n#include <stddef.h>\n#include <stdint.h>\n")
 	fmt.Fprintf(&code, "static_assert(sizeof(uintptr_t) == %d, \"compiler architecture\");\n", 4+index*4)
 	var names []string
 	all := make(map[string]projectedType)
@@ -444,6 +437,7 @@ func TestWindowsSDKStructures(t *testing.T) {
 	}
 	slices.Sort(names)
 	count := 0
+	bufferCount := 0
 	checks := 0
 	for _, packageName := range names {
 		for _, item := range packages[packageName] {
@@ -451,7 +445,8 @@ func TestWindowsSDKStructures(t *testing.T) {
 			// optional SDK components. Select headers, never individual structures.
 			coreHeader := strings.Contains(item.Source.Documentation, "/api/winnt/") ||
 				strings.Contains(item.Source.Documentation, "/api/winuser/") ||
-				strings.Contains(item.Source.Documentation, "/api/wingdi/")
+				strings.Contains(item.Source.Documentation, "/api/wingdi/") ||
+				strings.Contains(item.Source.Documentation, "/api/winioctl/")
 			if item.Source.Enum || !coreHeader {
 				continue
 			}
@@ -461,15 +456,21 @@ func TestWindowsSDKStructures(t *testing.T) {
 			fmt.Fprintf(&code, "static_assert(sizeof(%s) == %d, \"%s size\");\n", name, layout.Size, name)
 			fmt.Fprintf(&code, "static_assert(__alignof(%s) == %d, \"%s alignment\");\n", name, layout.Align, name)
 			for fieldIndex := range item.Fields {
+				if item.Source.Typedef {
+					break
+				}
 				field := item.Source.Fields[fieldIndex].Name
 				check := nativeFieldCheck(&code, item, fieldIndex, layout.Offsets[fieldIndex], all, arch, index, &checks)
 				fmt.Fprintf(&code, "static_assert(%s<%s>(), \"%s.%s layout\");\n", check, name, name, field)
 			}
 			count++
+			if item.Buffer {
+				bufferCount++
+			}
 		}
 	}
-	if count == 0 {
-		t.Fatal("no structures were checked against the SDK")
+	if count == 0 || bufferCount == 0 {
+		t.Fatal("both direct structures and buffer layouts must be checked against the SDK")
 	}
 
 	for _, constant := range export.Constants {
@@ -494,7 +495,7 @@ func TestWindowsSDKStructures(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Windows SDK ABI validation: %v\n%s", err, output)
 	}
-	t.Logf("Windows %s SDK verified %d metadata-projected types and duplicate-handle flags", arch, count)
+	t.Logf("Windows %s SDK verified %d metadata-projected types (%d buffers) and duplicate-handle flags", arch, count, bufferCount)
 }
 
 func nativeFieldCheck(code *strings.Builder, item projectedType, fieldIndex int, offset int64, all map[string]projectedType, arch string, abiIndex int, checks *int) string {
@@ -507,8 +508,7 @@ func nativeFieldCheck(code *strings.Builder, item projectedType, fieldIndex int,
 	}
 	*checks++
 	name := fmt.Sprintf("check%d", *checks)
-	goField := item.GoType.Underlying().(*types.Struct).Field(fieldIndex)
-	size := types.SizesFor("gc", arch).Sizeof(goField.Type())
+	size := item.Fields[fieldIndex].Resolved.ABI[abiIndex].Size
 	fmt.Fprintf(code, "template<class T> consteval bool %s() {\n", name)
 	fmt.Fprintf(code, "if constexpr (requires (T value) { value.%s; }) {\n", field.Name)
 	fmt.Fprintf(code, "return offsetof(T, %s) == %d && sizeof(decltype(T::%s)) == %d;\n", field.Name, offset, field.Name, size)

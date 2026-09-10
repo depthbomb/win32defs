@@ -8,6 +8,7 @@ import (
 
 	"github.com/depthbomb/win32defs/foundation"
 	"github.com/depthbomb/win32defs/gdi"
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
 )
 
 // BP_ANIMATIONPARAMS projects Windows.Win32.UI.Controls.BP_ANIMATIONPARAMS.
@@ -633,6 +634,82 @@ type NMLVEMPTYMARKUP_FLAGS uint32
 // NMLVGETINFOTIP_FLAGS projects Windows.Win32.UI.Controls.NMLVGETINFOTIP_FLAGS.
 type NMLVGETINFOTIP_FLAGS uint32
 
+// NMLVKEYDOWN is a view of native Windows.Win32.UI.Controls.NMLVKEYDOWN storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlvkeydown.
+type NMLVKEYDOWN struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	NMLVKEYDOWNSize        = 18 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+	NMLVKEYDOWNAlignment   = 1
+	NMLVKEYDOWNHdrOffset   = 0
+	NMLVKEYDOWNWVKeyOffset = 12 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+	NMLVKEYDOWNFlagsOffset = 14 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+)
+
+// NewNMLVKEYDOWN allocates zeroed, aligned native storage.
+func NewNMLVKEYDOWN() NMLVKEYDOWN {
+	return NMLVKEYDOWN{data: nativebuffer.New(int(NMLVKEYDOWNSize), uintptr(NMLVKEYDOWNAlignment))}
+}
+
+// ViewNMLVKEYDOWN shares data without copying. It panics if data is shorter than NMLVKEYDOWNSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewNMLVKEYDOWN(data []byte) NMLVKEYDOWN {
+	return NMLVKEYDOWN{data: nativebuffer.View(data, int(NMLVKEYDOWNSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b NMLVKEYDOWN) Bytes() []byte {
+	return b.data[:NMLVKEYDOWNSize:NMLVKEYDOWNSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b NMLVKEYDOWN) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(NMLVKEYDOWNAlignment))
+}
+
+// GetHdr returns a copy of the native field value.
+func (b NMLVKEYDOWN) GetHdr() NMHDR {
+	offset := uintptr(NMLVKEYDOWNHdrOffset)
+
+	return nativebuffer.Read[NMHDR](b.Bytes()[offset : offset+(12+(unsafe.Sizeof(uintptr(0))-4)/4*12)])
+}
+
+// SetHdr copies value into the native field.
+func (b NMLVKEYDOWN) SetHdr(value NMHDR) {
+	offset := uintptr(NMLVKEYDOWNHdrOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(12+(unsafe.Sizeof(uintptr(0))-4)/4*12)], value)
+}
+
+// GetWVKey returns a copy of the native field value.
+func (b NMLVKEYDOWN) GetWVKey() uint16 {
+	offset := uintptr(NMLVKEYDOWNWVKeyOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetWVKey copies value into the native field.
+func (b NMLVKEYDOWN) SetWVKey(value uint16) {
+	offset := uintptr(NMLVKEYDOWNWVKeyOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b NMLVKEYDOWN) GetFlags() uint32 {
+	offset := uintptr(NMLVKEYDOWNFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b NMLVKEYDOWN) SetFlags(value uint32) {
+	offset := uintptr(NMLVKEYDOWNFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
 // NMLVLINK projects Windows.Win32.UI.Controls.NMLVLINK.
 // See https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlvlink.
 type NMLVLINK struct {
@@ -689,6 +766,138 @@ type NMPGHOTITEM struct {
 	IdOld   int32
 	IdNew   int32
 	DwFlags uint32
+}
+
+// NMPGSCROLL is a view of native Windows.Win32.UI.Controls.NMPGSCROLL storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmpgscroll.
+type NMPGSCROLL struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	NMPGSCROLLSize           = 46 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+	NMPGSCROLLAlignment      = 1
+	NMPGSCROLLHdrOffset      = 0
+	NMPGSCROLLFwKeysOffset   = 12 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+	NMPGSCROLLRcParentOffset = 14 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+	NMPGSCROLLIDirOffset     = 30 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+	NMPGSCROLLIXposOffset    = 34 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+	NMPGSCROLLIYposOffset    = 38 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+	NMPGSCROLLIScrollOffset  = 42 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+)
+
+// NewNMPGSCROLL allocates zeroed, aligned native storage.
+func NewNMPGSCROLL() NMPGSCROLL {
+	return NMPGSCROLL{data: nativebuffer.New(int(NMPGSCROLLSize), uintptr(NMPGSCROLLAlignment))}
+}
+
+// ViewNMPGSCROLL shares data without copying. It panics if data is shorter than NMPGSCROLLSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewNMPGSCROLL(data []byte) NMPGSCROLL {
+	return NMPGSCROLL{data: nativebuffer.View(data, int(NMPGSCROLLSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b NMPGSCROLL) Bytes() []byte {
+	return b.data[:NMPGSCROLLSize:NMPGSCROLLSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b NMPGSCROLL) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(NMPGSCROLLAlignment))
+}
+
+// GetHdr returns a copy of the native field value.
+func (b NMPGSCROLL) GetHdr() NMHDR {
+	offset := uintptr(NMPGSCROLLHdrOffset)
+
+	return nativebuffer.Read[NMHDR](b.Bytes()[offset : offset+(12+(unsafe.Sizeof(uintptr(0))-4)/4*12)])
+}
+
+// SetHdr copies value into the native field.
+func (b NMPGSCROLL) SetHdr(value NMHDR) {
+	offset := uintptr(NMPGSCROLLHdrOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(12+(unsafe.Sizeof(uintptr(0))-4)/4*12)], value)
+}
+
+// GetFwKeys returns a copy of the native field value.
+func (b NMPGSCROLL) GetFwKeys() NMPGSCROLL_KEYS {
+	offset := uintptr(NMPGSCROLLFwKeysOffset)
+
+	return nativebuffer.Read[NMPGSCROLL_KEYS](b.Bytes()[offset : offset+(2)])
+}
+
+// SetFwKeys copies value into the native field.
+func (b NMPGSCROLL) SetFwKeys(value NMPGSCROLL_KEYS) {
+	offset := uintptr(NMPGSCROLLFwKeysOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetRcParent returns a copy of the native field value.
+func (b NMPGSCROLL) GetRcParent() foundation.RECT {
+	offset := uintptr(NMPGSCROLLRcParentOffset)
+
+	return nativebuffer.Read[foundation.RECT](b.Bytes()[offset : offset+(16)])
+}
+
+// SetRcParent copies value into the native field.
+func (b NMPGSCROLL) SetRcParent(value foundation.RECT) {
+	offset := uintptr(NMPGSCROLLRcParentOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(16)], value)
+}
+
+// GetIDir returns a copy of the native field value.
+func (b NMPGSCROLL) GetIDir() NMPGSCROLL_DIR {
+	offset := uintptr(NMPGSCROLLIDirOffset)
+
+	return nativebuffer.Read[NMPGSCROLL_DIR](b.Bytes()[offset : offset+(4)])
+}
+
+// SetIDir copies value into the native field.
+func (b NMPGSCROLL) SetIDir(value NMPGSCROLL_DIR) {
+	offset := uintptr(NMPGSCROLLIDirOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetIXpos returns a copy of the native field value.
+func (b NMPGSCROLL) GetIXpos() int32 {
+	offset := uintptr(NMPGSCROLLIXposOffset)
+
+	return nativebuffer.Read[int32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetIXpos copies value into the native field.
+func (b NMPGSCROLL) SetIXpos(value int32) {
+	offset := uintptr(NMPGSCROLLIXposOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetIYpos returns a copy of the native field value.
+func (b NMPGSCROLL) GetIYpos() int32 {
+	offset := uintptr(NMPGSCROLLIYposOffset)
+
+	return nativebuffer.Read[int32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetIYpos copies value into the native field.
+func (b NMPGSCROLL) SetIYpos(value int32) {
+	offset := uintptr(NMPGSCROLLIYposOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetIScroll returns a copy of the native field value.
+func (b NMPGSCROLL) GetIScroll() int32 {
+	offset := uintptr(NMPGSCROLLIScrollOffset)
+
+	return nativebuffer.Read[int32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetIScroll copies value into the native field.
+func (b NMPGSCROLL) SetIScroll(value int32) {
+	offset := uintptr(NMPGSCROLLIScrollOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
 }
 
 // NMPGSCROLL_DIR projects Windows.Win32.UI.Controls.NMPGSCROLL_DIR.
@@ -811,6 +1020,82 @@ type NMTBHOTITEM struct {
 // NMTBHOTITEM_FLAGS projects Windows.Win32.UI.Controls.NMTBHOTITEM_FLAGS.
 type NMTBHOTITEM_FLAGS uint32
 
+// NMTCKEYDOWN is a view of native Windows.Win32.UI.Controls.NMTCKEYDOWN storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtckeydown.
+type NMTCKEYDOWN struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	NMTCKEYDOWNSize        = 18 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+	NMTCKEYDOWNAlignment   = 1
+	NMTCKEYDOWNHdrOffset   = 0
+	NMTCKEYDOWNWVKeyOffset = 12 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+	NMTCKEYDOWNFlagsOffset = 14 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+)
+
+// NewNMTCKEYDOWN allocates zeroed, aligned native storage.
+func NewNMTCKEYDOWN() NMTCKEYDOWN {
+	return NMTCKEYDOWN{data: nativebuffer.New(int(NMTCKEYDOWNSize), uintptr(NMTCKEYDOWNAlignment))}
+}
+
+// ViewNMTCKEYDOWN shares data without copying. It panics if data is shorter than NMTCKEYDOWNSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewNMTCKEYDOWN(data []byte) NMTCKEYDOWN {
+	return NMTCKEYDOWN{data: nativebuffer.View(data, int(NMTCKEYDOWNSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b NMTCKEYDOWN) Bytes() []byte {
+	return b.data[:NMTCKEYDOWNSize:NMTCKEYDOWNSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b NMTCKEYDOWN) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(NMTCKEYDOWNAlignment))
+}
+
+// GetHdr returns a copy of the native field value.
+func (b NMTCKEYDOWN) GetHdr() NMHDR {
+	offset := uintptr(NMTCKEYDOWNHdrOffset)
+
+	return nativebuffer.Read[NMHDR](b.Bytes()[offset : offset+(12+(unsafe.Sizeof(uintptr(0))-4)/4*12)])
+}
+
+// SetHdr copies value into the native field.
+func (b NMTCKEYDOWN) SetHdr(value NMHDR) {
+	offset := uintptr(NMTCKEYDOWNHdrOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(12+(unsafe.Sizeof(uintptr(0))-4)/4*12)], value)
+}
+
+// GetWVKey returns a copy of the native field value.
+func (b NMTCKEYDOWN) GetWVKey() uint16 {
+	offset := uintptr(NMTCKEYDOWNWVKeyOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetWVKey copies value into the native field.
+func (b NMTCKEYDOWN) SetWVKey(value uint16) {
+	offset := uintptr(NMTCKEYDOWNWVKeyOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b NMTCKEYDOWN) GetFlags() uint32 {
+	offset := uintptr(NMTCKEYDOWNFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b NMTCKEYDOWN) SetFlags(value uint32) {
+	offset := uintptr(NMTCKEYDOWNFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
 // NMTOOLTIPSCREATED projects Windows.Win32.UI.Controls.NMTOOLTIPSCREATED.
 // See https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtooltipscreated.
 type NMTOOLTIPSCREATED struct {
@@ -851,6 +1136,82 @@ type NMTVITEMCHANGE struct {
 	UStateNew uint32
 	UStateOld uint32
 	LParam    foundation.LPARAM
+}
+
+// NMTVKEYDOWN is a view of native Windows.Win32.UI.Controls.NMTVKEYDOWN storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtvkeydown.
+type NMTVKEYDOWN struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	NMTVKEYDOWNSize        = 18 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+	NMTVKEYDOWNAlignment   = 1
+	NMTVKEYDOWNHdrOffset   = 0
+	NMTVKEYDOWNWVKeyOffset = 12 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+	NMTVKEYDOWNFlagsOffset = 14 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+)
+
+// NewNMTVKEYDOWN allocates zeroed, aligned native storage.
+func NewNMTVKEYDOWN() NMTVKEYDOWN {
+	return NMTVKEYDOWN{data: nativebuffer.New(int(NMTVKEYDOWNSize), uintptr(NMTVKEYDOWNAlignment))}
+}
+
+// ViewNMTVKEYDOWN shares data without copying. It panics if data is shorter than NMTVKEYDOWNSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewNMTVKEYDOWN(data []byte) NMTVKEYDOWN {
+	return NMTVKEYDOWN{data: nativebuffer.View(data, int(NMTVKEYDOWNSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b NMTVKEYDOWN) Bytes() []byte {
+	return b.data[:NMTVKEYDOWNSize:NMTVKEYDOWNSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b NMTVKEYDOWN) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(NMTVKEYDOWNAlignment))
+}
+
+// GetHdr returns a copy of the native field value.
+func (b NMTVKEYDOWN) GetHdr() NMHDR {
+	offset := uintptr(NMTVKEYDOWNHdrOffset)
+
+	return nativebuffer.Read[NMHDR](b.Bytes()[offset : offset+(12+(unsafe.Sizeof(uintptr(0))-4)/4*12)])
+}
+
+// SetHdr copies value into the native field.
+func (b NMTVKEYDOWN) SetHdr(value NMHDR) {
+	offset := uintptr(NMTVKEYDOWNHdrOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(12+(unsafe.Sizeof(uintptr(0))-4)/4*12)], value)
+}
+
+// GetWVKey returns a copy of the native field value.
+func (b NMTVKEYDOWN) GetWVKey() uint16 {
+	offset := uintptr(NMTVKEYDOWNWVKeyOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetWVKey copies value into the native field.
+func (b NMTVKEYDOWN) SetWVKey(value uint16) {
+	offset := uintptr(NMTVKEYDOWNWVKeyOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b NMTVKEYDOWN) GetFlags() uint32 {
+	offset := uintptr(NMTVKEYDOWNFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b NMTVKEYDOWN) SetFlags(value uint32) {
+	offset := uintptr(NMTVKEYDOWNFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
 }
 
 // NMTVSTATEIMAGECHANGING projects Windows.Win32.UI.Controls.NMTVSTATEIMAGECHANGING.

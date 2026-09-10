@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/depthbomb/win32defs/foundation"
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
 )
 
 // ABC projects Windows.Win32.Graphics.Gdi.ABC.
@@ -79,6 +80,110 @@ type BITMAPCOREINFO struct {
 	// Flexible array: this is the metadata-declared initial extent.
 	// Additional elements require a larger native allocation.
 	BmciColors [1]RGBTRIPLE
+}
+
+// BITMAPFILEHEADER is a view of native Windows.Win32.Graphics.Gdi.BITMAPFILEHEADER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapfileheader.
+type BITMAPFILEHEADER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	BITMAPFILEHEADERSize              = 14
+	BITMAPFILEHEADERAlignment         = 2
+	BITMAPFILEHEADERBfTypeOffset      = 0
+	BITMAPFILEHEADERBfSizeOffset      = 2
+	BITMAPFILEHEADERBfReserved1Offset = 6
+	BITMAPFILEHEADERBfReserved2Offset = 8
+	BITMAPFILEHEADERBfOffBitsOffset   = 10
+)
+
+// NewBITMAPFILEHEADER allocates zeroed, aligned native storage.
+func NewBITMAPFILEHEADER() BITMAPFILEHEADER {
+	return BITMAPFILEHEADER{data: nativebuffer.New(int(BITMAPFILEHEADERSize), uintptr(BITMAPFILEHEADERAlignment))}
+}
+
+// ViewBITMAPFILEHEADER shares data without copying. It panics if data is shorter than BITMAPFILEHEADERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewBITMAPFILEHEADER(data []byte) BITMAPFILEHEADER {
+	return BITMAPFILEHEADER{data: nativebuffer.View(data, int(BITMAPFILEHEADERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b BITMAPFILEHEADER) Bytes() []byte {
+	return b.data[:BITMAPFILEHEADERSize:BITMAPFILEHEADERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b BITMAPFILEHEADER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(BITMAPFILEHEADERAlignment))
+}
+
+// GetBfType returns a copy of the native field value.
+func (b BITMAPFILEHEADER) GetBfType() uint16 {
+	offset := uintptr(BITMAPFILEHEADERBfTypeOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetBfType copies value into the native field.
+func (b BITMAPFILEHEADER) SetBfType(value uint16) {
+	offset := uintptr(BITMAPFILEHEADERBfTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetBfSize returns a copy of the native field value.
+func (b BITMAPFILEHEADER) GetBfSize() uint32 {
+	offset := uintptr(BITMAPFILEHEADERBfSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBfSize copies value into the native field.
+func (b BITMAPFILEHEADER) SetBfSize(value uint32) {
+	offset := uintptr(BITMAPFILEHEADERBfSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBfReserved1 returns a copy of the native field value.
+func (b BITMAPFILEHEADER) GetBfReserved1() uint16 {
+	offset := uintptr(BITMAPFILEHEADERBfReserved1Offset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetBfReserved1 copies value into the native field.
+func (b BITMAPFILEHEADER) SetBfReserved1(value uint16) {
+	offset := uintptr(BITMAPFILEHEADERBfReserved1Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetBfReserved2 returns a copy of the native field value.
+func (b BITMAPFILEHEADER) GetBfReserved2() uint16 {
+	offset := uintptr(BITMAPFILEHEADERBfReserved2Offset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetBfReserved2 copies value into the native field.
+func (b BITMAPFILEHEADER) SetBfReserved2(value uint16) {
+	offset := uintptr(BITMAPFILEHEADERBfReserved2Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetBfOffBits returns a copy of the native field value.
+func (b BITMAPFILEHEADER) GetBfOffBits() uint32 {
+	offset := uintptr(BITMAPFILEHEADERBfOffBitsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBfOffBits copies value into the native field.
+func (b BITMAPFILEHEADER) SetBfOffBits(value uint32) {
+	offset := uintptr(BITMAPFILEHEADERBfOffBitsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
 }
 
 // BITMAPINFO projects Windows.Win32.Graphics.Gdi.BITMAPINFO.
@@ -1323,6 +1428,138 @@ type MAT2 struct {
 	EM12 FIXED
 	EM21 FIXED
 	EM22 FIXED
+}
+
+// METAHEADER is a view of native Windows.Win32.Graphics.Gdi.METAHEADER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-metaheader.
+type METAHEADER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	METAHEADERSize                 = 18
+	METAHEADERAlignment            = 2
+	METAHEADERMtTypeOffset         = 0
+	METAHEADERMtHeaderSizeOffset   = 2
+	METAHEADERMtVersionOffset      = 4
+	METAHEADERMtSizeOffset         = 6
+	METAHEADERMtNoObjectsOffset    = 10
+	METAHEADERMtMaxRecordOffset    = 12
+	METAHEADERMtNoParametersOffset = 16
+)
+
+// NewMETAHEADER allocates zeroed, aligned native storage.
+func NewMETAHEADER() METAHEADER {
+	return METAHEADER{data: nativebuffer.New(int(METAHEADERSize), uintptr(METAHEADERAlignment))}
+}
+
+// ViewMETAHEADER shares data without copying. It panics if data is shorter than METAHEADERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewMETAHEADER(data []byte) METAHEADER {
+	return METAHEADER{data: nativebuffer.View(data, int(METAHEADERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b METAHEADER) Bytes() []byte {
+	return b.data[:METAHEADERSize:METAHEADERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b METAHEADER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(METAHEADERAlignment))
+}
+
+// GetMtType returns a copy of the native field value.
+func (b METAHEADER) GetMtType() uint16 {
+	offset := uintptr(METAHEADERMtTypeOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMtType copies value into the native field.
+func (b METAHEADER) SetMtType(value uint16) {
+	offset := uintptr(METAHEADERMtTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMtHeaderSize returns a copy of the native field value.
+func (b METAHEADER) GetMtHeaderSize() uint16 {
+	offset := uintptr(METAHEADERMtHeaderSizeOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMtHeaderSize copies value into the native field.
+func (b METAHEADER) SetMtHeaderSize(value uint16) {
+	offset := uintptr(METAHEADERMtHeaderSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMtVersion returns a copy of the native field value.
+func (b METAHEADER) GetMtVersion() uint16 {
+	offset := uintptr(METAHEADERMtVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMtVersion copies value into the native field.
+func (b METAHEADER) SetMtVersion(value uint16) {
+	offset := uintptr(METAHEADERMtVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMtSize returns a copy of the native field value.
+func (b METAHEADER) GetMtSize() uint32 {
+	offset := uintptr(METAHEADERMtSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMtSize copies value into the native field.
+func (b METAHEADER) SetMtSize(value uint32) {
+	offset := uintptr(METAHEADERMtSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMtNoObjects returns a copy of the native field value.
+func (b METAHEADER) GetMtNoObjects() uint16 {
+	offset := uintptr(METAHEADERMtNoObjectsOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMtNoObjects copies value into the native field.
+func (b METAHEADER) SetMtNoObjects(value uint16) {
+	offset := uintptr(METAHEADERMtNoObjectsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMtMaxRecord returns a copy of the native field value.
+func (b METAHEADER) GetMtMaxRecord() uint32 {
+	offset := uintptr(METAHEADERMtMaxRecordOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMtMaxRecord copies value into the native field.
+func (b METAHEADER) SetMtMaxRecord(value uint32) {
+	offset := uintptr(METAHEADERMtMaxRecordOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMtNoParameters returns a copy of the native field value.
+func (b METAHEADER) GetMtNoParameters() uint16 {
+	offset := uintptr(METAHEADERMtNoParametersOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMtNoParameters copies value into the native field.
+func (b METAHEADER) SetMtNoParameters(value uint16) {
+	offset := uintptr(METAHEADERMtNoParametersOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
 }
 
 // METARECORD projects Windows.Win32.Graphics.Gdi.METARECORD.

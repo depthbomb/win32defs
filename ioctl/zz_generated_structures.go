@@ -8,7 +8,314 @@ import (
 
 	"github.com/depthbomb/win32defs/filesystem"
 	"github.com/depthbomb/win32defs/foundation"
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
 )
+
+// ASYNC_DUPLICATE_EXTENTS_STATUS is a view of native Windows.Win32.System.Ioctl.ASYNC_DUPLICATE_EXTENTS_STATUS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type ASYNC_DUPLICATE_EXTENTS_STATUS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	ASYNC_DUPLICATE_EXTENTS_STATUSSize                   = 40
+	ASYNC_DUPLICATE_EXTENTS_STATUSAlignment              = 8
+	ASYNC_DUPLICATE_EXTENTS_STATUSVersionOffset          = 0
+	ASYNC_DUPLICATE_EXTENTS_STATUSStateOffset            = 4
+	ASYNC_DUPLICATE_EXTENTS_STATUSSourceFileOffsetOffset = 8
+	ASYNC_DUPLICATE_EXTENTS_STATUSTargetFileOffsetOffset = 16
+	ASYNC_DUPLICATE_EXTENTS_STATUSByteCountOffset        = 24
+	ASYNC_DUPLICATE_EXTENTS_STATUSBytesDuplicatedOffset  = 32
+)
+
+// NewASYNC_DUPLICATE_EXTENTS_STATUS allocates zeroed, aligned native storage.
+func NewASYNC_DUPLICATE_EXTENTS_STATUS() ASYNC_DUPLICATE_EXTENTS_STATUS {
+	return ASYNC_DUPLICATE_EXTENTS_STATUS{data: nativebuffer.New(int(ASYNC_DUPLICATE_EXTENTS_STATUSSize), uintptr(ASYNC_DUPLICATE_EXTENTS_STATUSAlignment))}
+}
+
+// ViewASYNC_DUPLICATE_EXTENTS_STATUS shares data without copying. It panics if data is shorter than ASYNC_DUPLICATE_EXTENTS_STATUSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewASYNC_DUPLICATE_EXTENTS_STATUS(data []byte) ASYNC_DUPLICATE_EXTENTS_STATUS {
+	return ASYNC_DUPLICATE_EXTENTS_STATUS{data: nativebuffer.View(data, int(ASYNC_DUPLICATE_EXTENTS_STATUSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b ASYNC_DUPLICATE_EXTENTS_STATUS) Bytes() []byte {
+	return b.data[:ASYNC_DUPLICATE_EXTENTS_STATUSSize:ASYNC_DUPLICATE_EXTENTS_STATUSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b ASYNC_DUPLICATE_EXTENTS_STATUS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(ASYNC_DUPLICATE_EXTENTS_STATUSAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b ASYNC_DUPLICATE_EXTENTS_STATUS) GetVersion() uint32 {
+	offset := uintptr(ASYNC_DUPLICATE_EXTENTS_STATUSVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b ASYNC_DUPLICATE_EXTENTS_STATUS) SetVersion(value uint32) {
+	offset := uintptr(ASYNC_DUPLICATE_EXTENTS_STATUSVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetState returns a copy of the native field value.
+func (b ASYNC_DUPLICATE_EXTENTS_STATUS) GetState() DUPLICATE_EXTENTS_STATE {
+	offset := uintptr(ASYNC_DUPLICATE_EXTENTS_STATUSStateOffset)
+
+	return nativebuffer.Read[DUPLICATE_EXTENTS_STATE](b.Bytes()[offset : offset+(4)])
+}
+
+// SetState copies value into the native field.
+func (b ASYNC_DUPLICATE_EXTENTS_STATUS) SetState(value DUPLICATE_EXTENTS_STATE) {
+	offset := uintptr(ASYNC_DUPLICATE_EXTENTS_STATUSStateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSourceFileOffset returns a copy of the native field value.
+func (b ASYNC_DUPLICATE_EXTENTS_STATUS) GetSourceFileOffset() uint64 {
+	offset := uintptr(ASYNC_DUPLICATE_EXTENTS_STATUSSourceFileOffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSourceFileOffset copies value into the native field.
+func (b ASYNC_DUPLICATE_EXTENTS_STATUS) SetSourceFileOffset(value uint64) {
+	offset := uintptr(ASYNC_DUPLICATE_EXTENTS_STATUSSourceFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTargetFileOffset returns a copy of the native field value.
+func (b ASYNC_DUPLICATE_EXTENTS_STATUS) GetTargetFileOffset() uint64 {
+	offset := uintptr(ASYNC_DUPLICATE_EXTENTS_STATUSTargetFileOffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTargetFileOffset copies value into the native field.
+func (b ASYNC_DUPLICATE_EXTENTS_STATUS) SetTargetFileOffset(value uint64) {
+	offset := uintptr(ASYNC_DUPLICATE_EXTENTS_STATUSTargetFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetByteCount returns a copy of the native field value.
+func (b ASYNC_DUPLICATE_EXTENTS_STATUS) GetByteCount() uint64 {
+	offset := uintptr(ASYNC_DUPLICATE_EXTENTS_STATUSByteCountOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetByteCount copies value into the native field.
+func (b ASYNC_DUPLICATE_EXTENTS_STATUS) SetByteCount(value uint64) {
+	offset := uintptr(ASYNC_DUPLICATE_EXTENTS_STATUSByteCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBytesDuplicated returns a copy of the native field value.
+func (b ASYNC_DUPLICATE_EXTENTS_STATUS) GetBytesDuplicated() uint64 {
+	offset := uintptr(ASYNC_DUPLICATE_EXTENTS_STATUSBytesDuplicatedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesDuplicated copies value into the native field.
+func (b ASYNC_DUPLICATE_EXTENTS_STATUS) SetBytesDuplicated(value uint64) {
+	offset := uintptr(ASYNC_DUPLICATE_EXTENTS_STATUSBytesDuplicatedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// BIN_COUNT is a view of native Windows.Win32.System.Ioctl.BIN_COUNT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type BIN_COUNT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	BIN_COUNTSize           = 24
+	BIN_COUNTAlignment      = 8
+	BIN_COUNTBinRangeOffset = 0
+	BIN_COUNTBinCountOffset = 16
+)
+
+// NewBIN_COUNT allocates zeroed, aligned native storage.
+func NewBIN_COUNT() BIN_COUNT {
+	return BIN_COUNT{data: nativebuffer.New(int(BIN_COUNTSize), uintptr(BIN_COUNTAlignment))}
+}
+
+// ViewBIN_COUNT shares data without copying. It panics if data is shorter than BIN_COUNTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewBIN_COUNT(data []byte) BIN_COUNT {
+	return BIN_COUNT{data: nativebuffer.View(data, int(BIN_COUNTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b BIN_COUNT) Bytes() []byte {
+	return b.data[:BIN_COUNTSize:BIN_COUNTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b BIN_COUNT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(BIN_COUNTAlignment))
+}
+
+// GetBinRange returns a view sharing this buffer's storage.
+func (b BIN_COUNT) GetBinRange() BIN_RANGE {
+	offset := uintptr(BIN_COUNTBinRangeOffset)
+
+	return ViewBIN_RANGE(b.Bytes()[offset : offset+(16)])
+}
+
+// SetBinRange copies value into the native field.
+func (b BIN_COUNT) SetBinRange(value BIN_RANGE) {
+	offset := uintptr(BIN_COUNTBinRangeOffset)
+	copy(b.Bytes()[offset:offset+(16)], value.Bytes())
+}
+
+// GetBinCount returns a copy of the native field value.
+func (b BIN_COUNT) GetBinCount() uint32 {
+	offset := uintptr(BIN_COUNTBinCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBinCount copies value into the native field.
+func (b BIN_COUNT) SetBinCount(value uint32) {
+	offset := uintptr(BIN_COUNTBinCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// BIN_RANGE is a view of native Windows.Win32.System.Ioctl.BIN_RANGE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type BIN_RANGE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	BIN_RANGESize             = 16
+	BIN_RANGEAlignment        = 8
+	BIN_RANGEStartValueOffset = 0
+	BIN_RANGELengthOffset     = 8
+)
+
+// NewBIN_RANGE allocates zeroed, aligned native storage.
+func NewBIN_RANGE() BIN_RANGE {
+	return BIN_RANGE{data: nativebuffer.New(int(BIN_RANGESize), uintptr(BIN_RANGEAlignment))}
+}
+
+// ViewBIN_RANGE shares data without copying. It panics if data is shorter than BIN_RANGESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewBIN_RANGE(data []byte) BIN_RANGE {
+	return BIN_RANGE{data: nativebuffer.View(data, int(BIN_RANGESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b BIN_RANGE) Bytes() []byte {
+	return b.data[:BIN_RANGESize:BIN_RANGESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b BIN_RANGE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(BIN_RANGEAlignment))
+}
+
+// GetStartValue returns a copy of the native field value.
+func (b BIN_RANGE) GetStartValue() int64 {
+	offset := uintptr(BIN_RANGEStartValueOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartValue copies value into the native field.
+func (b BIN_RANGE) SetStartValue(value int64) {
+	offset := uintptr(BIN_RANGEStartValueOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLength returns a copy of the native field value.
+func (b BIN_RANGE) GetLength() int64 {
+	offset := uintptr(BIN_RANGELengthOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLength copies value into the native field.
+func (b BIN_RANGE) SetLength(value int64) {
+	offset := uintptr(BIN_RANGELengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// BIN_RESULTS is a view of native Windows.Win32.System.Ioctl.BIN_RESULTS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type BIN_RESULTS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	BIN_RESULTSSize               = 32
+	BIN_RESULTSAlignment          = 8
+	BIN_RESULTSNumberOfBinsOffset = 0
+	BIN_RESULTSBinCountsOffset    = 8
+)
+
+// NewBIN_RESULTS allocates zeroed, aligned native storage.
+func NewBIN_RESULTS() BIN_RESULTS {
+	return BIN_RESULTS{data: nativebuffer.New(int(BIN_RESULTSSize), uintptr(BIN_RESULTSAlignment))}
+}
+
+// ViewBIN_RESULTS shares data without copying. It panics if data is shorter than BIN_RESULTSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewBIN_RESULTS(data []byte) BIN_RESULTS {
+	return BIN_RESULTS{data: nativebuffer.View(data, int(BIN_RESULTSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b BIN_RESULTS) Bytes() []byte {
+	return b.data[:BIN_RESULTSSize:BIN_RESULTSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b BIN_RESULTS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(BIN_RESULTSAlignment))
+}
+
+// GetNumberOfBins returns a copy of the native field value.
+func (b BIN_RESULTS) GetNumberOfBins() uint32 {
+	offset := uintptr(BIN_RESULTSNumberOfBinsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNumberOfBins copies value into the native field.
+func (b BIN_RESULTS) SetNumberOfBins(value uint32) {
+	offset := uintptr(BIN_RESULTSNumberOfBinsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBinCounts accesses the metadata-declared initial flexible-array extent only.
+func (b BIN_RESULTS) GetBinCounts(index0 int) BIN_COUNT {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(BIN_RESULTSBinCountsOffset + uintptr(index0)*(24))
+
+	return ViewBIN_COUNT(b.Bytes()[offset : offset+(24)])
+}
+
+// SetBinCounts copies value into the native field.
+func (b BIN_RESULTS) SetBinCounts(index0 int, value BIN_COUNT) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(BIN_RESULTSBinCountsOffset + uintptr(index0)*(24))
+	copy(b.Bytes()[offset:offset+(24)], value.Bytes())
+}
 
 // BULK_SECURITY_TEST_DATA projects Windows.Win32.System.Ioctl.BULK_SECURITY_TEST_DATA.
 type BULK_SECURITY_TEST_DATA struct {
@@ -143,6 +450,67 @@ type CLASS_MEDIA_CHANGE_CONTEXT struct {
 	NewState         uint32
 }
 
+// CLUSTER_RANGE is a view of native Windows.Win32.System.Ioctl.CLUSTER_RANGE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type CLUSTER_RANGE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	CLUSTER_RANGESize                  = 16
+	CLUSTER_RANGEAlignment             = 8
+	CLUSTER_RANGEStartingClusterOffset = 0
+	CLUSTER_RANGEClusterCountOffset    = 8
+)
+
+// NewCLUSTER_RANGE allocates zeroed, aligned native storage.
+func NewCLUSTER_RANGE() CLUSTER_RANGE {
+	return CLUSTER_RANGE{data: nativebuffer.New(int(CLUSTER_RANGESize), uintptr(CLUSTER_RANGEAlignment))}
+}
+
+// ViewCLUSTER_RANGE shares data without copying. It panics if data is shorter than CLUSTER_RANGESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewCLUSTER_RANGE(data []byte) CLUSTER_RANGE {
+	return CLUSTER_RANGE{data: nativebuffer.View(data, int(CLUSTER_RANGESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b CLUSTER_RANGE) Bytes() []byte {
+	return b.data[:CLUSTER_RANGESize:CLUSTER_RANGESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b CLUSTER_RANGE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(CLUSTER_RANGEAlignment))
+}
+
+// GetStartingCluster returns a copy of the native field value.
+func (b CLUSTER_RANGE) GetStartingCluster() int64 {
+	offset := uintptr(CLUSTER_RANGEStartingClusterOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartingCluster copies value into the native field.
+func (b CLUSTER_RANGE) SetStartingCluster(value int64) {
+	offset := uintptr(CLUSTER_RANGEStartingClusterOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetClusterCount returns a copy of the native field value.
+func (b CLUSTER_RANGE) GetClusterCount() int64 {
+	offset := uintptr(CLUSTER_RANGEClusterCountOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetClusterCount copies value into the native field.
+func (b CLUSTER_RANGE) SetClusterCount(value int64) {
+	offset := uintptr(CLUSTER_RANGEClusterCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // CONTAINER_ROOT_INFO_INPUT projects Windows.Win32.System.Ioctl.CONTAINER_ROOT_INFO_INPUT.
 type CONTAINER_ROOT_INFO_INPUT struct {
 	Flags uint32
@@ -167,12 +535,136 @@ type CREATE_DISK_MBR struct {
 	Signature uint32
 }
 
+// CREATE_USN_JOURNAL_DATA is a view of native Windows.Win32.System.Ioctl.CREATE_USN_JOURNAL_DATA storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-create_usn_journal_data.
+type CREATE_USN_JOURNAL_DATA struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	CREATE_USN_JOURNAL_DATASize                  = 16
+	CREATE_USN_JOURNAL_DATAAlignment             = 8
+	CREATE_USN_JOURNAL_DATAMaximumSizeOffset     = 0
+	CREATE_USN_JOURNAL_DATAAllocationDeltaOffset = 8
+)
+
+// NewCREATE_USN_JOURNAL_DATA allocates zeroed, aligned native storage.
+func NewCREATE_USN_JOURNAL_DATA() CREATE_USN_JOURNAL_DATA {
+	return CREATE_USN_JOURNAL_DATA{data: nativebuffer.New(int(CREATE_USN_JOURNAL_DATASize), uintptr(CREATE_USN_JOURNAL_DATAAlignment))}
+}
+
+// ViewCREATE_USN_JOURNAL_DATA shares data without copying. It panics if data is shorter than CREATE_USN_JOURNAL_DATASize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewCREATE_USN_JOURNAL_DATA(data []byte) CREATE_USN_JOURNAL_DATA {
+	return CREATE_USN_JOURNAL_DATA{data: nativebuffer.View(data, int(CREATE_USN_JOURNAL_DATASize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b CREATE_USN_JOURNAL_DATA) Bytes() []byte {
+	return b.data[:CREATE_USN_JOURNAL_DATASize:CREATE_USN_JOURNAL_DATASize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b CREATE_USN_JOURNAL_DATA) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(CREATE_USN_JOURNAL_DATAAlignment))
+}
+
+// GetMaximumSize returns a copy of the native field value.
+func (b CREATE_USN_JOURNAL_DATA) GetMaximumSize() uint64 {
+	offset := uintptr(CREATE_USN_JOURNAL_DATAMaximumSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMaximumSize copies value into the native field.
+func (b CREATE_USN_JOURNAL_DATA) SetMaximumSize(value uint64) {
+	offset := uintptr(CREATE_USN_JOURNAL_DATAMaximumSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetAllocationDelta returns a copy of the native field value.
+func (b CREATE_USN_JOURNAL_DATA) GetAllocationDelta() uint64 {
+	offset := uintptr(CREATE_USN_JOURNAL_DATAAllocationDeltaOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAllocationDelta copies value into the native field.
+func (b CREATE_USN_JOURNAL_DATA) SetAllocationDelta(value uint64) {
+	offset := uintptr(CREATE_USN_JOURNAL_DATAAllocationDeltaOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // CSVFS_DISK_CONNECTIVITY projects Windows.Win32.System.Ioctl.CSVFS_DISK_CONNECTIVITY.
 type CSVFS_DISK_CONNECTIVITY int32
 
 // CSV_CONTROL_OP projects Windows.Win32.System.Ioctl.CSV_CONTROL_OP.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-csv_control_op.
 type CSV_CONTROL_OP int32
+
+// CSV_CONTROL_PARAM is a view of native Windows.Win32.System.Ioctl.CSV_CONTROL_PARAM storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-csv_control_param.
+type CSV_CONTROL_PARAM struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	CSV_CONTROL_PARAMSize            = 16
+	CSV_CONTROL_PARAMAlignment       = 8
+	CSV_CONTROL_PARAMOperationOffset = 0
+	CSV_CONTROL_PARAMUnusedOffset    = 8
+)
+
+// NewCSV_CONTROL_PARAM allocates zeroed, aligned native storage.
+func NewCSV_CONTROL_PARAM() CSV_CONTROL_PARAM {
+	return CSV_CONTROL_PARAM{data: nativebuffer.New(int(CSV_CONTROL_PARAMSize), uintptr(CSV_CONTROL_PARAMAlignment))}
+}
+
+// ViewCSV_CONTROL_PARAM shares data without copying. It panics if data is shorter than CSV_CONTROL_PARAMSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewCSV_CONTROL_PARAM(data []byte) CSV_CONTROL_PARAM {
+	return CSV_CONTROL_PARAM{data: nativebuffer.View(data, int(CSV_CONTROL_PARAMSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b CSV_CONTROL_PARAM) Bytes() []byte {
+	return b.data[:CSV_CONTROL_PARAMSize:CSV_CONTROL_PARAMSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b CSV_CONTROL_PARAM) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(CSV_CONTROL_PARAMAlignment))
+}
+
+// GetOperation returns a copy of the native field value.
+func (b CSV_CONTROL_PARAM) GetOperation() CSV_CONTROL_OP {
+	offset := uintptr(CSV_CONTROL_PARAMOperationOffset)
+
+	return nativebuffer.Read[CSV_CONTROL_OP](b.Bytes()[offset : offset+(4)])
+}
+
+// SetOperation copies value into the native field.
+func (b CSV_CONTROL_PARAM) SetOperation(value CSV_CONTROL_OP) {
+	offset := uintptr(CSV_CONTROL_PARAMOperationOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetUnused returns a copy of the native field value.
+func (b CSV_CONTROL_PARAM) GetUnused() int64 {
+	offset := uintptr(CSV_CONTROL_PARAMUnusedOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUnused copies value into the native field.
+func (b CSV_CONTROL_PARAM) SetUnused(value int64) {
+	offset := uintptr(CSV_CONTROL_PARAMUnusedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
 
 // CSV_IS_OWNED_BY_CSVFS projects Windows.Win32.System.Ioctl.CSV_IS_OWNED_BY_CSVFS.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-csv_is_owned_by_csvfs.
@@ -183,6 +675,231 @@ type CSV_IS_OWNED_BY_CSVFS struct {
 // CSV_MGMT_LOCK projects Windows.Win32.System.Ioctl.CSV_MGMT_LOCK.
 type CSV_MGMT_LOCK struct {
 	Flags uint32
+}
+
+// CSV_NAMESPACE_INFO is a view of native Windows.Win32.System.Ioctl.CSV_NAMESPACE_INFO storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-csv_namespace_info.
+type CSV_NAMESPACE_INFO struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	CSV_NAMESPACE_INFOSize                 = 24
+	CSV_NAMESPACE_INFOAlignment            = 8
+	CSV_NAMESPACE_INFOVersionOffset        = 0
+	CSV_NAMESPACE_INFODeviceNumberOffset   = 4
+	CSV_NAMESPACE_INFOStartingOffsetOffset = 8
+	CSV_NAMESPACE_INFOSectorSizeOffset     = 16
+)
+
+// NewCSV_NAMESPACE_INFO allocates zeroed, aligned native storage.
+func NewCSV_NAMESPACE_INFO() CSV_NAMESPACE_INFO {
+	return CSV_NAMESPACE_INFO{data: nativebuffer.New(int(CSV_NAMESPACE_INFOSize), uintptr(CSV_NAMESPACE_INFOAlignment))}
+}
+
+// ViewCSV_NAMESPACE_INFO shares data without copying. It panics if data is shorter than CSV_NAMESPACE_INFOSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewCSV_NAMESPACE_INFO(data []byte) CSV_NAMESPACE_INFO {
+	return CSV_NAMESPACE_INFO{data: nativebuffer.View(data, int(CSV_NAMESPACE_INFOSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b CSV_NAMESPACE_INFO) Bytes() []byte {
+	return b.data[:CSV_NAMESPACE_INFOSize:CSV_NAMESPACE_INFOSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b CSV_NAMESPACE_INFO) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(CSV_NAMESPACE_INFOAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b CSV_NAMESPACE_INFO) GetVersion() uint32 {
+	offset := uintptr(CSV_NAMESPACE_INFOVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b CSV_NAMESPACE_INFO) SetVersion(value uint32) {
+	offset := uintptr(CSV_NAMESPACE_INFOVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDeviceNumber returns a copy of the native field value.
+func (b CSV_NAMESPACE_INFO) GetDeviceNumber() uint32 {
+	offset := uintptr(CSV_NAMESPACE_INFODeviceNumberOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDeviceNumber copies value into the native field.
+func (b CSV_NAMESPACE_INFO) SetDeviceNumber(value uint32) {
+	offset := uintptr(CSV_NAMESPACE_INFODeviceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetStartingOffset returns a copy of the native field value.
+func (b CSV_NAMESPACE_INFO) GetStartingOffset() int64 {
+	offset := uintptr(CSV_NAMESPACE_INFOStartingOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartingOffset copies value into the native field.
+func (b CSV_NAMESPACE_INFO) SetStartingOffset(value int64) {
+	offset := uintptr(CSV_NAMESPACE_INFOStartingOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSectorSize returns a copy of the native field value.
+func (b CSV_NAMESPACE_INFO) GetSectorSize() uint32 {
+	offset := uintptr(CSV_NAMESPACE_INFOSectorSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSectorSize copies value into the native field.
+func (b CSV_NAMESPACE_INFO) SetSectorSize(value uint32) {
+	offset := uintptr(CSV_NAMESPACE_INFOSectorSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// CSV_QUERY_FILE_REVISION is a view of native Windows.Win32.System.Ioctl.CSV_QUERY_FILE_REVISION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-csv_query_file_revision.
+type CSV_QUERY_FILE_REVISION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	CSV_QUERY_FILE_REVISIONSize               = 32
+	CSV_QUERY_FILE_REVISIONAlignment          = 8
+	CSV_QUERY_FILE_REVISIONFileIdOffset       = 0
+	CSV_QUERY_FILE_REVISIONFileRevisionOffset = 8
+)
+
+// NewCSV_QUERY_FILE_REVISION allocates zeroed, aligned native storage.
+func NewCSV_QUERY_FILE_REVISION() CSV_QUERY_FILE_REVISION {
+	return CSV_QUERY_FILE_REVISION{data: nativebuffer.New(int(CSV_QUERY_FILE_REVISIONSize), uintptr(CSV_QUERY_FILE_REVISIONAlignment))}
+}
+
+// ViewCSV_QUERY_FILE_REVISION shares data without copying. It panics if data is shorter than CSV_QUERY_FILE_REVISIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewCSV_QUERY_FILE_REVISION(data []byte) CSV_QUERY_FILE_REVISION {
+	return CSV_QUERY_FILE_REVISION{data: nativebuffer.View(data, int(CSV_QUERY_FILE_REVISIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b CSV_QUERY_FILE_REVISION) Bytes() []byte {
+	return b.data[:CSV_QUERY_FILE_REVISIONSize:CSV_QUERY_FILE_REVISIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b CSV_QUERY_FILE_REVISION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(CSV_QUERY_FILE_REVISIONAlignment))
+}
+
+// GetFileId returns a copy of the native field value.
+func (b CSV_QUERY_FILE_REVISION) GetFileId() int64 {
+	offset := uintptr(CSV_QUERY_FILE_REVISIONFileIdOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileId copies value into the native field.
+func (b CSV_QUERY_FILE_REVISION) SetFileId(value int64) {
+	offset := uintptr(CSV_QUERY_FILE_REVISIONFileIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFileRevision returns a copy of the native field value.
+func (b CSV_QUERY_FILE_REVISION) GetFileRevision(index0 int) int64 {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(CSV_QUERY_FILE_REVISIONFileRevisionOffset + uintptr(index0)*(8))
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileRevision copies value into the native field.
+func (b CSV_QUERY_FILE_REVISION) SetFileRevision(index0 int, value int64) {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(CSV_QUERY_FILE_REVISIONFileRevisionOffset + uintptr(index0)*(8))
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// CSV_QUERY_FILE_REVISION_FILE_ID_128 is a view of native Windows.Win32.System.Ioctl.CSV_QUERY_FILE_REVISION_FILE_ID_128 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type CSV_QUERY_FILE_REVISION_FILE_ID_128 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	CSV_QUERY_FILE_REVISION_FILE_ID_128Size               = 40
+	CSV_QUERY_FILE_REVISION_FILE_ID_128Alignment          = 8
+	CSV_QUERY_FILE_REVISION_FILE_ID_128FileIdOffset       = 0
+	CSV_QUERY_FILE_REVISION_FILE_ID_128FileRevisionOffset = 16
+)
+
+// NewCSV_QUERY_FILE_REVISION_FILE_ID_128 allocates zeroed, aligned native storage.
+func NewCSV_QUERY_FILE_REVISION_FILE_ID_128() CSV_QUERY_FILE_REVISION_FILE_ID_128 {
+	return CSV_QUERY_FILE_REVISION_FILE_ID_128{data: nativebuffer.New(int(CSV_QUERY_FILE_REVISION_FILE_ID_128Size), uintptr(CSV_QUERY_FILE_REVISION_FILE_ID_128Alignment))}
+}
+
+// ViewCSV_QUERY_FILE_REVISION_FILE_ID_128 shares data without copying. It panics if data is shorter than CSV_QUERY_FILE_REVISION_FILE_ID_128Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewCSV_QUERY_FILE_REVISION_FILE_ID_128(data []byte) CSV_QUERY_FILE_REVISION_FILE_ID_128 {
+	return CSV_QUERY_FILE_REVISION_FILE_ID_128{data: nativebuffer.View(data, int(CSV_QUERY_FILE_REVISION_FILE_ID_128Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b CSV_QUERY_FILE_REVISION_FILE_ID_128) Bytes() []byte {
+	return b.data[:CSV_QUERY_FILE_REVISION_FILE_ID_128Size:CSV_QUERY_FILE_REVISION_FILE_ID_128Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b CSV_QUERY_FILE_REVISION_FILE_ID_128) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(CSV_QUERY_FILE_REVISION_FILE_ID_128Alignment))
+}
+
+// GetFileId returns a copy of the native field value.
+func (b CSV_QUERY_FILE_REVISION_FILE_ID_128) GetFileId() filesystem.FILE_ID_128 {
+	offset := uintptr(CSV_QUERY_FILE_REVISION_FILE_ID_128FileIdOffset)
+
+	return nativebuffer.Read[filesystem.FILE_ID_128](b.Bytes()[offset : offset+(16)])
+}
+
+// SetFileId copies value into the native field.
+func (b CSV_QUERY_FILE_REVISION_FILE_ID_128) SetFileId(value filesystem.FILE_ID_128) {
+	offset := uintptr(CSV_QUERY_FILE_REVISION_FILE_ID_128FileIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(16)], value)
+}
+
+// GetFileRevision returns a copy of the native field value.
+func (b CSV_QUERY_FILE_REVISION_FILE_ID_128) GetFileRevision(index0 int) int64 {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(CSV_QUERY_FILE_REVISION_FILE_ID_128FileRevisionOffset + uintptr(index0)*(8))
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileRevision copies value into the native field.
+func (b CSV_QUERY_FILE_REVISION_FILE_ID_128) SetFileRevision(index0 int, value int64) {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(CSV_QUERY_FILE_REVISION_FILE_ID_128FileRevisionOffset + uintptr(index0)*(8))
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // CSV_QUERY_MDS_PATH projects Windows.Win32.System.Ioctl.CSV_QUERY_MDS_PATH.
@@ -204,6 +921,88 @@ type CSV_QUERY_REDIRECT_STATE struct {
 	FileRedirected foundation.BOOLEAN
 }
 
+// CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT is a view of native Windows.Win32.System.Ioctl.CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-csv_query_veto_file_direct_io_output.
+type CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTSize                             = 528
+	CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTAlignment                        = 8
+	CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTVetoedFromAltitudeIntegralOffset = 0
+	CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTVetoedFromAltitudeDecimalOffset  = 8
+	CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTReasonOffset                     = 16
+)
+
+// NewCSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT allocates zeroed, aligned native storage.
+func NewCSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT() CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT {
+	return CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT{data: nativebuffer.New(int(CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTSize), uintptr(CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTAlignment))}
+}
+
+// ViewCSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT shares data without copying. It panics if data is shorter than CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewCSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT(data []byte) CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT {
+	return CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT{data: nativebuffer.View(data, int(CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT) Bytes() []byte {
+	return b.data[:CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTSize:CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTAlignment))
+}
+
+// GetVetoedFromAltitudeIntegral returns a copy of the native field value.
+func (b CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT) GetVetoedFromAltitudeIntegral() uint64 {
+	offset := uintptr(CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTVetoedFromAltitudeIntegralOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetVetoedFromAltitudeIntegral copies value into the native field.
+func (b CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT) SetVetoedFromAltitudeIntegral(value uint64) {
+	offset := uintptr(CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTVetoedFromAltitudeIntegralOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetVetoedFromAltitudeDecimal returns a copy of the native field value.
+func (b CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT) GetVetoedFromAltitudeDecimal() uint64 {
+	offset := uintptr(CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTVetoedFromAltitudeDecimalOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetVetoedFromAltitudeDecimal copies value into the native field.
+func (b CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT) SetVetoedFromAltitudeDecimal(value uint64) {
+	offset := uintptr(CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTVetoedFromAltitudeDecimalOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetReason returns a copy of the native field value.
+func (b CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT) GetReason(index0 int) uint16 {
+	if index0 < 0 || index0 >= 256 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTReasonOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetReason copies value into the native field.
+func (b CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT) SetReason(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 256 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUTReasonOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
 // CSV_QUERY_VOLUME_REDIRECT_STATE projects Windows.Win32.System.Ioctl.CSV_QUERY_VOLUME_REDIRECT_STATE.
 type CSV_QUERY_VOLUME_REDIRECT_STATE struct {
 	MdsNodeId             uint32
@@ -218,8 +1017,258 @@ type DECRYPTION_STATUS_BUFFER struct {
 	NoEncryptedStreams foundation.BOOLEAN
 }
 
+// DELETE_USN_JOURNAL_DATA is a view of native Windows.Win32.System.Ioctl.DELETE_USN_JOURNAL_DATA storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-delete_usn_journal_data.
+type DELETE_USN_JOURNAL_DATA struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DELETE_USN_JOURNAL_DATASize               = 16
+	DELETE_USN_JOURNAL_DATAAlignment          = 8
+	DELETE_USN_JOURNAL_DATAUsnJournalIDOffset = 0
+	DELETE_USN_JOURNAL_DATADeleteFlagsOffset  = 8
+)
+
+// NewDELETE_USN_JOURNAL_DATA allocates zeroed, aligned native storage.
+func NewDELETE_USN_JOURNAL_DATA() DELETE_USN_JOURNAL_DATA {
+	return DELETE_USN_JOURNAL_DATA{data: nativebuffer.New(int(DELETE_USN_JOURNAL_DATASize), uintptr(DELETE_USN_JOURNAL_DATAAlignment))}
+}
+
+// ViewDELETE_USN_JOURNAL_DATA shares data without copying. It panics if data is shorter than DELETE_USN_JOURNAL_DATASize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDELETE_USN_JOURNAL_DATA(data []byte) DELETE_USN_JOURNAL_DATA {
+	return DELETE_USN_JOURNAL_DATA{data: nativebuffer.View(data, int(DELETE_USN_JOURNAL_DATASize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DELETE_USN_JOURNAL_DATA) Bytes() []byte {
+	return b.data[:DELETE_USN_JOURNAL_DATASize:DELETE_USN_JOURNAL_DATASize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DELETE_USN_JOURNAL_DATA) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DELETE_USN_JOURNAL_DATAAlignment))
+}
+
+// GetUsnJournalID returns a copy of the native field value.
+func (b DELETE_USN_JOURNAL_DATA) GetUsnJournalID() uint64 {
+	offset := uintptr(DELETE_USN_JOURNAL_DATAUsnJournalIDOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUsnJournalID copies value into the native field.
+func (b DELETE_USN_JOURNAL_DATA) SetUsnJournalID(value uint64) {
+	offset := uintptr(DELETE_USN_JOURNAL_DATAUsnJournalIDOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetDeleteFlags returns a copy of the native field value.
+func (b DELETE_USN_JOURNAL_DATA) GetDeleteFlags() USN_DELETE_FLAGS {
+	offset := uintptr(DELETE_USN_JOURNAL_DATADeleteFlagsOffset)
+
+	return nativebuffer.Read[USN_DELETE_FLAGS](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDeleteFlags copies value into the native field.
+func (b DELETE_USN_JOURNAL_DATA) SetDeleteFlags(value USN_DELETE_FLAGS) {
+	offset := uintptr(DELETE_USN_JOURNAL_DATADeleteFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
 // DETECTION_TYPE projects Windows.Win32.System.Ioctl.DETECTION_TYPE.
 type DETECTION_TYPE int32
+
+// DEVICEDUMP_PRIVATE_SUBSECTION is a view of native Windows.Win32.System.Ioctl.DEVICEDUMP_PRIVATE_SUBSECTION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICEDUMP_PRIVATE_SUBSECTION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICEDUMP_PRIVATE_SUBSECTIONSize          = 9
+	DEVICEDUMP_PRIVATE_SUBSECTIONAlignment     = 1
+	DEVICEDUMP_PRIVATE_SUBSECTIONDwFlagsOffset = 0
+	DEVICEDUMP_PRIVATE_SUBSECTIONGPLogIdOffset = 4
+	DEVICEDUMP_PRIVATE_SUBSECTIONBDataOffset   = 8
+)
+
+// NewDEVICEDUMP_PRIVATE_SUBSECTION allocates zeroed, aligned native storage.
+func NewDEVICEDUMP_PRIVATE_SUBSECTION() DEVICEDUMP_PRIVATE_SUBSECTION {
+	return DEVICEDUMP_PRIVATE_SUBSECTION{data: nativebuffer.New(int(DEVICEDUMP_PRIVATE_SUBSECTIONSize), uintptr(DEVICEDUMP_PRIVATE_SUBSECTIONAlignment))}
+}
+
+// ViewDEVICEDUMP_PRIVATE_SUBSECTION shares data without copying. It panics if data is shorter than DEVICEDUMP_PRIVATE_SUBSECTIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICEDUMP_PRIVATE_SUBSECTION(data []byte) DEVICEDUMP_PRIVATE_SUBSECTION {
+	return DEVICEDUMP_PRIVATE_SUBSECTION{data: nativebuffer.View(data, int(DEVICEDUMP_PRIVATE_SUBSECTIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICEDUMP_PRIVATE_SUBSECTION) Bytes() []byte {
+	return b.data[:DEVICEDUMP_PRIVATE_SUBSECTIONSize:DEVICEDUMP_PRIVATE_SUBSECTIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICEDUMP_PRIVATE_SUBSECTION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICEDUMP_PRIVATE_SUBSECTIONAlignment))
+}
+
+// GetDwFlags returns a copy of the native field value.
+func (b DEVICEDUMP_PRIVATE_SUBSECTION) GetDwFlags() uint32 {
+	offset := uintptr(DEVICEDUMP_PRIVATE_SUBSECTIONDwFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwFlags copies value into the native field.
+func (b DEVICEDUMP_PRIVATE_SUBSECTION) SetDwFlags(value uint32) {
+	offset := uintptr(DEVICEDUMP_PRIVATE_SUBSECTIONDwFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetGPLogId returns a view sharing this buffer's storage.
+func (b DEVICEDUMP_PRIVATE_SUBSECTION) GetGPLogId() GP_LOG_PAGE_DESCRIPTOR {
+	offset := uintptr(DEVICEDUMP_PRIVATE_SUBSECTIONGPLogIdOffset)
+
+	return ViewGP_LOG_PAGE_DESCRIPTOR(b.Bytes()[offset : offset+(4)])
+}
+
+// SetGPLogId copies value into the native field.
+func (b DEVICEDUMP_PRIVATE_SUBSECTION) SetGPLogId(value GP_LOG_PAGE_DESCRIPTOR) {
+	offset := uintptr(DEVICEDUMP_PRIVATE_SUBSECTIONGPLogIdOffset)
+	copy(b.Bytes()[offset:offset+(4)], value.Bytes())
+}
+
+// GetBData accesses the metadata-declared initial flexible-array extent only.
+func (b DEVICEDUMP_PRIVATE_SUBSECTION) GetBData(index0 int) uint8 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICEDUMP_PRIVATE_SUBSECTIONBDataOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBData copies value into the native field.
+func (b DEVICEDUMP_PRIVATE_SUBSECTION) SetBData(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICEDUMP_PRIVATE_SUBSECTIONBDataOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// DEVICEDUMP_PUBLIC_SUBSECTION is a view of native Windows.Win32.System.Ioctl.DEVICEDUMP_PUBLIC_SUBSECTION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICEDUMP_PUBLIC_SUBSECTION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICEDUMP_PUBLIC_SUBSECTIONSize                = 85
+	DEVICEDUMP_PUBLIC_SUBSECTIONAlignment           = 1
+	DEVICEDUMP_PUBLIC_SUBSECTIONDwFlagsOffset       = 0
+	DEVICEDUMP_PUBLIC_SUBSECTIONGPLogTableOffset    = 4
+	DEVICEDUMP_PUBLIC_SUBSECTIONSzDescriptionOffset = 68
+	DEVICEDUMP_PUBLIC_SUBSECTIONBDataOffset         = 84
+)
+
+// NewDEVICEDUMP_PUBLIC_SUBSECTION allocates zeroed, aligned native storage.
+func NewDEVICEDUMP_PUBLIC_SUBSECTION() DEVICEDUMP_PUBLIC_SUBSECTION {
+	return DEVICEDUMP_PUBLIC_SUBSECTION{data: nativebuffer.New(int(DEVICEDUMP_PUBLIC_SUBSECTIONSize), uintptr(DEVICEDUMP_PUBLIC_SUBSECTIONAlignment))}
+}
+
+// ViewDEVICEDUMP_PUBLIC_SUBSECTION shares data without copying. It panics if data is shorter than DEVICEDUMP_PUBLIC_SUBSECTIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICEDUMP_PUBLIC_SUBSECTION(data []byte) DEVICEDUMP_PUBLIC_SUBSECTION {
+	return DEVICEDUMP_PUBLIC_SUBSECTION{data: nativebuffer.View(data, int(DEVICEDUMP_PUBLIC_SUBSECTIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICEDUMP_PUBLIC_SUBSECTION) Bytes() []byte {
+	return b.data[:DEVICEDUMP_PUBLIC_SUBSECTIONSize:DEVICEDUMP_PUBLIC_SUBSECTIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICEDUMP_PUBLIC_SUBSECTION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICEDUMP_PUBLIC_SUBSECTIONAlignment))
+}
+
+// GetDwFlags returns a copy of the native field value.
+func (b DEVICEDUMP_PUBLIC_SUBSECTION) GetDwFlags() uint32 {
+	offset := uintptr(DEVICEDUMP_PUBLIC_SUBSECTIONDwFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwFlags copies value into the native field.
+func (b DEVICEDUMP_PUBLIC_SUBSECTION) SetDwFlags(value uint32) {
+	offset := uintptr(DEVICEDUMP_PUBLIC_SUBSECTIONDwFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetGPLogTable returns a view sharing this buffer's storage.
+func (b DEVICEDUMP_PUBLIC_SUBSECTION) GetGPLogTable(index0 int) GP_LOG_PAGE_DESCRIPTOR {
+	if index0 < 0 || index0 >= 16 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICEDUMP_PUBLIC_SUBSECTIONGPLogTableOffset + uintptr(index0)*(4))
+
+	return ViewGP_LOG_PAGE_DESCRIPTOR(b.Bytes()[offset : offset+(4)])
+}
+
+// SetGPLogTable copies value into the native field.
+func (b DEVICEDUMP_PUBLIC_SUBSECTION) SetGPLogTable(index0 int, value GP_LOG_PAGE_DESCRIPTOR) {
+	if index0 < 0 || index0 >= 16 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICEDUMP_PUBLIC_SUBSECTIONGPLogTableOffset + uintptr(index0)*(4))
+	copy(b.Bytes()[offset:offset+(4)], value.Bytes())
+}
+
+// GetSzDescription returns a copy of the native field value.
+func (b DEVICEDUMP_PUBLIC_SUBSECTION) GetSzDescription(index0 int) foundation.CHAR {
+	if index0 < 0 || index0 >= 16 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICEDUMP_PUBLIC_SUBSECTIONSzDescriptionOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[foundation.CHAR](b.Bytes()[offset : offset+(1)])
+}
+
+// SetSzDescription copies value into the native field.
+func (b DEVICEDUMP_PUBLIC_SUBSECTION) SetSzDescription(index0 int, value foundation.CHAR) {
+	if index0 < 0 || index0 >= 16 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICEDUMP_PUBLIC_SUBSECTIONSzDescriptionOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetBData accesses the metadata-declared initial flexible-array extent only.
+func (b DEVICEDUMP_PUBLIC_SUBSECTION) GetBData(index0 int) uint8 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICEDUMP_PUBLIC_SUBSECTIONBDataOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBData copies value into the native field.
+func (b DEVICEDUMP_PUBLIC_SUBSECTION) SetBData(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICEDUMP_PUBLIC_SUBSECTIONBDataOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
 
 // DEVICEDUMP_RESTRICTED_SUBSECTION projects Windows.Win32.System.Ioctl.DEVICEDUMP_RESTRICTED_SUBSECTION.
 type DEVICEDUMP_RESTRICTED_SUBSECTION struct {
@@ -228,12 +1277,740 @@ type DEVICEDUMP_RESTRICTED_SUBSECTION struct {
 	BData [1]uint8
 }
 
+// DEVICEDUMP_STRUCTURE_VERSION is a view of native Windows.Win32.System.Ioctl.DEVICEDUMP_STRUCTURE_VERSION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICEDUMP_STRUCTURE_VERSION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICEDUMP_STRUCTURE_VERSIONSize              = 12
+	DEVICEDUMP_STRUCTURE_VERSIONAlignment         = 1
+	DEVICEDUMP_STRUCTURE_VERSIONDwSignatureOffset = 0
+	DEVICEDUMP_STRUCTURE_VERSIONDwVersionOffset   = 4
+	DEVICEDUMP_STRUCTURE_VERSIONDwSizeOffset      = 8
+)
+
+// NewDEVICEDUMP_STRUCTURE_VERSION allocates zeroed, aligned native storage.
+func NewDEVICEDUMP_STRUCTURE_VERSION() DEVICEDUMP_STRUCTURE_VERSION {
+	return DEVICEDUMP_STRUCTURE_VERSION{data: nativebuffer.New(int(DEVICEDUMP_STRUCTURE_VERSIONSize), uintptr(DEVICEDUMP_STRUCTURE_VERSIONAlignment))}
+}
+
+// ViewDEVICEDUMP_STRUCTURE_VERSION shares data without copying. It panics if data is shorter than DEVICEDUMP_STRUCTURE_VERSIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICEDUMP_STRUCTURE_VERSION(data []byte) DEVICEDUMP_STRUCTURE_VERSION {
+	return DEVICEDUMP_STRUCTURE_VERSION{data: nativebuffer.View(data, int(DEVICEDUMP_STRUCTURE_VERSIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICEDUMP_STRUCTURE_VERSION) Bytes() []byte {
+	return b.data[:DEVICEDUMP_STRUCTURE_VERSIONSize:DEVICEDUMP_STRUCTURE_VERSIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICEDUMP_STRUCTURE_VERSION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICEDUMP_STRUCTURE_VERSIONAlignment))
+}
+
+// GetDwSignature returns a copy of the native field value.
+func (b DEVICEDUMP_STRUCTURE_VERSION) GetDwSignature() uint32 {
+	offset := uintptr(DEVICEDUMP_STRUCTURE_VERSIONDwSignatureOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwSignature copies value into the native field.
+func (b DEVICEDUMP_STRUCTURE_VERSION) SetDwSignature(value uint32) {
+	offset := uintptr(DEVICEDUMP_STRUCTURE_VERSIONDwSignatureOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDwVersion returns a copy of the native field value.
+func (b DEVICEDUMP_STRUCTURE_VERSION) GetDwVersion() uint32 {
+	offset := uintptr(DEVICEDUMP_STRUCTURE_VERSIONDwVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwVersion copies value into the native field.
+func (b DEVICEDUMP_STRUCTURE_VERSION) SetDwVersion(value uint32) {
+	offset := uintptr(DEVICEDUMP_STRUCTURE_VERSIONDwVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDwSize returns a copy of the native field value.
+func (b DEVICEDUMP_STRUCTURE_VERSION) GetDwSize() uint32 {
+	offset := uintptr(DEVICEDUMP_STRUCTURE_VERSIONDwSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwSize copies value into the native field.
+func (b DEVICEDUMP_STRUCTURE_VERSION) SetDwSize(value uint32) {
+	offset := uintptr(DEVICEDUMP_STRUCTURE_VERSIONDwSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// DEVICEDUMP_SUBSECTION_POINTER is a view of native Windows.Win32.System.Ioctl.DEVICEDUMP_SUBSECTION_POINTER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICEDUMP_SUBSECTION_POINTER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICEDUMP_SUBSECTION_POINTERSize           = 12
+	DEVICEDUMP_SUBSECTION_POINTERAlignment      = 1
+	DEVICEDUMP_SUBSECTION_POINTERDwSizeOffset   = 0
+	DEVICEDUMP_SUBSECTION_POINTERDwFlagsOffset  = 4
+	DEVICEDUMP_SUBSECTION_POINTERDwOffsetOffset = 8
+)
+
+// NewDEVICEDUMP_SUBSECTION_POINTER allocates zeroed, aligned native storage.
+func NewDEVICEDUMP_SUBSECTION_POINTER() DEVICEDUMP_SUBSECTION_POINTER {
+	return DEVICEDUMP_SUBSECTION_POINTER{data: nativebuffer.New(int(DEVICEDUMP_SUBSECTION_POINTERSize), uintptr(DEVICEDUMP_SUBSECTION_POINTERAlignment))}
+}
+
+// ViewDEVICEDUMP_SUBSECTION_POINTER shares data without copying. It panics if data is shorter than DEVICEDUMP_SUBSECTION_POINTERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICEDUMP_SUBSECTION_POINTER(data []byte) DEVICEDUMP_SUBSECTION_POINTER {
+	return DEVICEDUMP_SUBSECTION_POINTER{data: nativebuffer.View(data, int(DEVICEDUMP_SUBSECTION_POINTERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICEDUMP_SUBSECTION_POINTER) Bytes() []byte {
+	return b.data[:DEVICEDUMP_SUBSECTION_POINTERSize:DEVICEDUMP_SUBSECTION_POINTERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICEDUMP_SUBSECTION_POINTER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICEDUMP_SUBSECTION_POINTERAlignment))
+}
+
+// GetDwSize returns a copy of the native field value.
+func (b DEVICEDUMP_SUBSECTION_POINTER) GetDwSize() uint32 {
+	offset := uintptr(DEVICEDUMP_SUBSECTION_POINTERDwSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwSize copies value into the native field.
+func (b DEVICEDUMP_SUBSECTION_POINTER) SetDwSize(value uint32) {
+	offset := uintptr(DEVICEDUMP_SUBSECTION_POINTERDwSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDwFlags returns a copy of the native field value.
+func (b DEVICEDUMP_SUBSECTION_POINTER) GetDwFlags() uint32 {
+	offset := uintptr(DEVICEDUMP_SUBSECTION_POINTERDwFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwFlags copies value into the native field.
+func (b DEVICEDUMP_SUBSECTION_POINTER) SetDwFlags(value uint32) {
+	offset := uintptr(DEVICEDUMP_SUBSECTION_POINTERDwFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDwOffset returns a copy of the native field value.
+func (b DEVICEDUMP_SUBSECTION_POINTER) GetDwOffset() uint32 {
+	offset := uintptr(DEVICEDUMP_SUBSECTION_POINTERDwOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwOffset copies value into the native field.
+func (b DEVICEDUMP_SUBSECTION_POINTER) SetDwOffset(value uint32) {
+	offset := uintptr(DEVICEDUMP_SUBSECTION_POINTERDwOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// DEVICE_COPY_OFFLOAD_DESCRIPTOR is a view of native Windows.Win32.System.Ioctl.DEVICE_COPY_OFFLOAD_DESCRIPTOR storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_copy_offload_descriptor.
+type DEVICE_COPY_OFFLOAD_DESCRIPTOR struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICE_COPY_OFFLOAD_DESCRIPTORSize                                     = 48
+	DEVICE_COPY_OFFLOAD_DESCRIPTORAlignment                                = 8
+	DEVICE_COPY_OFFLOAD_DESCRIPTORVersionOffset                            = 0
+	DEVICE_COPY_OFFLOAD_DESCRIPTORSizeOffset                               = 4
+	DEVICE_COPY_OFFLOAD_DESCRIPTORMaximumTokenLifetimeOffset               = 8
+	DEVICE_COPY_OFFLOAD_DESCRIPTORDefaultTokenLifetimeOffset               = 12
+	DEVICE_COPY_OFFLOAD_DESCRIPTORMaximumTransferSizeOffset                = 16
+	DEVICE_COPY_OFFLOAD_DESCRIPTOROptimalTransferCountOffset               = 24
+	DEVICE_COPY_OFFLOAD_DESCRIPTORMaximumDataDescriptorsOffset             = 32
+	DEVICE_COPY_OFFLOAD_DESCRIPTORMaximumTransferLengthPerDescriptorOffset = 36
+	DEVICE_COPY_OFFLOAD_DESCRIPTOROptimalTransferLengthPerDescriptorOffset = 40
+	DEVICE_COPY_OFFLOAD_DESCRIPTOROptimalTransferLengthGranularityOffset   = 44
+	DEVICE_COPY_OFFLOAD_DESCRIPTORReservedOffset                           = 46
+)
+
+// NewDEVICE_COPY_OFFLOAD_DESCRIPTOR allocates zeroed, aligned native storage.
+func NewDEVICE_COPY_OFFLOAD_DESCRIPTOR() DEVICE_COPY_OFFLOAD_DESCRIPTOR {
+	return DEVICE_COPY_OFFLOAD_DESCRIPTOR{data: nativebuffer.New(int(DEVICE_COPY_OFFLOAD_DESCRIPTORSize), uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORAlignment))}
+}
+
+// ViewDEVICE_COPY_OFFLOAD_DESCRIPTOR shares data without copying. It panics if data is shorter than DEVICE_COPY_OFFLOAD_DESCRIPTORSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICE_COPY_OFFLOAD_DESCRIPTOR(data []byte) DEVICE_COPY_OFFLOAD_DESCRIPTOR {
+	return DEVICE_COPY_OFFLOAD_DESCRIPTOR{data: nativebuffer.View(data, int(DEVICE_COPY_OFFLOAD_DESCRIPTORSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) Bytes() []byte {
+	return b.data[:DEVICE_COPY_OFFLOAD_DESCRIPTORSize:DEVICE_COPY_OFFLOAD_DESCRIPTORSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) GetVersion() uint32 {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) SetVersion(value uint32) {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSize returns a copy of the native field value.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) GetSize() uint32 {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) SetSize(value uint32) {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMaximumTokenLifetime returns a copy of the native field value.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) GetMaximumTokenLifetime() uint32 {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORMaximumTokenLifetimeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMaximumTokenLifetime copies value into the native field.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) SetMaximumTokenLifetime(value uint32) {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORMaximumTokenLifetimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDefaultTokenLifetime returns a copy of the native field value.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) GetDefaultTokenLifetime() uint32 {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORDefaultTokenLifetimeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDefaultTokenLifetime copies value into the native field.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) SetDefaultTokenLifetime(value uint32) {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORDefaultTokenLifetimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMaximumTransferSize returns a copy of the native field value.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) GetMaximumTransferSize() uint64 {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORMaximumTransferSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMaximumTransferSize copies value into the native field.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) SetMaximumTransferSize(value uint64) {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORMaximumTransferSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetOptimalTransferCount returns a copy of the native field value.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) GetOptimalTransferCount() uint64 {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTOROptimalTransferCountOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetOptimalTransferCount copies value into the native field.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) SetOptimalTransferCount(value uint64) {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTOROptimalTransferCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMaximumDataDescriptors returns a copy of the native field value.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) GetMaximumDataDescriptors() uint32 {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORMaximumDataDescriptorsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMaximumDataDescriptors copies value into the native field.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) SetMaximumDataDescriptors(value uint32) {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORMaximumDataDescriptorsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMaximumTransferLengthPerDescriptor returns a copy of the native field value.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) GetMaximumTransferLengthPerDescriptor() uint32 {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORMaximumTransferLengthPerDescriptorOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMaximumTransferLengthPerDescriptor copies value into the native field.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) SetMaximumTransferLengthPerDescriptor(value uint32) {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORMaximumTransferLengthPerDescriptorOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetOptimalTransferLengthPerDescriptor returns a copy of the native field value.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) GetOptimalTransferLengthPerDescriptor() uint32 {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTOROptimalTransferLengthPerDescriptorOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetOptimalTransferLengthPerDescriptor copies value into the native field.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) SetOptimalTransferLengthPerDescriptor(value uint32) {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTOROptimalTransferLengthPerDescriptorOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetOptimalTransferLengthGranularity returns a copy of the native field value.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) GetOptimalTransferLengthGranularity() uint16 {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTOROptimalTransferLengthGranularityOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetOptimalTransferLengthGranularity copies value into the native field.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) SetOptimalTransferLengthGranularity(value uint16) {
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTOROptimalTransferLengthGranularityOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) GetReserved(index0 int) uint8 {
+	if index0 < 0 || index0 >= 2 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORReservedOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetReserved copies value into the native field.
+func (b DEVICE_COPY_OFFLOAD_DESCRIPTOR) SetReserved(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 2 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_COPY_OFFLOAD_DESCRIPTORReservedOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
 // DEVICE_DATA_SET_LBP_STATE_PARAMETERS projects Windows.Win32.System.Ioctl.DEVICE_DATA_SET_LBP_STATE_PARAMETERS.
 type DEVICE_DATA_SET_LBP_STATE_PARAMETERS struct {
 	Version       uint32
 	Size          uint32
 	Flags         uint32
 	OutputVersion uint32
+}
+
+// DEVICE_DATA_SET_LB_PROVISIONING_STATE is a view of native Windows.Win32.System.Ioctl.DEVICE_DATA_SET_LB_PROVISIONING_STATE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_data_set_lb_provisioning_state.
+type DEVICE_DATA_SET_LB_PROVISIONING_STATE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICE_DATA_SET_LB_PROVISIONING_STATESize                               = 32
+	DEVICE_DATA_SET_LB_PROVISIONING_STATEAlignment                          = 8
+	DEVICE_DATA_SET_LB_PROVISIONING_STATESizeOffset                         = 0
+	DEVICE_DATA_SET_LB_PROVISIONING_STATEVersionOffset                      = 4
+	DEVICE_DATA_SET_LB_PROVISIONING_STATESlabSizeInBytesOffset              = 8
+	DEVICE_DATA_SET_LB_PROVISIONING_STATESlabOffsetDeltaInBytesOffset       = 16
+	DEVICE_DATA_SET_LB_PROVISIONING_STATESlabAllocationBitMapBitCountOffset = 20
+	DEVICE_DATA_SET_LB_PROVISIONING_STATESlabAllocationBitMapLengthOffset   = 24
+	DEVICE_DATA_SET_LB_PROVISIONING_STATESlabAllocationBitMapOffset         = 28
+)
+
+// NewDEVICE_DATA_SET_LB_PROVISIONING_STATE allocates zeroed, aligned native storage.
+func NewDEVICE_DATA_SET_LB_PROVISIONING_STATE() DEVICE_DATA_SET_LB_PROVISIONING_STATE {
+	return DEVICE_DATA_SET_LB_PROVISIONING_STATE{data: nativebuffer.New(int(DEVICE_DATA_SET_LB_PROVISIONING_STATESize), uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATEAlignment))}
+}
+
+// ViewDEVICE_DATA_SET_LB_PROVISIONING_STATE shares data without copying. It panics if data is shorter than DEVICE_DATA_SET_LB_PROVISIONING_STATESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICE_DATA_SET_LB_PROVISIONING_STATE(data []byte) DEVICE_DATA_SET_LB_PROVISIONING_STATE {
+	return DEVICE_DATA_SET_LB_PROVISIONING_STATE{data: nativebuffer.View(data, int(DEVICE_DATA_SET_LB_PROVISIONING_STATESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE) Bytes() []byte {
+	return b.data[:DEVICE_DATA_SET_LB_PROVISIONING_STATESize:DEVICE_DATA_SET_LB_PROVISIONING_STATESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATEAlignment))
+}
+
+// GetSize returns a copy of the native field value.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE) GetSize() uint32 {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATESizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE) SetSize(value uint32) {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATESizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetVersion returns a copy of the native field value.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE) GetVersion() uint32 {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATEVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE) SetVersion(value uint32) {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATEVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSlabSizeInBytes returns a copy of the native field value.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE) GetSlabSizeInBytes() uint64 {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATESlabSizeInBytesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSlabSizeInBytes copies value into the native field.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE) SetSlabSizeInBytes(value uint64) {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATESlabSizeInBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSlabOffsetDeltaInBytes returns a copy of the native field value.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE) GetSlabOffsetDeltaInBytes() uint32 {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATESlabOffsetDeltaInBytesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSlabOffsetDeltaInBytes copies value into the native field.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE) SetSlabOffsetDeltaInBytes(value uint32) {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATESlabOffsetDeltaInBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSlabAllocationBitMapBitCount returns a copy of the native field value.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE) GetSlabAllocationBitMapBitCount() uint32 {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATESlabAllocationBitMapBitCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSlabAllocationBitMapBitCount copies value into the native field.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE) SetSlabAllocationBitMapBitCount(value uint32) {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATESlabAllocationBitMapBitCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSlabAllocationBitMapLength returns a copy of the native field value.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE) GetSlabAllocationBitMapLength() uint32 {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATESlabAllocationBitMapLengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSlabAllocationBitMapLength copies value into the native field.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE) SetSlabAllocationBitMapLength(value uint32) {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATESlabAllocationBitMapLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSlabAllocationBitMap accesses the metadata-declared initial flexible-array extent only.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE) GetSlabAllocationBitMap(index0 int) uint32 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATESlabAllocationBitMapOffset + uintptr(index0)*(4))
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSlabAllocationBitMap copies value into the native field.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE) SetSlabAllocationBitMap(index0 int, value uint32) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATESlabAllocationBitMapOffset + uintptr(index0)*(4))
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 is a view of native Windows.Win32.System.Ioctl.DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2Size                               = 40
+	DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2Alignment                          = 8
+	DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SizeOffset                         = 0
+	DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2VersionOffset                      = 4
+	DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SlabSizeInBytesOffset              = 8
+	DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SlabOffsetDeltaInBytesOffset       = 16
+	DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SlabAllocationBitMapBitCountOffset = 24
+	DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SlabAllocationBitMapLengthOffset   = 28
+	DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SlabAllocationBitMapOffset         = 32
+)
+
+// NewDEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 allocates zeroed, aligned native storage.
+func NewDEVICE_DATA_SET_LB_PROVISIONING_STATE_V2() DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 {
+	return DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2{data: nativebuffer.New(int(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2Size), uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2Alignment))}
+}
+
+// ViewDEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 shares data without copying. It panics if data is shorter than DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICE_DATA_SET_LB_PROVISIONING_STATE_V2(data []byte) DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 {
+	return DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2{data: nativebuffer.View(data, int(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2) Bytes() []byte {
+	return b.data[:DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2Size:DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2Alignment))
+}
+
+// GetSize returns a copy of the native field value.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2) GetSize() uint32 {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2) SetSize(value uint32) {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetVersion returns a copy of the native field value.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2) GetVersion() uint32 {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2VersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2) SetVersion(value uint32) {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2VersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSlabSizeInBytes returns a copy of the native field value.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2) GetSlabSizeInBytes() uint64 {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SlabSizeInBytesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSlabSizeInBytes copies value into the native field.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2) SetSlabSizeInBytes(value uint64) {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SlabSizeInBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSlabOffsetDeltaInBytes returns a copy of the native field value.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2) GetSlabOffsetDeltaInBytes() uint64 {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SlabOffsetDeltaInBytesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSlabOffsetDeltaInBytes copies value into the native field.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2) SetSlabOffsetDeltaInBytes(value uint64) {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SlabOffsetDeltaInBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSlabAllocationBitMapBitCount returns a copy of the native field value.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2) GetSlabAllocationBitMapBitCount() uint32 {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SlabAllocationBitMapBitCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSlabAllocationBitMapBitCount copies value into the native field.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2) SetSlabAllocationBitMapBitCount(value uint32) {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SlabAllocationBitMapBitCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSlabAllocationBitMapLength returns a copy of the native field value.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2) GetSlabAllocationBitMapLength() uint32 {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SlabAllocationBitMapLengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSlabAllocationBitMapLength copies value into the native field.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2) SetSlabAllocationBitMapLength(value uint32) {
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SlabAllocationBitMapLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSlabAllocationBitMap accesses the metadata-declared initial flexible-array extent only.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2) GetSlabAllocationBitMap(index0 int) uint32 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SlabAllocationBitMapOffset + uintptr(index0)*(4))
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSlabAllocationBitMap copies value into the native field.
+func (b DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2) SetSlabAllocationBitMap(index0 int, value uint32) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2SlabAllocationBitMapOffset + uintptr(index0)*(4))
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// DEVICE_DATA_SET_RANGE is a view of native Windows.Win32.System.Ioctl.DEVICE_DATA_SET_RANGE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_data_set_range.
+type DEVICE_DATA_SET_RANGE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICE_DATA_SET_RANGESize                 = 16
+	DEVICE_DATA_SET_RANGEAlignment            = 8
+	DEVICE_DATA_SET_RANGEStartingOffsetOffset = 0
+	DEVICE_DATA_SET_RANGELengthInBytesOffset  = 8
+)
+
+// NewDEVICE_DATA_SET_RANGE allocates zeroed, aligned native storage.
+func NewDEVICE_DATA_SET_RANGE() DEVICE_DATA_SET_RANGE {
+	return DEVICE_DATA_SET_RANGE{data: nativebuffer.New(int(DEVICE_DATA_SET_RANGESize), uintptr(DEVICE_DATA_SET_RANGEAlignment))}
+}
+
+// ViewDEVICE_DATA_SET_RANGE shares data without copying. It panics if data is shorter than DEVICE_DATA_SET_RANGESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICE_DATA_SET_RANGE(data []byte) DEVICE_DATA_SET_RANGE {
+	return DEVICE_DATA_SET_RANGE{data: nativebuffer.View(data, int(DEVICE_DATA_SET_RANGESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICE_DATA_SET_RANGE) Bytes() []byte {
+	return b.data[:DEVICE_DATA_SET_RANGESize:DEVICE_DATA_SET_RANGESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICE_DATA_SET_RANGE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICE_DATA_SET_RANGEAlignment))
+}
+
+// GetStartingOffset returns a copy of the native field value.
+func (b DEVICE_DATA_SET_RANGE) GetStartingOffset() int64 {
+	offset := uintptr(DEVICE_DATA_SET_RANGEStartingOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartingOffset copies value into the native field.
+func (b DEVICE_DATA_SET_RANGE) SetStartingOffset(value int64) {
+	offset := uintptr(DEVICE_DATA_SET_RANGEStartingOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLengthInBytes returns a copy of the native field value.
+func (b DEVICE_DATA_SET_RANGE) GetLengthInBytes() uint64 {
+	offset := uintptr(DEVICE_DATA_SET_RANGELengthInBytesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLengthInBytes copies value into the native field.
+func (b DEVICE_DATA_SET_RANGE) SetLengthInBytes(value uint64) {
+	offset := uintptr(DEVICE_DATA_SET_RANGELengthInBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// DEVICE_DATA_SET_REPAIR_OUTPUT is a view of native Windows.Win32.System.Ioctl.DEVICE_DATA_SET_REPAIR_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICE_DATA_SET_REPAIR_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICE_DATA_SET_REPAIR_OUTPUTSize               = 16
+	DEVICE_DATA_SET_REPAIR_OUTPUTAlignment          = 8
+	DEVICE_DATA_SET_REPAIR_OUTPUTParityExtentOffset = 0
+)
+
+// NewDEVICE_DATA_SET_REPAIR_OUTPUT allocates zeroed, aligned native storage.
+func NewDEVICE_DATA_SET_REPAIR_OUTPUT() DEVICE_DATA_SET_REPAIR_OUTPUT {
+	return DEVICE_DATA_SET_REPAIR_OUTPUT{data: nativebuffer.New(int(DEVICE_DATA_SET_REPAIR_OUTPUTSize), uintptr(DEVICE_DATA_SET_REPAIR_OUTPUTAlignment))}
+}
+
+// ViewDEVICE_DATA_SET_REPAIR_OUTPUT shares data without copying. It panics if data is shorter than DEVICE_DATA_SET_REPAIR_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICE_DATA_SET_REPAIR_OUTPUT(data []byte) DEVICE_DATA_SET_REPAIR_OUTPUT {
+	return DEVICE_DATA_SET_REPAIR_OUTPUT{data: nativebuffer.View(data, int(DEVICE_DATA_SET_REPAIR_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICE_DATA_SET_REPAIR_OUTPUT) Bytes() []byte {
+	return b.data[:DEVICE_DATA_SET_REPAIR_OUTPUTSize:DEVICE_DATA_SET_REPAIR_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICE_DATA_SET_REPAIR_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICE_DATA_SET_REPAIR_OUTPUTAlignment))
+}
+
+// GetParityExtent returns a view sharing this buffer's storage.
+func (b DEVICE_DATA_SET_REPAIR_OUTPUT) GetParityExtent() DEVICE_DATA_SET_RANGE {
+	offset := uintptr(DEVICE_DATA_SET_REPAIR_OUTPUTParityExtentOffset)
+
+	return ViewDEVICE_DATA_SET_RANGE(b.Bytes()[offset : offset+(16)])
+}
+
+// SetParityExtent copies value into the native field.
+func (b DEVICE_DATA_SET_REPAIR_OUTPUT) SetParityExtent(value DEVICE_DATA_SET_RANGE) {
+	offset := uintptr(DEVICE_DATA_SET_REPAIR_OUTPUTParityExtentOffset)
+	copy(b.Bytes()[offset:offset+(16)], value.Bytes())
 }
 
 // DEVICE_DATA_SET_REPAIR_PARAMETERS projects Windows.Win32.System.Ioctl.DEVICE_DATA_SET_REPAIR_PARAMETERS.
@@ -246,6 +2023,251 @@ type DEVICE_DATA_SET_REPAIR_PARAMETERS struct {
 	RepairCopies [1]uint32
 }
 
+// DEVICE_DATA_SET_SCRUB_EX_OUTPUT is a view of native Windows.Win32.System.Ioctl.DEVICE_DATA_SET_SCRUB_EX_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICE_DATA_SET_SCRUB_EX_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICE_DATA_SET_SCRUB_EX_OUTPUTSize                 = 48
+	DEVICE_DATA_SET_SCRUB_EX_OUTPUTAlignment            = 8
+	DEVICE_DATA_SET_SCRUB_EX_OUTPUTBytesProcessedOffset = 0
+	DEVICE_DATA_SET_SCRUB_EX_OUTPUTBytesRepairedOffset  = 8
+	DEVICE_DATA_SET_SCRUB_EX_OUTPUTBytesFailedOffset    = 16
+	DEVICE_DATA_SET_SCRUB_EX_OUTPUTParityExtentOffset   = 24
+	DEVICE_DATA_SET_SCRUB_EX_OUTPUTBytesScrubbedOffset  = 40
+)
+
+// NewDEVICE_DATA_SET_SCRUB_EX_OUTPUT allocates zeroed, aligned native storage.
+func NewDEVICE_DATA_SET_SCRUB_EX_OUTPUT() DEVICE_DATA_SET_SCRUB_EX_OUTPUT {
+	return DEVICE_DATA_SET_SCRUB_EX_OUTPUT{data: nativebuffer.New(int(DEVICE_DATA_SET_SCRUB_EX_OUTPUTSize), uintptr(DEVICE_DATA_SET_SCRUB_EX_OUTPUTAlignment))}
+}
+
+// ViewDEVICE_DATA_SET_SCRUB_EX_OUTPUT shares data without copying. It panics if data is shorter than DEVICE_DATA_SET_SCRUB_EX_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICE_DATA_SET_SCRUB_EX_OUTPUT(data []byte) DEVICE_DATA_SET_SCRUB_EX_OUTPUT {
+	return DEVICE_DATA_SET_SCRUB_EX_OUTPUT{data: nativebuffer.View(data, int(DEVICE_DATA_SET_SCRUB_EX_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICE_DATA_SET_SCRUB_EX_OUTPUT) Bytes() []byte {
+	return b.data[:DEVICE_DATA_SET_SCRUB_EX_OUTPUTSize:DEVICE_DATA_SET_SCRUB_EX_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICE_DATA_SET_SCRUB_EX_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICE_DATA_SET_SCRUB_EX_OUTPUTAlignment))
+}
+
+// GetBytesProcessed returns a copy of the native field value.
+func (b DEVICE_DATA_SET_SCRUB_EX_OUTPUT) GetBytesProcessed() uint64 {
+	offset := uintptr(DEVICE_DATA_SET_SCRUB_EX_OUTPUTBytesProcessedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesProcessed copies value into the native field.
+func (b DEVICE_DATA_SET_SCRUB_EX_OUTPUT) SetBytesProcessed(value uint64) {
+	offset := uintptr(DEVICE_DATA_SET_SCRUB_EX_OUTPUTBytesProcessedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBytesRepaired returns a copy of the native field value.
+func (b DEVICE_DATA_SET_SCRUB_EX_OUTPUT) GetBytesRepaired() uint64 {
+	offset := uintptr(DEVICE_DATA_SET_SCRUB_EX_OUTPUTBytesRepairedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesRepaired copies value into the native field.
+func (b DEVICE_DATA_SET_SCRUB_EX_OUTPUT) SetBytesRepaired(value uint64) {
+	offset := uintptr(DEVICE_DATA_SET_SCRUB_EX_OUTPUTBytesRepairedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBytesFailed returns a copy of the native field value.
+func (b DEVICE_DATA_SET_SCRUB_EX_OUTPUT) GetBytesFailed() uint64 {
+	offset := uintptr(DEVICE_DATA_SET_SCRUB_EX_OUTPUTBytesFailedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesFailed copies value into the native field.
+func (b DEVICE_DATA_SET_SCRUB_EX_OUTPUT) SetBytesFailed(value uint64) {
+	offset := uintptr(DEVICE_DATA_SET_SCRUB_EX_OUTPUTBytesFailedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetParityExtent returns a view sharing this buffer's storage.
+func (b DEVICE_DATA_SET_SCRUB_EX_OUTPUT) GetParityExtent() DEVICE_DATA_SET_RANGE {
+	offset := uintptr(DEVICE_DATA_SET_SCRUB_EX_OUTPUTParityExtentOffset)
+
+	return ViewDEVICE_DATA_SET_RANGE(b.Bytes()[offset : offset+(16)])
+}
+
+// SetParityExtent copies value into the native field.
+func (b DEVICE_DATA_SET_SCRUB_EX_OUTPUT) SetParityExtent(value DEVICE_DATA_SET_RANGE) {
+	offset := uintptr(DEVICE_DATA_SET_SCRUB_EX_OUTPUTParityExtentOffset)
+	copy(b.Bytes()[offset:offset+(16)], value.Bytes())
+}
+
+// GetBytesScrubbed returns a copy of the native field value.
+func (b DEVICE_DATA_SET_SCRUB_EX_OUTPUT) GetBytesScrubbed() uint64 {
+	offset := uintptr(DEVICE_DATA_SET_SCRUB_EX_OUTPUTBytesScrubbedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesScrubbed copies value into the native field.
+func (b DEVICE_DATA_SET_SCRUB_EX_OUTPUT) SetBytesScrubbed(value uint64) {
+	offset := uintptr(DEVICE_DATA_SET_SCRUB_EX_OUTPUTBytesScrubbedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// DEVICE_DATA_SET_SCRUB_OUTPUT is a view of native Windows.Win32.System.Ioctl.DEVICE_DATA_SET_SCRUB_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICE_DATA_SET_SCRUB_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICE_DATA_SET_SCRUB_OUTPUTSize                 = 24
+	DEVICE_DATA_SET_SCRUB_OUTPUTAlignment            = 8
+	DEVICE_DATA_SET_SCRUB_OUTPUTBytesProcessedOffset = 0
+	DEVICE_DATA_SET_SCRUB_OUTPUTBytesRepairedOffset  = 8
+	DEVICE_DATA_SET_SCRUB_OUTPUTBytesFailedOffset    = 16
+)
+
+// NewDEVICE_DATA_SET_SCRUB_OUTPUT allocates zeroed, aligned native storage.
+func NewDEVICE_DATA_SET_SCRUB_OUTPUT() DEVICE_DATA_SET_SCRUB_OUTPUT {
+	return DEVICE_DATA_SET_SCRUB_OUTPUT{data: nativebuffer.New(int(DEVICE_DATA_SET_SCRUB_OUTPUTSize), uintptr(DEVICE_DATA_SET_SCRUB_OUTPUTAlignment))}
+}
+
+// ViewDEVICE_DATA_SET_SCRUB_OUTPUT shares data without copying. It panics if data is shorter than DEVICE_DATA_SET_SCRUB_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICE_DATA_SET_SCRUB_OUTPUT(data []byte) DEVICE_DATA_SET_SCRUB_OUTPUT {
+	return DEVICE_DATA_SET_SCRUB_OUTPUT{data: nativebuffer.View(data, int(DEVICE_DATA_SET_SCRUB_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICE_DATA_SET_SCRUB_OUTPUT) Bytes() []byte {
+	return b.data[:DEVICE_DATA_SET_SCRUB_OUTPUTSize:DEVICE_DATA_SET_SCRUB_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICE_DATA_SET_SCRUB_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICE_DATA_SET_SCRUB_OUTPUTAlignment))
+}
+
+// GetBytesProcessed returns a copy of the native field value.
+func (b DEVICE_DATA_SET_SCRUB_OUTPUT) GetBytesProcessed() uint64 {
+	offset := uintptr(DEVICE_DATA_SET_SCRUB_OUTPUTBytesProcessedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesProcessed copies value into the native field.
+func (b DEVICE_DATA_SET_SCRUB_OUTPUT) SetBytesProcessed(value uint64) {
+	offset := uintptr(DEVICE_DATA_SET_SCRUB_OUTPUTBytesProcessedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBytesRepaired returns a copy of the native field value.
+func (b DEVICE_DATA_SET_SCRUB_OUTPUT) GetBytesRepaired() uint64 {
+	offset := uintptr(DEVICE_DATA_SET_SCRUB_OUTPUTBytesRepairedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesRepaired copies value into the native field.
+func (b DEVICE_DATA_SET_SCRUB_OUTPUT) SetBytesRepaired(value uint64) {
+	offset := uintptr(DEVICE_DATA_SET_SCRUB_OUTPUTBytesRepairedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBytesFailed returns a copy of the native field value.
+func (b DEVICE_DATA_SET_SCRUB_OUTPUT) GetBytesFailed() uint64 {
+	offset := uintptr(DEVICE_DATA_SET_SCRUB_OUTPUTBytesFailedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesFailed copies value into the native field.
+func (b DEVICE_DATA_SET_SCRUB_OUTPUT) SetBytesFailed(value uint64) {
+	offset := uintptr(DEVICE_DATA_SET_SCRUB_OUTPUTBytesFailedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT is a view of native Windows.Win32.System.Ioctl.DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUTSize                     = 24
+	DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUTAlignment                = 8
+	DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUTTopologyRangeBytesOffset = 0
+	DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUTTopologyIdOffset         = 8
+)
+
+// NewDEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT allocates zeroed, aligned native storage.
+func NewDEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT() DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT {
+	return DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT{data: nativebuffer.New(int(DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUTSize), uintptr(DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUTAlignment))}
+}
+
+// ViewDEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT shares data without copying. It panics if data is shorter than DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT(data []byte) DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT {
+	return DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT{data: nativebuffer.View(data, int(DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT) Bytes() []byte {
+	return b.data[:DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUTSize:DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUTAlignment))
+}
+
+// GetTopologyRangeBytes returns a copy of the native field value.
+func (b DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT) GetTopologyRangeBytes() uint64 {
+	offset := uintptr(DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUTTopologyRangeBytesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTopologyRangeBytes copies value into the native field.
+func (b DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT) SetTopologyRangeBytes(value uint64) {
+	offset := uintptr(DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUTTopologyRangeBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTopologyId returns a copy of the native field value.
+func (b DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT) GetTopologyId(index0 int) uint8 {
+	if index0 < 0 || index0 >= 16 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUTTopologyIdOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetTopologyId copies value into the native field.
+func (b DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT) SetTopologyId(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 16 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUTTopologyIdOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
 // DEVICE_DSM_DEFINITION projects Windows.Win32.System.Ioctl.DEVICE_DSM_DEFINITION.
 type DEVICE_DSM_DEFINITION struct {
 	Action                  uint32
@@ -255,6 +2277,237 @@ type DEVICE_DSM_DEFINITION struct {
 	HasOutput               foundation.BOOLEAN
 	OutputBlockAlignment    uint32
 	OutputBlockLength       uint32
+}
+
+// DEVICE_DSM_FREE_SPACE_OUTPUT is a view of native Windows.Win32.System.Ioctl.DEVICE_DSM_FREE_SPACE_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICE_DSM_FREE_SPACE_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICE_DSM_FREE_SPACE_OUTPUTSize            = 16
+	DEVICE_DSM_FREE_SPACE_OUTPUTAlignment       = 8
+	DEVICE_DSM_FREE_SPACE_OUTPUTVersionOffset   = 0
+	DEVICE_DSM_FREE_SPACE_OUTPUTFreeSpaceOffset = 8
+)
+
+// NewDEVICE_DSM_FREE_SPACE_OUTPUT allocates zeroed, aligned native storage.
+func NewDEVICE_DSM_FREE_SPACE_OUTPUT() DEVICE_DSM_FREE_SPACE_OUTPUT {
+	return DEVICE_DSM_FREE_SPACE_OUTPUT{data: nativebuffer.New(int(DEVICE_DSM_FREE_SPACE_OUTPUTSize), uintptr(DEVICE_DSM_FREE_SPACE_OUTPUTAlignment))}
+}
+
+// ViewDEVICE_DSM_FREE_SPACE_OUTPUT shares data without copying. It panics if data is shorter than DEVICE_DSM_FREE_SPACE_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICE_DSM_FREE_SPACE_OUTPUT(data []byte) DEVICE_DSM_FREE_SPACE_OUTPUT {
+	return DEVICE_DSM_FREE_SPACE_OUTPUT{data: nativebuffer.View(data, int(DEVICE_DSM_FREE_SPACE_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICE_DSM_FREE_SPACE_OUTPUT) Bytes() []byte {
+	return b.data[:DEVICE_DSM_FREE_SPACE_OUTPUTSize:DEVICE_DSM_FREE_SPACE_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICE_DSM_FREE_SPACE_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICE_DSM_FREE_SPACE_OUTPUTAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b DEVICE_DSM_FREE_SPACE_OUTPUT) GetVersion() uint32 {
+	offset := uintptr(DEVICE_DSM_FREE_SPACE_OUTPUTVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b DEVICE_DSM_FREE_SPACE_OUTPUT) SetVersion(value uint32) {
+	offset := uintptr(DEVICE_DSM_FREE_SPACE_OUTPUTVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFreeSpace returns a copy of the native field value.
+func (b DEVICE_DSM_FREE_SPACE_OUTPUT) GetFreeSpace() uint64 {
+	offset := uintptr(DEVICE_DSM_FREE_SPACE_OUTPUTFreeSpaceOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFreeSpace copies value into the native field.
+func (b DEVICE_DSM_FREE_SPACE_OUTPUT) SetFreeSpace(value uint64) {
+	offset := uintptr(DEVICE_DSM_FREE_SPACE_OUTPUTFreeSpaceOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// DEVICE_DSM_LOST_QUERY_OUTPUT is a view of native Windows.Win32.System.Ioctl.DEVICE_DSM_LOST_QUERY_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICE_DSM_LOST_QUERY_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICE_DSM_LOST_QUERY_OUTPUTSize               = 24
+	DEVICE_DSM_LOST_QUERY_OUTPUTAlignment          = 8
+	DEVICE_DSM_LOST_QUERY_OUTPUTVersionOffset      = 0
+	DEVICE_DSM_LOST_QUERY_OUTPUTSizeOffset         = 4
+	DEVICE_DSM_LOST_QUERY_OUTPUTAlignmentOffset    = 8
+	DEVICE_DSM_LOST_QUERY_OUTPUTNumberOfBitsOffset = 16
+	DEVICE_DSM_LOST_QUERY_OUTPUTBitMapOffset       = 20
+)
+
+// NewDEVICE_DSM_LOST_QUERY_OUTPUT allocates zeroed, aligned native storage.
+func NewDEVICE_DSM_LOST_QUERY_OUTPUT() DEVICE_DSM_LOST_QUERY_OUTPUT {
+	return DEVICE_DSM_LOST_QUERY_OUTPUT{data: nativebuffer.New(int(DEVICE_DSM_LOST_QUERY_OUTPUTSize), uintptr(DEVICE_DSM_LOST_QUERY_OUTPUTAlignment))}
+}
+
+// ViewDEVICE_DSM_LOST_QUERY_OUTPUT shares data without copying. It panics if data is shorter than DEVICE_DSM_LOST_QUERY_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICE_DSM_LOST_QUERY_OUTPUT(data []byte) DEVICE_DSM_LOST_QUERY_OUTPUT {
+	return DEVICE_DSM_LOST_QUERY_OUTPUT{data: nativebuffer.View(data, int(DEVICE_DSM_LOST_QUERY_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICE_DSM_LOST_QUERY_OUTPUT) Bytes() []byte {
+	return b.data[:DEVICE_DSM_LOST_QUERY_OUTPUTSize:DEVICE_DSM_LOST_QUERY_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICE_DSM_LOST_QUERY_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICE_DSM_LOST_QUERY_OUTPUTAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b DEVICE_DSM_LOST_QUERY_OUTPUT) GetVersion() uint32 {
+	offset := uintptr(DEVICE_DSM_LOST_QUERY_OUTPUTVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b DEVICE_DSM_LOST_QUERY_OUTPUT) SetVersion(value uint32) {
+	offset := uintptr(DEVICE_DSM_LOST_QUERY_OUTPUTVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSize returns a copy of the native field value.
+func (b DEVICE_DSM_LOST_QUERY_OUTPUT) GetSize() uint32 {
+	offset := uintptr(DEVICE_DSM_LOST_QUERY_OUTPUTSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b DEVICE_DSM_LOST_QUERY_OUTPUT) SetSize(value uint32) {
+	offset := uintptr(DEVICE_DSM_LOST_QUERY_OUTPUTSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetAlignment returns a copy of the native field value.
+func (b DEVICE_DSM_LOST_QUERY_OUTPUT) GetAlignment() uint64 {
+	offset := uintptr(DEVICE_DSM_LOST_QUERY_OUTPUTAlignmentOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAlignment copies value into the native field.
+func (b DEVICE_DSM_LOST_QUERY_OUTPUT) SetAlignment(value uint64) {
+	offset := uintptr(DEVICE_DSM_LOST_QUERY_OUTPUTAlignmentOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumberOfBits returns a copy of the native field value.
+func (b DEVICE_DSM_LOST_QUERY_OUTPUT) GetNumberOfBits() uint32 {
+	offset := uintptr(DEVICE_DSM_LOST_QUERY_OUTPUTNumberOfBitsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNumberOfBits copies value into the native field.
+func (b DEVICE_DSM_LOST_QUERY_OUTPUT) SetNumberOfBits(value uint32) {
+	offset := uintptr(DEVICE_DSM_LOST_QUERY_OUTPUTNumberOfBitsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBitMap accesses the metadata-declared initial flexible-array extent only.
+func (b DEVICE_DSM_LOST_QUERY_OUTPUT) GetBitMap(index0 int) uint32 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_DSM_LOST_QUERY_OUTPUTBitMapOffset + uintptr(index0)*(4))
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBitMap copies value into the native field.
+func (b DEVICE_DSM_LOST_QUERY_OUTPUT) SetBitMap(index0 int, value uint32) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_DSM_LOST_QUERY_OUTPUTBitMapOffset + uintptr(index0)*(4))
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// DEVICE_DSM_LOST_QUERY_PARAMETERS is a view of native Windows.Win32.System.Ioctl.DEVICE_DSM_LOST_QUERY_PARAMETERS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICE_DSM_LOST_QUERY_PARAMETERS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICE_DSM_LOST_QUERY_PARAMETERSSize              = 16
+	DEVICE_DSM_LOST_QUERY_PARAMETERSAlignment         = 8
+	DEVICE_DSM_LOST_QUERY_PARAMETERSVersionOffset     = 0
+	DEVICE_DSM_LOST_QUERY_PARAMETERSGranularityOffset = 8
+)
+
+// NewDEVICE_DSM_LOST_QUERY_PARAMETERS allocates zeroed, aligned native storage.
+func NewDEVICE_DSM_LOST_QUERY_PARAMETERS() DEVICE_DSM_LOST_QUERY_PARAMETERS {
+	return DEVICE_DSM_LOST_QUERY_PARAMETERS{data: nativebuffer.New(int(DEVICE_DSM_LOST_QUERY_PARAMETERSSize), uintptr(DEVICE_DSM_LOST_QUERY_PARAMETERSAlignment))}
+}
+
+// ViewDEVICE_DSM_LOST_QUERY_PARAMETERS shares data without copying. It panics if data is shorter than DEVICE_DSM_LOST_QUERY_PARAMETERSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICE_DSM_LOST_QUERY_PARAMETERS(data []byte) DEVICE_DSM_LOST_QUERY_PARAMETERS {
+	return DEVICE_DSM_LOST_QUERY_PARAMETERS{data: nativebuffer.View(data, int(DEVICE_DSM_LOST_QUERY_PARAMETERSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICE_DSM_LOST_QUERY_PARAMETERS) Bytes() []byte {
+	return b.data[:DEVICE_DSM_LOST_QUERY_PARAMETERSSize:DEVICE_DSM_LOST_QUERY_PARAMETERSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICE_DSM_LOST_QUERY_PARAMETERS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICE_DSM_LOST_QUERY_PARAMETERSAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b DEVICE_DSM_LOST_QUERY_PARAMETERS) GetVersion() uint32 {
+	offset := uintptr(DEVICE_DSM_LOST_QUERY_PARAMETERSVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b DEVICE_DSM_LOST_QUERY_PARAMETERS) SetVersion(value uint32) {
+	offset := uintptr(DEVICE_DSM_LOST_QUERY_PARAMETERSVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetGranularity returns a copy of the native field value.
+func (b DEVICE_DSM_LOST_QUERY_PARAMETERS) GetGranularity() uint64 {
+	offset := uintptr(DEVICE_DSM_LOST_QUERY_PARAMETERSGranularityOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGranularity copies value into the native field.
+func (b DEVICE_DSM_LOST_QUERY_PARAMETERS) SetGranularity(value uint64) {
+	offset := uintptr(DEVICE_DSM_LOST_QUERY_PARAMETERSGranularityOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS projects Windows.Win32.System.Ioctl.DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS.
@@ -272,10 +2525,228 @@ type DEVICE_DSM_OFFLOAD_READ_PARAMETERS struct {
 	Reserved   [2]uint32
 }
 
+// DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT is a view of native Windows.Win32.System.Ioctl.DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTSize                         = 32
+	DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTAlignment                    = 8
+	DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTVersionOffset                = 0
+	DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTFlagsOffset                  = 4
+	DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTTotalNumberOfRangesOffset    = 8
+	DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTNumberOfRangesReturnedOffset = 12
+	DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTRangesOffset                 = 16
+)
+
+// NewDEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT allocates zeroed, aligned native storage.
+func NewDEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT() DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT {
+	return DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT{data: nativebuffer.New(int(DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTSize), uintptr(DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTAlignment))}
+}
+
+// ViewDEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT shares data without copying. It panics if data is shorter than DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT(data []byte) DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT {
+	return DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT{data: nativebuffer.View(data, int(DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT) Bytes() []byte {
+	return b.data[:DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTSize:DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT) GetVersion() uint32 {
+	offset := uintptr(DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT) SetVersion(value uint32) {
+	offset := uintptr(DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT) GetFlags() uint32 {
+	offset := uintptr(DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT) SetFlags(value uint32) {
+	offset := uintptr(DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTotalNumberOfRanges returns a copy of the native field value.
+func (b DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT) GetTotalNumberOfRanges() uint32 {
+	offset := uintptr(DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTTotalNumberOfRangesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTotalNumberOfRanges copies value into the native field.
+func (b DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT) SetTotalNumberOfRanges(value uint32) {
+	offset := uintptr(DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTTotalNumberOfRangesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNumberOfRangesReturned returns a copy of the native field value.
+func (b DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT) GetNumberOfRangesReturned() uint32 {
+	offset := uintptr(DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTNumberOfRangesReturnedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNumberOfRangesReturned copies value into the native field.
+func (b DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT) SetNumberOfRangesReturned(value uint32) {
+	offset := uintptr(DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTNumberOfRangesReturnedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRanges accesses the metadata-declared initial flexible-array extent only.
+func (b DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT) GetRanges(index0 int) DEVICE_STORAGE_ADDRESS_RANGE {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTRangesOffset + uintptr(index0)*(16))
+
+	return ViewDEVICE_STORAGE_ADDRESS_RANGE(b.Bytes()[offset : offset+(16)])
+}
+
+// SetRanges copies value into the native field.
+func (b DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT) SetRanges(index0 int, value DEVICE_STORAGE_ADDRESS_RANGE) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUTRangesOffset + uintptr(index0)*(16))
+	copy(b.Bytes()[offset:offset+(16)], value.Bytes())
+}
+
 // DEVICE_DSM_QUERY_PREFER_LOCAL_REPAIR_OUTPUT projects Windows.Win32.System.Ioctl.DEVICE_DSM_QUERY_PREFER_LOCAL_REPAIR_OUTPUT.
 type DEVICE_DSM_QUERY_PREFER_LOCAL_REPAIR_OUTPUT struct {
 	Version           uint32
 	PreferLocalRepair foundation.BOOLEAN
+}
+
+// DEVICE_DSM_REPORT_ZONES_DATA is a view of native Windows.Win32.System.Ioctl.DEVICE_DSM_REPORT_ZONES_DATA storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICE_DSM_REPORT_ZONES_DATA struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICE_DSM_REPORT_ZONES_DATASize                  = 48
+	DEVICE_DSM_REPORT_ZONES_DATAAlignment             = 8
+	DEVICE_DSM_REPORT_ZONES_DATASizeOffset            = 0
+	DEVICE_DSM_REPORT_ZONES_DATAZoneCountOffset       = 4
+	DEVICE_DSM_REPORT_ZONES_DATAAttributesOffset      = 8
+	DEVICE_DSM_REPORT_ZONES_DATAReserved0Offset       = 12
+	DEVICE_DSM_REPORT_ZONES_DATAZoneDescriptorsOffset = 16
+)
+
+// NewDEVICE_DSM_REPORT_ZONES_DATA allocates zeroed, aligned native storage.
+func NewDEVICE_DSM_REPORT_ZONES_DATA() DEVICE_DSM_REPORT_ZONES_DATA {
+	return DEVICE_DSM_REPORT_ZONES_DATA{data: nativebuffer.New(int(DEVICE_DSM_REPORT_ZONES_DATASize), uintptr(DEVICE_DSM_REPORT_ZONES_DATAAlignment))}
+}
+
+// ViewDEVICE_DSM_REPORT_ZONES_DATA shares data without copying. It panics if data is shorter than DEVICE_DSM_REPORT_ZONES_DATASize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICE_DSM_REPORT_ZONES_DATA(data []byte) DEVICE_DSM_REPORT_ZONES_DATA {
+	return DEVICE_DSM_REPORT_ZONES_DATA{data: nativebuffer.View(data, int(DEVICE_DSM_REPORT_ZONES_DATASize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICE_DSM_REPORT_ZONES_DATA) Bytes() []byte {
+	return b.data[:DEVICE_DSM_REPORT_ZONES_DATASize:DEVICE_DSM_REPORT_ZONES_DATASize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICE_DSM_REPORT_ZONES_DATA) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICE_DSM_REPORT_ZONES_DATAAlignment))
+}
+
+// GetSize returns a copy of the native field value.
+func (b DEVICE_DSM_REPORT_ZONES_DATA) GetSize() uint32 {
+	offset := uintptr(DEVICE_DSM_REPORT_ZONES_DATASizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b DEVICE_DSM_REPORT_ZONES_DATA) SetSize(value uint32) {
+	offset := uintptr(DEVICE_DSM_REPORT_ZONES_DATASizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetZoneCount returns a copy of the native field value.
+func (b DEVICE_DSM_REPORT_ZONES_DATA) GetZoneCount() uint32 {
+	offset := uintptr(DEVICE_DSM_REPORT_ZONES_DATAZoneCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetZoneCount copies value into the native field.
+func (b DEVICE_DSM_REPORT_ZONES_DATA) SetZoneCount(value uint32) {
+	offset := uintptr(DEVICE_DSM_REPORT_ZONES_DATAZoneCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetAttributes returns a copy of the native field value.
+func (b DEVICE_DSM_REPORT_ZONES_DATA) GetAttributes() STORAGE_ZONES_ATTRIBUTES {
+	offset := uintptr(DEVICE_DSM_REPORT_ZONES_DATAAttributesOffset)
+
+	return nativebuffer.Read[STORAGE_ZONES_ATTRIBUTES](b.Bytes()[offset : offset+(4)])
+}
+
+// SetAttributes copies value into the native field.
+func (b DEVICE_DSM_REPORT_ZONES_DATA) SetAttributes(value STORAGE_ZONES_ATTRIBUTES) {
+	offset := uintptr(DEVICE_DSM_REPORT_ZONES_DATAAttributesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved0 returns a copy of the native field value.
+func (b DEVICE_DSM_REPORT_ZONES_DATA) GetReserved0() uint32 {
+	offset := uintptr(DEVICE_DSM_REPORT_ZONES_DATAReserved0Offset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved0 copies value into the native field.
+func (b DEVICE_DSM_REPORT_ZONES_DATA) SetReserved0(value uint32) {
+	offset := uintptr(DEVICE_DSM_REPORT_ZONES_DATAReserved0Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetZoneDescriptors accesses the metadata-declared initial flexible-array extent only.
+func (b DEVICE_DSM_REPORT_ZONES_DATA) GetZoneDescriptors(index0 int) STORAGE_ZONE_DESCRIPTOR {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_DSM_REPORT_ZONES_DATAZoneDescriptorsOffset + uintptr(index0)*(32))
+
+	return ViewSTORAGE_ZONE_DESCRIPTOR(b.Bytes()[offset : offset+(32)])
+}
+
+// SetZoneDescriptors copies value into the native field.
+func (b DEVICE_DSM_REPORT_ZONES_DATA) SetZoneDescriptors(index0 int, value STORAGE_ZONE_DESCRIPTOR) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_DSM_REPORT_ZONES_DATAZoneDescriptorsOffset + uintptr(index0)*(32))
+	copy(b.Bytes()[offset:offset+(32)], value.Bytes())
 }
 
 // DEVICE_DSM_REPORT_ZONES_PARAMETERS projects Windows.Win32.System.Ioctl.DEVICE_DSM_REPORT_ZONES_PARAMETERS.
@@ -284,6 +2755,225 @@ type DEVICE_DSM_REPORT_ZONES_PARAMETERS struct {
 	ReportOption uint8
 	Partial      uint8
 	Reserved     [2]uint8
+}
+
+// DEVICE_INTERNAL_STATUS_DATA is a view of native Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICE_INTERNAL_STATUS_DATA struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICE_INTERNAL_STATUS_DATASize                    = 176
+	DEVICE_INTERNAL_STATUS_DATAAlignment               = 8
+	DEVICE_INTERNAL_STATUS_DATAVersionOffset           = 0
+	DEVICE_INTERNAL_STATUS_DATASizeOffset              = 4
+	DEVICE_INTERNAL_STATUS_DATAT10VendorIdOffset       = 8
+	DEVICE_INTERNAL_STATUS_DATADataSet1LengthOffset    = 16
+	DEVICE_INTERNAL_STATUS_DATADataSet2LengthOffset    = 20
+	DEVICE_INTERNAL_STATUS_DATADataSet3LengthOffset    = 24
+	DEVICE_INTERNAL_STATUS_DATADataSet4LengthOffset    = 28
+	DEVICE_INTERNAL_STATUS_DATAStatusDataVersionOffset = 32
+	DEVICE_INTERNAL_STATUS_DATAReservedOffset          = 33
+	DEVICE_INTERNAL_STATUS_DATAReasonIdentifierOffset  = 36
+	DEVICE_INTERNAL_STATUS_DATAStatusDataLengthOffset  = 164
+	DEVICE_INTERNAL_STATUS_DATAStatusDataOffset        = 168
+)
+
+// NewDEVICE_INTERNAL_STATUS_DATA allocates zeroed, aligned native storage.
+func NewDEVICE_INTERNAL_STATUS_DATA() DEVICE_INTERNAL_STATUS_DATA {
+	return DEVICE_INTERNAL_STATUS_DATA{data: nativebuffer.New(int(DEVICE_INTERNAL_STATUS_DATASize), uintptr(DEVICE_INTERNAL_STATUS_DATAAlignment))}
+}
+
+// ViewDEVICE_INTERNAL_STATUS_DATA shares data without copying. It panics if data is shorter than DEVICE_INTERNAL_STATUS_DATASize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICE_INTERNAL_STATUS_DATA(data []byte) DEVICE_INTERNAL_STATUS_DATA {
+	return DEVICE_INTERNAL_STATUS_DATA{data: nativebuffer.View(data, int(DEVICE_INTERNAL_STATUS_DATASize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICE_INTERNAL_STATUS_DATA) Bytes() []byte {
+	return b.data[:DEVICE_INTERNAL_STATUS_DATASize:DEVICE_INTERNAL_STATUS_DATASize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICE_INTERNAL_STATUS_DATA) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICE_INTERNAL_STATUS_DATAAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b DEVICE_INTERNAL_STATUS_DATA) GetVersion() uint32 {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATAVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b DEVICE_INTERNAL_STATUS_DATA) SetVersion(value uint32) {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATAVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSize returns a copy of the native field value.
+func (b DEVICE_INTERNAL_STATUS_DATA) GetSize() uint32 {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATASizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b DEVICE_INTERNAL_STATUS_DATA) SetSize(value uint32) {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATASizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetT10VendorId returns a copy of the native field value.
+func (b DEVICE_INTERNAL_STATUS_DATA) GetT10VendorId() uint64 {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATAT10VendorIdOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetT10VendorId copies value into the native field.
+func (b DEVICE_INTERNAL_STATUS_DATA) SetT10VendorId(value uint64) {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATAT10VendorIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetDataSet1Length returns a copy of the native field value.
+func (b DEVICE_INTERNAL_STATUS_DATA) GetDataSet1Length() uint32 {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATADataSet1LengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDataSet1Length copies value into the native field.
+func (b DEVICE_INTERNAL_STATUS_DATA) SetDataSet1Length(value uint32) {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATADataSet1LengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDataSet2Length returns a copy of the native field value.
+func (b DEVICE_INTERNAL_STATUS_DATA) GetDataSet2Length() uint32 {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATADataSet2LengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDataSet2Length copies value into the native field.
+func (b DEVICE_INTERNAL_STATUS_DATA) SetDataSet2Length(value uint32) {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATADataSet2LengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDataSet3Length returns a copy of the native field value.
+func (b DEVICE_INTERNAL_STATUS_DATA) GetDataSet3Length() uint32 {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATADataSet3LengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDataSet3Length copies value into the native field.
+func (b DEVICE_INTERNAL_STATUS_DATA) SetDataSet3Length(value uint32) {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATADataSet3LengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDataSet4Length returns a copy of the native field value.
+func (b DEVICE_INTERNAL_STATUS_DATA) GetDataSet4Length() uint32 {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATADataSet4LengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDataSet4Length copies value into the native field.
+func (b DEVICE_INTERNAL_STATUS_DATA) SetDataSet4Length(value uint32) {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATADataSet4LengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetStatusDataVersion returns a copy of the native field value.
+func (b DEVICE_INTERNAL_STATUS_DATA) GetStatusDataVersion() uint8 {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATAStatusDataVersionOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetStatusDataVersion copies value into the native field.
+func (b DEVICE_INTERNAL_STATUS_DATA) SetStatusDataVersion(value uint8) {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATAStatusDataVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b DEVICE_INTERNAL_STATUS_DATA) GetReserved(index0 int) uint8 {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATAReservedOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetReserved copies value into the native field.
+func (b DEVICE_INTERNAL_STATUS_DATA) SetReserved(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATAReservedOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetReasonIdentifier returns a copy of the native field value.
+func (b DEVICE_INTERNAL_STATUS_DATA) GetReasonIdentifier(index0 int) uint8 {
+	if index0 < 0 || index0 >= 128 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATAReasonIdentifierOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetReasonIdentifier copies value into the native field.
+func (b DEVICE_INTERNAL_STATUS_DATA) SetReasonIdentifier(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 128 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATAReasonIdentifierOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetStatusDataLength returns a copy of the native field value.
+func (b DEVICE_INTERNAL_STATUS_DATA) GetStatusDataLength() uint32 {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATAStatusDataLengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetStatusDataLength copies value into the native field.
+func (b DEVICE_INTERNAL_STATUS_DATA) SetStatusDataLength(value uint32) {
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATAStatusDataLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetStatusData accesses the metadata-declared initial flexible-array extent only.
+func (b DEVICE_INTERNAL_STATUS_DATA) GetStatusData(index0 int) uint8 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATAStatusDataOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetStatusData copies value into the native field.
+func (b DEVICE_INTERNAL_STATUS_DATA) SetStatusData(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DEVICE_INTERNAL_STATUS_DATAStatusDataOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
 }
 
 // DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE projects Windows.Win32.System.Ioctl.DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE.
@@ -341,6 +3031,67 @@ type DEVICE_SEEK_PENALTY_DESCRIPTOR struct {
 	IncursSeekPenalty foundation.BOOLEAN
 }
 
+// DEVICE_STORAGE_ADDRESS_RANGE is a view of native Windows.Win32.System.Ioctl.DEVICE_STORAGE_ADDRESS_RANGE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DEVICE_STORAGE_ADDRESS_RANGE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DEVICE_STORAGE_ADDRESS_RANGESize                = 16
+	DEVICE_STORAGE_ADDRESS_RANGEAlignment           = 8
+	DEVICE_STORAGE_ADDRESS_RANGEStartAddressOffset  = 0
+	DEVICE_STORAGE_ADDRESS_RANGELengthInBytesOffset = 8
+)
+
+// NewDEVICE_STORAGE_ADDRESS_RANGE allocates zeroed, aligned native storage.
+func NewDEVICE_STORAGE_ADDRESS_RANGE() DEVICE_STORAGE_ADDRESS_RANGE {
+	return DEVICE_STORAGE_ADDRESS_RANGE{data: nativebuffer.New(int(DEVICE_STORAGE_ADDRESS_RANGESize), uintptr(DEVICE_STORAGE_ADDRESS_RANGEAlignment))}
+}
+
+// ViewDEVICE_STORAGE_ADDRESS_RANGE shares data without copying. It panics if data is shorter than DEVICE_STORAGE_ADDRESS_RANGESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDEVICE_STORAGE_ADDRESS_RANGE(data []byte) DEVICE_STORAGE_ADDRESS_RANGE {
+	return DEVICE_STORAGE_ADDRESS_RANGE{data: nativebuffer.View(data, int(DEVICE_STORAGE_ADDRESS_RANGESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DEVICE_STORAGE_ADDRESS_RANGE) Bytes() []byte {
+	return b.data[:DEVICE_STORAGE_ADDRESS_RANGESize:DEVICE_STORAGE_ADDRESS_RANGESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DEVICE_STORAGE_ADDRESS_RANGE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DEVICE_STORAGE_ADDRESS_RANGEAlignment))
+}
+
+// GetStartAddress returns a copy of the native field value.
+func (b DEVICE_STORAGE_ADDRESS_RANGE) GetStartAddress() int64 {
+	offset := uintptr(DEVICE_STORAGE_ADDRESS_RANGEStartAddressOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartAddress copies value into the native field.
+func (b DEVICE_STORAGE_ADDRESS_RANGE) SetStartAddress(value int64) {
+	offset := uintptr(DEVICE_STORAGE_ADDRESS_RANGEStartAddressOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLengthInBytes returns a copy of the native field value.
+func (b DEVICE_STORAGE_ADDRESS_RANGE) GetLengthInBytes() uint64 {
+	offset := uintptr(DEVICE_STORAGE_ADDRESS_RANGELengthInBytesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLengthInBytes copies value into the native field.
+func (b DEVICE_STORAGE_ADDRESS_RANGE) SetLengthInBytes(value uint64) {
+	offset := uintptr(DEVICE_STORAGE_ADDRESS_RANGELengthInBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // DEVICE_TRIM_DESCRIPTOR projects Windows.Win32.System.Ioctl.DEVICE_TRIM_DESCRIPTOR.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_trim_descriptor.
 type DEVICE_TRIM_DESCRIPTOR struct {
@@ -366,6 +3117,476 @@ type DISK_CONTROLLER_NUMBER struct {
 	DiskNumber       uint32
 }
 
+// DISK_EXTENT is a view of native Windows.Win32.System.Ioctl.DISK_EXTENT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_extent.
+type DISK_EXTENT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DISK_EXTENTSize                 = 24
+	DISK_EXTENTAlignment            = 8
+	DISK_EXTENTDiskNumberOffset     = 0
+	DISK_EXTENTStartingOffsetOffset = 8
+	DISK_EXTENTExtentLengthOffset   = 16
+)
+
+// NewDISK_EXTENT allocates zeroed, aligned native storage.
+func NewDISK_EXTENT() DISK_EXTENT {
+	return DISK_EXTENT{data: nativebuffer.New(int(DISK_EXTENTSize), uintptr(DISK_EXTENTAlignment))}
+}
+
+// ViewDISK_EXTENT shares data without copying. It panics if data is shorter than DISK_EXTENTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDISK_EXTENT(data []byte) DISK_EXTENT {
+	return DISK_EXTENT{data: nativebuffer.View(data, int(DISK_EXTENTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DISK_EXTENT) Bytes() []byte {
+	return b.data[:DISK_EXTENTSize:DISK_EXTENTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DISK_EXTENT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DISK_EXTENTAlignment))
+}
+
+// GetDiskNumber returns a copy of the native field value.
+func (b DISK_EXTENT) GetDiskNumber() uint32 {
+	offset := uintptr(DISK_EXTENTDiskNumberOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDiskNumber copies value into the native field.
+func (b DISK_EXTENT) SetDiskNumber(value uint32) {
+	offset := uintptr(DISK_EXTENTDiskNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetStartingOffset returns a copy of the native field value.
+func (b DISK_EXTENT) GetStartingOffset() int64 {
+	offset := uintptr(DISK_EXTENTStartingOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartingOffset copies value into the native field.
+func (b DISK_EXTENT) SetStartingOffset(value int64) {
+	offset := uintptr(DISK_EXTENTStartingOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetExtentLength returns a copy of the native field value.
+func (b DISK_EXTENT) GetExtentLength() int64 {
+	offset := uintptr(DISK_EXTENTExtentLengthOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetExtentLength copies value into the native field.
+func (b DISK_EXTENT) SetExtentLength(value int64) {
+	offset := uintptr(DISK_EXTENTExtentLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// DISK_EX_INT13_INFO is a view of native Windows.Win32.System.Ioctl.DISK_EX_INT13_INFO storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_ex_int13_info.
+type DISK_EX_INT13_INFO struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DISK_EX_INT13_INFOSize                    = 32
+	DISK_EX_INT13_INFOAlignment               = 8
+	DISK_EX_INT13_INFOExBufferSizeOffset      = 0
+	DISK_EX_INT13_INFOExFlagsOffset           = 2
+	DISK_EX_INT13_INFOExCylindersOffset       = 4
+	DISK_EX_INT13_INFOExHeadsOffset           = 8
+	DISK_EX_INT13_INFOExSectorsPerTrackOffset = 12
+	DISK_EX_INT13_INFOExSectorsPerDriveOffset = 16
+	DISK_EX_INT13_INFOExSectorSizeOffset      = 24
+	DISK_EX_INT13_INFOExReservedOffset        = 26
+)
+
+// NewDISK_EX_INT13_INFO allocates zeroed, aligned native storage.
+func NewDISK_EX_INT13_INFO() DISK_EX_INT13_INFO {
+	return DISK_EX_INT13_INFO{data: nativebuffer.New(int(DISK_EX_INT13_INFOSize), uintptr(DISK_EX_INT13_INFOAlignment))}
+}
+
+// ViewDISK_EX_INT13_INFO shares data without copying. It panics if data is shorter than DISK_EX_INT13_INFOSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDISK_EX_INT13_INFO(data []byte) DISK_EX_INT13_INFO {
+	return DISK_EX_INT13_INFO{data: nativebuffer.View(data, int(DISK_EX_INT13_INFOSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DISK_EX_INT13_INFO) Bytes() []byte {
+	return b.data[:DISK_EX_INT13_INFOSize:DISK_EX_INT13_INFOSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DISK_EX_INT13_INFO) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DISK_EX_INT13_INFOAlignment))
+}
+
+// GetExBufferSize returns a copy of the native field value.
+func (b DISK_EX_INT13_INFO) GetExBufferSize() uint16 {
+	offset := uintptr(DISK_EX_INT13_INFOExBufferSizeOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetExBufferSize copies value into the native field.
+func (b DISK_EX_INT13_INFO) SetExBufferSize(value uint16) {
+	offset := uintptr(DISK_EX_INT13_INFOExBufferSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetExFlags returns a copy of the native field value.
+func (b DISK_EX_INT13_INFO) GetExFlags() uint16 {
+	offset := uintptr(DISK_EX_INT13_INFOExFlagsOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetExFlags copies value into the native field.
+func (b DISK_EX_INT13_INFO) SetExFlags(value uint16) {
+	offset := uintptr(DISK_EX_INT13_INFOExFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetExCylinders returns a copy of the native field value.
+func (b DISK_EX_INT13_INFO) GetExCylinders() uint32 {
+	offset := uintptr(DISK_EX_INT13_INFOExCylindersOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetExCylinders copies value into the native field.
+func (b DISK_EX_INT13_INFO) SetExCylinders(value uint32) {
+	offset := uintptr(DISK_EX_INT13_INFOExCylindersOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetExHeads returns a copy of the native field value.
+func (b DISK_EX_INT13_INFO) GetExHeads() uint32 {
+	offset := uintptr(DISK_EX_INT13_INFOExHeadsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetExHeads copies value into the native field.
+func (b DISK_EX_INT13_INFO) SetExHeads(value uint32) {
+	offset := uintptr(DISK_EX_INT13_INFOExHeadsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetExSectorsPerTrack returns a copy of the native field value.
+func (b DISK_EX_INT13_INFO) GetExSectorsPerTrack() uint32 {
+	offset := uintptr(DISK_EX_INT13_INFOExSectorsPerTrackOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetExSectorsPerTrack copies value into the native field.
+func (b DISK_EX_INT13_INFO) SetExSectorsPerTrack(value uint32) {
+	offset := uintptr(DISK_EX_INT13_INFOExSectorsPerTrackOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetExSectorsPerDrive returns a copy of the native field value.
+func (b DISK_EX_INT13_INFO) GetExSectorsPerDrive() uint64 {
+	offset := uintptr(DISK_EX_INT13_INFOExSectorsPerDriveOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetExSectorsPerDrive copies value into the native field.
+func (b DISK_EX_INT13_INFO) SetExSectorsPerDrive(value uint64) {
+	offset := uintptr(DISK_EX_INT13_INFOExSectorsPerDriveOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetExSectorSize returns a copy of the native field value.
+func (b DISK_EX_INT13_INFO) GetExSectorSize() uint16 {
+	offset := uintptr(DISK_EX_INT13_INFOExSectorSizeOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetExSectorSize copies value into the native field.
+func (b DISK_EX_INT13_INFO) SetExSectorSize(value uint16) {
+	offset := uintptr(DISK_EX_INT13_INFOExSectorSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetExReserved returns a copy of the native field value.
+func (b DISK_EX_INT13_INFO) GetExReserved() uint16 {
+	offset := uintptr(DISK_EX_INT13_INFOExReservedOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetExReserved copies value into the native field.
+func (b DISK_EX_INT13_INFO) SetExReserved(value uint16) {
+	offset := uintptr(DISK_EX_INT13_INFOExReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// DISK_GEOMETRY is a view of native Windows.Win32.System.Ioctl.DISK_GEOMETRY storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_geometry.
+type DISK_GEOMETRY struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DISK_GEOMETRYSize                    = 24
+	DISK_GEOMETRYAlignment               = 8
+	DISK_GEOMETRYCylindersOffset         = 0
+	DISK_GEOMETRYMediaTypeOffset         = 8
+	DISK_GEOMETRYTracksPerCylinderOffset = 12
+	DISK_GEOMETRYSectorsPerTrackOffset   = 16
+	DISK_GEOMETRYBytesPerSectorOffset    = 20
+)
+
+// NewDISK_GEOMETRY allocates zeroed, aligned native storage.
+func NewDISK_GEOMETRY() DISK_GEOMETRY {
+	return DISK_GEOMETRY{data: nativebuffer.New(int(DISK_GEOMETRYSize), uintptr(DISK_GEOMETRYAlignment))}
+}
+
+// ViewDISK_GEOMETRY shares data without copying. It panics if data is shorter than DISK_GEOMETRYSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDISK_GEOMETRY(data []byte) DISK_GEOMETRY {
+	return DISK_GEOMETRY{data: nativebuffer.View(data, int(DISK_GEOMETRYSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DISK_GEOMETRY) Bytes() []byte {
+	return b.data[:DISK_GEOMETRYSize:DISK_GEOMETRYSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DISK_GEOMETRY) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DISK_GEOMETRYAlignment))
+}
+
+// GetCylinders returns a copy of the native field value.
+func (b DISK_GEOMETRY) GetCylinders() int64 {
+	offset := uintptr(DISK_GEOMETRYCylindersOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetCylinders copies value into the native field.
+func (b DISK_GEOMETRY) SetCylinders(value int64) {
+	offset := uintptr(DISK_GEOMETRYCylindersOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMediaType returns a copy of the native field value.
+func (b DISK_GEOMETRY) GetMediaType() MEDIA_TYPE {
+	offset := uintptr(DISK_GEOMETRYMediaTypeOffset)
+
+	return nativebuffer.Read[MEDIA_TYPE](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMediaType copies value into the native field.
+func (b DISK_GEOMETRY) SetMediaType(value MEDIA_TYPE) {
+	offset := uintptr(DISK_GEOMETRYMediaTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTracksPerCylinder returns a copy of the native field value.
+func (b DISK_GEOMETRY) GetTracksPerCylinder() uint32 {
+	offset := uintptr(DISK_GEOMETRYTracksPerCylinderOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTracksPerCylinder copies value into the native field.
+func (b DISK_GEOMETRY) SetTracksPerCylinder(value uint32) {
+	offset := uintptr(DISK_GEOMETRYTracksPerCylinderOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSectorsPerTrack returns a copy of the native field value.
+func (b DISK_GEOMETRY) GetSectorsPerTrack() uint32 {
+	offset := uintptr(DISK_GEOMETRYSectorsPerTrackOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSectorsPerTrack copies value into the native field.
+func (b DISK_GEOMETRY) SetSectorsPerTrack(value uint32) {
+	offset := uintptr(DISK_GEOMETRYSectorsPerTrackOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesPerSector returns a copy of the native field value.
+func (b DISK_GEOMETRY) GetBytesPerSector() uint32 {
+	offset := uintptr(DISK_GEOMETRYBytesPerSectorOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesPerSector copies value into the native field.
+func (b DISK_GEOMETRY) SetBytesPerSector(value uint32) {
+	offset := uintptr(DISK_GEOMETRYBytesPerSectorOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// DISK_GEOMETRY_EX is a view of native Windows.Win32.System.Ioctl.DISK_GEOMETRY_EX storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_geometry_ex.
+type DISK_GEOMETRY_EX struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DISK_GEOMETRY_EXSize           = 40
+	DISK_GEOMETRY_EXAlignment      = 8
+	DISK_GEOMETRY_EXGeometryOffset = 0
+	DISK_GEOMETRY_EXDiskSizeOffset = 24
+	DISK_GEOMETRY_EXDataOffset     = 32
+)
+
+// NewDISK_GEOMETRY_EX allocates zeroed, aligned native storage.
+func NewDISK_GEOMETRY_EX() DISK_GEOMETRY_EX {
+	return DISK_GEOMETRY_EX{data: nativebuffer.New(int(DISK_GEOMETRY_EXSize), uintptr(DISK_GEOMETRY_EXAlignment))}
+}
+
+// ViewDISK_GEOMETRY_EX shares data without copying. It panics if data is shorter than DISK_GEOMETRY_EXSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDISK_GEOMETRY_EX(data []byte) DISK_GEOMETRY_EX {
+	return DISK_GEOMETRY_EX{data: nativebuffer.View(data, int(DISK_GEOMETRY_EXSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DISK_GEOMETRY_EX) Bytes() []byte {
+	return b.data[:DISK_GEOMETRY_EXSize:DISK_GEOMETRY_EXSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DISK_GEOMETRY_EX) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DISK_GEOMETRY_EXAlignment))
+}
+
+// GetGeometry returns a view sharing this buffer's storage.
+func (b DISK_GEOMETRY_EX) GetGeometry() DISK_GEOMETRY {
+	offset := uintptr(DISK_GEOMETRY_EXGeometryOffset)
+
+	return ViewDISK_GEOMETRY(b.Bytes()[offset : offset+(24)])
+}
+
+// SetGeometry copies value into the native field.
+func (b DISK_GEOMETRY_EX) SetGeometry(value DISK_GEOMETRY) {
+	offset := uintptr(DISK_GEOMETRY_EXGeometryOffset)
+	copy(b.Bytes()[offset:offset+(24)], value.Bytes())
+}
+
+// GetDiskSize returns a copy of the native field value.
+func (b DISK_GEOMETRY_EX) GetDiskSize() int64 {
+	offset := uintptr(DISK_GEOMETRY_EXDiskSizeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetDiskSize copies value into the native field.
+func (b DISK_GEOMETRY_EX) SetDiskSize(value int64) {
+	offset := uintptr(DISK_GEOMETRY_EXDiskSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetData accesses the metadata-declared initial flexible-array extent only.
+func (b DISK_GEOMETRY_EX) GetData(index0 int) uint8 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DISK_GEOMETRY_EXDataOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetData copies value into the native field.
+func (b DISK_GEOMETRY_EX) SetData(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DISK_GEOMETRY_EXDataOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// DISK_GROW_PARTITION is a view of native Windows.Win32.System.Ioctl.DISK_GROW_PARTITION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_grow_partition.
+type DISK_GROW_PARTITION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DISK_GROW_PARTITIONSize                  = 16
+	DISK_GROW_PARTITIONAlignment             = 8
+	DISK_GROW_PARTITIONPartitionNumberOffset = 0
+	DISK_GROW_PARTITIONBytesToGrowOffset     = 8
+)
+
+// NewDISK_GROW_PARTITION allocates zeroed, aligned native storage.
+func NewDISK_GROW_PARTITION() DISK_GROW_PARTITION {
+	return DISK_GROW_PARTITION{data: nativebuffer.New(int(DISK_GROW_PARTITIONSize), uintptr(DISK_GROW_PARTITIONAlignment))}
+}
+
+// ViewDISK_GROW_PARTITION shares data without copying. It panics if data is shorter than DISK_GROW_PARTITIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDISK_GROW_PARTITION(data []byte) DISK_GROW_PARTITION {
+	return DISK_GROW_PARTITION{data: nativebuffer.View(data, int(DISK_GROW_PARTITIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DISK_GROW_PARTITION) Bytes() []byte {
+	return b.data[:DISK_GROW_PARTITIONSize:DISK_GROW_PARTITIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DISK_GROW_PARTITION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DISK_GROW_PARTITIONAlignment))
+}
+
+// GetPartitionNumber returns a copy of the native field value.
+func (b DISK_GROW_PARTITION) GetPartitionNumber() uint32 {
+	offset := uintptr(DISK_GROW_PARTITIONPartitionNumberOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPartitionNumber copies value into the native field.
+func (b DISK_GROW_PARTITION) SetPartitionNumber(value uint32) {
+	offset := uintptr(DISK_GROW_PARTITIONPartitionNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesToGrow returns a copy of the native field value.
+func (b DISK_GROW_PARTITION) GetBytesToGrow() int64 {
+	offset := uintptr(DISK_GROW_PARTITIONBytesToGrowOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesToGrow copies value into the native field.
+func (b DISK_GROW_PARTITION) SetBytesToGrow(value int64) {
+	offset := uintptr(DISK_GROW_PARTITIONBytesToGrowOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // DISK_INT13_INFO projects Windows.Win32.System.Ioctl.DISK_INT13_INFO.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_int13_info.
 type DISK_INT13_INFO struct {
@@ -376,11 +3597,609 @@ type DISK_INT13_INFO struct {
 	NumberDrives    uint16
 }
 
+// DISK_PERFORMANCE is a view of native Windows.Win32.System.Ioctl.DISK_PERFORMANCE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_performance.
+type DISK_PERFORMANCE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DISK_PERFORMANCESize                      = 88
+	DISK_PERFORMANCEAlignment                 = 8
+	DISK_PERFORMANCEBytesReadOffset           = 0
+	DISK_PERFORMANCEBytesWrittenOffset        = 8
+	DISK_PERFORMANCEReadTimeOffset            = 16
+	DISK_PERFORMANCEWriteTimeOffset           = 24
+	DISK_PERFORMANCEIdleTimeOffset            = 32
+	DISK_PERFORMANCEReadCountOffset           = 40
+	DISK_PERFORMANCEWriteCountOffset          = 44
+	DISK_PERFORMANCEQueueDepthOffset          = 48
+	DISK_PERFORMANCESplitCountOffset          = 52
+	DISK_PERFORMANCEQueryTimeOffset           = 56
+	DISK_PERFORMANCEStorageDeviceNumberOffset = 64
+	DISK_PERFORMANCEStorageManagerNameOffset  = 68
+)
+
+// NewDISK_PERFORMANCE allocates zeroed, aligned native storage.
+func NewDISK_PERFORMANCE() DISK_PERFORMANCE {
+	return DISK_PERFORMANCE{data: nativebuffer.New(int(DISK_PERFORMANCESize), uintptr(DISK_PERFORMANCEAlignment))}
+}
+
+// ViewDISK_PERFORMANCE shares data without copying. It panics if data is shorter than DISK_PERFORMANCESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDISK_PERFORMANCE(data []byte) DISK_PERFORMANCE {
+	return DISK_PERFORMANCE{data: nativebuffer.View(data, int(DISK_PERFORMANCESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DISK_PERFORMANCE) Bytes() []byte {
+	return b.data[:DISK_PERFORMANCESize:DISK_PERFORMANCESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DISK_PERFORMANCE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DISK_PERFORMANCEAlignment))
+}
+
+// GetBytesRead returns a copy of the native field value.
+func (b DISK_PERFORMANCE) GetBytesRead() int64 {
+	offset := uintptr(DISK_PERFORMANCEBytesReadOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesRead copies value into the native field.
+func (b DISK_PERFORMANCE) SetBytesRead(value int64) {
+	offset := uintptr(DISK_PERFORMANCEBytesReadOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBytesWritten returns a copy of the native field value.
+func (b DISK_PERFORMANCE) GetBytesWritten() int64 {
+	offset := uintptr(DISK_PERFORMANCEBytesWrittenOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesWritten copies value into the native field.
+func (b DISK_PERFORMANCE) SetBytesWritten(value int64) {
+	offset := uintptr(DISK_PERFORMANCEBytesWrittenOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetReadTime returns a copy of the native field value.
+func (b DISK_PERFORMANCE) GetReadTime() int64 {
+	offset := uintptr(DISK_PERFORMANCEReadTimeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetReadTime copies value into the native field.
+func (b DISK_PERFORMANCE) SetReadTime(value int64) {
+	offset := uintptr(DISK_PERFORMANCEReadTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetWriteTime returns a copy of the native field value.
+func (b DISK_PERFORMANCE) GetWriteTime() int64 {
+	offset := uintptr(DISK_PERFORMANCEWriteTimeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetWriteTime copies value into the native field.
+func (b DISK_PERFORMANCE) SetWriteTime(value int64) {
+	offset := uintptr(DISK_PERFORMANCEWriteTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetIdleTime returns a copy of the native field value.
+func (b DISK_PERFORMANCE) GetIdleTime() int64 {
+	offset := uintptr(DISK_PERFORMANCEIdleTimeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetIdleTime copies value into the native field.
+func (b DISK_PERFORMANCE) SetIdleTime(value int64) {
+	offset := uintptr(DISK_PERFORMANCEIdleTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetReadCount returns a copy of the native field value.
+func (b DISK_PERFORMANCE) GetReadCount() uint32 {
+	offset := uintptr(DISK_PERFORMANCEReadCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReadCount copies value into the native field.
+func (b DISK_PERFORMANCE) SetReadCount(value uint32) {
+	offset := uintptr(DISK_PERFORMANCEReadCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetWriteCount returns a copy of the native field value.
+func (b DISK_PERFORMANCE) GetWriteCount() uint32 {
+	offset := uintptr(DISK_PERFORMANCEWriteCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetWriteCount copies value into the native field.
+func (b DISK_PERFORMANCE) SetWriteCount(value uint32) {
+	offset := uintptr(DISK_PERFORMANCEWriteCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetQueueDepth returns a copy of the native field value.
+func (b DISK_PERFORMANCE) GetQueueDepth() uint32 {
+	offset := uintptr(DISK_PERFORMANCEQueueDepthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetQueueDepth copies value into the native field.
+func (b DISK_PERFORMANCE) SetQueueDepth(value uint32) {
+	offset := uintptr(DISK_PERFORMANCEQueueDepthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSplitCount returns a copy of the native field value.
+func (b DISK_PERFORMANCE) GetSplitCount() uint32 {
+	offset := uintptr(DISK_PERFORMANCESplitCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSplitCount copies value into the native field.
+func (b DISK_PERFORMANCE) SetSplitCount(value uint32) {
+	offset := uintptr(DISK_PERFORMANCESplitCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetQueryTime returns a copy of the native field value.
+func (b DISK_PERFORMANCE) GetQueryTime() int64 {
+	offset := uintptr(DISK_PERFORMANCEQueryTimeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetQueryTime copies value into the native field.
+func (b DISK_PERFORMANCE) SetQueryTime(value int64) {
+	offset := uintptr(DISK_PERFORMANCEQueryTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetStorageDeviceNumber returns a copy of the native field value.
+func (b DISK_PERFORMANCE) GetStorageDeviceNumber() uint32 {
+	offset := uintptr(DISK_PERFORMANCEStorageDeviceNumberOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetStorageDeviceNumber copies value into the native field.
+func (b DISK_PERFORMANCE) SetStorageDeviceNumber(value uint32) {
+	offset := uintptr(DISK_PERFORMANCEStorageDeviceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetStorageManagerName returns a copy of the native field value.
+func (b DISK_PERFORMANCE) GetStorageManagerName(index0 int) uint16 {
+	if index0 < 0 || index0 >= 8 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DISK_PERFORMANCEStorageManagerNameOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetStorageManagerName copies value into the native field.
+func (b DISK_PERFORMANCE) SetStorageManagerName(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 8 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DISK_PERFORMANCEStorageManagerNameOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// DRIVERSTATUS is a view of native Windows.Win32.System.Ioctl.DRIVERSTATUS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DRIVERSTATUS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DRIVERSTATUSSize               = 12
+	DRIVERSTATUSAlignment          = 1
+	DRIVERSTATUSBDriverErrorOffset = 0
+	DRIVERSTATUSBIDEErrorOffset    = 1
+	DRIVERSTATUSBReservedOffset    = 2
+	DRIVERSTATUSDwReservedOffset   = 4
+)
+
+// NewDRIVERSTATUS allocates zeroed, aligned native storage.
+func NewDRIVERSTATUS() DRIVERSTATUS {
+	return DRIVERSTATUS{data: nativebuffer.New(int(DRIVERSTATUSSize), uintptr(DRIVERSTATUSAlignment))}
+}
+
+// ViewDRIVERSTATUS shares data without copying. It panics if data is shorter than DRIVERSTATUSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDRIVERSTATUS(data []byte) DRIVERSTATUS {
+	return DRIVERSTATUS{data: nativebuffer.View(data, int(DRIVERSTATUSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DRIVERSTATUS) Bytes() []byte {
+	return b.data[:DRIVERSTATUSSize:DRIVERSTATUSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DRIVERSTATUS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DRIVERSTATUSAlignment))
+}
+
+// GetBDriverError returns a copy of the native field value.
+func (b DRIVERSTATUS) GetBDriverError() uint8 {
+	offset := uintptr(DRIVERSTATUSBDriverErrorOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBDriverError copies value into the native field.
+func (b DRIVERSTATUS) SetBDriverError(value uint8) {
+	offset := uintptr(DRIVERSTATUSBDriverErrorOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetBIDEError returns a copy of the native field value.
+func (b DRIVERSTATUS) GetBIDEError() uint8 {
+	offset := uintptr(DRIVERSTATUSBIDEErrorOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBIDEError copies value into the native field.
+func (b DRIVERSTATUS) SetBIDEError(value uint8) {
+	offset := uintptr(DRIVERSTATUSBIDEErrorOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetBReserved returns a copy of the native field value.
+func (b DRIVERSTATUS) GetBReserved(index0 int) uint8 {
+	if index0 < 0 || index0 >= 2 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DRIVERSTATUSBReservedOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBReserved copies value into the native field.
+func (b DRIVERSTATUS) SetBReserved(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 2 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DRIVERSTATUSBReservedOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetDwReserved returns a copy of the native field value.
+func (b DRIVERSTATUS) GetDwReserved(index0 int) uint32 {
+	if index0 < 0 || index0 >= 2 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DRIVERSTATUSDwReservedOffset + uintptr(index0)*(4))
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwReserved copies value into the native field.
+func (b DRIVERSTATUS) SetDwReserved(index0 int, value uint32) {
+	if index0 < 0 || index0 >= 2 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DRIVERSTATUSDwReservedOffset + uintptr(index0)*(4))
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// DRIVE_LAYOUT_INFORMATION is a view of native Windows.Win32.System.Ioctl.DRIVE_LAYOUT_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-drive_layout_information.
+type DRIVE_LAYOUT_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DRIVE_LAYOUT_INFORMATIONSize                 = 40
+	DRIVE_LAYOUT_INFORMATIONAlignment            = 8
+	DRIVE_LAYOUT_INFORMATIONPartitionCountOffset = 0
+	DRIVE_LAYOUT_INFORMATIONSignatureOffset      = 4
+	DRIVE_LAYOUT_INFORMATIONPartitionEntryOffset = 8
+)
+
+// NewDRIVE_LAYOUT_INFORMATION allocates zeroed, aligned native storage.
+func NewDRIVE_LAYOUT_INFORMATION() DRIVE_LAYOUT_INFORMATION {
+	return DRIVE_LAYOUT_INFORMATION{data: nativebuffer.New(int(DRIVE_LAYOUT_INFORMATIONSize), uintptr(DRIVE_LAYOUT_INFORMATIONAlignment))}
+}
+
+// ViewDRIVE_LAYOUT_INFORMATION shares data without copying. It panics if data is shorter than DRIVE_LAYOUT_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDRIVE_LAYOUT_INFORMATION(data []byte) DRIVE_LAYOUT_INFORMATION {
+	return DRIVE_LAYOUT_INFORMATION{data: nativebuffer.View(data, int(DRIVE_LAYOUT_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DRIVE_LAYOUT_INFORMATION) Bytes() []byte {
+	return b.data[:DRIVE_LAYOUT_INFORMATIONSize:DRIVE_LAYOUT_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DRIVE_LAYOUT_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DRIVE_LAYOUT_INFORMATIONAlignment))
+}
+
+// GetPartitionCount returns a copy of the native field value.
+func (b DRIVE_LAYOUT_INFORMATION) GetPartitionCount() uint32 {
+	offset := uintptr(DRIVE_LAYOUT_INFORMATIONPartitionCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPartitionCount copies value into the native field.
+func (b DRIVE_LAYOUT_INFORMATION) SetPartitionCount(value uint32) {
+	offset := uintptr(DRIVE_LAYOUT_INFORMATIONPartitionCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSignature returns a copy of the native field value.
+func (b DRIVE_LAYOUT_INFORMATION) GetSignature() uint32 {
+	offset := uintptr(DRIVE_LAYOUT_INFORMATIONSignatureOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSignature copies value into the native field.
+func (b DRIVE_LAYOUT_INFORMATION) SetSignature(value uint32) {
+	offset := uintptr(DRIVE_LAYOUT_INFORMATIONSignatureOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPartitionEntry accesses the metadata-declared initial flexible-array extent only.
+func (b DRIVE_LAYOUT_INFORMATION) GetPartitionEntry(index0 int) PARTITION_INFORMATION {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DRIVE_LAYOUT_INFORMATIONPartitionEntryOffset + uintptr(index0)*(32))
+
+	return ViewPARTITION_INFORMATION(b.Bytes()[offset : offset+(32)])
+}
+
+// SetPartitionEntry copies value into the native field.
+func (b DRIVE_LAYOUT_INFORMATION) SetPartitionEntry(index0 int, value PARTITION_INFORMATION) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(DRIVE_LAYOUT_INFORMATIONPartitionEntryOffset + uintptr(index0)*(32))
+	copy(b.Bytes()[offset:offset+(32)], value.Bytes())
+}
+
 // DRIVE_LAYOUT_INFORMATION_MBR projects Windows.Win32.System.Ioctl.DRIVE_LAYOUT_INFORMATION_MBR.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-drive_layout_information_mbr.
 type DRIVE_LAYOUT_INFORMATION_MBR struct {
 	Signature uint32
 	CheckSum  uint32
+}
+
+// DUPLICATE_EXTENTS_DATA is a view of native Windows.Win32.System.Ioctl.DUPLICATE_EXTENTS_DATA storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-duplicate_extents_data.
+type DUPLICATE_EXTENTS_DATA struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DUPLICATE_EXTENTS_DATASize                   = 32
+	DUPLICATE_EXTENTS_DATAAlignment              = 8
+	DUPLICATE_EXTENTS_DATAFileHandleOffset       = 0
+	DUPLICATE_EXTENTS_DATASourceFileOffsetOffset = 8
+	DUPLICATE_EXTENTS_DATATargetFileOffsetOffset = 16
+	DUPLICATE_EXTENTS_DATAByteCountOffset        = 24
+)
+
+// NewDUPLICATE_EXTENTS_DATA allocates zeroed, aligned native storage.
+func NewDUPLICATE_EXTENTS_DATA() DUPLICATE_EXTENTS_DATA {
+	return DUPLICATE_EXTENTS_DATA{data: nativebuffer.New(int(DUPLICATE_EXTENTS_DATASize), uintptr(DUPLICATE_EXTENTS_DATAAlignment))}
+}
+
+// ViewDUPLICATE_EXTENTS_DATA shares data without copying. It panics if data is shorter than DUPLICATE_EXTENTS_DATASize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDUPLICATE_EXTENTS_DATA(data []byte) DUPLICATE_EXTENTS_DATA {
+	return DUPLICATE_EXTENTS_DATA{data: nativebuffer.View(data, int(DUPLICATE_EXTENTS_DATASize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DUPLICATE_EXTENTS_DATA) Bytes() []byte {
+	return b.data[:DUPLICATE_EXTENTS_DATASize:DUPLICATE_EXTENTS_DATASize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DUPLICATE_EXTENTS_DATA) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DUPLICATE_EXTENTS_DATAAlignment))
+}
+
+// GetFileHandle returns a copy of the native field value.
+func (b DUPLICATE_EXTENTS_DATA) GetFileHandle() foundation.HANDLE {
+	offset := uintptr(DUPLICATE_EXTENTS_DATAFileHandleOffset)
+
+	return nativebuffer.Read[foundation.HANDLE](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetFileHandle copies value into the native field.
+func (b DUPLICATE_EXTENTS_DATA) SetFileHandle(value foundation.HANDLE) {
+	offset := uintptr(DUPLICATE_EXTENTS_DATAFileHandleOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetSourceFileOffset returns a copy of the native field value.
+func (b DUPLICATE_EXTENTS_DATA) GetSourceFileOffset() int64 {
+	offset := uintptr(DUPLICATE_EXTENTS_DATASourceFileOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSourceFileOffset copies value into the native field.
+func (b DUPLICATE_EXTENTS_DATA) SetSourceFileOffset(value int64) {
+	offset := uintptr(DUPLICATE_EXTENTS_DATASourceFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTargetFileOffset returns a copy of the native field value.
+func (b DUPLICATE_EXTENTS_DATA) GetTargetFileOffset() int64 {
+	offset := uintptr(DUPLICATE_EXTENTS_DATATargetFileOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTargetFileOffset copies value into the native field.
+func (b DUPLICATE_EXTENTS_DATA) SetTargetFileOffset(value int64) {
+	offset := uintptr(DUPLICATE_EXTENTS_DATATargetFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetByteCount returns a copy of the native field value.
+func (b DUPLICATE_EXTENTS_DATA) GetByteCount() int64 {
+	offset := uintptr(DUPLICATE_EXTENTS_DATAByteCountOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetByteCount copies value into the native field.
+func (b DUPLICATE_EXTENTS_DATA) SetByteCount(value int64) {
+	offset := uintptr(DUPLICATE_EXTENTS_DATAByteCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// DUPLICATE_EXTENTS_DATA_EX is a view of native Windows.Win32.System.Ioctl.DUPLICATE_EXTENTS_DATA_EX storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type DUPLICATE_EXTENTS_DATA_EX struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	DUPLICATE_EXTENTS_DATA_EXSize                   = 40 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	DUPLICATE_EXTENTS_DATA_EXAlignment              = 8
+	DUPLICATE_EXTENTS_DATA_EXSizeOffset             = 0
+	DUPLICATE_EXTENTS_DATA_EXFileHandleOffset       = 4 + (unsafe.Sizeof(uintptr(0))-4)/4*4
+	DUPLICATE_EXTENTS_DATA_EXSourceFileOffsetOffset = 8 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	DUPLICATE_EXTENTS_DATA_EXTargetFileOffsetOffset = 16 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	DUPLICATE_EXTENTS_DATA_EXByteCountOffset        = 24 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	DUPLICATE_EXTENTS_DATA_EXFlagsOffset            = 32 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+)
+
+// NewDUPLICATE_EXTENTS_DATA_EX allocates zeroed, aligned native storage.
+func NewDUPLICATE_EXTENTS_DATA_EX() DUPLICATE_EXTENTS_DATA_EX {
+	return DUPLICATE_EXTENTS_DATA_EX{data: nativebuffer.New(int(DUPLICATE_EXTENTS_DATA_EXSize), uintptr(DUPLICATE_EXTENTS_DATA_EXAlignment))}
+}
+
+// ViewDUPLICATE_EXTENTS_DATA_EX shares data without copying. It panics if data is shorter than DUPLICATE_EXTENTS_DATA_EXSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewDUPLICATE_EXTENTS_DATA_EX(data []byte) DUPLICATE_EXTENTS_DATA_EX {
+	return DUPLICATE_EXTENTS_DATA_EX{data: nativebuffer.View(data, int(DUPLICATE_EXTENTS_DATA_EXSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b DUPLICATE_EXTENTS_DATA_EX) Bytes() []byte {
+	return b.data[:DUPLICATE_EXTENTS_DATA_EXSize:DUPLICATE_EXTENTS_DATA_EXSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b DUPLICATE_EXTENTS_DATA_EX) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(DUPLICATE_EXTENTS_DATA_EXAlignment))
+}
+
+// GetSize returns a copy of the native field value.
+func (b DUPLICATE_EXTENTS_DATA_EX) GetSize() uintptr {
+	offset := uintptr(DUPLICATE_EXTENTS_DATA_EXSizeOffset)
+
+	return nativebuffer.Read[uintptr](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetSize copies value into the native field.
+func (b DUPLICATE_EXTENTS_DATA_EX) SetSize(value uintptr) {
+	offset := uintptr(DUPLICATE_EXTENTS_DATA_EXSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetFileHandle returns a copy of the native field value.
+func (b DUPLICATE_EXTENTS_DATA_EX) GetFileHandle() foundation.HANDLE {
+	offset := uintptr(DUPLICATE_EXTENTS_DATA_EXFileHandleOffset)
+
+	return nativebuffer.Read[foundation.HANDLE](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetFileHandle copies value into the native field.
+func (b DUPLICATE_EXTENTS_DATA_EX) SetFileHandle(value foundation.HANDLE) {
+	offset := uintptr(DUPLICATE_EXTENTS_DATA_EXFileHandleOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetSourceFileOffset returns a copy of the native field value.
+func (b DUPLICATE_EXTENTS_DATA_EX) GetSourceFileOffset() int64 {
+	offset := uintptr(DUPLICATE_EXTENTS_DATA_EXSourceFileOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSourceFileOffset copies value into the native field.
+func (b DUPLICATE_EXTENTS_DATA_EX) SetSourceFileOffset(value int64) {
+	offset := uintptr(DUPLICATE_EXTENTS_DATA_EXSourceFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTargetFileOffset returns a copy of the native field value.
+func (b DUPLICATE_EXTENTS_DATA_EX) GetTargetFileOffset() int64 {
+	offset := uintptr(DUPLICATE_EXTENTS_DATA_EXTargetFileOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTargetFileOffset copies value into the native field.
+func (b DUPLICATE_EXTENTS_DATA_EX) SetTargetFileOffset(value int64) {
+	offset := uintptr(DUPLICATE_EXTENTS_DATA_EXTargetFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetByteCount returns a copy of the native field value.
+func (b DUPLICATE_EXTENTS_DATA_EX) GetByteCount() int64 {
+	offset := uintptr(DUPLICATE_EXTENTS_DATA_EXByteCountOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetByteCount copies value into the native field.
+func (b DUPLICATE_EXTENTS_DATA_EX) SetByteCount(value int64) {
+	offset := uintptr(DUPLICATE_EXTENTS_DATA_EXByteCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b DUPLICATE_EXTENTS_DATA_EX) GetFlags() uint32 {
+	offset := uintptr(DUPLICATE_EXTENTS_DATA_EXFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b DUPLICATE_EXTENTS_DATA_EX) SetFlags(value uint32) {
+	offset := uintptr(DUPLICATE_EXTENTS_DATA_EXFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
 }
 
 // DUPLICATE_EXTENTS_STATE projects Windows.Win32.System.Ioctl.DUPLICATE_EXTENTS_STATE.
@@ -390,12 +4209,336 @@ type DUPLICATE_EXTENTS_STATE int32
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-element_type.
 type ELEMENT_TYPE int32
 
+// ENCRYPTED_DATA_INFO is a view of native Windows.Win32.System.Ioctl.ENCRYPTED_DATA_INFO storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type ENCRYPTED_DATA_INFO struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	ENCRYPTED_DATA_INFOSize                             = 32
+	ENCRYPTED_DATA_INFOAlignment                        = 8
+	ENCRYPTED_DATA_INFOStartingFileOffsetOffset         = 0
+	ENCRYPTED_DATA_INFOOutputBufferOffsetOffset         = 8
+	ENCRYPTED_DATA_INFOBytesWithinFileSizeOffset        = 12
+	ENCRYPTED_DATA_INFOBytesWithinValidDataLengthOffset = 16
+	ENCRYPTED_DATA_INFOCompressionFormatOffset          = 20
+	ENCRYPTED_DATA_INFODataUnitShiftOffset              = 22
+	ENCRYPTED_DATA_INFOChunkShiftOffset                 = 23
+	ENCRYPTED_DATA_INFOClusterShiftOffset               = 24
+	ENCRYPTED_DATA_INFOEncryptionFormatOffset           = 25
+	ENCRYPTED_DATA_INFONumberOfDataBlocksOffset         = 26
+	ENCRYPTED_DATA_INFODataBlockSizeOffset              = 28
+)
+
+// NewENCRYPTED_DATA_INFO allocates zeroed, aligned native storage.
+func NewENCRYPTED_DATA_INFO() ENCRYPTED_DATA_INFO {
+	return ENCRYPTED_DATA_INFO{data: nativebuffer.New(int(ENCRYPTED_DATA_INFOSize), uintptr(ENCRYPTED_DATA_INFOAlignment))}
+}
+
+// ViewENCRYPTED_DATA_INFO shares data without copying. It panics if data is shorter than ENCRYPTED_DATA_INFOSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewENCRYPTED_DATA_INFO(data []byte) ENCRYPTED_DATA_INFO {
+	return ENCRYPTED_DATA_INFO{data: nativebuffer.View(data, int(ENCRYPTED_DATA_INFOSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b ENCRYPTED_DATA_INFO) Bytes() []byte {
+	return b.data[:ENCRYPTED_DATA_INFOSize:ENCRYPTED_DATA_INFOSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b ENCRYPTED_DATA_INFO) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(ENCRYPTED_DATA_INFOAlignment))
+}
+
+// GetStartingFileOffset returns a copy of the native field value.
+func (b ENCRYPTED_DATA_INFO) GetStartingFileOffset() uint64 {
+	offset := uintptr(ENCRYPTED_DATA_INFOStartingFileOffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartingFileOffset copies value into the native field.
+func (b ENCRYPTED_DATA_INFO) SetStartingFileOffset(value uint64) {
+	offset := uintptr(ENCRYPTED_DATA_INFOStartingFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetOutputBufferOffset returns a copy of the native field value.
+func (b ENCRYPTED_DATA_INFO) GetOutputBufferOffset() uint32 {
+	offset := uintptr(ENCRYPTED_DATA_INFOOutputBufferOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetOutputBufferOffset copies value into the native field.
+func (b ENCRYPTED_DATA_INFO) SetOutputBufferOffset(value uint32) {
+	offset := uintptr(ENCRYPTED_DATA_INFOOutputBufferOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesWithinFileSize returns a copy of the native field value.
+func (b ENCRYPTED_DATA_INFO) GetBytesWithinFileSize() uint32 {
+	offset := uintptr(ENCRYPTED_DATA_INFOBytesWithinFileSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesWithinFileSize copies value into the native field.
+func (b ENCRYPTED_DATA_INFO) SetBytesWithinFileSize(value uint32) {
+	offset := uintptr(ENCRYPTED_DATA_INFOBytesWithinFileSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesWithinValidDataLength returns a copy of the native field value.
+func (b ENCRYPTED_DATA_INFO) GetBytesWithinValidDataLength() uint32 {
+	offset := uintptr(ENCRYPTED_DATA_INFOBytesWithinValidDataLengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesWithinValidDataLength copies value into the native field.
+func (b ENCRYPTED_DATA_INFO) SetBytesWithinValidDataLength(value uint32) {
+	offset := uintptr(ENCRYPTED_DATA_INFOBytesWithinValidDataLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCompressionFormat returns a copy of the native field value.
+func (b ENCRYPTED_DATA_INFO) GetCompressionFormat() uint16 {
+	offset := uintptr(ENCRYPTED_DATA_INFOCompressionFormatOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetCompressionFormat copies value into the native field.
+func (b ENCRYPTED_DATA_INFO) SetCompressionFormat(value uint16) {
+	offset := uintptr(ENCRYPTED_DATA_INFOCompressionFormatOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetDataUnitShift returns a copy of the native field value.
+func (b ENCRYPTED_DATA_INFO) GetDataUnitShift() uint8 {
+	offset := uintptr(ENCRYPTED_DATA_INFODataUnitShiftOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetDataUnitShift copies value into the native field.
+func (b ENCRYPTED_DATA_INFO) SetDataUnitShift(value uint8) {
+	offset := uintptr(ENCRYPTED_DATA_INFODataUnitShiftOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetChunkShift returns a copy of the native field value.
+func (b ENCRYPTED_DATA_INFO) GetChunkShift() uint8 {
+	offset := uintptr(ENCRYPTED_DATA_INFOChunkShiftOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetChunkShift copies value into the native field.
+func (b ENCRYPTED_DATA_INFO) SetChunkShift(value uint8) {
+	offset := uintptr(ENCRYPTED_DATA_INFOChunkShiftOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetClusterShift returns a copy of the native field value.
+func (b ENCRYPTED_DATA_INFO) GetClusterShift() uint8 {
+	offset := uintptr(ENCRYPTED_DATA_INFOClusterShiftOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetClusterShift copies value into the native field.
+func (b ENCRYPTED_DATA_INFO) SetClusterShift(value uint8) {
+	offset := uintptr(ENCRYPTED_DATA_INFOClusterShiftOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetEncryptionFormat returns a copy of the native field value.
+func (b ENCRYPTED_DATA_INFO) GetEncryptionFormat() uint8 {
+	offset := uintptr(ENCRYPTED_DATA_INFOEncryptionFormatOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetEncryptionFormat copies value into the native field.
+func (b ENCRYPTED_DATA_INFO) SetEncryptionFormat(value uint8) {
+	offset := uintptr(ENCRYPTED_DATA_INFOEncryptionFormatOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetNumberOfDataBlocks returns a copy of the native field value.
+func (b ENCRYPTED_DATA_INFO) GetNumberOfDataBlocks() uint16 {
+	offset := uintptr(ENCRYPTED_DATA_INFONumberOfDataBlocksOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNumberOfDataBlocks copies value into the native field.
+func (b ENCRYPTED_DATA_INFO) SetNumberOfDataBlocks(value uint16) {
+	offset := uintptr(ENCRYPTED_DATA_INFONumberOfDataBlocksOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetDataBlockSize accesses the metadata-declared initial flexible-array extent only.
+func (b ENCRYPTED_DATA_INFO) GetDataBlockSize(index0 int) uint32 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(ENCRYPTED_DATA_INFODataBlockSizeOffset + uintptr(index0)*(4))
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDataBlockSize copies value into the native field.
+func (b ENCRYPTED_DATA_INFO) SetDataBlockSize(index0 int, value uint32) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(ENCRYPTED_DATA_INFODataBlockSizeOffset + uintptr(index0)*(4))
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
 // ENCRYPTION_BUFFER projects Windows.Win32.System.Ioctl.ENCRYPTION_BUFFER.
 type ENCRYPTION_BUFFER struct {
 	EncryptionOperation uint32
 	// Flexible array: this is the metadata-declared initial extent.
 	// Additional elements require a larger native allocation.
 	Private [1]uint8
+}
+
+// ENCRYPTION_KEY_CTRL_INPUT is a view of native Windows.Win32.System.Ioctl.ENCRYPTION_KEY_CTRL_INPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type ENCRYPTION_KEY_CTRL_INPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	ENCRYPTION_KEY_CTRL_INPUTSize                  = 32
+	ENCRYPTION_KEY_CTRL_INPUTAlignment             = 8
+	ENCRYPTION_KEY_CTRL_INPUTHeaderSizeOffset      = 0
+	ENCRYPTION_KEY_CTRL_INPUTStructureSizeOffset   = 4
+	ENCRYPTION_KEY_CTRL_INPUTKeyOffsetOffset       = 8
+	ENCRYPTION_KEY_CTRL_INPUTKeySizeOffset         = 10
+	ENCRYPTION_KEY_CTRL_INPUTDplLockOffset         = 12
+	ENCRYPTION_KEY_CTRL_INPUTDplUserIdOffset       = 16
+	ENCRYPTION_KEY_CTRL_INPUTDplCredentialIdOffset = 24
+)
+
+// NewENCRYPTION_KEY_CTRL_INPUT allocates zeroed, aligned native storage.
+func NewENCRYPTION_KEY_CTRL_INPUT() ENCRYPTION_KEY_CTRL_INPUT {
+	return ENCRYPTION_KEY_CTRL_INPUT{data: nativebuffer.New(int(ENCRYPTION_KEY_CTRL_INPUTSize), uintptr(ENCRYPTION_KEY_CTRL_INPUTAlignment))}
+}
+
+// ViewENCRYPTION_KEY_CTRL_INPUT shares data without copying. It panics if data is shorter than ENCRYPTION_KEY_CTRL_INPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewENCRYPTION_KEY_CTRL_INPUT(data []byte) ENCRYPTION_KEY_CTRL_INPUT {
+	return ENCRYPTION_KEY_CTRL_INPUT{data: nativebuffer.View(data, int(ENCRYPTION_KEY_CTRL_INPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b ENCRYPTION_KEY_CTRL_INPUT) Bytes() []byte {
+	return b.data[:ENCRYPTION_KEY_CTRL_INPUTSize:ENCRYPTION_KEY_CTRL_INPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b ENCRYPTION_KEY_CTRL_INPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(ENCRYPTION_KEY_CTRL_INPUTAlignment))
+}
+
+// GetHeaderSize returns a copy of the native field value.
+func (b ENCRYPTION_KEY_CTRL_INPUT) GetHeaderSize() uint32 {
+	offset := uintptr(ENCRYPTION_KEY_CTRL_INPUTHeaderSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetHeaderSize copies value into the native field.
+func (b ENCRYPTION_KEY_CTRL_INPUT) SetHeaderSize(value uint32) {
+	offset := uintptr(ENCRYPTION_KEY_CTRL_INPUTHeaderSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetStructureSize returns a copy of the native field value.
+func (b ENCRYPTION_KEY_CTRL_INPUT) GetStructureSize() uint32 {
+	offset := uintptr(ENCRYPTION_KEY_CTRL_INPUTStructureSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetStructureSize copies value into the native field.
+func (b ENCRYPTION_KEY_CTRL_INPUT) SetStructureSize(value uint32) {
+	offset := uintptr(ENCRYPTION_KEY_CTRL_INPUTStructureSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetKeyOffset returns a copy of the native field value.
+func (b ENCRYPTION_KEY_CTRL_INPUT) GetKeyOffset() uint16 {
+	offset := uintptr(ENCRYPTION_KEY_CTRL_INPUTKeyOffsetOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetKeyOffset copies value into the native field.
+func (b ENCRYPTION_KEY_CTRL_INPUT) SetKeyOffset(value uint16) {
+	offset := uintptr(ENCRYPTION_KEY_CTRL_INPUTKeyOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetKeySize returns a copy of the native field value.
+func (b ENCRYPTION_KEY_CTRL_INPUT) GetKeySize() uint16 {
+	offset := uintptr(ENCRYPTION_KEY_CTRL_INPUTKeySizeOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetKeySize copies value into the native field.
+func (b ENCRYPTION_KEY_CTRL_INPUT) SetKeySize(value uint16) {
+	offset := uintptr(ENCRYPTION_KEY_CTRL_INPUTKeySizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetDplLock returns a copy of the native field value.
+func (b ENCRYPTION_KEY_CTRL_INPUT) GetDplLock() uint32 {
+	offset := uintptr(ENCRYPTION_KEY_CTRL_INPUTDplLockOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDplLock copies value into the native field.
+func (b ENCRYPTION_KEY_CTRL_INPUT) SetDplLock(value uint32) {
+	offset := uintptr(ENCRYPTION_KEY_CTRL_INPUTDplLockOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDplUserId returns a copy of the native field value.
+func (b ENCRYPTION_KEY_CTRL_INPUT) GetDplUserId() uint64 {
+	offset := uintptr(ENCRYPTION_KEY_CTRL_INPUTDplUserIdOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetDplUserId copies value into the native field.
+func (b ENCRYPTION_KEY_CTRL_INPUT) SetDplUserId(value uint64) {
+	offset := uintptr(ENCRYPTION_KEY_CTRL_INPUTDplUserIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetDplCredentialId returns a copy of the native field value.
+func (b ENCRYPTION_KEY_CTRL_INPUT) GetDplCredentialId() uint64 {
+	offset := uintptr(ENCRYPTION_KEY_CTRL_INPUTDplCredentialIdOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetDplCredentialId copies value into the native field.
+func (b ENCRYPTION_KEY_CTRL_INPUT) SetDplCredentialId(value uint64) {
+	offset := uintptr(ENCRYPTION_KEY_CTRL_INPUTDplCredentialIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // EXFAT_STATISTICS projects Windows.Win32.System.Ioctl.EXFAT_STATISTICS.
@@ -454,8 +4597,314 @@ type FILESYSTEM_STATISTICS struct {
 	MetaDataDiskWrites      uint32
 }
 
+// FILESYSTEM_STATISTICS_EX is a view of native Windows.Win32.System.Ioctl.FILESYSTEM_STATISTICS_EX storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-filesystem_statistics_ex.
+type FILESYSTEM_STATISTICS_EX struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FILESYSTEM_STATISTICS_EXSize                          = 104
+	FILESYSTEM_STATISTICS_EXAlignment                     = 8
+	FILESYSTEM_STATISTICS_EXFileSystemTypeOffset          = 0
+	FILESYSTEM_STATISTICS_EXVersionOffset                 = 2
+	FILESYSTEM_STATISTICS_EXSizeOfCompleteStructureOffset = 4
+	FILESYSTEM_STATISTICS_EXUserFileReadsOffset           = 8
+	FILESYSTEM_STATISTICS_EXUserFileReadBytesOffset       = 16
+	FILESYSTEM_STATISTICS_EXUserDiskReadsOffset           = 24
+	FILESYSTEM_STATISTICS_EXUserFileWritesOffset          = 32
+	FILESYSTEM_STATISTICS_EXUserFileWriteBytesOffset      = 40
+	FILESYSTEM_STATISTICS_EXUserDiskWritesOffset          = 48
+	FILESYSTEM_STATISTICS_EXMetaDataReadsOffset           = 56
+	FILESYSTEM_STATISTICS_EXMetaDataReadBytesOffset       = 64
+	FILESYSTEM_STATISTICS_EXMetaDataDiskReadsOffset       = 72
+	FILESYSTEM_STATISTICS_EXMetaDataWritesOffset          = 80
+	FILESYSTEM_STATISTICS_EXMetaDataWriteBytesOffset      = 88
+	FILESYSTEM_STATISTICS_EXMetaDataDiskWritesOffset      = 96
+)
+
+// NewFILESYSTEM_STATISTICS_EX allocates zeroed, aligned native storage.
+func NewFILESYSTEM_STATISTICS_EX() FILESYSTEM_STATISTICS_EX {
+	return FILESYSTEM_STATISTICS_EX{data: nativebuffer.New(int(FILESYSTEM_STATISTICS_EXSize), uintptr(FILESYSTEM_STATISTICS_EXAlignment))}
+}
+
+// ViewFILESYSTEM_STATISTICS_EX shares data without copying. It panics if data is shorter than FILESYSTEM_STATISTICS_EXSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFILESYSTEM_STATISTICS_EX(data []byte) FILESYSTEM_STATISTICS_EX {
+	return FILESYSTEM_STATISTICS_EX{data: nativebuffer.View(data, int(FILESYSTEM_STATISTICS_EXSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FILESYSTEM_STATISTICS_EX) Bytes() []byte {
+	return b.data[:FILESYSTEM_STATISTICS_EXSize:FILESYSTEM_STATISTICS_EXSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FILESYSTEM_STATISTICS_EX) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FILESYSTEM_STATISTICS_EXAlignment))
+}
+
+// GetFileSystemType returns a copy of the native field value.
+func (b FILESYSTEM_STATISTICS_EX) GetFileSystemType() FILESYSTEM_STATISTICS_TYPE {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXFileSystemTypeOffset)
+
+	return nativebuffer.Read[FILESYSTEM_STATISTICS_TYPE](b.Bytes()[offset : offset+(2)])
+}
+
+// SetFileSystemType copies value into the native field.
+func (b FILESYSTEM_STATISTICS_EX) SetFileSystemType(value FILESYSTEM_STATISTICS_TYPE) {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXFileSystemTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetVersion returns a copy of the native field value.
+func (b FILESYSTEM_STATISTICS_EX) GetVersion() uint16 {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetVersion copies value into the native field.
+func (b FILESYSTEM_STATISTICS_EX) SetVersion(value uint16) {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetSizeOfCompleteStructure returns a copy of the native field value.
+func (b FILESYSTEM_STATISTICS_EX) GetSizeOfCompleteStructure() uint32 {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXSizeOfCompleteStructureOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSizeOfCompleteStructure copies value into the native field.
+func (b FILESYSTEM_STATISTICS_EX) SetSizeOfCompleteStructure(value uint32) {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXSizeOfCompleteStructureOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetUserFileReads returns a copy of the native field value.
+func (b FILESYSTEM_STATISTICS_EX) GetUserFileReads() uint64 {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXUserFileReadsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUserFileReads copies value into the native field.
+func (b FILESYSTEM_STATISTICS_EX) SetUserFileReads(value uint64) {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXUserFileReadsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetUserFileReadBytes returns a copy of the native field value.
+func (b FILESYSTEM_STATISTICS_EX) GetUserFileReadBytes() uint64 {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXUserFileReadBytesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUserFileReadBytes copies value into the native field.
+func (b FILESYSTEM_STATISTICS_EX) SetUserFileReadBytes(value uint64) {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXUserFileReadBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetUserDiskReads returns a copy of the native field value.
+func (b FILESYSTEM_STATISTICS_EX) GetUserDiskReads() uint64 {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXUserDiskReadsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUserDiskReads copies value into the native field.
+func (b FILESYSTEM_STATISTICS_EX) SetUserDiskReads(value uint64) {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXUserDiskReadsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetUserFileWrites returns a copy of the native field value.
+func (b FILESYSTEM_STATISTICS_EX) GetUserFileWrites() uint64 {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXUserFileWritesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUserFileWrites copies value into the native field.
+func (b FILESYSTEM_STATISTICS_EX) SetUserFileWrites(value uint64) {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXUserFileWritesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetUserFileWriteBytes returns a copy of the native field value.
+func (b FILESYSTEM_STATISTICS_EX) GetUserFileWriteBytes() uint64 {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXUserFileWriteBytesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUserFileWriteBytes copies value into the native field.
+func (b FILESYSTEM_STATISTICS_EX) SetUserFileWriteBytes(value uint64) {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXUserFileWriteBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetUserDiskWrites returns a copy of the native field value.
+func (b FILESYSTEM_STATISTICS_EX) GetUserDiskWrites() uint64 {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXUserDiskWritesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUserDiskWrites copies value into the native field.
+func (b FILESYSTEM_STATISTICS_EX) SetUserDiskWrites(value uint64) {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXUserDiskWritesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMetaDataReads returns a copy of the native field value.
+func (b FILESYSTEM_STATISTICS_EX) GetMetaDataReads() uint64 {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXMetaDataReadsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMetaDataReads copies value into the native field.
+func (b FILESYSTEM_STATISTICS_EX) SetMetaDataReads(value uint64) {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXMetaDataReadsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMetaDataReadBytes returns a copy of the native field value.
+func (b FILESYSTEM_STATISTICS_EX) GetMetaDataReadBytes() uint64 {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXMetaDataReadBytesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMetaDataReadBytes copies value into the native field.
+func (b FILESYSTEM_STATISTICS_EX) SetMetaDataReadBytes(value uint64) {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXMetaDataReadBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMetaDataDiskReads returns a copy of the native field value.
+func (b FILESYSTEM_STATISTICS_EX) GetMetaDataDiskReads() uint64 {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXMetaDataDiskReadsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMetaDataDiskReads copies value into the native field.
+func (b FILESYSTEM_STATISTICS_EX) SetMetaDataDiskReads(value uint64) {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXMetaDataDiskReadsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMetaDataWrites returns a copy of the native field value.
+func (b FILESYSTEM_STATISTICS_EX) GetMetaDataWrites() uint64 {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXMetaDataWritesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMetaDataWrites copies value into the native field.
+func (b FILESYSTEM_STATISTICS_EX) SetMetaDataWrites(value uint64) {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXMetaDataWritesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMetaDataWriteBytes returns a copy of the native field value.
+func (b FILESYSTEM_STATISTICS_EX) GetMetaDataWriteBytes() uint64 {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXMetaDataWriteBytesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMetaDataWriteBytes copies value into the native field.
+func (b FILESYSTEM_STATISTICS_EX) SetMetaDataWriteBytes(value uint64) {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXMetaDataWriteBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMetaDataDiskWrites returns a copy of the native field value.
+func (b FILESYSTEM_STATISTICS_EX) GetMetaDataDiskWrites() uint64 {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXMetaDataDiskWritesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMetaDataDiskWrites copies value into the native field.
+func (b FILESYSTEM_STATISTICS_EX) SetMetaDataDiskWrites(value uint64) {
+	offset := uintptr(FILESYSTEM_STATISTICS_EXMetaDataDiskWritesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // FILESYSTEM_STATISTICS_TYPE projects Windows.Win32.System.Ioctl.FILESYSTEM_STATISTICS_TYPE.
 type FILESYSTEM_STATISTICS_TYPE uint16
+
+// FILE_ALLOCATED_RANGE_BUFFER is a view of native Windows.Win32.System.Ioctl.FILE_ALLOCATED_RANGE_BUFFER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_allocated_range_buffer.
+type FILE_ALLOCATED_RANGE_BUFFER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FILE_ALLOCATED_RANGE_BUFFERSize             = 16
+	FILE_ALLOCATED_RANGE_BUFFERAlignment        = 8
+	FILE_ALLOCATED_RANGE_BUFFERFileOffsetOffset = 0
+	FILE_ALLOCATED_RANGE_BUFFERLengthOffset     = 8
+)
+
+// NewFILE_ALLOCATED_RANGE_BUFFER allocates zeroed, aligned native storage.
+func NewFILE_ALLOCATED_RANGE_BUFFER() FILE_ALLOCATED_RANGE_BUFFER {
+	return FILE_ALLOCATED_RANGE_BUFFER{data: nativebuffer.New(int(FILE_ALLOCATED_RANGE_BUFFERSize), uintptr(FILE_ALLOCATED_RANGE_BUFFERAlignment))}
+}
+
+// ViewFILE_ALLOCATED_RANGE_BUFFER shares data without copying. It panics if data is shorter than FILE_ALLOCATED_RANGE_BUFFERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFILE_ALLOCATED_RANGE_BUFFER(data []byte) FILE_ALLOCATED_RANGE_BUFFER {
+	return FILE_ALLOCATED_RANGE_BUFFER{data: nativebuffer.View(data, int(FILE_ALLOCATED_RANGE_BUFFERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FILE_ALLOCATED_RANGE_BUFFER) Bytes() []byte {
+	return b.data[:FILE_ALLOCATED_RANGE_BUFFERSize:FILE_ALLOCATED_RANGE_BUFFERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FILE_ALLOCATED_RANGE_BUFFER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FILE_ALLOCATED_RANGE_BUFFERAlignment))
+}
+
+// GetFileOffset returns a copy of the native field value.
+func (b FILE_ALLOCATED_RANGE_BUFFER) GetFileOffset() int64 {
+	offset := uintptr(FILE_ALLOCATED_RANGE_BUFFERFileOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileOffset copies value into the native field.
+func (b FILE_ALLOCATED_RANGE_BUFFER) SetFileOffset(value int64) {
+	offset := uintptr(FILE_ALLOCATED_RANGE_BUFFERFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLength returns a copy of the native field value.
+func (b FILE_ALLOCATED_RANGE_BUFFER) GetLength() int64 {
+	offset := uintptr(FILE_ALLOCATED_RANGE_BUFFERLengthOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLength copies value into the native field.
+func (b FILE_ALLOCATED_RANGE_BUFFER) SetLength(value int64) {
+	offset := uintptr(FILE_ALLOCATED_RANGE_BUFFERLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
 
 // FILE_DESIRED_STORAGE_CLASS_INFORMATION projects Windows.Win32.System.Ioctl.FILE_DESIRED_STORAGE_CLASS_INFORMATION.
 type FILE_DESIRED_STORAGE_CLASS_INFORMATION struct {
@@ -471,16 +4920,612 @@ type FILE_FS_PERSISTENT_VOLUME_INFORMATION struct {
 	Reserved    uint32
 }
 
+// FILE_INITIATE_REPAIR_OUTPUT_BUFFER is a view of native Windows.Win32.System.Ioctl.FILE_INITIATE_REPAIR_OUTPUT_BUFFER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type FILE_INITIATE_REPAIR_OUTPUT_BUFFER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FILE_INITIATE_REPAIR_OUTPUT_BUFFERSize         = 32
+	FILE_INITIATE_REPAIR_OUTPUT_BUFFERAlignment    = 8
+	FILE_INITIATE_REPAIR_OUTPUT_BUFFERHint1Offset  = 0
+	FILE_INITIATE_REPAIR_OUTPUT_BUFFERHint2Offset  = 8
+	FILE_INITIATE_REPAIR_OUTPUT_BUFFERClsnOffset   = 16
+	FILE_INITIATE_REPAIR_OUTPUT_BUFFERStatusOffset = 24
+)
+
+// NewFILE_INITIATE_REPAIR_OUTPUT_BUFFER allocates zeroed, aligned native storage.
+func NewFILE_INITIATE_REPAIR_OUTPUT_BUFFER() FILE_INITIATE_REPAIR_OUTPUT_BUFFER {
+	return FILE_INITIATE_REPAIR_OUTPUT_BUFFER{data: nativebuffer.New(int(FILE_INITIATE_REPAIR_OUTPUT_BUFFERSize), uintptr(FILE_INITIATE_REPAIR_OUTPUT_BUFFERAlignment))}
+}
+
+// ViewFILE_INITIATE_REPAIR_OUTPUT_BUFFER shares data without copying. It panics if data is shorter than FILE_INITIATE_REPAIR_OUTPUT_BUFFERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFILE_INITIATE_REPAIR_OUTPUT_BUFFER(data []byte) FILE_INITIATE_REPAIR_OUTPUT_BUFFER {
+	return FILE_INITIATE_REPAIR_OUTPUT_BUFFER{data: nativebuffer.View(data, int(FILE_INITIATE_REPAIR_OUTPUT_BUFFERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FILE_INITIATE_REPAIR_OUTPUT_BUFFER) Bytes() []byte {
+	return b.data[:FILE_INITIATE_REPAIR_OUTPUT_BUFFERSize:FILE_INITIATE_REPAIR_OUTPUT_BUFFERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FILE_INITIATE_REPAIR_OUTPUT_BUFFER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FILE_INITIATE_REPAIR_OUTPUT_BUFFERAlignment))
+}
+
+// GetHint1 returns a copy of the native field value.
+func (b FILE_INITIATE_REPAIR_OUTPUT_BUFFER) GetHint1() uint64 {
+	offset := uintptr(FILE_INITIATE_REPAIR_OUTPUT_BUFFERHint1Offset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetHint1 copies value into the native field.
+func (b FILE_INITIATE_REPAIR_OUTPUT_BUFFER) SetHint1(value uint64) {
+	offset := uintptr(FILE_INITIATE_REPAIR_OUTPUT_BUFFERHint1Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetHint2 returns a copy of the native field value.
+func (b FILE_INITIATE_REPAIR_OUTPUT_BUFFER) GetHint2() uint64 {
+	offset := uintptr(FILE_INITIATE_REPAIR_OUTPUT_BUFFERHint2Offset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetHint2 copies value into the native field.
+func (b FILE_INITIATE_REPAIR_OUTPUT_BUFFER) SetHint2(value uint64) {
+	offset := uintptr(FILE_INITIATE_REPAIR_OUTPUT_BUFFERHint2Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetClsn returns a copy of the native field value.
+func (b FILE_INITIATE_REPAIR_OUTPUT_BUFFER) GetClsn() uint64 {
+	offset := uintptr(FILE_INITIATE_REPAIR_OUTPUT_BUFFERClsnOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetClsn copies value into the native field.
+func (b FILE_INITIATE_REPAIR_OUTPUT_BUFFER) SetClsn(value uint64) {
+	offset := uintptr(FILE_INITIATE_REPAIR_OUTPUT_BUFFERClsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetStatus returns a copy of the native field value.
+func (b FILE_INITIATE_REPAIR_OUTPUT_BUFFER) GetStatus() uint32 {
+	offset := uintptr(FILE_INITIATE_REPAIR_OUTPUT_BUFFERStatusOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetStatus copies value into the native field.
+func (b FILE_INITIATE_REPAIR_OUTPUT_BUFFER) SetStatus(value uint32) {
+	offset := uintptr(FILE_INITIATE_REPAIR_OUTPUT_BUFFERStatusOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// FILE_LAYOUT_ENTRY is a view of native Windows.Win32.System.Ioctl.FILE_LAYOUT_ENTRY storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type FILE_LAYOUT_ENTRY struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FILE_LAYOUT_ENTRYSize                      = 40
+	FILE_LAYOUT_ENTRYAlignment                 = 8
+	FILE_LAYOUT_ENTRYVersionOffset             = 0
+	FILE_LAYOUT_ENTRYNextFileOffsetOffset      = 4
+	FILE_LAYOUT_ENTRYFlagsOffset               = 8
+	FILE_LAYOUT_ENTRYFileAttributesOffset      = 12
+	FILE_LAYOUT_ENTRYFileReferenceNumberOffset = 16
+	FILE_LAYOUT_ENTRYFirstNameOffsetOffset     = 24
+	FILE_LAYOUT_ENTRYFirstStreamOffsetOffset   = 28
+	FILE_LAYOUT_ENTRYExtraInfoOffsetOffset     = 32
+	FILE_LAYOUT_ENTRYExtraInfoLengthOffset     = 36
+)
+
+// NewFILE_LAYOUT_ENTRY allocates zeroed, aligned native storage.
+func NewFILE_LAYOUT_ENTRY() FILE_LAYOUT_ENTRY {
+	return FILE_LAYOUT_ENTRY{data: nativebuffer.New(int(FILE_LAYOUT_ENTRYSize), uintptr(FILE_LAYOUT_ENTRYAlignment))}
+}
+
+// ViewFILE_LAYOUT_ENTRY shares data without copying. It panics if data is shorter than FILE_LAYOUT_ENTRYSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFILE_LAYOUT_ENTRY(data []byte) FILE_LAYOUT_ENTRY {
+	return FILE_LAYOUT_ENTRY{data: nativebuffer.View(data, int(FILE_LAYOUT_ENTRYSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FILE_LAYOUT_ENTRY) Bytes() []byte {
+	return b.data[:FILE_LAYOUT_ENTRYSize:FILE_LAYOUT_ENTRYSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FILE_LAYOUT_ENTRY) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FILE_LAYOUT_ENTRYAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b FILE_LAYOUT_ENTRY) GetVersion() uint32 {
+	offset := uintptr(FILE_LAYOUT_ENTRYVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b FILE_LAYOUT_ENTRY) SetVersion(value uint32) {
+	offset := uintptr(FILE_LAYOUT_ENTRYVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNextFileOffset returns a copy of the native field value.
+func (b FILE_LAYOUT_ENTRY) GetNextFileOffset() uint32 {
+	offset := uintptr(FILE_LAYOUT_ENTRYNextFileOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNextFileOffset copies value into the native field.
+func (b FILE_LAYOUT_ENTRY) SetNextFileOffset(value uint32) {
+	offset := uintptr(FILE_LAYOUT_ENTRYNextFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b FILE_LAYOUT_ENTRY) GetFlags() uint32 {
+	offset := uintptr(FILE_LAYOUT_ENTRYFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b FILE_LAYOUT_ENTRY) SetFlags(value uint32) {
+	offset := uintptr(FILE_LAYOUT_ENTRYFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFileAttributes returns a copy of the native field value.
+func (b FILE_LAYOUT_ENTRY) GetFileAttributes() uint32 {
+	offset := uintptr(FILE_LAYOUT_ENTRYFileAttributesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFileAttributes copies value into the native field.
+func (b FILE_LAYOUT_ENTRY) SetFileAttributes(value uint32) {
+	offset := uintptr(FILE_LAYOUT_ENTRYFileAttributesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFileReferenceNumber returns a copy of the native field value.
+func (b FILE_LAYOUT_ENTRY) GetFileReferenceNumber() uint64 {
+	offset := uintptr(FILE_LAYOUT_ENTRYFileReferenceNumberOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileReferenceNumber copies value into the native field.
+func (b FILE_LAYOUT_ENTRY) SetFileReferenceNumber(value uint64) {
+	offset := uintptr(FILE_LAYOUT_ENTRYFileReferenceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFirstNameOffset returns a copy of the native field value.
+func (b FILE_LAYOUT_ENTRY) GetFirstNameOffset() uint32 {
+	offset := uintptr(FILE_LAYOUT_ENTRYFirstNameOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFirstNameOffset copies value into the native field.
+func (b FILE_LAYOUT_ENTRY) SetFirstNameOffset(value uint32) {
+	offset := uintptr(FILE_LAYOUT_ENTRYFirstNameOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFirstStreamOffset returns a copy of the native field value.
+func (b FILE_LAYOUT_ENTRY) GetFirstStreamOffset() uint32 {
+	offset := uintptr(FILE_LAYOUT_ENTRYFirstStreamOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFirstStreamOffset copies value into the native field.
+func (b FILE_LAYOUT_ENTRY) SetFirstStreamOffset(value uint32) {
+	offset := uintptr(FILE_LAYOUT_ENTRYFirstStreamOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetExtraInfoOffset returns a copy of the native field value.
+func (b FILE_LAYOUT_ENTRY) GetExtraInfoOffset() uint32 {
+	offset := uintptr(FILE_LAYOUT_ENTRYExtraInfoOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetExtraInfoOffset copies value into the native field.
+func (b FILE_LAYOUT_ENTRY) SetExtraInfoOffset(value uint32) {
+	offset := uintptr(FILE_LAYOUT_ENTRYExtraInfoOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetExtraInfoLength returns a copy of the native field value.
+func (b FILE_LAYOUT_ENTRY) GetExtraInfoLength() uint32 {
+	offset := uintptr(FILE_LAYOUT_ENTRYExtraInfoLengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetExtraInfoLength copies value into the native field.
+func (b FILE_LAYOUT_ENTRY) SetExtraInfoLength(value uint32) {
+	offset := uintptr(FILE_LAYOUT_ENTRYExtraInfoLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// FILE_LAYOUT_NAME_ENTRY is a view of native Windows.Win32.System.Ioctl.FILE_LAYOUT_NAME_ENTRY storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type FILE_LAYOUT_NAME_ENTRY struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FILE_LAYOUT_NAME_ENTRYSize                            = 32
+	FILE_LAYOUT_NAME_ENTRYAlignment                       = 8
+	FILE_LAYOUT_NAME_ENTRYNextNameOffsetOffset            = 0
+	FILE_LAYOUT_NAME_ENTRYFlagsOffset                     = 4
+	FILE_LAYOUT_NAME_ENTRYParentFileReferenceNumberOffset = 8
+	FILE_LAYOUT_NAME_ENTRYFileNameLengthOffset            = 16
+	FILE_LAYOUT_NAME_ENTRYReservedOffset                  = 20
+	FILE_LAYOUT_NAME_ENTRYFileNameOffset                  = 24
+)
+
+// NewFILE_LAYOUT_NAME_ENTRY allocates zeroed, aligned native storage.
+func NewFILE_LAYOUT_NAME_ENTRY() FILE_LAYOUT_NAME_ENTRY {
+	return FILE_LAYOUT_NAME_ENTRY{data: nativebuffer.New(int(FILE_LAYOUT_NAME_ENTRYSize), uintptr(FILE_LAYOUT_NAME_ENTRYAlignment))}
+}
+
+// ViewFILE_LAYOUT_NAME_ENTRY shares data without copying. It panics if data is shorter than FILE_LAYOUT_NAME_ENTRYSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFILE_LAYOUT_NAME_ENTRY(data []byte) FILE_LAYOUT_NAME_ENTRY {
+	return FILE_LAYOUT_NAME_ENTRY{data: nativebuffer.View(data, int(FILE_LAYOUT_NAME_ENTRYSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FILE_LAYOUT_NAME_ENTRY) Bytes() []byte {
+	return b.data[:FILE_LAYOUT_NAME_ENTRYSize:FILE_LAYOUT_NAME_ENTRYSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FILE_LAYOUT_NAME_ENTRY) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FILE_LAYOUT_NAME_ENTRYAlignment))
+}
+
+// GetNextNameOffset returns a copy of the native field value.
+func (b FILE_LAYOUT_NAME_ENTRY) GetNextNameOffset() uint32 {
+	offset := uintptr(FILE_LAYOUT_NAME_ENTRYNextNameOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNextNameOffset copies value into the native field.
+func (b FILE_LAYOUT_NAME_ENTRY) SetNextNameOffset(value uint32) {
+	offset := uintptr(FILE_LAYOUT_NAME_ENTRYNextNameOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b FILE_LAYOUT_NAME_ENTRY) GetFlags() uint32 {
+	offset := uintptr(FILE_LAYOUT_NAME_ENTRYFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b FILE_LAYOUT_NAME_ENTRY) SetFlags(value uint32) {
+	offset := uintptr(FILE_LAYOUT_NAME_ENTRYFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetParentFileReferenceNumber returns a copy of the native field value.
+func (b FILE_LAYOUT_NAME_ENTRY) GetParentFileReferenceNumber() uint64 {
+	offset := uintptr(FILE_LAYOUT_NAME_ENTRYParentFileReferenceNumberOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetParentFileReferenceNumber copies value into the native field.
+func (b FILE_LAYOUT_NAME_ENTRY) SetParentFileReferenceNumber(value uint64) {
+	offset := uintptr(FILE_LAYOUT_NAME_ENTRYParentFileReferenceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFileNameLength returns a copy of the native field value.
+func (b FILE_LAYOUT_NAME_ENTRY) GetFileNameLength() uint32 {
+	offset := uintptr(FILE_LAYOUT_NAME_ENTRYFileNameLengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFileNameLength copies value into the native field.
+func (b FILE_LAYOUT_NAME_ENTRY) SetFileNameLength(value uint32) {
+	offset := uintptr(FILE_LAYOUT_NAME_ENTRYFileNameLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b FILE_LAYOUT_NAME_ENTRY) GetReserved() uint32 {
+	offset := uintptr(FILE_LAYOUT_NAME_ENTRYReservedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved copies value into the native field.
+func (b FILE_LAYOUT_NAME_ENTRY) SetReserved(value uint32) {
+	offset := uintptr(FILE_LAYOUT_NAME_ENTRYReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFileName accesses the metadata-declared initial flexible-array extent only.
+func (b FILE_LAYOUT_NAME_ENTRY) GetFileName(index0 int) uint16 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_LAYOUT_NAME_ENTRYFileNameOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetFileName copies value into the native field.
+func (b FILE_LAYOUT_NAME_ENTRY) SetFileName(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_LAYOUT_NAME_ENTRYFileNameOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// FILE_LEVEL_TRIM is a view of native Windows.Win32.System.Ioctl.FILE_LEVEL_TRIM storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_level_trim.
+type FILE_LEVEL_TRIM struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FILE_LEVEL_TRIMSize            = 24
+	FILE_LEVEL_TRIMAlignment       = 8
+	FILE_LEVEL_TRIMKeyOffset       = 0
+	FILE_LEVEL_TRIMNumRangesOffset = 4
+	FILE_LEVEL_TRIMRangesOffset    = 8
+)
+
+// NewFILE_LEVEL_TRIM allocates zeroed, aligned native storage.
+func NewFILE_LEVEL_TRIM() FILE_LEVEL_TRIM {
+	return FILE_LEVEL_TRIM{data: nativebuffer.New(int(FILE_LEVEL_TRIMSize), uintptr(FILE_LEVEL_TRIMAlignment))}
+}
+
+// ViewFILE_LEVEL_TRIM shares data without copying. It panics if data is shorter than FILE_LEVEL_TRIMSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFILE_LEVEL_TRIM(data []byte) FILE_LEVEL_TRIM {
+	return FILE_LEVEL_TRIM{data: nativebuffer.View(data, int(FILE_LEVEL_TRIMSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FILE_LEVEL_TRIM) Bytes() []byte {
+	return b.data[:FILE_LEVEL_TRIMSize:FILE_LEVEL_TRIMSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FILE_LEVEL_TRIM) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FILE_LEVEL_TRIMAlignment))
+}
+
+// GetKey returns a copy of the native field value.
+func (b FILE_LEVEL_TRIM) GetKey() uint32 {
+	offset := uintptr(FILE_LEVEL_TRIMKeyOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetKey copies value into the native field.
+func (b FILE_LEVEL_TRIM) SetKey(value uint32) {
+	offset := uintptr(FILE_LEVEL_TRIMKeyOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNumRanges returns a copy of the native field value.
+func (b FILE_LEVEL_TRIM) GetNumRanges() uint32 {
+	offset := uintptr(FILE_LEVEL_TRIMNumRangesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNumRanges copies value into the native field.
+func (b FILE_LEVEL_TRIM) SetNumRanges(value uint32) {
+	offset := uintptr(FILE_LEVEL_TRIMNumRangesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRanges accesses the metadata-declared initial flexible-array extent only.
+func (b FILE_LEVEL_TRIM) GetRanges(index0 int) FILE_LEVEL_TRIM_RANGE {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_LEVEL_TRIMRangesOffset + uintptr(index0)*(16))
+
+	return ViewFILE_LEVEL_TRIM_RANGE(b.Bytes()[offset : offset+(16)])
+}
+
+// SetRanges copies value into the native field.
+func (b FILE_LEVEL_TRIM) SetRanges(index0 int, value FILE_LEVEL_TRIM_RANGE) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_LEVEL_TRIMRangesOffset + uintptr(index0)*(16))
+	copy(b.Bytes()[offset:offset+(16)], value.Bytes())
+}
+
 // FILE_LEVEL_TRIM_OUTPUT projects Windows.Win32.System.Ioctl.FILE_LEVEL_TRIM_OUTPUT.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_level_trim_output.
 type FILE_LEVEL_TRIM_OUTPUT struct {
 	NumRangesProcessed uint32
 }
 
+// FILE_LEVEL_TRIM_RANGE is a view of native Windows.Win32.System.Ioctl.FILE_LEVEL_TRIM_RANGE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_level_trim_range.
+type FILE_LEVEL_TRIM_RANGE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FILE_LEVEL_TRIM_RANGESize         = 16
+	FILE_LEVEL_TRIM_RANGEAlignment    = 8
+	FILE_LEVEL_TRIM_RANGEOffsetOffset = 0
+	FILE_LEVEL_TRIM_RANGELengthOffset = 8
+)
+
+// NewFILE_LEVEL_TRIM_RANGE allocates zeroed, aligned native storage.
+func NewFILE_LEVEL_TRIM_RANGE() FILE_LEVEL_TRIM_RANGE {
+	return FILE_LEVEL_TRIM_RANGE{data: nativebuffer.New(int(FILE_LEVEL_TRIM_RANGESize), uintptr(FILE_LEVEL_TRIM_RANGEAlignment))}
+}
+
+// ViewFILE_LEVEL_TRIM_RANGE shares data without copying. It panics if data is shorter than FILE_LEVEL_TRIM_RANGESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFILE_LEVEL_TRIM_RANGE(data []byte) FILE_LEVEL_TRIM_RANGE {
+	return FILE_LEVEL_TRIM_RANGE{data: nativebuffer.View(data, int(FILE_LEVEL_TRIM_RANGESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FILE_LEVEL_TRIM_RANGE) Bytes() []byte {
+	return b.data[:FILE_LEVEL_TRIM_RANGESize:FILE_LEVEL_TRIM_RANGESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FILE_LEVEL_TRIM_RANGE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FILE_LEVEL_TRIM_RANGEAlignment))
+}
+
+// GetOffset returns a copy of the native field value.
+func (b FILE_LEVEL_TRIM_RANGE) GetOffset() uint64 {
+	offset := uintptr(FILE_LEVEL_TRIM_RANGEOffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetOffset copies value into the native field.
+func (b FILE_LEVEL_TRIM_RANGE) SetOffset(value uint64) {
+	offset := uintptr(FILE_LEVEL_TRIM_RANGEOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLength returns a copy of the native field value.
+func (b FILE_LEVEL_TRIM_RANGE) GetLength() uint64 {
+	offset := uintptr(FILE_LEVEL_TRIM_RANGELengthOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLength copies value into the native field.
+func (b FILE_LEVEL_TRIM_RANGE) SetLength(value uint64) {
+	offset := uintptr(FILE_LEVEL_TRIM_RANGELengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // FILE_MAKE_COMPATIBLE_BUFFER projects Windows.Win32.System.Ioctl.FILE_MAKE_COMPATIBLE_BUFFER.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_make_compatible_buffer.
 type FILE_MAKE_COMPATIBLE_BUFFER struct {
 	CloseDisc foundation.BOOLEAN
+}
+
+// FILE_PREFETCH is a view of native Windows.Win32.System.Ioctl.FILE_PREFETCH storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type FILE_PREFETCH struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FILE_PREFETCHSize           = 16
+	FILE_PREFETCHAlignment      = 8
+	FILE_PREFETCHTypeOffset     = 0
+	FILE_PREFETCHCountOffset    = 4
+	FILE_PREFETCHPrefetchOffset = 8
+)
+
+// NewFILE_PREFETCH allocates zeroed, aligned native storage.
+func NewFILE_PREFETCH() FILE_PREFETCH {
+	return FILE_PREFETCH{data: nativebuffer.New(int(FILE_PREFETCHSize), uintptr(FILE_PREFETCHAlignment))}
+}
+
+// ViewFILE_PREFETCH shares data without copying. It panics if data is shorter than FILE_PREFETCHSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFILE_PREFETCH(data []byte) FILE_PREFETCH {
+	return FILE_PREFETCH{data: nativebuffer.View(data, int(FILE_PREFETCHSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FILE_PREFETCH) Bytes() []byte {
+	return b.data[:FILE_PREFETCHSize:FILE_PREFETCHSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FILE_PREFETCH) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FILE_PREFETCHAlignment))
+}
+
+// GetType returns a copy of the native field value.
+func (b FILE_PREFETCH) GetType() uint32 {
+	offset := uintptr(FILE_PREFETCHTypeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetType copies value into the native field.
+func (b FILE_PREFETCH) SetType(value uint32) {
+	offset := uintptr(FILE_PREFETCHTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCount returns a copy of the native field value.
+func (b FILE_PREFETCH) GetCount() uint32 {
+	offset := uintptr(FILE_PREFETCHCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCount copies value into the native field.
+func (b FILE_PREFETCH) SetCount(value uint32) {
+	offset := uintptr(FILE_PREFETCHCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPrefetch accesses the metadata-declared initial flexible-array extent only.
+func (b FILE_PREFETCH) GetPrefetch(index0 int) uint64 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_PREFETCHPrefetchOffset + uintptr(index0)*(8))
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPrefetch copies value into the native field.
+func (b FILE_PREFETCH) SetPrefetch(index0 int, value uint64) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_PREFETCHPrefetchOffset + uintptr(index0)*(8))
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // FILE_PROVIDER_EXTERNAL_INFO_V0 projects Windows.Win32.System.Ioctl.FILE_PROVIDER_EXTERNAL_INFO_V0.
@@ -496,6 +5541,224 @@ type FILE_PROVIDER_EXTERNAL_INFO_V1 struct {
 	Flags     uint32
 }
 
+// FILE_QUERY_ON_DISK_VOL_INFO_BUFFER is a view of native Windows.Win32.System.Ioctl.FILE_QUERY_ON_DISK_VOL_INFO_BUFFER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_query_on_disk_vol_info_buffer.
+type FILE_QUERY_ON_DISK_VOL_INFO_BUFFER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FILE_QUERY_ON_DISK_VOL_INFO_BUFFERSize                                  = 336
+	FILE_QUERY_ON_DISK_VOL_INFO_BUFFERAlignment                             = 8
+	FILE_QUERY_ON_DISK_VOL_INFO_BUFFERDirectoryCountOffset                  = 0
+	FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFileCountOffset                       = 8
+	FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFsFormatMajVersionOffset              = 16
+	FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFsFormatMinVersionOffset              = 18
+	FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFsFormatNameOffset                    = 20
+	FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFormatTimeOffset                      = 48
+	FILE_QUERY_ON_DISK_VOL_INFO_BUFFERLastUpdateTimeOffset                  = 56
+	FILE_QUERY_ON_DISK_VOL_INFO_BUFFERCopyrightInfoOffset                   = 64
+	FILE_QUERY_ON_DISK_VOL_INFO_BUFFERAbstractInfoOffset                    = 132
+	FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFormattingImplementationInfoOffset    = 200
+	FILE_QUERY_ON_DISK_VOL_INFO_BUFFERLastModifyingImplementationInfoOffset = 268
+)
+
+// NewFILE_QUERY_ON_DISK_VOL_INFO_BUFFER allocates zeroed, aligned native storage.
+func NewFILE_QUERY_ON_DISK_VOL_INFO_BUFFER() FILE_QUERY_ON_DISK_VOL_INFO_BUFFER {
+	return FILE_QUERY_ON_DISK_VOL_INFO_BUFFER{data: nativebuffer.New(int(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERSize), uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERAlignment))}
+}
+
+// ViewFILE_QUERY_ON_DISK_VOL_INFO_BUFFER shares data without copying. It panics if data is shorter than FILE_QUERY_ON_DISK_VOL_INFO_BUFFERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFILE_QUERY_ON_DISK_VOL_INFO_BUFFER(data []byte) FILE_QUERY_ON_DISK_VOL_INFO_BUFFER {
+	return FILE_QUERY_ON_DISK_VOL_INFO_BUFFER{data: nativebuffer.View(data, int(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) Bytes() []byte {
+	return b.data[:FILE_QUERY_ON_DISK_VOL_INFO_BUFFERSize:FILE_QUERY_ON_DISK_VOL_INFO_BUFFERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERAlignment))
+}
+
+// GetDirectoryCount returns a copy of the native field value.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) GetDirectoryCount() int64 {
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERDirectoryCountOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetDirectoryCount copies value into the native field.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) SetDirectoryCount(value int64) {
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERDirectoryCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFileCount returns a copy of the native field value.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) GetFileCount() int64 {
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFileCountOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileCount copies value into the native field.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) SetFileCount(value int64) {
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFileCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFsFormatMajVersion returns a copy of the native field value.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) GetFsFormatMajVersion() uint16 {
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFsFormatMajVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetFsFormatMajVersion copies value into the native field.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) SetFsFormatMajVersion(value uint16) {
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFsFormatMajVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetFsFormatMinVersion returns a copy of the native field value.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) GetFsFormatMinVersion() uint16 {
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFsFormatMinVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetFsFormatMinVersion copies value into the native field.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) SetFsFormatMinVersion(value uint16) {
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFsFormatMinVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetFsFormatName returns a copy of the native field value.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) GetFsFormatName(index0 int) uint16 {
+	if index0 < 0 || index0 >= 12 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFsFormatNameOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetFsFormatName copies value into the native field.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) SetFsFormatName(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 12 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFsFormatNameOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetFormatTime returns a copy of the native field value.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) GetFormatTime() int64 {
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFormatTimeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFormatTime copies value into the native field.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) SetFormatTime(value int64) {
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFormatTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLastUpdateTime returns a copy of the native field value.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) GetLastUpdateTime() int64 {
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERLastUpdateTimeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLastUpdateTime copies value into the native field.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) SetLastUpdateTime(value int64) {
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERLastUpdateTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetCopyrightInfo returns a copy of the native field value.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) GetCopyrightInfo(index0 int) uint16 {
+	if index0 < 0 || index0 >= 34 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERCopyrightInfoOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetCopyrightInfo copies value into the native field.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) SetCopyrightInfo(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 34 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERCopyrightInfoOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetAbstractInfo returns a copy of the native field value.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) GetAbstractInfo(index0 int) uint16 {
+	if index0 < 0 || index0 >= 34 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERAbstractInfoOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetAbstractInfo copies value into the native field.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) SetAbstractInfo(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 34 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERAbstractInfoOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetFormattingImplementationInfo returns a copy of the native field value.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) GetFormattingImplementationInfo(index0 int) uint16 {
+	if index0 < 0 || index0 >= 34 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFormattingImplementationInfoOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetFormattingImplementationInfo copies value into the native field.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) SetFormattingImplementationInfo(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 34 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERFormattingImplementationInfoOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetLastModifyingImplementationInfo returns a copy of the native field value.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) GetLastModifyingImplementationInfo(index0 int) uint16 {
+	if index0 < 0 || index0 >= 34 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERLastModifyingImplementationInfoOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetLastModifyingImplementationInfo copies value into the native field.
+func (b FILE_QUERY_ON_DISK_VOL_INFO_BUFFER) SetLastModifyingImplementationInfo(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 34 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_QUERY_ON_DISK_VOL_INFO_BUFFERLastModifyingImplementationInfoOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
 // FILE_QUERY_SPARING_BUFFER projects Windows.Win32.System.Ioctl.FILE_QUERY_SPARING_BUFFER.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_query_sparing_buffer.
 type FILE_QUERY_SPARING_BUFFER struct {
@@ -503,6 +5766,340 @@ type FILE_QUERY_SPARING_BUFFER struct {
 	SoftwareSparing  foundation.BOOLEAN
 	TotalSpareBlocks uint32
 	FreeSpareBlocks  uint32
+}
+
+// FILE_REFERENCE_RANGE is a view of native Windows.Win32.System.Ioctl.FILE_REFERENCE_RANGE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type FILE_REFERENCE_RANGE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FILE_REFERENCE_RANGESize                              = 16
+	FILE_REFERENCE_RANGEAlignment                         = 8
+	FILE_REFERENCE_RANGEStartingFileReferenceNumberOffset = 0
+	FILE_REFERENCE_RANGEEndingFileReferenceNumberOffset   = 8
+)
+
+// NewFILE_REFERENCE_RANGE allocates zeroed, aligned native storage.
+func NewFILE_REFERENCE_RANGE() FILE_REFERENCE_RANGE {
+	return FILE_REFERENCE_RANGE{data: nativebuffer.New(int(FILE_REFERENCE_RANGESize), uintptr(FILE_REFERENCE_RANGEAlignment))}
+}
+
+// ViewFILE_REFERENCE_RANGE shares data without copying. It panics if data is shorter than FILE_REFERENCE_RANGESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFILE_REFERENCE_RANGE(data []byte) FILE_REFERENCE_RANGE {
+	return FILE_REFERENCE_RANGE{data: nativebuffer.View(data, int(FILE_REFERENCE_RANGESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FILE_REFERENCE_RANGE) Bytes() []byte {
+	return b.data[:FILE_REFERENCE_RANGESize:FILE_REFERENCE_RANGESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FILE_REFERENCE_RANGE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FILE_REFERENCE_RANGEAlignment))
+}
+
+// GetStartingFileReferenceNumber returns a copy of the native field value.
+func (b FILE_REFERENCE_RANGE) GetStartingFileReferenceNumber() uint64 {
+	offset := uintptr(FILE_REFERENCE_RANGEStartingFileReferenceNumberOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartingFileReferenceNumber copies value into the native field.
+func (b FILE_REFERENCE_RANGE) SetStartingFileReferenceNumber(value uint64) {
+	offset := uintptr(FILE_REFERENCE_RANGEStartingFileReferenceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetEndingFileReferenceNumber returns a copy of the native field value.
+func (b FILE_REFERENCE_RANGE) GetEndingFileReferenceNumber() uint64 {
+	offset := uintptr(FILE_REFERENCE_RANGEEndingFileReferenceNumberOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetEndingFileReferenceNumber copies value into the native field.
+func (b FILE_REFERENCE_RANGE) SetEndingFileReferenceNumber(value uint64) {
+	offset := uintptr(FILE_REFERENCE_RANGEEndingFileReferenceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// FILE_REGION_INFO is a view of native Windows.Win32.System.Ioctl.FILE_REGION_INFO storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type FILE_REGION_INFO struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FILE_REGION_INFOSize             = 24
+	FILE_REGION_INFOAlignment        = 8
+	FILE_REGION_INFOFileOffsetOffset = 0
+	FILE_REGION_INFOLengthOffset     = 8
+	FILE_REGION_INFOUsageOffset      = 16
+	FILE_REGION_INFOReservedOffset   = 20
+)
+
+// NewFILE_REGION_INFO allocates zeroed, aligned native storage.
+func NewFILE_REGION_INFO() FILE_REGION_INFO {
+	return FILE_REGION_INFO{data: nativebuffer.New(int(FILE_REGION_INFOSize), uintptr(FILE_REGION_INFOAlignment))}
+}
+
+// ViewFILE_REGION_INFO shares data without copying. It panics if data is shorter than FILE_REGION_INFOSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFILE_REGION_INFO(data []byte) FILE_REGION_INFO {
+	return FILE_REGION_INFO{data: nativebuffer.View(data, int(FILE_REGION_INFOSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FILE_REGION_INFO) Bytes() []byte {
+	return b.data[:FILE_REGION_INFOSize:FILE_REGION_INFOSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FILE_REGION_INFO) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FILE_REGION_INFOAlignment))
+}
+
+// GetFileOffset returns a copy of the native field value.
+func (b FILE_REGION_INFO) GetFileOffset() int64 {
+	offset := uintptr(FILE_REGION_INFOFileOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileOffset copies value into the native field.
+func (b FILE_REGION_INFO) SetFileOffset(value int64) {
+	offset := uintptr(FILE_REGION_INFOFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLength returns a copy of the native field value.
+func (b FILE_REGION_INFO) GetLength() int64 {
+	offset := uintptr(FILE_REGION_INFOLengthOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLength copies value into the native field.
+func (b FILE_REGION_INFO) SetLength(value int64) {
+	offset := uintptr(FILE_REGION_INFOLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetUsage returns a copy of the native field value.
+func (b FILE_REGION_INFO) GetUsage() uint32 {
+	offset := uintptr(FILE_REGION_INFOUsageOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetUsage copies value into the native field.
+func (b FILE_REGION_INFO) SetUsage(value uint32) {
+	offset := uintptr(FILE_REGION_INFOUsageOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b FILE_REGION_INFO) GetReserved() uint32 {
+	offset := uintptr(FILE_REGION_INFOReservedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved copies value into the native field.
+func (b FILE_REGION_INFO) SetReserved(value uint32) {
+	offset := uintptr(FILE_REGION_INFOReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// FILE_REGION_INPUT is a view of native Windows.Win32.System.Ioctl.FILE_REGION_INPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type FILE_REGION_INPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FILE_REGION_INPUTSize               = 24
+	FILE_REGION_INPUTAlignment          = 8
+	FILE_REGION_INPUTFileOffsetOffset   = 0
+	FILE_REGION_INPUTLengthOffset       = 8
+	FILE_REGION_INPUTDesiredUsageOffset = 16
+)
+
+// NewFILE_REGION_INPUT allocates zeroed, aligned native storage.
+func NewFILE_REGION_INPUT() FILE_REGION_INPUT {
+	return FILE_REGION_INPUT{data: nativebuffer.New(int(FILE_REGION_INPUTSize), uintptr(FILE_REGION_INPUTAlignment))}
+}
+
+// ViewFILE_REGION_INPUT shares data without copying. It panics if data is shorter than FILE_REGION_INPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFILE_REGION_INPUT(data []byte) FILE_REGION_INPUT {
+	return FILE_REGION_INPUT{data: nativebuffer.View(data, int(FILE_REGION_INPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FILE_REGION_INPUT) Bytes() []byte {
+	return b.data[:FILE_REGION_INPUTSize:FILE_REGION_INPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FILE_REGION_INPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FILE_REGION_INPUTAlignment))
+}
+
+// GetFileOffset returns a copy of the native field value.
+func (b FILE_REGION_INPUT) GetFileOffset() int64 {
+	offset := uintptr(FILE_REGION_INPUTFileOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileOffset copies value into the native field.
+func (b FILE_REGION_INPUT) SetFileOffset(value int64) {
+	offset := uintptr(FILE_REGION_INPUTFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLength returns a copy of the native field value.
+func (b FILE_REGION_INPUT) GetLength() int64 {
+	offset := uintptr(FILE_REGION_INPUTLengthOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLength copies value into the native field.
+func (b FILE_REGION_INPUT) SetLength(value int64) {
+	offset := uintptr(FILE_REGION_INPUTLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetDesiredUsage returns a copy of the native field value.
+func (b FILE_REGION_INPUT) GetDesiredUsage() uint32 {
+	offset := uintptr(FILE_REGION_INPUTDesiredUsageOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDesiredUsage copies value into the native field.
+func (b FILE_REGION_INPUT) SetDesiredUsage(value uint32) {
+	offset := uintptr(FILE_REGION_INPUTDesiredUsageOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// FILE_REGION_OUTPUT is a view of native Windows.Win32.System.Ioctl.FILE_REGION_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type FILE_REGION_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FILE_REGION_OUTPUTSize                        = 40
+	FILE_REGION_OUTPUTAlignment                   = 8
+	FILE_REGION_OUTPUTFlagsOffset                 = 0
+	FILE_REGION_OUTPUTTotalRegionEntryCountOffset = 4
+	FILE_REGION_OUTPUTRegionEntryCountOffset      = 8
+	FILE_REGION_OUTPUTReservedOffset              = 12
+	FILE_REGION_OUTPUTRegionOffset                = 16
+)
+
+// NewFILE_REGION_OUTPUT allocates zeroed, aligned native storage.
+func NewFILE_REGION_OUTPUT() FILE_REGION_OUTPUT {
+	return FILE_REGION_OUTPUT{data: nativebuffer.New(int(FILE_REGION_OUTPUTSize), uintptr(FILE_REGION_OUTPUTAlignment))}
+}
+
+// ViewFILE_REGION_OUTPUT shares data without copying. It panics if data is shorter than FILE_REGION_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFILE_REGION_OUTPUT(data []byte) FILE_REGION_OUTPUT {
+	return FILE_REGION_OUTPUT{data: nativebuffer.View(data, int(FILE_REGION_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FILE_REGION_OUTPUT) Bytes() []byte {
+	return b.data[:FILE_REGION_OUTPUTSize:FILE_REGION_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FILE_REGION_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FILE_REGION_OUTPUTAlignment))
+}
+
+// GetFlags returns a copy of the native field value.
+func (b FILE_REGION_OUTPUT) GetFlags() uint32 {
+	offset := uintptr(FILE_REGION_OUTPUTFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b FILE_REGION_OUTPUT) SetFlags(value uint32) {
+	offset := uintptr(FILE_REGION_OUTPUTFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTotalRegionEntryCount returns a copy of the native field value.
+func (b FILE_REGION_OUTPUT) GetTotalRegionEntryCount() uint32 {
+	offset := uintptr(FILE_REGION_OUTPUTTotalRegionEntryCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTotalRegionEntryCount copies value into the native field.
+func (b FILE_REGION_OUTPUT) SetTotalRegionEntryCount(value uint32) {
+	offset := uintptr(FILE_REGION_OUTPUTTotalRegionEntryCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRegionEntryCount returns a copy of the native field value.
+func (b FILE_REGION_OUTPUT) GetRegionEntryCount() uint32 {
+	offset := uintptr(FILE_REGION_OUTPUTRegionEntryCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRegionEntryCount copies value into the native field.
+func (b FILE_REGION_OUTPUT) SetRegionEntryCount(value uint32) {
+	offset := uintptr(FILE_REGION_OUTPUTRegionEntryCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b FILE_REGION_OUTPUT) GetReserved() uint32 {
+	offset := uintptr(FILE_REGION_OUTPUTReservedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved copies value into the native field.
+func (b FILE_REGION_OUTPUT) SetReserved(value uint32) {
+	offset := uintptr(FILE_REGION_OUTPUTReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRegion accesses the metadata-declared initial flexible-array extent only.
+func (b FILE_REGION_OUTPUT) GetRegion(index0 int) FILE_REGION_INFO {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_REGION_OUTPUTRegionOffset + uintptr(index0)*(24))
+
+	return ViewFILE_REGION_INFO(b.Bytes()[offset : offset+(24)])
+}
+
+// SetRegion copies value into the native field.
+func (b FILE_REGION_OUTPUT) SetRegion(index0 int, value FILE_REGION_INFO) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FILE_REGION_OUTPUTRegionOffset + uintptr(index0)*(24))
+	copy(b.Bytes()[offset:offset+(24)], value.Bytes())
 }
 
 // FILE_SET_DEFECT_MGMT_BUFFER projects Windows.Win32.System.Ioctl.FILE_SET_DEFECT_MGMT_BUFFER.
@@ -527,6 +6124,143 @@ type FILE_STORAGE_TIER_FLAGS uint32
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_system_recognition_information.
 type FILE_SYSTEM_RECOGNITION_INFORMATION struct {
 	FileSystem [9]foundation.CHAR
+}
+
+// FILE_ZERO_DATA_INFORMATION is a view of native Windows.Win32.System.Ioctl.FILE_ZERO_DATA_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_zero_data_information.
+type FILE_ZERO_DATA_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FILE_ZERO_DATA_INFORMATIONSize                  = 16
+	FILE_ZERO_DATA_INFORMATIONAlignment             = 8
+	FILE_ZERO_DATA_INFORMATIONFileOffsetOffset      = 0
+	FILE_ZERO_DATA_INFORMATIONBeyondFinalZeroOffset = 8
+)
+
+// NewFILE_ZERO_DATA_INFORMATION allocates zeroed, aligned native storage.
+func NewFILE_ZERO_DATA_INFORMATION() FILE_ZERO_DATA_INFORMATION {
+	return FILE_ZERO_DATA_INFORMATION{data: nativebuffer.New(int(FILE_ZERO_DATA_INFORMATIONSize), uintptr(FILE_ZERO_DATA_INFORMATIONAlignment))}
+}
+
+// ViewFILE_ZERO_DATA_INFORMATION shares data without copying. It panics if data is shorter than FILE_ZERO_DATA_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFILE_ZERO_DATA_INFORMATION(data []byte) FILE_ZERO_DATA_INFORMATION {
+	return FILE_ZERO_DATA_INFORMATION{data: nativebuffer.View(data, int(FILE_ZERO_DATA_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FILE_ZERO_DATA_INFORMATION) Bytes() []byte {
+	return b.data[:FILE_ZERO_DATA_INFORMATIONSize:FILE_ZERO_DATA_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FILE_ZERO_DATA_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FILE_ZERO_DATA_INFORMATIONAlignment))
+}
+
+// GetFileOffset returns a copy of the native field value.
+func (b FILE_ZERO_DATA_INFORMATION) GetFileOffset() int64 {
+	offset := uintptr(FILE_ZERO_DATA_INFORMATIONFileOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileOffset copies value into the native field.
+func (b FILE_ZERO_DATA_INFORMATION) SetFileOffset(value int64) {
+	offset := uintptr(FILE_ZERO_DATA_INFORMATIONFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBeyondFinalZero returns a copy of the native field value.
+func (b FILE_ZERO_DATA_INFORMATION) GetBeyondFinalZero() int64 {
+	offset := uintptr(FILE_ZERO_DATA_INFORMATIONBeyondFinalZeroOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBeyondFinalZero copies value into the native field.
+func (b FILE_ZERO_DATA_INFORMATION) SetBeyondFinalZero(value int64) {
+	offset := uintptr(FILE_ZERO_DATA_INFORMATIONBeyondFinalZeroOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// FILE_ZERO_DATA_INFORMATION_EX is a view of native Windows.Win32.System.Ioctl.FILE_ZERO_DATA_INFORMATION_EX storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type FILE_ZERO_DATA_INFORMATION_EX struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FILE_ZERO_DATA_INFORMATION_EXSize                  = 24
+	FILE_ZERO_DATA_INFORMATION_EXAlignment             = 8
+	FILE_ZERO_DATA_INFORMATION_EXFileOffsetOffset      = 0
+	FILE_ZERO_DATA_INFORMATION_EXBeyondFinalZeroOffset = 8
+	FILE_ZERO_DATA_INFORMATION_EXFlagsOffset           = 16
+)
+
+// NewFILE_ZERO_DATA_INFORMATION_EX allocates zeroed, aligned native storage.
+func NewFILE_ZERO_DATA_INFORMATION_EX() FILE_ZERO_DATA_INFORMATION_EX {
+	return FILE_ZERO_DATA_INFORMATION_EX{data: nativebuffer.New(int(FILE_ZERO_DATA_INFORMATION_EXSize), uintptr(FILE_ZERO_DATA_INFORMATION_EXAlignment))}
+}
+
+// ViewFILE_ZERO_DATA_INFORMATION_EX shares data without copying. It panics if data is shorter than FILE_ZERO_DATA_INFORMATION_EXSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFILE_ZERO_DATA_INFORMATION_EX(data []byte) FILE_ZERO_DATA_INFORMATION_EX {
+	return FILE_ZERO_DATA_INFORMATION_EX{data: nativebuffer.View(data, int(FILE_ZERO_DATA_INFORMATION_EXSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FILE_ZERO_DATA_INFORMATION_EX) Bytes() []byte {
+	return b.data[:FILE_ZERO_DATA_INFORMATION_EXSize:FILE_ZERO_DATA_INFORMATION_EXSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FILE_ZERO_DATA_INFORMATION_EX) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FILE_ZERO_DATA_INFORMATION_EXAlignment))
+}
+
+// GetFileOffset returns a copy of the native field value.
+func (b FILE_ZERO_DATA_INFORMATION_EX) GetFileOffset() int64 {
+	offset := uintptr(FILE_ZERO_DATA_INFORMATION_EXFileOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileOffset copies value into the native field.
+func (b FILE_ZERO_DATA_INFORMATION_EX) SetFileOffset(value int64) {
+	offset := uintptr(FILE_ZERO_DATA_INFORMATION_EXFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBeyondFinalZero returns a copy of the native field value.
+func (b FILE_ZERO_DATA_INFORMATION_EX) GetBeyondFinalZero() int64 {
+	offset := uintptr(FILE_ZERO_DATA_INFORMATION_EXBeyondFinalZeroOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBeyondFinalZero copies value into the native field.
+func (b FILE_ZERO_DATA_INFORMATION_EX) SetBeyondFinalZero(value int64) {
+	offset := uintptr(FILE_ZERO_DATA_INFORMATION_EXBeyondFinalZeroOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b FILE_ZERO_DATA_INFORMATION_EX) GetFlags() uint32 {
+	offset := uintptr(FILE_ZERO_DATA_INFORMATION_EXFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b FILE_ZERO_DATA_INFORMATION_EX) SetFlags(value uint32) {
+	offset := uintptr(FILE_ZERO_DATA_INFORMATION_EXFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
 }
 
 // FIND_BY_SID_OUTPUT projects Windows.Win32.System.Ioctl.FIND_BY_SID_OUTPUT.
@@ -575,6 +6309,416 @@ type FSCTL_GET_INTEGRITY_INFORMATION_BUFFER struct {
 	ClusterSizeInBytes       uint32
 }
 
+// FSCTL_OFFLOAD_READ_INPUT is a view of native Windows.Win32.System.Ioctl.FSCTL_OFFLOAD_READ_INPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type FSCTL_OFFLOAD_READ_INPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FSCTL_OFFLOAD_READ_INPUTSize                  = 32
+	FSCTL_OFFLOAD_READ_INPUTAlignment             = 8
+	FSCTL_OFFLOAD_READ_INPUTSizeOffset            = 0
+	FSCTL_OFFLOAD_READ_INPUTFlagsOffset           = 4
+	FSCTL_OFFLOAD_READ_INPUTTokenTimeToLiveOffset = 8
+	FSCTL_OFFLOAD_READ_INPUTReservedOffset        = 12
+	FSCTL_OFFLOAD_READ_INPUTFileOffsetOffset      = 16
+	FSCTL_OFFLOAD_READ_INPUTCopyLengthOffset      = 24
+)
+
+// NewFSCTL_OFFLOAD_READ_INPUT allocates zeroed, aligned native storage.
+func NewFSCTL_OFFLOAD_READ_INPUT() FSCTL_OFFLOAD_READ_INPUT {
+	return FSCTL_OFFLOAD_READ_INPUT{data: nativebuffer.New(int(FSCTL_OFFLOAD_READ_INPUTSize), uintptr(FSCTL_OFFLOAD_READ_INPUTAlignment))}
+}
+
+// ViewFSCTL_OFFLOAD_READ_INPUT shares data without copying. It panics if data is shorter than FSCTL_OFFLOAD_READ_INPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFSCTL_OFFLOAD_READ_INPUT(data []byte) FSCTL_OFFLOAD_READ_INPUT {
+	return FSCTL_OFFLOAD_READ_INPUT{data: nativebuffer.View(data, int(FSCTL_OFFLOAD_READ_INPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FSCTL_OFFLOAD_READ_INPUT) Bytes() []byte {
+	return b.data[:FSCTL_OFFLOAD_READ_INPUTSize:FSCTL_OFFLOAD_READ_INPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FSCTL_OFFLOAD_READ_INPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FSCTL_OFFLOAD_READ_INPUTAlignment))
+}
+
+// GetSize returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_READ_INPUT) GetSize() uint32 {
+	offset := uintptr(FSCTL_OFFLOAD_READ_INPUTSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b FSCTL_OFFLOAD_READ_INPUT) SetSize(value uint32) {
+	offset := uintptr(FSCTL_OFFLOAD_READ_INPUTSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_READ_INPUT) GetFlags() uint32 {
+	offset := uintptr(FSCTL_OFFLOAD_READ_INPUTFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b FSCTL_OFFLOAD_READ_INPUT) SetFlags(value uint32) {
+	offset := uintptr(FSCTL_OFFLOAD_READ_INPUTFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTokenTimeToLive returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_READ_INPUT) GetTokenTimeToLive() uint32 {
+	offset := uintptr(FSCTL_OFFLOAD_READ_INPUTTokenTimeToLiveOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTokenTimeToLive copies value into the native field.
+func (b FSCTL_OFFLOAD_READ_INPUT) SetTokenTimeToLive(value uint32) {
+	offset := uintptr(FSCTL_OFFLOAD_READ_INPUTTokenTimeToLiveOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_READ_INPUT) GetReserved() uint32 {
+	offset := uintptr(FSCTL_OFFLOAD_READ_INPUTReservedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved copies value into the native field.
+func (b FSCTL_OFFLOAD_READ_INPUT) SetReserved(value uint32) {
+	offset := uintptr(FSCTL_OFFLOAD_READ_INPUTReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFileOffset returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_READ_INPUT) GetFileOffset() uint64 {
+	offset := uintptr(FSCTL_OFFLOAD_READ_INPUTFileOffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileOffset copies value into the native field.
+func (b FSCTL_OFFLOAD_READ_INPUT) SetFileOffset(value uint64) {
+	offset := uintptr(FSCTL_OFFLOAD_READ_INPUTFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetCopyLength returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_READ_INPUT) GetCopyLength() uint64 {
+	offset := uintptr(FSCTL_OFFLOAD_READ_INPUTCopyLengthOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetCopyLength copies value into the native field.
+func (b FSCTL_OFFLOAD_READ_INPUT) SetCopyLength(value uint64) {
+	offset := uintptr(FSCTL_OFFLOAD_READ_INPUTCopyLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// FSCTL_OFFLOAD_READ_OUTPUT is a view of native Windows.Win32.System.Ioctl.FSCTL_OFFLOAD_READ_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type FSCTL_OFFLOAD_READ_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FSCTL_OFFLOAD_READ_OUTPUTSize                 = 528
+	FSCTL_OFFLOAD_READ_OUTPUTAlignment            = 8
+	FSCTL_OFFLOAD_READ_OUTPUTSizeOffset           = 0
+	FSCTL_OFFLOAD_READ_OUTPUTFlagsOffset          = 4
+	FSCTL_OFFLOAD_READ_OUTPUTTransferLengthOffset = 8
+	FSCTL_OFFLOAD_READ_OUTPUTTokenOffset          = 16
+)
+
+// NewFSCTL_OFFLOAD_READ_OUTPUT allocates zeroed, aligned native storage.
+func NewFSCTL_OFFLOAD_READ_OUTPUT() FSCTL_OFFLOAD_READ_OUTPUT {
+	return FSCTL_OFFLOAD_READ_OUTPUT{data: nativebuffer.New(int(FSCTL_OFFLOAD_READ_OUTPUTSize), uintptr(FSCTL_OFFLOAD_READ_OUTPUTAlignment))}
+}
+
+// ViewFSCTL_OFFLOAD_READ_OUTPUT shares data without copying. It panics if data is shorter than FSCTL_OFFLOAD_READ_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFSCTL_OFFLOAD_READ_OUTPUT(data []byte) FSCTL_OFFLOAD_READ_OUTPUT {
+	return FSCTL_OFFLOAD_READ_OUTPUT{data: nativebuffer.View(data, int(FSCTL_OFFLOAD_READ_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FSCTL_OFFLOAD_READ_OUTPUT) Bytes() []byte {
+	return b.data[:FSCTL_OFFLOAD_READ_OUTPUTSize:FSCTL_OFFLOAD_READ_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FSCTL_OFFLOAD_READ_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FSCTL_OFFLOAD_READ_OUTPUTAlignment))
+}
+
+// GetSize returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_READ_OUTPUT) GetSize() uint32 {
+	offset := uintptr(FSCTL_OFFLOAD_READ_OUTPUTSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b FSCTL_OFFLOAD_READ_OUTPUT) SetSize(value uint32) {
+	offset := uintptr(FSCTL_OFFLOAD_READ_OUTPUTSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_READ_OUTPUT) GetFlags() uint32 {
+	offset := uintptr(FSCTL_OFFLOAD_READ_OUTPUTFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b FSCTL_OFFLOAD_READ_OUTPUT) SetFlags(value uint32) {
+	offset := uintptr(FSCTL_OFFLOAD_READ_OUTPUTFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTransferLength returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_READ_OUTPUT) GetTransferLength() uint64 {
+	offset := uintptr(FSCTL_OFFLOAD_READ_OUTPUTTransferLengthOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTransferLength copies value into the native field.
+func (b FSCTL_OFFLOAD_READ_OUTPUT) SetTransferLength(value uint64) {
+	offset := uintptr(FSCTL_OFFLOAD_READ_OUTPUTTransferLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetToken returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_READ_OUTPUT) GetToken(index0 int) uint8 {
+	if index0 < 0 || index0 >= 512 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FSCTL_OFFLOAD_READ_OUTPUTTokenOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetToken copies value into the native field.
+func (b FSCTL_OFFLOAD_READ_OUTPUT) SetToken(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 512 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FSCTL_OFFLOAD_READ_OUTPUTTokenOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// FSCTL_OFFLOAD_WRITE_INPUT is a view of native Windows.Win32.System.Ioctl.FSCTL_OFFLOAD_WRITE_INPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type FSCTL_OFFLOAD_WRITE_INPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FSCTL_OFFLOAD_WRITE_INPUTSize                 = 544
+	FSCTL_OFFLOAD_WRITE_INPUTAlignment            = 8
+	FSCTL_OFFLOAD_WRITE_INPUTSizeOffset           = 0
+	FSCTL_OFFLOAD_WRITE_INPUTFlagsOffset          = 4
+	FSCTL_OFFLOAD_WRITE_INPUTFileOffsetOffset     = 8
+	FSCTL_OFFLOAD_WRITE_INPUTCopyLengthOffset     = 16
+	FSCTL_OFFLOAD_WRITE_INPUTTransferOffsetOffset = 24
+	FSCTL_OFFLOAD_WRITE_INPUTTokenOffset          = 32
+)
+
+// NewFSCTL_OFFLOAD_WRITE_INPUT allocates zeroed, aligned native storage.
+func NewFSCTL_OFFLOAD_WRITE_INPUT() FSCTL_OFFLOAD_WRITE_INPUT {
+	return FSCTL_OFFLOAD_WRITE_INPUT{data: nativebuffer.New(int(FSCTL_OFFLOAD_WRITE_INPUTSize), uintptr(FSCTL_OFFLOAD_WRITE_INPUTAlignment))}
+}
+
+// ViewFSCTL_OFFLOAD_WRITE_INPUT shares data without copying. It panics if data is shorter than FSCTL_OFFLOAD_WRITE_INPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFSCTL_OFFLOAD_WRITE_INPUT(data []byte) FSCTL_OFFLOAD_WRITE_INPUT {
+	return FSCTL_OFFLOAD_WRITE_INPUT{data: nativebuffer.View(data, int(FSCTL_OFFLOAD_WRITE_INPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FSCTL_OFFLOAD_WRITE_INPUT) Bytes() []byte {
+	return b.data[:FSCTL_OFFLOAD_WRITE_INPUTSize:FSCTL_OFFLOAD_WRITE_INPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FSCTL_OFFLOAD_WRITE_INPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FSCTL_OFFLOAD_WRITE_INPUTAlignment))
+}
+
+// GetSize returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_WRITE_INPUT) GetSize() uint32 {
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_INPUTSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b FSCTL_OFFLOAD_WRITE_INPUT) SetSize(value uint32) {
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_INPUTSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_WRITE_INPUT) GetFlags() uint32 {
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_INPUTFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b FSCTL_OFFLOAD_WRITE_INPUT) SetFlags(value uint32) {
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_INPUTFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFileOffset returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_WRITE_INPUT) GetFileOffset() uint64 {
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_INPUTFileOffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileOffset copies value into the native field.
+func (b FSCTL_OFFLOAD_WRITE_INPUT) SetFileOffset(value uint64) {
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_INPUTFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetCopyLength returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_WRITE_INPUT) GetCopyLength() uint64 {
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_INPUTCopyLengthOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetCopyLength copies value into the native field.
+func (b FSCTL_OFFLOAD_WRITE_INPUT) SetCopyLength(value uint64) {
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_INPUTCopyLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTransferOffset returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_WRITE_INPUT) GetTransferOffset() uint64 {
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_INPUTTransferOffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTransferOffset copies value into the native field.
+func (b FSCTL_OFFLOAD_WRITE_INPUT) SetTransferOffset(value uint64) {
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_INPUTTransferOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetToken returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_WRITE_INPUT) GetToken(index0 int) uint8 {
+	if index0 < 0 || index0 >= 512 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_INPUTTokenOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetToken copies value into the native field.
+func (b FSCTL_OFFLOAD_WRITE_INPUT) SetToken(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 512 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_INPUTTokenOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// FSCTL_OFFLOAD_WRITE_OUTPUT is a view of native Windows.Win32.System.Ioctl.FSCTL_OFFLOAD_WRITE_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type FSCTL_OFFLOAD_WRITE_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FSCTL_OFFLOAD_WRITE_OUTPUTSize                = 16
+	FSCTL_OFFLOAD_WRITE_OUTPUTAlignment           = 8
+	FSCTL_OFFLOAD_WRITE_OUTPUTSizeOffset          = 0
+	FSCTL_OFFLOAD_WRITE_OUTPUTFlagsOffset         = 4
+	FSCTL_OFFLOAD_WRITE_OUTPUTLengthWrittenOffset = 8
+)
+
+// NewFSCTL_OFFLOAD_WRITE_OUTPUT allocates zeroed, aligned native storage.
+func NewFSCTL_OFFLOAD_WRITE_OUTPUT() FSCTL_OFFLOAD_WRITE_OUTPUT {
+	return FSCTL_OFFLOAD_WRITE_OUTPUT{data: nativebuffer.New(int(FSCTL_OFFLOAD_WRITE_OUTPUTSize), uintptr(FSCTL_OFFLOAD_WRITE_OUTPUTAlignment))}
+}
+
+// ViewFSCTL_OFFLOAD_WRITE_OUTPUT shares data without copying. It panics if data is shorter than FSCTL_OFFLOAD_WRITE_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFSCTL_OFFLOAD_WRITE_OUTPUT(data []byte) FSCTL_OFFLOAD_WRITE_OUTPUT {
+	return FSCTL_OFFLOAD_WRITE_OUTPUT{data: nativebuffer.View(data, int(FSCTL_OFFLOAD_WRITE_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FSCTL_OFFLOAD_WRITE_OUTPUT) Bytes() []byte {
+	return b.data[:FSCTL_OFFLOAD_WRITE_OUTPUTSize:FSCTL_OFFLOAD_WRITE_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FSCTL_OFFLOAD_WRITE_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FSCTL_OFFLOAD_WRITE_OUTPUTAlignment))
+}
+
+// GetSize returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_WRITE_OUTPUT) GetSize() uint32 {
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_OUTPUTSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b FSCTL_OFFLOAD_WRITE_OUTPUT) SetSize(value uint32) {
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_OUTPUTSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_WRITE_OUTPUT) GetFlags() uint32 {
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_OUTPUTFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b FSCTL_OFFLOAD_WRITE_OUTPUT) SetFlags(value uint32) {
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_OUTPUTFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetLengthWritten returns a copy of the native field value.
+func (b FSCTL_OFFLOAD_WRITE_OUTPUT) GetLengthWritten() uint64 {
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_OUTPUTLengthWrittenOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLengthWritten copies value into the native field.
+func (b FSCTL_OFFLOAD_WRITE_OUTPUT) SetLengthWritten(value uint64) {
+	offset := uintptr(FSCTL_OFFLOAD_WRITE_OUTPUTLengthWrittenOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // FSCTL_QUERY_FAT_BPB_BUFFER projects Windows.Win32.System.Ioctl.FSCTL_QUERY_FAT_BPB_BUFFER.
 type FSCTL_QUERY_FAT_BPB_BUFFER struct {
 	First0x24BytesOfBootSector [36]uint8
@@ -608,6 +6752,95 @@ type FS_BPIO_INFO struct {
 	StorageDriverName    [32]uint16
 }
 
+// FS_BPIO_INPUT is a view of native Windows.Win32.System.Ioctl.FS_BPIO_INPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type FS_BPIO_INPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	FS_BPIO_INPUTSize            = 24
+	FS_BPIO_INPUTAlignment       = 8
+	FS_BPIO_INPUTOperationOffset = 0
+	FS_BPIO_INPUTInFlagsOffset   = 4
+	FS_BPIO_INPUTReserved1Offset = 8
+	FS_BPIO_INPUTReserved2Offset = 16
+)
+
+// NewFS_BPIO_INPUT allocates zeroed, aligned native storage.
+func NewFS_BPIO_INPUT() FS_BPIO_INPUT {
+	return FS_BPIO_INPUT{data: nativebuffer.New(int(FS_BPIO_INPUTSize), uintptr(FS_BPIO_INPUTAlignment))}
+}
+
+// ViewFS_BPIO_INPUT shares data without copying. It panics if data is shorter than FS_BPIO_INPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewFS_BPIO_INPUT(data []byte) FS_BPIO_INPUT {
+	return FS_BPIO_INPUT{data: nativebuffer.View(data, int(FS_BPIO_INPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b FS_BPIO_INPUT) Bytes() []byte {
+	return b.data[:FS_BPIO_INPUTSize:FS_BPIO_INPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b FS_BPIO_INPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(FS_BPIO_INPUTAlignment))
+}
+
+// GetOperation returns a copy of the native field value.
+func (b FS_BPIO_INPUT) GetOperation() FS_BPIO_OPERATIONS {
+	offset := uintptr(FS_BPIO_INPUTOperationOffset)
+
+	return nativebuffer.Read[FS_BPIO_OPERATIONS](b.Bytes()[offset : offset+(4)])
+}
+
+// SetOperation copies value into the native field.
+func (b FS_BPIO_INPUT) SetOperation(value FS_BPIO_OPERATIONS) {
+	offset := uintptr(FS_BPIO_INPUTOperationOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetInFlags returns a copy of the native field value.
+func (b FS_BPIO_INPUT) GetInFlags() FS_BPIO_INFLAGS {
+	offset := uintptr(FS_BPIO_INPUTInFlagsOffset)
+
+	return nativebuffer.Read[FS_BPIO_INFLAGS](b.Bytes()[offset : offset+(4)])
+}
+
+// SetInFlags copies value into the native field.
+func (b FS_BPIO_INPUT) SetInFlags(value FS_BPIO_INFLAGS) {
+	offset := uintptr(FS_BPIO_INPUTInFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved1 returns a copy of the native field value.
+func (b FS_BPIO_INPUT) GetReserved1() uint64 {
+	offset := uintptr(FS_BPIO_INPUTReserved1Offset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetReserved1 copies value into the native field.
+func (b FS_BPIO_INPUT) SetReserved1(value uint64) {
+	offset := uintptr(FS_BPIO_INPUTReserved1Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetReserved2 returns a copy of the native field value.
+func (b FS_BPIO_INPUT) GetReserved2() uint64 {
+	offset := uintptr(FS_BPIO_INPUTReserved2Offset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetReserved2 copies value into the native field.
+func (b FS_BPIO_INPUT) SetReserved2(value uint64) {
+	offset := uintptr(FS_BPIO_INPUTReserved2Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // FS_BPIO_OPERATIONS projects Windows.Win32.System.Ioctl.FS_BPIO_OPERATIONS.
 type FS_BPIO_OPERATIONS int32
 
@@ -621,6 +6854,129 @@ type FS_BPIO_RESULTS struct {
 	FailingDriverName    [32]uint16
 	FailureReasonLen     uint16
 	FailureReason        [128]uint16
+}
+
+// GETVERSIONINPARAMS is a view of native Windows.Win32.System.Ioctl.GETVERSIONINPARAMS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type GETVERSIONINPARAMS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	GETVERSIONINPARAMSSize                = 24
+	GETVERSIONINPARAMSAlignment           = 1
+	GETVERSIONINPARAMSBVersionOffset      = 0
+	GETVERSIONINPARAMSBRevisionOffset     = 1
+	GETVERSIONINPARAMSBReservedOffset     = 2
+	GETVERSIONINPARAMSBIDEDeviceMapOffset = 3
+	GETVERSIONINPARAMSFCapabilitiesOffset = 4
+	GETVERSIONINPARAMSDwReservedOffset    = 8
+)
+
+// NewGETVERSIONINPARAMS allocates zeroed, aligned native storage.
+func NewGETVERSIONINPARAMS() GETVERSIONINPARAMS {
+	return GETVERSIONINPARAMS{data: nativebuffer.New(int(GETVERSIONINPARAMSSize), uintptr(GETVERSIONINPARAMSAlignment))}
+}
+
+// ViewGETVERSIONINPARAMS shares data without copying. It panics if data is shorter than GETVERSIONINPARAMSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewGETVERSIONINPARAMS(data []byte) GETVERSIONINPARAMS {
+	return GETVERSIONINPARAMS{data: nativebuffer.View(data, int(GETVERSIONINPARAMSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b GETVERSIONINPARAMS) Bytes() []byte {
+	return b.data[:GETVERSIONINPARAMSSize:GETVERSIONINPARAMSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b GETVERSIONINPARAMS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(GETVERSIONINPARAMSAlignment))
+}
+
+// GetBVersion returns a copy of the native field value.
+func (b GETVERSIONINPARAMS) GetBVersion() uint8 {
+	offset := uintptr(GETVERSIONINPARAMSBVersionOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBVersion copies value into the native field.
+func (b GETVERSIONINPARAMS) SetBVersion(value uint8) {
+	offset := uintptr(GETVERSIONINPARAMSBVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetBRevision returns a copy of the native field value.
+func (b GETVERSIONINPARAMS) GetBRevision() uint8 {
+	offset := uintptr(GETVERSIONINPARAMSBRevisionOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBRevision copies value into the native field.
+func (b GETVERSIONINPARAMS) SetBRevision(value uint8) {
+	offset := uintptr(GETVERSIONINPARAMSBRevisionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetBReserved returns a copy of the native field value.
+func (b GETVERSIONINPARAMS) GetBReserved() uint8 {
+	offset := uintptr(GETVERSIONINPARAMSBReservedOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBReserved copies value into the native field.
+func (b GETVERSIONINPARAMS) SetBReserved(value uint8) {
+	offset := uintptr(GETVERSIONINPARAMSBReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetBIDEDeviceMap returns a copy of the native field value.
+func (b GETVERSIONINPARAMS) GetBIDEDeviceMap() uint8 {
+	offset := uintptr(GETVERSIONINPARAMSBIDEDeviceMapOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBIDEDeviceMap copies value into the native field.
+func (b GETVERSIONINPARAMS) SetBIDEDeviceMap(value uint8) {
+	offset := uintptr(GETVERSIONINPARAMSBIDEDeviceMapOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetFCapabilities returns a copy of the native field value.
+func (b GETVERSIONINPARAMS) GetFCapabilities() uint32 {
+	offset := uintptr(GETVERSIONINPARAMSFCapabilitiesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFCapabilities copies value into the native field.
+func (b GETVERSIONINPARAMS) SetFCapabilities(value uint32) {
+	offset := uintptr(GETVERSIONINPARAMSFCapabilitiesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDwReserved returns a copy of the native field value.
+func (b GETVERSIONINPARAMS) GetDwReserved(index0 int) uint32 {
+	if index0 < 0 || index0 >= 4 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(GETVERSIONINPARAMSDwReservedOffset + uintptr(index0)*(4))
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwReserved copies value into the native field.
+func (b GETVERSIONINPARAMS) SetDwReserved(index0 int, value uint32) {
+	if index0 < 0 || index0 >= 4 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(GETVERSIONINPARAMSDwReservedOffset + uintptr(index0)*(4))
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
 }
 
 // GET_CHANGER_PARAMETERS projects Windows.Win32.System.Ioctl.GET_CHANGER_PARAMETERS.
@@ -667,6 +7023,82 @@ type GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST struct {
 	RequestDataSet  DEVICE_INTERNAL_STATUS_DATA_SET
 }
 
+// GET_DISK_ATTRIBUTES is a view of native Windows.Win32.System.Ioctl.GET_DISK_ATTRIBUTES storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-get_disk_attributes.
+type GET_DISK_ATTRIBUTES struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	GET_DISK_ATTRIBUTESSize             = 16
+	GET_DISK_ATTRIBUTESAlignment        = 8
+	GET_DISK_ATTRIBUTESVersionOffset    = 0
+	GET_DISK_ATTRIBUTESReserved1Offset  = 4
+	GET_DISK_ATTRIBUTESAttributesOffset = 8
+)
+
+// NewGET_DISK_ATTRIBUTES allocates zeroed, aligned native storage.
+func NewGET_DISK_ATTRIBUTES() GET_DISK_ATTRIBUTES {
+	return GET_DISK_ATTRIBUTES{data: nativebuffer.New(int(GET_DISK_ATTRIBUTESSize), uintptr(GET_DISK_ATTRIBUTESAlignment))}
+}
+
+// ViewGET_DISK_ATTRIBUTES shares data without copying. It panics if data is shorter than GET_DISK_ATTRIBUTESSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewGET_DISK_ATTRIBUTES(data []byte) GET_DISK_ATTRIBUTES {
+	return GET_DISK_ATTRIBUTES{data: nativebuffer.View(data, int(GET_DISK_ATTRIBUTESSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b GET_DISK_ATTRIBUTES) Bytes() []byte {
+	return b.data[:GET_DISK_ATTRIBUTESSize:GET_DISK_ATTRIBUTESSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b GET_DISK_ATTRIBUTES) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(GET_DISK_ATTRIBUTESAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b GET_DISK_ATTRIBUTES) GetVersion() uint32 {
+	offset := uintptr(GET_DISK_ATTRIBUTESVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b GET_DISK_ATTRIBUTES) SetVersion(value uint32) {
+	offset := uintptr(GET_DISK_ATTRIBUTESVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved1 returns a copy of the native field value.
+func (b GET_DISK_ATTRIBUTES) GetReserved1() uint32 {
+	offset := uintptr(GET_DISK_ATTRIBUTESReserved1Offset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved1 copies value into the native field.
+func (b GET_DISK_ATTRIBUTES) SetReserved1(value uint32) {
+	offset := uintptr(GET_DISK_ATTRIBUTESReserved1Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetAttributes returns a copy of the native field value.
+func (b GET_DISK_ATTRIBUTES) GetAttributes() uint64 {
+	offset := uintptr(GET_DISK_ATTRIBUTESAttributesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAttributes copies value into the native field.
+func (b GET_DISK_ATTRIBUTES) SetAttributes(value uint64) {
+	offset := uintptr(GET_DISK_ATTRIBUTESAttributesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // GET_FILTER_FILE_IDENTIFIER_INPUT projects Windows.Win32.System.Ioctl.GET_FILTER_FILE_IDENTIFIER_INPUT.
 type GET_FILTER_FILE_IDENTIFIER_INPUT struct {
 	AltitudeLength uint16
@@ -681,6 +7113,115 @@ type GET_FILTER_FILE_IDENTIFIER_OUTPUT struct {
 	// Flexible array: this is the metadata-declared initial extent.
 	// Additional elements require a larger native allocation.
 	FilterFileIdentifier [1]uint8
+}
+
+// GET_LENGTH_INFORMATION is a view of native Windows.Win32.System.Ioctl.GET_LENGTH_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-get_length_information.
+type GET_LENGTH_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	GET_LENGTH_INFORMATIONSize         = 8
+	GET_LENGTH_INFORMATIONAlignment    = 8
+	GET_LENGTH_INFORMATIONLengthOffset = 0
+)
+
+// NewGET_LENGTH_INFORMATION allocates zeroed, aligned native storage.
+func NewGET_LENGTH_INFORMATION() GET_LENGTH_INFORMATION {
+	return GET_LENGTH_INFORMATION{data: nativebuffer.New(int(GET_LENGTH_INFORMATIONSize), uintptr(GET_LENGTH_INFORMATIONAlignment))}
+}
+
+// ViewGET_LENGTH_INFORMATION shares data without copying. It panics if data is shorter than GET_LENGTH_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewGET_LENGTH_INFORMATION(data []byte) GET_LENGTH_INFORMATION {
+	return GET_LENGTH_INFORMATION{data: nativebuffer.View(data, int(GET_LENGTH_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b GET_LENGTH_INFORMATION) Bytes() []byte {
+	return b.data[:GET_LENGTH_INFORMATIONSize:GET_LENGTH_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b GET_LENGTH_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(GET_LENGTH_INFORMATIONAlignment))
+}
+
+// GetLength returns a copy of the native field value.
+func (b GET_LENGTH_INFORMATION) GetLength() int64 {
+	offset := uintptr(GET_LENGTH_INFORMATIONLengthOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLength copies value into the native field.
+func (b GET_LENGTH_INFORMATION) SetLength(value int64) {
+	offset := uintptr(GET_LENGTH_INFORMATIONLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GP_LOG_PAGE_DESCRIPTOR is a view of native Windows.Win32.System.Ioctl.GP_LOG_PAGE_DESCRIPTOR storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type GP_LOG_PAGE_DESCRIPTOR struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	GP_LOG_PAGE_DESCRIPTORSize             = 4
+	GP_LOG_PAGE_DESCRIPTORAlignment        = 1
+	GP_LOG_PAGE_DESCRIPTORLogAddressOffset = 0
+	GP_LOG_PAGE_DESCRIPTORLogSectorsOffset = 2
+)
+
+// NewGP_LOG_PAGE_DESCRIPTOR allocates zeroed, aligned native storage.
+func NewGP_LOG_PAGE_DESCRIPTOR() GP_LOG_PAGE_DESCRIPTOR {
+	return GP_LOG_PAGE_DESCRIPTOR{data: nativebuffer.New(int(GP_LOG_PAGE_DESCRIPTORSize), uintptr(GP_LOG_PAGE_DESCRIPTORAlignment))}
+}
+
+// ViewGP_LOG_PAGE_DESCRIPTOR shares data without copying. It panics if data is shorter than GP_LOG_PAGE_DESCRIPTORSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewGP_LOG_PAGE_DESCRIPTOR(data []byte) GP_LOG_PAGE_DESCRIPTOR {
+	return GP_LOG_PAGE_DESCRIPTOR{data: nativebuffer.View(data, int(GP_LOG_PAGE_DESCRIPTORSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b GP_LOG_PAGE_DESCRIPTOR) Bytes() []byte {
+	return b.data[:GP_LOG_PAGE_DESCRIPTORSize:GP_LOG_PAGE_DESCRIPTORSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b GP_LOG_PAGE_DESCRIPTOR) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(GP_LOG_PAGE_DESCRIPTORAlignment))
+}
+
+// GetLogAddress returns a copy of the native field value.
+func (b GP_LOG_PAGE_DESCRIPTOR) GetLogAddress() uint16 {
+	offset := uintptr(GP_LOG_PAGE_DESCRIPTORLogAddressOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetLogAddress copies value into the native field.
+func (b GP_LOG_PAGE_DESCRIPTOR) SetLogAddress(value uint16) {
+	offset := uintptr(GP_LOG_PAGE_DESCRIPTORLogAddressOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetLogSectors returns a copy of the native field value.
+func (b GP_LOG_PAGE_DESCRIPTOR) GetLogSectors() uint16 {
+	offset := uintptr(GP_LOG_PAGE_DESCRIPTORLogSectorsOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetLogSectors copies value into the native field.
+func (b GP_LOG_PAGE_DESCRIPTOR) SetLogSectors(value uint16) {
+	offset := uintptr(GP_LOG_PAGE_DESCRIPTORLogSectorsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
 }
 
 // HISTOGRAM_BUCKET projects Windows.Win32.System.Ioctl.HISTOGRAM_BUCKET.
@@ -709,6 +7250,245 @@ type LMR_QUERY_INFO_PARAM struct {
 	Operation LMR_QUERY_INFO_CLASS
 }
 
+// LMR_QUERY_SESSION_INFO is a view of native Windows.Win32.System.Ioctl.LMR_QUERY_SESSION_INFO storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type LMR_QUERY_SESSION_INFO struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	LMR_QUERY_SESSION_INFOSize            = 8
+	LMR_QUERY_SESSION_INFOAlignment       = 8
+	LMR_QUERY_SESSION_INFOSessionIdOffset = 0
+)
+
+// NewLMR_QUERY_SESSION_INFO allocates zeroed, aligned native storage.
+func NewLMR_QUERY_SESSION_INFO() LMR_QUERY_SESSION_INFO {
+	return LMR_QUERY_SESSION_INFO{data: nativebuffer.New(int(LMR_QUERY_SESSION_INFOSize), uintptr(LMR_QUERY_SESSION_INFOAlignment))}
+}
+
+// ViewLMR_QUERY_SESSION_INFO shares data without copying. It panics if data is shorter than LMR_QUERY_SESSION_INFOSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewLMR_QUERY_SESSION_INFO(data []byte) LMR_QUERY_SESSION_INFO {
+	return LMR_QUERY_SESSION_INFO{data: nativebuffer.View(data, int(LMR_QUERY_SESSION_INFOSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b LMR_QUERY_SESSION_INFO) Bytes() []byte {
+	return b.data[:LMR_QUERY_SESSION_INFOSize:LMR_QUERY_SESSION_INFOSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b LMR_QUERY_SESSION_INFO) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(LMR_QUERY_SESSION_INFOAlignment))
+}
+
+// GetSessionId returns a copy of the native field value.
+func (b LMR_QUERY_SESSION_INFO) GetSessionId() uint64 {
+	offset := uintptr(LMR_QUERY_SESSION_INFOSessionIdOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSessionId copies value into the native field.
+func (b LMR_QUERY_SESSION_INFO) SetSessionId(value uint64) {
+	offset := uintptr(LMR_QUERY_SESSION_INFOSessionIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// LOOKUP_STREAM_FROM_CLUSTER_ENTRY is a view of native Windows.Win32.System.Ioctl.LOOKUP_STREAM_FROM_CLUSTER_ENTRY storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-lookup_stream_from_cluster_entry.
+type LOOKUP_STREAM_FROM_CLUSTER_ENTRY struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	LOOKUP_STREAM_FROM_CLUSTER_ENTRYSize               = 32
+	LOOKUP_STREAM_FROM_CLUSTER_ENTRYAlignment          = 8
+	LOOKUP_STREAM_FROM_CLUSTER_ENTRYOffsetToNextOffset = 0
+	LOOKUP_STREAM_FROM_CLUSTER_ENTRYFlagsOffset        = 4
+	LOOKUP_STREAM_FROM_CLUSTER_ENTRYReservedOffset     = 8
+	LOOKUP_STREAM_FROM_CLUSTER_ENTRYClusterOffset      = 16
+	LOOKUP_STREAM_FROM_CLUSTER_ENTRYFileNameOffset     = 24
+)
+
+// NewLOOKUP_STREAM_FROM_CLUSTER_ENTRY allocates zeroed, aligned native storage.
+func NewLOOKUP_STREAM_FROM_CLUSTER_ENTRY() LOOKUP_STREAM_FROM_CLUSTER_ENTRY {
+	return LOOKUP_STREAM_FROM_CLUSTER_ENTRY{data: nativebuffer.New(int(LOOKUP_STREAM_FROM_CLUSTER_ENTRYSize), uintptr(LOOKUP_STREAM_FROM_CLUSTER_ENTRYAlignment))}
+}
+
+// ViewLOOKUP_STREAM_FROM_CLUSTER_ENTRY shares data without copying. It panics if data is shorter than LOOKUP_STREAM_FROM_CLUSTER_ENTRYSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewLOOKUP_STREAM_FROM_CLUSTER_ENTRY(data []byte) LOOKUP_STREAM_FROM_CLUSTER_ENTRY {
+	return LOOKUP_STREAM_FROM_CLUSTER_ENTRY{data: nativebuffer.View(data, int(LOOKUP_STREAM_FROM_CLUSTER_ENTRYSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b LOOKUP_STREAM_FROM_CLUSTER_ENTRY) Bytes() []byte {
+	return b.data[:LOOKUP_STREAM_FROM_CLUSTER_ENTRYSize:LOOKUP_STREAM_FROM_CLUSTER_ENTRYSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b LOOKUP_STREAM_FROM_CLUSTER_ENTRY) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(LOOKUP_STREAM_FROM_CLUSTER_ENTRYAlignment))
+}
+
+// GetOffsetToNext returns a copy of the native field value.
+func (b LOOKUP_STREAM_FROM_CLUSTER_ENTRY) GetOffsetToNext() uint32 {
+	offset := uintptr(LOOKUP_STREAM_FROM_CLUSTER_ENTRYOffsetToNextOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetOffsetToNext copies value into the native field.
+func (b LOOKUP_STREAM_FROM_CLUSTER_ENTRY) SetOffsetToNext(value uint32) {
+	offset := uintptr(LOOKUP_STREAM_FROM_CLUSTER_ENTRYOffsetToNextOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b LOOKUP_STREAM_FROM_CLUSTER_ENTRY) GetFlags() uint32 {
+	offset := uintptr(LOOKUP_STREAM_FROM_CLUSTER_ENTRYFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b LOOKUP_STREAM_FROM_CLUSTER_ENTRY) SetFlags(value uint32) {
+	offset := uintptr(LOOKUP_STREAM_FROM_CLUSTER_ENTRYFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b LOOKUP_STREAM_FROM_CLUSTER_ENTRY) GetReserved() int64 {
+	offset := uintptr(LOOKUP_STREAM_FROM_CLUSTER_ENTRYReservedOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetReserved copies value into the native field.
+func (b LOOKUP_STREAM_FROM_CLUSTER_ENTRY) SetReserved(value int64) {
+	offset := uintptr(LOOKUP_STREAM_FROM_CLUSTER_ENTRYReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetCluster returns a copy of the native field value.
+func (b LOOKUP_STREAM_FROM_CLUSTER_ENTRY) GetCluster() int64 {
+	offset := uintptr(LOOKUP_STREAM_FROM_CLUSTER_ENTRYClusterOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetCluster copies value into the native field.
+func (b LOOKUP_STREAM_FROM_CLUSTER_ENTRY) SetCluster(value int64) {
+	offset := uintptr(LOOKUP_STREAM_FROM_CLUSTER_ENTRYClusterOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFileName accesses the metadata-declared initial flexible-array extent only.
+func (b LOOKUP_STREAM_FROM_CLUSTER_ENTRY) GetFileName(index0 int) uint16 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(LOOKUP_STREAM_FROM_CLUSTER_ENTRYFileNameOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetFileName copies value into the native field.
+func (b LOOKUP_STREAM_FROM_CLUSTER_ENTRY) SetFileName(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(LOOKUP_STREAM_FROM_CLUSTER_ENTRYFileNameOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// LOOKUP_STREAM_FROM_CLUSTER_INPUT is a view of native Windows.Win32.System.Ioctl.LOOKUP_STREAM_FROM_CLUSTER_INPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-lookup_stream_from_cluster_input.
+type LOOKUP_STREAM_FROM_CLUSTER_INPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	LOOKUP_STREAM_FROM_CLUSTER_INPUTSize                   = 16
+	LOOKUP_STREAM_FROM_CLUSTER_INPUTAlignment              = 8
+	LOOKUP_STREAM_FROM_CLUSTER_INPUTFlagsOffset            = 0
+	LOOKUP_STREAM_FROM_CLUSTER_INPUTNumberOfClustersOffset = 4
+	LOOKUP_STREAM_FROM_CLUSTER_INPUTClusterOffset          = 8
+)
+
+// NewLOOKUP_STREAM_FROM_CLUSTER_INPUT allocates zeroed, aligned native storage.
+func NewLOOKUP_STREAM_FROM_CLUSTER_INPUT() LOOKUP_STREAM_FROM_CLUSTER_INPUT {
+	return LOOKUP_STREAM_FROM_CLUSTER_INPUT{data: nativebuffer.New(int(LOOKUP_STREAM_FROM_CLUSTER_INPUTSize), uintptr(LOOKUP_STREAM_FROM_CLUSTER_INPUTAlignment))}
+}
+
+// ViewLOOKUP_STREAM_FROM_CLUSTER_INPUT shares data without copying. It panics if data is shorter than LOOKUP_STREAM_FROM_CLUSTER_INPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewLOOKUP_STREAM_FROM_CLUSTER_INPUT(data []byte) LOOKUP_STREAM_FROM_CLUSTER_INPUT {
+	return LOOKUP_STREAM_FROM_CLUSTER_INPUT{data: nativebuffer.View(data, int(LOOKUP_STREAM_FROM_CLUSTER_INPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b LOOKUP_STREAM_FROM_CLUSTER_INPUT) Bytes() []byte {
+	return b.data[:LOOKUP_STREAM_FROM_CLUSTER_INPUTSize:LOOKUP_STREAM_FROM_CLUSTER_INPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b LOOKUP_STREAM_FROM_CLUSTER_INPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(LOOKUP_STREAM_FROM_CLUSTER_INPUTAlignment))
+}
+
+// GetFlags returns a copy of the native field value.
+func (b LOOKUP_STREAM_FROM_CLUSTER_INPUT) GetFlags() uint32 {
+	offset := uintptr(LOOKUP_STREAM_FROM_CLUSTER_INPUTFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b LOOKUP_STREAM_FROM_CLUSTER_INPUT) SetFlags(value uint32) {
+	offset := uintptr(LOOKUP_STREAM_FROM_CLUSTER_INPUTFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNumberOfClusters returns a copy of the native field value.
+func (b LOOKUP_STREAM_FROM_CLUSTER_INPUT) GetNumberOfClusters() uint32 {
+	offset := uintptr(LOOKUP_STREAM_FROM_CLUSTER_INPUTNumberOfClustersOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNumberOfClusters copies value into the native field.
+func (b LOOKUP_STREAM_FROM_CLUSTER_INPUT) SetNumberOfClusters(value uint32) {
+	offset := uintptr(LOOKUP_STREAM_FROM_CLUSTER_INPUTNumberOfClustersOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCluster accesses the metadata-declared initial flexible-array extent only.
+func (b LOOKUP_STREAM_FROM_CLUSTER_INPUT) GetCluster(index0 int) int64 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(LOOKUP_STREAM_FROM_CLUSTER_INPUTClusterOffset + uintptr(index0)*(8))
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetCluster copies value into the native field.
+func (b LOOKUP_STREAM_FROM_CLUSTER_INPUT) SetCluster(index0 int, value int64) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(LOOKUP_STREAM_FROM_CLUSTER_INPUTClusterOffset + uintptr(index0)*(8))
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // LOOKUP_STREAM_FROM_CLUSTER_OUTPUT projects Windows.Win32.System.Ioctl.LOOKUP_STREAM_FROM_CLUSTER_OUTPUT.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-lookup_stream_from_cluster_output.
 type LOOKUP_STREAM_FROM_CLUSTER_OUTPUT struct {
@@ -720,6 +7500,351 @@ type LOOKUP_STREAM_FROM_CLUSTER_OUTPUT struct {
 // MEDIA_TYPE projects Windows.Win32.System.Ioctl.MEDIA_TYPE.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-media_type.
 type MEDIA_TYPE int32
+
+// MFT_ENUM_DATA_V0 is a view of native Windows.Win32.System.Ioctl.MFT_ENUM_DATA_V0 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-mft_enum_data_v0.
+type MFT_ENUM_DATA_V0 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	MFT_ENUM_DATA_V0Size                           = 24
+	MFT_ENUM_DATA_V0Alignment                      = 8
+	MFT_ENUM_DATA_V0StartFileReferenceNumberOffset = 0
+	MFT_ENUM_DATA_V0LowUsnOffset                   = 8
+	MFT_ENUM_DATA_V0HighUsnOffset                  = 16
+)
+
+// NewMFT_ENUM_DATA_V0 allocates zeroed, aligned native storage.
+func NewMFT_ENUM_DATA_V0() MFT_ENUM_DATA_V0 {
+	return MFT_ENUM_DATA_V0{data: nativebuffer.New(int(MFT_ENUM_DATA_V0Size), uintptr(MFT_ENUM_DATA_V0Alignment))}
+}
+
+// ViewMFT_ENUM_DATA_V0 shares data without copying. It panics if data is shorter than MFT_ENUM_DATA_V0Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewMFT_ENUM_DATA_V0(data []byte) MFT_ENUM_DATA_V0 {
+	return MFT_ENUM_DATA_V0{data: nativebuffer.View(data, int(MFT_ENUM_DATA_V0Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b MFT_ENUM_DATA_V0) Bytes() []byte {
+	return b.data[:MFT_ENUM_DATA_V0Size:MFT_ENUM_DATA_V0Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b MFT_ENUM_DATA_V0) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(MFT_ENUM_DATA_V0Alignment))
+}
+
+// GetStartFileReferenceNumber returns a copy of the native field value.
+func (b MFT_ENUM_DATA_V0) GetStartFileReferenceNumber() uint64 {
+	offset := uintptr(MFT_ENUM_DATA_V0StartFileReferenceNumberOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartFileReferenceNumber copies value into the native field.
+func (b MFT_ENUM_DATA_V0) SetStartFileReferenceNumber(value uint64) {
+	offset := uintptr(MFT_ENUM_DATA_V0StartFileReferenceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLowUsn returns a copy of the native field value.
+func (b MFT_ENUM_DATA_V0) GetLowUsn() int64 {
+	offset := uintptr(MFT_ENUM_DATA_V0LowUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLowUsn copies value into the native field.
+func (b MFT_ENUM_DATA_V0) SetLowUsn(value int64) {
+	offset := uintptr(MFT_ENUM_DATA_V0LowUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetHighUsn returns a copy of the native field value.
+func (b MFT_ENUM_DATA_V0) GetHighUsn() int64 {
+	offset := uintptr(MFT_ENUM_DATA_V0HighUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetHighUsn copies value into the native field.
+func (b MFT_ENUM_DATA_V0) SetHighUsn(value int64) {
+	offset := uintptr(MFT_ENUM_DATA_V0HighUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// MFT_ENUM_DATA_V1 is a view of native Windows.Win32.System.Ioctl.MFT_ENUM_DATA_V1 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-mft_enum_data_v1.
+type MFT_ENUM_DATA_V1 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	MFT_ENUM_DATA_V1Size                           = 32
+	MFT_ENUM_DATA_V1Alignment                      = 8
+	MFT_ENUM_DATA_V1StartFileReferenceNumberOffset = 0
+	MFT_ENUM_DATA_V1LowUsnOffset                   = 8
+	MFT_ENUM_DATA_V1HighUsnOffset                  = 16
+	MFT_ENUM_DATA_V1MinMajorVersionOffset          = 24
+	MFT_ENUM_DATA_V1MaxMajorVersionOffset          = 26
+)
+
+// NewMFT_ENUM_DATA_V1 allocates zeroed, aligned native storage.
+func NewMFT_ENUM_DATA_V1() MFT_ENUM_DATA_V1 {
+	return MFT_ENUM_DATA_V1{data: nativebuffer.New(int(MFT_ENUM_DATA_V1Size), uintptr(MFT_ENUM_DATA_V1Alignment))}
+}
+
+// ViewMFT_ENUM_DATA_V1 shares data without copying. It panics if data is shorter than MFT_ENUM_DATA_V1Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewMFT_ENUM_DATA_V1(data []byte) MFT_ENUM_DATA_V1 {
+	return MFT_ENUM_DATA_V1{data: nativebuffer.View(data, int(MFT_ENUM_DATA_V1Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b MFT_ENUM_DATA_V1) Bytes() []byte {
+	return b.data[:MFT_ENUM_DATA_V1Size:MFT_ENUM_DATA_V1Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b MFT_ENUM_DATA_V1) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(MFT_ENUM_DATA_V1Alignment))
+}
+
+// GetStartFileReferenceNumber returns a copy of the native field value.
+func (b MFT_ENUM_DATA_V1) GetStartFileReferenceNumber() uint64 {
+	offset := uintptr(MFT_ENUM_DATA_V1StartFileReferenceNumberOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartFileReferenceNumber copies value into the native field.
+func (b MFT_ENUM_DATA_V1) SetStartFileReferenceNumber(value uint64) {
+	offset := uintptr(MFT_ENUM_DATA_V1StartFileReferenceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLowUsn returns a copy of the native field value.
+func (b MFT_ENUM_DATA_V1) GetLowUsn() int64 {
+	offset := uintptr(MFT_ENUM_DATA_V1LowUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLowUsn copies value into the native field.
+func (b MFT_ENUM_DATA_V1) SetLowUsn(value int64) {
+	offset := uintptr(MFT_ENUM_DATA_V1LowUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetHighUsn returns a copy of the native field value.
+func (b MFT_ENUM_DATA_V1) GetHighUsn() int64 {
+	offset := uintptr(MFT_ENUM_DATA_V1HighUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetHighUsn copies value into the native field.
+func (b MFT_ENUM_DATA_V1) SetHighUsn(value int64) {
+	offset := uintptr(MFT_ENUM_DATA_V1HighUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMinMajorVersion returns a copy of the native field value.
+func (b MFT_ENUM_DATA_V1) GetMinMajorVersion() uint16 {
+	offset := uintptr(MFT_ENUM_DATA_V1MinMajorVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMinMajorVersion copies value into the native field.
+func (b MFT_ENUM_DATA_V1) SetMinMajorVersion(value uint16) {
+	offset := uintptr(MFT_ENUM_DATA_V1MinMajorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMaxMajorVersion returns a copy of the native field value.
+func (b MFT_ENUM_DATA_V1) GetMaxMajorVersion() uint16 {
+	offset := uintptr(MFT_ENUM_DATA_V1MaxMajorVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMaxMajorVersion copies value into the native field.
+func (b MFT_ENUM_DATA_V1) SetMaxMajorVersion(value uint16) {
+	offset := uintptr(MFT_ENUM_DATA_V1MaxMajorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// MOVE_FILE_DATA is a view of native Windows.Win32.System.Ioctl.MOVE_FILE_DATA storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-move_file_data.
+type MOVE_FILE_DATA struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	MOVE_FILE_DATASize               = 32
+	MOVE_FILE_DATAAlignment          = 8
+	MOVE_FILE_DATAFileHandleOffset   = 0
+	MOVE_FILE_DATAStartingVcnOffset  = 8
+	MOVE_FILE_DATAStartingLcnOffset  = 16
+	MOVE_FILE_DATAClusterCountOffset = 24
+)
+
+// NewMOVE_FILE_DATA allocates zeroed, aligned native storage.
+func NewMOVE_FILE_DATA() MOVE_FILE_DATA {
+	return MOVE_FILE_DATA{data: nativebuffer.New(int(MOVE_FILE_DATASize), uintptr(MOVE_FILE_DATAAlignment))}
+}
+
+// ViewMOVE_FILE_DATA shares data without copying. It panics if data is shorter than MOVE_FILE_DATASize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewMOVE_FILE_DATA(data []byte) MOVE_FILE_DATA {
+	return MOVE_FILE_DATA{data: nativebuffer.View(data, int(MOVE_FILE_DATASize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b MOVE_FILE_DATA) Bytes() []byte {
+	return b.data[:MOVE_FILE_DATASize:MOVE_FILE_DATASize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b MOVE_FILE_DATA) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(MOVE_FILE_DATAAlignment))
+}
+
+// GetFileHandle returns a copy of the native field value.
+func (b MOVE_FILE_DATA) GetFileHandle() foundation.HANDLE {
+	offset := uintptr(MOVE_FILE_DATAFileHandleOffset)
+
+	return nativebuffer.Read[foundation.HANDLE](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetFileHandle copies value into the native field.
+func (b MOVE_FILE_DATA) SetFileHandle(value foundation.HANDLE) {
+	offset := uintptr(MOVE_FILE_DATAFileHandleOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetStartingVcn returns a copy of the native field value.
+func (b MOVE_FILE_DATA) GetStartingVcn() int64 {
+	offset := uintptr(MOVE_FILE_DATAStartingVcnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartingVcn copies value into the native field.
+func (b MOVE_FILE_DATA) SetStartingVcn(value int64) {
+	offset := uintptr(MOVE_FILE_DATAStartingVcnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetStartingLcn returns a copy of the native field value.
+func (b MOVE_FILE_DATA) GetStartingLcn() int64 {
+	offset := uintptr(MOVE_FILE_DATAStartingLcnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartingLcn copies value into the native field.
+func (b MOVE_FILE_DATA) SetStartingLcn(value int64) {
+	offset := uintptr(MOVE_FILE_DATAStartingLcnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetClusterCount returns a copy of the native field value.
+func (b MOVE_FILE_DATA) GetClusterCount() uint32 {
+	offset := uintptr(MOVE_FILE_DATAClusterCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetClusterCount copies value into the native field.
+func (b MOVE_FILE_DATA) SetClusterCount(value uint32) {
+	offset := uintptr(MOVE_FILE_DATAClusterCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// MOVE_FILE_RECORD_DATA is a view of native Windows.Win32.System.Ioctl.MOVE_FILE_RECORD_DATA storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type MOVE_FILE_RECORD_DATA struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	MOVE_FILE_RECORD_DATASize                   = 24
+	MOVE_FILE_RECORD_DATAAlignment              = 8
+	MOVE_FILE_RECORD_DATAFileHandleOffset       = 0
+	MOVE_FILE_RECORD_DATASourceFileRecordOffset = 8
+	MOVE_FILE_RECORD_DATATargetFileRecordOffset = 16
+)
+
+// NewMOVE_FILE_RECORD_DATA allocates zeroed, aligned native storage.
+func NewMOVE_FILE_RECORD_DATA() MOVE_FILE_RECORD_DATA {
+	return MOVE_FILE_RECORD_DATA{data: nativebuffer.New(int(MOVE_FILE_RECORD_DATASize), uintptr(MOVE_FILE_RECORD_DATAAlignment))}
+}
+
+// ViewMOVE_FILE_RECORD_DATA shares data without copying. It panics if data is shorter than MOVE_FILE_RECORD_DATASize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewMOVE_FILE_RECORD_DATA(data []byte) MOVE_FILE_RECORD_DATA {
+	return MOVE_FILE_RECORD_DATA{data: nativebuffer.View(data, int(MOVE_FILE_RECORD_DATASize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b MOVE_FILE_RECORD_DATA) Bytes() []byte {
+	return b.data[:MOVE_FILE_RECORD_DATASize:MOVE_FILE_RECORD_DATASize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b MOVE_FILE_RECORD_DATA) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(MOVE_FILE_RECORD_DATAAlignment))
+}
+
+// GetFileHandle returns a copy of the native field value.
+func (b MOVE_FILE_RECORD_DATA) GetFileHandle() foundation.HANDLE {
+	offset := uintptr(MOVE_FILE_RECORD_DATAFileHandleOffset)
+
+	return nativebuffer.Read[foundation.HANDLE](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetFileHandle copies value into the native field.
+func (b MOVE_FILE_RECORD_DATA) SetFileHandle(value foundation.HANDLE) {
+	offset := uintptr(MOVE_FILE_RECORD_DATAFileHandleOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetSourceFileRecord returns a copy of the native field value.
+func (b MOVE_FILE_RECORD_DATA) GetSourceFileRecord() int64 {
+	offset := uintptr(MOVE_FILE_RECORD_DATASourceFileRecordOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSourceFileRecord copies value into the native field.
+func (b MOVE_FILE_RECORD_DATA) SetSourceFileRecord(value int64) {
+	offset := uintptr(MOVE_FILE_RECORD_DATASourceFileRecordOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTargetFileRecord returns a copy of the native field value.
+func (b MOVE_FILE_RECORD_DATA) GetTargetFileRecord() int64 {
+	offset := uintptr(MOVE_FILE_RECORD_DATATargetFileRecordOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTargetFileRecord copies value into the native field.
+func (b MOVE_FILE_RECORD_DATA) SetTargetFileRecord(value int64) {
+	offset := uintptr(MOVE_FILE_RECORD_DATATargetFileRecordOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
 
 // NTFS_EXTENDED_VOLUME_DATA projects Windows.Win32.System.Ioctl.NTFS_EXTENDED_VOLUME_DATA.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-ntfs_extended_volume_data.
@@ -736,6 +7861,512 @@ type NTFS_EXTENDED_VOLUME_DATA struct {
 	MaxVolumeTrimByteCount   uint32
 }
 
+// NTFS_FILE_RECORD_INPUT_BUFFER is a view of native Windows.Win32.System.Ioctl.NTFS_FILE_RECORD_INPUT_BUFFER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-ntfs_file_record_input_buffer.
+type NTFS_FILE_RECORD_INPUT_BUFFER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	NTFS_FILE_RECORD_INPUT_BUFFERSize                      = 8
+	NTFS_FILE_RECORD_INPUT_BUFFERAlignment                 = 8
+	NTFS_FILE_RECORD_INPUT_BUFFERFileReferenceNumberOffset = 0
+)
+
+// NewNTFS_FILE_RECORD_INPUT_BUFFER allocates zeroed, aligned native storage.
+func NewNTFS_FILE_RECORD_INPUT_BUFFER() NTFS_FILE_RECORD_INPUT_BUFFER {
+	return NTFS_FILE_RECORD_INPUT_BUFFER{data: nativebuffer.New(int(NTFS_FILE_RECORD_INPUT_BUFFERSize), uintptr(NTFS_FILE_RECORD_INPUT_BUFFERAlignment))}
+}
+
+// ViewNTFS_FILE_RECORD_INPUT_BUFFER shares data without copying. It panics if data is shorter than NTFS_FILE_RECORD_INPUT_BUFFERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewNTFS_FILE_RECORD_INPUT_BUFFER(data []byte) NTFS_FILE_RECORD_INPUT_BUFFER {
+	return NTFS_FILE_RECORD_INPUT_BUFFER{data: nativebuffer.View(data, int(NTFS_FILE_RECORD_INPUT_BUFFERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b NTFS_FILE_RECORD_INPUT_BUFFER) Bytes() []byte {
+	return b.data[:NTFS_FILE_RECORD_INPUT_BUFFERSize:NTFS_FILE_RECORD_INPUT_BUFFERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b NTFS_FILE_RECORD_INPUT_BUFFER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(NTFS_FILE_RECORD_INPUT_BUFFERAlignment))
+}
+
+// GetFileReferenceNumber returns a copy of the native field value.
+func (b NTFS_FILE_RECORD_INPUT_BUFFER) GetFileReferenceNumber() int64 {
+	offset := uintptr(NTFS_FILE_RECORD_INPUT_BUFFERFileReferenceNumberOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileReferenceNumber copies value into the native field.
+func (b NTFS_FILE_RECORD_INPUT_BUFFER) SetFileReferenceNumber(value int64) {
+	offset := uintptr(NTFS_FILE_RECORD_INPUT_BUFFERFileReferenceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// NTFS_FILE_RECORD_OUTPUT_BUFFER is a view of native Windows.Win32.System.Ioctl.NTFS_FILE_RECORD_OUTPUT_BUFFER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-ntfs_file_record_output_buffer.
+type NTFS_FILE_RECORD_OUTPUT_BUFFER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	NTFS_FILE_RECORD_OUTPUT_BUFFERSize                      = 16
+	NTFS_FILE_RECORD_OUTPUT_BUFFERAlignment                 = 8
+	NTFS_FILE_RECORD_OUTPUT_BUFFERFileReferenceNumberOffset = 0
+	NTFS_FILE_RECORD_OUTPUT_BUFFERFileRecordLengthOffset    = 8
+	NTFS_FILE_RECORD_OUTPUT_BUFFERFileRecordBufferOffset    = 12
+)
+
+// NewNTFS_FILE_RECORD_OUTPUT_BUFFER allocates zeroed, aligned native storage.
+func NewNTFS_FILE_RECORD_OUTPUT_BUFFER() NTFS_FILE_RECORD_OUTPUT_BUFFER {
+	return NTFS_FILE_RECORD_OUTPUT_BUFFER{data: nativebuffer.New(int(NTFS_FILE_RECORD_OUTPUT_BUFFERSize), uintptr(NTFS_FILE_RECORD_OUTPUT_BUFFERAlignment))}
+}
+
+// ViewNTFS_FILE_RECORD_OUTPUT_BUFFER shares data without copying. It panics if data is shorter than NTFS_FILE_RECORD_OUTPUT_BUFFERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewNTFS_FILE_RECORD_OUTPUT_BUFFER(data []byte) NTFS_FILE_RECORD_OUTPUT_BUFFER {
+	return NTFS_FILE_RECORD_OUTPUT_BUFFER{data: nativebuffer.View(data, int(NTFS_FILE_RECORD_OUTPUT_BUFFERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b NTFS_FILE_RECORD_OUTPUT_BUFFER) Bytes() []byte {
+	return b.data[:NTFS_FILE_RECORD_OUTPUT_BUFFERSize:NTFS_FILE_RECORD_OUTPUT_BUFFERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b NTFS_FILE_RECORD_OUTPUT_BUFFER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(NTFS_FILE_RECORD_OUTPUT_BUFFERAlignment))
+}
+
+// GetFileReferenceNumber returns a copy of the native field value.
+func (b NTFS_FILE_RECORD_OUTPUT_BUFFER) GetFileReferenceNumber() int64 {
+	offset := uintptr(NTFS_FILE_RECORD_OUTPUT_BUFFERFileReferenceNumberOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileReferenceNumber copies value into the native field.
+func (b NTFS_FILE_RECORD_OUTPUT_BUFFER) SetFileReferenceNumber(value int64) {
+	offset := uintptr(NTFS_FILE_RECORD_OUTPUT_BUFFERFileReferenceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFileRecordLength returns a copy of the native field value.
+func (b NTFS_FILE_RECORD_OUTPUT_BUFFER) GetFileRecordLength() uint32 {
+	offset := uintptr(NTFS_FILE_RECORD_OUTPUT_BUFFERFileRecordLengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFileRecordLength copies value into the native field.
+func (b NTFS_FILE_RECORD_OUTPUT_BUFFER) SetFileRecordLength(value uint32) {
+	offset := uintptr(NTFS_FILE_RECORD_OUTPUT_BUFFERFileRecordLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFileRecordBuffer accesses the metadata-declared initial flexible-array extent only.
+func (b NTFS_FILE_RECORD_OUTPUT_BUFFER) GetFileRecordBuffer(index0 int) uint8 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(NTFS_FILE_RECORD_OUTPUT_BUFFERFileRecordBufferOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetFileRecordBuffer copies value into the native field.
+func (b NTFS_FILE_RECORD_OUTPUT_BUFFER) SetFileRecordBuffer(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(NTFS_FILE_RECORD_OUTPUT_BUFFERFileRecordBufferOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// NTFS_VOLUME_DATA_BUFFER is a view of native Windows.Win32.System.Ioctl.NTFS_VOLUME_DATA_BUFFER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-ntfs_volume_data_buffer.
+type NTFS_VOLUME_DATA_BUFFER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	NTFS_VOLUME_DATA_BUFFERSize                               = 96
+	NTFS_VOLUME_DATA_BUFFERAlignment                          = 8
+	NTFS_VOLUME_DATA_BUFFERVolumeSerialNumberOffset           = 0
+	NTFS_VOLUME_DATA_BUFFERNumberSectorsOffset                = 8
+	NTFS_VOLUME_DATA_BUFFERTotalClustersOffset                = 16
+	NTFS_VOLUME_DATA_BUFFERFreeClustersOffset                 = 24
+	NTFS_VOLUME_DATA_BUFFERTotalReservedOffset                = 32
+	NTFS_VOLUME_DATA_BUFFERBytesPerSectorOffset               = 40
+	NTFS_VOLUME_DATA_BUFFERBytesPerClusterOffset              = 44
+	NTFS_VOLUME_DATA_BUFFERBytesPerFileRecordSegmentOffset    = 48
+	NTFS_VOLUME_DATA_BUFFERClustersPerFileRecordSegmentOffset = 52
+	NTFS_VOLUME_DATA_BUFFERMftValidDataLengthOffset           = 56
+	NTFS_VOLUME_DATA_BUFFERMftStartLcnOffset                  = 64
+	NTFS_VOLUME_DATA_BUFFERMft2StartLcnOffset                 = 72
+	NTFS_VOLUME_DATA_BUFFERMftZoneStartOffset                 = 80
+	NTFS_VOLUME_DATA_BUFFERMftZoneEndOffset                   = 88
+)
+
+// NewNTFS_VOLUME_DATA_BUFFER allocates zeroed, aligned native storage.
+func NewNTFS_VOLUME_DATA_BUFFER() NTFS_VOLUME_DATA_BUFFER {
+	return NTFS_VOLUME_DATA_BUFFER{data: nativebuffer.New(int(NTFS_VOLUME_DATA_BUFFERSize), uintptr(NTFS_VOLUME_DATA_BUFFERAlignment))}
+}
+
+// ViewNTFS_VOLUME_DATA_BUFFER shares data without copying. It panics if data is shorter than NTFS_VOLUME_DATA_BUFFERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewNTFS_VOLUME_DATA_BUFFER(data []byte) NTFS_VOLUME_DATA_BUFFER {
+	return NTFS_VOLUME_DATA_BUFFER{data: nativebuffer.View(data, int(NTFS_VOLUME_DATA_BUFFERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b NTFS_VOLUME_DATA_BUFFER) Bytes() []byte {
+	return b.data[:NTFS_VOLUME_DATA_BUFFERSize:NTFS_VOLUME_DATA_BUFFERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b NTFS_VOLUME_DATA_BUFFER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(NTFS_VOLUME_DATA_BUFFERAlignment))
+}
+
+// GetVolumeSerialNumber returns a copy of the native field value.
+func (b NTFS_VOLUME_DATA_BUFFER) GetVolumeSerialNumber() int64 {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERVolumeSerialNumberOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetVolumeSerialNumber copies value into the native field.
+func (b NTFS_VOLUME_DATA_BUFFER) SetVolumeSerialNumber(value int64) {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERVolumeSerialNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumberSectors returns a copy of the native field value.
+func (b NTFS_VOLUME_DATA_BUFFER) GetNumberSectors() int64 {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERNumberSectorsOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumberSectors copies value into the native field.
+func (b NTFS_VOLUME_DATA_BUFFER) SetNumberSectors(value int64) {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERNumberSectorsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTotalClusters returns a copy of the native field value.
+func (b NTFS_VOLUME_DATA_BUFFER) GetTotalClusters() int64 {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERTotalClustersOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalClusters copies value into the native field.
+func (b NTFS_VOLUME_DATA_BUFFER) SetTotalClusters(value int64) {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERTotalClustersOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFreeClusters returns a copy of the native field value.
+func (b NTFS_VOLUME_DATA_BUFFER) GetFreeClusters() int64 {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERFreeClustersOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFreeClusters copies value into the native field.
+func (b NTFS_VOLUME_DATA_BUFFER) SetFreeClusters(value int64) {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERFreeClustersOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTotalReserved returns a copy of the native field value.
+func (b NTFS_VOLUME_DATA_BUFFER) GetTotalReserved() int64 {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERTotalReservedOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalReserved copies value into the native field.
+func (b NTFS_VOLUME_DATA_BUFFER) SetTotalReserved(value int64) {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERTotalReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBytesPerSector returns a copy of the native field value.
+func (b NTFS_VOLUME_DATA_BUFFER) GetBytesPerSector() uint32 {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERBytesPerSectorOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesPerSector copies value into the native field.
+func (b NTFS_VOLUME_DATA_BUFFER) SetBytesPerSector(value uint32) {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERBytesPerSectorOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesPerCluster returns a copy of the native field value.
+func (b NTFS_VOLUME_DATA_BUFFER) GetBytesPerCluster() uint32 {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERBytesPerClusterOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesPerCluster copies value into the native field.
+func (b NTFS_VOLUME_DATA_BUFFER) SetBytesPerCluster(value uint32) {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERBytesPerClusterOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesPerFileRecordSegment returns a copy of the native field value.
+func (b NTFS_VOLUME_DATA_BUFFER) GetBytesPerFileRecordSegment() uint32 {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERBytesPerFileRecordSegmentOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesPerFileRecordSegment copies value into the native field.
+func (b NTFS_VOLUME_DATA_BUFFER) SetBytesPerFileRecordSegment(value uint32) {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERBytesPerFileRecordSegmentOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetClustersPerFileRecordSegment returns a copy of the native field value.
+func (b NTFS_VOLUME_DATA_BUFFER) GetClustersPerFileRecordSegment() uint32 {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERClustersPerFileRecordSegmentOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetClustersPerFileRecordSegment copies value into the native field.
+func (b NTFS_VOLUME_DATA_BUFFER) SetClustersPerFileRecordSegment(value uint32) {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERClustersPerFileRecordSegmentOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMftValidDataLength returns a copy of the native field value.
+func (b NTFS_VOLUME_DATA_BUFFER) GetMftValidDataLength() int64 {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERMftValidDataLengthOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMftValidDataLength copies value into the native field.
+func (b NTFS_VOLUME_DATA_BUFFER) SetMftValidDataLength(value int64) {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERMftValidDataLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMftStartLcn returns a copy of the native field value.
+func (b NTFS_VOLUME_DATA_BUFFER) GetMftStartLcn() int64 {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERMftStartLcnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMftStartLcn copies value into the native field.
+func (b NTFS_VOLUME_DATA_BUFFER) SetMftStartLcn(value int64) {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERMftStartLcnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMft2StartLcn returns a copy of the native field value.
+func (b NTFS_VOLUME_DATA_BUFFER) GetMft2StartLcn() int64 {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERMft2StartLcnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMft2StartLcn copies value into the native field.
+func (b NTFS_VOLUME_DATA_BUFFER) SetMft2StartLcn(value int64) {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERMft2StartLcnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMftZoneStart returns a copy of the native field value.
+func (b NTFS_VOLUME_DATA_BUFFER) GetMftZoneStart() int64 {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERMftZoneStartOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMftZoneStart copies value into the native field.
+func (b NTFS_VOLUME_DATA_BUFFER) SetMftZoneStart(value int64) {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERMftZoneStartOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMftZoneEnd returns a copy of the native field value.
+func (b NTFS_VOLUME_DATA_BUFFER) GetMftZoneEnd() int64 {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERMftZoneEndOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMftZoneEnd copies value into the native field.
+func (b NTFS_VOLUME_DATA_BUFFER) SetMftZoneEnd(value int64) {
+	offset := uintptr(NTFS_VOLUME_DATA_BUFFERMftZoneEndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// PARTITION_INFORMATION is a view of native Windows.Win32.System.Ioctl.PARTITION_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-partition_information.
+type PARTITION_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PARTITION_INFORMATIONSize                      = 32
+	PARTITION_INFORMATIONAlignment                 = 8
+	PARTITION_INFORMATIONStartingOffsetOffset      = 0
+	PARTITION_INFORMATIONPartitionLengthOffset     = 8
+	PARTITION_INFORMATIONHiddenSectorsOffset       = 16
+	PARTITION_INFORMATIONPartitionNumberOffset     = 20
+	PARTITION_INFORMATIONPartitionTypeOffset       = 24
+	PARTITION_INFORMATIONBootIndicatorOffset       = 25
+	PARTITION_INFORMATIONRecognizedPartitionOffset = 26
+	PARTITION_INFORMATIONRewritePartitionOffset    = 27
+)
+
+// NewPARTITION_INFORMATION allocates zeroed, aligned native storage.
+func NewPARTITION_INFORMATION() PARTITION_INFORMATION {
+	return PARTITION_INFORMATION{data: nativebuffer.New(int(PARTITION_INFORMATIONSize), uintptr(PARTITION_INFORMATIONAlignment))}
+}
+
+// ViewPARTITION_INFORMATION shares data without copying. It panics if data is shorter than PARTITION_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPARTITION_INFORMATION(data []byte) PARTITION_INFORMATION {
+	return PARTITION_INFORMATION{data: nativebuffer.View(data, int(PARTITION_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PARTITION_INFORMATION) Bytes() []byte {
+	return b.data[:PARTITION_INFORMATIONSize:PARTITION_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PARTITION_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PARTITION_INFORMATIONAlignment))
+}
+
+// GetStartingOffset returns a copy of the native field value.
+func (b PARTITION_INFORMATION) GetStartingOffset() int64 {
+	offset := uintptr(PARTITION_INFORMATIONStartingOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartingOffset copies value into the native field.
+func (b PARTITION_INFORMATION) SetStartingOffset(value int64) {
+	offset := uintptr(PARTITION_INFORMATIONStartingOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetPartitionLength returns a copy of the native field value.
+func (b PARTITION_INFORMATION) GetPartitionLength() int64 {
+	offset := uintptr(PARTITION_INFORMATIONPartitionLengthOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPartitionLength copies value into the native field.
+func (b PARTITION_INFORMATION) SetPartitionLength(value int64) {
+	offset := uintptr(PARTITION_INFORMATIONPartitionLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetHiddenSectors returns a copy of the native field value.
+func (b PARTITION_INFORMATION) GetHiddenSectors() uint32 {
+	offset := uintptr(PARTITION_INFORMATIONHiddenSectorsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetHiddenSectors copies value into the native field.
+func (b PARTITION_INFORMATION) SetHiddenSectors(value uint32) {
+	offset := uintptr(PARTITION_INFORMATIONHiddenSectorsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPartitionNumber returns a copy of the native field value.
+func (b PARTITION_INFORMATION) GetPartitionNumber() uint32 {
+	offset := uintptr(PARTITION_INFORMATIONPartitionNumberOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPartitionNumber copies value into the native field.
+func (b PARTITION_INFORMATION) SetPartitionNumber(value uint32) {
+	offset := uintptr(PARTITION_INFORMATIONPartitionNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPartitionType returns a copy of the native field value.
+func (b PARTITION_INFORMATION) GetPartitionType() uint8 {
+	offset := uintptr(PARTITION_INFORMATIONPartitionTypeOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetPartitionType copies value into the native field.
+func (b PARTITION_INFORMATION) SetPartitionType(value uint8) {
+	offset := uintptr(PARTITION_INFORMATIONPartitionTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetBootIndicator returns a copy of the native field value.
+func (b PARTITION_INFORMATION) GetBootIndicator() foundation.BOOLEAN {
+	offset := uintptr(PARTITION_INFORMATIONBootIndicatorOffset)
+
+	return nativebuffer.Read[foundation.BOOLEAN](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBootIndicator copies value into the native field.
+func (b PARTITION_INFORMATION) SetBootIndicator(value foundation.BOOLEAN) {
+	offset := uintptr(PARTITION_INFORMATIONBootIndicatorOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetRecognizedPartition returns a copy of the native field value.
+func (b PARTITION_INFORMATION) GetRecognizedPartition() foundation.BOOLEAN {
+	offset := uintptr(PARTITION_INFORMATIONRecognizedPartitionOffset)
+
+	return nativebuffer.Read[foundation.BOOLEAN](b.Bytes()[offset : offset+(1)])
+}
+
+// SetRecognizedPartition copies value into the native field.
+func (b PARTITION_INFORMATION) SetRecognizedPartition(value foundation.BOOLEAN) {
+	offset := uintptr(PARTITION_INFORMATIONRecognizedPartitionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetRewritePartition returns a copy of the native field value.
+func (b PARTITION_INFORMATION) GetRewritePartition() foundation.BOOLEAN {
+	offset := uintptr(PARTITION_INFORMATIONRewritePartitionOffset)
+
+	return nativebuffer.Read[foundation.BOOLEAN](b.Bytes()[offset : offset+(1)])
+}
+
+// SetRewritePartition copies value into the native field.
+func (b PARTITION_INFORMATION) SetRewritePartition(value foundation.BOOLEAN) {
+	offset := uintptr(PARTITION_INFORMATIONRewritePartitionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
 // PARTITION_STYLE projects Windows.Win32.System.Ioctl.PARTITION_STYLE.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-partition_style.
 type PARTITION_STYLE int32
@@ -748,6 +8379,381 @@ type PATHNAME_BUFFER struct {
 	Name [1]uint16
 }
 
+// PERF_BIN is a view of native Windows.Win32.System.Ioctl.PERF_BIN storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type PERF_BIN struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PERF_BINSize               = 24
+	PERF_BINAlignment          = 8
+	PERF_BINNumberOfBinsOffset = 0
+	PERF_BINTypeOfBinOffset    = 4
+	PERF_BINBinsRangesOffset   = 8
+)
+
+// NewPERF_BIN allocates zeroed, aligned native storage.
+func NewPERF_BIN() PERF_BIN {
+	return PERF_BIN{data: nativebuffer.New(int(PERF_BINSize), uintptr(PERF_BINAlignment))}
+}
+
+// ViewPERF_BIN shares data without copying. It panics if data is shorter than PERF_BINSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPERF_BIN(data []byte) PERF_BIN {
+	return PERF_BIN{data: nativebuffer.View(data, int(PERF_BINSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PERF_BIN) Bytes() []byte {
+	return b.data[:PERF_BINSize:PERF_BINSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PERF_BIN) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PERF_BINAlignment))
+}
+
+// GetNumberOfBins returns a copy of the native field value.
+func (b PERF_BIN) GetNumberOfBins() uint32 {
+	offset := uintptr(PERF_BINNumberOfBinsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNumberOfBins copies value into the native field.
+func (b PERF_BIN) SetNumberOfBins(value uint32) {
+	offset := uintptr(PERF_BINNumberOfBinsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTypeOfBin returns a copy of the native field value.
+func (b PERF_BIN) GetTypeOfBin() uint32 {
+	offset := uintptr(PERF_BINTypeOfBinOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTypeOfBin copies value into the native field.
+func (b PERF_BIN) SetTypeOfBin(value uint32) {
+	offset := uintptr(PERF_BINTypeOfBinOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBinsRanges accesses the metadata-declared initial flexible-array extent only.
+func (b PERF_BIN) GetBinsRanges(index0 int) BIN_RANGE {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PERF_BINBinsRangesOffset + uintptr(index0)*(16))
+
+	return ViewBIN_RANGE(b.Bytes()[offset : offset+(16)])
+}
+
+// SetBinsRanges copies value into the native field.
+func (b PERF_BIN) SetBinsRanges(index0 int, value BIN_RANGE) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PERF_BINBinsRangesOffset + uintptr(index0)*(16))
+	copy(b.Bytes()[offset:offset+(16)], value.Bytes())
+}
+
+// PHYSICAL_ELEMENT_STATUS is a view of native Windows.Win32.System.Ioctl.PHYSICAL_ELEMENT_STATUS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type PHYSICAL_ELEMENT_STATUS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PHYSICAL_ELEMENT_STATUSSize                                = 64
+	PHYSICAL_ELEMENT_STATUSAlignment                           = 8
+	PHYSICAL_ELEMENT_STATUSVersionOffset                       = 0
+	PHYSICAL_ELEMENT_STATUSSizeOffset                          = 4
+	PHYSICAL_ELEMENT_STATUSDescriptorCountOffset               = 8
+	PHYSICAL_ELEMENT_STATUSReturnedDescriptorCountOffset       = 12
+	PHYSICAL_ELEMENT_STATUSElementIdentifierBeingDepopedOffset = 16
+	PHYSICAL_ELEMENT_STATUSReservedOffset                      = 20
+	PHYSICAL_ELEMENT_STATUSDescriptorsOffset                   = 24
+)
+
+// NewPHYSICAL_ELEMENT_STATUS allocates zeroed, aligned native storage.
+func NewPHYSICAL_ELEMENT_STATUS() PHYSICAL_ELEMENT_STATUS {
+	return PHYSICAL_ELEMENT_STATUS{data: nativebuffer.New(int(PHYSICAL_ELEMENT_STATUSSize), uintptr(PHYSICAL_ELEMENT_STATUSAlignment))}
+}
+
+// ViewPHYSICAL_ELEMENT_STATUS shares data without copying. It panics if data is shorter than PHYSICAL_ELEMENT_STATUSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPHYSICAL_ELEMENT_STATUS(data []byte) PHYSICAL_ELEMENT_STATUS {
+	return PHYSICAL_ELEMENT_STATUS{data: nativebuffer.View(data, int(PHYSICAL_ELEMENT_STATUSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PHYSICAL_ELEMENT_STATUS) Bytes() []byte {
+	return b.data[:PHYSICAL_ELEMENT_STATUSSize:PHYSICAL_ELEMENT_STATUSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PHYSICAL_ELEMENT_STATUS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PHYSICAL_ELEMENT_STATUSAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b PHYSICAL_ELEMENT_STATUS) GetVersion() uint32 {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUSVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b PHYSICAL_ELEMENT_STATUS) SetVersion(value uint32) {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUSVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSize returns a copy of the native field value.
+func (b PHYSICAL_ELEMENT_STATUS) GetSize() uint32 {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUSSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b PHYSICAL_ELEMENT_STATUS) SetSize(value uint32) {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUSSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDescriptorCount returns a copy of the native field value.
+func (b PHYSICAL_ELEMENT_STATUS) GetDescriptorCount() uint32 {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUSDescriptorCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDescriptorCount copies value into the native field.
+func (b PHYSICAL_ELEMENT_STATUS) SetDescriptorCount(value uint32) {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUSDescriptorCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReturnedDescriptorCount returns a copy of the native field value.
+func (b PHYSICAL_ELEMENT_STATUS) GetReturnedDescriptorCount() uint32 {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUSReturnedDescriptorCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReturnedDescriptorCount copies value into the native field.
+func (b PHYSICAL_ELEMENT_STATUS) SetReturnedDescriptorCount(value uint32) {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUSReturnedDescriptorCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetElementIdentifierBeingDepoped returns a copy of the native field value.
+func (b PHYSICAL_ELEMENT_STATUS) GetElementIdentifierBeingDepoped() uint32 {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUSElementIdentifierBeingDepopedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetElementIdentifierBeingDepoped copies value into the native field.
+func (b PHYSICAL_ELEMENT_STATUS) SetElementIdentifierBeingDepoped(value uint32) {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUSElementIdentifierBeingDepopedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b PHYSICAL_ELEMENT_STATUS) GetReserved() uint32 {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUSReservedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved copies value into the native field.
+func (b PHYSICAL_ELEMENT_STATUS) SetReserved(value uint32) {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUSReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDescriptors accesses the metadata-declared initial flexible-array extent only.
+func (b PHYSICAL_ELEMENT_STATUS) GetDescriptors(index0 int) PHYSICAL_ELEMENT_STATUS_DESCRIPTOR {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PHYSICAL_ELEMENT_STATUSDescriptorsOffset + uintptr(index0)*(40))
+
+	return ViewPHYSICAL_ELEMENT_STATUS_DESCRIPTOR(b.Bytes()[offset : offset+(40)])
+}
+
+// SetDescriptors copies value into the native field.
+func (b PHYSICAL_ELEMENT_STATUS) SetDescriptors(index0 int, value PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PHYSICAL_ELEMENT_STATUSDescriptorsOffset + uintptr(index0)*(40))
+	copy(b.Bytes()[offset:offset+(40)], value.Bytes())
+}
+
+// PHYSICAL_ELEMENT_STATUS_DESCRIPTOR is a view of native Windows.Win32.System.Ioctl.PHYSICAL_ELEMENT_STATUS_DESCRIPTOR storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type PHYSICAL_ELEMENT_STATUS_DESCRIPTOR struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PHYSICAL_ELEMENT_STATUS_DESCRIPTORSize                        = 40
+	PHYSICAL_ELEMENT_STATUS_DESCRIPTORAlignment                   = 8
+	PHYSICAL_ELEMENT_STATUS_DESCRIPTORVersionOffset               = 0
+	PHYSICAL_ELEMENT_STATUS_DESCRIPTORSizeOffset                  = 4
+	PHYSICAL_ELEMENT_STATUS_DESCRIPTORElementIdentifierOffset     = 8
+	PHYSICAL_ELEMENT_STATUS_DESCRIPTORPhysicalElementTypeOffset   = 12
+	PHYSICAL_ELEMENT_STATUS_DESCRIPTORPhysicalElementHealthOffset = 13
+	PHYSICAL_ELEMENT_STATUS_DESCRIPTORReserved1Offset             = 14
+	PHYSICAL_ELEMENT_STATUS_DESCRIPTORAssociatedCapacityOffset    = 16
+	PHYSICAL_ELEMENT_STATUS_DESCRIPTORReserved2Offset             = 24
+)
+
+// NewPHYSICAL_ELEMENT_STATUS_DESCRIPTOR allocates zeroed, aligned native storage.
+func NewPHYSICAL_ELEMENT_STATUS_DESCRIPTOR() PHYSICAL_ELEMENT_STATUS_DESCRIPTOR {
+	return PHYSICAL_ELEMENT_STATUS_DESCRIPTOR{data: nativebuffer.New(int(PHYSICAL_ELEMENT_STATUS_DESCRIPTORSize), uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORAlignment))}
+}
+
+// ViewPHYSICAL_ELEMENT_STATUS_DESCRIPTOR shares data without copying. It panics if data is shorter than PHYSICAL_ELEMENT_STATUS_DESCRIPTORSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPHYSICAL_ELEMENT_STATUS_DESCRIPTOR(data []byte) PHYSICAL_ELEMENT_STATUS_DESCRIPTOR {
+	return PHYSICAL_ELEMENT_STATUS_DESCRIPTOR{data: nativebuffer.View(data, int(PHYSICAL_ELEMENT_STATUS_DESCRIPTORSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) Bytes() []byte {
+	return b.data[:PHYSICAL_ELEMENT_STATUS_DESCRIPTORSize:PHYSICAL_ELEMENT_STATUS_DESCRIPTORSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) GetVersion() uint32 {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) SetVersion(value uint32) {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSize returns a copy of the native field value.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) GetSize() uint32 {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) SetSize(value uint32) {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetElementIdentifier returns a copy of the native field value.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) GetElementIdentifier() uint32 {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORElementIdentifierOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetElementIdentifier copies value into the native field.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) SetElementIdentifier(value uint32) {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORElementIdentifierOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPhysicalElementType returns a copy of the native field value.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) GetPhysicalElementType() uint8 {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORPhysicalElementTypeOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetPhysicalElementType copies value into the native field.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) SetPhysicalElementType(value uint8) {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORPhysicalElementTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetPhysicalElementHealth returns a copy of the native field value.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) GetPhysicalElementHealth() uint8 {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORPhysicalElementHealthOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetPhysicalElementHealth copies value into the native field.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) SetPhysicalElementHealth(value uint8) {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORPhysicalElementHealthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetReserved1 returns a copy of the native field value.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) GetReserved1(index0 int) uint8 {
+	if index0 < 0 || index0 >= 2 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORReserved1Offset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetReserved1 copies value into the native field.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) SetReserved1(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 2 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORReserved1Offset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetAssociatedCapacity returns a copy of the native field value.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) GetAssociatedCapacity() uint64 {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORAssociatedCapacityOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAssociatedCapacity copies value into the native field.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) SetAssociatedCapacity(value uint64) {
+	offset := uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORAssociatedCapacityOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetReserved2 returns a copy of the native field value.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) GetReserved2(index0 int) uint32 {
+	if index0 < 0 || index0 >= 4 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORReserved2Offset + uintptr(index0)*(4))
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved2 copies value into the native field.
+func (b PHYSICAL_ELEMENT_STATUS_DESCRIPTOR) SetReserved2(index0 int, value uint32) {
+	if index0 < 0 || index0 >= 4 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(PHYSICAL_ELEMENT_STATUS_DESCRIPTORReserved2Offset + uintptr(index0)*(4))
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
 // PHYSICAL_ELEMENT_STATUS_REQUEST projects Windows.Win32.System.Ioctl.PHYSICAL_ELEMENT_STATUS_REQUEST.
 type PHYSICAL_ELEMENT_STATUS_REQUEST struct {
 	Version         uint32
@@ -758,10 +8764,412 @@ type PHYSICAL_ELEMENT_STATUS_REQUEST struct {
 	Reserved        [2]uint8
 }
 
+// PLEX_READ_DATA_REQUEST is a view of native Windows.Win32.System.Ioctl.PLEX_READ_DATA_REQUEST storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-plex_read_data_request.
+type PLEX_READ_DATA_REQUEST struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	PLEX_READ_DATA_REQUESTSize             = 16
+	PLEX_READ_DATA_REQUESTAlignment        = 8
+	PLEX_READ_DATA_REQUESTByteOffsetOffset = 0
+	PLEX_READ_DATA_REQUESTByteLengthOffset = 8
+	PLEX_READ_DATA_REQUESTPlexNumberOffset = 12
+)
+
+// NewPLEX_READ_DATA_REQUEST allocates zeroed, aligned native storage.
+func NewPLEX_READ_DATA_REQUEST() PLEX_READ_DATA_REQUEST {
+	return PLEX_READ_DATA_REQUEST{data: nativebuffer.New(int(PLEX_READ_DATA_REQUESTSize), uintptr(PLEX_READ_DATA_REQUESTAlignment))}
+}
+
+// ViewPLEX_READ_DATA_REQUEST shares data without copying. It panics if data is shorter than PLEX_READ_DATA_REQUESTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewPLEX_READ_DATA_REQUEST(data []byte) PLEX_READ_DATA_REQUEST {
+	return PLEX_READ_DATA_REQUEST{data: nativebuffer.View(data, int(PLEX_READ_DATA_REQUESTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b PLEX_READ_DATA_REQUEST) Bytes() []byte {
+	return b.data[:PLEX_READ_DATA_REQUESTSize:PLEX_READ_DATA_REQUESTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b PLEX_READ_DATA_REQUEST) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(PLEX_READ_DATA_REQUESTAlignment))
+}
+
+// GetByteOffset returns a copy of the native field value.
+func (b PLEX_READ_DATA_REQUEST) GetByteOffset() int64 {
+	offset := uintptr(PLEX_READ_DATA_REQUESTByteOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetByteOffset copies value into the native field.
+func (b PLEX_READ_DATA_REQUEST) SetByteOffset(value int64) {
+	offset := uintptr(PLEX_READ_DATA_REQUESTByteOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetByteLength returns a copy of the native field value.
+func (b PLEX_READ_DATA_REQUEST) GetByteLength() uint32 {
+	offset := uintptr(PLEX_READ_DATA_REQUESTByteLengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetByteLength copies value into the native field.
+func (b PLEX_READ_DATA_REQUEST) SetByteLength(value uint32) {
+	offset := uintptr(PLEX_READ_DATA_REQUESTByteLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPlexNumber returns a copy of the native field value.
+func (b PLEX_READ_DATA_REQUEST) GetPlexNumber() uint32 {
+	offset := uintptr(PLEX_READ_DATA_REQUESTPlexNumberOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPlexNumber copies value into the native field.
+func (b PLEX_READ_DATA_REQUEST) SetPlexNumber(value uint32) {
+	offset := uintptr(PLEX_READ_DATA_REQUESTPlexNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
 // PREVENT_MEDIA_REMOVAL projects Windows.Win32.System.Ioctl.PREVENT_MEDIA_REMOVAL.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-prevent_media_removal.
 type PREVENT_MEDIA_REMOVAL struct {
 	PreventMediaRemoval foundation.BOOLEAN
+}
+
+// QUERY_BAD_RANGES_INPUT is a view of native Windows.Win32.System.Ioctl.QUERY_BAD_RANGES_INPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type QUERY_BAD_RANGES_INPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	QUERY_BAD_RANGES_INPUTSize            = 24
+	QUERY_BAD_RANGES_INPUTAlignment       = 8
+	QUERY_BAD_RANGES_INPUTFlagsOffset     = 0
+	QUERY_BAD_RANGES_INPUTNumRangesOffset = 4
+	QUERY_BAD_RANGES_INPUTRangesOffset    = 8
+)
+
+// NewQUERY_BAD_RANGES_INPUT allocates zeroed, aligned native storage.
+func NewQUERY_BAD_RANGES_INPUT() QUERY_BAD_RANGES_INPUT {
+	return QUERY_BAD_RANGES_INPUT{data: nativebuffer.New(int(QUERY_BAD_RANGES_INPUTSize), uintptr(QUERY_BAD_RANGES_INPUTAlignment))}
+}
+
+// ViewQUERY_BAD_RANGES_INPUT shares data without copying. It panics if data is shorter than QUERY_BAD_RANGES_INPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewQUERY_BAD_RANGES_INPUT(data []byte) QUERY_BAD_RANGES_INPUT {
+	return QUERY_BAD_RANGES_INPUT{data: nativebuffer.View(data, int(QUERY_BAD_RANGES_INPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b QUERY_BAD_RANGES_INPUT) Bytes() []byte {
+	return b.data[:QUERY_BAD_RANGES_INPUTSize:QUERY_BAD_RANGES_INPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b QUERY_BAD_RANGES_INPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(QUERY_BAD_RANGES_INPUTAlignment))
+}
+
+// GetFlags returns a copy of the native field value.
+func (b QUERY_BAD_RANGES_INPUT) GetFlags() uint32 {
+	offset := uintptr(QUERY_BAD_RANGES_INPUTFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b QUERY_BAD_RANGES_INPUT) SetFlags(value uint32) {
+	offset := uintptr(QUERY_BAD_RANGES_INPUTFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNumRanges returns a copy of the native field value.
+func (b QUERY_BAD_RANGES_INPUT) GetNumRanges() uint32 {
+	offset := uintptr(QUERY_BAD_RANGES_INPUTNumRangesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNumRanges copies value into the native field.
+func (b QUERY_BAD_RANGES_INPUT) SetNumRanges(value uint32) {
+	offset := uintptr(QUERY_BAD_RANGES_INPUTNumRangesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRanges accesses the metadata-declared initial flexible-array extent only.
+func (b QUERY_BAD_RANGES_INPUT) GetRanges(index0 int) QUERY_BAD_RANGES_INPUT_RANGE {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(QUERY_BAD_RANGES_INPUTRangesOffset + uintptr(index0)*(16))
+
+	return ViewQUERY_BAD_RANGES_INPUT_RANGE(b.Bytes()[offset : offset+(16)])
+}
+
+// SetRanges copies value into the native field.
+func (b QUERY_BAD_RANGES_INPUT) SetRanges(index0 int, value QUERY_BAD_RANGES_INPUT_RANGE) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(QUERY_BAD_RANGES_INPUTRangesOffset + uintptr(index0)*(16))
+	copy(b.Bytes()[offset:offset+(16)], value.Bytes())
+}
+
+// QUERY_BAD_RANGES_INPUT_RANGE is a view of native Windows.Win32.System.Ioctl.QUERY_BAD_RANGES_INPUT_RANGE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type QUERY_BAD_RANGES_INPUT_RANGE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	QUERY_BAD_RANGES_INPUT_RANGESize                = 16
+	QUERY_BAD_RANGES_INPUT_RANGEAlignment           = 8
+	QUERY_BAD_RANGES_INPUT_RANGEStartOffsetOffset   = 0
+	QUERY_BAD_RANGES_INPUT_RANGELengthInBytesOffset = 8
+)
+
+// NewQUERY_BAD_RANGES_INPUT_RANGE allocates zeroed, aligned native storage.
+func NewQUERY_BAD_RANGES_INPUT_RANGE() QUERY_BAD_RANGES_INPUT_RANGE {
+	return QUERY_BAD_RANGES_INPUT_RANGE{data: nativebuffer.New(int(QUERY_BAD_RANGES_INPUT_RANGESize), uintptr(QUERY_BAD_RANGES_INPUT_RANGEAlignment))}
+}
+
+// ViewQUERY_BAD_RANGES_INPUT_RANGE shares data without copying. It panics if data is shorter than QUERY_BAD_RANGES_INPUT_RANGESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewQUERY_BAD_RANGES_INPUT_RANGE(data []byte) QUERY_BAD_RANGES_INPUT_RANGE {
+	return QUERY_BAD_RANGES_INPUT_RANGE{data: nativebuffer.View(data, int(QUERY_BAD_RANGES_INPUT_RANGESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b QUERY_BAD_RANGES_INPUT_RANGE) Bytes() []byte {
+	return b.data[:QUERY_BAD_RANGES_INPUT_RANGESize:QUERY_BAD_RANGES_INPUT_RANGESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b QUERY_BAD_RANGES_INPUT_RANGE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(QUERY_BAD_RANGES_INPUT_RANGEAlignment))
+}
+
+// GetStartOffset returns a copy of the native field value.
+func (b QUERY_BAD_RANGES_INPUT_RANGE) GetStartOffset() uint64 {
+	offset := uintptr(QUERY_BAD_RANGES_INPUT_RANGEStartOffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartOffset copies value into the native field.
+func (b QUERY_BAD_RANGES_INPUT_RANGE) SetStartOffset(value uint64) {
+	offset := uintptr(QUERY_BAD_RANGES_INPUT_RANGEStartOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLengthInBytes returns a copy of the native field value.
+func (b QUERY_BAD_RANGES_INPUT_RANGE) GetLengthInBytes() uint64 {
+	offset := uintptr(QUERY_BAD_RANGES_INPUT_RANGELengthInBytesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLengthInBytes copies value into the native field.
+func (b QUERY_BAD_RANGES_INPUT_RANGE) SetLengthInBytes(value uint64) {
+	offset := uintptr(QUERY_BAD_RANGES_INPUT_RANGELengthInBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// QUERY_BAD_RANGES_OUTPUT is a view of native Windows.Win32.System.Ioctl.QUERY_BAD_RANGES_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type QUERY_BAD_RANGES_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	QUERY_BAD_RANGES_OUTPUTSize                     = 40
+	QUERY_BAD_RANGES_OUTPUTAlignment                = 8
+	QUERY_BAD_RANGES_OUTPUTFlagsOffset              = 0
+	QUERY_BAD_RANGES_OUTPUTNumBadRangesOffset       = 4
+	QUERY_BAD_RANGES_OUTPUTNextOffsetToLookUpOffset = 8
+	QUERY_BAD_RANGES_OUTPUTBadRangesOffset          = 16
+)
+
+// NewQUERY_BAD_RANGES_OUTPUT allocates zeroed, aligned native storage.
+func NewQUERY_BAD_RANGES_OUTPUT() QUERY_BAD_RANGES_OUTPUT {
+	return QUERY_BAD_RANGES_OUTPUT{data: nativebuffer.New(int(QUERY_BAD_RANGES_OUTPUTSize), uintptr(QUERY_BAD_RANGES_OUTPUTAlignment))}
+}
+
+// ViewQUERY_BAD_RANGES_OUTPUT shares data without copying. It panics if data is shorter than QUERY_BAD_RANGES_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewQUERY_BAD_RANGES_OUTPUT(data []byte) QUERY_BAD_RANGES_OUTPUT {
+	return QUERY_BAD_RANGES_OUTPUT{data: nativebuffer.View(data, int(QUERY_BAD_RANGES_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b QUERY_BAD_RANGES_OUTPUT) Bytes() []byte {
+	return b.data[:QUERY_BAD_RANGES_OUTPUTSize:QUERY_BAD_RANGES_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b QUERY_BAD_RANGES_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(QUERY_BAD_RANGES_OUTPUTAlignment))
+}
+
+// GetFlags returns a copy of the native field value.
+func (b QUERY_BAD_RANGES_OUTPUT) GetFlags() uint32 {
+	offset := uintptr(QUERY_BAD_RANGES_OUTPUTFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b QUERY_BAD_RANGES_OUTPUT) SetFlags(value uint32) {
+	offset := uintptr(QUERY_BAD_RANGES_OUTPUTFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNumBadRanges returns a copy of the native field value.
+func (b QUERY_BAD_RANGES_OUTPUT) GetNumBadRanges() uint32 {
+	offset := uintptr(QUERY_BAD_RANGES_OUTPUTNumBadRangesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNumBadRanges copies value into the native field.
+func (b QUERY_BAD_RANGES_OUTPUT) SetNumBadRanges(value uint32) {
+	offset := uintptr(QUERY_BAD_RANGES_OUTPUTNumBadRangesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNextOffsetToLookUp returns a copy of the native field value.
+func (b QUERY_BAD_RANGES_OUTPUT) GetNextOffsetToLookUp() uint64 {
+	offset := uintptr(QUERY_BAD_RANGES_OUTPUTNextOffsetToLookUpOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNextOffsetToLookUp copies value into the native field.
+func (b QUERY_BAD_RANGES_OUTPUT) SetNextOffsetToLookUp(value uint64) {
+	offset := uintptr(QUERY_BAD_RANGES_OUTPUTNextOffsetToLookUpOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBadRanges accesses the metadata-declared initial flexible-array extent only.
+func (b QUERY_BAD_RANGES_OUTPUT) GetBadRanges(index0 int) QUERY_BAD_RANGES_OUTPUT_RANGE {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(QUERY_BAD_RANGES_OUTPUTBadRangesOffset + uintptr(index0)*(24))
+
+	return ViewQUERY_BAD_RANGES_OUTPUT_RANGE(b.Bytes()[offset : offset+(24)])
+}
+
+// SetBadRanges copies value into the native field.
+func (b QUERY_BAD_RANGES_OUTPUT) SetBadRanges(index0 int, value QUERY_BAD_RANGES_OUTPUT_RANGE) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(QUERY_BAD_RANGES_OUTPUTBadRangesOffset + uintptr(index0)*(24))
+	copy(b.Bytes()[offset:offset+(24)], value.Bytes())
+}
+
+// QUERY_BAD_RANGES_OUTPUT_RANGE is a view of native Windows.Win32.System.Ioctl.QUERY_BAD_RANGES_OUTPUT_RANGE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type QUERY_BAD_RANGES_OUTPUT_RANGE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	QUERY_BAD_RANGES_OUTPUT_RANGESize                = 24
+	QUERY_BAD_RANGES_OUTPUT_RANGEAlignment           = 8
+	QUERY_BAD_RANGES_OUTPUT_RANGEFlagsOffset         = 0
+	QUERY_BAD_RANGES_OUTPUT_RANGEReservedOffset      = 4
+	QUERY_BAD_RANGES_OUTPUT_RANGEStartOffsetOffset   = 8
+	QUERY_BAD_RANGES_OUTPUT_RANGELengthInBytesOffset = 16
+)
+
+// NewQUERY_BAD_RANGES_OUTPUT_RANGE allocates zeroed, aligned native storage.
+func NewQUERY_BAD_RANGES_OUTPUT_RANGE() QUERY_BAD_RANGES_OUTPUT_RANGE {
+	return QUERY_BAD_RANGES_OUTPUT_RANGE{data: nativebuffer.New(int(QUERY_BAD_RANGES_OUTPUT_RANGESize), uintptr(QUERY_BAD_RANGES_OUTPUT_RANGEAlignment))}
+}
+
+// ViewQUERY_BAD_RANGES_OUTPUT_RANGE shares data without copying. It panics if data is shorter than QUERY_BAD_RANGES_OUTPUT_RANGESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewQUERY_BAD_RANGES_OUTPUT_RANGE(data []byte) QUERY_BAD_RANGES_OUTPUT_RANGE {
+	return QUERY_BAD_RANGES_OUTPUT_RANGE{data: nativebuffer.View(data, int(QUERY_BAD_RANGES_OUTPUT_RANGESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b QUERY_BAD_RANGES_OUTPUT_RANGE) Bytes() []byte {
+	return b.data[:QUERY_BAD_RANGES_OUTPUT_RANGESize:QUERY_BAD_RANGES_OUTPUT_RANGESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b QUERY_BAD_RANGES_OUTPUT_RANGE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(QUERY_BAD_RANGES_OUTPUT_RANGEAlignment))
+}
+
+// GetFlags returns a copy of the native field value.
+func (b QUERY_BAD_RANGES_OUTPUT_RANGE) GetFlags() uint32 {
+	offset := uintptr(QUERY_BAD_RANGES_OUTPUT_RANGEFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b QUERY_BAD_RANGES_OUTPUT_RANGE) SetFlags(value uint32) {
+	offset := uintptr(QUERY_BAD_RANGES_OUTPUT_RANGEFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b QUERY_BAD_RANGES_OUTPUT_RANGE) GetReserved() uint32 {
+	offset := uintptr(QUERY_BAD_RANGES_OUTPUT_RANGEReservedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved copies value into the native field.
+func (b QUERY_BAD_RANGES_OUTPUT_RANGE) SetReserved(value uint32) {
+	offset := uintptr(QUERY_BAD_RANGES_OUTPUT_RANGEReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetStartOffset returns a copy of the native field value.
+func (b QUERY_BAD_RANGES_OUTPUT_RANGE) GetStartOffset() uint64 {
+	offset := uintptr(QUERY_BAD_RANGES_OUTPUT_RANGEStartOffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartOffset copies value into the native field.
+func (b QUERY_BAD_RANGES_OUTPUT_RANGE) SetStartOffset(value uint64) {
+	offset := uintptr(QUERY_BAD_RANGES_OUTPUT_RANGEStartOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLengthInBytes returns a copy of the native field value.
+func (b QUERY_BAD_RANGES_OUTPUT_RANGE) GetLengthInBytes() uint64 {
+	offset := uintptr(QUERY_BAD_RANGES_OUTPUT_RANGELengthInBytesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLengthInBytes copies value into the native field.
+func (b QUERY_BAD_RANGES_OUTPUT_RANGE) SetLengthInBytes(value uint64) {
+	offset := uintptr(QUERY_BAD_RANGES_OUTPUT_RANGELengthInBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // QUERY_FILE_LAYOUT_OUTPUT projects Windows.Win32.System.Ioctl.QUERY_FILE_LAYOUT_OUTPUT.
@@ -788,6 +9196,270 @@ type READ_FILE_USN_DATA struct {
 	MaxMajorVersion uint16
 }
 
+// READ_USN_JOURNAL_DATA_V0 is a view of native Windows.Win32.System.Ioctl.READ_USN_JOURNAL_DATA_V0 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-read_usn_journal_data_v0.
+type READ_USN_JOURNAL_DATA_V0 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	READ_USN_JOURNAL_DATA_V0Size                    = 40
+	READ_USN_JOURNAL_DATA_V0Alignment               = 8
+	READ_USN_JOURNAL_DATA_V0StartUsnOffset          = 0
+	READ_USN_JOURNAL_DATA_V0ReasonMaskOffset        = 8
+	READ_USN_JOURNAL_DATA_V0ReturnOnlyOnCloseOffset = 12
+	READ_USN_JOURNAL_DATA_V0TimeoutOffset           = 16
+	READ_USN_JOURNAL_DATA_V0BytesToWaitForOffset    = 24
+	READ_USN_JOURNAL_DATA_V0UsnJournalIDOffset      = 32
+)
+
+// NewREAD_USN_JOURNAL_DATA_V0 allocates zeroed, aligned native storage.
+func NewREAD_USN_JOURNAL_DATA_V0() READ_USN_JOURNAL_DATA_V0 {
+	return READ_USN_JOURNAL_DATA_V0{data: nativebuffer.New(int(READ_USN_JOURNAL_DATA_V0Size), uintptr(READ_USN_JOURNAL_DATA_V0Alignment))}
+}
+
+// ViewREAD_USN_JOURNAL_DATA_V0 shares data without copying. It panics if data is shorter than READ_USN_JOURNAL_DATA_V0Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewREAD_USN_JOURNAL_DATA_V0(data []byte) READ_USN_JOURNAL_DATA_V0 {
+	return READ_USN_JOURNAL_DATA_V0{data: nativebuffer.View(data, int(READ_USN_JOURNAL_DATA_V0Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b READ_USN_JOURNAL_DATA_V0) Bytes() []byte {
+	return b.data[:READ_USN_JOURNAL_DATA_V0Size:READ_USN_JOURNAL_DATA_V0Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b READ_USN_JOURNAL_DATA_V0) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(READ_USN_JOURNAL_DATA_V0Alignment))
+}
+
+// GetStartUsn returns a copy of the native field value.
+func (b READ_USN_JOURNAL_DATA_V0) GetStartUsn() int64 {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V0StartUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartUsn copies value into the native field.
+func (b READ_USN_JOURNAL_DATA_V0) SetStartUsn(value int64) {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V0StartUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetReasonMask returns a copy of the native field value.
+func (b READ_USN_JOURNAL_DATA_V0) GetReasonMask() uint32 {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V0ReasonMaskOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReasonMask copies value into the native field.
+func (b READ_USN_JOURNAL_DATA_V0) SetReasonMask(value uint32) {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V0ReasonMaskOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReturnOnlyOnClose returns a copy of the native field value.
+func (b READ_USN_JOURNAL_DATA_V0) GetReturnOnlyOnClose() uint32 {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V0ReturnOnlyOnCloseOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReturnOnlyOnClose copies value into the native field.
+func (b READ_USN_JOURNAL_DATA_V0) SetReturnOnlyOnClose(value uint32) {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V0ReturnOnlyOnCloseOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTimeout returns a copy of the native field value.
+func (b READ_USN_JOURNAL_DATA_V0) GetTimeout() uint64 {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V0TimeoutOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTimeout copies value into the native field.
+func (b READ_USN_JOURNAL_DATA_V0) SetTimeout(value uint64) {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V0TimeoutOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBytesToWaitFor returns a copy of the native field value.
+func (b READ_USN_JOURNAL_DATA_V0) GetBytesToWaitFor() uint64 {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V0BytesToWaitForOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesToWaitFor copies value into the native field.
+func (b READ_USN_JOURNAL_DATA_V0) SetBytesToWaitFor(value uint64) {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V0BytesToWaitForOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetUsnJournalID returns a copy of the native field value.
+func (b READ_USN_JOURNAL_DATA_V0) GetUsnJournalID() uint64 {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V0UsnJournalIDOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUsnJournalID copies value into the native field.
+func (b READ_USN_JOURNAL_DATA_V0) SetUsnJournalID(value uint64) {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V0UsnJournalIDOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// READ_USN_JOURNAL_DATA_V1 is a view of native Windows.Win32.System.Ioctl.READ_USN_JOURNAL_DATA_V1 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-read_usn_journal_data_v1.
+type READ_USN_JOURNAL_DATA_V1 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	READ_USN_JOURNAL_DATA_V1Size                    = 48
+	READ_USN_JOURNAL_DATA_V1Alignment               = 8
+	READ_USN_JOURNAL_DATA_V1StartUsnOffset          = 0
+	READ_USN_JOURNAL_DATA_V1ReasonMaskOffset        = 8
+	READ_USN_JOURNAL_DATA_V1ReturnOnlyOnCloseOffset = 12
+	READ_USN_JOURNAL_DATA_V1TimeoutOffset           = 16
+	READ_USN_JOURNAL_DATA_V1BytesToWaitForOffset    = 24
+	READ_USN_JOURNAL_DATA_V1UsnJournalIDOffset      = 32
+	READ_USN_JOURNAL_DATA_V1MinMajorVersionOffset   = 40
+	READ_USN_JOURNAL_DATA_V1MaxMajorVersionOffset   = 42
+)
+
+// NewREAD_USN_JOURNAL_DATA_V1 allocates zeroed, aligned native storage.
+func NewREAD_USN_JOURNAL_DATA_V1() READ_USN_JOURNAL_DATA_V1 {
+	return READ_USN_JOURNAL_DATA_V1{data: nativebuffer.New(int(READ_USN_JOURNAL_DATA_V1Size), uintptr(READ_USN_JOURNAL_DATA_V1Alignment))}
+}
+
+// ViewREAD_USN_JOURNAL_DATA_V1 shares data without copying. It panics if data is shorter than READ_USN_JOURNAL_DATA_V1Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewREAD_USN_JOURNAL_DATA_V1(data []byte) READ_USN_JOURNAL_DATA_V1 {
+	return READ_USN_JOURNAL_DATA_V1{data: nativebuffer.View(data, int(READ_USN_JOURNAL_DATA_V1Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b READ_USN_JOURNAL_DATA_V1) Bytes() []byte {
+	return b.data[:READ_USN_JOURNAL_DATA_V1Size:READ_USN_JOURNAL_DATA_V1Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b READ_USN_JOURNAL_DATA_V1) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(READ_USN_JOURNAL_DATA_V1Alignment))
+}
+
+// GetStartUsn returns a copy of the native field value.
+func (b READ_USN_JOURNAL_DATA_V1) GetStartUsn() int64 {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V1StartUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartUsn copies value into the native field.
+func (b READ_USN_JOURNAL_DATA_V1) SetStartUsn(value int64) {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V1StartUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetReasonMask returns a copy of the native field value.
+func (b READ_USN_JOURNAL_DATA_V1) GetReasonMask() uint32 {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V1ReasonMaskOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReasonMask copies value into the native field.
+func (b READ_USN_JOURNAL_DATA_V1) SetReasonMask(value uint32) {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V1ReasonMaskOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReturnOnlyOnClose returns a copy of the native field value.
+func (b READ_USN_JOURNAL_DATA_V1) GetReturnOnlyOnClose() uint32 {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V1ReturnOnlyOnCloseOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReturnOnlyOnClose copies value into the native field.
+func (b READ_USN_JOURNAL_DATA_V1) SetReturnOnlyOnClose(value uint32) {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V1ReturnOnlyOnCloseOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTimeout returns a copy of the native field value.
+func (b READ_USN_JOURNAL_DATA_V1) GetTimeout() uint64 {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V1TimeoutOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTimeout copies value into the native field.
+func (b READ_USN_JOURNAL_DATA_V1) SetTimeout(value uint64) {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V1TimeoutOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBytesToWaitFor returns a copy of the native field value.
+func (b READ_USN_JOURNAL_DATA_V1) GetBytesToWaitFor() uint64 {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V1BytesToWaitForOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBytesToWaitFor copies value into the native field.
+func (b READ_USN_JOURNAL_DATA_V1) SetBytesToWaitFor(value uint64) {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V1BytesToWaitForOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetUsnJournalID returns a copy of the native field value.
+func (b READ_USN_JOURNAL_DATA_V1) GetUsnJournalID() uint64 {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V1UsnJournalIDOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUsnJournalID copies value into the native field.
+func (b READ_USN_JOURNAL_DATA_V1) SetUsnJournalID(value uint64) {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V1UsnJournalIDOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMinMajorVersion returns a copy of the native field value.
+func (b READ_USN_JOURNAL_DATA_V1) GetMinMajorVersion() uint16 {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V1MinMajorVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMinMajorVersion copies value into the native field.
+func (b READ_USN_JOURNAL_DATA_V1) SetMinMajorVersion(value uint16) {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V1MinMajorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMaxMajorVersion returns a copy of the native field value.
+func (b READ_USN_JOURNAL_DATA_V1) GetMaxMajorVersion() uint16 {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V1MaxMajorVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMaxMajorVersion copies value into the native field.
+func (b READ_USN_JOURNAL_DATA_V1) SetMaxMajorVersion(value uint16) {
+	offset := uintptr(READ_USN_JOURNAL_DATA_V1MaxMajorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
 // REASSIGN_BLOCKS projects Windows.Win32.System.Ioctl.REASSIGN_BLOCKS.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-reassign_blocks.
 type REASSIGN_BLOCKS struct {
@@ -798,14 +9470,1068 @@ type REASSIGN_BLOCKS struct {
 	BlockNumber [1]uint32
 }
 
+// REASSIGN_BLOCKS_EX is a view of native Windows.Win32.System.Ioctl.REASSIGN_BLOCKS_EX storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-reassign_blocks_ex.
+type REASSIGN_BLOCKS_EX struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	REASSIGN_BLOCKS_EXSize              = 12
+	REASSIGN_BLOCKS_EXAlignment         = 1
+	REASSIGN_BLOCKS_EXReservedOffset    = 0
+	REASSIGN_BLOCKS_EXCountOffset       = 2
+	REASSIGN_BLOCKS_EXBlockNumberOffset = 4
+)
+
+// NewREASSIGN_BLOCKS_EX allocates zeroed, aligned native storage.
+func NewREASSIGN_BLOCKS_EX() REASSIGN_BLOCKS_EX {
+	return REASSIGN_BLOCKS_EX{data: nativebuffer.New(int(REASSIGN_BLOCKS_EXSize), uintptr(REASSIGN_BLOCKS_EXAlignment))}
+}
+
+// ViewREASSIGN_BLOCKS_EX shares data without copying. It panics if data is shorter than REASSIGN_BLOCKS_EXSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewREASSIGN_BLOCKS_EX(data []byte) REASSIGN_BLOCKS_EX {
+	return REASSIGN_BLOCKS_EX{data: nativebuffer.View(data, int(REASSIGN_BLOCKS_EXSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b REASSIGN_BLOCKS_EX) Bytes() []byte {
+	return b.data[:REASSIGN_BLOCKS_EXSize:REASSIGN_BLOCKS_EXSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b REASSIGN_BLOCKS_EX) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(REASSIGN_BLOCKS_EXAlignment))
+}
+
+// GetReserved returns a copy of the native field value.
+func (b REASSIGN_BLOCKS_EX) GetReserved() uint16 {
+	offset := uintptr(REASSIGN_BLOCKS_EXReservedOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetReserved copies value into the native field.
+func (b REASSIGN_BLOCKS_EX) SetReserved(value uint16) {
+	offset := uintptr(REASSIGN_BLOCKS_EXReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetCount returns a copy of the native field value.
+func (b REASSIGN_BLOCKS_EX) GetCount() uint16 {
+	offset := uintptr(REASSIGN_BLOCKS_EXCountOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetCount copies value into the native field.
+func (b REASSIGN_BLOCKS_EX) SetCount(value uint16) {
+	offset := uintptr(REASSIGN_BLOCKS_EXCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetBlockNumber accesses the metadata-declared initial flexible-array extent only.
+func (b REASSIGN_BLOCKS_EX) GetBlockNumber(index0 int) int64 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(REASSIGN_BLOCKS_EXBlockNumberOffset + uintptr(index0)*(8))
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBlockNumber copies value into the native field.
+func (b REASSIGN_BLOCKS_EX) SetBlockNumber(index0 int, value int64) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(REASSIGN_BLOCKS_EXBlockNumberOffset + uintptr(index0)*(8))
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // REFS_SMR_VOLUME_GC_ACTION projects Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_ACTION.
 type REFS_SMR_VOLUME_GC_ACTION int32
 
 // REFS_SMR_VOLUME_GC_METHOD projects Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_METHOD.
 type REFS_SMR_VOLUME_GC_METHOD int32
 
+// REFS_SMR_VOLUME_GC_PARAMETERS is a view of native Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_PARAMETERS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type REFS_SMR_VOLUME_GC_PARAMETERS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	REFS_SMR_VOLUME_GC_PARAMETERSSize                    = 88
+	REFS_SMR_VOLUME_GC_PARAMETERSAlignment               = 8
+	REFS_SMR_VOLUME_GC_PARAMETERSVersionOffset           = 0
+	REFS_SMR_VOLUME_GC_PARAMETERSFlagsOffset             = 4
+	REFS_SMR_VOLUME_GC_PARAMETERSActionOffset            = 8
+	REFS_SMR_VOLUME_GC_PARAMETERSMethodOffset            = 12
+	REFS_SMR_VOLUME_GC_PARAMETERSIoGranularityOffset     = 16
+	REFS_SMR_VOLUME_GC_PARAMETERSCompressionFormatOffset = 20
+	REFS_SMR_VOLUME_GC_PARAMETERSUnusedOffset            = 24
+)
+
+// NewREFS_SMR_VOLUME_GC_PARAMETERS allocates zeroed, aligned native storage.
+func NewREFS_SMR_VOLUME_GC_PARAMETERS() REFS_SMR_VOLUME_GC_PARAMETERS {
+	return REFS_SMR_VOLUME_GC_PARAMETERS{data: nativebuffer.New(int(REFS_SMR_VOLUME_GC_PARAMETERSSize), uintptr(REFS_SMR_VOLUME_GC_PARAMETERSAlignment))}
+}
+
+// ViewREFS_SMR_VOLUME_GC_PARAMETERS shares data without copying. It panics if data is shorter than REFS_SMR_VOLUME_GC_PARAMETERSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewREFS_SMR_VOLUME_GC_PARAMETERS(data []byte) REFS_SMR_VOLUME_GC_PARAMETERS {
+	return REFS_SMR_VOLUME_GC_PARAMETERS{data: nativebuffer.View(data, int(REFS_SMR_VOLUME_GC_PARAMETERSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b REFS_SMR_VOLUME_GC_PARAMETERS) Bytes() []byte {
+	return b.data[:REFS_SMR_VOLUME_GC_PARAMETERSSize:REFS_SMR_VOLUME_GC_PARAMETERSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b REFS_SMR_VOLUME_GC_PARAMETERS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(REFS_SMR_VOLUME_GC_PARAMETERSAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_GC_PARAMETERS) GetVersion() uint32 {
+	offset := uintptr(REFS_SMR_VOLUME_GC_PARAMETERSVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b REFS_SMR_VOLUME_GC_PARAMETERS) SetVersion(value uint32) {
+	offset := uintptr(REFS_SMR_VOLUME_GC_PARAMETERSVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_GC_PARAMETERS) GetFlags() uint32 {
+	offset := uintptr(REFS_SMR_VOLUME_GC_PARAMETERSFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b REFS_SMR_VOLUME_GC_PARAMETERS) SetFlags(value uint32) {
+	offset := uintptr(REFS_SMR_VOLUME_GC_PARAMETERSFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetAction returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_GC_PARAMETERS) GetAction() REFS_SMR_VOLUME_GC_ACTION {
+	offset := uintptr(REFS_SMR_VOLUME_GC_PARAMETERSActionOffset)
+
+	return nativebuffer.Read[REFS_SMR_VOLUME_GC_ACTION](b.Bytes()[offset : offset+(4)])
+}
+
+// SetAction copies value into the native field.
+func (b REFS_SMR_VOLUME_GC_PARAMETERS) SetAction(value REFS_SMR_VOLUME_GC_ACTION) {
+	offset := uintptr(REFS_SMR_VOLUME_GC_PARAMETERSActionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMethod returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_GC_PARAMETERS) GetMethod() REFS_SMR_VOLUME_GC_METHOD {
+	offset := uintptr(REFS_SMR_VOLUME_GC_PARAMETERSMethodOffset)
+
+	return nativebuffer.Read[REFS_SMR_VOLUME_GC_METHOD](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMethod copies value into the native field.
+func (b REFS_SMR_VOLUME_GC_PARAMETERS) SetMethod(value REFS_SMR_VOLUME_GC_METHOD) {
+	offset := uintptr(REFS_SMR_VOLUME_GC_PARAMETERSMethodOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetIoGranularity returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_GC_PARAMETERS) GetIoGranularity() uint32 {
+	offset := uintptr(REFS_SMR_VOLUME_GC_PARAMETERSIoGranularityOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetIoGranularity copies value into the native field.
+func (b REFS_SMR_VOLUME_GC_PARAMETERS) SetIoGranularity(value uint32) {
+	offset := uintptr(REFS_SMR_VOLUME_GC_PARAMETERSIoGranularityOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCompressionFormat returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_GC_PARAMETERS) GetCompressionFormat() uint32 {
+	offset := uintptr(REFS_SMR_VOLUME_GC_PARAMETERSCompressionFormatOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCompressionFormat copies value into the native field.
+func (b REFS_SMR_VOLUME_GC_PARAMETERS) SetCompressionFormat(value uint32) {
+	offset := uintptr(REFS_SMR_VOLUME_GC_PARAMETERSCompressionFormatOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetUnused returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_GC_PARAMETERS) GetUnused(index0 int) uint64 {
+	if index0 < 0 || index0 >= 8 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(REFS_SMR_VOLUME_GC_PARAMETERSUnusedOffset + uintptr(index0)*(8))
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUnused copies value into the native field.
+func (b REFS_SMR_VOLUME_GC_PARAMETERS) SetUnused(index0 int, value uint64) {
+	if index0 < 0 || index0 >= 8 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(REFS_SMR_VOLUME_GC_PARAMETERSUnusedOffset + uintptr(index0)*(8))
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // REFS_SMR_VOLUME_GC_STATE projects Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_GC_STATE.
 type REFS_SMR_VOLUME_GC_STATE int32
+
+// REFS_SMR_VOLUME_INFO_OUTPUT is a view of native Windows.Win32.System.Ioctl.REFS_SMR_VOLUME_INFO_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type REFS_SMR_VOLUME_INFO_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	REFS_SMR_VOLUME_INFO_OUTPUTSize                                  = 112
+	REFS_SMR_VOLUME_INFO_OUTPUTAlignment                             = 8
+	REFS_SMR_VOLUME_INFO_OUTPUTVersionOffset                         = 0
+	REFS_SMR_VOLUME_INFO_OUTPUTFlagsOffset                           = 4
+	REFS_SMR_VOLUME_INFO_OUTPUTSizeOfRandomlyWritableTierOffset      = 8
+	REFS_SMR_VOLUME_INFO_OUTPUTFreeSpaceInRandomlyWritableTierOffset = 16
+	REFS_SMR_VOLUME_INFO_OUTPUTSizeofSMRTierOffset                   = 24
+	REFS_SMR_VOLUME_INFO_OUTPUTFreeSpaceInSMRTierOffset              = 32
+	REFS_SMR_VOLUME_INFO_OUTPUTUsableFreeSpaceInSMRTierOffset        = 40
+	REFS_SMR_VOLUME_INFO_OUTPUTVolumeGcStateOffset                   = 48
+	REFS_SMR_VOLUME_INFO_OUTPUTVolumeGcLastStatusOffset              = 52
+	REFS_SMR_VOLUME_INFO_OUTPUTCurrentGcBandFillPercentageOffset     = 56
+	REFS_SMR_VOLUME_INFO_OUTPUTUnusedOffset                          = 64
+)
+
+// NewREFS_SMR_VOLUME_INFO_OUTPUT allocates zeroed, aligned native storage.
+func NewREFS_SMR_VOLUME_INFO_OUTPUT() REFS_SMR_VOLUME_INFO_OUTPUT {
+	return REFS_SMR_VOLUME_INFO_OUTPUT{data: nativebuffer.New(int(REFS_SMR_VOLUME_INFO_OUTPUTSize), uintptr(REFS_SMR_VOLUME_INFO_OUTPUTAlignment))}
+}
+
+// ViewREFS_SMR_VOLUME_INFO_OUTPUT shares data without copying. It panics if data is shorter than REFS_SMR_VOLUME_INFO_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewREFS_SMR_VOLUME_INFO_OUTPUT(data []byte) REFS_SMR_VOLUME_INFO_OUTPUT {
+	return REFS_SMR_VOLUME_INFO_OUTPUT{data: nativebuffer.View(data, int(REFS_SMR_VOLUME_INFO_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) Bytes() []byte {
+	return b.data[:REFS_SMR_VOLUME_INFO_OUTPUTSize:REFS_SMR_VOLUME_INFO_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(REFS_SMR_VOLUME_INFO_OUTPUTAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) GetVersion() uint32 {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) SetVersion(value uint32) {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) GetFlags() uint32 {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) SetFlags(value uint32) {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSizeOfRandomlyWritableTier returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) GetSizeOfRandomlyWritableTier() int64 {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTSizeOfRandomlyWritableTierOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSizeOfRandomlyWritableTier copies value into the native field.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) SetSizeOfRandomlyWritableTier(value int64) {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTSizeOfRandomlyWritableTierOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFreeSpaceInRandomlyWritableTier returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) GetFreeSpaceInRandomlyWritableTier() int64 {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTFreeSpaceInRandomlyWritableTierOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFreeSpaceInRandomlyWritableTier copies value into the native field.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) SetFreeSpaceInRandomlyWritableTier(value int64) {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTFreeSpaceInRandomlyWritableTierOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSizeofSMRTier returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) GetSizeofSMRTier() int64 {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTSizeofSMRTierOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSizeofSMRTier copies value into the native field.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) SetSizeofSMRTier(value int64) {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTSizeofSMRTierOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFreeSpaceInSMRTier returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) GetFreeSpaceInSMRTier() int64 {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTFreeSpaceInSMRTierOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFreeSpaceInSMRTier copies value into the native field.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) SetFreeSpaceInSMRTier(value int64) {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTFreeSpaceInSMRTierOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetUsableFreeSpaceInSMRTier returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) GetUsableFreeSpaceInSMRTier() int64 {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTUsableFreeSpaceInSMRTierOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUsableFreeSpaceInSMRTier copies value into the native field.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) SetUsableFreeSpaceInSMRTier(value int64) {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTUsableFreeSpaceInSMRTierOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetVolumeGcState returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) GetVolumeGcState() REFS_SMR_VOLUME_GC_STATE {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTVolumeGcStateOffset)
+
+	return nativebuffer.Read[REFS_SMR_VOLUME_GC_STATE](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVolumeGcState copies value into the native field.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) SetVolumeGcState(value REFS_SMR_VOLUME_GC_STATE) {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTVolumeGcStateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetVolumeGcLastStatus returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) GetVolumeGcLastStatus() uint32 {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTVolumeGcLastStatusOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVolumeGcLastStatus copies value into the native field.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) SetVolumeGcLastStatus(value uint32) {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTVolumeGcLastStatusOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetCurrentGcBandFillPercentage returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) GetCurrentGcBandFillPercentage() uint32 {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTCurrentGcBandFillPercentageOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCurrentGcBandFillPercentage copies value into the native field.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) SetCurrentGcBandFillPercentage(value uint32) {
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTCurrentGcBandFillPercentageOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetUnused returns a copy of the native field value.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) GetUnused(index0 int) uint64 {
+	if index0 < 0 || index0 >= 6 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTUnusedOffset + uintptr(index0)*(8))
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUnused copies value into the native field.
+func (b REFS_SMR_VOLUME_INFO_OUTPUT) SetUnused(index0 int, value uint64) {
+	if index0 < 0 || index0 >= 6 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(REFS_SMR_VOLUME_INFO_OUTPUTUnusedOffset + uintptr(index0)*(8))
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// REFS_VOLUME_DATA_BUFFER is a view of native Windows.Win32.System.Ioctl.REFS_VOLUME_DATA_BUFFER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type REFS_VOLUME_DATA_BUFFER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	REFS_VOLUME_DATA_BUFFERSize                                 = 152
+	REFS_VOLUME_DATA_BUFFERAlignment                            = 8
+	REFS_VOLUME_DATA_BUFFERByteCountOffset                      = 0
+	REFS_VOLUME_DATA_BUFFERMajorVersionOffset                   = 4
+	REFS_VOLUME_DATA_BUFFERMinorVersionOffset                   = 8
+	REFS_VOLUME_DATA_BUFFERBytesPerPhysicalSectorOffset         = 12
+	REFS_VOLUME_DATA_BUFFERVolumeSerialNumberOffset             = 16
+	REFS_VOLUME_DATA_BUFFERNumberSectorsOffset                  = 24
+	REFS_VOLUME_DATA_BUFFERTotalClustersOffset                  = 32
+	REFS_VOLUME_DATA_BUFFERFreeClustersOffset                   = 40
+	REFS_VOLUME_DATA_BUFFERTotalReservedOffset                  = 48
+	REFS_VOLUME_DATA_BUFFERBytesPerSectorOffset                 = 56
+	REFS_VOLUME_DATA_BUFFERBytesPerClusterOffset                = 60
+	REFS_VOLUME_DATA_BUFFERMaximumSizeOfResidentFileOffset      = 64
+	REFS_VOLUME_DATA_BUFFERFastTierDataFillRatioOffset          = 72
+	REFS_VOLUME_DATA_BUFFERSlowTierDataFillRatioOffset          = 74
+	REFS_VOLUME_DATA_BUFFERDestagesFastTierToSlowTierRateOffset = 76
+	REFS_VOLUME_DATA_BUFFERMetadataChecksumTypeOffset           = 80
+	REFS_VOLUME_DATA_BUFFERReserved0Offset                      = 82
+	REFS_VOLUME_DATA_BUFFERDriverMajorVersionOffset             = 88
+	REFS_VOLUME_DATA_BUFFERDriverMinorVersionOffset             = 92
+	REFS_VOLUME_DATA_BUFFERReservedOffset                       = 96
+)
+
+// NewREFS_VOLUME_DATA_BUFFER allocates zeroed, aligned native storage.
+func NewREFS_VOLUME_DATA_BUFFER() REFS_VOLUME_DATA_BUFFER {
+	return REFS_VOLUME_DATA_BUFFER{data: nativebuffer.New(int(REFS_VOLUME_DATA_BUFFERSize), uintptr(REFS_VOLUME_DATA_BUFFERAlignment))}
+}
+
+// ViewREFS_VOLUME_DATA_BUFFER shares data without copying. It panics if data is shorter than REFS_VOLUME_DATA_BUFFERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewREFS_VOLUME_DATA_BUFFER(data []byte) REFS_VOLUME_DATA_BUFFER {
+	return REFS_VOLUME_DATA_BUFFER{data: nativebuffer.View(data, int(REFS_VOLUME_DATA_BUFFERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b REFS_VOLUME_DATA_BUFFER) Bytes() []byte {
+	return b.data[:REFS_VOLUME_DATA_BUFFERSize:REFS_VOLUME_DATA_BUFFERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b REFS_VOLUME_DATA_BUFFER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(REFS_VOLUME_DATA_BUFFERAlignment))
+}
+
+// GetByteCount returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetByteCount() uint32 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERByteCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetByteCount copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetByteCount(value uint32) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERByteCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMajorVersion returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetMajorVersion() uint32 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERMajorVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMajorVersion copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetMajorVersion(value uint32) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERMajorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMinorVersion returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetMinorVersion() uint32 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERMinorVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMinorVersion copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetMinorVersion(value uint32) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERMinorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesPerPhysicalSector returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetBytesPerPhysicalSector() uint32 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERBytesPerPhysicalSectorOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesPerPhysicalSector copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetBytesPerPhysicalSector(value uint32) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERBytesPerPhysicalSectorOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetVolumeSerialNumber returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetVolumeSerialNumber() int64 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERVolumeSerialNumberOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetVolumeSerialNumber copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetVolumeSerialNumber(value int64) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERVolumeSerialNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumberSectors returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetNumberSectors() int64 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERNumberSectorsOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumberSectors copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetNumberSectors(value int64) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERNumberSectorsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTotalClusters returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetTotalClusters() int64 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERTotalClustersOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalClusters copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetTotalClusters(value int64) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERTotalClustersOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFreeClusters returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetFreeClusters() int64 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERFreeClustersOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFreeClusters copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetFreeClusters(value int64) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERFreeClustersOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTotalReserved returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetTotalReserved() int64 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERTotalReservedOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalReserved copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetTotalReserved(value int64) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERTotalReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBytesPerSector returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetBytesPerSector() uint32 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERBytesPerSectorOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesPerSector copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetBytesPerSector(value uint32) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERBytesPerSectorOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBytesPerCluster returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetBytesPerCluster() uint32 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERBytesPerClusterOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBytesPerCluster copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetBytesPerCluster(value uint32) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERBytesPerClusterOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMaximumSizeOfResidentFile returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetMaximumSizeOfResidentFile() int64 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERMaximumSizeOfResidentFileOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMaximumSizeOfResidentFile copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetMaximumSizeOfResidentFile(value int64) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERMaximumSizeOfResidentFileOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFastTierDataFillRatio returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetFastTierDataFillRatio() uint16 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERFastTierDataFillRatioOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetFastTierDataFillRatio copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetFastTierDataFillRatio(value uint16) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERFastTierDataFillRatioOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetSlowTierDataFillRatio returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetSlowTierDataFillRatio() uint16 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERSlowTierDataFillRatioOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetSlowTierDataFillRatio copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetSlowTierDataFillRatio(value uint16) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERSlowTierDataFillRatioOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetDestagesFastTierToSlowTierRate returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetDestagesFastTierToSlowTierRate() uint32 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERDestagesFastTierToSlowTierRateOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDestagesFastTierToSlowTierRate copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetDestagesFastTierToSlowTierRate(value uint32) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERDestagesFastTierToSlowTierRateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMetadataChecksumType returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetMetadataChecksumType() uint16 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERMetadataChecksumTypeOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMetadataChecksumType copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetMetadataChecksumType(value uint16) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERMetadataChecksumTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetReserved0 returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetReserved0(index0 int) uint8 {
+	if index0 < 0 || index0 >= 6 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERReserved0Offset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetReserved0 copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetReserved0(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 6 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERReserved0Offset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetDriverMajorVersion returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetDriverMajorVersion() uint32 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERDriverMajorVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDriverMajorVersion copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetDriverMajorVersion(value uint32) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERDriverMajorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDriverMinorVersion returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetDriverMinorVersion() uint32 {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERDriverMinorVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDriverMinorVersion copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetDriverMinorVersion(value uint32) {
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERDriverMinorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b REFS_VOLUME_DATA_BUFFER) GetReserved(index0 int) int64 {
+	if index0 < 0 || index0 >= 7 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERReservedOffset + uintptr(index0)*(8))
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetReserved copies value into the native field.
+func (b REFS_VOLUME_DATA_BUFFER) SetReserved(index0 int, value int64) {
+	if index0 < 0 || index0 >= 7 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(REFS_VOLUME_DATA_BUFFERReservedOffset + uintptr(index0)*(8))
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// REMOVE_ELEMENT_AND_TRUNCATE_REQUEST is a view of native Windows.Win32.System.Ioctl.REMOVE_ELEMENT_AND_TRUNCATE_REQUEST storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type REMOVE_ELEMENT_AND_TRUNCATE_REQUEST struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	REMOVE_ELEMENT_AND_TRUNCATE_REQUESTSize                    = 24
+	REMOVE_ELEMENT_AND_TRUNCATE_REQUESTAlignment               = 8
+	REMOVE_ELEMENT_AND_TRUNCATE_REQUESTVersionOffset           = 0
+	REMOVE_ELEMENT_AND_TRUNCATE_REQUESTSizeOffset              = 4
+	REMOVE_ELEMENT_AND_TRUNCATE_REQUESTRequestCapacityOffset   = 8
+	REMOVE_ELEMENT_AND_TRUNCATE_REQUESTElementIdentifierOffset = 16
+	REMOVE_ELEMENT_AND_TRUNCATE_REQUESTReservedOffset          = 20
+)
+
+// NewREMOVE_ELEMENT_AND_TRUNCATE_REQUEST allocates zeroed, aligned native storage.
+func NewREMOVE_ELEMENT_AND_TRUNCATE_REQUEST() REMOVE_ELEMENT_AND_TRUNCATE_REQUEST {
+	return REMOVE_ELEMENT_AND_TRUNCATE_REQUEST{data: nativebuffer.New(int(REMOVE_ELEMENT_AND_TRUNCATE_REQUESTSize), uintptr(REMOVE_ELEMENT_AND_TRUNCATE_REQUESTAlignment))}
+}
+
+// ViewREMOVE_ELEMENT_AND_TRUNCATE_REQUEST shares data without copying. It panics if data is shorter than REMOVE_ELEMENT_AND_TRUNCATE_REQUESTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewREMOVE_ELEMENT_AND_TRUNCATE_REQUEST(data []byte) REMOVE_ELEMENT_AND_TRUNCATE_REQUEST {
+	return REMOVE_ELEMENT_AND_TRUNCATE_REQUEST{data: nativebuffer.View(data, int(REMOVE_ELEMENT_AND_TRUNCATE_REQUESTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b REMOVE_ELEMENT_AND_TRUNCATE_REQUEST) Bytes() []byte {
+	return b.data[:REMOVE_ELEMENT_AND_TRUNCATE_REQUESTSize:REMOVE_ELEMENT_AND_TRUNCATE_REQUESTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b REMOVE_ELEMENT_AND_TRUNCATE_REQUEST) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(REMOVE_ELEMENT_AND_TRUNCATE_REQUESTAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b REMOVE_ELEMENT_AND_TRUNCATE_REQUEST) GetVersion() uint32 {
+	offset := uintptr(REMOVE_ELEMENT_AND_TRUNCATE_REQUESTVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b REMOVE_ELEMENT_AND_TRUNCATE_REQUEST) SetVersion(value uint32) {
+	offset := uintptr(REMOVE_ELEMENT_AND_TRUNCATE_REQUESTVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSize returns a copy of the native field value.
+func (b REMOVE_ELEMENT_AND_TRUNCATE_REQUEST) GetSize() uint32 {
+	offset := uintptr(REMOVE_ELEMENT_AND_TRUNCATE_REQUESTSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b REMOVE_ELEMENT_AND_TRUNCATE_REQUEST) SetSize(value uint32) {
+	offset := uintptr(REMOVE_ELEMENT_AND_TRUNCATE_REQUESTSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRequestCapacity returns a copy of the native field value.
+func (b REMOVE_ELEMENT_AND_TRUNCATE_REQUEST) GetRequestCapacity() uint64 {
+	offset := uintptr(REMOVE_ELEMENT_AND_TRUNCATE_REQUESTRequestCapacityOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetRequestCapacity copies value into the native field.
+func (b REMOVE_ELEMENT_AND_TRUNCATE_REQUEST) SetRequestCapacity(value uint64) {
+	offset := uintptr(REMOVE_ELEMENT_AND_TRUNCATE_REQUESTRequestCapacityOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetElementIdentifier returns a copy of the native field value.
+func (b REMOVE_ELEMENT_AND_TRUNCATE_REQUEST) GetElementIdentifier() uint32 {
+	offset := uintptr(REMOVE_ELEMENT_AND_TRUNCATE_REQUESTElementIdentifierOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetElementIdentifier copies value into the native field.
+func (b REMOVE_ELEMENT_AND_TRUNCATE_REQUEST) SetElementIdentifier(value uint32) {
+	offset := uintptr(REMOVE_ELEMENT_AND_TRUNCATE_REQUESTElementIdentifierOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b REMOVE_ELEMENT_AND_TRUNCATE_REQUEST) GetReserved() uint32 {
+	offset := uintptr(REMOVE_ELEMENT_AND_TRUNCATE_REQUESTReservedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved copies value into the native field.
+func (b REMOVE_ELEMENT_AND_TRUNCATE_REQUEST) SetReserved(value uint32) {
+	offset := uintptr(REMOVE_ELEMENT_AND_TRUNCATE_REQUESTReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// REPAIR_COPIES_INPUT is a view of native Windows.Win32.System.Ioctl.REPAIR_COPIES_INPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-repair_copies_input.
+type REPAIR_COPIES_INPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	REPAIR_COPIES_INPUTSize                       = 32
+	REPAIR_COPIES_INPUTAlignment                  = 8
+	REPAIR_COPIES_INPUTSizeOffset                 = 0
+	REPAIR_COPIES_INPUTFlagsOffset                = 4
+	REPAIR_COPIES_INPUTFileOffsetOffset           = 8
+	REPAIR_COPIES_INPUTLengthOffset               = 16
+	REPAIR_COPIES_INPUTSourceCopyOffset           = 20
+	REPAIR_COPIES_INPUTNumberOfRepairCopiesOffset = 24
+	REPAIR_COPIES_INPUTRepairCopiesOffset         = 28
+)
+
+// NewREPAIR_COPIES_INPUT allocates zeroed, aligned native storage.
+func NewREPAIR_COPIES_INPUT() REPAIR_COPIES_INPUT {
+	return REPAIR_COPIES_INPUT{data: nativebuffer.New(int(REPAIR_COPIES_INPUTSize), uintptr(REPAIR_COPIES_INPUTAlignment))}
+}
+
+// ViewREPAIR_COPIES_INPUT shares data without copying. It panics if data is shorter than REPAIR_COPIES_INPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewREPAIR_COPIES_INPUT(data []byte) REPAIR_COPIES_INPUT {
+	return REPAIR_COPIES_INPUT{data: nativebuffer.View(data, int(REPAIR_COPIES_INPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b REPAIR_COPIES_INPUT) Bytes() []byte {
+	return b.data[:REPAIR_COPIES_INPUTSize:REPAIR_COPIES_INPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b REPAIR_COPIES_INPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(REPAIR_COPIES_INPUTAlignment))
+}
+
+// GetSize returns a copy of the native field value.
+func (b REPAIR_COPIES_INPUT) GetSize() uint32 {
+	offset := uintptr(REPAIR_COPIES_INPUTSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b REPAIR_COPIES_INPUT) SetSize(value uint32) {
+	offset := uintptr(REPAIR_COPIES_INPUTSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b REPAIR_COPIES_INPUT) GetFlags() uint32 {
+	offset := uintptr(REPAIR_COPIES_INPUTFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b REPAIR_COPIES_INPUT) SetFlags(value uint32) {
+	offset := uintptr(REPAIR_COPIES_INPUTFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFileOffset returns a copy of the native field value.
+func (b REPAIR_COPIES_INPUT) GetFileOffset() int64 {
+	offset := uintptr(REPAIR_COPIES_INPUTFileOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileOffset copies value into the native field.
+func (b REPAIR_COPIES_INPUT) SetFileOffset(value int64) {
+	offset := uintptr(REPAIR_COPIES_INPUTFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLength returns a copy of the native field value.
+func (b REPAIR_COPIES_INPUT) GetLength() uint32 {
+	offset := uintptr(REPAIR_COPIES_INPUTLengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLength copies value into the native field.
+func (b REPAIR_COPIES_INPUT) SetLength(value uint32) {
+	offset := uintptr(REPAIR_COPIES_INPUTLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSourceCopy returns a copy of the native field value.
+func (b REPAIR_COPIES_INPUT) GetSourceCopy() uint32 {
+	offset := uintptr(REPAIR_COPIES_INPUTSourceCopyOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSourceCopy copies value into the native field.
+func (b REPAIR_COPIES_INPUT) SetSourceCopy(value uint32) {
+	offset := uintptr(REPAIR_COPIES_INPUTSourceCopyOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNumberOfRepairCopies returns a copy of the native field value.
+func (b REPAIR_COPIES_INPUT) GetNumberOfRepairCopies() uint32 {
+	offset := uintptr(REPAIR_COPIES_INPUTNumberOfRepairCopiesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNumberOfRepairCopies copies value into the native field.
+func (b REPAIR_COPIES_INPUT) SetNumberOfRepairCopies(value uint32) {
+	offset := uintptr(REPAIR_COPIES_INPUTNumberOfRepairCopiesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRepairCopies accesses the metadata-declared initial flexible-array extent only.
+func (b REPAIR_COPIES_INPUT) GetRepairCopies(index0 int) uint32 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(REPAIR_COPIES_INPUTRepairCopiesOffset + uintptr(index0)*(4))
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRepairCopies copies value into the native field.
+func (b REPAIR_COPIES_INPUT) SetRepairCopies(index0 int, value uint32) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(REPAIR_COPIES_INPUTRepairCopiesOffset + uintptr(index0)*(4))
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// REPAIR_COPIES_OUTPUT is a view of native Windows.Win32.System.Ioctl.REPAIR_COPIES_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-repair_copies_output.
+type REPAIR_COPIES_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	REPAIR_COPIES_OUTPUTSize                   = 16
+	REPAIR_COPIES_OUTPUTAlignment              = 8
+	REPAIR_COPIES_OUTPUTSizeOffset             = 0
+	REPAIR_COPIES_OUTPUTStatusOffset           = 4
+	REPAIR_COPIES_OUTPUTResumeFileOffsetOffset = 8
+)
+
+// NewREPAIR_COPIES_OUTPUT allocates zeroed, aligned native storage.
+func NewREPAIR_COPIES_OUTPUT() REPAIR_COPIES_OUTPUT {
+	return REPAIR_COPIES_OUTPUT{data: nativebuffer.New(int(REPAIR_COPIES_OUTPUTSize), uintptr(REPAIR_COPIES_OUTPUTAlignment))}
+}
+
+// ViewREPAIR_COPIES_OUTPUT shares data without copying. It panics if data is shorter than REPAIR_COPIES_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewREPAIR_COPIES_OUTPUT(data []byte) REPAIR_COPIES_OUTPUT {
+	return REPAIR_COPIES_OUTPUT{data: nativebuffer.View(data, int(REPAIR_COPIES_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b REPAIR_COPIES_OUTPUT) Bytes() []byte {
+	return b.data[:REPAIR_COPIES_OUTPUTSize:REPAIR_COPIES_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b REPAIR_COPIES_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(REPAIR_COPIES_OUTPUTAlignment))
+}
+
+// GetSize returns a copy of the native field value.
+func (b REPAIR_COPIES_OUTPUT) GetSize() uint32 {
+	offset := uintptr(REPAIR_COPIES_OUTPUTSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b REPAIR_COPIES_OUTPUT) SetSize(value uint32) {
+	offset := uintptr(REPAIR_COPIES_OUTPUTSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetStatus returns a copy of the native field value.
+func (b REPAIR_COPIES_OUTPUT) GetStatus() uint32 {
+	offset := uintptr(REPAIR_COPIES_OUTPUTStatusOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetStatus copies value into the native field.
+func (b REPAIR_COPIES_OUTPUT) SetStatus(value uint32) {
+	offset := uintptr(REPAIR_COPIES_OUTPUTStatusOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetResumeFileOffset returns a copy of the native field value.
+func (b REPAIR_COPIES_OUTPUT) GetResumeFileOffset() int64 {
+	offset := uintptr(REPAIR_COPIES_OUTPUTResumeFileOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetResumeFileOffset copies value into the native field.
+func (b REPAIR_COPIES_OUTPUT) SetResumeFileOffset(value int64) {
+	offset := uintptr(REPAIR_COPIES_OUTPUTResumeFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
 
 // REQUEST_OPLOCK_INPUT_BUFFER projects Windows.Win32.System.Ioctl.REQUEST_OPLOCK_INPUT_BUFFER.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-request_oplock_input_buffer.
@@ -826,6 +10552,115 @@ type REQUEST_OPLOCK_OUTPUT_BUFFER struct {
 	Flags               uint32
 	AccessMode          uint32
 	ShareMode           uint16
+}
+
+// REQUEST_RAW_ENCRYPTED_DATA is a view of native Windows.Win32.System.Ioctl.REQUEST_RAW_ENCRYPTED_DATA storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type REQUEST_RAW_ENCRYPTED_DATA struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	REQUEST_RAW_ENCRYPTED_DATASize             = 16
+	REQUEST_RAW_ENCRYPTED_DATAAlignment        = 8
+	REQUEST_RAW_ENCRYPTED_DATAFileOffsetOffset = 0
+	REQUEST_RAW_ENCRYPTED_DATALengthOffset     = 8
+)
+
+// NewREQUEST_RAW_ENCRYPTED_DATA allocates zeroed, aligned native storage.
+func NewREQUEST_RAW_ENCRYPTED_DATA() REQUEST_RAW_ENCRYPTED_DATA {
+	return REQUEST_RAW_ENCRYPTED_DATA{data: nativebuffer.New(int(REQUEST_RAW_ENCRYPTED_DATASize), uintptr(REQUEST_RAW_ENCRYPTED_DATAAlignment))}
+}
+
+// ViewREQUEST_RAW_ENCRYPTED_DATA shares data without copying. It panics if data is shorter than REQUEST_RAW_ENCRYPTED_DATASize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewREQUEST_RAW_ENCRYPTED_DATA(data []byte) REQUEST_RAW_ENCRYPTED_DATA {
+	return REQUEST_RAW_ENCRYPTED_DATA{data: nativebuffer.View(data, int(REQUEST_RAW_ENCRYPTED_DATASize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b REQUEST_RAW_ENCRYPTED_DATA) Bytes() []byte {
+	return b.data[:REQUEST_RAW_ENCRYPTED_DATASize:REQUEST_RAW_ENCRYPTED_DATASize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b REQUEST_RAW_ENCRYPTED_DATA) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(REQUEST_RAW_ENCRYPTED_DATAAlignment))
+}
+
+// GetFileOffset returns a copy of the native field value.
+func (b REQUEST_RAW_ENCRYPTED_DATA) GetFileOffset() int64 {
+	offset := uintptr(REQUEST_RAW_ENCRYPTED_DATAFileOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileOffset copies value into the native field.
+func (b REQUEST_RAW_ENCRYPTED_DATA) SetFileOffset(value int64) {
+	offset := uintptr(REQUEST_RAW_ENCRYPTED_DATAFileOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLength returns a copy of the native field value.
+func (b REQUEST_RAW_ENCRYPTED_DATA) GetLength() uint32 {
+	offset := uintptr(REQUEST_RAW_ENCRYPTED_DATALengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLength copies value into the native field.
+func (b REQUEST_RAW_ENCRYPTED_DATA) SetLength(value uint32) {
+	offset := uintptr(REQUEST_RAW_ENCRYPTED_DATALengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// RETRIEVAL_POINTER_BASE is a view of native Windows.Win32.System.Ioctl.RETRIEVAL_POINTER_BASE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-retrieval_pointer_base.
+type RETRIEVAL_POINTER_BASE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	RETRIEVAL_POINTER_BASESize                 = 8
+	RETRIEVAL_POINTER_BASEAlignment            = 8
+	RETRIEVAL_POINTER_BASEFileAreaOffsetOffset = 0
+)
+
+// NewRETRIEVAL_POINTER_BASE allocates zeroed, aligned native storage.
+func NewRETRIEVAL_POINTER_BASE() RETRIEVAL_POINTER_BASE {
+	return RETRIEVAL_POINTER_BASE{data: nativebuffer.New(int(RETRIEVAL_POINTER_BASESize), uintptr(RETRIEVAL_POINTER_BASEAlignment))}
+}
+
+// ViewRETRIEVAL_POINTER_BASE shares data without copying. It panics if data is shorter than RETRIEVAL_POINTER_BASESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewRETRIEVAL_POINTER_BASE(data []byte) RETRIEVAL_POINTER_BASE {
+	return RETRIEVAL_POINTER_BASE{data: nativebuffer.View(data, int(RETRIEVAL_POINTER_BASESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b RETRIEVAL_POINTER_BASE) Bytes() []byte {
+	return b.data[:RETRIEVAL_POINTER_BASESize:RETRIEVAL_POINTER_BASESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b RETRIEVAL_POINTER_BASE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(RETRIEVAL_POINTER_BASEAlignment))
+}
+
+// GetFileAreaOffset returns a copy of the native field value.
+func (b RETRIEVAL_POINTER_BASE) GetFileAreaOffset() int64 {
+	offset := uintptr(RETRIEVAL_POINTER_BASEFileAreaOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileAreaOffset copies value into the native field.
+func (b RETRIEVAL_POINTER_BASE) SetFileAreaOffset(value int64) {
+	offset := uintptr(RETRIEVAL_POINTER_BASEFileAreaOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // RETRIEVAL_POINTER_COUNT projects Windows.Win32.System.Ioctl.RETRIEVAL_POINTER_COUNT.
@@ -878,6 +10713,168 @@ type SCM_PD_DESCRIPTOR_HEADER struct {
 	Size    uint32
 }
 
+// SCM_PD_DEVICE_SPECIFIC_INFO is a view of native Windows.Win32.System.Ioctl.SCM_PD_DEVICE_SPECIFIC_INFO storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type SCM_PD_DEVICE_SPECIFIC_INFO struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SCM_PD_DEVICE_SPECIFIC_INFOSize                           = 280
+	SCM_PD_DEVICE_SPECIFIC_INFOAlignment                      = 8
+	SCM_PD_DEVICE_SPECIFIC_INFOVersionOffset                  = 0
+	SCM_PD_DEVICE_SPECIFIC_INFOSizeOffset                     = 4
+	SCM_PD_DEVICE_SPECIFIC_INFONumberOfPropertiesOffset       = 8
+	SCM_PD_DEVICE_SPECIFIC_INFODeviceSpecificPropertiesOffset = 16
+)
+
+// NewSCM_PD_DEVICE_SPECIFIC_INFO allocates zeroed, aligned native storage.
+func NewSCM_PD_DEVICE_SPECIFIC_INFO() SCM_PD_DEVICE_SPECIFIC_INFO {
+	return SCM_PD_DEVICE_SPECIFIC_INFO{data: nativebuffer.New(int(SCM_PD_DEVICE_SPECIFIC_INFOSize), uintptr(SCM_PD_DEVICE_SPECIFIC_INFOAlignment))}
+}
+
+// ViewSCM_PD_DEVICE_SPECIFIC_INFO shares data without copying. It panics if data is shorter than SCM_PD_DEVICE_SPECIFIC_INFOSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSCM_PD_DEVICE_SPECIFIC_INFO(data []byte) SCM_PD_DEVICE_SPECIFIC_INFO {
+	return SCM_PD_DEVICE_SPECIFIC_INFO{data: nativebuffer.View(data, int(SCM_PD_DEVICE_SPECIFIC_INFOSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SCM_PD_DEVICE_SPECIFIC_INFO) Bytes() []byte {
+	return b.data[:SCM_PD_DEVICE_SPECIFIC_INFOSize:SCM_PD_DEVICE_SPECIFIC_INFOSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SCM_PD_DEVICE_SPECIFIC_INFO) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SCM_PD_DEVICE_SPECIFIC_INFOAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b SCM_PD_DEVICE_SPECIFIC_INFO) GetVersion() uint32 {
+	offset := uintptr(SCM_PD_DEVICE_SPECIFIC_INFOVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b SCM_PD_DEVICE_SPECIFIC_INFO) SetVersion(value uint32) {
+	offset := uintptr(SCM_PD_DEVICE_SPECIFIC_INFOVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSize returns a copy of the native field value.
+func (b SCM_PD_DEVICE_SPECIFIC_INFO) GetSize() uint32 {
+	offset := uintptr(SCM_PD_DEVICE_SPECIFIC_INFOSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b SCM_PD_DEVICE_SPECIFIC_INFO) SetSize(value uint32) {
+	offset := uintptr(SCM_PD_DEVICE_SPECIFIC_INFOSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNumberOfProperties returns a copy of the native field value.
+func (b SCM_PD_DEVICE_SPECIFIC_INFO) GetNumberOfProperties() uint32 {
+	offset := uintptr(SCM_PD_DEVICE_SPECIFIC_INFONumberOfPropertiesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNumberOfProperties copies value into the native field.
+func (b SCM_PD_DEVICE_SPECIFIC_INFO) SetNumberOfProperties(value uint32) {
+	offset := uintptr(SCM_PD_DEVICE_SPECIFIC_INFONumberOfPropertiesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDeviceSpecificProperties accesses the metadata-declared initial flexible-array extent only.
+func (b SCM_PD_DEVICE_SPECIFIC_INFO) GetDeviceSpecificProperties(index0 int) SCM_PD_DEVICE_SPECIFIC_PROPERTY {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SCM_PD_DEVICE_SPECIFIC_INFODeviceSpecificPropertiesOffset + uintptr(index0)*(264))
+
+	return ViewSCM_PD_DEVICE_SPECIFIC_PROPERTY(b.Bytes()[offset : offset+(264)])
+}
+
+// SetDeviceSpecificProperties copies value into the native field.
+func (b SCM_PD_DEVICE_SPECIFIC_INFO) SetDeviceSpecificProperties(index0 int, value SCM_PD_DEVICE_SPECIFIC_PROPERTY) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SCM_PD_DEVICE_SPECIFIC_INFODeviceSpecificPropertiesOffset + uintptr(index0)*(264))
+	copy(b.Bytes()[offset:offset+(264)], value.Bytes())
+}
+
+// SCM_PD_DEVICE_SPECIFIC_PROPERTY is a view of native Windows.Win32.System.Ioctl.SCM_PD_DEVICE_SPECIFIC_PROPERTY storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type SCM_PD_DEVICE_SPECIFIC_PROPERTY struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SCM_PD_DEVICE_SPECIFIC_PROPERTYSize        = 264
+	SCM_PD_DEVICE_SPECIFIC_PROPERTYAlignment   = 8
+	SCM_PD_DEVICE_SPECIFIC_PROPERTYNameOffset  = 0
+	SCM_PD_DEVICE_SPECIFIC_PROPERTYValueOffset = 256
+)
+
+// NewSCM_PD_DEVICE_SPECIFIC_PROPERTY allocates zeroed, aligned native storage.
+func NewSCM_PD_DEVICE_SPECIFIC_PROPERTY() SCM_PD_DEVICE_SPECIFIC_PROPERTY {
+	return SCM_PD_DEVICE_SPECIFIC_PROPERTY{data: nativebuffer.New(int(SCM_PD_DEVICE_SPECIFIC_PROPERTYSize), uintptr(SCM_PD_DEVICE_SPECIFIC_PROPERTYAlignment))}
+}
+
+// ViewSCM_PD_DEVICE_SPECIFIC_PROPERTY shares data without copying. It panics if data is shorter than SCM_PD_DEVICE_SPECIFIC_PROPERTYSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSCM_PD_DEVICE_SPECIFIC_PROPERTY(data []byte) SCM_PD_DEVICE_SPECIFIC_PROPERTY {
+	return SCM_PD_DEVICE_SPECIFIC_PROPERTY{data: nativebuffer.View(data, int(SCM_PD_DEVICE_SPECIFIC_PROPERTYSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SCM_PD_DEVICE_SPECIFIC_PROPERTY) Bytes() []byte {
+	return b.data[:SCM_PD_DEVICE_SPECIFIC_PROPERTYSize:SCM_PD_DEVICE_SPECIFIC_PROPERTYSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SCM_PD_DEVICE_SPECIFIC_PROPERTY) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SCM_PD_DEVICE_SPECIFIC_PROPERTYAlignment))
+}
+
+// GetName returns a copy of the native field value.
+func (b SCM_PD_DEVICE_SPECIFIC_PROPERTY) GetName(index0 int) uint16 {
+	if index0 < 0 || index0 >= 128 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SCM_PD_DEVICE_SPECIFIC_PROPERTYNameOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetName copies value into the native field.
+func (b SCM_PD_DEVICE_SPECIFIC_PROPERTY) SetName(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 128 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SCM_PD_DEVICE_SPECIFIC_PROPERTYNameOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetValue returns a copy of the native field value.
+func (b SCM_PD_DEVICE_SPECIFIC_PROPERTY) GetValue() int64 {
+	offset := uintptr(SCM_PD_DEVICE_SPECIFIC_PROPERTYValueOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetValue copies value into the native field.
+func (b SCM_PD_DEVICE_SPECIFIC_PROPERTY) SetValue(value int64) {
+	offset := uintptr(SCM_PD_DEVICE_SPECIFIC_PROPERTYValueOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // SCM_PD_FIRMWARE_ACTIVATE projects Windows.Win32.System.Ioctl.SCM_PD_FIRMWARE_ACTIVATE.
 type SCM_PD_FIRMWARE_ACTIVATE struct {
 	Version uint32
@@ -888,6 +10885,163 @@ type SCM_PD_FIRMWARE_ACTIVATE struct {
 
 // SCM_PD_FIRMWARE_ACTIVATION_STATE projects Windows.Win32.System.Ioctl.SCM_PD_FIRMWARE_ACTIVATION_STATE.
 type SCM_PD_FIRMWARE_ACTIVATION_STATE int32
+
+// SCM_PD_FIRMWARE_DOWNLOAD is a view of native Windows.Win32.System.Ioctl.SCM_PD_FIRMWARE_DOWNLOAD storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type SCM_PD_FIRMWARE_DOWNLOAD struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SCM_PD_FIRMWARE_DOWNLOADSize                           = 32
+	SCM_PD_FIRMWARE_DOWNLOADAlignment                      = 8
+	SCM_PD_FIRMWARE_DOWNLOADVersionOffset                  = 0
+	SCM_PD_FIRMWARE_DOWNLOADSizeOffset                     = 4
+	SCM_PD_FIRMWARE_DOWNLOADFlagsOffset                    = 8
+	SCM_PD_FIRMWARE_DOWNLOADSlotOffset                     = 12
+	SCM_PD_FIRMWARE_DOWNLOADReservedOffset                 = 13
+	SCM_PD_FIRMWARE_DOWNLOADOffsetOffset                   = 16
+	SCM_PD_FIRMWARE_DOWNLOADFirmwareImageSizeInBytesOffset = 24
+	SCM_PD_FIRMWARE_DOWNLOADFirmwareImageOffset            = 28
+)
+
+// NewSCM_PD_FIRMWARE_DOWNLOAD allocates zeroed, aligned native storage.
+func NewSCM_PD_FIRMWARE_DOWNLOAD() SCM_PD_FIRMWARE_DOWNLOAD {
+	return SCM_PD_FIRMWARE_DOWNLOAD{data: nativebuffer.New(int(SCM_PD_FIRMWARE_DOWNLOADSize), uintptr(SCM_PD_FIRMWARE_DOWNLOADAlignment))}
+}
+
+// ViewSCM_PD_FIRMWARE_DOWNLOAD shares data without copying. It panics if data is shorter than SCM_PD_FIRMWARE_DOWNLOADSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSCM_PD_FIRMWARE_DOWNLOAD(data []byte) SCM_PD_FIRMWARE_DOWNLOAD {
+	return SCM_PD_FIRMWARE_DOWNLOAD{data: nativebuffer.View(data, int(SCM_PD_FIRMWARE_DOWNLOADSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) Bytes() []byte {
+	return b.data[:SCM_PD_FIRMWARE_DOWNLOADSize:SCM_PD_FIRMWARE_DOWNLOADSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SCM_PD_FIRMWARE_DOWNLOADAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) GetVersion() uint32 {
+	offset := uintptr(SCM_PD_FIRMWARE_DOWNLOADVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) SetVersion(value uint32) {
+	offset := uintptr(SCM_PD_FIRMWARE_DOWNLOADVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSize returns a copy of the native field value.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) GetSize() uint32 {
+	offset := uintptr(SCM_PD_FIRMWARE_DOWNLOADSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) SetSize(value uint32) {
+	offset := uintptr(SCM_PD_FIRMWARE_DOWNLOADSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) GetFlags() uint32 {
+	offset := uintptr(SCM_PD_FIRMWARE_DOWNLOADFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) SetFlags(value uint32) {
+	offset := uintptr(SCM_PD_FIRMWARE_DOWNLOADFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSlot returns a copy of the native field value.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) GetSlot() uint8 {
+	offset := uintptr(SCM_PD_FIRMWARE_DOWNLOADSlotOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetSlot copies value into the native field.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) SetSlot(value uint8) {
+	offset := uintptr(SCM_PD_FIRMWARE_DOWNLOADSlotOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) GetReserved(index0 int) uint8 {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SCM_PD_FIRMWARE_DOWNLOADReservedOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetReserved copies value into the native field.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) SetReserved(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SCM_PD_FIRMWARE_DOWNLOADReservedOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetOffset returns a copy of the native field value.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) GetOffset() uint64 {
+	offset := uintptr(SCM_PD_FIRMWARE_DOWNLOADOffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetOffset copies value into the native field.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) SetOffset(value uint64) {
+	offset := uintptr(SCM_PD_FIRMWARE_DOWNLOADOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFirmwareImageSizeInBytes returns a copy of the native field value.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) GetFirmwareImageSizeInBytes() uint32 {
+	offset := uintptr(SCM_PD_FIRMWARE_DOWNLOADFirmwareImageSizeInBytesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFirmwareImageSizeInBytes copies value into the native field.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) SetFirmwareImageSizeInBytes(value uint32) {
+	offset := uintptr(SCM_PD_FIRMWARE_DOWNLOADFirmwareImageSizeInBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFirmwareImage accesses the metadata-declared initial flexible-array extent only.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) GetFirmwareImage(index0 int) uint8 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SCM_PD_FIRMWARE_DOWNLOADFirmwareImageOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetFirmwareImage copies value into the native field.
+func (b SCM_PD_FIRMWARE_DOWNLOAD) SetFirmwareImage(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SCM_PD_FIRMWARE_DOWNLOADFirmwareImageOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
 
 // SCM_PD_FRU_ID_STRING projects Windows.Win32.System.Ioctl.SCM_PD_FRU_ID_STRING.
 type SCM_PD_FRU_ID_STRING struct {
@@ -1032,9 +11186,985 @@ type SD_CHANGE_MACHINE_SID_INPUT struct {
 	NewMachineSIDLength     uint16
 }
 
+// SD_CHANGE_MACHINE_SID_OUTPUT is a view of native Windows.Win32.System.Ioctl.SD_CHANGE_MACHINE_SID_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type SD_CHANGE_MACHINE_SID_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SD_CHANGE_MACHINE_SID_OUTPUTSize                         = 56
+	SD_CHANGE_MACHINE_SID_OUTPUTAlignment                    = 8
+	SD_CHANGE_MACHINE_SID_OUTPUTNumSDChangedSuccessOffset    = 0
+	SD_CHANGE_MACHINE_SID_OUTPUTNumSDChangedFailOffset       = 8
+	SD_CHANGE_MACHINE_SID_OUTPUTNumSDUnusedOffset            = 16
+	SD_CHANGE_MACHINE_SID_OUTPUTNumSDTotalOffset             = 24
+	SD_CHANGE_MACHINE_SID_OUTPUTNumMftSDChangedSuccessOffset = 32
+	SD_CHANGE_MACHINE_SID_OUTPUTNumMftSDChangedFailOffset    = 40
+	SD_CHANGE_MACHINE_SID_OUTPUTNumMftSDTotalOffset          = 48
+)
+
+// NewSD_CHANGE_MACHINE_SID_OUTPUT allocates zeroed, aligned native storage.
+func NewSD_CHANGE_MACHINE_SID_OUTPUT() SD_CHANGE_MACHINE_SID_OUTPUT {
+	return SD_CHANGE_MACHINE_SID_OUTPUT{data: nativebuffer.New(int(SD_CHANGE_MACHINE_SID_OUTPUTSize), uintptr(SD_CHANGE_MACHINE_SID_OUTPUTAlignment))}
+}
+
+// ViewSD_CHANGE_MACHINE_SID_OUTPUT shares data without copying. It panics if data is shorter than SD_CHANGE_MACHINE_SID_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSD_CHANGE_MACHINE_SID_OUTPUT(data []byte) SD_CHANGE_MACHINE_SID_OUTPUT {
+	return SD_CHANGE_MACHINE_SID_OUTPUT{data: nativebuffer.View(data, int(SD_CHANGE_MACHINE_SID_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SD_CHANGE_MACHINE_SID_OUTPUT) Bytes() []byte {
+	return b.data[:SD_CHANGE_MACHINE_SID_OUTPUTSize:SD_CHANGE_MACHINE_SID_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SD_CHANGE_MACHINE_SID_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SD_CHANGE_MACHINE_SID_OUTPUTAlignment))
+}
+
+// GetNumSDChangedSuccess returns a copy of the native field value.
+func (b SD_CHANGE_MACHINE_SID_OUTPUT) GetNumSDChangedSuccess() uint64 {
+	offset := uintptr(SD_CHANGE_MACHINE_SID_OUTPUTNumSDChangedSuccessOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumSDChangedSuccess copies value into the native field.
+func (b SD_CHANGE_MACHINE_SID_OUTPUT) SetNumSDChangedSuccess(value uint64) {
+	offset := uintptr(SD_CHANGE_MACHINE_SID_OUTPUTNumSDChangedSuccessOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumSDChangedFail returns a copy of the native field value.
+func (b SD_CHANGE_MACHINE_SID_OUTPUT) GetNumSDChangedFail() uint64 {
+	offset := uintptr(SD_CHANGE_MACHINE_SID_OUTPUTNumSDChangedFailOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumSDChangedFail copies value into the native field.
+func (b SD_CHANGE_MACHINE_SID_OUTPUT) SetNumSDChangedFail(value uint64) {
+	offset := uintptr(SD_CHANGE_MACHINE_SID_OUTPUTNumSDChangedFailOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumSDUnused returns a copy of the native field value.
+func (b SD_CHANGE_MACHINE_SID_OUTPUT) GetNumSDUnused() uint64 {
+	offset := uintptr(SD_CHANGE_MACHINE_SID_OUTPUTNumSDUnusedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumSDUnused copies value into the native field.
+func (b SD_CHANGE_MACHINE_SID_OUTPUT) SetNumSDUnused(value uint64) {
+	offset := uintptr(SD_CHANGE_MACHINE_SID_OUTPUTNumSDUnusedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumSDTotal returns a copy of the native field value.
+func (b SD_CHANGE_MACHINE_SID_OUTPUT) GetNumSDTotal() uint64 {
+	offset := uintptr(SD_CHANGE_MACHINE_SID_OUTPUTNumSDTotalOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumSDTotal copies value into the native field.
+func (b SD_CHANGE_MACHINE_SID_OUTPUT) SetNumSDTotal(value uint64) {
+	offset := uintptr(SD_CHANGE_MACHINE_SID_OUTPUTNumSDTotalOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumMftSDChangedSuccess returns a copy of the native field value.
+func (b SD_CHANGE_MACHINE_SID_OUTPUT) GetNumMftSDChangedSuccess() uint64 {
+	offset := uintptr(SD_CHANGE_MACHINE_SID_OUTPUTNumMftSDChangedSuccessOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumMftSDChangedSuccess copies value into the native field.
+func (b SD_CHANGE_MACHINE_SID_OUTPUT) SetNumMftSDChangedSuccess(value uint64) {
+	offset := uintptr(SD_CHANGE_MACHINE_SID_OUTPUTNumMftSDChangedSuccessOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumMftSDChangedFail returns a copy of the native field value.
+func (b SD_CHANGE_MACHINE_SID_OUTPUT) GetNumMftSDChangedFail() uint64 {
+	offset := uintptr(SD_CHANGE_MACHINE_SID_OUTPUTNumMftSDChangedFailOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumMftSDChangedFail copies value into the native field.
+func (b SD_CHANGE_MACHINE_SID_OUTPUT) SetNumMftSDChangedFail(value uint64) {
+	offset := uintptr(SD_CHANGE_MACHINE_SID_OUTPUTNumMftSDChangedFailOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumMftSDTotal returns a copy of the native field value.
+func (b SD_CHANGE_MACHINE_SID_OUTPUT) GetNumMftSDTotal() uint64 {
+	offset := uintptr(SD_CHANGE_MACHINE_SID_OUTPUTNumMftSDTotalOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumMftSDTotal copies value into the native field.
+func (b SD_CHANGE_MACHINE_SID_OUTPUT) SetNumMftSDTotal(value uint64) {
+	offset := uintptr(SD_CHANGE_MACHINE_SID_OUTPUTNumMftSDTotalOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// SD_ENUM_SDS_ENTRY is a view of native Windows.Win32.System.Ioctl.SD_ENUM_SDS_ENTRY storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type SD_ENUM_SDS_ENTRY struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SD_ENUM_SDS_ENTRYSize             = 24
+	SD_ENUM_SDS_ENTRYAlignment        = 8
+	SD_ENUM_SDS_ENTRYHashOffset       = 0
+	SD_ENUM_SDS_ENTRYSecurityIdOffset = 4
+	SD_ENUM_SDS_ENTRYOffsetOffset     = 8
+	SD_ENUM_SDS_ENTRYLengthOffset     = 16
+	SD_ENUM_SDS_ENTRYDescriptorOffset = 20
+)
+
+// NewSD_ENUM_SDS_ENTRY allocates zeroed, aligned native storage.
+func NewSD_ENUM_SDS_ENTRY() SD_ENUM_SDS_ENTRY {
+	return SD_ENUM_SDS_ENTRY{data: nativebuffer.New(int(SD_ENUM_SDS_ENTRYSize), uintptr(SD_ENUM_SDS_ENTRYAlignment))}
+}
+
+// ViewSD_ENUM_SDS_ENTRY shares data without copying. It panics if data is shorter than SD_ENUM_SDS_ENTRYSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSD_ENUM_SDS_ENTRY(data []byte) SD_ENUM_SDS_ENTRY {
+	return SD_ENUM_SDS_ENTRY{data: nativebuffer.View(data, int(SD_ENUM_SDS_ENTRYSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SD_ENUM_SDS_ENTRY) Bytes() []byte {
+	return b.data[:SD_ENUM_SDS_ENTRYSize:SD_ENUM_SDS_ENTRYSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SD_ENUM_SDS_ENTRY) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SD_ENUM_SDS_ENTRYAlignment))
+}
+
+// GetHash returns a copy of the native field value.
+func (b SD_ENUM_SDS_ENTRY) GetHash() uint32 {
+	offset := uintptr(SD_ENUM_SDS_ENTRYHashOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetHash copies value into the native field.
+func (b SD_ENUM_SDS_ENTRY) SetHash(value uint32) {
+	offset := uintptr(SD_ENUM_SDS_ENTRYHashOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSecurityId returns a copy of the native field value.
+func (b SD_ENUM_SDS_ENTRY) GetSecurityId() uint32 {
+	offset := uintptr(SD_ENUM_SDS_ENTRYSecurityIdOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSecurityId copies value into the native field.
+func (b SD_ENUM_SDS_ENTRY) SetSecurityId(value uint32) {
+	offset := uintptr(SD_ENUM_SDS_ENTRYSecurityIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetOffset returns a copy of the native field value.
+func (b SD_ENUM_SDS_ENTRY) GetOffset() uint64 {
+	offset := uintptr(SD_ENUM_SDS_ENTRYOffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetOffset copies value into the native field.
+func (b SD_ENUM_SDS_ENTRY) SetOffset(value uint64) {
+	offset := uintptr(SD_ENUM_SDS_ENTRYOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLength returns a copy of the native field value.
+func (b SD_ENUM_SDS_ENTRY) GetLength() uint32 {
+	offset := uintptr(SD_ENUM_SDS_ENTRYLengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLength copies value into the native field.
+func (b SD_ENUM_SDS_ENTRY) SetLength(value uint32) {
+	offset := uintptr(SD_ENUM_SDS_ENTRYLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDescriptor accesses the metadata-declared initial flexible-array extent only.
+func (b SD_ENUM_SDS_ENTRY) GetDescriptor(index0 int) uint8 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SD_ENUM_SDS_ENTRYDescriptorOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetDescriptor copies value into the native field.
+func (b SD_ENUM_SDS_ENTRY) SetDescriptor(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SD_ENUM_SDS_ENTRYDescriptorOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// SD_ENUM_SDS_INPUT is a view of native Windows.Win32.System.Ioctl.SD_ENUM_SDS_INPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type SD_ENUM_SDS_INPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SD_ENUM_SDS_INPUTSize                       = 16
+	SD_ENUM_SDS_INPUTAlignment                  = 8
+	SD_ENUM_SDS_INPUTStartingOffsetOffset       = 0
+	SD_ENUM_SDS_INPUTMaxSDEntriesToReturnOffset = 8
+)
+
+// NewSD_ENUM_SDS_INPUT allocates zeroed, aligned native storage.
+func NewSD_ENUM_SDS_INPUT() SD_ENUM_SDS_INPUT {
+	return SD_ENUM_SDS_INPUT{data: nativebuffer.New(int(SD_ENUM_SDS_INPUTSize), uintptr(SD_ENUM_SDS_INPUTAlignment))}
+}
+
+// ViewSD_ENUM_SDS_INPUT shares data without copying. It panics if data is shorter than SD_ENUM_SDS_INPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSD_ENUM_SDS_INPUT(data []byte) SD_ENUM_SDS_INPUT {
+	return SD_ENUM_SDS_INPUT{data: nativebuffer.View(data, int(SD_ENUM_SDS_INPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SD_ENUM_SDS_INPUT) Bytes() []byte {
+	return b.data[:SD_ENUM_SDS_INPUTSize:SD_ENUM_SDS_INPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SD_ENUM_SDS_INPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SD_ENUM_SDS_INPUTAlignment))
+}
+
+// GetStartingOffset returns a copy of the native field value.
+func (b SD_ENUM_SDS_INPUT) GetStartingOffset() uint64 {
+	offset := uintptr(SD_ENUM_SDS_INPUTStartingOffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartingOffset copies value into the native field.
+func (b SD_ENUM_SDS_INPUT) SetStartingOffset(value uint64) {
+	offset := uintptr(SD_ENUM_SDS_INPUTStartingOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMaxSDEntriesToReturn returns a copy of the native field value.
+func (b SD_ENUM_SDS_INPUT) GetMaxSDEntriesToReturn() uint64 {
+	offset := uintptr(SD_ENUM_SDS_INPUTMaxSDEntriesToReturnOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMaxSDEntriesToReturn copies value into the native field.
+func (b SD_ENUM_SDS_INPUT) SetMaxSDEntriesToReturn(value uint64) {
+	offset := uintptr(SD_ENUM_SDS_INPUTMaxSDEntriesToReturnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// SD_ENUM_SDS_OUTPUT is a view of native Windows.Win32.System.Ioctl.SD_ENUM_SDS_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type SD_ENUM_SDS_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SD_ENUM_SDS_OUTPUTSize                       = 48
+	SD_ENUM_SDS_OUTPUTAlignment                  = 8
+	SD_ENUM_SDS_OUTPUTNextOffsetOffset           = 0
+	SD_ENUM_SDS_OUTPUTNumSDEntriesReturnedOffset = 8
+	SD_ENUM_SDS_OUTPUTNumSDBytesReturnedOffset   = 16
+	SD_ENUM_SDS_OUTPUTSDEntryOffset              = 24
+)
+
+// NewSD_ENUM_SDS_OUTPUT allocates zeroed, aligned native storage.
+func NewSD_ENUM_SDS_OUTPUT() SD_ENUM_SDS_OUTPUT {
+	return SD_ENUM_SDS_OUTPUT{data: nativebuffer.New(int(SD_ENUM_SDS_OUTPUTSize), uintptr(SD_ENUM_SDS_OUTPUTAlignment))}
+}
+
+// ViewSD_ENUM_SDS_OUTPUT shares data without copying. It panics if data is shorter than SD_ENUM_SDS_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSD_ENUM_SDS_OUTPUT(data []byte) SD_ENUM_SDS_OUTPUT {
+	return SD_ENUM_SDS_OUTPUT{data: nativebuffer.View(data, int(SD_ENUM_SDS_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SD_ENUM_SDS_OUTPUT) Bytes() []byte {
+	return b.data[:SD_ENUM_SDS_OUTPUTSize:SD_ENUM_SDS_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SD_ENUM_SDS_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SD_ENUM_SDS_OUTPUTAlignment))
+}
+
+// GetNextOffset returns a copy of the native field value.
+func (b SD_ENUM_SDS_OUTPUT) GetNextOffset() uint64 {
+	offset := uintptr(SD_ENUM_SDS_OUTPUTNextOffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNextOffset copies value into the native field.
+func (b SD_ENUM_SDS_OUTPUT) SetNextOffset(value uint64) {
+	offset := uintptr(SD_ENUM_SDS_OUTPUTNextOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumSDEntriesReturned returns a copy of the native field value.
+func (b SD_ENUM_SDS_OUTPUT) GetNumSDEntriesReturned() uint64 {
+	offset := uintptr(SD_ENUM_SDS_OUTPUTNumSDEntriesReturnedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumSDEntriesReturned copies value into the native field.
+func (b SD_ENUM_SDS_OUTPUT) SetNumSDEntriesReturned(value uint64) {
+	offset := uintptr(SD_ENUM_SDS_OUTPUTNumSDEntriesReturnedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumSDBytesReturned returns a copy of the native field value.
+func (b SD_ENUM_SDS_OUTPUT) GetNumSDBytesReturned() uint64 {
+	offset := uintptr(SD_ENUM_SDS_OUTPUTNumSDBytesReturnedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumSDBytesReturned copies value into the native field.
+func (b SD_ENUM_SDS_OUTPUT) SetNumSDBytesReturned(value uint64) {
+	offset := uintptr(SD_ENUM_SDS_OUTPUTNumSDBytesReturnedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSDEntry accesses the metadata-declared initial flexible-array extent only.
+func (b SD_ENUM_SDS_OUTPUT) GetSDEntry(index0 int) SD_ENUM_SDS_ENTRY {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SD_ENUM_SDS_OUTPUTSDEntryOffset + uintptr(index0)*(24))
+
+	return ViewSD_ENUM_SDS_ENTRY(b.Bytes()[offset : offset+(24)])
+}
+
+// SetSDEntry copies value into the native field.
+func (b SD_ENUM_SDS_OUTPUT) SetSDEntry(index0 int, value SD_ENUM_SDS_ENTRY) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SD_ENUM_SDS_OUTPUTSDEntryOffset + uintptr(index0)*(24))
+	copy(b.Bytes()[offset:offset+(24)], value.Bytes())
+}
+
 // SD_QUERY_STATS_INPUT projects Windows.Win32.System.Ioctl.SD_QUERY_STATS_INPUT.
 type SD_QUERY_STATS_INPUT struct {
 	Reserved uint32
+}
+
+// SD_QUERY_STATS_OUTPUT is a view of native Windows.Win32.System.Ioctl.SD_QUERY_STATS_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type SD_QUERY_STATS_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SD_QUERY_STATS_OUTPUTSize                    = 64
+	SD_QUERY_STATS_OUTPUTAlignment               = 8
+	SD_QUERY_STATS_OUTPUTSdsStreamSizeOffset     = 0
+	SD_QUERY_STATS_OUTPUTSdsAllocationSizeOffset = 8
+	SD_QUERY_STATS_OUTPUTSiiStreamSizeOffset     = 16
+	SD_QUERY_STATS_OUTPUTSiiAllocationSizeOffset = 24
+	SD_QUERY_STATS_OUTPUTSdhStreamSizeOffset     = 32
+	SD_QUERY_STATS_OUTPUTSdhAllocationSizeOffset = 40
+	SD_QUERY_STATS_OUTPUTNumSDTotalOffset        = 48
+	SD_QUERY_STATS_OUTPUTNumSDUnusedOffset       = 56
+)
+
+// NewSD_QUERY_STATS_OUTPUT allocates zeroed, aligned native storage.
+func NewSD_QUERY_STATS_OUTPUT() SD_QUERY_STATS_OUTPUT {
+	return SD_QUERY_STATS_OUTPUT{data: nativebuffer.New(int(SD_QUERY_STATS_OUTPUTSize), uintptr(SD_QUERY_STATS_OUTPUTAlignment))}
+}
+
+// ViewSD_QUERY_STATS_OUTPUT shares data without copying. It panics if data is shorter than SD_QUERY_STATS_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSD_QUERY_STATS_OUTPUT(data []byte) SD_QUERY_STATS_OUTPUT {
+	return SD_QUERY_STATS_OUTPUT{data: nativebuffer.View(data, int(SD_QUERY_STATS_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SD_QUERY_STATS_OUTPUT) Bytes() []byte {
+	return b.data[:SD_QUERY_STATS_OUTPUTSize:SD_QUERY_STATS_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SD_QUERY_STATS_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SD_QUERY_STATS_OUTPUTAlignment))
+}
+
+// GetSdsStreamSize returns a copy of the native field value.
+func (b SD_QUERY_STATS_OUTPUT) GetSdsStreamSize() uint64 {
+	offset := uintptr(SD_QUERY_STATS_OUTPUTSdsStreamSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSdsStreamSize copies value into the native field.
+func (b SD_QUERY_STATS_OUTPUT) SetSdsStreamSize(value uint64) {
+	offset := uintptr(SD_QUERY_STATS_OUTPUTSdsStreamSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSdsAllocationSize returns a copy of the native field value.
+func (b SD_QUERY_STATS_OUTPUT) GetSdsAllocationSize() uint64 {
+	offset := uintptr(SD_QUERY_STATS_OUTPUTSdsAllocationSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSdsAllocationSize copies value into the native field.
+func (b SD_QUERY_STATS_OUTPUT) SetSdsAllocationSize(value uint64) {
+	offset := uintptr(SD_QUERY_STATS_OUTPUTSdsAllocationSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSiiStreamSize returns a copy of the native field value.
+func (b SD_QUERY_STATS_OUTPUT) GetSiiStreamSize() uint64 {
+	offset := uintptr(SD_QUERY_STATS_OUTPUTSiiStreamSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSiiStreamSize copies value into the native field.
+func (b SD_QUERY_STATS_OUTPUT) SetSiiStreamSize(value uint64) {
+	offset := uintptr(SD_QUERY_STATS_OUTPUTSiiStreamSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSiiAllocationSize returns a copy of the native field value.
+func (b SD_QUERY_STATS_OUTPUT) GetSiiAllocationSize() uint64 {
+	offset := uintptr(SD_QUERY_STATS_OUTPUTSiiAllocationSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSiiAllocationSize copies value into the native field.
+func (b SD_QUERY_STATS_OUTPUT) SetSiiAllocationSize(value uint64) {
+	offset := uintptr(SD_QUERY_STATS_OUTPUTSiiAllocationSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSdhStreamSize returns a copy of the native field value.
+func (b SD_QUERY_STATS_OUTPUT) GetSdhStreamSize() uint64 {
+	offset := uintptr(SD_QUERY_STATS_OUTPUTSdhStreamSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSdhStreamSize copies value into the native field.
+func (b SD_QUERY_STATS_OUTPUT) SetSdhStreamSize(value uint64) {
+	offset := uintptr(SD_QUERY_STATS_OUTPUTSdhStreamSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetSdhAllocationSize returns a copy of the native field value.
+func (b SD_QUERY_STATS_OUTPUT) GetSdhAllocationSize() uint64 {
+	offset := uintptr(SD_QUERY_STATS_OUTPUTSdhAllocationSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetSdhAllocationSize copies value into the native field.
+func (b SD_QUERY_STATS_OUTPUT) SetSdhAllocationSize(value uint64) {
+	offset := uintptr(SD_QUERY_STATS_OUTPUTSdhAllocationSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumSDTotal returns a copy of the native field value.
+func (b SD_QUERY_STATS_OUTPUT) GetNumSDTotal() uint64 {
+	offset := uintptr(SD_QUERY_STATS_OUTPUTNumSDTotalOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumSDTotal copies value into the native field.
+func (b SD_QUERY_STATS_OUTPUT) SetNumSDTotal(value uint64) {
+	offset := uintptr(SD_QUERY_STATS_OUTPUTNumSDTotalOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumSDUnused returns a copy of the native field value.
+func (b SD_QUERY_STATS_OUTPUT) GetNumSDUnused() uint64 {
+	offset := uintptr(SD_QUERY_STATS_OUTPUTNumSDUnusedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumSDUnused copies value into the native field.
+func (b SD_QUERY_STATS_OUTPUT) SetNumSDUnused(value uint64) {
+	offset := uintptr(SD_QUERY_STATS_OUTPUTNumSDUnusedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// SENDCMDINPARAMS is a view of native Windows.Win32.System.Ioctl.SENDCMDINPARAMS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type SENDCMDINPARAMS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SENDCMDINPARAMSSize               = 33
+	SENDCMDINPARAMSAlignment          = 1
+	SENDCMDINPARAMSCBufferSizeOffset  = 0
+	SENDCMDINPARAMSIrDriveRegsOffset  = 4
+	SENDCMDINPARAMSBDriveNumberOffset = 12
+	SENDCMDINPARAMSBReservedOffset    = 13
+	SENDCMDINPARAMSDwReservedOffset   = 16
+	SENDCMDINPARAMSBBufferOffset      = 32
+)
+
+// NewSENDCMDINPARAMS allocates zeroed, aligned native storage.
+func NewSENDCMDINPARAMS() SENDCMDINPARAMS {
+	return SENDCMDINPARAMS{data: nativebuffer.New(int(SENDCMDINPARAMSSize), uintptr(SENDCMDINPARAMSAlignment))}
+}
+
+// ViewSENDCMDINPARAMS shares data without copying. It panics if data is shorter than SENDCMDINPARAMSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSENDCMDINPARAMS(data []byte) SENDCMDINPARAMS {
+	return SENDCMDINPARAMS{data: nativebuffer.View(data, int(SENDCMDINPARAMSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SENDCMDINPARAMS) Bytes() []byte {
+	return b.data[:SENDCMDINPARAMSSize:SENDCMDINPARAMSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SENDCMDINPARAMS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SENDCMDINPARAMSAlignment))
+}
+
+// GetCBufferSize returns a copy of the native field value.
+func (b SENDCMDINPARAMS) GetCBufferSize() uint32 {
+	offset := uintptr(SENDCMDINPARAMSCBufferSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCBufferSize copies value into the native field.
+func (b SENDCMDINPARAMS) SetCBufferSize(value uint32) {
+	offset := uintptr(SENDCMDINPARAMSCBufferSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetIrDriveRegs returns a copy of the native field value.
+func (b SENDCMDINPARAMS) GetIrDriveRegs() IDEREGS {
+	offset := uintptr(SENDCMDINPARAMSIrDriveRegsOffset)
+
+	return nativebuffer.Read[IDEREGS](b.Bytes()[offset : offset+(8)])
+}
+
+// SetIrDriveRegs copies value into the native field.
+func (b SENDCMDINPARAMS) SetIrDriveRegs(value IDEREGS) {
+	offset := uintptr(SENDCMDINPARAMSIrDriveRegsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBDriveNumber returns a copy of the native field value.
+func (b SENDCMDINPARAMS) GetBDriveNumber() uint8 {
+	offset := uintptr(SENDCMDINPARAMSBDriveNumberOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBDriveNumber copies value into the native field.
+func (b SENDCMDINPARAMS) SetBDriveNumber(value uint8) {
+	offset := uintptr(SENDCMDINPARAMSBDriveNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetBReserved returns a copy of the native field value.
+func (b SENDCMDINPARAMS) GetBReserved(index0 int) uint8 {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SENDCMDINPARAMSBReservedOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBReserved copies value into the native field.
+func (b SENDCMDINPARAMS) SetBReserved(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SENDCMDINPARAMSBReservedOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetDwReserved returns a copy of the native field value.
+func (b SENDCMDINPARAMS) GetDwReserved(index0 int) uint32 {
+	if index0 < 0 || index0 >= 4 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SENDCMDINPARAMSDwReservedOffset + uintptr(index0)*(4))
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetDwReserved copies value into the native field.
+func (b SENDCMDINPARAMS) SetDwReserved(index0 int, value uint32) {
+	if index0 < 0 || index0 >= 4 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SENDCMDINPARAMSDwReservedOffset + uintptr(index0)*(4))
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBBuffer accesses the metadata-declared initial flexible-array extent only.
+func (b SENDCMDINPARAMS) GetBBuffer(index0 int) uint8 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SENDCMDINPARAMSBBufferOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBBuffer copies value into the native field.
+func (b SENDCMDINPARAMS) SetBBuffer(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SENDCMDINPARAMSBBufferOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// SENDCMDOUTPARAMS is a view of native Windows.Win32.System.Ioctl.SENDCMDOUTPARAMS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type SENDCMDOUTPARAMS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SENDCMDOUTPARAMSSize               = 17
+	SENDCMDOUTPARAMSAlignment          = 1
+	SENDCMDOUTPARAMSCBufferSizeOffset  = 0
+	SENDCMDOUTPARAMSDriverStatusOffset = 4
+	SENDCMDOUTPARAMSBBufferOffset      = 16
+)
+
+// NewSENDCMDOUTPARAMS allocates zeroed, aligned native storage.
+func NewSENDCMDOUTPARAMS() SENDCMDOUTPARAMS {
+	return SENDCMDOUTPARAMS{data: nativebuffer.New(int(SENDCMDOUTPARAMSSize), uintptr(SENDCMDOUTPARAMSAlignment))}
+}
+
+// ViewSENDCMDOUTPARAMS shares data without copying. It panics if data is shorter than SENDCMDOUTPARAMSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSENDCMDOUTPARAMS(data []byte) SENDCMDOUTPARAMS {
+	return SENDCMDOUTPARAMS{data: nativebuffer.View(data, int(SENDCMDOUTPARAMSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SENDCMDOUTPARAMS) Bytes() []byte {
+	return b.data[:SENDCMDOUTPARAMSSize:SENDCMDOUTPARAMSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SENDCMDOUTPARAMS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SENDCMDOUTPARAMSAlignment))
+}
+
+// GetCBufferSize returns a copy of the native field value.
+func (b SENDCMDOUTPARAMS) GetCBufferSize() uint32 {
+	offset := uintptr(SENDCMDOUTPARAMSCBufferSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetCBufferSize copies value into the native field.
+func (b SENDCMDOUTPARAMS) SetCBufferSize(value uint32) {
+	offset := uintptr(SENDCMDOUTPARAMSCBufferSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDriverStatus returns a view sharing this buffer's storage.
+func (b SENDCMDOUTPARAMS) GetDriverStatus() DRIVERSTATUS {
+	offset := uintptr(SENDCMDOUTPARAMSDriverStatusOffset)
+
+	return ViewDRIVERSTATUS(b.Bytes()[offset : offset+(12)])
+}
+
+// SetDriverStatus copies value into the native field.
+func (b SENDCMDOUTPARAMS) SetDriverStatus(value DRIVERSTATUS) {
+	offset := uintptr(SENDCMDOUTPARAMSDriverStatusOffset)
+	copy(b.Bytes()[offset:offset+(12)], value.Bytes())
+}
+
+// GetBBuffer accesses the metadata-declared initial flexible-array extent only.
+func (b SENDCMDOUTPARAMS) GetBBuffer(index0 int) uint8 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SENDCMDOUTPARAMSBBufferOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBBuffer copies value into the native field.
+func (b SENDCMDOUTPARAMS) SetBBuffer(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SENDCMDOUTPARAMSBBufferOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT is a view of native Windows.Win32.System.Ioctl.SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTSize                         = 24
+	SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTAlignment                    = 8
+	SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTFlagsOffset                  = 0
+	SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTAlignmentShiftOffset         = 4
+	SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTFileOffsetToAlignOffset      = 8
+	SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTFallbackAlignmentShiftOffset = 16
+)
+
+// NewSET_DAX_ALLOC_ALIGNMENT_HINT_INPUT allocates zeroed, aligned native storage.
+func NewSET_DAX_ALLOC_ALIGNMENT_HINT_INPUT() SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT {
+	return SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT{data: nativebuffer.New(int(SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTSize), uintptr(SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTAlignment))}
+}
+
+// ViewSET_DAX_ALLOC_ALIGNMENT_HINT_INPUT shares data without copying. It panics if data is shorter than SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSET_DAX_ALLOC_ALIGNMENT_HINT_INPUT(data []byte) SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT {
+	return SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT{data: nativebuffer.View(data, int(SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT) Bytes() []byte {
+	return b.data[:SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTSize:SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTAlignment))
+}
+
+// GetFlags returns a copy of the native field value.
+func (b SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT) GetFlags() uint32 {
+	offset := uintptr(SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT) SetFlags(value uint32) {
+	offset := uintptr(SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetAlignmentShift returns a copy of the native field value.
+func (b SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT) GetAlignmentShift() uint32 {
+	offset := uintptr(SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTAlignmentShiftOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetAlignmentShift copies value into the native field.
+func (b SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT) SetAlignmentShift(value uint32) {
+	offset := uintptr(SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTAlignmentShiftOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFileOffsetToAlign returns a copy of the native field value.
+func (b SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT) GetFileOffsetToAlign() uint64 {
+	offset := uintptr(SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTFileOffsetToAlignOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileOffsetToAlign copies value into the native field.
+func (b SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT) SetFileOffsetToAlign(value uint64) {
+	offset := uintptr(SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTFileOffsetToAlignOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFallbackAlignmentShift returns a copy of the native field value.
+func (b SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT) GetFallbackAlignmentShift() uint32 {
+	offset := uintptr(SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTFallbackAlignmentShiftOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFallbackAlignmentShift copies value into the native field.
+func (b SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT) SetFallbackAlignmentShift(value uint32) {
+	offset := uintptr(SET_DAX_ALLOC_ALIGNMENT_HINT_INPUTFallbackAlignmentShiftOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// SET_DISK_ATTRIBUTES is a view of native Windows.Win32.System.Ioctl.SET_DISK_ATTRIBUTES storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-set_disk_attributes.
+type SET_DISK_ATTRIBUTES struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SET_DISK_ATTRIBUTESSize                 = 40
+	SET_DISK_ATTRIBUTESAlignment            = 8
+	SET_DISK_ATTRIBUTESVersionOffset        = 0
+	SET_DISK_ATTRIBUTESPersistOffset        = 4
+	SET_DISK_ATTRIBUTESReserved1Offset      = 5
+	SET_DISK_ATTRIBUTESAttributesOffset     = 8
+	SET_DISK_ATTRIBUTESAttributesMaskOffset = 16
+	SET_DISK_ATTRIBUTESReserved2Offset      = 24
+)
+
+// NewSET_DISK_ATTRIBUTES allocates zeroed, aligned native storage.
+func NewSET_DISK_ATTRIBUTES() SET_DISK_ATTRIBUTES {
+	return SET_DISK_ATTRIBUTES{data: nativebuffer.New(int(SET_DISK_ATTRIBUTESSize), uintptr(SET_DISK_ATTRIBUTESAlignment))}
+}
+
+// ViewSET_DISK_ATTRIBUTES shares data without copying. It panics if data is shorter than SET_DISK_ATTRIBUTESSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSET_DISK_ATTRIBUTES(data []byte) SET_DISK_ATTRIBUTES {
+	return SET_DISK_ATTRIBUTES{data: nativebuffer.View(data, int(SET_DISK_ATTRIBUTESSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SET_DISK_ATTRIBUTES) Bytes() []byte {
+	return b.data[:SET_DISK_ATTRIBUTESSize:SET_DISK_ATTRIBUTESSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SET_DISK_ATTRIBUTES) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SET_DISK_ATTRIBUTESAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b SET_DISK_ATTRIBUTES) GetVersion() uint32 {
+	offset := uintptr(SET_DISK_ATTRIBUTESVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b SET_DISK_ATTRIBUTES) SetVersion(value uint32) {
+	offset := uintptr(SET_DISK_ATTRIBUTESVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetPersist returns a copy of the native field value.
+func (b SET_DISK_ATTRIBUTES) GetPersist() foundation.BOOLEAN {
+	offset := uintptr(SET_DISK_ATTRIBUTESPersistOffset)
+
+	return nativebuffer.Read[foundation.BOOLEAN](b.Bytes()[offset : offset+(1)])
+}
+
+// SetPersist copies value into the native field.
+func (b SET_DISK_ATTRIBUTES) SetPersist(value foundation.BOOLEAN) {
+	offset := uintptr(SET_DISK_ATTRIBUTESPersistOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetReserved1 returns a copy of the native field value.
+func (b SET_DISK_ATTRIBUTES) GetReserved1(index0 int) uint8 {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SET_DISK_ATTRIBUTESReserved1Offset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetReserved1 copies value into the native field.
+func (b SET_DISK_ATTRIBUTES) SetReserved1(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SET_DISK_ATTRIBUTESReserved1Offset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetAttributes returns a copy of the native field value.
+func (b SET_DISK_ATTRIBUTES) GetAttributes() uint64 {
+	offset := uintptr(SET_DISK_ATTRIBUTESAttributesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAttributes copies value into the native field.
+func (b SET_DISK_ATTRIBUTES) SetAttributes(value uint64) {
+	offset := uintptr(SET_DISK_ATTRIBUTESAttributesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetAttributesMask returns a copy of the native field value.
+func (b SET_DISK_ATTRIBUTES) GetAttributesMask() uint64 {
+	offset := uintptr(SET_DISK_ATTRIBUTESAttributesMaskOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAttributesMask copies value into the native field.
+func (b SET_DISK_ATTRIBUTES) SetAttributesMask(value uint64) {
+	offset := uintptr(SET_DISK_ATTRIBUTESAttributesMaskOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetReserved2 returns a copy of the native field value.
+func (b SET_DISK_ATTRIBUTES) GetReserved2(index0 int) uint32 {
+	if index0 < 0 || index0 >= 4 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SET_DISK_ATTRIBUTESReserved2Offset + uintptr(index0)*(4))
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved2 copies value into the native field.
+func (b SET_DISK_ATTRIBUTES) SetReserved2(index0 int, value uint32) {
+	if index0 < 0 || index0 >= 4 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SET_DISK_ATTRIBUTESReserved2Offset + uintptr(index0)*(4))
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
 }
 
 // SET_PARTITION_INFORMATION projects Windows.Win32.System.Ioctl.SET_PARTITION_INFORMATION.
@@ -1046,6 +12176,82 @@ type SET_PARTITION_INFORMATION struct {
 // SET_PURGE_FAILURE_MODE_INPUT projects Windows.Win32.System.Ioctl.SET_PURGE_FAILURE_MODE_INPUT.
 type SET_PURGE_FAILURE_MODE_INPUT struct {
 	Flags uint32
+}
+
+// SHRINK_VOLUME_INFORMATION is a view of native Windows.Win32.System.Ioctl.SHRINK_VOLUME_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-shrink_volume_information.
+type SHRINK_VOLUME_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SHRINK_VOLUME_INFORMATIONSize                     = 24
+	SHRINK_VOLUME_INFORMATIONAlignment                = 8
+	SHRINK_VOLUME_INFORMATIONShrinkRequestTypeOffset  = 0
+	SHRINK_VOLUME_INFORMATIONFlagsOffset              = 8
+	SHRINK_VOLUME_INFORMATIONNewNumberOfSectorsOffset = 16
+)
+
+// NewSHRINK_VOLUME_INFORMATION allocates zeroed, aligned native storage.
+func NewSHRINK_VOLUME_INFORMATION() SHRINK_VOLUME_INFORMATION {
+	return SHRINK_VOLUME_INFORMATION{data: nativebuffer.New(int(SHRINK_VOLUME_INFORMATIONSize), uintptr(SHRINK_VOLUME_INFORMATIONAlignment))}
+}
+
+// ViewSHRINK_VOLUME_INFORMATION shares data without copying. It panics if data is shorter than SHRINK_VOLUME_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSHRINK_VOLUME_INFORMATION(data []byte) SHRINK_VOLUME_INFORMATION {
+	return SHRINK_VOLUME_INFORMATION{data: nativebuffer.View(data, int(SHRINK_VOLUME_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SHRINK_VOLUME_INFORMATION) Bytes() []byte {
+	return b.data[:SHRINK_VOLUME_INFORMATIONSize:SHRINK_VOLUME_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SHRINK_VOLUME_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SHRINK_VOLUME_INFORMATIONAlignment))
+}
+
+// GetShrinkRequestType returns a copy of the native field value.
+func (b SHRINK_VOLUME_INFORMATION) GetShrinkRequestType() SHRINK_VOLUME_REQUEST_TYPES {
+	offset := uintptr(SHRINK_VOLUME_INFORMATIONShrinkRequestTypeOffset)
+
+	return nativebuffer.Read[SHRINK_VOLUME_REQUEST_TYPES](b.Bytes()[offset : offset+(4)])
+}
+
+// SetShrinkRequestType copies value into the native field.
+func (b SHRINK_VOLUME_INFORMATION) SetShrinkRequestType(value SHRINK_VOLUME_REQUEST_TYPES) {
+	offset := uintptr(SHRINK_VOLUME_INFORMATIONShrinkRequestTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b SHRINK_VOLUME_INFORMATION) GetFlags() uint64 {
+	offset := uintptr(SHRINK_VOLUME_INFORMATIONFlagsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFlags copies value into the native field.
+func (b SHRINK_VOLUME_INFORMATION) SetFlags(value uint64) {
+	offset := uintptr(SHRINK_VOLUME_INFORMATIONFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNewNumberOfSectors returns a copy of the native field value.
+func (b SHRINK_VOLUME_INFORMATION) GetNewNumberOfSectors() int64 {
+	offset := uintptr(SHRINK_VOLUME_INFORMATIONNewNumberOfSectorsOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNewNumberOfSectors copies value into the native field.
+func (b SHRINK_VOLUME_INFORMATION) SetNewNumberOfSectors(value int64) {
+	offset := uintptr(SHRINK_VOLUME_INFORMATIONNewNumberOfSectorsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // SHRINK_VOLUME_REQUEST_TYPES projects Windows.Win32.System.Ioctl.SHRINK_VOLUME_REQUEST_TYPES.
@@ -1069,6 +12275,163 @@ type SMB_SHARE_FLUSH_AND_PURGE_INPUT struct {
 // SMB_SHARE_FLUSH_AND_PURGE_OUTPUT projects Windows.Win32.System.Ioctl.SMB_SHARE_FLUSH_AND_PURGE_OUTPUT.
 type SMB_SHARE_FLUSH_AND_PURGE_OUTPUT struct {
 	CEntriesPurged uint32
+}
+
+// STARTING_LCN_INPUT_BUFFER is a view of native Windows.Win32.System.Ioctl.STARTING_LCN_INPUT_BUFFER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-starting_lcn_input_buffer.
+type STARTING_LCN_INPUT_BUFFER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	STARTING_LCN_INPUT_BUFFERSize              = 8
+	STARTING_LCN_INPUT_BUFFERAlignment         = 8
+	STARTING_LCN_INPUT_BUFFERStartingLcnOffset = 0
+)
+
+// NewSTARTING_LCN_INPUT_BUFFER allocates zeroed, aligned native storage.
+func NewSTARTING_LCN_INPUT_BUFFER() STARTING_LCN_INPUT_BUFFER {
+	return STARTING_LCN_INPUT_BUFFER{data: nativebuffer.New(int(STARTING_LCN_INPUT_BUFFERSize), uintptr(STARTING_LCN_INPUT_BUFFERAlignment))}
+}
+
+// ViewSTARTING_LCN_INPUT_BUFFER shares data without copying. It panics if data is shorter than STARTING_LCN_INPUT_BUFFERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSTARTING_LCN_INPUT_BUFFER(data []byte) STARTING_LCN_INPUT_BUFFER {
+	return STARTING_LCN_INPUT_BUFFER{data: nativebuffer.View(data, int(STARTING_LCN_INPUT_BUFFERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b STARTING_LCN_INPUT_BUFFER) Bytes() []byte {
+	return b.data[:STARTING_LCN_INPUT_BUFFERSize:STARTING_LCN_INPUT_BUFFERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b STARTING_LCN_INPUT_BUFFER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(STARTING_LCN_INPUT_BUFFERAlignment))
+}
+
+// GetStartingLcn returns a copy of the native field value.
+func (b STARTING_LCN_INPUT_BUFFER) GetStartingLcn() int64 {
+	offset := uintptr(STARTING_LCN_INPUT_BUFFERStartingLcnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartingLcn copies value into the native field.
+func (b STARTING_LCN_INPUT_BUFFER) SetStartingLcn(value int64) {
+	offset := uintptr(STARTING_LCN_INPUT_BUFFERStartingLcnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// STARTING_LCN_INPUT_BUFFER_EX is a view of native Windows.Win32.System.Ioctl.STARTING_LCN_INPUT_BUFFER_EX storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type STARTING_LCN_INPUT_BUFFER_EX struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	STARTING_LCN_INPUT_BUFFER_EXSize              = 16
+	STARTING_LCN_INPUT_BUFFER_EXAlignment         = 8
+	STARTING_LCN_INPUT_BUFFER_EXStartingLcnOffset = 0
+	STARTING_LCN_INPUT_BUFFER_EXFlagsOffset       = 8
+)
+
+// NewSTARTING_LCN_INPUT_BUFFER_EX allocates zeroed, aligned native storage.
+func NewSTARTING_LCN_INPUT_BUFFER_EX() STARTING_LCN_INPUT_BUFFER_EX {
+	return STARTING_LCN_INPUT_BUFFER_EX{data: nativebuffer.New(int(STARTING_LCN_INPUT_BUFFER_EXSize), uintptr(STARTING_LCN_INPUT_BUFFER_EXAlignment))}
+}
+
+// ViewSTARTING_LCN_INPUT_BUFFER_EX shares data without copying. It panics if data is shorter than STARTING_LCN_INPUT_BUFFER_EXSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSTARTING_LCN_INPUT_BUFFER_EX(data []byte) STARTING_LCN_INPUT_BUFFER_EX {
+	return STARTING_LCN_INPUT_BUFFER_EX{data: nativebuffer.View(data, int(STARTING_LCN_INPUT_BUFFER_EXSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b STARTING_LCN_INPUT_BUFFER_EX) Bytes() []byte {
+	return b.data[:STARTING_LCN_INPUT_BUFFER_EXSize:STARTING_LCN_INPUT_BUFFER_EXSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b STARTING_LCN_INPUT_BUFFER_EX) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(STARTING_LCN_INPUT_BUFFER_EXAlignment))
+}
+
+// GetStartingLcn returns a copy of the native field value.
+func (b STARTING_LCN_INPUT_BUFFER_EX) GetStartingLcn() int64 {
+	offset := uintptr(STARTING_LCN_INPUT_BUFFER_EXStartingLcnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartingLcn copies value into the native field.
+func (b STARTING_LCN_INPUT_BUFFER_EX) SetStartingLcn(value int64) {
+	offset := uintptr(STARTING_LCN_INPUT_BUFFER_EXStartingLcnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b STARTING_LCN_INPUT_BUFFER_EX) GetFlags() uint32 {
+	offset := uintptr(STARTING_LCN_INPUT_BUFFER_EXFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b STARTING_LCN_INPUT_BUFFER_EX) SetFlags(value uint32) {
+	offset := uintptr(STARTING_LCN_INPUT_BUFFER_EXFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// STARTING_VCN_INPUT_BUFFER is a view of native Windows.Win32.System.Ioctl.STARTING_VCN_INPUT_BUFFER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-starting_vcn_input_buffer.
+type STARTING_VCN_INPUT_BUFFER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	STARTING_VCN_INPUT_BUFFERSize              = 8
+	STARTING_VCN_INPUT_BUFFERAlignment         = 8
+	STARTING_VCN_INPUT_BUFFERStartingVcnOffset = 0
+)
+
+// NewSTARTING_VCN_INPUT_BUFFER allocates zeroed, aligned native storage.
+func NewSTARTING_VCN_INPUT_BUFFER() STARTING_VCN_INPUT_BUFFER {
+	return STARTING_VCN_INPUT_BUFFER{data: nativebuffer.New(int(STARTING_VCN_INPUT_BUFFERSize), uintptr(STARTING_VCN_INPUT_BUFFERAlignment))}
+}
+
+// ViewSTARTING_VCN_INPUT_BUFFER shares data without copying. It panics if data is shorter than STARTING_VCN_INPUT_BUFFERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSTARTING_VCN_INPUT_BUFFER(data []byte) STARTING_VCN_INPUT_BUFFER {
+	return STARTING_VCN_INPUT_BUFFER{data: nativebuffer.View(data, int(STARTING_VCN_INPUT_BUFFERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b STARTING_VCN_INPUT_BUFFER) Bytes() []byte {
+	return b.data[:STARTING_VCN_INPUT_BUFFERSize:STARTING_VCN_INPUT_BUFFERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b STARTING_VCN_INPUT_BUFFER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(STARTING_VCN_INPUT_BUFFERAlignment))
+}
+
+// GetStartingVcn returns a copy of the native field value.
+func (b STARTING_VCN_INPUT_BUFFER) GetStartingVcn() int64 {
+	offset := uintptr(STARTING_VCN_INPUT_BUFFERStartingVcnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartingVcn copies value into the native field.
+func (b STARTING_VCN_INPUT_BUFFER) SetStartingVcn(value int64) {
+	offset := uintptr(STARTING_VCN_INPUT_BUFFERStartingVcnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR projects Windows.Win32.System.Ioctl.STORAGE_ACCESS_ALIGNMENT_DESCRIPTOR.
@@ -1119,6 +12482,67 @@ type STORAGE_ALLOCATE_BC_STREAM_INPUT struct {
 	Reserved1         [2]foundation.BOOLEAN
 	AccessType        uint32
 	AccessMode        uint32
+}
+
+// STORAGE_ALLOCATE_BC_STREAM_OUTPUT is a view of native Windows.Win32.System.Ioctl.STORAGE_ALLOCATE_BC_STREAM_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type STORAGE_ALLOCATE_BC_STREAM_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	STORAGE_ALLOCATE_BC_STREAM_OUTPUTSize                         = 16
+	STORAGE_ALLOCATE_BC_STREAM_OUTPUTAlignment                    = 8
+	STORAGE_ALLOCATE_BC_STREAM_OUTPUTRequestSizeOffset            = 0
+	STORAGE_ALLOCATE_BC_STREAM_OUTPUTNumOutStandingRequestsOffset = 8
+)
+
+// NewSTORAGE_ALLOCATE_BC_STREAM_OUTPUT allocates zeroed, aligned native storage.
+func NewSTORAGE_ALLOCATE_BC_STREAM_OUTPUT() STORAGE_ALLOCATE_BC_STREAM_OUTPUT {
+	return STORAGE_ALLOCATE_BC_STREAM_OUTPUT{data: nativebuffer.New(int(STORAGE_ALLOCATE_BC_STREAM_OUTPUTSize), uintptr(STORAGE_ALLOCATE_BC_STREAM_OUTPUTAlignment))}
+}
+
+// ViewSTORAGE_ALLOCATE_BC_STREAM_OUTPUT shares data without copying. It panics if data is shorter than STORAGE_ALLOCATE_BC_STREAM_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSTORAGE_ALLOCATE_BC_STREAM_OUTPUT(data []byte) STORAGE_ALLOCATE_BC_STREAM_OUTPUT {
+	return STORAGE_ALLOCATE_BC_STREAM_OUTPUT{data: nativebuffer.View(data, int(STORAGE_ALLOCATE_BC_STREAM_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b STORAGE_ALLOCATE_BC_STREAM_OUTPUT) Bytes() []byte {
+	return b.data[:STORAGE_ALLOCATE_BC_STREAM_OUTPUTSize:STORAGE_ALLOCATE_BC_STREAM_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b STORAGE_ALLOCATE_BC_STREAM_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(STORAGE_ALLOCATE_BC_STREAM_OUTPUTAlignment))
+}
+
+// GetRequestSize returns a copy of the native field value.
+func (b STORAGE_ALLOCATE_BC_STREAM_OUTPUT) GetRequestSize() uint64 {
+	offset := uintptr(STORAGE_ALLOCATE_BC_STREAM_OUTPUTRequestSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetRequestSize copies value into the native field.
+func (b STORAGE_ALLOCATE_BC_STREAM_OUTPUT) SetRequestSize(value uint64) {
+	offset := uintptr(STORAGE_ALLOCATE_BC_STREAM_OUTPUTRequestSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNumOutStandingRequests returns a copy of the native field value.
+func (b STORAGE_ALLOCATE_BC_STREAM_OUTPUT) GetNumOutStandingRequests() uint32 {
+	offset := uintptr(STORAGE_ALLOCATE_BC_STREAM_OUTPUTNumOutStandingRequestsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNumOutStandingRequests copies value into the native field.
+func (b STORAGE_ALLOCATE_BC_STREAM_OUTPUT) SetNumOutStandingRequests(value uint32) {
+	offset := uintptr(STORAGE_ALLOCATE_BC_STREAM_OUTPUTNumOutStandingRequestsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
 }
 
 // STORAGE_ASSOCIATION_TYPE projects Windows.Win32.System.Ioctl.STORAGE_ASSOCIATION_TYPE.
@@ -1181,6 +12605,82 @@ type STORAGE_DESCRIPTOR_HEADER struct {
 	Size    uint32
 }
 
+// STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR is a view of native Windows.Win32.System.Ioctl.STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_device_attributes_descriptor.
+type STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORSize             = 16
+	STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORAlignment        = 8
+	STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORVersionOffset    = 0
+	STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORSizeOffset       = 4
+	STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORAttributesOffset = 8
+)
+
+// NewSTORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR allocates zeroed, aligned native storage.
+func NewSTORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR() STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR {
+	return STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR{data: nativebuffer.New(int(STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORSize), uintptr(STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORAlignment))}
+}
+
+// ViewSTORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR shares data without copying. It panics if data is shorter than STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSTORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR(data []byte) STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR {
+	return STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR{data: nativebuffer.View(data, int(STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR) Bytes() []byte {
+	return b.data[:STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORSize:STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR) GetVersion() uint32 {
+	offset := uintptr(STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR) SetVersion(value uint32) {
+	offset := uintptr(STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSize returns a copy of the native field value.
+func (b STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR) GetSize() uint32 {
+	offset := uintptr(STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR) SetSize(value uint32) {
+	offset := uintptr(STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetAttributes returns a copy of the native field value.
+func (b STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR) GetAttributes() uint64 {
+	offset := uintptr(STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORAttributesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAttributes copies value into the native field.
+func (b STORAGE_DEVICE_ATTRIBUTES_DESCRIPTOR) SetAttributes(value uint64) {
+	offset := uintptr(STORAGE_DEVICE_ATTRIBUTES_DESCRIPTORAttributesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // STORAGE_DEVICE_DESCRIPTOR projects Windows.Win32.System.Ioctl.STORAGE_DEVICE_DESCRIPTOR.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_device_descriptor.
 type STORAGE_DEVICE_DESCRIPTOR struct {
@@ -1221,6 +12721,81 @@ type STORAGE_DEVICE_IO_CAPABILITY_DESCRIPTOR struct {
 	AdapterMaxIoCount uint32
 }
 
+// STORAGE_DEVICE_LED_STATE_DESCRIPTOR is a view of native Windows.Win32.System.Ioctl.STORAGE_DEVICE_LED_STATE_DESCRIPTOR storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type STORAGE_DEVICE_LED_STATE_DESCRIPTOR struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	STORAGE_DEVICE_LED_STATE_DESCRIPTORSize          = 16
+	STORAGE_DEVICE_LED_STATE_DESCRIPTORAlignment     = 8
+	STORAGE_DEVICE_LED_STATE_DESCRIPTORVersionOffset = 0
+	STORAGE_DEVICE_LED_STATE_DESCRIPTORSizeOffset    = 4
+	STORAGE_DEVICE_LED_STATE_DESCRIPTORStateOffset   = 8
+)
+
+// NewSTORAGE_DEVICE_LED_STATE_DESCRIPTOR allocates zeroed, aligned native storage.
+func NewSTORAGE_DEVICE_LED_STATE_DESCRIPTOR() STORAGE_DEVICE_LED_STATE_DESCRIPTOR {
+	return STORAGE_DEVICE_LED_STATE_DESCRIPTOR{data: nativebuffer.New(int(STORAGE_DEVICE_LED_STATE_DESCRIPTORSize), uintptr(STORAGE_DEVICE_LED_STATE_DESCRIPTORAlignment))}
+}
+
+// ViewSTORAGE_DEVICE_LED_STATE_DESCRIPTOR shares data without copying. It panics if data is shorter than STORAGE_DEVICE_LED_STATE_DESCRIPTORSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSTORAGE_DEVICE_LED_STATE_DESCRIPTOR(data []byte) STORAGE_DEVICE_LED_STATE_DESCRIPTOR {
+	return STORAGE_DEVICE_LED_STATE_DESCRIPTOR{data: nativebuffer.View(data, int(STORAGE_DEVICE_LED_STATE_DESCRIPTORSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b STORAGE_DEVICE_LED_STATE_DESCRIPTOR) Bytes() []byte {
+	return b.data[:STORAGE_DEVICE_LED_STATE_DESCRIPTORSize:STORAGE_DEVICE_LED_STATE_DESCRIPTORSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b STORAGE_DEVICE_LED_STATE_DESCRIPTOR) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(STORAGE_DEVICE_LED_STATE_DESCRIPTORAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b STORAGE_DEVICE_LED_STATE_DESCRIPTOR) GetVersion() uint32 {
+	offset := uintptr(STORAGE_DEVICE_LED_STATE_DESCRIPTORVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b STORAGE_DEVICE_LED_STATE_DESCRIPTOR) SetVersion(value uint32) {
+	offset := uintptr(STORAGE_DEVICE_LED_STATE_DESCRIPTORVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSize returns a copy of the native field value.
+func (b STORAGE_DEVICE_LED_STATE_DESCRIPTOR) GetSize() uint32 {
+	offset := uintptr(STORAGE_DEVICE_LED_STATE_DESCRIPTORSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b STORAGE_DEVICE_LED_STATE_DESCRIPTOR) SetSize(value uint32) {
+	offset := uintptr(STORAGE_DEVICE_LED_STATE_DESCRIPTORSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetState returns a copy of the native field value.
+func (b STORAGE_DEVICE_LED_STATE_DESCRIPTOR) GetState() uint64 {
+	offset := uintptr(STORAGE_DEVICE_LED_STATE_DESCRIPTORStateOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetState copies value into the native field.
+func (b STORAGE_DEVICE_LED_STATE_DESCRIPTOR) SetState(value uint64) {
+	offset := uintptr(STORAGE_DEVICE_LED_STATE_DESCRIPTORStateOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // STORAGE_DEVICE_NUMA_PROPERTY projects Windows.Win32.System.Ioctl.STORAGE_DEVICE_NUMA_PROPERTY.
 type STORAGE_DEVICE_NUMA_PROPERTY struct {
 	Version  uint32
@@ -1244,6 +12819,96 @@ type STORAGE_DEVICE_NUMBERS struct {
 	// Flexible array: this is the metadata-declared initial extent.
 	// Additional elements require a larger native allocation.
 	Devices [1]STORAGE_DEVICE_NUMBER
+}
+
+// STORAGE_DEVICE_POWER_CAP is a view of native Windows.Win32.System.Ioctl.STORAGE_DEVICE_POWER_CAP storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_device_power_cap.
+type STORAGE_DEVICE_POWER_CAP struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	STORAGE_DEVICE_POWER_CAPSize           = 24
+	STORAGE_DEVICE_POWER_CAPAlignment      = 8
+	STORAGE_DEVICE_POWER_CAPVersionOffset  = 0
+	STORAGE_DEVICE_POWER_CAPSizeOffset     = 4
+	STORAGE_DEVICE_POWER_CAPUnitsOffset    = 8
+	STORAGE_DEVICE_POWER_CAPMaxPowerOffset = 16
+)
+
+// NewSTORAGE_DEVICE_POWER_CAP allocates zeroed, aligned native storage.
+func NewSTORAGE_DEVICE_POWER_CAP() STORAGE_DEVICE_POWER_CAP {
+	return STORAGE_DEVICE_POWER_CAP{data: nativebuffer.New(int(STORAGE_DEVICE_POWER_CAPSize), uintptr(STORAGE_DEVICE_POWER_CAPAlignment))}
+}
+
+// ViewSTORAGE_DEVICE_POWER_CAP shares data without copying. It panics if data is shorter than STORAGE_DEVICE_POWER_CAPSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSTORAGE_DEVICE_POWER_CAP(data []byte) STORAGE_DEVICE_POWER_CAP {
+	return STORAGE_DEVICE_POWER_CAP{data: nativebuffer.View(data, int(STORAGE_DEVICE_POWER_CAPSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b STORAGE_DEVICE_POWER_CAP) Bytes() []byte {
+	return b.data[:STORAGE_DEVICE_POWER_CAPSize:STORAGE_DEVICE_POWER_CAPSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b STORAGE_DEVICE_POWER_CAP) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(STORAGE_DEVICE_POWER_CAPAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b STORAGE_DEVICE_POWER_CAP) GetVersion() uint32 {
+	offset := uintptr(STORAGE_DEVICE_POWER_CAPVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b STORAGE_DEVICE_POWER_CAP) SetVersion(value uint32) {
+	offset := uintptr(STORAGE_DEVICE_POWER_CAPVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSize returns a copy of the native field value.
+func (b STORAGE_DEVICE_POWER_CAP) GetSize() uint32 {
+	offset := uintptr(STORAGE_DEVICE_POWER_CAPSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b STORAGE_DEVICE_POWER_CAP) SetSize(value uint32) {
+	offset := uintptr(STORAGE_DEVICE_POWER_CAPSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetUnits returns a copy of the native field value.
+func (b STORAGE_DEVICE_POWER_CAP) GetUnits() STORAGE_DEVICE_POWER_CAP_UNITS {
+	offset := uintptr(STORAGE_DEVICE_POWER_CAPUnitsOffset)
+
+	return nativebuffer.Read[STORAGE_DEVICE_POWER_CAP_UNITS](b.Bytes()[offset : offset+(4)])
+}
+
+// SetUnits copies value into the native field.
+func (b STORAGE_DEVICE_POWER_CAP) SetUnits(value STORAGE_DEVICE_POWER_CAP_UNITS) {
+	offset := uintptr(STORAGE_DEVICE_POWER_CAPUnitsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMaxPower returns a copy of the native field value.
+func (b STORAGE_DEVICE_POWER_CAP) GetMaxPower() uint64 {
+	offset := uintptr(STORAGE_DEVICE_POWER_CAPMaxPowerOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMaxPower copies value into the native field.
+func (b STORAGE_DEVICE_POWER_CAP) SetMaxPower(value uint64) {
+	offset := uintptr(STORAGE_DEVICE_POWER_CAPMaxPowerOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // STORAGE_DEVICE_POWER_CAP_UNITS projects Windows.Win32.System.Ioctl.STORAGE_DEVICE_POWER_CAP_UNITS.
@@ -1309,6 +12974,81 @@ type STORAGE_DISK_OPERATIONAL_STATUS int32
 // STORAGE_ENCRYPTION_TYPE projects Windows.Win32.System.Ioctl.STORAGE_ENCRYPTION_TYPE.
 type STORAGE_ENCRYPTION_TYPE int32
 
+// STORAGE_EVENT_NOTIFICATION is a view of native Windows.Win32.System.Ioctl.STORAGE_EVENT_NOTIFICATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type STORAGE_EVENT_NOTIFICATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	STORAGE_EVENT_NOTIFICATIONSize          = 16
+	STORAGE_EVENT_NOTIFICATIONAlignment     = 8
+	STORAGE_EVENT_NOTIFICATIONVersionOffset = 0
+	STORAGE_EVENT_NOTIFICATIONSizeOffset    = 4
+	STORAGE_EVENT_NOTIFICATIONEventsOffset  = 8
+)
+
+// NewSTORAGE_EVENT_NOTIFICATION allocates zeroed, aligned native storage.
+func NewSTORAGE_EVENT_NOTIFICATION() STORAGE_EVENT_NOTIFICATION {
+	return STORAGE_EVENT_NOTIFICATION{data: nativebuffer.New(int(STORAGE_EVENT_NOTIFICATIONSize), uintptr(STORAGE_EVENT_NOTIFICATIONAlignment))}
+}
+
+// ViewSTORAGE_EVENT_NOTIFICATION shares data without copying. It panics if data is shorter than STORAGE_EVENT_NOTIFICATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSTORAGE_EVENT_NOTIFICATION(data []byte) STORAGE_EVENT_NOTIFICATION {
+	return STORAGE_EVENT_NOTIFICATION{data: nativebuffer.View(data, int(STORAGE_EVENT_NOTIFICATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b STORAGE_EVENT_NOTIFICATION) Bytes() []byte {
+	return b.data[:STORAGE_EVENT_NOTIFICATIONSize:STORAGE_EVENT_NOTIFICATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b STORAGE_EVENT_NOTIFICATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(STORAGE_EVENT_NOTIFICATIONAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b STORAGE_EVENT_NOTIFICATION) GetVersion() uint32 {
+	offset := uintptr(STORAGE_EVENT_NOTIFICATIONVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b STORAGE_EVENT_NOTIFICATION) SetVersion(value uint32) {
+	offset := uintptr(STORAGE_EVENT_NOTIFICATIONVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSize returns a copy of the native field value.
+func (b STORAGE_EVENT_NOTIFICATION) GetSize() uint32 {
+	offset := uintptr(STORAGE_EVENT_NOTIFICATIONSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b STORAGE_EVENT_NOTIFICATION) SetSize(value uint32) {
+	offset := uintptr(STORAGE_EVENT_NOTIFICATIONSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetEvents returns a copy of the native field value.
+func (b STORAGE_EVENT_NOTIFICATION) GetEvents() uint64 {
+	offset := uintptr(STORAGE_EVENT_NOTIFICATIONEventsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetEvents copies value into the native field.
+func (b STORAGE_EVENT_NOTIFICATION) SetEvents(value uint64) {
+	offset := uintptr(STORAGE_EVENT_NOTIFICATIONEventsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // STORAGE_FAILURE_PREDICTION_CONFIG projects Windows.Win32.System.Ioctl.STORAGE_FAILURE_PREDICTION_CONFIG.
 type STORAGE_FAILURE_PREDICTION_CONFIG struct {
 	Version  uint32
@@ -1326,6 +13066,123 @@ type STORAGE_FRU_ID_DESCRIPTOR struct {
 	// Flexible array: this is the metadata-declared initial extent.
 	// Additional elements require a larger native allocation.
 	Identifier [1]uint8
+}
+
+// STORAGE_GET_BC_PROPERTIES_OUTPUT is a view of native Windows.Win32.System.Ioctl.STORAGE_GET_BC_PROPERTIES_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type STORAGE_GET_BC_PROPERTIES_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	STORAGE_GET_BC_PROPERTIES_OUTPUTSize                           = 32
+	STORAGE_GET_BC_PROPERTIES_OUTPUTAlignment                      = 8
+	STORAGE_GET_BC_PROPERTIES_OUTPUTMaximumRequestsPerPeriodOffset = 0
+	STORAGE_GET_BC_PROPERTIES_OUTPUTMinimumPeriodOffset            = 4
+	STORAGE_GET_BC_PROPERTIES_OUTPUTMaximumRequestSizeOffset       = 8
+	STORAGE_GET_BC_PROPERTIES_OUTPUTEstimatedTimePerRequestOffset  = 16
+	STORAGE_GET_BC_PROPERTIES_OUTPUTNumOutStandingRequestsOffset   = 20
+	STORAGE_GET_BC_PROPERTIES_OUTPUTRequestSizeOffset              = 24
+)
+
+// NewSTORAGE_GET_BC_PROPERTIES_OUTPUT allocates zeroed, aligned native storage.
+func NewSTORAGE_GET_BC_PROPERTIES_OUTPUT() STORAGE_GET_BC_PROPERTIES_OUTPUT {
+	return STORAGE_GET_BC_PROPERTIES_OUTPUT{data: nativebuffer.New(int(STORAGE_GET_BC_PROPERTIES_OUTPUTSize), uintptr(STORAGE_GET_BC_PROPERTIES_OUTPUTAlignment))}
+}
+
+// ViewSTORAGE_GET_BC_PROPERTIES_OUTPUT shares data without copying. It panics if data is shorter than STORAGE_GET_BC_PROPERTIES_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSTORAGE_GET_BC_PROPERTIES_OUTPUT(data []byte) STORAGE_GET_BC_PROPERTIES_OUTPUT {
+	return STORAGE_GET_BC_PROPERTIES_OUTPUT{data: nativebuffer.View(data, int(STORAGE_GET_BC_PROPERTIES_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b STORAGE_GET_BC_PROPERTIES_OUTPUT) Bytes() []byte {
+	return b.data[:STORAGE_GET_BC_PROPERTIES_OUTPUTSize:STORAGE_GET_BC_PROPERTIES_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b STORAGE_GET_BC_PROPERTIES_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(STORAGE_GET_BC_PROPERTIES_OUTPUTAlignment))
+}
+
+// GetMaximumRequestsPerPeriod returns a copy of the native field value.
+func (b STORAGE_GET_BC_PROPERTIES_OUTPUT) GetMaximumRequestsPerPeriod() uint32 {
+	offset := uintptr(STORAGE_GET_BC_PROPERTIES_OUTPUTMaximumRequestsPerPeriodOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMaximumRequestsPerPeriod copies value into the native field.
+func (b STORAGE_GET_BC_PROPERTIES_OUTPUT) SetMaximumRequestsPerPeriod(value uint32) {
+	offset := uintptr(STORAGE_GET_BC_PROPERTIES_OUTPUTMaximumRequestsPerPeriodOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMinimumPeriod returns a copy of the native field value.
+func (b STORAGE_GET_BC_PROPERTIES_OUTPUT) GetMinimumPeriod() uint32 {
+	offset := uintptr(STORAGE_GET_BC_PROPERTIES_OUTPUTMinimumPeriodOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMinimumPeriod copies value into the native field.
+func (b STORAGE_GET_BC_PROPERTIES_OUTPUT) SetMinimumPeriod(value uint32) {
+	offset := uintptr(STORAGE_GET_BC_PROPERTIES_OUTPUTMinimumPeriodOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMaximumRequestSize returns a copy of the native field value.
+func (b STORAGE_GET_BC_PROPERTIES_OUTPUT) GetMaximumRequestSize() uint64 {
+	offset := uintptr(STORAGE_GET_BC_PROPERTIES_OUTPUTMaximumRequestSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMaximumRequestSize copies value into the native field.
+func (b STORAGE_GET_BC_PROPERTIES_OUTPUT) SetMaximumRequestSize(value uint64) {
+	offset := uintptr(STORAGE_GET_BC_PROPERTIES_OUTPUTMaximumRequestSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetEstimatedTimePerRequest returns a copy of the native field value.
+func (b STORAGE_GET_BC_PROPERTIES_OUTPUT) GetEstimatedTimePerRequest() uint32 {
+	offset := uintptr(STORAGE_GET_BC_PROPERTIES_OUTPUTEstimatedTimePerRequestOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetEstimatedTimePerRequest copies value into the native field.
+func (b STORAGE_GET_BC_PROPERTIES_OUTPUT) SetEstimatedTimePerRequest(value uint32) {
+	offset := uintptr(STORAGE_GET_BC_PROPERTIES_OUTPUTEstimatedTimePerRequestOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNumOutStandingRequests returns a copy of the native field value.
+func (b STORAGE_GET_BC_PROPERTIES_OUTPUT) GetNumOutStandingRequests() uint32 {
+	offset := uintptr(STORAGE_GET_BC_PROPERTIES_OUTPUTNumOutStandingRequestsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNumOutStandingRequests copies value into the native field.
+func (b STORAGE_GET_BC_PROPERTIES_OUTPUT) SetNumOutStandingRequests(value uint32) {
+	offset := uintptr(STORAGE_GET_BC_PROPERTIES_OUTPUTNumOutStandingRequestsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRequestSize returns a copy of the native field value.
+func (b STORAGE_GET_BC_PROPERTIES_OUTPUT) GetRequestSize() uint64 {
+	offset := uintptr(STORAGE_GET_BC_PROPERTIES_OUTPUTRequestSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetRequestSize copies value into the native field.
+func (b STORAGE_GET_BC_PROPERTIES_OUTPUT) SetRequestSize(value uint64) {
+	offset := uintptr(STORAGE_GET_BC_PROPERTIES_OUTPUTRequestSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // STORAGE_HOTPLUG_INFO projects Windows.Win32.System.Ioctl.STORAGE_HOTPLUG_INFO.
@@ -1346,6 +13203,349 @@ type STORAGE_HW_FIRMWARE_ACTIVATE struct {
 	Flags     uint32
 	Slot      uint8
 	Reserved0 [3]uint8
+}
+
+// STORAGE_HW_FIRMWARE_DOWNLOAD is a view of native Windows.Win32.System.Ioctl.STORAGE_HW_FIRMWARE_DOWNLOAD storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_hw_firmware_download.
+type STORAGE_HW_FIRMWARE_DOWNLOAD struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	STORAGE_HW_FIRMWARE_DOWNLOADSize              = 40
+	STORAGE_HW_FIRMWARE_DOWNLOADAlignment         = 8
+	STORAGE_HW_FIRMWARE_DOWNLOADVersionOffset     = 0
+	STORAGE_HW_FIRMWARE_DOWNLOADSizeOffset        = 4
+	STORAGE_HW_FIRMWARE_DOWNLOADFlagsOffset       = 8
+	STORAGE_HW_FIRMWARE_DOWNLOADSlotOffset        = 12
+	STORAGE_HW_FIRMWARE_DOWNLOADReservedOffset    = 13
+	STORAGE_HW_FIRMWARE_DOWNLOADOffsetOffset      = 16
+	STORAGE_HW_FIRMWARE_DOWNLOADBufferSizeOffset  = 24
+	STORAGE_HW_FIRMWARE_DOWNLOADImageBufferOffset = 32
+)
+
+// NewSTORAGE_HW_FIRMWARE_DOWNLOAD allocates zeroed, aligned native storage.
+func NewSTORAGE_HW_FIRMWARE_DOWNLOAD() STORAGE_HW_FIRMWARE_DOWNLOAD {
+	return STORAGE_HW_FIRMWARE_DOWNLOAD{data: nativebuffer.New(int(STORAGE_HW_FIRMWARE_DOWNLOADSize), uintptr(STORAGE_HW_FIRMWARE_DOWNLOADAlignment))}
+}
+
+// ViewSTORAGE_HW_FIRMWARE_DOWNLOAD shares data without copying. It panics if data is shorter than STORAGE_HW_FIRMWARE_DOWNLOADSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSTORAGE_HW_FIRMWARE_DOWNLOAD(data []byte) STORAGE_HW_FIRMWARE_DOWNLOAD {
+	return STORAGE_HW_FIRMWARE_DOWNLOAD{data: nativebuffer.View(data, int(STORAGE_HW_FIRMWARE_DOWNLOADSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) Bytes() []byte {
+	return b.data[:STORAGE_HW_FIRMWARE_DOWNLOADSize:STORAGE_HW_FIRMWARE_DOWNLOADSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(STORAGE_HW_FIRMWARE_DOWNLOADAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) GetVersion() uint32 {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOADVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) SetVersion(value uint32) {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOADVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSize returns a copy of the native field value.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) GetSize() uint32 {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOADSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) SetSize(value uint32) {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOADSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) GetFlags() uint32 {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOADFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) SetFlags(value uint32) {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOADFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSlot returns a copy of the native field value.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) GetSlot() uint8 {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOADSlotOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetSlot copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) SetSlot(value uint8) {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOADSlotOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) GetReserved(index0 int) uint8 {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOADReservedOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetReserved copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) SetReserved(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOADReservedOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetOffset returns a copy of the native field value.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) GetOffset() uint64 {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOADOffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetOffset copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) SetOffset(value uint64) {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOADOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBufferSize returns a copy of the native field value.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) GetBufferSize() uint64 {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOADBufferSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBufferSize copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) SetBufferSize(value uint64) {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOADBufferSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetImageBuffer accesses the metadata-declared initial flexible-array extent only.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) GetImageBuffer(index0 int) uint8 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOADImageBufferOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetImageBuffer copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD) SetImageBuffer(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOADImageBufferOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// STORAGE_HW_FIRMWARE_DOWNLOAD_V2 is a view of native Windows.Win32.System.Ioctl.STORAGE_HW_FIRMWARE_DOWNLOAD_V2 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type STORAGE_HW_FIRMWARE_DOWNLOAD_V2 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	STORAGE_HW_FIRMWARE_DOWNLOAD_V2Size              = 48
+	STORAGE_HW_FIRMWARE_DOWNLOAD_V2Alignment         = 8
+	STORAGE_HW_FIRMWARE_DOWNLOAD_V2VersionOffset     = 0
+	STORAGE_HW_FIRMWARE_DOWNLOAD_V2SizeOffset        = 4
+	STORAGE_HW_FIRMWARE_DOWNLOAD_V2FlagsOffset       = 8
+	STORAGE_HW_FIRMWARE_DOWNLOAD_V2SlotOffset        = 12
+	STORAGE_HW_FIRMWARE_DOWNLOAD_V2ReservedOffset    = 13
+	STORAGE_HW_FIRMWARE_DOWNLOAD_V2OffsetOffset      = 16
+	STORAGE_HW_FIRMWARE_DOWNLOAD_V2BufferSizeOffset  = 24
+	STORAGE_HW_FIRMWARE_DOWNLOAD_V2ImageSizeOffset   = 32
+	STORAGE_HW_FIRMWARE_DOWNLOAD_V2Reserved2Offset   = 36
+	STORAGE_HW_FIRMWARE_DOWNLOAD_V2ImageBufferOffset = 40
+)
+
+// NewSTORAGE_HW_FIRMWARE_DOWNLOAD_V2 allocates zeroed, aligned native storage.
+func NewSTORAGE_HW_FIRMWARE_DOWNLOAD_V2() STORAGE_HW_FIRMWARE_DOWNLOAD_V2 {
+	return STORAGE_HW_FIRMWARE_DOWNLOAD_V2{data: nativebuffer.New(int(STORAGE_HW_FIRMWARE_DOWNLOAD_V2Size), uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2Alignment))}
+}
+
+// ViewSTORAGE_HW_FIRMWARE_DOWNLOAD_V2 shares data without copying. It panics if data is shorter than STORAGE_HW_FIRMWARE_DOWNLOAD_V2Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSTORAGE_HW_FIRMWARE_DOWNLOAD_V2(data []byte) STORAGE_HW_FIRMWARE_DOWNLOAD_V2 {
+	return STORAGE_HW_FIRMWARE_DOWNLOAD_V2{data: nativebuffer.View(data, int(STORAGE_HW_FIRMWARE_DOWNLOAD_V2Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) Bytes() []byte {
+	return b.data[:STORAGE_HW_FIRMWARE_DOWNLOAD_V2Size:STORAGE_HW_FIRMWARE_DOWNLOAD_V2Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2Alignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) GetVersion() uint32 {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2VersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) SetVersion(value uint32) {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2VersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSize returns a copy of the native field value.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) GetSize() uint32 {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2SizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) SetSize(value uint32) {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2SizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) GetFlags() uint32 {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2FlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) SetFlags(value uint32) {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2FlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSlot returns a copy of the native field value.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) GetSlot() uint8 {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2SlotOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetSlot copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) SetSlot(value uint8) {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2SlotOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) GetReserved(index0 int) uint8 {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2ReservedOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetReserved copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) SetReserved(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2ReservedOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetOffset returns a copy of the native field value.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) GetOffset() uint64 {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2OffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetOffset copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) SetOffset(value uint64) {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2OffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBufferSize returns a copy of the native field value.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) GetBufferSize() uint64 {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2BufferSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBufferSize copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) SetBufferSize(value uint64) {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2BufferSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetImageSize returns a copy of the native field value.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) GetImageSize() uint32 {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2ImageSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetImageSize copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) SetImageSize(value uint32) {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2ImageSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved2 returns a copy of the native field value.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) GetReserved2() uint32 {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2Reserved2Offset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved2 copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) SetReserved2(value uint32) {
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2Reserved2Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetImageBuffer accesses the metadata-declared initial flexible-array extent only.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) GetImageBuffer(index0 int) uint8 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2ImageBufferOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetImageBuffer copies value into the native field.
+func (b STORAGE_HW_FIRMWARE_DOWNLOAD_V2) SetImageBuffer(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(STORAGE_HW_FIRMWARE_DOWNLOAD_V2ImageBufferOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
 }
 
 // STORAGE_HW_FIRMWARE_INFO_QUERY projects Windows.Win32.System.Ioctl.STORAGE_HW_FIRMWARE_INFO_QUERY.
@@ -1400,6 +13600,82 @@ type STORAGE_MEDIUM_PRODUCT_TYPE_DESCRIPTOR struct {
 	Version           uint32
 	Size              uint32
 	MediumProductType uint32
+}
+
+// STORAGE_OFFLOAD_WRITE_OUTPUT is a view of native Windows.Win32.System.Ioctl.STORAGE_OFFLOAD_WRITE_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_offload_write_output.
+type STORAGE_OFFLOAD_WRITE_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	STORAGE_OFFLOAD_WRITE_OUTPUTSize                    = 16
+	STORAGE_OFFLOAD_WRITE_OUTPUTAlignment               = 8
+	STORAGE_OFFLOAD_WRITE_OUTPUTOffloadWriteFlagsOffset = 0
+	STORAGE_OFFLOAD_WRITE_OUTPUTReservedOffset          = 4
+	STORAGE_OFFLOAD_WRITE_OUTPUTLengthCopiedOffset      = 8
+)
+
+// NewSTORAGE_OFFLOAD_WRITE_OUTPUT allocates zeroed, aligned native storage.
+func NewSTORAGE_OFFLOAD_WRITE_OUTPUT() STORAGE_OFFLOAD_WRITE_OUTPUT {
+	return STORAGE_OFFLOAD_WRITE_OUTPUT{data: nativebuffer.New(int(STORAGE_OFFLOAD_WRITE_OUTPUTSize), uintptr(STORAGE_OFFLOAD_WRITE_OUTPUTAlignment))}
+}
+
+// ViewSTORAGE_OFFLOAD_WRITE_OUTPUT shares data without copying. It panics if data is shorter than STORAGE_OFFLOAD_WRITE_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSTORAGE_OFFLOAD_WRITE_OUTPUT(data []byte) STORAGE_OFFLOAD_WRITE_OUTPUT {
+	return STORAGE_OFFLOAD_WRITE_OUTPUT{data: nativebuffer.View(data, int(STORAGE_OFFLOAD_WRITE_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b STORAGE_OFFLOAD_WRITE_OUTPUT) Bytes() []byte {
+	return b.data[:STORAGE_OFFLOAD_WRITE_OUTPUTSize:STORAGE_OFFLOAD_WRITE_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b STORAGE_OFFLOAD_WRITE_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(STORAGE_OFFLOAD_WRITE_OUTPUTAlignment))
+}
+
+// GetOffloadWriteFlags returns a copy of the native field value.
+func (b STORAGE_OFFLOAD_WRITE_OUTPUT) GetOffloadWriteFlags() uint32 {
+	offset := uintptr(STORAGE_OFFLOAD_WRITE_OUTPUTOffloadWriteFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetOffloadWriteFlags copies value into the native field.
+func (b STORAGE_OFFLOAD_WRITE_OUTPUT) SetOffloadWriteFlags(value uint32) {
+	offset := uintptr(STORAGE_OFFLOAD_WRITE_OUTPUTOffloadWriteFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b STORAGE_OFFLOAD_WRITE_OUTPUT) GetReserved() uint32 {
+	offset := uintptr(STORAGE_OFFLOAD_WRITE_OUTPUTReservedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved copies value into the native field.
+func (b STORAGE_OFFLOAD_WRITE_OUTPUT) SetReserved(value uint32) {
+	offset := uintptr(STORAGE_OFFLOAD_WRITE_OUTPUTReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetLengthCopied returns a copy of the native field value.
+func (b STORAGE_OFFLOAD_WRITE_OUTPUT) GetLengthCopied() uint64 {
+	offset := uintptr(STORAGE_OFFLOAD_WRITE_OUTPUTLengthCopiedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLengthCopied copies value into the native field.
+func (b STORAGE_OFFLOAD_WRITE_OUTPUT) SetLengthCopied(value uint64) {
+	offset := uintptr(STORAGE_OFFLOAD_WRITE_OUTPUTLengthCopiedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // STORAGE_OPERATIONAL_STATUS_REASON projects Windows.Win32.System.Ioctl.STORAGE_OPERATIONAL_STATUS_REASON.
@@ -1559,6 +13835,110 @@ type STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST struct {
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_query_type.
 type STORAGE_QUERY_TYPE int32
 
+// STORAGE_READ_CAPACITY is a view of native Windows.Win32.System.Ioctl.STORAGE_READ_CAPACITY storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/DevIO/storage-read-capacity.
+type STORAGE_READ_CAPACITY struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	STORAGE_READ_CAPACITYSize                 = 32
+	STORAGE_READ_CAPACITYAlignment            = 8
+	STORAGE_READ_CAPACITYVersionOffset        = 0
+	STORAGE_READ_CAPACITYSizeOffset           = 4
+	STORAGE_READ_CAPACITYBlockLengthOffset    = 8
+	STORAGE_READ_CAPACITYNumberOfBlocksOffset = 16
+	STORAGE_READ_CAPACITYDiskLengthOffset     = 24
+)
+
+// NewSTORAGE_READ_CAPACITY allocates zeroed, aligned native storage.
+func NewSTORAGE_READ_CAPACITY() STORAGE_READ_CAPACITY {
+	return STORAGE_READ_CAPACITY{data: nativebuffer.New(int(STORAGE_READ_CAPACITYSize), uintptr(STORAGE_READ_CAPACITYAlignment))}
+}
+
+// ViewSTORAGE_READ_CAPACITY shares data without copying. It panics if data is shorter than STORAGE_READ_CAPACITYSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSTORAGE_READ_CAPACITY(data []byte) STORAGE_READ_CAPACITY {
+	return STORAGE_READ_CAPACITY{data: nativebuffer.View(data, int(STORAGE_READ_CAPACITYSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b STORAGE_READ_CAPACITY) Bytes() []byte {
+	return b.data[:STORAGE_READ_CAPACITYSize:STORAGE_READ_CAPACITYSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b STORAGE_READ_CAPACITY) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(STORAGE_READ_CAPACITYAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b STORAGE_READ_CAPACITY) GetVersion() uint32 {
+	offset := uintptr(STORAGE_READ_CAPACITYVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b STORAGE_READ_CAPACITY) SetVersion(value uint32) {
+	offset := uintptr(STORAGE_READ_CAPACITYVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSize returns a copy of the native field value.
+func (b STORAGE_READ_CAPACITY) GetSize() uint32 {
+	offset := uintptr(STORAGE_READ_CAPACITYSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b STORAGE_READ_CAPACITY) SetSize(value uint32) {
+	offset := uintptr(STORAGE_READ_CAPACITYSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetBlockLength returns a copy of the native field value.
+func (b STORAGE_READ_CAPACITY) GetBlockLength() uint32 {
+	offset := uintptr(STORAGE_READ_CAPACITYBlockLengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetBlockLength copies value into the native field.
+func (b STORAGE_READ_CAPACITY) SetBlockLength(value uint32) {
+	offset := uintptr(STORAGE_READ_CAPACITYBlockLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNumberOfBlocks returns a copy of the native field value.
+func (b STORAGE_READ_CAPACITY) GetNumberOfBlocks() int64 {
+	offset := uintptr(STORAGE_READ_CAPACITYNumberOfBlocksOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumberOfBlocks copies value into the native field.
+func (b STORAGE_READ_CAPACITY) SetNumberOfBlocks(value int64) {
+	offset := uintptr(STORAGE_READ_CAPACITYNumberOfBlocksOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetDiskLength returns a copy of the native field value.
+func (b STORAGE_READ_CAPACITY) GetDiskLength() int64 {
+	offset := uintptr(STORAGE_READ_CAPACITYDiskLengthOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetDiskLength copies value into the native field.
+func (b STORAGE_READ_CAPACITY) SetDiskLength(value int64) {
+	offset := uintptr(STORAGE_READ_CAPACITYDiskLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // STORAGE_RPMB_DATA_FRAME projects Windows.Win32.System.Ioctl.STORAGE_RPMB_DATA_FRAME.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_rpmb_data_frame.
 type STORAGE_RPMB_DATA_FRAME struct {
@@ -1663,6 +14043,218 @@ type STORAGE_ZONES_ATTRIBUTES int32
 // STORAGE_ZONE_CONDITION projects Windows.Win32.System.Ioctl.STORAGE_ZONE_CONDITION.
 type STORAGE_ZONE_CONDITION int32
 
+// STORAGE_ZONE_DESCRIPTOR is a view of native Windows.Win32.System.Ioctl.STORAGE_ZONE_DESCRIPTOR storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type STORAGE_ZONE_DESCRIPTOR struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	STORAGE_ZONE_DESCRIPTORSize                             = 32
+	STORAGE_ZONE_DESCRIPTORAlignment                        = 8
+	STORAGE_ZONE_DESCRIPTORSizeOffset                       = 0
+	STORAGE_ZONE_DESCRIPTORZoneTypeOffset                   = 4
+	STORAGE_ZONE_DESCRIPTORZoneConditionOffset              = 8
+	STORAGE_ZONE_DESCRIPTORResetWritePointerRecommendOffset = 12
+	STORAGE_ZONE_DESCRIPTORReserved0Offset                  = 13
+	STORAGE_ZONE_DESCRIPTORZoneSizeOffset                   = 16
+	STORAGE_ZONE_DESCRIPTORWritePointerOffsetOffset         = 24
+)
+
+// NewSTORAGE_ZONE_DESCRIPTOR allocates zeroed, aligned native storage.
+func NewSTORAGE_ZONE_DESCRIPTOR() STORAGE_ZONE_DESCRIPTOR {
+	return STORAGE_ZONE_DESCRIPTOR{data: nativebuffer.New(int(STORAGE_ZONE_DESCRIPTORSize), uintptr(STORAGE_ZONE_DESCRIPTORAlignment))}
+}
+
+// ViewSTORAGE_ZONE_DESCRIPTOR shares data without copying. It panics if data is shorter than STORAGE_ZONE_DESCRIPTORSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSTORAGE_ZONE_DESCRIPTOR(data []byte) STORAGE_ZONE_DESCRIPTOR {
+	return STORAGE_ZONE_DESCRIPTOR{data: nativebuffer.View(data, int(STORAGE_ZONE_DESCRIPTORSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b STORAGE_ZONE_DESCRIPTOR) Bytes() []byte {
+	return b.data[:STORAGE_ZONE_DESCRIPTORSize:STORAGE_ZONE_DESCRIPTORSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b STORAGE_ZONE_DESCRIPTOR) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(STORAGE_ZONE_DESCRIPTORAlignment))
+}
+
+// GetSize returns a copy of the native field value.
+func (b STORAGE_ZONE_DESCRIPTOR) GetSize() uint32 {
+	offset := uintptr(STORAGE_ZONE_DESCRIPTORSizeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSize copies value into the native field.
+func (b STORAGE_ZONE_DESCRIPTOR) SetSize(value uint32) {
+	offset := uintptr(STORAGE_ZONE_DESCRIPTORSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetZoneType returns a copy of the native field value.
+func (b STORAGE_ZONE_DESCRIPTOR) GetZoneType() STORAGE_ZONE_TYPES {
+	offset := uintptr(STORAGE_ZONE_DESCRIPTORZoneTypeOffset)
+
+	return nativebuffer.Read[STORAGE_ZONE_TYPES](b.Bytes()[offset : offset+(4)])
+}
+
+// SetZoneType copies value into the native field.
+func (b STORAGE_ZONE_DESCRIPTOR) SetZoneType(value STORAGE_ZONE_TYPES) {
+	offset := uintptr(STORAGE_ZONE_DESCRIPTORZoneTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetZoneCondition returns a copy of the native field value.
+func (b STORAGE_ZONE_DESCRIPTOR) GetZoneCondition() STORAGE_ZONE_CONDITION {
+	offset := uintptr(STORAGE_ZONE_DESCRIPTORZoneConditionOffset)
+
+	return nativebuffer.Read[STORAGE_ZONE_CONDITION](b.Bytes()[offset : offset+(4)])
+}
+
+// SetZoneCondition copies value into the native field.
+func (b STORAGE_ZONE_DESCRIPTOR) SetZoneCondition(value STORAGE_ZONE_CONDITION) {
+	offset := uintptr(STORAGE_ZONE_DESCRIPTORZoneConditionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetResetWritePointerRecommend returns a copy of the native field value.
+func (b STORAGE_ZONE_DESCRIPTOR) GetResetWritePointerRecommend() foundation.BOOLEAN {
+	offset := uintptr(STORAGE_ZONE_DESCRIPTORResetWritePointerRecommendOffset)
+
+	return nativebuffer.Read[foundation.BOOLEAN](b.Bytes()[offset : offset+(1)])
+}
+
+// SetResetWritePointerRecommend copies value into the native field.
+func (b STORAGE_ZONE_DESCRIPTOR) SetResetWritePointerRecommend(value foundation.BOOLEAN) {
+	offset := uintptr(STORAGE_ZONE_DESCRIPTORResetWritePointerRecommendOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetReserved0 returns a copy of the native field value.
+func (b STORAGE_ZONE_DESCRIPTOR) GetReserved0(index0 int) uint8 {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(STORAGE_ZONE_DESCRIPTORReserved0Offset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetReserved0 copies value into the native field.
+func (b STORAGE_ZONE_DESCRIPTOR) SetReserved0(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 3 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(STORAGE_ZONE_DESCRIPTORReserved0Offset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetZoneSize returns a copy of the native field value.
+func (b STORAGE_ZONE_DESCRIPTOR) GetZoneSize() uint64 {
+	offset := uintptr(STORAGE_ZONE_DESCRIPTORZoneSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetZoneSize copies value into the native field.
+func (b STORAGE_ZONE_DESCRIPTOR) SetZoneSize(value uint64) {
+	offset := uintptr(STORAGE_ZONE_DESCRIPTORZoneSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetWritePointerOffset returns a copy of the native field value.
+func (b STORAGE_ZONE_DESCRIPTOR) GetWritePointerOffset() uint64 {
+	offset := uintptr(STORAGE_ZONE_DESCRIPTORWritePointerOffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetWritePointerOffset copies value into the native field.
+func (b STORAGE_ZONE_DESCRIPTOR) SetWritePointerOffset(value uint64) {
+	offset := uintptr(STORAGE_ZONE_DESCRIPTORWritePointerOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// STORAGE_ZONE_GROUP is a view of native Windows.Win32.System.Ioctl.STORAGE_ZONE_GROUP storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type STORAGE_ZONE_GROUP struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	STORAGE_ZONE_GROUPSize            = 16
+	STORAGE_ZONE_GROUPAlignment       = 8
+	STORAGE_ZONE_GROUPZoneCountOffset = 0
+	STORAGE_ZONE_GROUPZoneTypeOffset  = 4
+	STORAGE_ZONE_GROUPZoneSizeOffset  = 8
+)
+
+// NewSTORAGE_ZONE_GROUP allocates zeroed, aligned native storage.
+func NewSTORAGE_ZONE_GROUP() STORAGE_ZONE_GROUP {
+	return STORAGE_ZONE_GROUP{data: nativebuffer.New(int(STORAGE_ZONE_GROUPSize), uintptr(STORAGE_ZONE_GROUPAlignment))}
+}
+
+// ViewSTORAGE_ZONE_GROUP shares data without copying. It panics if data is shorter than STORAGE_ZONE_GROUPSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSTORAGE_ZONE_GROUP(data []byte) STORAGE_ZONE_GROUP {
+	return STORAGE_ZONE_GROUP{data: nativebuffer.View(data, int(STORAGE_ZONE_GROUPSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b STORAGE_ZONE_GROUP) Bytes() []byte {
+	return b.data[:STORAGE_ZONE_GROUPSize:STORAGE_ZONE_GROUPSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b STORAGE_ZONE_GROUP) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(STORAGE_ZONE_GROUPAlignment))
+}
+
+// GetZoneCount returns a copy of the native field value.
+func (b STORAGE_ZONE_GROUP) GetZoneCount() uint32 {
+	offset := uintptr(STORAGE_ZONE_GROUPZoneCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetZoneCount copies value into the native field.
+func (b STORAGE_ZONE_GROUP) SetZoneCount(value uint32) {
+	offset := uintptr(STORAGE_ZONE_GROUPZoneCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetZoneType returns a copy of the native field value.
+func (b STORAGE_ZONE_GROUP) GetZoneType() STORAGE_ZONE_TYPES {
+	offset := uintptr(STORAGE_ZONE_GROUPZoneTypeOffset)
+
+	return nativebuffer.Read[STORAGE_ZONE_TYPES](b.Bytes()[offset : offset+(4)])
+}
+
+// SetZoneType copies value into the native field.
+func (b STORAGE_ZONE_GROUP) SetZoneType(value STORAGE_ZONE_TYPES) {
+	offset := uintptr(STORAGE_ZONE_GROUPZoneTypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetZoneSize returns a copy of the native field value.
+func (b STORAGE_ZONE_GROUP) GetZoneSize() uint64 {
+	offset := uintptr(STORAGE_ZONE_GROUPZoneSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetZoneSize copies value into the native field.
+func (b STORAGE_ZONE_GROUP) SetZoneSize(value uint64) {
+	offset := uintptr(STORAGE_ZONE_GROUPZoneSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // STORAGE_ZONE_TYPES projects Windows.Win32.System.Ioctl.STORAGE_ZONE_TYPES.
 type STORAGE_ZONE_TYPES int32
 
@@ -1685,9 +14277,347 @@ type STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER struct {
 	StreamIdMax           uint32
 }
 
+// STREAM_LAYOUT_ENTRY is a view of native Windows.Win32.System.Ioctl.STREAM_LAYOUT_ENTRY storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type STREAM_LAYOUT_ENTRY struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	STREAM_LAYOUT_ENTRYSize                          = 56
+	STREAM_LAYOUT_ENTRYAlignment                     = 8
+	STREAM_LAYOUT_ENTRYVersionOffset                 = 0
+	STREAM_LAYOUT_ENTRYNextStreamOffsetOffset        = 4
+	STREAM_LAYOUT_ENTRYFlagsOffset                   = 8
+	STREAM_LAYOUT_ENTRYExtentInformationOffsetOffset = 12
+	STREAM_LAYOUT_ENTRYAllocationSizeOffset          = 16
+	STREAM_LAYOUT_ENTRYEndOfFileOffset               = 24
+	STREAM_LAYOUT_ENTRYStreamInformationOffsetOffset = 32
+	STREAM_LAYOUT_ENTRYAttributeTypeCodeOffset       = 36
+	STREAM_LAYOUT_ENTRYAttributeFlagsOffset          = 40
+	STREAM_LAYOUT_ENTRYStreamIdentifierLengthOffset  = 44
+	STREAM_LAYOUT_ENTRYStreamIdentifierOffset        = 48
+)
+
+// NewSTREAM_LAYOUT_ENTRY allocates zeroed, aligned native storage.
+func NewSTREAM_LAYOUT_ENTRY() STREAM_LAYOUT_ENTRY {
+	return STREAM_LAYOUT_ENTRY{data: nativebuffer.New(int(STREAM_LAYOUT_ENTRYSize), uintptr(STREAM_LAYOUT_ENTRYAlignment))}
+}
+
+// ViewSTREAM_LAYOUT_ENTRY shares data without copying. It panics if data is shorter than STREAM_LAYOUT_ENTRYSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSTREAM_LAYOUT_ENTRY(data []byte) STREAM_LAYOUT_ENTRY {
+	return STREAM_LAYOUT_ENTRY{data: nativebuffer.View(data, int(STREAM_LAYOUT_ENTRYSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b STREAM_LAYOUT_ENTRY) Bytes() []byte {
+	return b.data[:STREAM_LAYOUT_ENTRYSize:STREAM_LAYOUT_ENTRYSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b STREAM_LAYOUT_ENTRY) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(STREAM_LAYOUT_ENTRYAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b STREAM_LAYOUT_ENTRY) GetVersion() uint32 {
+	offset := uintptr(STREAM_LAYOUT_ENTRYVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b STREAM_LAYOUT_ENTRY) SetVersion(value uint32) {
+	offset := uintptr(STREAM_LAYOUT_ENTRYVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNextStreamOffset returns a copy of the native field value.
+func (b STREAM_LAYOUT_ENTRY) GetNextStreamOffset() uint32 {
+	offset := uintptr(STREAM_LAYOUT_ENTRYNextStreamOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNextStreamOffset copies value into the native field.
+func (b STREAM_LAYOUT_ENTRY) SetNextStreamOffset(value uint32) {
+	offset := uintptr(STREAM_LAYOUT_ENTRYNextStreamOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b STREAM_LAYOUT_ENTRY) GetFlags() uint32 {
+	offset := uintptr(STREAM_LAYOUT_ENTRYFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b STREAM_LAYOUT_ENTRY) SetFlags(value uint32) {
+	offset := uintptr(STREAM_LAYOUT_ENTRYFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetExtentInformationOffset returns a copy of the native field value.
+func (b STREAM_LAYOUT_ENTRY) GetExtentInformationOffset() uint32 {
+	offset := uintptr(STREAM_LAYOUT_ENTRYExtentInformationOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetExtentInformationOffset copies value into the native field.
+func (b STREAM_LAYOUT_ENTRY) SetExtentInformationOffset(value uint32) {
+	offset := uintptr(STREAM_LAYOUT_ENTRYExtentInformationOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetAllocationSize returns a copy of the native field value.
+func (b STREAM_LAYOUT_ENTRY) GetAllocationSize() int64 {
+	offset := uintptr(STREAM_LAYOUT_ENTRYAllocationSizeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAllocationSize copies value into the native field.
+func (b STREAM_LAYOUT_ENTRY) SetAllocationSize(value int64) {
+	offset := uintptr(STREAM_LAYOUT_ENTRYAllocationSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetEndOfFile returns a copy of the native field value.
+func (b STREAM_LAYOUT_ENTRY) GetEndOfFile() int64 {
+	offset := uintptr(STREAM_LAYOUT_ENTRYEndOfFileOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetEndOfFile copies value into the native field.
+func (b STREAM_LAYOUT_ENTRY) SetEndOfFile(value int64) {
+	offset := uintptr(STREAM_LAYOUT_ENTRYEndOfFileOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetStreamInformationOffset returns a copy of the native field value.
+func (b STREAM_LAYOUT_ENTRY) GetStreamInformationOffset() uint32 {
+	offset := uintptr(STREAM_LAYOUT_ENTRYStreamInformationOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetStreamInformationOffset copies value into the native field.
+func (b STREAM_LAYOUT_ENTRY) SetStreamInformationOffset(value uint32) {
+	offset := uintptr(STREAM_LAYOUT_ENTRYStreamInformationOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetAttributeTypeCode returns a copy of the native field value.
+func (b STREAM_LAYOUT_ENTRY) GetAttributeTypeCode() uint32 {
+	offset := uintptr(STREAM_LAYOUT_ENTRYAttributeTypeCodeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetAttributeTypeCode copies value into the native field.
+func (b STREAM_LAYOUT_ENTRY) SetAttributeTypeCode(value uint32) {
+	offset := uintptr(STREAM_LAYOUT_ENTRYAttributeTypeCodeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetAttributeFlags returns a copy of the native field value.
+func (b STREAM_LAYOUT_ENTRY) GetAttributeFlags() uint32 {
+	offset := uintptr(STREAM_LAYOUT_ENTRYAttributeFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetAttributeFlags copies value into the native field.
+func (b STREAM_LAYOUT_ENTRY) SetAttributeFlags(value uint32) {
+	offset := uintptr(STREAM_LAYOUT_ENTRYAttributeFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetStreamIdentifierLength returns a copy of the native field value.
+func (b STREAM_LAYOUT_ENTRY) GetStreamIdentifierLength() uint32 {
+	offset := uintptr(STREAM_LAYOUT_ENTRYStreamIdentifierLengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetStreamIdentifierLength copies value into the native field.
+func (b STREAM_LAYOUT_ENTRY) SetStreamIdentifierLength(value uint32) {
+	offset := uintptr(STREAM_LAYOUT_ENTRYStreamIdentifierLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetStreamIdentifier accesses the metadata-declared initial flexible-array extent only.
+func (b STREAM_LAYOUT_ENTRY) GetStreamIdentifier(index0 int) uint16 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(STREAM_LAYOUT_ENTRYStreamIdentifierOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetStreamIdentifier copies value into the native field.
+func (b STREAM_LAYOUT_ENTRY) SetStreamIdentifier(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(STREAM_LAYOUT_ENTRYStreamIdentifierOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
 // TAPE_GET_STATISTICS projects Windows.Win32.System.Ioctl.TAPE_GET_STATISTICS.
 type TAPE_GET_STATISTICS struct {
 	Operation uint32
+}
+
+// TAPE_STATISTICS is a view of native Windows.Win32.System.Ioctl.TAPE_STATISTICS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type TAPE_STATISTICS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	TAPE_STATISTICSSize                         = 48
+	TAPE_STATISTICSAlignment                    = 8
+	TAPE_STATISTICSVersionOffset                = 0
+	TAPE_STATISTICSFlagsOffset                  = 4
+	TAPE_STATISTICSRecoveredWritesOffset        = 8
+	TAPE_STATISTICSUnrecoveredWritesOffset      = 16
+	TAPE_STATISTICSRecoveredReadsOffset         = 24
+	TAPE_STATISTICSUnrecoveredReadsOffset       = 32
+	TAPE_STATISTICSCompressionRatioReadsOffset  = 40
+	TAPE_STATISTICSCompressionRatioWritesOffset = 41
+)
+
+// NewTAPE_STATISTICS allocates zeroed, aligned native storage.
+func NewTAPE_STATISTICS() TAPE_STATISTICS {
+	return TAPE_STATISTICS{data: nativebuffer.New(int(TAPE_STATISTICSSize), uintptr(TAPE_STATISTICSAlignment))}
+}
+
+// ViewTAPE_STATISTICS shares data without copying. It panics if data is shorter than TAPE_STATISTICSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewTAPE_STATISTICS(data []byte) TAPE_STATISTICS {
+	return TAPE_STATISTICS{data: nativebuffer.View(data, int(TAPE_STATISTICSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b TAPE_STATISTICS) Bytes() []byte {
+	return b.data[:TAPE_STATISTICSSize:TAPE_STATISTICSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b TAPE_STATISTICS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(TAPE_STATISTICSAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b TAPE_STATISTICS) GetVersion() uint32 {
+	offset := uintptr(TAPE_STATISTICSVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b TAPE_STATISTICS) SetVersion(value uint32) {
+	offset := uintptr(TAPE_STATISTICSVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b TAPE_STATISTICS) GetFlags() uint32 {
+	offset := uintptr(TAPE_STATISTICSFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b TAPE_STATISTICS) SetFlags(value uint32) {
+	offset := uintptr(TAPE_STATISTICSFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRecoveredWrites returns a copy of the native field value.
+func (b TAPE_STATISTICS) GetRecoveredWrites() int64 {
+	offset := uintptr(TAPE_STATISTICSRecoveredWritesOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetRecoveredWrites copies value into the native field.
+func (b TAPE_STATISTICS) SetRecoveredWrites(value int64) {
+	offset := uintptr(TAPE_STATISTICSRecoveredWritesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetUnrecoveredWrites returns a copy of the native field value.
+func (b TAPE_STATISTICS) GetUnrecoveredWrites() int64 {
+	offset := uintptr(TAPE_STATISTICSUnrecoveredWritesOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUnrecoveredWrites copies value into the native field.
+func (b TAPE_STATISTICS) SetUnrecoveredWrites(value int64) {
+	offset := uintptr(TAPE_STATISTICSUnrecoveredWritesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetRecoveredReads returns a copy of the native field value.
+func (b TAPE_STATISTICS) GetRecoveredReads() int64 {
+	offset := uintptr(TAPE_STATISTICSRecoveredReadsOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetRecoveredReads copies value into the native field.
+func (b TAPE_STATISTICS) SetRecoveredReads(value int64) {
+	offset := uintptr(TAPE_STATISTICSRecoveredReadsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetUnrecoveredReads returns a copy of the native field value.
+func (b TAPE_STATISTICS) GetUnrecoveredReads() int64 {
+	offset := uintptr(TAPE_STATISTICSUnrecoveredReadsOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUnrecoveredReads copies value into the native field.
+func (b TAPE_STATISTICS) SetUnrecoveredReads(value int64) {
+	offset := uintptr(TAPE_STATISTICSUnrecoveredReadsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetCompressionRatioReads returns a copy of the native field value.
+func (b TAPE_STATISTICS) GetCompressionRatioReads() uint8 {
+	offset := uintptr(TAPE_STATISTICSCompressionRatioReadsOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetCompressionRatioReads copies value into the native field.
+func (b TAPE_STATISTICS) SetCompressionRatioReads(value uint8) {
+	offset := uintptr(TAPE_STATISTICSCompressionRatioReadsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// GetCompressionRatioWrites returns a copy of the native field value.
+func (b TAPE_STATISTICS) GetCompressionRatioWrites() uint8 {
+	offset := uintptr(TAPE_STATISTICSCompressionRatioWritesOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetCompressionRatioWrites copies value into the native field.
+func (b TAPE_STATISTICS) SetCompressionRatioWrites(value uint8) {
+	offset := uintptr(TAPE_STATISTICSCompressionRatioWritesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
 }
 
 // TXFS_CREATE_MINIVERSION_INFO projects Windows.Win32.System.Ioctl.TXFS_CREATE_MINIVERSION_INFO.
@@ -1709,8 +14639,443 @@ type TXFS_GET_TRANSACTED_VERSION struct {
 	LatestMiniVersion uint16
 }
 
+// TXFS_LIST_TRANSACTIONS is a view of native Windows.Win32.System.Ioctl.TXFS_LIST_TRANSACTIONS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_list_transactions.
+type TXFS_LIST_TRANSACTIONS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	TXFS_LIST_TRANSACTIONSSize                       = 16
+	TXFS_LIST_TRANSACTIONSAlignment                  = 8
+	TXFS_LIST_TRANSACTIONSNumberOfTransactionsOffset = 0
+	TXFS_LIST_TRANSACTIONSBufferSizeRequiredOffset   = 8
+)
+
+// NewTXFS_LIST_TRANSACTIONS allocates zeroed, aligned native storage.
+func NewTXFS_LIST_TRANSACTIONS() TXFS_LIST_TRANSACTIONS {
+	return TXFS_LIST_TRANSACTIONS{data: nativebuffer.New(int(TXFS_LIST_TRANSACTIONSSize), uintptr(TXFS_LIST_TRANSACTIONSAlignment))}
+}
+
+// ViewTXFS_LIST_TRANSACTIONS shares data without copying. It panics if data is shorter than TXFS_LIST_TRANSACTIONSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewTXFS_LIST_TRANSACTIONS(data []byte) TXFS_LIST_TRANSACTIONS {
+	return TXFS_LIST_TRANSACTIONS{data: nativebuffer.View(data, int(TXFS_LIST_TRANSACTIONSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b TXFS_LIST_TRANSACTIONS) Bytes() []byte {
+	return b.data[:TXFS_LIST_TRANSACTIONSSize:TXFS_LIST_TRANSACTIONSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b TXFS_LIST_TRANSACTIONS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(TXFS_LIST_TRANSACTIONSAlignment))
+}
+
+// GetNumberOfTransactions returns a copy of the native field value.
+func (b TXFS_LIST_TRANSACTIONS) GetNumberOfTransactions() uint64 {
+	offset := uintptr(TXFS_LIST_TRANSACTIONSNumberOfTransactionsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNumberOfTransactions copies value into the native field.
+func (b TXFS_LIST_TRANSACTIONS) SetNumberOfTransactions(value uint64) {
+	offset := uintptr(TXFS_LIST_TRANSACTIONSNumberOfTransactionsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBufferSizeRequired returns a copy of the native field value.
+func (b TXFS_LIST_TRANSACTIONS) GetBufferSizeRequired() uint64 {
+	offset := uintptr(TXFS_LIST_TRANSACTIONSBufferSizeRequiredOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBufferSizeRequired copies value into the native field.
+func (b TXFS_LIST_TRANSACTIONS) SetBufferSizeRequired(value uint64) {
+	offset := uintptr(TXFS_LIST_TRANSACTIONSBufferSizeRequiredOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY is a view of native Windows.Win32.System.Ioctl.TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_list_transaction_locked_files_entry.
+type TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYSize            = 48
+	TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYAlignment       = 8
+	TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYOffsetOffset    = 0
+	TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYNameFlagsOffset = 8
+	TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYFileIdOffset    = 16
+	TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYReserved1Offset = 24
+	TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYReserved2Offset = 28
+	TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYReserved3Offset = 32
+	TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYFileNameOffset  = 40
+)
+
+// NewTXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY allocates zeroed, aligned native storage.
+func NewTXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY() TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY {
+	return TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY{data: nativebuffer.New(int(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYSize), uintptr(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYAlignment))}
+}
+
+// ViewTXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY shares data without copying. It panics if data is shorter than TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewTXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY(data []byte) TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY {
+	return TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY{data: nativebuffer.View(data, int(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY) Bytes() []byte {
+	return b.data[:TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYSize:TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYAlignment))
+}
+
+// GetOffset returns a copy of the native field value.
+func (b TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY) GetOffset() uint64 {
+	offset := uintptr(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYOffsetOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetOffset copies value into the native field.
+func (b TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY) SetOffset(value uint64) {
+	offset := uintptr(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNameFlags returns a copy of the native field value.
+func (b TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY) GetNameFlags() uint32 {
+	offset := uintptr(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYNameFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNameFlags copies value into the native field.
+func (b TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY) SetNameFlags(value uint32) {
+	offset := uintptr(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYNameFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFileId returns a copy of the native field value.
+func (b TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY) GetFileId() int64 {
+	offset := uintptr(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYFileIdOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileId copies value into the native field.
+func (b TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY) SetFileId(value int64) {
+	offset := uintptr(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYFileIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetReserved1 returns a copy of the native field value.
+func (b TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY) GetReserved1() uint32 {
+	offset := uintptr(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYReserved1Offset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved1 copies value into the native field.
+func (b TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY) SetReserved1(value uint32) {
+	offset := uintptr(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYReserved1Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved2 returns a copy of the native field value.
+func (b TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY) GetReserved2() uint32 {
+	offset := uintptr(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYReserved2Offset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved2 copies value into the native field.
+func (b TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY) SetReserved2(value uint32) {
+	offset := uintptr(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYReserved2Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved3 returns a copy of the native field value.
+func (b TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY) GetReserved3() int64 {
+	offset := uintptr(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYReserved3Offset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetReserved3 copies value into the native field.
+func (b TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY) SetReserved3(value int64) {
+	offset := uintptr(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYReserved3Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFileName accesses the metadata-declared initial flexible-array extent only.
+func (b TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY) GetFileName(index0 int) uint16 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYFileNameOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetFileName copies value into the native field.
+func (b TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY) SetFileName(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRYFileNameOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// TXFS_MODIFY_RM is a view of native Windows.Win32.System.Ioctl.TXFS_MODIFY_RM storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_modify_rm.
+type TXFS_MODIFY_RM struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	TXFS_MODIFY_RMSize                          = 40
+	TXFS_MODIFY_RMAlignment                     = 8
+	TXFS_MODIFY_RMFlagsOffset                   = 0
+	TXFS_MODIFY_RMLogContainerCountMaxOffset    = 4
+	TXFS_MODIFY_RMLogContainerCountMinOffset    = 8
+	TXFS_MODIFY_RMLogContainerCountOffset       = 12
+	TXFS_MODIFY_RMLogGrowthIncrementOffset      = 16
+	TXFS_MODIFY_RMLogAutoShrinkPercentageOffset = 20
+	TXFS_MODIFY_RMReservedOffset                = 24
+	TXFS_MODIFY_RMLoggingModeOffset             = 32
+)
+
+// NewTXFS_MODIFY_RM allocates zeroed, aligned native storage.
+func NewTXFS_MODIFY_RM() TXFS_MODIFY_RM {
+	return TXFS_MODIFY_RM{data: nativebuffer.New(int(TXFS_MODIFY_RMSize), uintptr(TXFS_MODIFY_RMAlignment))}
+}
+
+// ViewTXFS_MODIFY_RM shares data without copying. It panics if data is shorter than TXFS_MODIFY_RMSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewTXFS_MODIFY_RM(data []byte) TXFS_MODIFY_RM {
+	return TXFS_MODIFY_RM{data: nativebuffer.View(data, int(TXFS_MODIFY_RMSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b TXFS_MODIFY_RM) Bytes() []byte {
+	return b.data[:TXFS_MODIFY_RMSize:TXFS_MODIFY_RMSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b TXFS_MODIFY_RM) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(TXFS_MODIFY_RMAlignment))
+}
+
+// GetFlags returns a copy of the native field value.
+func (b TXFS_MODIFY_RM) GetFlags() TXFS_RMF_LAGS {
+	offset := uintptr(TXFS_MODIFY_RMFlagsOffset)
+
+	return nativebuffer.Read[TXFS_RMF_LAGS](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b TXFS_MODIFY_RM) SetFlags(value TXFS_RMF_LAGS) {
+	offset := uintptr(TXFS_MODIFY_RMFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetLogContainerCountMax returns a copy of the native field value.
+func (b TXFS_MODIFY_RM) GetLogContainerCountMax() uint32 {
+	offset := uintptr(TXFS_MODIFY_RMLogContainerCountMaxOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLogContainerCountMax copies value into the native field.
+func (b TXFS_MODIFY_RM) SetLogContainerCountMax(value uint32) {
+	offset := uintptr(TXFS_MODIFY_RMLogContainerCountMaxOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetLogContainerCountMin returns a copy of the native field value.
+func (b TXFS_MODIFY_RM) GetLogContainerCountMin() uint32 {
+	offset := uintptr(TXFS_MODIFY_RMLogContainerCountMinOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLogContainerCountMin copies value into the native field.
+func (b TXFS_MODIFY_RM) SetLogContainerCountMin(value uint32) {
+	offset := uintptr(TXFS_MODIFY_RMLogContainerCountMinOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetLogContainerCount returns a copy of the native field value.
+func (b TXFS_MODIFY_RM) GetLogContainerCount() uint32 {
+	offset := uintptr(TXFS_MODIFY_RMLogContainerCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLogContainerCount copies value into the native field.
+func (b TXFS_MODIFY_RM) SetLogContainerCount(value uint32) {
+	offset := uintptr(TXFS_MODIFY_RMLogContainerCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetLogGrowthIncrement returns a copy of the native field value.
+func (b TXFS_MODIFY_RM) GetLogGrowthIncrement() uint32 {
+	offset := uintptr(TXFS_MODIFY_RMLogGrowthIncrementOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLogGrowthIncrement copies value into the native field.
+func (b TXFS_MODIFY_RM) SetLogGrowthIncrement(value uint32) {
+	offset := uintptr(TXFS_MODIFY_RMLogGrowthIncrementOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetLogAutoShrinkPercentage returns a copy of the native field value.
+func (b TXFS_MODIFY_RM) GetLogAutoShrinkPercentage() uint32 {
+	offset := uintptr(TXFS_MODIFY_RMLogAutoShrinkPercentageOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLogAutoShrinkPercentage copies value into the native field.
+func (b TXFS_MODIFY_RM) SetLogAutoShrinkPercentage(value uint32) {
+	offset := uintptr(TXFS_MODIFY_RMLogAutoShrinkPercentageOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b TXFS_MODIFY_RM) GetReserved() uint64 {
+	offset := uintptr(TXFS_MODIFY_RMReservedOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetReserved copies value into the native field.
+func (b TXFS_MODIFY_RM) SetReserved(value uint64) {
+	offset := uintptr(TXFS_MODIFY_RMReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLoggingMode returns a copy of the native field value.
+func (b TXFS_MODIFY_RM) GetLoggingMode() uint16 {
+	offset := uintptr(TXFS_MODIFY_RMLoggingModeOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetLoggingMode copies value into the native field.
+func (b TXFS_MODIFY_RM) SetLoggingMode(value uint16) {
+	offset := uintptr(TXFS_MODIFY_RMLoggingModeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
 // TXFS_RMF_LAGS projects Windows.Win32.System.Ioctl.TXFS_RMF_LAGS.
 type TXFS_RMF_LAGS uint32
+
+// TXFS_ROLLFORWARD_REDO_INFORMATION is a view of native Windows.Win32.System.Ioctl.TXFS_ROLLFORWARD_REDO_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type TXFS_ROLLFORWARD_REDO_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	TXFS_ROLLFORWARD_REDO_INFORMATIONSize                     = 32
+	TXFS_ROLLFORWARD_REDO_INFORMATIONAlignment                = 8
+	TXFS_ROLLFORWARD_REDO_INFORMATIONLastVirtualClockOffset   = 0
+	TXFS_ROLLFORWARD_REDO_INFORMATIONLastRedoLsnOffset        = 8
+	TXFS_ROLLFORWARD_REDO_INFORMATIONHighestRecoveryLsnOffset = 16
+	TXFS_ROLLFORWARD_REDO_INFORMATIONFlagsOffset              = 24
+)
+
+// NewTXFS_ROLLFORWARD_REDO_INFORMATION allocates zeroed, aligned native storage.
+func NewTXFS_ROLLFORWARD_REDO_INFORMATION() TXFS_ROLLFORWARD_REDO_INFORMATION {
+	return TXFS_ROLLFORWARD_REDO_INFORMATION{data: nativebuffer.New(int(TXFS_ROLLFORWARD_REDO_INFORMATIONSize), uintptr(TXFS_ROLLFORWARD_REDO_INFORMATIONAlignment))}
+}
+
+// ViewTXFS_ROLLFORWARD_REDO_INFORMATION shares data without copying. It panics if data is shorter than TXFS_ROLLFORWARD_REDO_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewTXFS_ROLLFORWARD_REDO_INFORMATION(data []byte) TXFS_ROLLFORWARD_REDO_INFORMATION {
+	return TXFS_ROLLFORWARD_REDO_INFORMATION{data: nativebuffer.View(data, int(TXFS_ROLLFORWARD_REDO_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b TXFS_ROLLFORWARD_REDO_INFORMATION) Bytes() []byte {
+	return b.data[:TXFS_ROLLFORWARD_REDO_INFORMATIONSize:TXFS_ROLLFORWARD_REDO_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b TXFS_ROLLFORWARD_REDO_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(TXFS_ROLLFORWARD_REDO_INFORMATIONAlignment))
+}
+
+// GetLastVirtualClock returns a copy of the native field value.
+func (b TXFS_ROLLFORWARD_REDO_INFORMATION) GetLastVirtualClock() int64 {
+	offset := uintptr(TXFS_ROLLFORWARD_REDO_INFORMATIONLastVirtualClockOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLastVirtualClock copies value into the native field.
+func (b TXFS_ROLLFORWARD_REDO_INFORMATION) SetLastVirtualClock(value int64) {
+	offset := uintptr(TXFS_ROLLFORWARD_REDO_INFORMATIONLastVirtualClockOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLastRedoLsn returns a copy of the native field value.
+func (b TXFS_ROLLFORWARD_REDO_INFORMATION) GetLastRedoLsn() uint64 {
+	offset := uintptr(TXFS_ROLLFORWARD_REDO_INFORMATIONLastRedoLsnOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLastRedoLsn copies value into the native field.
+func (b TXFS_ROLLFORWARD_REDO_INFORMATION) SetLastRedoLsn(value uint64) {
+	offset := uintptr(TXFS_ROLLFORWARD_REDO_INFORMATIONLastRedoLsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetHighestRecoveryLsn returns a copy of the native field value.
+func (b TXFS_ROLLFORWARD_REDO_INFORMATION) GetHighestRecoveryLsn() uint64 {
+	offset := uintptr(TXFS_ROLLFORWARD_REDO_INFORMATIONHighestRecoveryLsnOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetHighestRecoveryLsn copies value into the native field.
+func (b TXFS_ROLLFORWARD_REDO_INFORMATION) SetHighestRecoveryLsn(value uint64) {
+	offset := uintptr(TXFS_ROLLFORWARD_REDO_INFORMATIONHighestRecoveryLsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b TXFS_ROLLFORWARD_REDO_INFORMATION) GetFlags() uint32 {
+	offset := uintptr(TXFS_ROLLFORWARD_REDO_INFORMATIONFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b TXFS_ROLLFORWARD_REDO_INFORMATION) SetFlags(value uint32) {
+	offset := uintptr(TXFS_ROLLFORWARD_REDO_INFORMATIONFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
 
 // TXFS_SAVEPOINT_INFORMATION projects Windows.Win32.System.Ioctl.TXFS_SAVEPOINT_INFORMATION.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_savepoint_information.
@@ -1718,6 +15083,213 @@ type TXFS_SAVEPOINT_INFORMATION struct {
 	KtmTransaction foundation.HANDLE
 	ActionCode     uint32
 	SavepointId    uint32
+}
+
+// TXFS_START_RM_INFORMATION is a view of native Windows.Win32.System.Ioctl.TXFS_START_RM_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type TXFS_START_RM_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	TXFS_START_RM_INFORMATIONSize                          = 48
+	TXFS_START_RM_INFORMATIONAlignment                     = 8
+	TXFS_START_RM_INFORMATIONFlagsOffset                   = 0
+	TXFS_START_RM_INFORMATIONLogContainerSizeOffset        = 8
+	TXFS_START_RM_INFORMATIONLogContainerCountMinOffset    = 16
+	TXFS_START_RM_INFORMATIONLogContainerCountMaxOffset    = 20
+	TXFS_START_RM_INFORMATIONLogGrowthIncrementOffset      = 24
+	TXFS_START_RM_INFORMATIONLogAutoShrinkPercentageOffset = 28
+	TXFS_START_RM_INFORMATIONTmLogPathOffsetOffset         = 32
+	TXFS_START_RM_INFORMATIONTmLogPathLengthOffset         = 36
+	TXFS_START_RM_INFORMATIONLoggingModeOffset             = 38
+	TXFS_START_RM_INFORMATIONLogPathLengthOffset           = 40
+	TXFS_START_RM_INFORMATIONReservedOffset                = 42
+	TXFS_START_RM_INFORMATIONLogPathOffset                 = 44
+)
+
+// NewTXFS_START_RM_INFORMATION allocates zeroed, aligned native storage.
+func NewTXFS_START_RM_INFORMATION() TXFS_START_RM_INFORMATION {
+	return TXFS_START_RM_INFORMATION{data: nativebuffer.New(int(TXFS_START_RM_INFORMATIONSize), uintptr(TXFS_START_RM_INFORMATIONAlignment))}
+}
+
+// ViewTXFS_START_RM_INFORMATION shares data without copying. It panics if data is shorter than TXFS_START_RM_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewTXFS_START_RM_INFORMATION(data []byte) TXFS_START_RM_INFORMATION {
+	return TXFS_START_RM_INFORMATION{data: nativebuffer.View(data, int(TXFS_START_RM_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b TXFS_START_RM_INFORMATION) Bytes() []byte {
+	return b.data[:TXFS_START_RM_INFORMATIONSize:TXFS_START_RM_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b TXFS_START_RM_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(TXFS_START_RM_INFORMATIONAlignment))
+}
+
+// GetFlags returns a copy of the native field value.
+func (b TXFS_START_RM_INFORMATION) GetFlags() uint32 {
+	offset := uintptr(TXFS_START_RM_INFORMATIONFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b TXFS_START_RM_INFORMATION) SetFlags(value uint32) {
+	offset := uintptr(TXFS_START_RM_INFORMATIONFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetLogContainerSize returns a copy of the native field value.
+func (b TXFS_START_RM_INFORMATION) GetLogContainerSize() uint64 {
+	offset := uintptr(TXFS_START_RM_INFORMATIONLogContainerSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLogContainerSize copies value into the native field.
+func (b TXFS_START_RM_INFORMATION) SetLogContainerSize(value uint64) {
+	offset := uintptr(TXFS_START_RM_INFORMATIONLogContainerSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLogContainerCountMin returns a copy of the native field value.
+func (b TXFS_START_RM_INFORMATION) GetLogContainerCountMin() uint32 {
+	offset := uintptr(TXFS_START_RM_INFORMATIONLogContainerCountMinOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLogContainerCountMin copies value into the native field.
+func (b TXFS_START_RM_INFORMATION) SetLogContainerCountMin(value uint32) {
+	offset := uintptr(TXFS_START_RM_INFORMATIONLogContainerCountMinOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetLogContainerCountMax returns a copy of the native field value.
+func (b TXFS_START_RM_INFORMATION) GetLogContainerCountMax() uint32 {
+	offset := uintptr(TXFS_START_RM_INFORMATIONLogContainerCountMaxOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLogContainerCountMax copies value into the native field.
+func (b TXFS_START_RM_INFORMATION) SetLogContainerCountMax(value uint32) {
+	offset := uintptr(TXFS_START_RM_INFORMATIONLogContainerCountMaxOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetLogGrowthIncrement returns a copy of the native field value.
+func (b TXFS_START_RM_INFORMATION) GetLogGrowthIncrement() uint32 {
+	offset := uintptr(TXFS_START_RM_INFORMATIONLogGrowthIncrementOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLogGrowthIncrement copies value into the native field.
+func (b TXFS_START_RM_INFORMATION) SetLogGrowthIncrement(value uint32) {
+	offset := uintptr(TXFS_START_RM_INFORMATIONLogGrowthIncrementOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetLogAutoShrinkPercentage returns a copy of the native field value.
+func (b TXFS_START_RM_INFORMATION) GetLogAutoShrinkPercentage() uint32 {
+	offset := uintptr(TXFS_START_RM_INFORMATIONLogAutoShrinkPercentageOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLogAutoShrinkPercentage copies value into the native field.
+func (b TXFS_START_RM_INFORMATION) SetLogAutoShrinkPercentage(value uint32) {
+	offset := uintptr(TXFS_START_RM_INFORMATIONLogAutoShrinkPercentageOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTmLogPathOffset returns a copy of the native field value.
+func (b TXFS_START_RM_INFORMATION) GetTmLogPathOffset() uint32 {
+	offset := uintptr(TXFS_START_RM_INFORMATIONTmLogPathOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTmLogPathOffset copies value into the native field.
+func (b TXFS_START_RM_INFORMATION) SetTmLogPathOffset(value uint32) {
+	offset := uintptr(TXFS_START_RM_INFORMATIONTmLogPathOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTmLogPathLength returns a copy of the native field value.
+func (b TXFS_START_RM_INFORMATION) GetTmLogPathLength() uint16 {
+	offset := uintptr(TXFS_START_RM_INFORMATIONTmLogPathLengthOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetTmLogPathLength copies value into the native field.
+func (b TXFS_START_RM_INFORMATION) SetTmLogPathLength(value uint16) {
+	offset := uintptr(TXFS_START_RM_INFORMATIONTmLogPathLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetLoggingMode returns a copy of the native field value.
+func (b TXFS_START_RM_INFORMATION) GetLoggingMode() uint16 {
+	offset := uintptr(TXFS_START_RM_INFORMATIONLoggingModeOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetLoggingMode copies value into the native field.
+func (b TXFS_START_RM_INFORMATION) SetLoggingMode(value uint16) {
+	offset := uintptr(TXFS_START_RM_INFORMATIONLoggingModeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetLogPathLength returns a copy of the native field value.
+func (b TXFS_START_RM_INFORMATION) GetLogPathLength() uint16 {
+	offset := uintptr(TXFS_START_RM_INFORMATIONLogPathLengthOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetLogPathLength copies value into the native field.
+func (b TXFS_START_RM_INFORMATION) SetLogPathLength(value uint16) {
+	offset := uintptr(TXFS_START_RM_INFORMATIONLogPathLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b TXFS_START_RM_INFORMATION) GetReserved() uint16 {
+	offset := uintptr(TXFS_START_RM_INFORMATIONReservedOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetReserved copies value into the native field.
+func (b TXFS_START_RM_INFORMATION) SetReserved(value uint16) {
+	offset := uintptr(TXFS_START_RM_INFORMATIONReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetLogPath accesses the metadata-declared initial flexible-array extent only.
+func (b TXFS_START_RM_INFORMATION) GetLogPath(index0 int) uint16 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(TXFS_START_RM_INFORMATIONLogPathOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetLogPath copies value into the native field.
+func (b TXFS_START_RM_INFORMATION) SetLogPath(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(TXFS_START_RM_INFORMATIONLogPathOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
 }
 
 // TXFS_TRANSACTION_ACTIVE_INFO projects Windows.Win32.System.Ioctl.TXFS_TRANSACTION_ACTIVE_INFO.
@@ -1737,6 +15309,548 @@ type TXFS_WRITE_BACKUP_INFORMATION struct {
 // USN_DELETE_FLAGS projects Windows.Win32.System.Ioctl.USN_DELETE_FLAGS.
 type USN_DELETE_FLAGS uint32
 
+// USN_JOURNAL_DATA_V0 is a view of native Windows.Win32.System.Ioctl.USN_JOURNAL_DATA_V0 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_journal_data_v0.
+type USN_JOURNAL_DATA_V0 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	USN_JOURNAL_DATA_V0Size                  = 56
+	USN_JOURNAL_DATA_V0Alignment             = 8
+	USN_JOURNAL_DATA_V0UsnJournalIDOffset    = 0
+	USN_JOURNAL_DATA_V0FirstUsnOffset        = 8
+	USN_JOURNAL_DATA_V0NextUsnOffset         = 16
+	USN_JOURNAL_DATA_V0LowestValidUsnOffset  = 24
+	USN_JOURNAL_DATA_V0MaxUsnOffset          = 32
+	USN_JOURNAL_DATA_V0MaximumSizeOffset     = 40
+	USN_JOURNAL_DATA_V0AllocationDeltaOffset = 48
+)
+
+// NewUSN_JOURNAL_DATA_V0 allocates zeroed, aligned native storage.
+func NewUSN_JOURNAL_DATA_V0() USN_JOURNAL_DATA_V0 {
+	return USN_JOURNAL_DATA_V0{data: nativebuffer.New(int(USN_JOURNAL_DATA_V0Size), uintptr(USN_JOURNAL_DATA_V0Alignment))}
+}
+
+// ViewUSN_JOURNAL_DATA_V0 shares data without copying. It panics if data is shorter than USN_JOURNAL_DATA_V0Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewUSN_JOURNAL_DATA_V0(data []byte) USN_JOURNAL_DATA_V0 {
+	return USN_JOURNAL_DATA_V0{data: nativebuffer.View(data, int(USN_JOURNAL_DATA_V0Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b USN_JOURNAL_DATA_V0) Bytes() []byte {
+	return b.data[:USN_JOURNAL_DATA_V0Size:USN_JOURNAL_DATA_V0Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b USN_JOURNAL_DATA_V0) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(USN_JOURNAL_DATA_V0Alignment))
+}
+
+// GetUsnJournalID returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V0) GetUsnJournalID() uint64 {
+	offset := uintptr(USN_JOURNAL_DATA_V0UsnJournalIDOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUsnJournalID copies value into the native field.
+func (b USN_JOURNAL_DATA_V0) SetUsnJournalID(value uint64) {
+	offset := uintptr(USN_JOURNAL_DATA_V0UsnJournalIDOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFirstUsn returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V0) GetFirstUsn() int64 {
+	offset := uintptr(USN_JOURNAL_DATA_V0FirstUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFirstUsn copies value into the native field.
+func (b USN_JOURNAL_DATA_V0) SetFirstUsn(value int64) {
+	offset := uintptr(USN_JOURNAL_DATA_V0FirstUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNextUsn returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V0) GetNextUsn() int64 {
+	offset := uintptr(USN_JOURNAL_DATA_V0NextUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNextUsn copies value into the native field.
+func (b USN_JOURNAL_DATA_V0) SetNextUsn(value int64) {
+	offset := uintptr(USN_JOURNAL_DATA_V0NextUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLowestValidUsn returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V0) GetLowestValidUsn() int64 {
+	offset := uintptr(USN_JOURNAL_DATA_V0LowestValidUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLowestValidUsn copies value into the native field.
+func (b USN_JOURNAL_DATA_V0) SetLowestValidUsn(value int64) {
+	offset := uintptr(USN_JOURNAL_DATA_V0LowestValidUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMaxUsn returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V0) GetMaxUsn() int64 {
+	offset := uintptr(USN_JOURNAL_DATA_V0MaxUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMaxUsn copies value into the native field.
+func (b USN_JOURNAL_DATA_V0) SetMaxUsn(value int64) {
+	offset := uintptr(USN_JOURNAL_DATA_V0MaxUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMaximumSize returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V0) GetMaximumSize() uint64 {
+	offset := uintptr(USN_JOURNAL_DATA_V0MaximumSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMaximumSize copies value into the native field.
+func (b USN_JOURNAL_DATA_V0) SetMaximumSize(value uint64) {
+	offset := uintptr(USN_JOURNAL_DATA_V0MaximumSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetAllocationDelta returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V0) GetAllocationDelta() uint64 {
+	offset := uintptr(USN_JOURNAL_DATA_V0AllocationDeltaOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAllocationDelta copies value into the native field.
+func (b USN_JOURNAL_DATA_V0) SetAllocationDelta(value uint64) {
+	offset := uintptr(USN_JOURNAL_DATA_V0AllocationDeltaOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// USN_JOURNAL_DATA_V1 is a view of native Windows.Win32.System.Ioctl.USN_JOURNAL_DATA_V1 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_journal_data_v1.
+type USN_JOURNAL_DATA_V1 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	USN_JOURNAL_DATA_V1Size                           = 64
+	USN_JOURNAL_DATA_V1Alignment                      = 8
+	USN_JOURNAL_DATA_V1UsnJournalIDOffset             = 0
+	USN_JOURNAL_DATA_V1FirstUsnOffset                 = 8
+	USN_JOURNAL_DATA_V1NextUsnOffset                  = 16
+	USN_JOURNAL_DATA_V1LowestValidUsnOffset           = 24
+	USN_JOURNAL_DATA_V1MaxUsnOffset                   = 32
+	USN_JOURNAL_DATA_V1MaximumSizeOffset              = 40
+	USN_JOURNAL_DATA_V1AllocationDeltaOffset          = 48
+	USN_JOURNAL_DATA_V1MinSupportedMajorVersionOffset = 56
+	USN_JOURNAL_DATA_V1MaxSupportedMajorVersionOffset = 58
+)
+
+// NewUSN_JOURNAL_DATA_V1 allocates zeroed, aligned native storage.
+func NewUSN_JOURNAL_DATA_V1() USN_JOURNAL_DATA_V1 {
+	return USN_JOURNAL_DATA_V1{data: nativebuffer.New(int(USN_JOURNAL_DATA_V1Size), uintptr(USN_JOURNAL_DATA_V1Alignment))}
+}
+
+// ViewUSN_JOURNAL_DATA_V1 shares data without copying. It panics if data is shorter than USN_JOURNAL_DATA_V1Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewUSN_JOURNAL_DATA_V1(data []byte) USN_JOURNAL_DATA_V1 {
+	return USN_JOURNAL_DATA_V1{data: nativebuffer.View(data, int(USN_JOURNAL_DATA_V1Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b USN_JOURNAL_DATA_V1) Bytes() []byte {
+	return b.data[:USN_JOURNAL_DATA_V1Size:USN_JOURNAL_DATA_V1Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b USN_JOURNAL_DATA_V1) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(USN_JOURNAL_DATA_V1Alignment))
+}
+
+// GetUsnJournalID returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V1) GetUsnJournalID() uint64 {
+	offset := uintptr(USN_JOURNAL_DATA_V1UsnJournalIDOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUsnJournalID copies value into the native field.
+func (b USN_JOURNAL_DATA_V1) SetUsnJournalID(value uint64) {
+	offset := uintptr(USN_JOURNAL_DATA_V1UsnJournalIDOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFirstUsn returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V1) GetFirstUsn() int64 {
+	offset := uintptr(USN_JOURNAL_DATA_V1FirstUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFirstUsn copies value into the native field.
+func (b USN_JOURNAL_DATA_V1) SetFirstUsn(value int64) {
+	offset := uintptr(USN_JOURNAL_DATA_V1FirstUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNextUsn returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V1) GetNextUsn() int64 {
+	offset := uintptr(USN_JOURNAL_DATA_V1NextUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNextUsn copies value into the native field.
+func (b USN_JOURNAL_DATA_V1) SetNextUsn(value int64) {
+	offset := uintptr(USN_JOURNAL_DATA_V1NextUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLowestValidUsn returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V1) GetLowestValidUsn() int64 {
+	offset := uintptr(USN_JOURNAL_DATA_V1LowestValidUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLowestValidUsn copies value into the native field.
+func (b USN_JOURNAL_DATA_V1) SetLowestValidUsn(value int64) {
+	offset := uintptr(USN_JOURNAL_DATA_V1LowestValidUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMaxUsn returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V1) GetMaxUsn() int64 {
+	offset := uintptr(USN_JOURNAL_DATA_V1MaxUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMaxUsn copies value into the native field.
+func (b USN_JOURNAL_DATA_V1) SetMaxUsn(value int64) {
+	offset := uintptr(USN_JOURNAL_DATA_V1MaxUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMaximumSize returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V1) GetMaximumSize() uint64 {
+	offset := uintptr(USN_JOURNAL_DATA_V1MaximumSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMaximumSize copies value into the native field.
+func (b USN_JOURNAL_DATA_V1) SetMaximumSize(value uint64) {
+	offset := uintptr(USN_JOURNAL_DATA_V1MaximumSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetAllocationDelta returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V1) GetAllocationDelta() uint64 {
+	offset := uintptr(USN_JOURNAL_DATA_V1AllocationDeltaOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAllocationDelta copies value into the native field.
+func (b USN_JOURNAL_DATA_V1) SetAllocationDelta(value uint64) {
+	offset := uintptr(USN_JOURNAL_DATA_V1AllocationDeltaOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMinSupportedMajorVersion returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V1) GetMinSupportedMajorVersion() uint16 {
+	offset := uintptr(USN_JOURNAL_DATA_V1MinSupportedMajorVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMinSupportedMajorVersion copies value into the native field.
+func (b USN_JOURNAL_DATA_V1) SetMinSupportedMajorVersion(value uint16) {
+	offset := uintptr(USN_JOURNAL_DATA_V1MinSupportedMajorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMaxSupportedMajorVersion returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V1) GetMaxSupportedMajorVersion() uint16 {
+	offset := uintptr(USN_JOURNAL_DATA_V1MaxSupportedMajorVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMaxSupportedMajorVersion copies value into the native field.
+func (b USN_JOURNAL_DATA_V1) SetMaxSupportedMajorVersion(value uint16) {
+	offset := uintptr(USN_JOURNAL_DATA_V1MaxSupportedMajorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// USN_JOURNAL_DATA_V2 is a view of native Windows.Win32.System.Ioctl.USN_JOURNAL_DATA_V2 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_journal_data_v2.
+type USN_JOURNAL_DATA_V2 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	USN_JOURNAL_DATA_V2Size                              = 80
+	USN_JOURNAL_DATA_V2Alignment                         = 8
+	USN_JOURNAL_DATA_V2UsnJournalIDOffset                = 0
+	USN_JOURNAL_DATA_V2FirstUsnOffset                    = 8
+	USN_JOURNAL_DATA_V2NextUsnOffset                     = 16
+	USN_JOURNAL_DATA_V2LowestValidUsnOffset              = 24
+	USN_JOURNAL_DATA_V2MaxUsnOffset                      = 32
+	USN_JOURNAL_DATA_V2MaximumSizeOffset                 = 40
+	USN_JOURNAL_DATA_V2AllocationDeltaOffset             = 48
+	USN_JOURNAL_DATA_V2MinSupportedMajorVersionOffset    = 56
+	USN_JOURNAL_DATA_V2MaxSupportedMajorVersionOffset    = 58
+	USN_JOURNAL_DATA_V2FlagsOffset                       = 60
+	USN_JOURNAL_DATA_V2RangeTrackChunkSizeOffset         = 64
+	USN_JOURNAL_DATA_V2RangeTrackFileSizeThresholdOffset = 72
+)
+
+// NewUSN_JOURNAL_DATA_V2 allocates zeroed, aligned native storage.
+func NewUSN_JOURNAL_DATA_V2() USN_JOURNAL_DATA_V2 {
+	return USN_JOURNAL_DATA_V2{data: nativebuffer.New(int(USN_JOURNAL_DATA_V2Size), uintptr(USN_JOURNAL_DATA_V2Alignment))}
+}
+
+// ViewUSN_JOURNAL_DATA_V2 shares data without copying. It panics if data is shorter than USN_JOURNAL_DATA_V2Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewUSN_JOURNAL_DATA_V2(data []byte) USN_JOURNAL_DATA_V2 {
+	return USN_JOURNAL_DATA_V2{data: nativebuffer.View(data, int(USN_JOURNAL_DATA_V2Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b USN_JOURNAL_DATA_V2) Bytes() []byte {
+	return b.data[:USN_JOURNAL_DATA_V2Size:USN_JOURNAL_DATA_V2Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b USN_JOURNAL_DATA_V2) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(USN_JOURNAL_DATA_V2Alignment))
+}
+
+// GetUsnJournalID returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V2) GetUsnJournalID() uint64 {
+	offset := uintptr(USN_JOURNAL_DATA_V2UsnJournalIDOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUsnJournalID copies value into the native field.
+func (b USN_JOURNAL_DATA_V2) SetUsnJournalID(value uint64) {
+	offset := uintptr(USN_JOURNAL_DATA_V2UsnJournalIDOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFirstUsn returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V2) GetFirstUsn() int64 {
+	offset := uintptr(USN_JOURNAL_DATA_V2FirstUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFirstUsn copies value into the native field.
+func (b USN_JOURNAL_DATA_V2) SetFirstUsn(value int64) {
+	offset := uintptr(USN_JOURNAL_DATA_V2FirstUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetNextUsn returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V2) GetNextUsn() int64 {
+	offset := uintptr(USN_JOURNAL_DATA_V2NextUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetNextUsn copies value into the native field.
+func (b USN_JOURNAL_DATA_V2) SetNextUsn(value int64) {
+	offset := uintptr(USN_JOURNAL_DATA_V2NextUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLowestValidUsn returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V2) GetLowestValidUsn() int64 {
+	offset := uintptr(USN_JOURNAL_DATA_V2LowestValidUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLowestValidUsn copies value into the native field.
+func (b USN_JOURNAL_DATA_V2) SetLowestValidUsn(value int64) {
+	offset := uintptr(USN_JOURNAL_DATA_V2LowestValidUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMaxUsn returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V2) GetMaxUsn() int64 {
+	offset := uintptr(USN_JOURNAL_DATA_V2MaxUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMaxUsn copies value into the native field.
+func (b USN_JOURNAL_DATA_V2) SetMaxUsn(value int64) {
+	offset := uintptr(USN_JOURNAL_DATA_V2MaxUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMaximumSize returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V2) GetMaximumSize() uint64 {
+	offset := uintptr(USN_JOURNAL_DATA_V2MaximumSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMaximumSize copies value into the native field.
+func (b USN_JOURNAL_DATA_V2) SetMaximumSize(value uint64) {
+	offset := uintptr(USN_JOURNAL_DATA_V2MaximumSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetAllocationDelta returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V2) GetAllocationDelta() uint64 {
+	offset := uintptr(USN_JOURNAL_DATA_V2AllocationDeltaOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAllocationDelta copies value into the native field.
+func (b USN_JOURNAL_DATA_V2) SetAllocationDelta(value uint64) {
+	offset := uintptr(USN_JOURNAL_DATA_V2AllocationDeltaOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMinSupportedMajorVersion returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V2) GetMinSupportedMajorVersion() uint16 {
+	offset := uintptr(USN_JOURNAL_DATA_V2MinSupportedMajorVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMinSupportedMajorVersion copies value into the native field.
+func (b USN_JOURNAL_DATA_V2) SetMinSupportedMajorVersion(value uint16) {
+	offset := uintptr(USN_JOURNAL_DATA_V2MinSupportedMajorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMaxSupportedMajorVersion returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V2) GetMaxSupportedMajorVersion() uint16 {
+	offset := uintptr(USN_JOURNAL_DATA_V2MaxSupportedMajorVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMaxSupportedMajorVersion copies value into the native field.
+func (b USN_JOURNAL_DATA_V2) SetMaxSupportedMajorVersion(value uint16) {
+	offset := uintptr(USN_JOURNAL_DATA_V2MaxSupportedMajorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V2) GetFlags() uint32 {
+	offset := uintptr(USN_JOURNAL_DATA_V2FlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b USN_JOURNAL_DATA_V2) SetFlags(value uint32) {
+	offset := uintptr(USN_JOURNAL_DATA_V2FlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRangeTrackChunkSize returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V2) GetRangeTrackChunkSize() uint64 {
+	offset := uintptr(USN_JOURNAL_DATA_V2RangeTrackChunkSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetRangeTrackChunkSize copies value into the native field.
+func (b USN_JOURNAL_DATA_V2) SetRangeTrackChunkSize(value uint64) {
+	offset := uintptr(USN_JOURNAL_DATA_V2RangeTrackChunkSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetRangeTrackFileSizeThreshold returns a copy of the native field value.
+func (b USN_JOURNAL_DATA_V2) GetRangeTrackFileSizeThreshold() int64 {
+	offset := uintptr(USN_JOURNAL_DATA_V2RangeTrackFileSizeThresholdOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetRangeTrackFileSizeThreshold copies value into the native field.
+func (b USN_JOURNAL_DATA_V2) SetRangeTrackFileSizeThreshold(value int64) {
+	offset := uintptr(USN_JOURNAL_DATA_V2RangeTrackFileSizeThresholdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// USN_RANGE_TRACK_OUTPUT is a view of native Windows.Win32.System.Ioctl.USN_RANGE_TRACK_OUTPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_range_track_output.
+type USN_RANGE_TRACK_OUTPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	USN_RANGE_TRACK_OUTPUTSize      = 8
+	USN_RANGE_TRACK_OUTPUTAlignment = 8
+	USN_RANGE_TRACK_OUTPUTUsnOffset = 0
+)
+
+// NewUSN_RANGE_TRACK_OUTPUT allocates zeroed, aligned native storage.
+func NewUSN_RANGE_TRACK_OUTPUT() USN_RANGE_TRACK_OUTPUT {
+	return USN_RANGE_TRACK_OUTPUT{data: nativebuffer.New(int(USN_RANGE_TRACK_OUTPUTSize), uintptr(USN_RANGE_TRACK_OUTPUTAlignment))}
+}
+
+// ViewUSN_RANGE_TRACK_OUTPUT shares data without copying. It panics if data is shorter than USN_RANGE_TRACK_OUTPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewUSN_RANGE_TRACK_OUTPUT(data []byte) USN_RANGE_TRACK_OUTPUT {
+	return USN_RANGE_TRACK_OUTPUT{data: nativebuffer.View(data, int(USN_RANGE_TRACK_OUTPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b USN_RANGE_TRACK_OUTPUT) Bytes() []byte {
+	return b.data[:USN_RANGE_TRACK_OUTPUTSize:USN_RANGE_TRACK_OUTPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b USN_RANGE_TRACK_OUTPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(USN_RANGE_TRACK_OUTPUTAlignment))
+}
+
+// GetUsn returns a copy of the native field value.
+func (b USN_RANGE_TRACK_OUTPUT) GetUsn() int64 {
+	offset := uintptr(USN_RANGE_TRACK_OUTPUTUsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUsn copies value into the native field.
+func (b USN_RANGE_TRACK_OUTPUT) SetUsn(value int64) {
+	offset := uintptr(USN_RANGE_TRACK_OUTPUTUsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // USN_RECORD_COMMON_HEADER projects Windows.Win32.System.Ioctl.USN_RECORD_COMMON_HEADER.
 // See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_record_common_header.
 type USN_RECORD_COMMON_HEADER struct {
@@ -1745,8 +15859,874 @@ type USN_RECORD_COMMON_HEADER struct {
 	MinorVersion uint16
 }
 
+// USN_RECORD_EXTENT is a view of native Windows.Win32.System.Ioctl.USN_RECORD_EXTENT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_record_extent.
+type USN_RECORD_EXTENT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	USN_RECORD_EXTENTSize         = 16
+	USN_RECORD_EXTENTAlignment    = 8
+	USN_RECORD_EXTENTOffsetOffset = 0
+	USN_RECORD_EXTENTLengthOffset = 8
+)
+
+// NewUSN_RECORD_EXTENT allocates zeroed, aligned native storage.
+func NewUSN_RECORD_EXTENT() USN_RECORD_EXTENT {
+	return USN_RECORD_EXTENT{data: nativebuffer.New(int(USN_RECORD_EXTENTSize), uintptr(USN_RECORD_EXTENTAlignment))}
+}
+
+// ViewUSN_RECORD_EXTENT shares data without copying. It panics if data is shorter than USN_RECORD_EXTENTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewUSN_RECORD_EXTENT(data []byte) USN_RECORD_EXTENT {
+	return USN_RECORD_EXTENT{data: nativebuffer.View(data, int(USN_RECORD_EXTENTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b USN_RECORD_EXTENT) Bytes() []byte {
+	return b.data[:USN_RECORD_EXTENTSize:USN_RECORD_EXTENTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b USN_RECORD_EXTENT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(USN_RECORD_EXTENTAlignment))
+}
+
+// GetOffset returns a copy of the native field value.
+func (b USN_RECORD_EXTENT) GetOffset() int64 {
+	offset := uintptr(USN_RECORD_EXTENTOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetOffset copies value into the native field.
+func (b USN_RECORD_EXTENT) SetOffset(value int64) {
+	offset := uintptr(USN_RECORD_EXTENTOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLength returns a copy of the native field value.
+func (b USN_RECORD_EXTENT) GetLength() int64 {
+	offset := uintptr(USN_RECORD_EXTENTLengthOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetLength copies value into the native field.
+func (b USN_RECORD_EXTENT) SetLength(value int64) {
+	offset := uintptr(USN_RECORD_EXTENTLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// USN_RECORD_V2 is a view of native Windows.Win32.System.Ioctl.USN_RECORD_V2 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_record_v2.
+type USN_RECORD_V2 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	USN_RECORD_V2Size                            = 64
+	USN_RECORD_V2Alignment                       = 8
+	USN_RECORD_V2RecordLengthOffset              = 0
+	USN_RECORD_V2MajorVersionOffset              = 4
+	USN_RECORD_V2MinorVersionOffset              = 6
+	USN_RECORD_V2FileReferenceNumberOffset       = 8
+	USN_RECORD_V2ParentFileReferenceNumberOffset = 16
+	USN_RECORD_V2UsnOffset                       = 24
+	USN_RECORD_V2TimeStampOffset                 = 32
+	USN_RECORD_V2ReasonOffset                    = 40
+	USN_RECORD_V2SourceInfoOffset                = 44
+	USN_RECORD_V2SecurityIdOffset                = 48
+	USN_RECORD_V2FileAttributesOffset            = 52
+	USN_RECORD_V2FileNameLengthOffset            = 56
+	USN_RECORD_V2FileNameOffsetOffset            = 58
+	USN_RECORD_V2FileNameOffset                  = 60
+)
+
+// NewUSN_RECORD_V2 allocates zeroed, aligned native storage.
+func NewUSN_RECORD_V2() USN_RECORD_V2 {
+	return USN_RECORD_V2{data: nativebuffer.New(int(USN_RECORD_V2Size), uintptr(USN_RECORD_V2Alignment))}
+}
+
+// ViewUSN_RECORD_V2 shares data without copying. It panics if data is shorter than USN_RECORD_V2Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewUSN_RECORD_V2(data []byte) USN_RECORD_V2 {
+	return USN_RECORD_V2{data: nativebuffer.View(data, int(USN_RECORD_V2Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b USN_RECORD_V2) Bytes() []byte {
+	return b.data[:USN_RECORD_V2Size:USN_RECORD_V2Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b USN_RECORD_V2) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(USN_RECORD_V2Alignment))
+}
+
+// GetRecordLength returns a copy of the native field value.
+func (b USN_RECORD_V2) GetRecordLength() uint32 {
+	offset := uintptr(USN_RECORD_V2RecordLengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRecordLength copies value into the native field.
+func (b USN_RECORD_V2) SetRecordLength(value uint32) {
+	offset := uintptr(USN_RECORD_V2RecordLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMajorVersion returns a copy of the native field value.
+func (b USN_RECORD_V2) GetMajorVersion() uint16 {
+	offset := uintptr(USN_RECORD_V2MajorVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMajorVersion copies value into the native field.
+func (b USN_RECORD_V2) SetMajorVersion(value uint16) {
+	offset := uintptr(USN_RECORD_V2MajorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMinorVersion returns a copy of the native field value.
+func (b USN_RECORD_V2) GetMinorVersion() uint16 {
+	offset := uintptr(USN_RECORD_V2MinorVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMinorVersion copies value into the native field.
+func (b USN_RECORD_V2) SetMinorVersion(value uint16) {
+	offset := uintptr(USN_RECORD_V2MinorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetFileReferenceNumber returns a copy of the native field value.
+func (b USN_RECORD_V2) GetFileReferenceNumber() uint64 {
+	offset := uintptr(USN_RECORD_V2FileReferenceNumberOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileReferenceNumber copies value into the native field.
+func (b USN_RECORD_V2) SetFileReferenceNumber(value uint64) {
+	offset := uintptr(USN_RECORD_V2FileReferenceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetParentFileReferenceNumber returns a copy of the native field value.
+func (b USN_RECORD_V2) GetParentFileReferenceNumber() uint64 {
+	offset := uintptr(USN_RECORD_V2ParentFileReferenceNumberOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetParentFileReferenceNumber copies value into the native field.
+func (b USN_RECORD_V2) SetParentFileReferenceNumber(value uint64) {
+	offset := uintptr(USN_RECORD_V2ParentFileReferenceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetUsn returns a copy of the native field value.
+func (b USN_RECORD_V2) GetUsn() int64 {
+	offset := uintptr(USN_RECORD_V2UsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUsn copies value into the native field.
+func (b USN_RECORD_V2) SetUsn(value int64) {
+	offset := uintptr(USN_RECORD_V2UsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTimeStamp returns a copy of the native field value.
+func (b USN_RECORD_V2) GetTimeStamp() int64 {
+	offset := uintptr(USN_RECORD_V2TimeStampOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTimeStamp copies value into the native field.
+func (b USN_RECORD_V2) SetTimeStamp(value int64) {
+	offset := uintptr(USN_RECORD_V2TimeStampOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetReason returns a copy of the native field value.
+func (b USN_RECORD_V2) GetReason() uint32 {
+	offset := uintptr(USN_RECORD_V2ReasonOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReason copies value into the native field.
+func (b USN_RECORD_V2) SetReason(value uint32) {
+	offset := uintptr(USN_RECORD_V2ReasonOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSourceInfo returns a copy of the native field value.
+func (b USN_RECORD_V2) GetSourceInfo() uint32 {
+	offset := uintptr(USN_RECORD_V2SourceInfoOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSourceInfo copies value into the native field.
+func (b USN_RECORD_V2) SetSourceInfo(value uint32) {
+	offset := uintptr(USN_RECORD_V2SourceInfoOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSecurityId returns a copy of the native field value.
+func (b USN_RECORD_V2) GetSecurityId() uint32 {
+	offset := uintptr(USN_RECORD_V2SecurityIdOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSecurityId copies value into the native field.
+func (b USN_RECORD_V2) SetSecurityId(value uint32) {
+	offset := uintptr(USN_RECORD_V2SecurityIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFileAttributes returns a copy of the native field value.
+func (b USN_RECORD_V2) GetFileAttributes() uint32 {
+	offset := uintptr(USN_RECORD_V2FileAttributesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFileAttributes copies value into the native field.
+func (b USN_RECORD_V2) SetFileAttributes(value uint32) {
+	offset := uintptr(USN_RECORD_V2FileAttributesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFileNameLength returns a copy of the native field value.
+func (b USN_RECORD_V2) GetFileNameLength() uint16 {
+	offset := uintptr(USN_RECORD_V2FileNameLengthOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetFileNameLength copies value into the native field.
+func (b USN_RECORD_V2) SetFileNameLength(value uint16) {
+	offset := uintptr(USN_RECORD_V2FileNameLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetFileNameOffset returns a copy of the native field value.
+func (b USN_RECORD_V2) GetFileNameOffset() uint16 {
+	offset := uintptr(USN_RECORD_V2FileNameOffsetOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetFileNameOffset copies value into the native field.
+func (b USN_RECORD_V2) SetFileNameOffset(value uint16) {
+	offset := uintptr(USN_RECORD_V2FileNameOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetFileName accesses the metadata-declared initial flexible-array extent only.
+func (b USN_RECORD_V2) GetFileName(index0 int) uint16 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(USN_RECORD_V2FileNameOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetFileName copies value into the native field.
+func (b USN_RECORD_V2) SetFileName(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(USN_RECORD_V2FileNameOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// USN_RECORD_V3 is a view of native Windows.Win32.System.Ioctl.USN_RECORD_V3 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_record_v3.
+type USN_RECORD_V3 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	USN_RECORD_V3Size                            = 80
+	USN_RECORD_V3Alignment                       = 8
+	USN_RECORD_V3RecordLengthOffset              = 0
+	USN_RECORD_V3MajorVersionOffset              = 4
+	USN_RECORD_V3MinorVersionOffset              = 6
+	USN_RECORD_V3FileReferenceNumberOffset       = 8
+	USN_RECORD_V3ParentFileReferenceNumberOffset = 24
+	USN_RECORD_V3UsnOffset                       = 40
+	USN_RECORD_V3TimeStampOffset                 = 48
+	USN_RECORD_V3ReasonOffset                    = 56
+	USN_RECORD_V3SourceInfoOffset                = 60
+	USN_RECORD_V3SecurityIdOffset                = 64
+	USN_RECORD_V3FileAttributesOffset            = 68
+	USN_RECORD_V3FileNameLengthOffset            = 72
+	USN_RECORD_V3FileNameOffsetOffset            = 74
+	USN_RECORD_V3FileNameOffset                  = 76
+)
+
+// NewUSN_RECORD_V3 allocates zeroed, aligned native storage.
+func NewUSN_RECORD_V3() USN_RECORD_V3 {
+	return USN_RECORD_V3{data: nativebuffer.New(int(USN_RECORD_V3Size), uintptr(USN_RECORD_V3Alignment))}
+}
+
+// ViewUSN_RECORD_V3 shares data without copying. It panics if data is shorter than USN_RECORD_V3Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewUSN_RECORD_V3(data []byte) USN_RECORD_V3 {
+	return USN_RECORD_V3{data: nativebuffer.View(data, int(USN_RECORD_V3Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b USN_RECORD_V3) Bytes() []byte {
+	return b.data[:USN_RECORD_V3Size:USN_RECORD_V3Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b USN_RECORD_V3) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(USN_RECORD_V3Alignment))
+}
+
+// GetRecordLength returns a copy of the native field value.
+func (b USN_RECORD_V3) GetRecordLength() uint32 {
+	offset := uintptr(USN_RECORD_V3RecordLengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRecordLength copies value into the native field.
+func (b USN_RECORD_V3) SetRecordLength(value uint32) {
+	offset := uintptr(USN_RECORD_V3RecordLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMajorVersion returns a copy of the native field value.
+func (b USN_RECORD_V3) GetMajorVersion() uint16 {
+	offset := uintptr(USN_RECORD_V3MajorVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMajorVersion copies value into the native field.
+func (b USN_RECORD_V3) SetMajorVersion(value uint16) {
+	offset := uintptr(USN_RECORD_V3MajorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetMinorVersion returns a copy of the native field value.
+func (b USN_RECORD_V3) GetMinorVersion() uint16 {
+	offset := uintptr(USN_RECORD_V3MinorVersionOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetMinorVersion copies value into the native field.
+func (b USN_RECORD_V3) SetMinorVersion(value uint16) {
+	offset := uintptr(USN_RECORD_V3MinorVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetFileReferenceNumber returns a copy of the native field value.
+func (b USN_RECORD_V3) GetFileReferenceNumber() filesystem.FILE_ID_128 {
+	offset := uintptr(USN_RECORD_V3FileReferenceNumberOffset)
+
+	return nativebuffer.Read[filesystem.FILE_ID_128](b.Bytes()[offset : offset+(16)])
+}
+
+// SetFileReferenceNumber copies value into the native field.
+func (b USN_RECORD_V3) SetFileReferenceNumber(value filesystem.FILE_ID_128) {
+	offset := uintptr(USN_RECORD_V3FileReferenceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(16)], value)
+}
+
+// GetParentFileReferenceNumber returns a copy of the native field value.
+func (b USN_RECORD_V3) GetParentFileReferenceNumber() filesystem.FILE_ID_128 {
+	offset := uintptr(USN_RECORD_V3ParentFileReferenceNumberOffset)
+
+	return nativebuffer.Read[filesystem.FILE_ID_128](b.Bytes()[offset : offset+(16)])
+}
+
+// SetParentFileReferenceNumber copies value into the native field.
+func (b USN_RECORD_V3) SetParentFileReferenceNumber(value filesystem.FILE_ID_128) {
+	offset := uintptr(USN_RECORD_V3ParentFileReferenceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(16)], value)
+}
+
+// GetUsn returns a copy of the native field value.
+func (b USN_RECORD_V3) GetUsn() int64 {
+	offset := uintptr(USN_RECORD_V3UsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUsn copies value into the native field.
+func (b USN_RECORD_V3) SetUsn(value int64) {
+	offset := uintptr(USN_RECORD_V3UsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTimeStamp returns a copy of the native field value.
+func (b USN_RECORD_V3) GetTimeStamp() int64 {
+	offset := uintptr(USN_RECORD_V3TimeStampOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTimeStamp copies value into the native field.
+func (b USN_RECORD_V3) SetTimeStamp(value int64) {
+	offset := uintptr(USN_RECORD_V3TimeStampOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetReason returns a copy of the native field value.
+func (b USN_RECORD_V3) GetReason() uint32 {
+	offset := uintptr(USN_RECORD_V3ReasonOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReason copies value into the native field.
+func (b USN_RECORD_V3) SetReason(value uint32) {
+	offset := uintptr(USN_RECORD_V3ReasonOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSourceInfo returns a copy of the native field value.
+func (b USN_RECORD_V3) GetSourceInfo() uint32 {
+	offset := uintptr(USN_RECORD_V3SourceInfoOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSourceInfo copies value into the native field.
+func (b USN_RECORD_V3) SetSourceInfo(value uint32) {
+	offset := uintptr(USN_RECORD_V3SourceInfoOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSecurityId returns a copy of the native field value.
+func (b USN_RECORD_V3) GetSecurityId() uint32 {
+	offset := uintptr(USN_RECORD_V3SecurityIdOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSecurityId copies value into the native field.
+func (b USN_RECORD_V3) SetSecurityId(value uint32) {
+	offset := uintptr(USN_RECORD_V3SecurityIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFileAttributes returns a copy of the native field value.
+func (b USN_RECORD_V3) GetFileAttributes() uint32 {
+	offset := uintptr(USN_RECORD_V3FileAttributesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFileAttributes copies value into the native field.
+func (b USN_RECORD_V3) SetFileAttributes(value uint32) {
+	offset := uintptr(USN_RECORD_V3FileAttributesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFileNameLength returns a copy of the native field value.
+func (b USN_RECORD_V3) GetFileNameLength() uint16 {
+	offset := uintptr(USN_RECORD_V3FileNameLengthOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetFileNameLength copies value into the native field.
+func (b USN_RECORD_V3) SetFileNameLength(value uint16) {
+	offset := uintptr(USN_RECORD_V3FileNameLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetFileNameOffset returns a copy of the native field value.
+func (b USN_RECORD_V3) GetFileNameOffset() uint16 {
+	offset := uintptr(USN_RECORD_V3FileNameOffsetOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetFileNameOffset copies value into the native field.
+func (b USN_RECORD_V3) SetFileNameOffset(value uint16) {
+	offset := uintptr(USN_RECORD_V3FileNameOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetFileName accesses the metadata-declared initial flexible-array extent only.
+func (b USN_RECORD_V3) GetFileName(index0 int) uint16 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(USN_RECORD_V3FileNameOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetFileName copies value into the native field.
+func (b USN_RECORD_V3) SetFileName(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(USN_RECORD_V3FileNameOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// USN_RECORD_V4 is a view of native Windows.Win32.System.Ioctl.USN_RECORD_V4 storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_record_v4.
+type USN_RECORD_V4 struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	USN_RECORD_V4Size                            = 80
+	USN_RECORD_V4Alignment                       = 8
+	USN_RECORD_V4HeaderOffset                    = 0
+	USN_RECORD_V4FileReferenceNumberOffset       = 8
+	USN_RECORD_V4ParentFileReferenceNumberOffset = 24
+	USN_RECORD_V4UsnOffset                       = 40
+	USN_RECORD_V4ReasonOffset                    = 48
+	USN_RECORD_V4SourceInfoOffset                = 52
+	USN_RECORD_V4RemainingExtentsOffset          = 56
+	USN_RECORD_V4NumberOfExtentsOffset           = 60
+	USN_RECORD_V4ExtentSizeOffset                = 62
+	USN_RECORD_V4ExtentsOffset                   = 64
+)
+
+// NewUSN_RECORD_V4 allocates zeroed, aligned native storage.
+func NewUSN_RECORD_V4() USN_RECORD_V4 {
+	return USN_RECORD_V4{data: nativebuffer.New(int(USN_RECORD_V4Size), uintptr(USN_RECORD_V4Alignment))}
+}
+
+// ViewUSN_RECORD_V4 shares data without copying. It panics if data is shorter than USN_RECORD_V4Size.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewUSN_RECORD_V4(data []byte) USN_RECORD_V4 {
+	return USN_RECORD_V4{data: nativebuffer.View(data, int(USN_RECORD_V4Size))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b USN_RECORD_V4) Bytes() []byte {
+	return b.data[:USN_RECORD_V4Size:USN_RECORD_V4Size]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b USN_RECORD_V4) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(USN_RECORD_V4Alignment))
+}
+
+// GetHeader returns a copy of the native field value.
+func (b USN_RECORD_V4) GetHeader() USN_RECORD_COMMON_HEADER {
+	offset := uintptr(USN_RECORD_V4HeaderOffset)
+
+	return nativebuffer.Read[USN_RECORD_COMMON_HEADER](b.Bytes()[offset : offset+(8)])
+}
+
+// SetHeader copies value into the native field.
+func (b USN_RECORD_V4) SetHeader(value USN_RECORD_COMMON_HEADER) {
+	offset := uintptr(USN_RECORD_V4HeaderOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFileReferenceNumber returns a copy of the native field value.
+func (b USN_RECORD_V4) GetFileReferenceNumber() filesystem.FILE_ID_128 {
+	offset := uintptr(USN_RECORD_V4FileReferenceNumberOffset)
+
+	return nativebuffer.Read[filesystem.FILE_ID_128](b.Bytes()[offset : offset+(16)])
+}
+
+// SetFileReferenceNumber copies value into the native field.
+func (b USN_RECORD_V4) SetFileReferenceNumber(value filesystem.FILE_ID_128) {
+	offset := uintptr(USN_RECORD_V4FileReferenceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(16)], value)
+}
+
+// GetParentFileReferenceNumber returns a copy of the native field value.
+func (b USN_RECORD_V4) GetParentFileReferenceNumber() filesystem.FILE_ID_128 {
+	offset := uintptr(USN_RECORD_V4ParentFileReferenceNumberOffset)
+
+	return nativebuffer.Read[filesystem.FILE_ID_128](b.Bytes()[offset : offset+(16)])
+}
+
+// SetParentFileReferenceNumber copies value into the native field.
+func (b USN_RECORD_V4) SetParentFileReferenceNumber(value filesystem.FILE_ID_128) {
+	offset := uintptr(USN_RECORD_V4ParentFileReferenceNumberOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(16)], value)
+}
+
+// GetUsn returns a copy of the native field value.
+func (b USN_RECORD_V4) GetUsn() int64 {
+	offset := uintptr(USN_RECORD_V4UsnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetUsn copies value into the native field.
+func (b USN_RECORD_V4) SetUsn(value int64) {
+	offset := uintptr(USN_RECORD_V4UsnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetReason returns a copy of the native field value.
+func (b USN_RECORD_V4) GetReason() uint32 {
+	offset := uintptr(USN_RECORD_V4ReasonOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReason copies value into the native field.
+func (b USN_RECORD_V4) SetReason(value uint32) {
+	offset := uintptr(USN_RECORD_V4ReasonOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSourceInfo returns a copy of the native field value.
+func (b USN_RECORD_V4) GetSourceInfo() USN_SOURCE_INFO_ID {
+	offset := uintptr(USN_RECORD_V4SourceInfoOffset)
+
+	return nativebuffer.Read[USN_SOURCE_INFO_ID](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSourceInfo copies value into the native field.
+func (b USN_RECORD_V4) SetSourceInfo(value USN_SOURCE_INFO_ID) {
+	offset := uintptr(USN_RECORD_V4SourceInfoOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRemainingExtents returns a copy of the native field value.
+func (b USN_RECORD_V4) GetRemainingExtents() uint32 {
+	offset := uintptr(USN_RECORD_V4RemainingExtentsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRemainingExtents copies value into the native field.
+func (b USN_RECORD_V4) SetRemainingExtents(value uint32) {
+	offset := uintptr(USN_RECORD_V4RemainingExtentsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNumberOfExtents returns a copy of the native field value.
+func (b USN_RECORD_V4) GetNumberOfExtents() uint16 {
+	offset := uintptr(USN_RECORD_V4NumberOfExtentsOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetNumberOfExtents copies value into the native field.
+func (b USN_RECORD_V4) SetNumberOfExtents(value uint16) {
+	offset := uintptr(USN_RECORD_V4NumberOfExtentsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetExtentSize returns a copy of the native field value.
+func (b USN_RECORD_V4) GetExtentSize() uint16 {
+	offset := uintptr(USN_RECORD_V4ExtentSizeOffset)
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetExtentSize copies value into the native field.
+func (b USN_RECORD_V4) SetExtentSize(value uint16) {
+	offset := uintptr(USN_RECORD_V4ExtentSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
+}
+
+// GetExtents accesses the metadata-declared initial flexible-array extent only.
+func (b USN_RECORD_V4) GetExtents(index0 int) USN_RECORD_EXTENT {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(USN_RECORD_V4ExtentsOffset + uintptr(index0)*(16))
+
+	return ViewUSN_RECORD_EXTENT(b.Bytes()[offset : offset+(16)])
+}
+
+// SetExtents copies value into the native field.
+func (b USN_RECORD_V4) SetExtents(index0 int, value USN_RECORD_EXTENT) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(USN_RECORD_V4ExtentsOffset + uintptr(index0)*(16))
+	copy(b.Bytes()[offset:offset+(16)], value.Bytes())
+}
+
 // USN_SOURCE_INFO_ID projects Windows.Win32.System.Ioctl.USN_SOURCE_INFO_ID.
 type USN_SOURCE_INFO_ID uint32
+
+// USN_TRACK_MODIFIED_RANGES is a view of native Windows.Win32.System.Ioctl.USN_TRACK_MODIFIED_RANGES storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_track_modified_ranges.
+type USN_TRACK_MODIFIED_RANGES struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	USN_TRACK_MODIFIED_RANGESSize                    = 24
+	USN_TRACK_MODIFIED_RANGESAlignment               = 8
+	USN_TRACK_MODIFIED_RANGESFlagsOffset             = 0
+	USN_TRACK_MODIFIED_RANGESUnusedOffset            = 4
+	USN_TRACK_MODIFIED_RANGESChunkSizeOffset         = 8
+	USN_TRACK_MODIFIED_RANGESFileSizeThresholdOffset = 16
+)
+
+// NewUSN_TRACK_MODIFIED_RANGES allocates zeroed, aligned native storage.
+func NewUSN_TRACK_MODIFIED_RANGES() USN_TRACK_MODIFIED_RANGES {
+	return USN_TRACK_MODIFIED_RANGES{data: nativebuffer.New(int(USN_TRACK_MODIFIED_RANGESSize), uintptr(USN_TRACK_MODIFIED_RANGESAlignment))}
+}
+
+// ViewUSN_TRACK_MODIFIED_RANGES shares data without copying. It panics if data is shorter than USN_TRACK_MODIFIED_RANGESSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewUSN_TRACK_MODIFIED_RANGES(data []byte) USN_TRACK_MODIFIED_RANGES {
+	return USN_TRACK_MODIFIED_RANGES{data: nativebuffer.View(data, int(USN_TRACK_MODIFIED_RANGESSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b USN_TRACK_MODIFIED_RANGES) Bytes() []byte {
+	return b.data[:USN_TRACK_MODIFIED_RANGESSize:USN_TRACK_MODIFIED_RANGESSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b USN_TRACK_MODIFIED_RANGES) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(USN_TRACK_MODIFIED_RANGESAlignment))
+}
+
+// GetFlags returns a copy of the native field value.
+func (b USN_TRACK_MODIFIED_RANGES) GetFlags() uint32 {
+	offset := uintptr(USN_TRACK_MODIFIED_RANGESFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b USN_TRACK_MODIFIED_RANGES) SetFlags(value uint32) {
+	offset := uintptr(USN_TRACK_MODIFIED_RANGESFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetUnused returns a copy of the native field value.
+func (b USN_TRACK_MODIFIED_RANGES) GetUnused() uint32 {
+	offset := uintptr(USN_TRACK_MODIFIED_RANGESUnusedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetUnused copies value into the native field.
+func (b USN_TRACK_MODIFIED_RANGES) SetUnused(value uint32) {
+	offset := uintptr(USN_TRACK_MODIFIED_RANGESUnusedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetChunkSize returns a copy of the native field value.
+func (b USN_TRACK_MODIFIED_RANGES) GetChunkSize() uint64 {
+	offset := uintptr(USN_TRACK_MODIFIED_RANGESChunkSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetChunkSize copies value into the native field.
+func (b USN_TRACK_MODIFIED_RANGES) SetChunkSize(value uint64) {
+	offset := uintptr(USN_TRACK_MODIFIED_RANGESChunkSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFileSizeThreshold returns a copy of the native field value.
+func (b USN_TRACK_MODIFIED_RANGES) GetFileSizeThreshold() int64 {
+	offset := uintptr(USN_TRACK_MODIFIED_RANGESFileSizeThresholdOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFileSizeThreshold copies value into the native field.
+func (b USN_TRACK_MODIFIED_RANGES) SetFileSizeThreshold(value int64) {
+	offset := uintptr(USN_TRACK_MODIFIED_RANGESFileSizeThresholdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// VERIFY_INFORMATION is a view of native Windows.Win32.System.Ioctl.VERIFY_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-verify_information.
+type VERIFY_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	VERIFY_INFORMATIONSize                 = 16
+	VERIFY_INFORMATIONAlignment            = 8
+	VERIFY_INFORMATIONStartingOffsetOffset = 0
+	VERIFY_INFORMATIONLengthOffset         = 8
+)
+
+// NewVERIFY_INFORMATION allocates zeroed, aligned native storage.
+func NewVERIFY_INFORMATION() VERIFY_INFORMATION {
+	return VERIFY_INFORMATION{data: nativebuffer.New(int(VERIFY_INFORMATIONSize), uintptr(VERIFY_INFORMATIONAlignment))}
+}
+
+// ViewVERIFY_INFORMATION shares data without copying. It panics if data is shorter than VERIFY_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewVERIFY_INFORMATION(data []byte) VERIFY_INFORMATION {
+	return VERIFY_INFORMATION{data: nativebuffer.View(data, int(VERIFY_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b VERIFY_INFORMATION) Bytes() []byte {
+	return b.data[:VERIFY_INFORMATIONSize:VERIFY_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b VERIFY_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(VERIFY_INFORMATIONAlignment))
+}
+
+// GetStartingOffset returns a copy of the native field value.
+func (b VERIFY_INFORMATION) GetStartingOffset() int64 {
+	offset := uintptr(VERIFY_INFORMATIONStartingOffsetOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartingOffset copies value into the native field.
+func (b VERIFY_INFORMATION) SetStartingOffset(value int64) {
+	offset := uintptr(VERIFY_INFORMATIONStartingOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLength returns a copy of the native field value.
+func (b VERIFY_INFORMATION) GetLength() uint32 {
+	offset := uintptr(VERIFY_INFORMATIONLengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLength copies value into the native field.
+func (b VERIFY_INFORMATION) SetLength(value uint32) {
+	offset := uintptr(VERIFY_INFORMATIONLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
 
 // VIRTUALIZATION_INSTANCE_INFO_INPUT projects Windows.Win32.System.Ioctl.VIRTUALIZATION_INSTANCE_INFO_INPUT.
 type VIRTUALIZATION_INSTANCE_INFO_INPUT struct {
@@ -1772,12 +16752,474 @@ type VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT struct {
 	BehaviorCode VIRTUAL_STORAGE_BEHAVIOR_CODE
 }
 
+// VOLUME_BITMAP_BUFFER is a view of native Windows.Win32.System.Ioctl.VOLUME_BITMAP_BUFFER storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-volume_bitmap_buffer.
+type VOLUME_BITMAP_BUFFER struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	VOLUME_BITMAP_BUFFERSize              = 24
+	VOLUME_BITMAP_BUFFERAlignment         = 8
+	VOLUME_BITMAP_BUFFERStartingLcnOffset = 0
+	VOLUME_BITMAP_BUFFERBitmapSizeOffset  = 8
+	VOLUME_BITMAP_BUFFERBufferOffset      = 16
+)
+
+// NewVOLUME_BITMAP_BUFFER allocates zeroed, aligned native storage.
+func NewVOLUME_BITMAP_BUFFER() VOLUME_BITMAP_BUFFER {
+	return VOLUME_BITMAP_BUFFER{data: nativebuffer.New(int(VOLUME_BITMAP_BUFFERSize), uintptr(VOLUME_BITMAP_BUFFERAlignment))}
+}
+
+// ViewVOLUME_BITMAP_BUFFER shares data without copying. It panics if data is shorter than VOLUME_BITMAP_BUFFERSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewVOLUME_BITMAP_BUFFER(data []byte) VOLUME_BITMAP_BUFFER {
+	return VOLUME_BITMAP_BUFFER{data: nativebuffer.View(data, int(VOLUME_BITMAP_BUFFERSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b VOLUME_BITMAP_BUFFER) Bytes() []byte {
+	return b.data[:VOLUME_BITMAP_BUFFERSize:VOLUME_BITMAP_BUFFERSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b VOLUME_BITMAP_BUFFER) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(VOLUME_BITMAP_BUFFERAlignment))
+}
+
+// GetStartingLcn returns a copy of the native field value.
+func (b VOLUME_BITMAP_BUFFER) GetStartingLcn() int64 {
+	offset := uintptr(VOLUME_BITMAP_BUFFERStartingLcnOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStartingLcn copies value into the native field.
+func (b VOLUME_BITMAP_BUFFER) SetStartingLcn(value int64) {
+	offset := uintptr(VOLUME_BITMAP_BUFFERStartingLcnOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBitmapSize returns a copy of the native field value.
+func (b VOLUME_BITMAP_BUFFER) GetBitmapSize() int64 {
+	offset := uintptr(VOLUME_BITMAP_BUFFERBitmapSizeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetBitmapSize copies value into the native field.
+func (b VOLUME_BITMAP_BUFFER) SetBitmapSize(value int64) {
+	offset := uintptr(VOLUME_BITMAP_BUFFERBitmapSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetBuffer accesses the metadata-declared initial flexible-array extent only.
+func (b VOLUME_BITMAP_BUFFER) GetBuffer(index0 int) uint8 {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(VOLUME_BITMAP_BUFFERBufferOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetBuffer copies value into the native field.
+func (b VOLUME_BITMAP_BUFFER) SetBuffer(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(VOLUME_BITMAP_BUFFERBufferOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// VOLUME_DISK_EXTENTS is a view of native Windows.Win32.System.Ioctl.VOLUME_DISK_EXTENTS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-volume_disk_extents.
+type VOLUME_DISK_EXTENTS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	VOLUME_DISK_EXTENTSSize                      = 32
+	VOLUME_DISK_EXTENTSAlignment                 = 8
+	VOLUME_DISK_EXTENTSNumberOfDiskExtentsOffset = 0
+	VOLUME_DISK_EXTENTSExtentsOffset             = 8
+)
+
+// NewVOLUME_DISK_EXTENTS allocates zeroed, aligned native storage.
+func NewVOLUME_DISK_EXTENTS() VOLUME_DISK_EXTENTS {
+	return VOLUME_DISK_EXTENTS{data: nativebuffer.New(int(VOLUME_DISK_EXTENTSSize), uintptr(VOLUME_DISK_EXTENTSAlignment))}
+}
+
+// ViewVOLUME_DISK_EXTENTS shares data without copying. It panics if data is shorter than VOLUME_DISK_EXTENTSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewVOLUME_DISK_EXTENTS(data []byte) VOLUME_DISK_EXTENTS {
+	return VOLUME_DISK_EXTENTS{data: nativebuffer.View(data, int(VOLUME_DISK_EXTENTSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b VOLUME_DISK_EXTENTS) Bytes() []byte {
+	return b.data[:VOLUME_DISK_EXTENTSSize:VOLUME_DISK_EXTENTSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b VOLUME_DISK_EXTENTS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(VOLUME_DISK_EXTENTSAlignment))
+}
+
+// GetNumberOfDiskExtents returns a copy of the native field value.
+func (b VOLUME_DISK_EXTENTS) GetNumberOfDiskExtents() uint32 {
+	offset := uintptr(VOLUME_DISK_EXTENTSNumberOfDiskExtentsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNumberOfDiskExtents copies value into the native field.
+func (b VOLUME_DISK_EXTENTS) SetNumberOfDiskExtents(value uint32) {
+	offset := uintptr(VOLUME_DISK_EXTENTSNumberOfDiskExtentsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetExtents accesses the metadata-declared initial flexible-array extent only.
+func (b VOLUME_DISK_EXTENTS) GetExtents(index0 int) DISK_EXTENT {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(VOLUME_DISK_EXTENTSExtentsOffset + uintptr(index0)*(24))
+
+	return ViewDISK_EXTENT(b.Bytes()[offset : offset+(24)])
+}
+
+// SetExtents copies value into the native field.
+func (b VOLUME_DISK_EXTENTS) SetExtents(index0 int, value DISK_EXTENT) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(VOLUME_DISK_EXTENTSExtentsOffset + uintptr(index0)*(24))
+	copy(b.Bytes()[offset:offset+(24)], value.Bytes())
+}
+
+// VOLUME_GET_GPT_ATTRIBUTES_INFORMATION is a view of native Windows.Win32.System.Ioctl.VOLUME_GET_GPT_ATTRIBUTES_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-volume_get_gpt_attributes_information.
+type VOLUME_GET_GPT_ATTRIBUTES_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	VOLUME_GET_GPT_ATTRIBUTES_INFORMATIONSize                = 8
+	VOLUME_GET_GPT_ATTRIBUTES_INFORMATIONAlignment           = 8
+	VOLUME_GET_GPT_ATTRIBUTES_INFORMATIONGptAttributesOffset = 0
+)
+
+// NewVOLUME_GET_GPT_ATTRIBUTES_INFORMATION allocates zeroed, aligned native storage.
+func NewVOLUME_GET_GPT_ATTRIBUTES_INFORMATION() VOLUME_GET_GPT_ATTRIBUTES_INFORMATION {
+	return VOLUME_GET_GPT_ATTRIBUTES_INFORMATION{data: nativebuffer.New(int(VOLUME_GET_GPT_ATTRIBUTES_INFORMATIONSize), uintptr(VOLUME_GET_GPT_ATTRIBUTES_INFORMATIONAlignment))}
+}
+
+// ViewVOLUME_GET_GPT_ATTRIBUTES_INFORMATION shares data without copying. It panics if data is shorter than VOLUME_GET_GPT_ATTRIBUTES_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewVOLUME_GET_GPT_ATTRIBUTES_INFORMATION(data []byte) VOLUME_GET_GPT_ATTRIBUTES_INFORMATION {
+	return VOLUME_GET_GPT_ATTRIBUTES_INFORMATION{data: nativebuffer.View(data, int(VOLUME_GET_GPT_ATTRIBUTES_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b VOLUME_GET_GPT_ATTRIBUTES_INFORMATION) Bytes() []byte {
+	return b.data[:VOLUME_GET_GPT_ATTRIBUTES_INFORMATIONSize:VOLUME_GET_GPT_ATTRIBUTES_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b VOLUME_GET_GPT_ATTRIBUTES_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(VOLUME_GET_GPT_ATTRIBUTES_INFORMATIONAlignment))
+}
+
+// GetGptAttributes returns a copy of the native field value.
+func (b VOLUME_GET_GPT_ATTRIBUTES_INFORMATION) GetGptAttributes() uint64 {
+	offset := uintptr(VOLUME_GET_GPT_ATTRIBUTES_INFORMATIONGptAttributesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetGptAttributes copies value into the native field.
+func (b VOLUME_GET_GPT_ATTRIBUTES_INFORMATION) SetGptAttributes(value uint64) {
+	offset := uintptr(VOLUME_GET_GPT_ATTRIBUTES_INFORMATIONGptAttributesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // WIM_PROVIDER_ADD_OVERLAY_INPUT projects Windows.Win32.System.Ioctl.WIM_PROVIDER_ADD_OVERLAY_INPUT.
 type WIM_PROVIDER_ADD_OVERLAY_INPUT struct {
 	WimType           uint32
 	WimIndex          uint32
 	WimFileNameOffset uint32
 	WimFileNameLength uint32
+}
+
+// WIM_PROVIDER_EXTERNAL_INFO is a view of native Windows.Win32.System.Ioctl.WIM_PROVIDER_EXTERNAL_INFO storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type WIM_PROVIDER_EXTERNAL_INFO struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	WIM_PROVIDER_EXTERNAL_INFOSize               = 40
+	WIM_PROVIDER_EXTERNAL_INFOAlignment          = 8
+	WIM_PROVIDER_EXTERNAL_INFOVersionOffset      = 0
+	WIM_PROVIDER_EXTERNAL_INFOFlagsOffset        = 4
+	WIM_PROVIDER_EXTERNAL_INFODataSourceIdOffset = 8
+	WIM_PROVIDER_EXTERNAL_INFOResourceHashOffset = 16
+)
+
+// NewWIM_PROVIDER_EXTERNAL_INFO allocates zeroed, aligned native storage.
+func NewWIM_PROVIDER_EXTERNAL_INFO() WIM_PROVIDER_EXTERNAL_INFO {
+	return WIM_PROVIDER_EXTERNAL_INFO{data: nativebuffer.New(int(WIM_PROVIDER_EXTERNAL_INFOSize), uintptr(WIM_PROVIDER_EXTERNAL_INFOAlignment))}
+}
+
+// ViewWIM_PROVIDER_EXTERNAL_INFO shares data without copying. It panics if data is shorter than WIM_PROVIDER_EXTERNAL_INFOSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewWIM_PROVIDER_EXTERNAL_INFO(data []byte) WIM_PROVIDER_EXTERNAL_INFO {
+	return WIM_PROVIDER_EXTERNAL_INFO{data: nativebuffer.View(data, int(WIM_PROVIDER_EXTERNAL_INFOSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b WIM_PROVIDER_EXTERNAL_INFO) Bytes() []byte {
+	return b.data[:WIM_PROVIDER_EXTERNAL_INFOSize:WIM_PROVIDER_EXTERNAL_INFOSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b WIM_PROVIDER_EXTERNAL_INFO) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(WIM_PROVIDER_EXTERNAL_INFOAlignment))
+}
+
+// GetVersion returns a copy of the native field value.
+func (b WIM_PROVIDER_EXTERNAL_INFO) GetVersion() uint32 {
+	offset := uintptr(WIM_PROVIDER_EXTERNAL_INFOVersionOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetVersion copies value into the native field.
+func (b WIM_PROVIDER_EXTERNAL_INFO) SetVersion(value uint32) {
+	offset := uintptr(WIM_PROVIDER_EXTERNAL_INFOVersionOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b WIM_PROVIDER_EXTERNAL_INFO) GetFlags() uint32 {
+	offset := uintptr(WIM_PROVIDER_EXTERNAL_INFOFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b WIM_PROVIDER_EXTERNAL_INFO) SetFlags(value uint32) {
+	offset := uintptr(WIM_PROVIDER_EXTERNAL_INFOFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDataSourceId returns a copy of the native field value.
+func (b WIM_PROVIDER_EXTERNAL_INFO) GetDataSourceId() int64 {
+	offset := uintptr(WIM_PROVIDER_EXTERNAL_INFODataSourceIdOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetDataSourceId copies value into the native field.
+func (b WIM_PROVIDER_EXTERNAL_INFO) SetDataSourceId(value int64) {
+	offset := uintptr(WIM_PROVIDER_EXTERNAL_INFODataSourceIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetResourceHash returns a copy of the native field value.
+func (b WIM_PROVIDER_EXTERNAL_INFO) GetResourceHash(index0 int) uint8 {
+	if index0 < 0 || index0 >= 20 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(WIM_PROVIDER_EXTERNAL_INFOResourceHashOffset + uintptr(index0)*(1))
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetResourceHash copies value into the native field.
+func (b WIM_PROVIDER_EXTERNAL_INFO) SetResourceHash(index0 int, value uint8) {
+	if index0 < 0 || index0 >= 20 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(WIM_PROVIDER_EXTERNAL_INFOResourceHashOffset + uintptr(index0)*(1))
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// WIM_PROVIDER_REMOVE_OVERLAY_INPUT is a view of native Windows.Win32.System.Ioctl.WIM_PROVIDER_REMOVE_OVERLAY_INPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type WIM_PROVIDER_REMOVE_OVERLAY_INPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	WIM_PROVIDER_REMOVE_OVERLAY_INPUTSize               = 8
+	WIM_PROVIDER_REMOVE_OVERLAY_INPUTAlignment          = 8
+	WIM_PROVIDER_REMOVE_OVERLAY_INPUTDataSourceIdOffset = 0
+)
+
+// NewWIM_PROVIDER_REMOVE_OVERLAY_INPUT allocates zeroed, aligned native storage.
+func NewWIM_PROVIDER_REMOVE_OVERLAY_INPUT() WIM_PROVIDER_REMOVE_OVERLAY_INPUT {
+	return WIM_PROVIDER_REMOVE_OVERLAY_INPUT{data: nativebuffer.New(int(WIM_PROVIDER_REMOVE_OVERLAY_INPUTSize), uintptr(WIM_PROVIDER_REMOVE_OVERLAY_INPUTAlignment))}
+}
+
+// ViewWIM_PROVIDER_REMOVE_OVERLAY_INPUT shares data without copying. It panics if data is shorter than WIM_PROVIDER_REMOVE_OVERLAY_INPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewWIM_PROVIDER_REMOVE_OVERLAY_INPUT(data []byte) WIM_PROVIDER_REMOVE_OVERLAY_INPUT {
+	return WIM_PROVIDER_REMOVE_OVERLAY_INPUT{data: nativebuffer.View(data, int(WIM_PROVIDER_REMOVE_OVERLAY_INPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b WIM_PROVIDER_REMOVE_OVERLAY_INPUT) Bytes() []byte {
+	return b.data[:WIM_PROVIDER_REMOVE_OVERLAY_INPUTSize:WIM_PROVIDER_REMOVE_OVERLAY_INPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b WIM_PROVIDER_REMOVE_OVERLAY_INPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(WIM_PROVIDER_REMOVE_OVERLAY_INPUTAlignment))
+}
+
+// GetDataSourceId returns a copy of the native field value.
+func (b WIM_PROVIDER_REMOVE_OVERLAY_INPUT) GetDataSourceId() int64 {
+	offset := uintptr(WIM_PROVIDER_REMOVE_OVERLAY_INPUTDataSourceIdOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetDataSourceId copies value into the native field.
+func (b WIM_PROVIDER_REMOVE_OVERLAY_INPUT) SetDataSourceId(value int64) {
+	offset := uintptr(WIM_PROVIDER_REMOVE_OVERLAY_INPUTDataSourceIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// WIM_PROVIDER_SUSPEND_OVERLAY_INPUT is a view of native Windows.Win32.System.Ioctl.WIM_PROVIDER_SUSPEND_OVERLAY_INPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type WIM_PROVIDER_SUSPEND_OVERLAY_INPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	WIM_PROVIDER_SUSPEND_OVERLAY_INPUTSize               = 8
+	WIM_PROVIDER_SUSPEND_OVERLAY_INPUTAlignment          = 8
+	WIM_PROVIDER_SUSPEND_OVERLAY_INPUTDataSourceIdOffset = 0
+)
+
+// NewWIM_PROVIDER_SUSPEND_OVERLAY_INPUT allocates zeroed, aligned native storage.
+func NewWIM_PROVIDER_SUSPEND_OVERLAY_INPUT() WIM_PROVIDER_SUSPEND_OVERLAY_INPUT {
+	return WIM_PROVIDER_SUSPEND_OVERLAY_INPUT{data: nativebuffer.New(int(WIM_PROVIDER_SUSPEND_OVERLAY_INPUTSize), uintptr(WIM_PROVIDER_SUSPEND_OVERLAY_INPUTAlignment))}
+}
+
+// ViewWIM_PROVIDER_SUSPEND_OVERLAY_INPUT shares data without copying. It panics if data is shorter than WIM_PROVIDER_SUSPEND_OVERLAY_INPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewWIM_PROVIDER_SUSPEND_OVERLAY_INPUT(data []byte) WIM_PROVIDER_SUSPEND_OVERLAY_INPUT {
+	return WIM_PROVIDER_SUSPEND_OVERLAY_INPUT{data: nativebuffer.View(data, int(WIM_PROVIDER_SUSPEND_OVERLAY_INPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b WIM_PROVIDER_SUSPEND_OVERLAY_INPUT) Bytes() []byte {
+	return b.data[:WIM_PROVIDER_SUSPEND_OVERLAY_INPUTSize:WIM_PROVIDER_SUSPEND_OVERLAY_INPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b WIM_PROVIDER_SUSPEND_OVERLAY_INPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(WIM_PROVIDER_SUSPEND_OVERLAY_INPUTAlignment))
+}
+
+// GetDataSourceId returns a copy of the native field value.
+func (b WIM_PROVIDER_SUSPEND_OVERLAY_INPUT) GetDataSourceId() int64 {
+	offset := uintptr(WIM_PROVIDER_SUSPEND_OVERLAY_INPUTDataSourceIdOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetDataSourceId copies value into the native field.
+func (b WIM_PROVIDER_SUSPEND_OVERLAY_INPUT) SetDataSourceId(value int64) {
+	offset := uintptr(WIM_PROVIDER_SUSPEND_OVERLAY_INPUTDataSourceIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// WIM_PROVIDER_UPDATE_OVERLAY_INPUT is a view of native Windows.Win32.System.Ioctl.WIM_PROVIDER_UPDATE_OVERLAY_INPUT storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type WIM_PROVIDER_UPDATE_OVERLAY_INPUT struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	WIM_PROVIDER_UPDATE_OVERLAY_INPUTSize                    = 16
+	WIM_PROVIDER_UPDATE_OVERLAY_INPUTAlignment               = 8
+	WIM_PROVIDER_UPDATE_OVERLAY_INPUTDataSourceIdOffset      = 0
+	WIM_PROVIDER_UPDATE_OVERLAY_INPUTWimFileNameOffsetOffset = 8
+	WIM_PROVIDER_UPDATE_OVERLAY_INPUTWimFileNameLengthOffset = 12
+)
+
+// NewWIM_PROVIDER_UPDATE_OVERLAY_INPUT allocates zeroed, aligned native storage.
+func NewWIM_PROVIDER_UPDATE_OVERLAY_INPUT() WIM_PROVIDER_UPDATE_OVERLAY_INPUT {
+	return WIM_PROVIDER_UPDATE_OVERLAY_INPUT{data: nativebuffer.New(int(WIM_PROVIDER_UPDATE_OVERLAY_INPUTSize), uintptr(WIM_PROVIDER_UPDATE_OVERLAY_INPUTAlignment))}
+}
+
+// ViewWIM_PROVIDER_UPDATE_OVERLAY_INPUT shares data without copying. It panics if data is shorter than WIM_PROVIDER_UPDATE_OVERLAY_INPUTSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewWIM_PROVIDER_UPDATE_OVERLAY_INPUT(data []byte) WIM_PROVIDER_UPDATE_OVERLAY_INPUT {
+	return WIM_PROVIDER_UPDATE_OVERLAY_INPUT{data: nativebuffer.View(data, int(WIM_PROVIDER_UPDATE_OVERLAY_INPUTSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b WIM_PROVIDER_UPDATE_OVERLAY_INPUT) Bytes() []byte {
+	return b.data[:WIM_PROVIDER_UPDATE_OVERLAY_INPUTSize:WIM_PROVIDER_UPDATE_OVERLAY_INPUTSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b WIM_PROVIDER_UPDATE_OVERLAY_INPUT) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(WIM_PROVIDER_UPDATE_OVERLAY_INPUTAlignment))
+}
+
+// GetDataSourceId returns a copy of the native field value.
+func (b WIM_PROVIDER_UPDATE_OVERLAY_INPUT) GetDataSourceId() int64 {
+	offset := uintptr(WIM_PROVIDER_UPDATE_OVERLAY_INPUTDataSourceIdOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetDataSourceId copies value into the native field.
+func (b WIM_PROVIDER_UPDATE_OVERLAY_INPUT) SetDataSourceId(value int64) {
+	offset := uintptr(WIM_PROVIDER_UPDATE_OVERLAY_INPUTDataSourceIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetWimFileNameOffset returns a copy of the native field value.
+func (b WIM_PROVIDER_UPDATE_OVERLAY_INPUT) GetWimFileNameOffset() uint32 {
+	offset := uintptr(WIM_PROVIDER_UPDATE_OVERLAY_INPUTWimFileNameOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetWimFileNameOffset copies value into the native field.
+func (b WIM_PROVIDER_UPDATE_OVERLAY_INPUT) SetWimFileNameOffset(value uint32) {
+	offset := uintptr(WIM_PROVIDER_UPDATE_OVERLAY_INPUTWimFileNameOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetWimFileNameLength returns a copy of the native field value.
+func (b WIM_PROVIDER_UPDATE_OVERLAY_INPUT) GetWimFileNameLength() uint32 {
+	offset := uintptr(WIM_PROVIDER_UPDATE_OVERLAY_INPUTWimFileNameLengthOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetWimFileNameLength copies value into the native field.
+func (b WIM_PROVIDER_UPDATE_OVERLAY_INPUT) SetWimFileNameLength(value uint32) {
+	offset := uintptr(WIM_PROVIDER_UPDATE_OVERLAY_INPUTWimFileNameLengthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
 }
 
 // WOF_EXTERNAL_FILE_ID projects Windows.Win32.System.Ioctl.WOF_EXTERNAL_FILE_ID.

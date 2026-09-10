@@ -7,7 +7,377 @@ import (
 	"unsafe"
 
 	"github.com/depthbomb/win32defs/foundation"
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
+	"github.com/depthbomb/win32defs/process"
 )
+
+// JOBOBJECT_BASIC_ACCOUNTING_INFORMATION is a view of native Windows.Win32.System.JobObjects.JOBOBJECT_BASIC_ACCOUNTING_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_basic_accounting_information.
+type JOBOBJECT_BASIC_ACCOUNTING_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONSize                            = 48
+	JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONAlignment                       = 8
+	JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONTotalUserTimeOffset             = 0
+	JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONTotalKernelTimeOffset           = 8
+	JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONThisPeriodTotalUserTimeOffset   = 16
+	JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONThisPeriodTotalKernelTimeOffset = 24
+	JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONTotalPageFaultCountOffset       = 32
+	JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONTotalProcessesOffset            = 36
+	JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONActiveProcessesOffset           = 40
+	JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONTotalTerminatedProcessesOffset  = 44
+)
+
+// NewJOBOBJECT_BASIC_ACCOUNTING_INFORMATION allocates zeroed, aligned native storage.
+func NewJOBOBJECT_BASIC_ACCOUNTING_INFORMATION() JOBOBJECT_BASIC_ACCOUNTING_INFORMATION {
+	return JOBOBJECT_BASIC_ACCOUNTING_INFORMATION{data: nativebuffer.New(int(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONSize), uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONAlignment))}
+}
+
+// ViewJOBOBJECT_BASIC_ACCOUNTING_INFORMATION shares data without copying. It panics if data is shorter than JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewJOBOBJECT_BASIC_ACCOUNTING_INFORMATION(data []byte) JOBOBJECT_BASIC_ACCOUNTING_INFORMATION {
+	return JOBOBJECT_BASIC_ACCOUNTING_INFORMATION{data: nativebuffer.View(data, int(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) Bytes() []byte {
+	return b.data[:JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONSize:JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONAlignment))
+}
+
+// GetTotalUserTime returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) GetTotalUserTime() int64 {
+	offset := uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONTotalUserTimeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalUserTime copies value into the native field.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) SetTotalUserTime(value int64) {
+	offset := uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONTotalUserTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTotalKernelTime returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) GetTotalKernelTime() int64 {
+	offset := uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONTotalKernelTimeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalKernelTime copies value into the native field.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) SetTotalKernelTime(value int64) {
+	offset := uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONTotalKernelTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetThisPeriodTotalUserTime returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) GetThisPeriodTotalUserTime() int64 {
+	offset := uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONThisPeriodTotalUserTimeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetThisPeriodTotalUserTime copies value into the native field.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) SetThisPeriodTotalUserTime(value int64) {
+	offset := uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONThisPeriodTotalUserTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetThisPeriodTotalKernelTime returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) GetThisPeriodTotalKernelTime() int64 {
+	offset := uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONThisPeriodTotalKernelTimeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetThisPeriodTotalKernelTime copies value into the native field.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) SetThisPeriodTotalKernelTime(value int64) {
+	offset := uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONThisPeriodTotalKernelTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTotalPageFaultCount returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) GetTotalPageFaultCount() uint32 {
+	offset := uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONTotalPageFaultCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTotalPageFaultCount copies value into the native field.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) SetTotalPageFaultCount(value uint32) {
+	offset := uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONTotalPageFaultCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTotalProcesses returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) GetTotalProcesses() uint32 {
+	offset := uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONTotalProcessesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTotalProcesses copies value into the native field.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) SetTotalProcesses(value uint32) {
+	offset := uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONTotalProcessesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetActiveProcesses returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) GetActiveProcesses() uint32 {
+	offset := uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONActiveProcessesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetActiveProcesses copies value into the native field.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) SetActiveProcesses(value uint32) {
+	offset := uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONActiveProcessesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTotalTerminatedProcesses returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) GetTotalTerminatedProcesses() uint32 {
+	offset := uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONTotalTerminatedProcessesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetTotalTerminatedProcesses copies value into the native field.
+func (b JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) SetTotalTerminatedProcesses(value uint32) {
+	offset := uintptr(JOBOBJECT_BASIC_ACCOUNTING_INFORMATIONTotalTerminatedProcessesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION is a view of native Windows.Win32.System.JobObjects.JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_basic_and_io_accounting_information.
+type JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATIONSize            = 96
+	JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATIONAlignment       = 8
+	JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATIONBasicInfoOffset = 0
+	JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATIONIoInfoOffset    = 48
+)
+
+// NewJOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION allocates zeroed, aligned native storage.
+func NewJOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION() JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION {
+	return JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION{data: nativebuffer.New(int(JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATIONSize), uintptr(JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATIONAlignment))}
+}
+
+// ViewJOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION shares data without copying. It panics if data is shorter than JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewJOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION(data []byte) JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION {
+	return JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION{data: nativebuffer.View(data, int(JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION) Bytes() []byte {
+	return b.data[:JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATIONSize:JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATIONAlignment))
+}
+
+// GetBasicInfo returns a view sharing this buffer's storage.
+func (b JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION) GetBasicInfo() JOBOBJECT_BASIC_ACCOUNTING_INFORMATION {
+	offset := uintptr(JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATIONBasicInfoOffset)
+
+	return ViewJOBOBJECT_BASIC_ACCOUNTING_INFORMATION(b.Bytes()[offset : offset+(48)])
+}
+
+// SetBasicInfo copies value into the native field.
+func (b JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION) SetBasicInfo(value JOBOBJECT_BASIC_ACCOUNTING_INFORMATION) {
+	offset := uintptr(JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATIONBasicInfoOffset)
+	copy(b.Bytes()[offset:offset+(48)], value.Bytes())
+}
+
+// GetIoInfo returns a view sharing this buffer's storage.
+func (b JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION) GetIoInfo() process.IO_COUNTERS {
+	offset := uintptr(JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATIONIoInfoOffset)
+
+	return process.ViewIO_COUNTERS(b.Bytes()[offset : offset+(48)])
+}
+
+// SetIoInfo copies value into the native field.
+func (b JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION) SetIoInfo(value process.IO_COUNTERS) {
+	offset := uintptr(JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATIONIoInfoOffset)
+	copy(b.Bytes()[offset:offset+(48)], value.Bytes())
+}
+
+// JOBOBJECT_BASIC_LIMIT_INFORMATION is a view of native Windows.Win32.System.JobObjects.JOBOBJECT_BASIC_LIMIT_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_basic_limit_information.
+type JOBOBJECT_BASIC_LIMIT_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	JOBOBJECT_BASIC_LIMIT_INFORMATIONSize                          = 48 + (unsafe.Sizeof(uintptr(0))-4)/4*16
+	JOBOBJECT_BASIC_LIMIT_INFORMATIONAlignment                     = 8
+	JOBOBJECT_BASIC_LIMIT_INFORMATIONPerProcessUserTimeLimitOffset = 0
+	JOBOBJECT_BASIC_LIMIT_INFORMATIONPerJobUserTimeLimitOffset     = 8
+	JOBOBJECT_BASIC_LIMIT_INFORMATIONLimitFlagsOffset              = 16
+	JOBOBJECT_BASIC_LIMIT_INFORMATIONMinimumWorkingSetSizeOffset   = 20 + (unsafe.Sizeof(uintptr(0))-4)/4*4
+	JOBOBJECT_BASIC_LIMIT_INFORMATIONMaximumWorkingSetSizeOffset   = 24 + (unsafe.Sizeof(uintptr(0))-4)/4*8
+	JOBOBJECT_BASIC_LIMIT_INFORMATIONActiveProcessLimitOffset      = 28 + (unsafe.Sizeof(uintptr(0))-4)/4*12
+	JOBOBJECT_BASIC_LIMIT_INFORMATIONAffinityOffset                = 32 + (unsafe.Sizeof(uintptr(0))-4)/4*16
+	JOBOBJECT_BASIC_LIMIT_INFORMATIONPriorityClassOffset           = 36 + (unsafe.Sizeof(uintptr(0))-4)/4*20
+	JOBOBJECT_BASIC_LIMIT_INFORMATIONSchedulingClassOffset         = 40 + (unsafe.Sizeof(uintptr(0))-4)/4*20
+)
+
+// NewJOBOBJECT_BASIC_LIMIT_INFORMATION allocates zeroed, aligned native storage.
+func NewJOBOBJECT_BASIC_LIMIT_INFORMATION() JOBOBJECT_BASIC_LIMIT_INFORMATION {
+	return JOBOBJECT_BASIC_LIMIT_INFORMATION{data: nativebuffer.New(int(JOBOBJECT_BASIC_LIMIT_INFORMATIONSize), uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONAlignment))}
+}
+
+// ViewJOBOBJECT_BASIC_LIMIT_INFORMATION shares data without copying. It panics if data is shorter than JOBOBJECT_BASIC_LIMIT_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewJOBOBJECT_BASIC_LIMIT_INFORMATION(data []byte) JOBOBJECT_BASIC_LIMIT_INFORMATION {
+	return JOBOBJECT_BASIC_LIMIT_INFORMATION{data: nativebuffer.View(data, int(JOBOBJECT_BASIC_LIMIT_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) Bytes() []byte {
+	return b.data[:JOBOBJECT_BASIC_LIMIT_INFORMATIONSize:JOBOBJECT_BASIC_LIMIT_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONAlignment))
+}
+
+// GetPerProcessUserTimeLimit returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) GetPerProcessUserTimeLimit() int64 {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONPerProcessUserTimeLimitOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPerProcessUserTimeLimit copies value into the native field.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) SetPerProcessUserTimeLimit(value int64) {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONPerProcessUserTimeLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetPerJobUserTimeLimit returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) GetPerJobUserTimeLimit() int64 {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONPerJobUserTimeLimitOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPerJobUserTimeLimit copies value into the native field.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) SetPerJobUserTimeLimit(value int64) {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONPerJobUserTimeLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetLimitFlags returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) GetLimitFlags() JOB_OBJECT_LIMIT {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONLimitFlagsOffset)
+
+	return nativebuffer.Read[JOB_OBJECT_LIMIT](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLimitFlags copies value into the native field.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) SetLimitFlags(value JOB_OBJECT_LIMIT) {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONLimitFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMinimumWorkingSetSize returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) GetMinimumWorkingSetSize() uintptr {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONMinimumWorkingSetSizeOffset)
+
+	return nativebuffer.Read[uintptr](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetMinimumWorkingSetSize copies value into the native field.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) SetMinimumWorkingSetSize(value uintptr) {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONMinimumWorkingSetSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetMaximumWorkingSetSize returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) GetMaximumWorkingSetSize() uintptr {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONMaximumWorkingSetSizeOffset)
+
+	return nativebuffer.Read[uintptr](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetMaximumWorkingSetSize copies value into the native field.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) SetMaximumWorkingSetSize(value uintptr) {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONMaximumWorkingSetSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetActiveProcessLimit returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) GetActiveProcessLimit() uint32 {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONActiveProcessLimitOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetActiveProcessLimit copies value into the native field.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) SetActiveProcessLimit(value uint32) {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONActiveProcessLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetAffinity returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) GetAffinity() uintptr {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONAffinityOffset)
+
+	return nativebuffer.Read[uintptr](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetAffinity copies value into the native field.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) SetAffinity(value uintptr) {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONAffinityOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetPriorityClass returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) GetPriorityClass() uint32 {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONPriorityClassOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPriorityClass copies value into the native field.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) SetPriorityClass(value uint32) {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONPriorityClassOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSchedulingClass returns a copy of the native field value.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) GetSchedulingClass() uint32 {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONSchedulingClassOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSchedulingClass copies value into the native field.
+func (b JOBOBJECT_BASIC_LIMIT_INFORMATION) SetSchedulingClass(value uint32) {
+	offset := uintptr(JOBOBJECT_BASIC_LIMIT_INFORMATIONSchedulingClassOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
 
 // JOBOBJECT_BASIC_PROCESS_ID_LIST projects Windows.Win32.System.JobObjects.JOBOBJECT_BASIC_PROCESS_ID_LIST.
 // See https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_basic_process_id_list.
@@ -31,9 +401,701 @@ type JOBOBJECT_END_OF_JOB_TIME_INFORMATION struct {
 	EndOfJobTimeAction JOB_OBJECT_TERMINATE_AT_END_ACTION
 }
 
+// JOBOBJECT_EXTENDED_LIMIT_INFORMATION is a view of native Windows.Win32.System.JobObjects.JOBOBJECT_EXTENDED_LIMIT_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_extended_limit_information.
+type JOBOBJECT_EXTENDED_LIMIT_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	JOBOBJECT_EXTENDED_LIMIT_INFORMATIONSize                        = 112 + (unsafe.Sizeof(uintptr(0))-4)/4*32
+	JOBOBJECT_EXTENDED_LIMIT_INFORMATIONAlignment                   = 8
+	JOBOBJECT_EXTENDED_LIMIT_INFORMATIONBasicLimitInformationOffset = 0
+	JOBOBJECT_EXTENDED_LIMIT_INFORMATIONIoInfoOffset                = 48 + (unsafe.Sizeof(uintptr(0))-4)/4*16
+	JOBOBJECT_EXTENDED_LIMIT_INFORMATIONProcessMemoryLimitOffset    = 96 + (unsafe.Sizeof(uintptr(0))-4)/4*16
+	JOBOBJECT_EXTENDED_LIMIT_INFORMATIONJobMemoryLimitOffset        = 100 + (unsafe.Sizeof(uintptr(0))-4)/4*20
+	JOBOBJECT_EXTENDED_LIMIT_INFORMATIONPeakProcessMemoryUsedOffset = 104 + (unsafe.Sizeof(uintptr(0))-4)/4*24
+	JOBOBJECT_EXTENDED_LIMIT_INFORMATIONPeakJobMemoryUsedOffset     = 108 + (unsafe.Sizeof(uintptr(0))-4)/4*28
+)
+
+// NewJOBOBJECT_EXTENDED_LIMIT_INFORMATION allocates zeroed, aligned native storage.
+func NewJOBOBJECT_EXTENDED_LIMIT_INFORMATION() JOBOBJECT_EXTENDED_LIMIT_INFORMATION {
+	return JOBOBJECT_EXTENDED_LIMIT_INFORMATION{data: nativebuffer.New(int(JOBOBJECT_EXTENDED_LIMIT_INFORMATIONSize), uintptr(JOBOBJECT_EXTENDED_LIMIT_INFORMATIONAlignment))}
+}
+
+// ViewJOBOBJECT_EXTENDED_LIMIT_INFORMATION shares data without copying. It panics if data is shorter than JOBOBJECT_EXTENDED_LIMIT_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewJOBOBJECT_EXTENDED_LIMIT_INFORMATION(data []byte) JOBOBJECT_EXTENDED_LIMIT_INFORMATION {
+	return JOBOBJECT_EXTENDED_LIMIT_INFORMATION{data: nativebuffer.View(data, int(JOBOBJECT_EXTENDED_LIMIT_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b JOBOBJECT_EXTENDED_LIMIT_INFORMATION) Bytes() []byte {
+	return b.data[:JOBOBJECT_EXTENDED_LIMIT_INFORMATIONSize:JOBOBJECT_EXTENDED_LIMIT_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b JOBOBJECT_EXTENDED_LIMIT_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(JOBOBJECT_EXTENDED_LIMIT_INFORMATIONAlignment))
+}
+
+// GetBasicLimitInformation returns a view sharing this buffer's storage.
+func (b JOBOBJECT_EXTENDED_LIMIT_INFORMATION) GetBasicLimitInformation() JOBOBJECT_BASIC_LIMIT_INFORMATION {
+	offset := uintptr(JOBOBJECT_EXTENDED_LIMIT_INFORMATIONBasicLimitInformationOffset)
+
+	return ViewJOBOBJECT_BASIC_LIMIT_INFORMATION(b.Bytes()[offset : offset+(48+(unsafe.Sizeof(uintptr(0))-4)/4*16)])
+}
+
+// SetBasicLimitInformation copies value into the native field.
+func (b JOBOBJECT_EXTENDED_LIMIT_INFORMATION) SetBasicLimitInformation(value JOBOBJECT_BASIC_LIMIT_INFORMATION) {
+	offset := uintptr(JOBOBJECT_EXTENDED_LIMIT_INFORMATIONBasicLimitInformationOffset)
+	copy(b.Bytes()[offset:offset+(48+(unsafe.Sizeof(uintptr(0))-4)/4*16)], value.Bytes())
+}
+
+// GetIoInfo returns a view sharing this buffer's storage.
+func (b JOBOBJECT_EXTENDED_LIMIT_INFORMATION) GetIoInfo() process.IO_COUNTERS {
+	offset := uintptr(JOBOBJECT_EXTENDED_LIMIT_INFORMATIONIoInfoOffset)
+
+	return process.ViewIO_COUNTERS(b.Bytes()[offset : offset+(48)])
+}
+
+// SetIoInfo copies value into the native field.
+func (b JOBOBJECT_EXTENDED_LIMIT_INFORMATION) SetIoInfo(value process.IO_COUNTERS) {
+	offset := uintptr(JOBOBJECT_EXTENDED_LIMIT_INFORMATIONIoInfoOffset)
+	copy(b.Bytes()[offset:offset+(48)], value.Bytes())
+}
+
+// GetProcessMemoryLimit returns a copy of the native field value.
+func (b JOBOBJECT_EXTENDED_LIMIT_INFORMATION) GetProcessMemoryLimit() uintptr {
+	offset := uintptr(JOBOBJECT_EXTENDED_LIMIT_INFORMATIONProcessMemoryLimitOffset)
+
+	return nativebuffer.Read[uintptr](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetProcessMemoryLimit copies value into the native field.
+func (b JOBOBJECT_EXTENDED_LIMIT_INFORMATION) SetProcessMemoryLimit(value uintptr) {
+	offset := uintptr(JOBOBJECT_EXTENDED_LIMIT_INFORMATIONProcessMemoryLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetJobMemoryLimit returns a copy of the native field value.
+func (b JOBOBJECT_EXTENDED_LIMIT_INFORMATION) GetJobMemoryLimit() uintptr {
+	offset := uintptr(JOBOBJECT_EXTENDED_LIMIT_INFORMATIONJobMemoryLimitOffset)
+
+	return nativebuffer.Read[uintptr](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetJobMemoryLimit copies value into the native field.
+func (b JOBOBJECT_EXTENDED_LIMIT_INFORMATION) SetJobMemoryLimit(value uintptr) {
+	offset := uintptr(JOBOBJECT_EXTENDED_LIMIT_INFORMATIONJobMemoryLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetPeakProcessMemoryUsed returns a copy of the native field value.
+func (b JOBOBJECT_EXTENDED_LIMIT_INFORMATION) GetPeakProcessMemoryUsed() uintptr {
+	offset := uintptr(JOBOBJECT_EXTENDED_LIMIT_INFORMATIONPeakProcessMemoryUsedOffset)
+
+	return nativebuffer.Read[uintptr](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetPeakProcessMemoryUsed copies value into the native field.
+func (b JOBOBJECT_EXTENDED_LIMIT_INFORMATION) SetPeakProcessMemoryUsed(value uintptr) {
+	offset := uintptr(JOBOBJECT_EXTENDED_LIMIT_INFORMATIONPeakProcessMemoryUsedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetPeakJobMemoryUsed returns a copy of the native field value.
+func (b JOBOBJECT_EXTENDED_LIMIT_INFORMATION) GetPeakJobMemoryUsed() uintptr {
+	offset := uintptr(JOBOBJECT_EXTENDED_LIMIT_INFORMATIONPeakJobMemoryUsedOffset)
+
+	return nativebuffer.Read[uintptr](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetPeakJobMemoryUsed copies value into the native field.
+func (b JOBOBJECT_EXTENDED_LIMIT_INFORMATION) SetPeakJobMemoryUsed(value uintptr) {
+	offset := uintptr(JOBOBJECT_EXTENDED_LIMIT_INFORMATIONPeakJobMemoryUsedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// JOBOBJECT_IO_ATTRIBUTION_INFORMATION is a view of native Windows.Win32.System.JobObjects.JOBOBJECT_IO_ATTRIBUTION_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type JOBOBJECT_IO_ATTRIBUTION_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	JOBOBJECT_IO_ATTRIBUTION_INFORMATIONSize               = 72
+	JOBOBJECT_IO_ATTRIBUTION_INFORMATIONAlignment          = 8
+	JOBOBJECT_IO_ATTRIBUTION_INFORMATIONControlFlagsOffset = 0
+	JOBOBJECT_IO_ATTRIBUTION_INFORMATIONReadStatsOffset    = 8
+	JOBOBJECT_IO_ATTRIBUTION_INFORMATIONWriteStatsOffset   = 40
+)
+
+// NewJOBOBJECT_IO_ATTRIBUTION_INFORMATION allocates zeroed, aligned native storage.
+func NewJOBOBJECT_IO_ATTRIBUTION_INFORMATION() JOBOBJECT_IO_ATTRIBUTION_INFORMATION {
+	return JOBOBJECT_IO_ATTRIBUTION_INFORMATION{data: nativebuffer.New(int(JOBOBJECT_IO_ATTRIBUTION_INFORMATIONSize), uintptr(JOBOBJECT_IO_ATTRIBUTION_INFORMATIONAlignment))}
+}
+
+// ViewJOBOBJECT_IO_ATTRIBUTION_INFORMATION shares data without copying. It panics if data is shorter than JOBOBJECT_IO_ATTRIBUTION_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewJOBOBJECT_IO_ATTRIBUTION_INFORMATION(data []byte) JOBOBJECT_IO_ATTRIBUTION_INFORMATION {
+	return JOBOBJECT_IO_ATTRIBUTION_INFORMATION{data: nativebuffer.View(data, int(JOBOBJECT_IO_ATTRIBUTION_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b JOBOBJECT_IO_ATTRIBUTION_INFORMATION) Bytes() []byte {
+	return b.data[:JOBOBJECT_IO_ATTRIBUTION_INFORMATIONSize:JOBOBJECT_IO_ATTRIBUTION_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b JOBOBJECT_IO_ATTRIBUTION_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(JOBOBJECT_IO_ATTRIBUTION_INFORMATIONAlignment))
+}
+
+// GetControlFlags returns a copy of the native field value.
+func (b JOBOBJECT_IO_ATTRIBUTION_INFORMATION) GetControlFlags() uint32 {
+	offset := uintptr(JOBOBJECT_IO_ATTRIBUTION_INFORMATIONControlFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetControlFlags copies value into the native field.
+func (b JOBOBJECT_IO_ATTRIBUTION_INFORMATION) SetControlFlags(value uint32) {
+	offset := uintptr(JOBOBJECT_IO_ATTRIBUTION_INFORMATIONControlFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReadStats returns a view sharing this buffer's storage.
+func (b JOBOBJECT_IO_ATTRIBUTION_INFORMATION) GetReadStats() JOBOBJECT_IO_ATTRIBUTION_STATS {
+	offset := uintptr(JOBOBJECT_IO_ATTRIBUTION_INFORMATIONReadStatsOffset)
+
+	return ViewJOBOBJECT_IO_ATTRIBUTION_STATS(b.Bytes()[offset : offset+(32)])
+}
+
+// SetReadStats copies value into the native field.
+func (b JOBOBJECT_IO_ATTRIBUTION_INFORMATION) SetReadStats(value JOBOBJECT_IO_ATTRIBUTION_STATS) {
+	offset := uintptr(JOBOBJECT_IO_ATTRIBUTION_INFORMATIONReadStatsOffset)
+	copy(b.Bytes()[offset:offset+(32)], value.Bytes())
+}
+
+// GetWriteStats returns a view sharing this buffer's storage.
+func (b JOBOBJECT_IO_ATTRIBUTION_INFORMATION) GetWriteStats() JOBOBJECT_IO_ATTRIBUTION_STATS {
+	offset := uintptr(JOBOBJECT_IO_ATTRIBUTION_INFORMATIONWriteStatsOffset)
+
+	return ViewJOBOBJECT_IO_ATTRIBUTION_STATS(b.Bytes()[offset : offset+(32)])
+}
+
+// SetWriteStats copies value into the native field.
+func (b JOBOBJECT_IO_ATTRIBUTION_INFORMATION) SetWriteStats(value JOBOBJECT_IO_ATTRIBUTION_STATS) {
+	offset := uintptr(JOBOBJECT_IO_ATTRIBUTION_INFORMATIONWriteStatsOffset)
+	copy(b.Bytes()[offset:offset+(32)], value.Bytes())
+}
+
+// JOBOBJECT_IO_ATTRIBUTION_STATS is a view of native Windows.Win32.System.JobObjects.JOBOBJECT_IO_ATTRIBUTION_STATS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type JOBOBJECT_IO_ATTRIBUTION_STATS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	JOBOBJECT_IO_ATTRIBUTION_STATSSize                                = 32
+	JOBOBJECT_IO_ATTRIBUTION_STATSAlignment                           = 8
+	JOBOBJECT_IO_ATTRIBUTION_STATSIoCountOffset                       = 0
+	JOBOBJECT_IO_ATTRIBUTION_STATSTotalNonOverlappedQueueTimeOffset   = 8
+	JOBOBJECT_IO_ATTRIBUTION_STATSTotalNonOverlappedServiceTimeOffset = 16
+	JOBOBJECT_IO_ATTRIBUTION_STATSTotalSizeOffset                     = 24
+)
+
+// NewJOBOBJECT_IO_ATTRIBUTION_STATS allocates zeroed, aligned native storage.
+func NewJOBOBJECT_IO_ATTRIBUTION_STATS() JOBOBJECT_IO_ATTRIBUTION_STATS {
+	return JOBOBJECT_IO_ATTRIBUTION_STATS{data: nativebuffer.New(int(JOBOBJECT_IO_ATTRIBUTION_STATSSize), uintptr(JOBOBJECT_IO_ATTRIBUTION_STATSAlignment))}
+}
+
+// ViewJOBOBJECT_IO_ATTRIBUTION_STATS shares data without copying. It panics if data is shorter than JOBOBJECT_IO_ATTRIBUTION_STATSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewJOBOBJECT_IO_ATTRIBUTION_STATS(data []byte) JOBOBJECT_IO_ATTRIBUTION_STATS {
+	return JOBOBJECT_IO_ATTRIBUTION_STATS{data: nativebuffer.View(data, int(JOBOBJECT_IO_ATTRIBUTION_STATSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b JOBOBJECT_IO_ATTRIBUTION_STATS) Bytes() []byte {
+	return b.data[:JOBOBJECT_IO_ATTRIBUTION_STATSSize:JOBOBJECT_IO_ATTRIBUTION_STATSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b JOBOBJECT_IO_ATTRIBUTION_STATS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(JOBOBJECT_IO_ATTRIBUTION_STATSAlignment))
+}
+
+// GetIoCount returns a copy of the native field value.
+func (b JOBOBJECT_IO_ATTRIBUTION_STATS) GetIoCount() uintptr {
+	offset := uintptr(JOBOBJECT_IO_ATTRIBUTION_STATSIoCountOffset)
+
+	return nativebuffer.Read[uintptr](b.Bytes()[offset : offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)])
+}
+
+// SetIoCount copies value into the native field.
+func (b JOBOBJECT_IO_ATTRIBUTION_STATS) SetIoCount(value uintptr) {
+	offset := uintptr(JOBOBJECT_IO_ATTRIBUTION_STATSIoCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4+(unsafe.Sizeof(uintptr(0))-4)/4*4)], value)
+}
+
+// GetTotalNonOverlappedQueueTime returns a copy of the native field value.
+func (b JOBOBJECT_IO_ATTRIBUTION_STATS) GetTotalNonOverlappedQueueTime() uint64 {
+	offset := uintptr(JOBOBJECT_IO_ATTRIBUTION_STATSTotalNonOverlappedQueueTimeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalNonOverlappedQueueTime copies value into the native field.
+func (b JOBOBJECT_IO_ATTRIBUTION_STATS) SetTotalNonOverlappedQueueTime(value uint64) {
+	offset := uintptr(JOBOBJECT_IO_ATTRIBUTION_STATSTotalNonOverlappedQueueTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTotalNonOverlappedServiceTime returns a copy of the native field value.
+func (b JOBOBJECT_IO_ATTRIBUTION_STATS) GetTotalNonOverlappedServiceTime() uint64 {
+	offset := uintptr(JOBOBJECT_IO_ATTRIBUTION_STATSTotalNonOverlappedServiceTimeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalNonOverlappedServiceTime copies value into the native field.
+func (b JOBOBJECT_IO_ATTRIBUTION_STATS) SetTotalNonOverlappedServiceTime(value uint64) {
+	offset := uintptr(JOBOBJECT_IO_ATTRIBUTION_STATSTotalNonOverlappedServiceTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTotalSize returns a copy of the native field value.
+func (b JOBOBJECT_IO_ATTRIBUTION_STATS) GetTotalSize() uint64 {
+	offset := uintptr(JOBOBJECT_IO_ATTRIBUTION_STATSTotalSizeOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalSize copies value into the native field.
+func (b JOBOBJECT_IO_ATTRIBUTION_STATS) SetTotalSize(value uint64) {
+	offset := uintptr(JOBOBJECT_IO_ATTRIBUTION_STATSTotalSizeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // JOBOBJECT_JOBSET_INFORMATION projects Windows.Win32.System.JobObjects.JOBOBJECT_JOBSET_INFORMATION.
 type JOBOBJECT_JOBSET_INFORMATION struct {
 	MemberLevel uint32
+}
+
+// JOBOBJECT_LIMIT_VIOLATION_INFORMATION is a view of native Windows.Win32.System.JobObjects.JOBOBJECT_LIMIT_VIOLATION_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_limit_violation_information.
+type JOBOBJECT_LIMIT_VIOLATION_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	JOBOBJECT_LIMIT_VIOLATION_INFORMATIONSize                            = 80
+	JOBOBJECT_LIMIT_VIOLATION_INFORMATIONAlignment                       = 8
+	JOBOBJECT_LIMIT_VIOLATION_INFORMATIONLimitFlagsOffset                = 0
+	JOBOBJECT_LIMIT_VIOLATION_INFORMATIONViolationLimitFlagsOffset       = 4
+	JOBOBJECT_LIMIT_VIOLATION_INFORMATIONIoReadBytesOffset               = 8
+	JOBOBJECT_LIMIT_VIOLATION_INFORMATIONIoReadBytesLimitOffset          = 16
+	JOBOBJECT_LIMIT_VIOLATION_INFORMATIONIoWriteBytesOffset              = 24
+	JOBOBJECT_LIMIT_VIOLATION_INFORMATIONIoWriteBytesLimitOffset         = 32
+	JOBOBJECT_LIMIT_VIOLATION_INFORMATIONPerJobUserTimeOffset            = 40
+	JOBOBJECT_LIMIT_VIOLATION_INFORMATIONPerJobUserTimeLimitOffset       = 48
+	JOBOBJECT_LIMIT_VIOLATION_INFORMATIONJobMemoryOffset                 = 56
+	JOBOBJECT_LIMIT_VIOLATION_INFORMATIONJobMemoryLimitOffset            = 64
+	JOBOBJECT_LIMIT_VIOLATION_INFORMATIONRateControlToleranceOffset      = 72
+	JOBOBJECT_LIMIT_VIOLATION_INFORMATIONRateControlToleranceLimitOffset = 76
+)
+
+// NewJOBOBJECT_LIMIT_VIOLATION_INFORMATION allocates zeroed, aligned native storage.
+func NewJOBOBJECT_LIMIT_VIOLATION_INFORMATION() JOBOBJECT_LIMIT_VIOLATION_INFORMATION {
+	return JOBOBJECT_LIMIT_VIOLATION_INFORMATION{data: nativebuffer.New(int(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONSize), uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONAlignment))}
+}
+
+// ViewJOBOBJECT_LIMIT_VIOLATION_INFORMATION shares data without copying. It panics if data is shorter than JOBOBJECT_LIMIT_VIOLATION_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewJOBOBJECT_LIMIT_VIOLATION_INFORMATION(data []byte) JOBOBJECT_LIMIT_VIOLATION_INFORMATION {
+	return JOBOBJECT_LIMIT_VIOLATION_INFORMATION{data: nativebuffer.View(data, int(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) Bytes() []byte {
+	return b.data[:JOBOBJECT_LIMIT_VIOLATION_INFORMATIONSize:JOBOBJECT_LIMIT_VIOLATION_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONAlignment))
+}
+
+// GetLimitFlags returns a copy of the native field value.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) GetLimitFlags() JOB_OBJECT_LIMIT {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONLimitFlagsOffset)
+
+	return nativebuffer.Read[JOB_OBJECT_LIMIT](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLimitFlags copies value into the native field.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) SetLimitFlags(value JOB_OBJECT_LIMIT) {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONLimitFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetViolationLimitFlags returns a copy of the native field value.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) GetViolationLimitFlags() JOB_OBJECT_LIMIT {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONViolationLimitFlagsOffset)
+
+	return nativebuffer.Read[JOB_OBJECT_LIMIT](b.Bytes()[offset : offset+(4)])
+}
+
+// SetViolationLimitFlags copies value into the native field.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) SetViolationLimitFlags(value JOB_OBJECT_LIMIT) {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONViolationLimitFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetIoReadBytes returns a copy of the native field value.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) GetIoReadBytes() uint64 {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONIoReadBytesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetIoReadBytes copies value into the native field.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) SetIoReadBytes(value uint64) {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONIoReadBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetIoReadBytesLimit returns a copy of the native field value.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) GetIoReadBytesLimit() uint64 {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONIoReadBytesLimitOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetIoReadBytesLimit copies value into the native field.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) SetIoReadBytesLimit(value uint64) {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONIoReadBytesLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetIoWriteBytes returns a copy of the native field value.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) GetIoWriteBytes() uint64 {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONIoWriteBytesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetIoWriteBytes copies value into the native field.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) SetIoWriteBytes(value uint64) {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONIoWriteBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetIoWriteBytesLimit returns a copy of the native field value.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) GetIoWriteBytesLimit() uint64 {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONIoWriteBytesLimitOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetIoWriteBytesLimit copies value into the native field.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) SetIoWriteBytesLimit(value uint64) {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONIoWriteBytesLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetPerJobUserTime returns a copy of the native field value.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) GetPerJobUserTime() int64 {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONPerJobUserTimeOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPerJobUserTime copies value into the native field.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) SetPerJobUserTime(value int64) {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONPerJobUserTimeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetPerJobUserTimeLimit returns a copy of the native field value.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) GetPerJobUserTimeLimit() int64 {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONPerJobUserTimeLimitOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPerJobUserTimeLimit copies value into the native field.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) SetPerJobUserTimeLimit(value int64) {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONPerJobUserTimeLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetJobMemory returns a copy of the native field value.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) GetJobMemory() uint64 {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONJobMemoryOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetJobMemory copies value into the native field.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) SetJobMemory(value uint64) {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONJobMemoryOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetJobMemoryLimit returns a copy of the native field value.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) GetJobMemoryLimit() uint64 {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONJobMemoryLimitOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetJobMemoryLimit copies value into the native field.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) SetJobMemoryLimit(value uint64) {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONJobMemoryLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetRateControlTolerance returns a copy of the native field value.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) GetRateControlTolerance() JOBOBJECT_RATE_CONTROL_TOLERANCE {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONRateControlToleranceOffset)
+
+	return nativebuffer.Read[JOBOBJECT_RATE_CONTROL_TOLERANCE](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRateControlTolerance copies value into the native field.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) SetRateControlTolerance(value JOBOBJECT_RATE_CONTROL_TOLERANCE) {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONRateControlToleranceOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRateControlToleranceLimit returns a copy of the native field value.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) GetRateControlToleranceLimit() JOBOBJECT_RATE_CONTROL_TOLERANCE {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONRateControlToleranceLimitOffset)
+
+	return nativebuffer.Read[JOBOBJECT_RATE_CONTROL_TOLERANCE](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRateControlToleranceLimit copies value into the native field.
+func (b JOBOBJECT_LIMIT_VIOLATION_INFORMATION) SetRateControlToleranceLimit(value JOBOBJECT_RATE_CONTROL_TOLERANCE) {
+	offset := uintptr(JOBOBJECT_LIMIT_VIOLATION_INFORMATIONRateControlToleranceLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// JOBOBJECT_NET_RATE_CONTROL_INFORMATION is a view of native Windows.Win32.System.JobObjects.JOBOBJECT_NET_RATE_CONTROL_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_net_rate_control_information.
+type JOBOBJECT_NET_RATE_CONTROL_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	JOBOBJECT_NET_RATE_CONTROL_INFORMATIONSize               = 16
+	JOBOBJECT_NET_RATE_CONTROL_INFORMATIONAlignment          = 8
+	JOBOBJECT_NET_RATE_CONTROL_INFORMATIONMaxBandwidthOffset = 0
+	JOBOBJECT_NET_RATE_CONTROL_INFORMATIONControlFlagsOffset = 8
+	JOBOBJECT_NET_RATE_CONTROL_INFORMATIONDscpTagOffset      = 12
+)
+
+// NewJOBOBJECT_NET_RATE_CONTROL_INFORMATION allocates zeroed, aligned native storage.
+func NewJOBOBJECT_NET_RATE_CONTROL_INFORMATION() JOBOBJECT_NET_RATE_CONTROL_INFORMATION {
+	return JOBOBJECT_NET_RATE_CONTROL_INFORMATION{data: nativebuffer.New(int(JOBOBJECT_NET_RATE_CONTROL_INFORMATIONSize), uintptr(JOBOBJECT_NET_RATE_CONTROL_INFORMATIONAlignment))}
+}
+
+// ViewJOBOBJECT_NET_RATE_CONTROL_INFORMATION shares data without copying. It panics if data is shorter than JOBOBJECT_NET_RATE_CONTROL_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewJOBOBJECT_NET_RATE_CONTROL_INFORMATION(data []byte) JOBOBJECT_NET_RATE_CONTROL_INFORMATION {
+	return JOBOBJECT_NET_RATE_CONTROL_INFORMATION{data: nativebuffer.View(data, int(JOBOBJECT_NET_RATE_CONTROL_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b JOBOBJECT_NET_RATE_CONTROL_INFORMATION) Bytes() []byte {
+	return b.data[:JOBOBJECT_NET_RATE_CONTROL_INFORMATIONSize:JOBOBJECT_NET_RATE_CONTROL_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b JOBOBJECT_NET_RATE_CONTROL_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(JOBOBJECT_NET_RATE_CONTROL_INFORMATIONAlignment))
+}
+
+// GetMaxBandwidth returns a copy of the native field value.
+func (b JOBOBJECT_NET_RATE_CONTROL_INFORMATION) GetMaxBandwidth() uint64 {
+	offset := uintptr(JOBOBJECT_NET_RATE_CONTROL_INFORMATIONMaxBandwidthOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMaxBandwidth copies value into the native field.
+func (b JOBOBJECT_NET_RATE_CONTROL_INFORMATION) SetMaxBandwidth(value uint64) {
+	offset := uintptr(JOBOBJECT_NET_RATE_CONTROL_INFORMATIONMaxBandwidthOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetControlFlags returns a copy of the native field value.
+func (b JOBOBJECT_NET_RATE_CONTROL_INFORMATION) GetControlFlags() JOB_OBJECT_NET_RATE_CONTROL_FLAGS {
+	offset := uintptr(JOBOBJECT_NET_RATE_CONTROL_INFORMATIONControlFlagsOffset)
+
+	return nativebuffer.Read[JOB_OBJECT_NET_RATE_CONTROL_FLAGS](b.Bytes()[offset : offset+(4)])
+}
+
+// SetControlFlags copies value into the native field.
+func (b JOBOBJECT_NET_RATE_CONTROL_INFORMATION) SetControlFlags(value JOB_OBJECT_NET_RATE_CONTROL_FLAGS) {
+	offset := uintptr(JOBOBJECT_NET_RATE_CONTROL_INFORMATIONControlFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetDscpTag returns a copy of the native field value.
+func (b JOBOBJECT_NET_RATE_CONTROL_INFORMATION) GetDscpTag() uint8 {
+	offset := uintptr(JOBOBJECT_NET_RATE_CONTROL_INFORMATIONDscpTagOffset)
+
+	return nativebuffer.Read[uint8](b.Bytes()[offset : offset+(1)])
+}
+
+// SetDscpTag copies value into the native field.
+func (b JOBOBJECT_NET_RATE_CONTROL_INFORMATION) SetDscpTag(value uint8) {
+	offset := uintptr(JOBOBJECT_NET_RATE_CONTROL_INFORMATIONDscpTagOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(1)], value)
+}
+
+// JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION is a view of native Windows.Win32.System.JobObjects.JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_notification_limit_information.
+type JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONSize                               = 48
+	JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONAlignment                          = 8
+	JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONIoReadBytesLimitOffset             = 0
+	JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONIoWriteBytesLimitOffset            = 8
+	JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONPerJobUserTimeLimitOffset          = 16
+	JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONJobMemoryLimitOffset               = 24
+	JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONRateControlToleranceOffset         = 32
+	JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONRateControlToleranceIntervalOffset = 36
+	JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONLimitFlagsOffset                   = 40
+)
+
+// NewJOBOBJECT_NOTIFICATION_LIMIT_INFORMATION allocates zeroed, aligned native storage.
+func NewJOBOBJECT_NOTIFICATION_LIMIT_INFORMATION() JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION {
+	return JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION{data: nativebuffer.New(int(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONSize), uintptr(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONAlignment))}
+}
+
+// ViewJOBOBJECT_NOTIFICATION_LIMIT_INFORMATION shares data without copying. It panics if data is shorter than JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewJOBOBJECT_NOTIFICATION_LIMIT_INFORMATION(data []byte) JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION {
+	return JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION{data: nativebuffer.View(data, int(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION) Bytes() []byte {
+	return b.data[:JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONSize:JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONAlignment))
+}
+
+// GetIoReadBytesLimit returns a copy of the native field value.
+func (b JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION) GetIoReadBytesLimit() uint64 {
+	offset := uintptr(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONIoReadBytesLimitOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetIoReadBytesLimit copies value into the native field.
+func (b JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION) SetIoReadBytesLimit(value uint64) {
+	offset := uintptr(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONIoReadBytesLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetIoWriteBytesLimit returns a copy of the native field value.
+func (b JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION) GetIoWriteBytesLimit() uint64 {
+	offset := uintptr(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONIoWriteBytesLimitOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetIoWriteBytesLimit copies value into the native field.
+func (b JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION) SetIoWriteBytesLimit(value uint64) {
+	offset := uintptr(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONIoWriteBytesLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetPerJobUserTimeLimit returns a copy of the native field value.
+func (b JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION) GetPerJobUserTimeLimit() int64 {
+	offset := uintptr(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONPerJobUserTimeLimitOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPerJobUserTimeLimit copies value into the native field.
+func (b JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION) SetPerJobUserTimeLimit(value int64) {
+	offset := uintptr(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONPerJobUserTimeLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetJobMemoryLimit returns a copy of the native field value.
+func (b JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION) GetJobMemoryLimit() uint64 {
+	offset := uintptr(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONJobMemoryLimitOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetJobMemoryLimit copies value into the native field.
+func (b JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION) SetJobMemoryLimit(value uint64) {
+	offset := uintptr(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONJobMemoryLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetRateControlTolerance returns a copy of the native field value.
+func (b JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION) GetRateControlTolerance() JOBOBJECT_RATE_CONTROL_TOLERANCE {
+	offset := uintptr(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONRateControlToleranceOffset)
+
+	return nativebuffer.Read[JOBOBJECT_RATE_CONTROL_TOLERANCE](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRateControlTolerance copies value into the native field.
+func (b JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION) SetRateControlTolerance(value JOBOBJECT_RATE_CONTROL_TOLERANCE) {
+	offset := uintptr(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONRateControlToleranceOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetRateControlToleranceInterval returns a copy of the native field value.
+func (b JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION) GetRateControlToleranceInterval() JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL {
+	offset := uintptr(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONRateControlToleranceIntervalOffset)
+
+	return nativebuffer.Read[JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL](b.Bytes()[offset : offset+(4)])
+}
+
+// SetRateControlToleranceInterval copies value into the native field.
+func (b JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION) SetRateControlToleranceInterval(value JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL) {
+	offset := uintptr(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONRateControlToleranceIntervalOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetLimitFlags returns a copy of the native field value.
+func (b JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION) GetLimitFlags() JOB_OBJECT_LIMIT {
+	offset := uintptr(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONLimitFlagsOffset)
+
+	return nativebuffer.Read[JOB_OBJECT_LIMIT](b.Bytes()[offset : offset+(4)])
+}
+
+// SetLimitFlags copies value into the native field.
+func (b JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION) SetLimitFlags(value JOB_OBJECT_LIMIT) {
+	offset := uintptr(JOBOBJECT_NOTIFICATION_LIMIT_INFORMATIONLimitFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
 }
 
 // JOBOBJECT_RATE_CONTROL_TOLERANCE projects Windows.Win32.System.JobObjects.JOBOBJECT_RATE_CONTROL_TOLERANCE.

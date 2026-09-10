@@ -8,6 +8,7 @@ import (
 
 	"github.com/depthbomb/win32defs/foundation"
 	"github.com/depthbomb/win32defs/gdi"
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
 )
 
 // CALDATETIME projects Windows.Win32.Globalization.CALDATETIME.
@@ -175,6 +176,73 @@ type RFC1766INFO struct {
 	Lcid          uint32
 	WszRfc1766    [6]uint16
 	WszLocaleName [32]uint16
+}
+
+// SCRIPTFONTINFO is a view of native Windows.Win32.Globalization.SCRIPTFONTINFO storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type SCRIPTFONTINFO struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SCRIPTFONTINFOSize          = 72
+	SCRIPTFONTINFOAlignment     = 8
+	SCRIPTFONTINFOScriptsOffset = 0
+	SCRIPTFONTINFOWszFontOffset = 8
+)
+
+// NewSCRIPTFONTINFO allocates zeroed, aligned native storage.
+func NewSCRIPTFONTINFO() SCRIPTFONTINFO {
+	return SCRIPTFONTINFO{data: nativebuffer.New(int(SCRIPTFONTINFOSize), uintptr(SCRIPTFONTINFOAlignment))}
+}
+
+// ViewSCRIPTFONTINFO shares data without copying. It panics if data is shorter than SCRIPTFONTINFOSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSCRIPTFONTINFO(data []byte) SCRIPTFONTINFO {
+	return SCRIPTFONTINFO{data: nativebuffer.View(data, int(SCRIPTFONTINFOSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SCRIPTFONTINFO) Bytes() []byte {
+	return b.data[:SCRIPTFONTINFOSize:SCRIPTFONTINFOSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SCRIPTFONTINFO) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SCRIPTFONTINFOAlignment))
+}
+
+// GetScripts returns a copy of the native field value.
+func (b SCRIPTFONTINFO) GetScripts() int64 {
+	offset := uintptr(SCRIPTFONTINFOScriptsOffset)
+
+	return nativebuffer.Read[int64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetScripts copies value into the native field.
+func (b SCRIPTFONTINFO) SetScripts(value int64) {
+	offset := uintptr(SCRIPTFONTINFOScriptsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetWszFont returns a copy of the native field value.
+func (b SCRIPTFONTINFO) GetWszFont(index0 int) uint16 {
+	if index0 < 0 || index0 >= 32 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SCRIPTFONTINFOWszFontOffset + uintptr(index0)*(2))
+
+	return nativebuffer.Read[uint16](b.Bytes()[offset : offset+(2)])
+}
+
+// SetWszFont copies value into the native field.
+func (b SCRIPTFONTINFO) SetWszFont(index0 int, value uint16) {
+	if index0 < 0 || index0 >= 32 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(SCRIPTFONTINFOWszFontOffset + uintptr(index0)*(2))
+	nativebuffer.Write(b.Bytes()[offset:offset+(2)], value)
 }
 
 // SCRIPTINFO projects Windows.Win32.Globalization.SCRIPTINFO.

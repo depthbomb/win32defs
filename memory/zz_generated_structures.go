@@ -5,6 +5,8 @@ package memory
 
 import (
 	"unsafe"
+
+	"github.com/depthbomb/win32defs/internal/nativebuffer"
 )
 
 // AtlThunkData_t projects Windows.Win32.System.Memory.AtlThunkData_t.
@@ -48,8 +50,515 @@ type MEMORY_BASIC_INFORMATION32 struct {
 // MEMORY_MAPPED_VIEW_ADDRESS projects Windows.Win32.System.Memory.MEMORY_MAPPED_VIEW_ADDRESS.
 type MEMORY_MAPPED_VIEW_ADDRESS uintptr
 
+// MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE is a view of native Windows.Win32.System.Memory.MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTESize           = 16
+	MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTEAlignment      = 8
+	MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTETypeOffset     = 0
+	MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTEReservedOffset = 4
+	MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTEValueOffset    = 8
+)
+
+// NewMEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE allocates zeroed, aligned native storage.
+func NewMEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE() MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE {
+	return MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE{data: nativebuffer.New(int(MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTESize), uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTEAlignment))}
+}
+
+// ViewMEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE shares data without copying. It panics if data is shorter than MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewMEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE(data []byte) MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE {
+	return MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE{data: nativebuffer.View(data, int(MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE) Bytes() []byte {
+	return b.data[:MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTESize:MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTEAlignment))
+}
+
+// GetType returns a copy of the native field value.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE) GetType() MEM_DEDICATED_ATTRIBUTE_TYPE {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTETypeOffset)
+
+	return nativebuffer.Read[MEM_DEDICATED_ATTRIBUTE_TYPE](b.Bytes()[offset : offset+(4)])
+}
+
+// SetType copies value into the native field.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE) SetType(value MEM_DEDICATED_ATTRIBUTE_TYPE) {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTETypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE) GetReserved() uint32 {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTEReservedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved copies value into the native field.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE) SetReserved(value uint32) {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTEReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetValue returns a copy of the native field value.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE) GetValue() uint64 {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTEValueOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetValue copies value into the native field.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE) SetValue(value uint64) {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTEValueOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION is a view of native Windows.Win32.System.Memory.MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONSize                    = 32
+	MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONAlignment               = 8
+	MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONNextEntryOffsetOffset   = 0
+	MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONSizeOfInformationOffset = 4
+	MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONFlagsOffset             = 8
+	MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONAttributesOffsetOffset  = 12
+	MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONAttributeCountOffset    = 16
+	MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONReservedOffset          = 20
+	MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONTypeIdOffset            = 24
+)
+
+// NewMEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION allocates zeroed, aligned native storage.
+func NewMEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION() MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION {
+	return MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION{data: nativebuffer.New(int(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONSize), uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONAlignment))}
+}
+
+// ViewMEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION shares data without copying. It panics if data is shorter than MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewMEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION(data []byte) MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION {
+	return MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION{data: nativebuffer.View(data, int(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION) Bytes() []byte {
+	return b.data[:MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONSize:MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONAlignment))
+}
+
+// GetNextEntryOffset returns a copy of the native field value.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION) GetNextEntryOffset() uint32 {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONNextEntryOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNextEntryOffset copies value into the native field.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION) SetNextEntryOffset(value uint32) {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONNextEntryOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetSizeOfInformation returns a copy of the native field value.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION) GetSizeOfInformation() uint32 {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONSizeOfInformationOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetSizeOfInformation copies value into the native field.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION) SetSizeOfInformation(value uint32) {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONSizeOfInformationOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetFlags returns a copy of the native field value.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION) GetFlags() uint32 {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION) SetFlags(value uint32) {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetAttributesOffset returns a copy of the native field value.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION) GetAttributesOffset() uint32 {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONAttributesOffsetOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetAttributesOffset copies value into the native field.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION) SetAttributesOffset(value uint32) {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONAttributesOffsetOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetAttributeCount returns a copy of the native field value.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION) GetAttributeCount() uint32 {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONAttributeCountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetAttributeCount copies value into the native field.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION) SetAttributeCount(value uint32) {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONAttributeCountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION) GetReserved() uint32 {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONReservedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetReserved copies value into the native field.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION) SetReserved(value uint32) {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetTypeId returns a copy of the native field value.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION) GetTypeId() uint64 {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONTypeIdOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTypeId copies value into the native field.
+func (b MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION) SetTypeId(value uint64) {
+	offset := uintptr(MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATIONTypeIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
 // MEM_DEDICATED_ATTRIBUTE_TYPE projects Windows.Win32.System.Memory.MEM_DEDICATED_ATTRIBUTE_TYPE.
 type MEM_DEDICATED_ATTRIBUTE_TYPE int32
+
+// MEM_LARGE_DES is a view of native Windows.Win32.Devices.DeviceAndDriverInstallation.MEM_LARGE_DES storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type MEM_LARGE_DES struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	MEM_LARGE_DESSize                 = 32
+	MEM_LARGE_DESAlignment            = 1
+	MEM_LARGE_DESMLD_CountOffset      = 0
+	MEM_LARGE_DESMLD_TypeOffset       = 4
+	MEM_LARGE_DESMLD_Alloc_BaseOffset = 8
+	MEM_LARGE_DESMLD_Alloc_EndOffset  = 16
+	MEM_LARGE_DESMLD_FlagsOffset      = 24
+	MEM_LARGE_DESMLD_ReservedOffset   = 28
+)
+
+// NewMEM_LARGE_DES allocates zeroed, aligned native storage.
+func NewMEM_LARGE_DES() MEM_LARGE_DES {
+	return MEM_LARGE_DES{data: nativebuffer.New(int(MEM_LARGE_DESSize), uintptr(MEM_LARGE_DESAlignment))}
+}
+
+// ViewMEM_LARGE_DES shares data without copying. It panics if data is shorter than MEM_LARGE_DESSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewMEM_LARGE_DES(data []byte) MEM_LARGE_DES {
+	return MEM_LARGE_DES{data: nativebuffer.View(data, int(MEM_LARGE_DESSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b MEM_LARGE_DES) Bytes() []byte {
+	return b.data[:MEM_LARGE_DESSize:MEM_LARGE_DESSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b MEM_LARGE_DES) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(MEM_LARGE_DESAlignment))
+}
+
+// GetMLD_Count returns a copy of the native field value.
+func (b MEM_LARGE_DES) GetMLD_Count() uint32 {
+	offset := uintptr(MEM_LARGE_DESMLD_CountOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMLD_Count copies value into the native field.
+func (b MEM_LARGE_DES) SetMLD_Count(value uint32) {
+	offset := uintptr(MEM_LARGE_DESMLD_CountOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMLD_Type returns a copy of the native field value.
+func (b MEM_LARGE_DES) GetMLD_Type() uint32 {
+	offset := uintptr(MEM_LARGE_DESMLD_TypeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMLD_Type copies value into the native field.
+func (b MEM_LARGE_DES) SetMLD_Type(value uint32) {
+	offset := uintptr(MEM_LARGE_DESMLD_TypeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMLD_Alloc_Base returns a copy of the native field value.
+func (b MEM_LARGE_DES) GetMLD_Alloc_Base() uint64 {
+	offset := uintptr(MEM_LARGE_DESMLD_Alloc_BaseOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMLD_Alloc_Base copies value into the native field.
+func (b MEM_LARGE_DES) SetMLD_Alloc_Base(value uint64) {
+	offset := uintptr(MEM_LARGE_DESMLD_Alloc_BaseOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMLD_Alloc_End returns a copy of the native field value.
+func (b MEM_LARGE_DES) GetMLD_Alloc_End() uint64 {
+	offset := uintptr(MEM_LARGE_DESMLD_Alloc_EndOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMLD_Alloc_End copies value into the native field.
+func (b MEM_LARGE_DES) SetMLD_Alloc_End(value uint64) {
+	offset := uintptr(MEM_LARGE_DESMLD_Alloc_EndOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMLD_Flags returns a copy of the native field value.
+func (b MEM_LARGE_DES) GetMLD_Flags() uint32 {
+	offset := uintptr(MEM_LARGE_DESMLD_FlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMLD_Flags copies value into the native field.
+func (b MEM_LARGE_DES) SetMLD_Flags(value uint32) {
+	offset := uintptr(MEM_LARGE_DESMLD_FlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMLD_Reserved returns a copy of the native field value.
+func (b MEM_LARGE_DES) GetMLD_Reserved() uint32 {
+	offset := uintptr(MEM_LARGE_DESMLD_ReservedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMLD_Reserved copies value into the native field.
+func (b MEM_LARGE_DES) SetMLD_Reserved(value uint32) {
+	offset := uintptr(MEM_LARGE_DESMLD_ReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// MEM_LARGE_RANGE is a view of native Windows.Win32.Devices.DeviceAndDriverInstallation.MEM_LARGE_RANGE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type MEM_LARGE_RANGE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	MEM_LARGE_RANGESize               = 40
+	MEM_LARGE_RANGEAlignment          = 1
+	MEM_LARGE_RANGEMLR_AlignOffset    = 0
+	MEM_LARGE_RANGEMLR_nBytesOffset   = 8
+	MEM_LARGE_RANGEMLR_MinOffset      = 16
+	MEM_LARGE_RANGEMLR_MaxOffset      = 24
+	MEM_LARGE_RANGEMLR_FlagsOffset    = 32
+	MEM_LARGE_RANGEMLR_ReservedOffset = 36
+)
+
+// NewMEM_LARGE_RANGE allocates zeroed, aligned native storage.
+func NewMEM_LARGE_RANGE() MEM_LARGE_RANGE {
+	return MEM_LARGE_RANGE{data: nativebuffer.New(int(MEM_LARGE_RANGESize), uintptr(MEM_LARGE_RANGEAlignment))}
+}
+
+// ViewMEM_LARGE_RANGE shares data without copying. It panics if data is shorter than MEM_LARGE_RANGESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewMEM_LARGE_RANGE(data []byte) MEM_LARGE_RANGE {
+	return MEM_LARGE_RANGE{data: nativebuffer.View(data, int(MEM_LARGE_RANGESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b MEM_LARGE_RANGE) Bytes() []byte {
+	return b.data[:MEM_LARGE_RANGESize:MEM_LARGE_RANGESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b MEM_LARGE_RANGE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(MEM_LARGE_RANGEAlignment))
+}
+
+// GetMLR_Align returns a copy of the native field value.
+func (b MEM_LARGE_RANGE) GetMLR_Align() uint64 {
+	offset := uintptr(MEM_LARGE_RANGEMLR_AlignOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMLR_Align copies value into the native field.
+func (b MEM_LARGE_RANGE) SetMLR_Align(value uint64) {
+	offset := uintptr(MEM_LARGE_RANGEMLR_AlignOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMLR_nBytes returns a copy of the native field value.
+func (b MEM_LARGE_RANGE) GetMLR_nBytes() uint64 {
+	offset := uintptr(MEM_LARGE_RANGEMLR_nBytesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMLR_nBytes copies value into the native field.
+func (b MEM_LARGE_RANGE) SetMLR_nBytes(value uint64) {
+	offset := uintptr(MEM_LARGE_RANGEMLR_nBytesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMLR_Min returns a copy of the native field value.
+func (b MEM_LARGE_RANGE) GetMLR_Min() uint64 {
+	offset := uintptr(MEM_LARGE_RANGEMLR_MinOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMLR_Min copies value into the native field.
+func (b MEM_LARGE_RANGE) SetMLR_Min(value uint64) {
+	offset := uintptr(MEM_LARGE_RANGEMLR_MinOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMLR_Max returns a copy of the native field value.
+func (b MEM_LARGE_RANGE) GetMLR_Max() uint64 {
+	offset := uintptr(MEM_LARGE_RANGEMLR_MaxOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMLR_Max copies value into the native field.
+func (b MEM_LARGE_RANGE) SetMLR_Max(value uint64) {
+	offset := uintptr(MEM_LARGE_RANGEMLR_MaxOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMLR_Flags returns a copy of the native field value.
+func (b MEM_LARGE_RANGE) GetMLR_Flags() uint32 {
+	offset := uintptr(MEM_LARGE_RANGEMLR_FlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMLR_Flags copies value into the native field.
+func (b MEM_LARGE_RANGE) SetMLR_Flags(value uint32) {
+	offset := uintptr(MEM_LARGE_RANGEMLR_FlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetMLR_Reserved returns a copy of the native field value.
+func (b MEM_LARGE_RANGE) GetMLR_Reserved() uint32 {
+	offset := uintptr(MEM_LARGE_RANGEMLR_ReservedOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetMLR_Reserved copies value into the native field.
+func (b MEM_LARGE_RANGE) SetMLR_Reserved(value uint32) {
+	offset := uintptr(MEM_LARGE_RANGEMLR_ReservedOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// MEM_LARGE_RESOURCE is a view of native Windows.Win32.Devices.DeviceAndDriverInstallation.MEM_LARGE_RESOURCE storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type MEM_LARGE_RESOURCE struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	MEM_LARGE_RESOURCESize                   = 72
+	MEM_LARGE_RESOURCEAlignment              = 1
+	MEM_LARGE_RESOURCEMEM_LARGE_HeaderOffset = 0
+	MEM_LARGE_RESOURCEMEM_LARGE_DataOffset   = 32
+)
+
+// NewMEM_LARGE_RESOURCE allocates zeroed, aligned native storage.
+func NewMEM_LARGE_RESOURCE() MEM_LARGE_RESOURCE {
+	return MEM_LARGE_RESOURCE{data: nativebuffer.New(int(MEM_LARGE_RESOURCESize), uintptr(MEM_LARGE_RESOURCEAlignment))}
+}
+
+// ViewMEM_LARGE_RESOURCE shares data without copying. It panics if data is shorter than MEM_LARGE_RESOURCESize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewMEM_LARGE_RESOURCE(data []byte) MEM_LARGE_RESOURCE {
+	return MEM_LARGE_RESOURCE{data: nativebuffer.View(data, int(MEM_LARGE_RESOURCESize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b MEM_LARGE_RESOURCE) Bytes() []byte {
+	return b.data[:MEM_LARGE_RESOURCESize:MEM_LARGE_RESOURCESize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b MEM_LARGE_RESOURCE) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(MEM_LARGE_RESOURCEAlignment))
+}
+
+// GetMEM_LARGE_Header returns a view sharing this buffer's storage.
+func (b MEM_LARGE_RESOURCE) GetMEM_LARGE_Header() MEM_LARGE_DES {
+	offset := uintptr(MEM_LARGE_RESOURCEMEM_LARGE_HeaderOffset)
+
+	return ViewMEM_LARGE_DES(b.Bytes()[offset : offset+(32)])
+}
+
+// SetMEM_LARGE_Header copies value into the native field.
+func (b MEM_LARGE_RESOURCE) SetMEM_LARGE_Header(value MEM_LARGE_DES) {
+	offset := uintptr(MEM_LARGE_RESOURCEMEM_LARGE_HeaderOffset)
+	copy(b.Bytes()[offset:offset+(32)], value.Bytes())
+}
+
+// GetMEM_LARGE_Data accesses the metadata-declared initial flexible-array extent only.
+func (b MEM_LARGE_RESOURCE) GetMEM_LARGE_Data(index0 int) MEM_LARGE_RANGE {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(MEM_LARGE_RESOURCEMEM_LARGE_DataOffset + uintptr(index0)*(40))
+
+	return ViewMEM_LARGE_RANGE(b.Bytes()[offset : offset+(40)])
+}
+
+// SetMEM_LARGE_Data copies value into the native field.
+func (b MEM_LARGE_RESOURCE) SetMEM_LARGE_Data(index0 int, value MEM_LARGE_RANGE) {
+	if index0 < 0 || index0 >= 1 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(MEM_LARGE_RESOURCEMEM_LARGE_DataOffset + uintptr(index0)*(40))
+	copy(b.Bytes()[offset:offset+(40)], value.Bytes())
+}
 
 // PAGE_PROTECTION_FLAGS projects Windows.Win32.System.Memory.PAGE_PROTECTION_FLAGS.
 type PAGE_PROTECTION_FLAGS uint32
@@ -135,6 +644,54 @@ type SEC_CHANNEL_BINDINGS_RESULT struct {
 // See https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_dtls_mtu.
 type SEC_DTLS_MTU struct {
 	PathMTU uint16
+}
+
+// SEC_FLAGS is a view of native Windows.Win32.Security.Authentication.Identity.SEC_FLAGS storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+// See https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_flags.
+type SEC_FLAGS struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	SEC_FLAGSSize        = 8
+	SEC_FLAGSAlignment   = 8
+	SEC_FLAGSFlagsOffset = 0
+)
+
+// NewSEC_FLAGS allocates zeroed, aligned native storage.
+func NewSEC_FLAGS() SEC_FLAGS {
+	return SEC_FLAGS{data: nativebuffer.New(int(SEC_FLAGSSize), uintptr(SEC_FLAGSAlignment))}
+}
+
+// ViewSEC_FLAGS shares data without copying. It panics if data is shorter than SEC_FLAGSSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewSEC_FLAGS(data []byte) SEC_FLAGS {
+	return SEC_FLAGS{data: nativebuffer.View(data, int(SEC_FLAGSSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b SEC_FLAGS) Bytes() []byte {
+	return b.data[:SEC_FLAGSSize:SEC_FLAGSSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b SEC_FLAGS) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(SEC_FLAGSAlignment))
+}
+
+// GetFlags returns a copy of the native field value.
+func (b SEC_FLAGS) GetFlags() uint64 {
+	offset := uintptr(SEC_FLAGSFlagsOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFlags copies value into the native field.
+func (b SEC_FLAGS) SetFlags(value uint64) {
+	offset := uintptr(SEC_FLAGSFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
 }
 
 // SEC_PRESHAREDKEY projects Windows.Win32.Security.Authentication.Identity.SEC_PRESHAREDKEY.
@@ -258,6 +815,283 @@ type SEC_WINNT_AUTH_IDENTITY_EX32 struct {
 
 // VIRTUAL_ALLOCATION_TYPE projects Windows.Win32.System.Memory.VIRTUAL_ALLOCATION_TYPE.
 type VIRTUAL_ALLOCATION_TYPE uint32
+
+// WIN32_MEMORY_PARTITION_INFORMATION is a view of native Windows.Win32.System.Memory.WIN32_MEMORY_PARTITION_INFORMATION storage.
+// Its Go representation is not the native layout. Use New or View to initialize it,
+// and Pointer when passing it to Windows. Copies share storage; the zero value is invalid.
+type WIN32_MEMORY_PARTITION_INFORMATION struct{ data []byte }
+
+// Native size, alignment, and field offsets for the current pointer width.
+const (
+	WIN32_MEMORY_PARTITION_INFORMATIONSize                         = 240
+	WIN32_MEMORY_PARTITION_INFORMATIONAlignment                    = 8
+	WIN32_MEMORY_PARTITION_INFORMATIONFlagsOffset                  = 0
+	WIN32_MEMORY_PARTITION_INFORMATIONNumaNodeOffset               = 4
+	WIN32_MEMORY_PARTITION_INFORMATIONChannelOffset                = 8
+	WIN32_MEMORY_PARTITION_INFORMATIONNumberOfNumaNodesOffset      = 12
+	WIN32_MEMORY_PARTITION_INFORMATIONResidentAvailablePagesOffset = 16
+	WIN32_MEMORY_PARTITION_INFORMATIONCommittedPagesOffset         = 24
+	WIN32_MEMORY_PARTITION_INFORMATIONCommitLimitOffset            = 32
+	WIN32_MEMORY_PARTITION_INFORMATIONPeakCommitmentOffset         = 40
+	WIN32_MEMORY_PARTITION_INFORMATIONTotalNumberOfPagesOffset     = 48
+	WIN32_MEMORY_PARTITION_INFORMATIONAvailablePagesOffset         = 56
+	WIN32_MEMORY_PARTITION_INFORMATIONZeroPagesOffset              = 64
+	WIN32_MEMORY_PARTITION_INFORMATIONFreePagesOffset              = 72
+	WIN32_MEMORY_PARTITION_INFORMATIONStandbyPagesOffset           = 80
+	WIN32_MEMORY_PARTITION_INFORMATIONReservedOffset               = 88
+	WIN32_MEMORY_PARTITION_INFORMATIONMaximumCommitLimitOffset     = 216
+	WIN32_MEMORY_PARTITION_INFORMATIONReserved2Offset              = 224
+	WIN32_MEMORY_PARTITION_INFORMATIONPartitionIdOffset            = 232
+)
+
+// NewWIN32_MEMORY_PARTITION_INFORMATION allocates zeroed, aligned native storage.
+func NewWIN32_MEMORY_PARTITION_INFORMATION() WIN32_MEMORY_PARTITION_INFORMATION {
+	return WIN32_MEMORY_PARTITION_INFORMATION{data: nativebuffer.New(int(WIN32_MEMORY_PARTITION_INFORMATIONSize), uintptr(WIN32_MEMORY_PARTITION_INFORMATIONAlignment))}
+}
+
+// ViewWIN32_MEMORY_PARTITION_INFORMATION shares data without copying. It panics if data is shorter than WIN32_MEMORY_PARTITION_INFORMATIONSize.
+// Unaligned views support field access, but Pointer requires native alignment.
+func ViewWIN32_MEMORY_PARTITION_INFORMATION(data []byte) WIN32_MEMORY_PARTITION_INFORMATION {
+	return WIN32_MEMORY_PARTITION_INFORMATION{data: nativebuffer.View(data, int(WIN32_MEMORY_PARTITION_INFORMATIONSize))}
+}
+
+// Bytes returns the shared native storage, including padding and the initial flexible-array extent.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) Bytes() []byte {
+	return b.data[:WIN32_MEMORY_PARTITION_INFORMATIONSize:WIN32_MEMORY_PARTITION_INFORMATIONSize]
+}
+
+// Pointer returns the native address. It panics for an invalid or unaligned view.
+// Keep the view alive while Windows uses it.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) Pointer() unsafe.Pointer {
+	return nativebuffer.Pointer(b.Bytes(), uintptr(WIN32_MEMORY_PARTITION_INFORMATIONAlignment))
+}
+
+// GetFlags returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetFlags() uint32 {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONFlagsOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetFlags copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetFlags(value uint32) {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONFlagsOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNumaNode returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetNumaNode() uint32 {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONNumaNodeOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNumaNode copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetNumaNode(value uint32) {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONNumaNodeOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetChannel returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetChannel() uint32 {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONChannelOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetChannel copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetChannel(value uint32) {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONChannelOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetNumberOfNumaNodes returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetNumberOfNumaNodes() uint32 {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONNumberOfNumaNodesOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetNumberOfNumaNodes copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetNumberOfNumaNodes(value uint32) {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONNumberOfNumaNodesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
+
+// GetResidentAvailablePages returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetResidentAvailablePages() uint64 {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONResidentAvailablePagesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetResidentAvailablePages copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetResidentAvailablePages(value uint64) {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONResidentAvailablePagesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetCommittedPages returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetCommittedPages() uint64 {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONCommittedPagesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetCommittedPages copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetCommittedPages(value uint64) {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONCommittedPagesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetCommitLimit returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetCommitLimit() uint64 {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONCommitLimitOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetCommitLimit copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetCommitLimit(value uint64) {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONCommitLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetPeakCommitment returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetPeakCommitment() uint64 {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONPeakCommitmentOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetPeakCommitment copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetPeakCommitment(value uint64) {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONPeakCommitmentOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetTotalNumberOfPages returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetTotalNumberOfPages() uint64 {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONTotalNumberOfPagesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetTotalNumberOfPages copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetTotalNumberOfPages(value uint64) {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONTotalNumberOfPagesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetAvailablePages returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetAvailablePages() uint64 {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONAvailablePagesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetAvailablePages copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetAvailablePages(value uint64) {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONAvailablePagesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetZeroPages returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetZeroPages() uint64 {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONZeroPagesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetZeroPages copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetZeroPages(value uint64) {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONZeroPagesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetFreePages returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetFreePages() uint64 {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONFreePagesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetFreePages copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetFreePages(value uint64) {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONFreePagesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetStandbyPages returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetStandbyPages() uint64 {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONStandbyPagesOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetStandbyPages copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetStandbyPages(value uint64) {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONStandbyPagesOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetReserved returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetReserved(index0 int) uint64 {
+	if index0 < 0 || index0 >= 16 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONReservedOffset + uintptr(index0)*(8))
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetReserved copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetReserved(index0 int, value uint64) {
+	if index0 < 0 || index0 >= 16 {
+		panic("native array index out of range")
+	}
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONReservedOffset + uintptr(index0)*(8))
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetMaximumCommitLimit returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetMaximumCommitLimit() uint64 {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONMaximumCommitLimitOffset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetMaximumCommitLimit copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetMaximumCommitLimit(value uint64) {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONMaximumCommitLimitOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetReserved2 returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetReserved2() uint64 {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONReserved2Offset)
+
+	return nativebuffer.Read[uint64](b.Bytes()[offset : offset+(8)])
+}
+
+// SetReserved2 copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetReserved2(value uint64) {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONReserved2Offset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(8)], value)
+}
+
+// GetPartitionId returns a copy of the native field value.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) GetPartitionId() uint32 {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONPartitionIdOffset)
+
+	return nativebuffer.Read[uint32](b.Bytes()[offset : offset+(4)])
+}
+
+// SetPartitionId copies value into the native field.
+func (b WIN32_MEMORY_PARTITION_INFORMATION) SetPartitionId(value uint32) {
+	offset := uintptr(WIN32_MEMORY_PARTITION_INFORMATIONPartitionIdOffset)
+	nativebuffer.Write(b.Bytes()[offset:offset+(4)], value)
+}
 
 // Verify metadata-derived Windows ABI sizes, alignments, and field offsets.
 var (

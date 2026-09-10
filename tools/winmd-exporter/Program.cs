@@ -11,7 +11,28 @@ record MetadataExport(
     [property: JsonPropertyName("constants")] IReadOnlyList<MetadataConstant> Constants,
     [property: JsonPropertyName("constant_methods")] IReadOnlyList<MetadataConstantMethod> ConstantMethods,
     [property: JsonPropertyName("initializers")] IReadOnlyList<MetadataInitializer> Initializers,
-    [property: JsonPropertyName("guids")] IReadOnlyList<MetadataGuid> Guids);
+    [property: JsonPropertyName("guids")] IReadOnlyList<MetadataGuid> Guids,
+    [property: JsonPropertyName("types")] IReadOnlyList<MetadataType> Types);
+
+internal sealed record MetadataType(
+    [property: JsonPropertyName("namespace")] string Namespace,
+    [property: JsonPropertyName("name")] string Name,
+    [property: JsonPropertyName("struct")] bool Struct,
+    [property: JsonPropertyName("sequential")] bool Sequential,
+    [property: JsonPropertyName("packing")] int Packing,
+    [property: JsonPropertyName("size")] int Size,
+    [property: JsonPropertyName("typedef")] bool Typedef,
+    [property: JsonPropertyName("enum")] bool Enum,
+    [property: JsonPropertyName("architecture_specific")] bool ArchitectureSpecific,
+    [property: JsonPropertyName("documentation")] string? Documentation,
+    [property: JsonPropertyName("fields")] IReadOnlyList<MetadataField> Fields);
+
+internal sealed record MetadataField(
+    [property: JsonPropertyName("name")] string Name,
+    [property: JsonPropertyName("type")] string Type,
+    [property: JsonPropertyName("offset")] int Offset,
+    [property: JsonPropertyName("flexible")] bool Flexible,
+    [property: JsonPropertyName("unsupported")] bool Unsupported);
 
 record MetadataConstant(
     [property: JsonPropertyName("namespace")] string Namespace,
@@ -74,9 +95,22 @@ sealed class TypeNameProvider :
     ISignatureTypeProvider<string, object?>,
     ICustomAttributeTypeProvider<string>
 {
+    private readonly bool strict;
+
+    public TypeNameProvider(bool strict = false)
+    {
+        this.strict = strict;
+    }
+
     public string GetArrayType(string elementType, ArrayShape shape)
     {
-        return elementType + "[]";
+        var fixedVector = shape.Rank == 1 && shape.Sizes.Length == 1 && shape.LowerBounds.All(bound => bound == 0);
+        if (fixedVector)
+        {
+            return elementType + "[" + shape.Sizes[0].ToString(CultureInfo.InvariantCulture) + "]";
+        }
+
+        return elementType + "[unsupported]";
     }
 
     public string GetByReferenceType(string elementType)
@@ -106,11 +140,21 @@ sealed class TypeNameProvider :
 
     public string GetModifiedType(string modifier, string unmodifiedType, bool isRequired)
     {
+        if (strict)
+        {
+            return unmodifiedType + "[modifier:" + modifier + "]";
+        }
+
         return unmodifiedType;
     }
 
     public string GetPinnedType(string elementType)
     {
+        if (strict)
+        {
+            return elementType + "[pinned]";
+        }
+
         return elementType;
     }
 
@@ -215,10 +259,12 @@ static class Program
 
         var reader = peReader.GetMetadataReader();
         var provider = new TypeNameProvider();
+        var structureProvider = new TypeNameProvider(strict: true);
         var constants = new List<MetadataConstant>();
         var constantMethods = new List<MetadataConstantMethod>();
         var initializers = new List<MetadataInitializer>();
         var guids = new List<MetadataGuid>();
+        var types = new List<MetadataType>();
 
         foreach (var typeHandle in reader.TypeDefinitions)
         {
@@ -227,6 +273,38 @@ static class Program
             var typeName = reader.GetString(type.Name);
             var isEnum = IsEnum(reader, type);
             var isFlags = isEnum && type.GetCustomAttributes().Any(handle => GetAttributeTypeName(reader, reader.GetCustomAttribute(handle)) == "FlagsAttribute");
+            var typeAttributes = type.GetCustomAttributes().Select(handle => GetAttributeTypeName(reader, reader.GetCustomAttribute(handle))).ToHashSet();
+            var fields = new List<MetadataField>();
+            foreach (var fieldHandle in type.GetFields())
+            {
+                var field = reader.GetFieldDefinition(fieldHandle);
+                var isStatic = (field.Attributes & FieldAttributes.Static) != 0;
+                if (isStatic)
+                {
+                    continue;
+                }
+
+                var attributes = field.GetCustomAttributes().Select(handle => GetAttributeTypeName(reader, reader.GetCustomAttribute(handle))).ToHashSet();
+                fields.Add(new MetadataField(
+                    reader.GetString(field.Name),
+                    field.DecodeSignature(structureProvider, null),
+                    field.GetOffset(),
+                    attributes.Contains("FlexibleArrayAttribute"),
+                    !field.GetMarshallingDescriptor().IsNil || attributes.Overlaps(new[] { "NativeBitfieldAttribute", "SupportedArchitectureAttribute", "FixedBufferAttribute" })));
+            }
+
+            types.Add(new MetadataType(
+                namespaceName,
+                typeName,
+                IsSystemType(reader, type, "ValueType"),
+                (type.Attributes & TypeAttributes.LayoutMask) == TypeAttributes.SequentialLayout,
+                type.GetLayout().PackingSize,
+                type.GetLayout().Size,
+                typeAttributes.Overlaps(new[] { "NativeTypedefAttribute", "MetadataTypedefAttribute" }),
+                isEnum,
+                typeAttributes.Contains("SupportedArchitectureAttribute"),
+                ReadStringAttribute(reader, type.GetCustomAttributes(), "DocumentationAttribute"),
+                fields));
             var guid = ReadGuidAttribute(reader, type.GetCustomAttributes(), provider);
             if (guid is not null)
             {
@@ -291,7 +369,7 @@ static class Program
         initializers.Sort(CompareInitializers);
         guids.Sort(CompareGuids);
 
-        var export = new MetadataExport(constants, constantMethods, initializers, guids);
+        var export = new MetadataExport(constants, constantMethods, initializers, guids, types);
         var options = new JsonSerializerOptions
         {
             WriteIndented = false,
@@ -442,6 +520,11 @@ static class Program
 
     private static bool IsEnum(MetadataReader reader, TypeDefinition type)
     {
+        return IsSystemType(reader, type, "Enum");
+    }
+
+    private static bool IsSystemType(MetadataReader reader, TypeDefinition type, string name)
+    {
         var baseType = type.BaseType;
         if (baseType.Kind != HandleKind.TypeReference)
         {
@@ -450,7 +533,7 @@ static class Program
 
         var reference = reader.GetTypeReference((TypeReferenceHandle)baseType);
 
-        return reader.GetString(reference.Namespace) == "System" && reader.GetString(reference.Name) == "Enum";
+        return reader.GetString(reference.Namespace) == "System" && reader.GetString(reference.Name) == name;
     }
 
     private static (string Kind, string Value) ReadConstant(MetadataReader reader, ConstantHandle handle)

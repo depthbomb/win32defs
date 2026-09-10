@@ -2,6 +2,40 @@ package main
 
 import "testing"
 
+func TestDuplicateHandleFamily(t *testing.T) {
+	t.Parallel()
+
+	spec := specByName("foundation")
+	item := metadataConstant{
+		Namespace:     "Windows.Win32.Foundation",
+		DeclaringType: "DUPLICATE_HANDLE_OPTIONS",
+		Name:          "DUPLICATE_FUTURE_OPTION",
+		Enum:          true,
+		Flags:         true,
+		Kind:          "uint32",
+		Value:         "16",
+	}
+	if !spec.Match(item) {
+		t.Fatal("the entire metadata enum must be selected without a member allowlist")
+	}
+
+	constant, err := normalizeConstant(item, spec)
+	if err != nil || constant.Expression != "16" || constant.Family != item.DeclaringType || !constant.Flags {
+		t.Fatalf("enum normalization = %+v, %v", constant, err)
+	}
+
+	item.Namespace = "Windows.Win32.Other"
+	if spec.Match(item) {
+		t.Fatal("duplicate-handle enum classification crossed namespace boundaries")
+	}
+
+	item.Namespace = "Windows.Win32.Foundation"
+	item.Enum = false
+	if spec.Match(item) {
+		t.Fatal("loose constants were classified as enum members")
+	}
+}
+
 func TestDesktopNamespaceBoundaries(t *testing.T) {
 	t.Parallel()
 

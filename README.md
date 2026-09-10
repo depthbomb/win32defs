@@ -4,6 +4,32 @@
 flags, identifiers, and value-oriented macros. The constant packages compile on
 every Go platform; native message formatting is enabled only on Windows.
 
+The library also generates portable ABI structures across its existing API
+domains. Structures are discovered from metadata without a symbol allowlist.
+The same rules apply to every candidate and its dependencies: sequential
+layouts, scalar typedefs, enum storage types, and fixed array extents must be
+representable in Go with matching Windows sizes, alignments, and field offsets
+on both 32-bit and 64-bit targets. Generated compile-time assertions verify
+these properties on the consumer's architecture. Unsupported layouts and
+name collisions are recorded in the generation report; previously emitted
+types cannot disappear silently.
+
+This includes `jobobject.JOBOBJECT_BASIC_PROCESS_ID_LIST`, `winmsg.ICONINFO`,
+and `winmsg.ICONINFOEXA`/`ICONINFOEXW`. Field names retain the metadata spelling
+with the initial letter capitalized, such as `FIcon` and `HbmMask`. Flexible
+arrays retain their metadata-declared initial extent, such as `[1]uintptr`;
+additional elements require a larger native allocation. Scalar dependencies
+such as `foundation.BOOL` and `gdi.HBITMAP` are generated from their metadata
+typedefs. The `foundation` package also includes the complete
+`DUPLICATE_HANDLE_OPTIONS` constant family.
+
+`JOBOBJECT_BASIC_LIMIT_INFORMATION`, `JOBOBJECT_EXTENDED_LIMIT_INFORMATION`,
+and `IO_COUNTERS` are deferred by the general ABI checks: Windows 386 requires
+8-byte structure alignment, which ordinary Go 386 value types cannot provide.
+Explicit layouts, incompatible packing, architecture-specific declarations, bitfields,
+pointer fields, and unresolved dependencies are also deferred by the current
+projection. There are no handwritten structure layouts or fallback definitions.
+
 The minimum supported Go release is Go 1.26.
 
 ## Packages
@@ -310,8 +336,14 @@ go vet ./...
 dotnet build tools/winmd-exporter/winmd-exporter.csproj --configuration Release
 ```
 
-CI runs tests on Linux and Windows and compiles Windows 386 and ARM64 test
+CI runs tests on Windows amd64 and 386 and compiles Windows ARM64 test
 binaries. It also verifies that offline regeneration produces no changes.
+On Windows, `./tools/verify-abi.ps1` additionally checks generated structures
+documented in the core `winnt.h`, `winuser.h`, and `wingdi.h` headers against
+the installed SDK using the native x86 and x64 MSVC compilers. It verifies
+sizes, alignments, field sizes and offsets, and duplicate-handle flag values.
+The checks derive their expectations from the pinned metadata. Optional SDK
+components are not required; ARM64 layouts are checked by Go cross-compilation.
 
 The catalog and generator benchmarks include family lookup, flag formatting,
 first-use family cache construction, and scalar normalization:
@@ -320,4 +352,4 @@ first-use family cache construction, and scalar normalization:
 go test -p 1 ./catalog ./cmd/win32defs-gen -run '^$' -bench . -benchmem -count=5
 ```
 
-Generated files are named `zz_generated.go` and must not be edited manually.
+Generated files are named `zz_generated*.go` and must not be edited manually.

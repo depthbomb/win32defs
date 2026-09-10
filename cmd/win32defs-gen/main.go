@@ -47,6 +47,20 @@ func generate(ctx context.Context, root string, options generationOptions) error
 	classifiedExport := export
 	classifiedExport.Constants = append(classifiedExport.Constants, derived...)
 	packages, collisions, skipped, rejected := collectConstants(classifiedExport)
+	structures, deferredStructures := collectStructures(export.Types)
+	reserved, err := existingStructureSymbols(sourceRoot, structures)
+	if err != nil {
+		return err
+	}
+
+	deferredStructures = append(deferredStructures, filterStructureCollisions(structures, packages, reserved)...)
+	sort.Slice(deferredStructures, func(i, j int) bool {
+		return deferredStructures[i].Name < deferredStructures[j].Name
+	})
+	if err := writeStructures(root, sourceRoot, structures, lock); err != nil {
+		return err
+	}
+
 	constantMethods, skippedMethods := collectConstantMethods(export.ConstantMethods)
 	coverage := measureCoverage(export)
 	packageCounts := make(map[string]int, len(packageSpecs))
@@ -169,6 +183,22 @@ func generate(ctx context.Context, root string, options generationOptions) error
 		Rejected:             append(rejected, rejectedStructuredDefinitions(export)...),
 		Symbols:              emittedSymbols(packages),
 		DerivedConstants:     derived,
+		DeferredStructures:   deferredStructures,
+	}
+	for packageName, items := range structures {
+		for _, item := range items {
+			name := item.Source.Name
+			if name == specByName(packageName).TypeName {
+				return fmt.Errorf("structure %s.%s collides with package scalar type", packageName, name)
+			}
+
+			for _, existing := range report.Symbols[packageName] {
+				if existing == name {
+					return fmt.Errorf("structure %s.%s collides with existing symbol", packageName, name)
+				}
+			}
+			report.Symbols[packageName] = append(report.Symbols[packageName], name)
+		}
 	}
 	for _, item := range guids {
 		report.Symbols["guid"] = append(report.Symbols["guid"], item.Identifier)

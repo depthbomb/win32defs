@@ -5,6 +5,7 @@ type metadataExport struct {
 	ConstantMethods []metadataConstantMethod `json:"constant_methods"`
 	Initializers    []metadataInitializer    `json:"initializers"`
 	GUIDs           []metadataGUID           `json:"guids"`
+	Types           []metadataType           `json:"types"`
 }
 
 type metadataConstant struct {
@@ -146,4 +147,5 @@ type generationReport struct {
 	Rejected             []rejectedDefinition `json:"rejected,omitempty"`
 	Symbols              map[string][]string  `json:"symbols"`
 	DerivedConstants     []metadataConstant   `json:"derived_constants,omitempty"`
+	DeferredStructures   []deferredStructure  `json:"deferred_structures,omitempty"`
 }

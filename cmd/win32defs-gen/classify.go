@@ -81,11 +81,19 @@ var packageSpecs = []packageSpec{
 		},
 	},
 	{
-		Name: "foundation", Doc: "common Win32 boolean, path, and invalid-handle sentinel values.", TypeName: "Value",
+		Name: "foundation", Doc: "common Win32 boolean, path, handle duplication, and invalid-handle sentinel values.", TypeName: "Value",
 		Underlying: "int64", Width: 64, Signed: true, Declare: true,
 		Match: func(item metadataConstant) bool {
 			return item.Namespace == "Windows.Win32.Foundation" &&
-				hasExactName(item.Name, "FALSE", "TRUE", "INVALID_HANDLE_VALUE", "MAX_PATH")
+				(hasExactName(item.Name, "FALSE", "TRUE", "INVALID_HANDLE_VALUE", "MAX_PATH") ||
+					(item.Enum && item.DeclaringType == "DUPLICATE_HANDLE_OPTIONS"))
+		},
+		CanonicalRank: func(name string) int {
+			if strings.HasPrefix(name, "DUPLICATE_") {
+				return 10
+			}
+
+			return 0
 		},
 	},
 	{

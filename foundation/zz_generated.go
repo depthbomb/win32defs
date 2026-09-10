@@ -2,13 +2,18 @@
 // Source: Microsoft.Windows.SDK.Win32Metadata 71.0.26-preview (758efe32666596b8596c58a8c46631da23757a914713b4e88403bbfa5110cb38).
 // Documentation: Microsoft.Windows.SDK.Win32Docs 0.1.42-alpha (e83bf398dceb1957d698d24daa8a23f986beedb0109727a0ee99b229a525230b).
 
-// Package foundation provides common Win32 boolean, path, and invalid-handle sentinel values.
+// Package foundation provides common Win32 boolean, path, handle duplication, and invalid-handle sentinel values.
 package foundation
 
 // Value is the common representation used by this package.
 type Value int64
 
 const (
+	// DUPLICATE_CLOSE_SOURCE: Closes the source handle. This occurs regardless of any error status returned.
+	DUPLICATE_CLOSE_SOURCE Value = 1
+	// DUPLICATE_SAME_ACCESS: Ignores the dwDesiredAccess parameter. The duplicate handle has the same access as the source
+	// handle.
+	DUPLICATE_SAME_ACCESS Value = 2
 	// FALSE: Documentation varies per use. Refer to each: IAMCrossbar.get_CrossbarPinInfo , IMFPMediaItem.IsProtected ,
 	// LSA_OPEN_SAM_USER , PdhEnumObjects , PdhEnumObjects , PdhEnumObjectsA , PdhEnumObjectsA , PdhEnumObjectsH ,
 	// PdhEnumObjectsH , PdhEnumObjectsHA , PdhEnumObjectsHA , PdhEnumObjectsHW , PdhEnumObjectsHW , PdhEnumObjectsW ,
@@ -34,6 +39,8 @@ func Name(value Value) (string, bool) {
 		return "FALSE", true
 	case Value(1):
 		return "TRUE", true
+	case Value(2):
+		return "DUPLICATE_SAME_ACCESS", true
 	case Value(260):
 		return "MAX_PATH", true
 	default:
@@ -49,7 +56,9 @@ func Names(value Value) []string {
 	case Value(0):
 		return []string{"FALSE"}
 	case Value(1):
-		return []string{"TRUE"}
+		return []string{"DUPLICATE_CLOSE_SOURCE", "TRUE"}
+	case Value(2):
+		return []string{"DUPLICATE_SAME_ACCESS"}
 	case Value(260):
 		return []string{"MAX_PATH"}
 	default:
@@ -60,6 +69,10 @@ func Names(value Value) []string {
 // Parse returns the numeric value associated with an exact symbolic name.
 func Parse(name string) (Value, bool) {
 	switch name {
+	case "DUPLICATE_CLOSE_SOURCE":
+		return DUPLICATE_CLOSE_SOURCE, true
+	case "DUPLICATE_SAME_ACCESS":
+		return DUPLICATE_SAME_ACCESS, true
 	case "FALSE":
 		return FALSE, true
 	case "INVALID_HANDLE_VALUE":

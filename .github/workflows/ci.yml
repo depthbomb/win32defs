@@ -12,10 +12,7 @@ permissions:
 
 jobs:
   test:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
     timeout-minutes: 30
     steps:
       - name: Check out repository
@@ -46,19 +43,29 @@ jobs:
       - name: Test
         run: go test ./...
 
+      - name: Test Windows 386
+        env:
+          GOARCH: '386'
+        run: go test ./...
+
       - name: Vet
         run: go vet ./...
 
       - name: Build metadata exporter
         run: dotnet build tools/winmd-exporter/winmd-exporter.csproj --configuration Release --no-restore
 
-      - name: Check Windows architecture builds
-        if: runner.os == 'Linux'
-        shell: bash
+      - name: Verify native Windows structure layouts
+        shell: pwsh
+        run: ./tools/verify-abi.ps1
+
+      - name: Compile Windows ARM64 tests
+        env:
+          GOARCH: arm64
+        shell: pwsh
         run: |
-          for arch in 386 arm64; do
-            GOOS=windows GOARCH="$arch" go test -exec=true ./...
-          done
+          $outputDir = Join-Path $env:RUNNER_TEMP 'win32defs-arm64'
+          New-Item -ItemType Directory -Force -Path $outputDir | Out-Null
+          go test -c -o "$outputDir/" ./...
 
       - name: Verify offline regeneration
         run: go run ./cmd/win32defs-gen -offline

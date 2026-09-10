@@ -1,4 +1,4 @@
 * text=auto
 *.go text eol=lf
 internal/source/*.json text eol=lf
-**/zz_generated.go linguist-generated=true
+**/zz_generated*.go linguist-generated=true

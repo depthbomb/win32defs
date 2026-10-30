@@ -44,10 +44,12 @@ func generate(ctx context.Context, root string, options generationOptions) error
 		return err
 	}
 
+	retained := missingCompatibilityDefinitions(export)
 	classifiedExport := export
 	classifiedExport.Constants = append(classifiedExport.Constants, derived...)
+	classifiedExport.Constants = append(classifiedExport.Constants, retained.Constants...)
 	packages, collisions, skipped, rejected := collectConstants(classifiedExport)
-	structures, deferredStructures := collectStructures(export.Types)
+	structures, deferredStructures := collectStructures(append(export.Types, retained.Types...))
 	reserved, err := existingStructureSymbols(sourceRoot, structures)
 	if err != nil {
 		return err
@@ -183,6 +185,8 @@ func generate(ctx context.Context, root string, options generationOptions) error
 		Rejected:             append(rejected, rejectedStructuredDefinitions(export)...),
 		Symbols:              emittedSymbols(packages),
 		DerivedConstants:     derived,
+		RetainedConstants:    retained.Constants,
+		RetainedStructures:   retained.Types,
 		DeferredStructures:   deferredStructures,
 		NativeBufferCount:    make(map[string]int),
 	}

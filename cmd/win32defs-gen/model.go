@@ -147,6 +147,8 @@ type generationReport struct {
 	Rejected             []rejectedDefinition `json:"rejected,omitempty"`
 	Symbols              map[string][]string  `json:"symbols"`
 	DerivedConstants     []metadataConstant   `json:"derived_constants,omitempty"`
+	RetainedConstants    []metadataConstant   `json:"retained_constants,omitempty"`
+	RetainedStructures   []metadataType       `json:"retained_structures,omitempty"`
 	DeferredStructures   []deferredStructure  `json:"deferred_structures,omitempty"`
 	NativeBufferCount    map[string]int       `json:"native_buffer_count,omitempty"`
 }

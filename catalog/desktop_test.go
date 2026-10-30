@@ -29,7 +29,7 @@ import (
 	"github.com/depthbomb/win32defs/winmsg"
 )
 
-func checkDesktopConstant[T ~int64 | ~uint16 | ~uint32 | ~uint64](t *testing.T, packageName, name string, value, want T, parse func(string) (T, bool), names func(T) []string) {
+func checkDesktopConstant[T ~int32 | ~int64 | ~uint16 | ~uint32 | ~uint64](t *testing.T, packageName, name string, value, want T, parse func(string) (T, bool), names func(T) []string) {
 	t.Helper()
 
 	t.Run(packageName+"/"+name, func(t *testing.T) {
